@@ -1,0 +1,657 @@
+. This is dataplot macro   DEXMP.DP
+.
+. Purpose: Generate a DEX mean plot = dex main effects plot
+.          (or more generally, a dex <stat> plot)
+.          (= step 3 of the DEXPLOT.DP 10-step DEX analysis procedure)
+.
+. Note: Input parameters, vectors, matrices, or strings needed:
+.
+. Input (Required):
+.    1. y (vector)                   = Response variable
+.    2. x1, x2, x3, . . . (vectors)    = Factors
+.    3. k (parameter)                = Total number of plot factors
+.
+.    4. k0 (parameter)               = Total number of base factors (not including interactions) (opt.) (def. = k)
+
+. Input (Optional):
+.    1. project (string)             = Project title to appear at top of page
+.                                      (default = no title)
+.    2. sty     (string)             = Name of response variable
+.                                      (default = no name)
+.    3. stx1, stx2, stx3, . . . (strings) = Names of the 1st, 2nd, 3rd, . . . factors
+.                                      (default = no names)
+.    4. circlesw  (parameter)        = Switch (0,1) for circles or not
+.                                      (default = 0 = not circles = X)
+.    5. circleh  (parameter)         = Height of plot circles
+.                                      (default = 2)
+.    6. circlew  (parameter)         = Width  of plot circles
+.                                      (default = 1)
+.    7. decplace (parameter)         = Number of decimal places for the effect
+.                                      (default = 4)
+.    8. decplacr (parameter)         = Number of decimal places for the % relative effects
+.                                      (default = 0)
+.    9. titlesw  (parameter)         = (0,1) Switch for title printing
+.                                      (default = 1 ==> "Main Effects Plot)
+.   10. titlesiz (parameter)         = Size of title to appear at top of plot
+.                                      (default = 2)
+.   11. labelsiz (parameter)         = Size of label to appear at right & bottom of plot
+.                                      (default = 2)
+.   12. writerel (parameter)         = 0 or 1 switch dictating as to whether desire Relative Effects line
+.                                      (default = 0 = no relative effects printed)
+.   13. trailsw  (parameter)         = (0,1) Switch for trailer printing
+.                                      (default = 1 ==> print trailer (but also only i_f existent)
+.   14. errbarsw (parameter)         = (0,1) switch dictating the plotting of error bars
+.                                      (default = 0 = not plot error bars)
+.   15. bartype (string)             = line type for the error bars (if existent)
+.                                      (default = solid)
+.   16. shiftup (parameter)          = amount to shift up for the within frame effect annotation
+.                                      (default = not exist = 0)
+.   16. rigmarsw (parameter)         = (0,1) switch dictating the listing of factors & levels in right margin
+.                                      (but requires existence of stx1, stx2, . . . and stx1l, stx2l, . . .
+.   17. decplace (parameter)         = number of decimal places for printing the effects
+.   18. decplacr (parameter)         = number of decimal places for the relative effects
+.                                      (default = 0 = no listing)
+.   16. stx1, stx2, stx3, . . . (strings) = Names of the 1st, 2nd, 3rd, . . . factors
+.                                      (default = no names)  (e.g., let string stx1 = OvenTemp)
+.   17. stx1l, stx2l, stx3l, . . . (strings) = Names of the  levels within each of the factors
+.                                      (default = no names)  (e.g., let string stx1l = 1450 1600)
+.   18. stxshort (string)            = Multi-component shorter names for each factor (optional)
+.   19. framet (parameter)           = top    frame line (in %) (optional) (default = 90)
+.   20. frameb (parameter)           = bottom frame line (in %) (optional) (default = 20)
+. Output:
+.    coefout (vector of length k)
+.    tagout
+.    relcoefo
+.    cdfout
+.
+. Note: Graphics output produced = A 1-page plot: DEX Mean Plot (= Main Effects Plot)
+.          Vertical   axis = Mean Response for a given level of a given factor
+.          Horizontal axis = Each factor and each level within a factor
+.
+. Note: Graphics interpretation: I_f the mean response differs
+.                                across levels within a factor,
+.                                then the factor is deemed to "have an effect"
+.
+. Note: Macros called by this macro:
+.       dexcheck.dp, alertk, alertv
+.       dexplotiniti.dp
+.       dexwriteproject.dp
+.       dexknbox.dp
+.       tagcorn.dp
+.       checkkyx.dp
+.       checkinputargumentexistence.dp
+.
+. Date: May 2005, July 2010
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexmp.dp"; end if; end if
+.
+feedback save
+feedback off
+printing off
+.
+let pausemp = 0
+.
+if pausemp = 1
+   print " "
+   print "---At the Beginning of Step 3 (DEXMP.DP) . . ."
+   print "   levelsw = ^levelsw"
+   print y x1 x2 x3
+   print stx1 stx2 stx3 stx4 stx5
+   print stx1l stx2l stx3l stx4l stx5l
+   . feedback on
+   . echo on
+   pause
+end if
+.
+. -------------------------------------------
+. -----Do Analysis Step 3: Dex Mean Plot-----
+. -------------------------------------------
+.
+.
+. -----Step 1: Check input values for existence and equivalent length-----
+.
+let string stmacro = dexmp.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+let nyz = number y
+loop for jz = 1 1 k
+   let nxz = number x^jz
+   if nxz <> nyz
+      print " "
+      print "========================================================="
+      print "Fatal error at beginning of ^stmacro:"
+      print "   Length of x^jz (= ^nxz) not equal to length of y (= ^nyz)"
+      print "========================================================="
+      pause
+      exit
+   end if
+end loop
+.
+. -----Step 2: Define plot settings-----
+.
+if pausemp = 1; print "--At dexmp.dp step 2"; pause; end if
+.
+call dexplotinit.dp
+. feedback on
+. printing on
+. echo on
+.
+let kp1 = k+1
+let kp2 = k+2
+.
+. xlim 1 k
+xlim 0 kp1
+ylim
+if yminmp exists; ymin ^yminmp; end if
+if ymaxmp exists; ymax ^ymaxmp; end if
+.
+. xtic offset 10 10
+xtic offset 0 0
+ytic offset 10 5
+. major x1tic number k
+major x1tic number kp2
+minor x1tic number 0
+. x1tic label format alphabetic
+. let string junk = sp() cr()
+. loop for jz = 1 1 k
+.    let string junk = ^jzunk X^jz
+. end loop
+. x1tic label contents ^jzunk
+x1tic label off
+if levelsw exists; if levelsw = 3; x1tics off; end if; end if
+.
+. -----Step 3: Generate the plot-----
+.
+if pausemp = 1; print "--At dexmp.dp step 3"; pause; end if
+.
+char X blank
+call setcircle.dp
+.
+lines solid dotted
+.
+if titlesiz exists; title size ^titlesiz; end if
+if titlesw not exist; title Main Effects Plot; end if
+if titlesw exist; if titlesw = 1; title Main Effects Plot; end if; end if
+.
+if sty not exist
+   if ylabelsw not exist
+      if stat not exist; y1label Mean Response; end if
+      if stat exists; y1label ^stat Response; end if
+   end if
+   if ylabelsw exist; if ylabelsw = 1
+      if stat not exist; y1label Mean Response; end if
+      if stat exists; y1label ^stat Response; end if
+   end if; end if
+end if
+.
+if sty exists
+   if stat not exist; y1label Mean Response Y (^sty); end if
+   if stat exists; y1label ^stat Response Y (^sty); end if
+end if
+.
+x1label
+x3label
+if labelsiz exists; label size ^labelsiz; end if
+if ticlabsi exists; tic label size ^ticlabsi; end if
+.
+. -----Step 4: Generate & display the basic dex mean plot-----
+.
+if pausemp = 1; print "--At dexmp.dp step 4"; pause; end if
+.
+. print stat
+. pause
+.
+if stat not exist
+   if k = 1; dex mean plot y x1; end if
+   if k >= 2; dex mean plot y x1 to x^k; end if;. <=====================
+   . print y x1 x2
+   . pause
+end if
+.
+if stat exists
+   dex ^stat plot y x1 to x^k
+   save
+end if
+.
+if errbarsw exists; if errbarsw = 1
+   xlimits freeze
+   ylimits freeze
+end if; end if
+.
+. -----Step 5: Write the X factor labels, then
+.              write out the engineering-based factor names-----
+.
+if pausemp = 1; print "--At dexmp.dp step 5"; pause; end if
+   . print " here1 (Step 5, pre-loop)   k = ^k "
+   . print stx1 stx2 stx3 stx4 stx5
+   . print stx1l stx2l stx3l stx4l stx5l
+   . pause
+.
+hw 2 1;.    9/2/15
+loop for jz = 1 1 k
+   let xp0 = 15+((jz/(k+1))*(85-15))
+   just center
+   let ypz = 15; if frameb exists; let ypz = 15 - (20 - frameb); end if
+   move xp0 ypz; text X^jz
+   if stx^jz exists
+      let string stjunk = ^stx^jz
+   end if
+   .
+   if stxshort exists
+      delete stjunk2; let stjunk2 = string word stxshort jz
+      let string stjunk = ^stjunk2
+   end if
+   .
+   if stjunk exists
+      if stxshort not exist
+         let ypz = 12.5; if frameb exists; let ypz = 12.5 - (20 - frameb); end if
+         let ypz2 = ypz - 2
+         if k <= 5; move xp0 ypz; text ^stjunk; end if
+         let jzmod = mod(jz,2)
+         if k >= 6; if jzmod = 1; move xp0 ypz; text ^stjunk; end if; end if
+         if k >= 6; if jzmod = 0; move xp0 ypz2; text ^stjunk; end if; end if
+      end if
+      .
+      if stxshort exists
+         move xp0 ypz; text ^stjunk
+      end if
+   end if
+   .
+end loop
+. print " here2 (post-loop, pre-delete)   k = ^k   xp0 = ^xp0"
+. print stx1 stx2 stx3 stx4 stx5
+. print stx1l stx2l stx3l stx4l stx5l
+. pause
+.
+delete xp0      ;. <=================== Alan--this is the offending command
+.
+. print " here3 (post-delete)   k = ^k   xp0 = ^xp0"
+. print stx1 stx2 stx3 stx4 stx5
+. print stx1l stx2l stx3l stx4l stx5l
+. pause
+.
+if stprex not exist
+   let ypz = 9; if frameb exists; let ypz = 9 - (20 - frameb); end if
+   let ypz2 = ypz - 2
+   if k <= 5; move 50 ypz; hw 3.0 1.5; text Factors; end if
+   if k >= 6; move 50 ypz2; hw 3.0 1.5; text Factors; end if
+end if
+.
+if stprex exists
+   if k <= 5; move 50 ypz; hw 3.0 1.5; text ^stprex Factors; end if
+   if k >= 6; move 50 ypz2; hw 3.0 1.5; text ^stprex Factors; end if
+end if
+.
+. -----Step 6: Write out the factor level labels-----
+.
+if pausemp = 1; print "--At dexmp.dp step 6"; pause; end if
+.
+hw 2 1;.    3/30/15
+just center;.   3/30/15
+.
+. print junk. yplot xplot tagplot k nxplot
+. pause
+retain yplot xplot tagplot subset tagplot <= k
+let xplot = sortc xplot yplot tagplot
+let nxplot = number xplot
+. print yplot xplot tagplot k nxplot
+. print junk. yplot xplot tagplot k nxplot
+. pause
+.
+loop for jz = 1 1 k
+   let numlev^jz = number tagplot subset tagplot jz
+end loop
+.
+let pos = 0
+loop for jz = 1 1 k
+   let pos = pos+1
+   let startpos = pos
+   let stoppos = startpos + numlev^jz - 1
+   let cxplotz = sequence 1 1 numlev^jz for  i = startpos 1 stoppos
+   let pos = stoppos
+end loop
+. print xplot tagplot cxplotz
+. print nxplot
+. pause
+.
+. let bz = 18;.   3/30/15
+let bz = 18.1;.   3/30/15
+if frameb exists; let bz = bz - (20 - frameb); end if
+just cece
+loop for jz = 1 1 nxplot
+   let az = xplot(jz)
+   let caz = cxplotz(jz)
+   let factz = tagplot(jz)
+   let numlevfa = numlev^factz
+   .
+   . print " "
+   . print "From middle of step 6 in dexmp.dp:"
+   . print "   levelsw = ^levelsw"
+   . print "   az = ^az"
+   . print "   bz = ^bz"
+   . print "   caz = ^caz"
+   . print "   factz = ^factz"
+   . print "   numlevfa = ^numlevfa"
+   . pause
+   .
+   . print "from dexmp.dp: jz = ^jz    k = ^k    nxplot = ^nxplot"
+   . pause
+   if numlevfa <= 10
+      moveds az bz
+      call dexwritelevel.dp
+   end if
+   if levelsw exists; if levelsw = 3; drawdsds az 20 az 19; end if; end if
+   .
+end loop
+.
+. print " "
+. print "dexmp,dp--at end of step 6"
+.
+. -----Step 7: Write out . . .-----
+.
+if pausemp = 1; print "--At dexmp.dp step 7"; pause; end if
+.
+. let bz = 12
+let bz = 12.5
+let bz2 = bz - 2
+just cece
+.
+let texthz = 2
+let textwz = 1
+if texth exists; let texthz = texth; end if
+if textw exists; let textwz = textw; end if
+.
+hw texthz textwz
+loop for jz = 1 1 k
+   let az = jz
+   moveds az bz
+   if suv^az exist; text ^suv^az; end if
+end loop
+.
+. -----Step 8: Write out effect estimate value (absolute, then relative), then do anova-----
+.
+color blue; if coloreff exists; color ^coloreff; end if
+.
+if writerel exists; let wrel = writerel; end if
+if writerel not exist; let wrel = 1; end if
+.
+if pausemp = 1; print "--At dexmp.dp step 8"; pause; end if
+let ybar = mean y
+just cece
+hw 1.75 .85
+if texth = 3; hw 2.8 1.4; let b2z = 20.8+1.4; let b1z = b2z+2.8; end if
+if texth = 4; hw 3.4 1.7; let b2z = 20.8+1.7; let b1z = b2z+3.4; end if
+if texth = 5; hw 4.0 2.0; let b2z = 20.8+2.0; let b1z = b2z+4.0; end if
+if texth = 6; hw 4.6 2.3; let b2z = 20.8+2.3; let b1z = b2z+4.6; end if
+if frameb exists; if b1z exists; let b1z = b1z - (20 - frameb); end if; end if
+if frameb exists; if b2z exists; let b2z = b2z - (20 - frameb); end if; end if
+.
+delete coefz tagz relcoefz cdfz
+loop for jz = 1 1 k
+   let az = jz
+   delete temp
+   let temp = yplot
+   retain temp subset tagplot jz
+   let ntemp = number temp
+   . The following 2 lines were fixed (generalized beyond 2 levels) 9/9/11 (YY)
+   . let ybar1 = temp(1)
+   . let ybar2 = temp(ntemp)
+   let ybar1 = minimum temp
+   let ybar2 = maximum temp
+   let del = ybar2-ybar1
+   let reldel = 100*(del/ybar)
+   .
+   . print "before: k decplace del = ^k ^decplace ^del"
+   if decplace exist; let del = round(del,decplace); end if
+.    if decplace exists
+.       let value = del;. let dp = decplace
+.       call round.dp
+.       let del = valuer
+.    end if
+. print "after: k decplace del = ^k ^decplace ^del"
+. print "decplace, decplacr, del = ^decplace ^decplacr ^del"
+. pause
+   if decplace not exist; let del = round(del,2); end if
+   .
+   if decplacr exists; let reldel = round(reldel,decplacr); end if
+.    if decplacr exists
+.       let value = reldel;. let dp = decplacr
+.       call round.dp
+.       let reldel = valuer
+.    end if
+   if decplacr not exist; let reldel = round(reldel,0); end if
+   .
+   if wrel = 1
+      let b1z = 27
+      let b2z = 24.75
+      let b3z = 22.5
+      let b4z = 20.5
+      .
+      if shiftup exists
+         let b1z = b1z + shiftup
+         let b2z = b2z + shiftup
+         let b3z = b3z + shiftup
+         let b4z = b4z + shiftup
+      end if
+      .
+      if frameb exists
+         let b1z = b1z + (20 - frameb)
+         let b2z = b2z + (20 - frameb)
+         let b3z = b3z + (20 - frameb)
+         let b4z = b4z + (20 - frameb)
+      end if
+      .
+      printing off
+      delete dxjunk; let dxjunk = distinct x^jz; let ndxjunk = number dxjunk
+      if ndxjunk >= 2; anova y x^jz; end if
+      .
+      printing on
+      skip 0; read parameter dpst1f.dat junkp1 junkp2 junkp3 junkp4 junkp5 cdf;.    <==========
+      color blue; if coloreff exists; color ^coloreff; end if
+      if cdf >= 95; color red; end if
+      if cdf >= 99; color red; end if
+      moveds az b1z; text ^del
+      moveds az b2z; text ^reldel
+      moveds az b3z
+      .
+      if pvaluesw exists; if pvaluesw = 1
+         let pvalue = 1 - (cdf/100);. 3/30/15
+         let pvaluer = round(pvalue,4); 8/25/15 for this line and next 2 lines
+         if pvaluedp exists; let pvaluer = round(pvalue,pvaluedp); end if
+         text ^pvaluer
+         . if pvalue < = .01; . text <.01; end if
+         . if pvalue > .01; . if pvalue <= .05; . text <.05; . end if; . end if
+         . if pvalue > .05; . text ^pvalue4; end if
+      end if; end if
+      .
+      if pvaluesw exists; if pvaluesw = 0
+         let cdf2 = round(cdf,2)
+         let cdf3 = round(cdf,3)
+         let cdf4 = round(cdf,4)
+         moveds az b3z; text ^cdf2%
+         if cdf >= 99; moveds az b4z; text **; end if
+         if cdf >= 95; if cdf < 99; moveds az b4z; text *; end if; end if
+      end if; end if
+      .
+      if pvaluesw not exist
+         let cdf2 = round(cdf,2)
+         let cdf3 = round(cdf,3)
+         let cdf4 = round(cdf,4)
+         moveds az b3z; text ^cdf2%
+         if cdf >= 99; moveds az b4z; text **; end if
+         if cdf >= 95; if cdf < 99; moveds az b4z; text *; end if; end if
+      end if
+      .
+   end if
+   color blue; if coloreff exists; color ^coloreff; end if
+   .
+   if wrel <> 1
+      let b1z = b2z
+      let b3z = b1z + 1
+      .
+      if shiftup exists
+         let b1z = b1z + shiftup
+         let b3z = b3z + shiftup
+      end if
+      .
+      printing off
+      delete dxjunk; let dxjunk = distinct x^jz; let ndxjunk = number dxjunk
+      if ndxjunk >= 2; anova y x^jz; end if
+      .
+      printing on
+      skip 0; read parameter dpst1f.dat junkp1 junkp2 junkp3 junkp4 junkp5 cdf
+      color blue; if coloreff exists; color ^coloreff; end if
+      if cdf >= 95; color red; end if
+      if cdf >= 99; color red; end if
+      if cdf >= 99; moveds az b3z; text **; end if
+      if cdf >= 95; if cdf < 99; moveds az b3z; text *; end if; end if
+      let cdf2 = round(cdf,2)
+      let cdf3 = round(cdf,3)
+      let cdf4 = round(cdf,4)
+      let b4z = b3z + 2; moveds az b4z; text ^cdf2%
+      moveds az b1z; text ^del
+   end if
+   color blue; if coloreff exists; color ^coloreff; end if
+   .
+. print ybar2 ybar1 del
+. pause
+   let coefz(jz) = del
+   let tagz(jz) = jz
+   let relcoefz(jz) = reldel
+   let cdfz(jz) = cdf
+   .
+end loop
+.
+if wrel = 1
+   move 86 b1z; just lece; text Effect
+   move 86 b2z; just lece; text Rel.Eff. (%)
+   if pvaluesw not exist
+      move 86 b3z; just lece; text Fcdf (%)
+   end if
+   if pvaluesw exists; if pvaluesw = 0
+      move 86 b3z; just lece; text Fcdf (%)
+   end if; end if
+   if pvaluesw exists; if pvaluesw = 1
+      move 86 b3z; just lece; text p-value
+   end if; end if
+end if
+.
+if wrel <> 1
+   let b1z = b2z
+   move 86 b1z; just lece; text Effect
+end if
+.
+. -----Step 9: I f called for, plot out error bars-----
+.
+if pausemp = 1; print "--At dexmp.dp step 9"; pause; end if
+.
+if errbarsw exists; if errbarsw = 1
+   call computestats.dp
+   let yplotlcl = yplotm - 2*yplotsdm
+   let yplotucl = yplotm + 2*yplotsdm
+   call ploterrorbars.dp
+end if; end if
+.
+. -----Step 10: Write out project title, (n,k) box, ybar, and "Step"-----
+.
+if pausemp = 1; print "--At dexmp.dp step 10"; pause; end if
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+call dexknbox.dp
+.
+let ybar = mean y
+if decplacr not exist; let ybarr = round(ybar,2); end if
+if decplacr exists; let ybarr = round(ybar,decplacr); end if
+move 84 87; just right; hw 2 1; text Mean = ^ybarr; just center
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+. -----Step 11: Write out right margin factor and setting info-----
+.
+if rigmarsw exists; if rigmarsw = 1
+   if stx1 exists
+      call dexrightmargin.dp
+   end if
+end if; end if
+.
+. -----Step 12: If called for, write out customized upper left info-----
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+. -----Step 13: Create the 4 output vectors-----
+.
+. stat v
+. pause
+. print coefz
+. pause
+.
+let coefout = coefz
+let tagout = tagz
+let relcoefo = relcoefz
+let cdfout = cdfz
+. print tagout coefout relcoefo cdfout
+. pause
+.
+. -----Step 13: All Done-----
+.
+if pausemp = 1; print "--At the end of dexmp.dp"; pause; end if
+.
+xlimits
+ylimits
+char blank all
+char fill off
+char hw 2 1
+lines solid all
+xtic offset 5 5
+ytic offset 5 5
+tic label format default
+minor xtic number default
+major xtic number default
+just left
+title
+y1label
+x1label
+x3label
+x1tic label on
+.
+. pause
+. stop
+.
+. feedback on
+.
+delete cxplotz coefz tagz relcoefz cdfz temp
+delete dxz dxjunk
+delete coefout tagout relcoefo cdfout
+.
+feedback restore
+.

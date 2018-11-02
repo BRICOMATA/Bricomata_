@@ -1,0 +1,109 @@
+. This is dataplot macro     rightmarginfactorsandlevels.dp
+. Purpose: On an existing  sorted response plot, write factors & levels in right margin
+.         (toward the top)
+. Date: November 6, 2012 (Election Night) ==> 9/11/13
+. Input (all are required):
+.    k (parameter) = number of factors
+.    stx1, stx2, stx3, . . . (strings) = names of each of the k factors
+.
+.    nlevv (vector) = vector of number of levels of each factor
+.    stx1l1, stx1l2, etc. (strings) = names of levels within factor 1
+.    stx2l1, stx2l2, etc. (strings) = names of levels within factor 2
+.    stx3l1, stx3l2, etc. (strings) = names of levels within factor 3
+.    etc.
+.
+.    lh    (parameter) = height of labels (optional) (default = 1)
+.    lw    (parameter) = width  of labels (optional) (default = 0.5)
+.
+.    xp0   (parameter) = horizontal location of labels (optional) (default = 86)
+.    yp0   (parameter) = vertical location of labels   (optional) (default = 88.2)
+.    ypdel (parameter) = vertical increment for successive labels (optional) (default = 2)
+.    xpdel (parameter) = horizontal indentation for levels (optional) (default = 3)
+.
+.    prog  (parameter) = numerical suffix for the calling program (for special cases) (optional) (default = not exist)
+.    codetype (parameter) = value defining whether 1, 2, etc. or -, + desired (optional)
+.                              codetype = 0: show as is
+.                              codetype = 1: show - +
+.                              codetype = 2: show - 0 +
+.
+. -----start point-----
+.
+.
+. -----Step 1: Check for missing input values-----
+.
+let string stmacro = rightmarginfactorsandlevels.dp
+.
+let string stall = k
+call checkinput.dp
+.
+loop for jz = 1 1 k
+   let string stall = stx^jz
+   call checkinput.dp
+end loop
+.
+. let string stall = stbottom
+. call checkinput.dp
+.
+let string stall = nlevv
+call checkinput.dp
+.
+loop for jz = 1 1 k
+   let jz1 = nlevv(jz)
+   loop for jz2 = 1 1 jz1
+      let string stall = stx^jz&l^jz2
+      call checkinput.dp
+   end loop
+end loop
+.
+. -----Step 11: Write out the factors and factor settings-----
+.
+let lhz = 1
+if lh exists; let lhz = lh; end if
+.
+let lwz = 0.5
+if lw exists; let lwz = lw; end if
+.
+let xp0z = 86
+if xp0 exists; let xp0z = xp0; end if
+.
+let yp0z = 88.2
+if yp0 exists; let yp0z = yp0; end if
+.
+let xpdelz = 3
+if xpdel exists; let xpdelz = xpdel; end if
+.
+let ypdelz = 2
+if ypdel exists; let ypdelz = ypdel; end if
+.
+just center; hw lhz lwz
+let ypz = yp0z + ypdelz
+loop for jfact = 1 1 k
+   let ypz = ypz - ypdelz
+   move xp0z ypz; just left; hw 2 1; text X^jfact: ^stx^jfact
+   let nlev = nlevv(jfact)
+   loop for jlev = 1 1 nlev
+      let xp2z = xp0z + xpdelz
+      let ypz = ypz - ypdelz
+      let string stout = ^stx^jfact&l^jlev
+      .
+      if codetype not exist
+         move xp2z ypz; text ^jlev: ^stout
+      end if
+      if codetype exists; if codetype = 0
+         move xp2z ypz; text ^jlev: ^stout
+      end if; end if
+      if codetype exists; if codetype = 1
+         if jlev = 1; move xp2z ypz; text - : ^stout; end if
+         if jlev = 2; move xp2z ypz; text +: ^stout; end if
+      end if; end if
+      if codetype exists; if codetype = 2
+         if jlev = 1; move xp2z ypz; text - : ^stout; end if
+         if jlev = 2; move xp2z ypz; text 0: ^stout; end if
+         if jlev = 3; move xp2z ypz; text -: ^stout; end if
+      end if; end if
+      .
+   end loop
+end loop
+.
+. delete lhz lwz xp0z yp0z xpdelz ypdelz xp2z
+.

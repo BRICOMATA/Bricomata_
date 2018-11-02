@@ -1,0 +1,30 @@
+Dataplot commands:
+
+reset data
+reset i/o
+reset plot control
+dimension 500 30
+skip 4
+read mass.dat t id y bal s ds
+title mass check standard 41
+y1label micrograms
+x1label time in years
+xlimits 75 90
+
+let ybar=mean y subset t < 85
+let sd=standard deviation y subset t < 85
+let cc=y-y+ybar
+let ul=cc+3*sd
+let ll=cc-3*sd
+characters * blank blank blank * blank blank blank
+lines blank solid dotted dotted blank solid dotted dotted
+plot y cc ul ll vs t
+
+let ybar2=mean y subset t > 85
+let sd2=standard deviation y subset t > 85
+let cc2=y-y+ybar2
+let ul2=cc2+3*sd2
+let ll2=cc2-3*sd2
+plot y cc ul ll vs t subset t < 85 and
+plot y cc2 ul2 ll2 vs t subset t > 85
+.end of calculations 

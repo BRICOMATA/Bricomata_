@@ -1,0 +1,289 @@
+. This is dataplot macro   DEXEP.DP
+. Purpose: Generate a DEX (absolute) effects plot
+.          (= step 7 of the DEXPLOT.DP 10-step DEX analysis procedure)
+. Date: May 2005
+. Input 
+.    1. k (parameter)               = Total number of plot factors
+.    2. y (vector)                  = Response variable
+.    3. x1, x2, x3, . . . (vectors) = Factors
+.
+.    4. framet (parameter)          = top    frame line (in %) (optional) (default = 90)
+.    5. frameb (parameter)          = bottom frame line (in %) (optional) (default = 20)
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexep.dp"; end if; end if
+.
+feedback save; feedback off
+printing off
+let pauseep = 0
+.
+if pauseep = 1
+   print " "
+   print "--At the Beginning of Step 7 (DEXEP.DP) . . ."
+   print "   numeffec = ^numeffec"
+   print y x1 x2 x3
+   . feedback on
+   . echo on
+   pause
+end if
+.
+. --------------------------------------------
+. -----Do Analysis Step 7: |Effects| Plot-----
+. --------------------------------------------
+.
+. -----Step 1: Check for missing input values-----
+.
+if pauseep = 1; print "--At dexep.dp step 1"; pause; end if
+.
+let string stmacro = dexep.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+. -----Step 2: Define plot settings-----
+.
+if pauseep = 1; print "--At dexep.dp step 2"; pause; end if
+call dexplotinit.dp
+.
+. -----Step 3: Compute Confounding Structure-----
+.
+if pauseep = 1; print "--At dexep.dp step 3"; pause; end if
+let kp1 = k+1
+.
+. -----Step 3: Compute  all effect estimates and confounding (the following are all sorted by |eff|)-----
+. -----        The number of effects                      (parameter) numeff
+. -----        The sorted dummy index (1 to numeff)       (vector)    effindex
+. -----        The means at the "high" side               (vector)    meanh
+. -----        The means at the "low"  side               (vector)    meanl
+. -----        The effect estimates                       (vector)    eff
+. -----        The relative effect estimates              (vector)    releff
+. -----        The sd(effects)                            (vector)    sdeff
+. -----        The t(effects)                             (vector)    teff
+. -----        The residual SD for each single model      (vector)    rsd
+. -----        The residual SD for each cumulative model  (vector)    cumrsd
+. -----        The effect ID's (as multiplier definitions)(strings)   stcore1, stcore2, etc.
+. -----        The effect confouding                      (strings)   stconf1, stconf2, etc.
+.
+. -----        The effect estimates (ordered by | |)      (vector)    eff
+. -----        The effect ID's                            (vectors)   effid1, effid2
+. -----        The corresponding tags and confounding     (strings)   steft.. and stefc..
+.
+if pauseep = 1; print "--At dexep.dp step 3"; pause; end if
+. print "project = ^project"
+.
+if confdone not exist
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if
+if confdone exists; if confdone = 0
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if; end if
+.
+. -----Step 5: Define characters, lines, spikes, and axis labels for upcoming
+.
+if pauseep = 1; print "--At dexep.dp step 5"; pause; end if
+.
+title |Effects| Plot
+y1label |Effects|
+x1label Factor
+x3label
+label size labelsiz
+tic label size ticlabsi
+ygrid
+x1tics off
+x1tic label off
+y1tic offset 10
+.
+char X
+call setcircle.dp
+.
+lines blank
+spike on
+if foreground exists; spike color ^foreground; end if
+let s = sd y
+.
+. -----Step 6: Generate the actual plot-----
+.
+if pauseep = 1; print "--At dexep.dp step 6"; pause; end if
+.
+delete index; let index = 1 1 numeff
+let eff2 = abs(eff)
+plot eff2 index
+.
+. -----Step 7: Write out the ordered factor IDs along the horizontal axis-----
+.
+if pauseep = 1; print "--At dexep.dp step 7"; pause; end if
+.
+. print index eff eff2 effindex effid1 effid2
+hw 2 1
+if n > 20; hw 1.5 .75; end if
+just cece
+if colorall exists; color ^colorall; end if
+loop for j = 1 1 numeff
+   let x0 = xplot(j)
+   let y0 = 23
+   let evenodd = mod(j,2)
+   if evenodd = 0; let y0 = 27; end if
+   if n < 10; let y0 = 27; end if
+   .
+   moveds x0 y0
+   . let tagzj = effid(j)
+   . text ^tagzj
+   let string ch = ^steft^j
+   text ^ch
+end loop
+.
+. -----Step 8: Form the ordered effects box within the frame-----
+.
+if pauseep = 1; print "--At dexep.dp step 8"; pause; end if
+.
+let numeffp = numeff
+if numeff >= 25; let numeffp = 25; end if
+.
+let length = 0
+loop for j = 1 1 numeff
+   let lengthj = string length stefc^j
+   if lengthj > length; let length = lengthj; end if
+end loop
+. print "length = ^length"
+. pause
+.
+let fudge = 0.9
+. let xright = 99
+let xright = 85
+let xleft = xright - 10 - 10 - length*fudge + 1
+if xleft >= 59; let xleft = 59; end if
+let y0 = 86 - 2*numeffp - 2
+box fill pattern solid; box fill color g80
+. box xleft y0 85 90
+box xleft y0 xright 90
+lines dotted
+. draw xleft 87 85 87
+draw xleft 87 xright 87
+.
+. -----Step 9: Write out the ranked list of effects within the box within the frame-----
+.
+if pauseep = 1; print "--At dexep.dp step 9"; pause; end if
+.
+if colorall exists; color ^colorall; end if
+.
+hw 2 1; just center; let y0 = 88
+let x0 = xleft + 3; move x0 y0; text Factor
+let x0 = xleft + 11; move x0 y0; text Effect
+if length <= 10; let x0 = xleft + 16; end if
+if length >= 11; let x0 = xleft + 18; end if
+move x0 y0; just left; text Confounding
+.
+let x0 = xleft + 3; let y0 = 86
+just center
+let y0del = 1
+loop for j = 1 1 numeffp
+   . let effidj = effid(j)
+   let y0 = y0-2*y0del
+   . move x0 y0; . text ^effidj
+   move x0 y0; text ^steft^j
+end loop
+.
+let x0 = xleft + 11; let y0 = 86
+just center
+if dpep exists; set write decimals ^dpep; end if
+loop for j = 1 1 numeffp
+   let effj = eff(j)
+   let y0 = y0-2*y0del
+   let string steffj = ^effj
+   if dpep exists; let steffj = number to string effj; end if
+   move x0 y0; text ^steffj
+end loop
+set write decimals
+.
+let x0 = xleft + 18; let y0 = 86
+just left
+loop for j = 1 1 numeffp
+   . let string stout = ^stconf^j
+   let string stout = ^stefc^j
+   if stefc^j = -999; let string stout = sp(); end if
+   let y0 = y0-2*y0del
+   move x0 y0; text ^stout
+end loop
+.
+. -----Step 10: Write out the grand mean in upper left corner of the plot-----
+.
+if pauseep = 1; print "--At dexep.dp step 10"; pause; end if
+.
+let x0 = 35; let y0 = 87; box 15 90 x0 y0
+.
+let ybar = average y
+if colorall exists; color ^colorall; end if
+let y0 = 88; let x0 = 17; move x0 y0; text Average = ^ybar
+.
+. -----Step 12: Annotate the plot-----
+.
+if pauseep = 1; print "--At dexep.dp step 12"; pause; end if
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+if rigmarsw exists; if rigmarsw = 1
+   if stx1 exists
+      call dexrightmargin.dp
+   end if
+end if; end if
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+. -----Step 13: All Done-----
+.
+if pauseep = 1; print "--At the end of dexep.dp"; end if
+.
+box fill pattern off; box fill color g80
+grid off
+y1tic offset 5
+x1tics on
+x1tic label on
+char blank all
+char hw 2 1
+lines solid all
+spike off
+just left
+title
+y1label
+x1label
+tic offset 5 5
+.
+. stat v
+. print y x1 x2 x3
+. pause
+feedback restore
+.

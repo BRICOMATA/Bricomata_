@@ -1,0 +1,330 @@
+. This is dataplot macro   DEXBP.DP
+. Purpose: Generate DEX block plots
+.          (= step 5 of the DEXPLOT.DP 10-step DEX analysis procedure)
+. Date: May 2005
+. Input
+.    1. k (parameter)               = Total number of plot factors
+.    2. y (vector)                  = Response variable
+.    3. x1, x2, x3, . . . (vectors) = Factors
+.
+.    4. framet (parameter)          = top    frame line (in %) (optional) (default = 90)
+.    5. frameb (parameter)          = bottom frame line (in %) (optional) (default = 20)
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexbp.dp"; end if; end if
+.
+feedback save; feedback off
+printing off
+let pausebp = 0
+.
+if pausebp = 1
+   print " "
+   print "---At the Beginning of Step 5 (DEXBP.DP) . . ."
+  . feedback on
+  . echo on
+   pause
+end if
+.
+. -----------------------------------------
+. -----Do Analysis Step 5: Block Plots-----
+. -----------------------------------------
+.
+. -----Step 1: Check for missing input values-----
+.
+if pausebp = 1; print "---At dexbp.dp step 1"; pause; end if
+.
+let string stmacro = dexbp.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+. -----Step 2: Define plot settings-----
+.
+if pausebp = 1; print "---At dexbp.dp step 2"; pause; end if
+call dexplotinit.dp
+device 1 off; device 2 off; device 3 off
+tic offset units screen
+tic offset 5 5
+ytic offset 0 0
+plot y        ;. <=============================
+probe fy1min; let mintic = probeval
+probe fy1max; let maxtic = probeval
+let rangetic = maxtic-mintic
+ytic offset 5 5
+device 1 on; device 2 on; device 3 on
+.
+. -----Step 3: Generate the plot-----
+.
+if pausebp = 1; print "---At dexbp.dp step 3"; pause; end if
+if pausebp = 1; feedback on; echo on; end if
+.
+let kp1 = k+1
+.
+char blank all
+char - +
+lines solid all
+.
+if stylebp exists; if stylebp = 2
+   lines blank all
+   lines solid solid
+end if; end if
+.
+line color red blue;. 2/24/15
+if colorall exists; line color red ^colorall; end if
+char color red blue;. 2/24/15
+if colorall exists; char color red ^colorall; end if
+.
+x1tics off
+x1tic labels off
+.
+char hw 4 3 4 3
+legend 1 hw 4 3
+tic label size 4
+label size 4
+.
+if pausebp = 1; print "---At dexbp.dp step 4"; pause; end if
+if cy not exist; y1label Average Y; end if
+if cy exists; y1label Average Y (^cy); end if
+y1label displacement 20
+x1label Factor Combinations
+x3label
+.
+if pausebp = 1; print "---At dexbp.dp step 5"; pause; end if
+if k <= 20; multiplot 4 5; legend 1 hw 10 5; label size 6; end if
+if k <= 16; multiplot 4 4; legend 1 hw 10 5; label size 6; end if
+if k <= 12; multiplot 3 4; legend 1 hw 8 4; label size 6; end if
+if k <= 9; multiplot 3 3; legend 1 hw 6 3; label size 4; end if
+if k <= 6; multiplot 2 3; legend 1 hw 4 2; label size 4; end if
+if k <= 4; multiplot 2 2; legend 1 hw 4 2; label size 2; end if
+.
+if pausebp = 1; print "---At dexbp.dp step 6"; pause; end if
+legend 1 coordinates 18 85
+.
+if x3 exists
+   if cx1 not exist; legend 1 X1; end if
+   if cx1 exists; legend 1 X1(^cx1); end if
+   x1label X2 & X3
+   mean block plot y x2 x3 x1       ;. <===========================
+end if
+.
+if x3 exists
+   if cx2 not exist; legend 1 X2; end if
+   if cx2 exists; legend 1 X2(^cx2); end if
+   x1label X1 & X3
+   mean block plot y x1 x3 x2       ;. <===========================
+end if
+.
+if x3 exists
+   if cx3 not exist; legend 1 X3; end if
+   if cx3 exists; legend 1 X3(^cx3); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x3       ;. <===========================
+end if
+.
+if x4 exists
+   if cx4 not exist; legend 1 X4; end if
+   if cx4 exists; legend 1 X4(^cx4); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x4       ;. <===========================
+end if
+.
+if x5 exists
+   if cx5 not exist; legend 1 X5; end if
+   if cx5 exists; legend 1 X5(^cx5); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x5       ;. <===========================
+end if
+.
+if x6 exists
+   if cx6 not exist; legend 1 X6; end if
+   if cx6 exists; legend 1 X6(^cx6); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x6       ;. <===========================
+end if
+.
+if x7 exists
+   if cx7 not exist; legend 1 X7; end if
+   if cx7 exists; legend 1 X7(^cx7); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x7       ;. <===========================
+end if
+.
+if x8 exists
+   if cx8 not exist; legend 1 X8; end if
+   if cx8 exists; legend 1 X8(^cx8); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x8       ;. <===========================
+end if
+.
+if x9 exists
+   if cx9 not exist; legend 1 X9; end if
+   if cx9 exists; legend 1 X9(^cx9); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x9       ;. <===========================
+end if
+.
+if x10 exists
+   if cx10 not exist; legend 1 X10; end if
+   if cx10 exists; legend 1 X10(^cx10); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x10       ;. <===========================
+end if
+.
+if x11 exists
+   if cx11 not exist; legend 1 X11; end if
+   if cx11 exists; legend 1 X11(^cx11); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x11       ;. <===========================
+end if
+.
+if x12 exists
+   if cx12 not exist; legend 1 X12; end if
+   if cx12 exists; legend 1 X12(^cx12); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x12       ;. <===========================
+end if
+.
+if x13 exists
+   if cx13 not exist; legend 1 X13; end if
+   if cx13 exists; legend 1 X13(^cx13); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x13       ;. <===========================
+end if
+.
+if x14 exists
+   if cx14 not exist; legend 1 X14; end if
+   if cx14 exists; legend 1 X14(^cx14); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x14       ;. <===========================
+end if
+.
+if x15 exists
+   if cx15 not exist; legend 1 X15; end if
+   if cx15 exists; legend 1 X15(^cx15); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x15       ;. <===========================
+end if
+.
+if x16 exists
+   if cx16 not exist; legend 1 X16; end if
+   if cx16 exists; legend 1 X16(^cx16); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x16       ;. <===========================
+end if
+.
+if x17 exists
+   if cx17 not exist; legend 1 X17; end if
+   if cx17 exists; legend 1 X17(^cx17); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x17       ;. <===========================
+end if
+.
+if x18 exists
+   if cx18 not exist; legend 1 X18; end if
+   if cx18 exists; legend 1 X18(^cx18); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x18       ;. <===========================
+end if
+.
+if x19 exists
+   if cx19 not exist; legend 1 X19; end if
+   if cx19 exists; legend 1 X19(^cx19); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x19       ;. <===========================
+end if
+.
+if x20 exists
+   if cx20 not exist; legend 1 X20; end if
+   if cx20 exists; legend 1 X20(^cx20); end if
+   x1label X1 & X2
+   mean block plot y x1 x2 x20       ;. <===========================
+end if
+.
+multiplot off
+.
+if pausebp = 1; print "---At dexbp.dp step 7"; pause; end if
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+hw 2 1
+if titlesiz exists; let titleh = titlesiz; end if
+let titlew = titleh/2
+hw titleh titlew
+.
+justification center
+if titlesw not exist
+   move 50 91; text Block Plot
+end if
+if titlesw exist; if titlesw = 1
+   move 50 91; text Block Plot
+end if; end if
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if pausebp = 1; print "---At dexbp.dp step 8"; pause; end if
+. call printtrailer.dp
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+. -----Step 13: Write out right margin factor and setting info-----
+.
+if rigmarsw exists; if rigmarsw = 1
+   if stx1 exists
+      call dexrightmargin.dp
+   end if
+end if; end if
+.
+. -----Step 14: If called for, write out customized upper left info-----
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+. -----Step 15: finish up-----
+.
+legend 1
+x1tics on
+x1tic labels on
+hw 2 1
+char hw 2 1 all
+legend 1 hw 2 1
+label size 2
+tic label size 2
+title
+y1label
+y1label displacement default
+x1label
+.
+char bl all
+char color blue all
+if colorall exists; char color ^colorall all; end if
+lines solid all
+line color blue all
+if colorall exists; line color ^colorall all; end if
+.
+delete dxz
+.
+feedback restore
+.

@@ -1,0 +1,617 @@
+. This is dataplot macro   DEXSP.DP
+. Purpose: Generate a DEX scatter plot
+.          (= step 2 of the DEXPLOT.DP 10-step DEX analysis procedure)
+.
+. Note: Input parameters, vectors, matrices, or strings needed:
+.
+. Input (Required):
+.    1. y (vector)                   = Response variable
+.    2. x1, x2, x3, . . . (vectors)    = Factors
+.    3. k (parameter)                = Total number of factors
+
+. Input (Optional):
+.    4. project (string)             = Project title to appear at top of page
+.    5. sty      (string)             = Name of response variable
+.    6. cx1, cx2, cx3, . . . (strings) = Names of the 1st, 2nd, 3rd, . . . factors
+.    7. circleh  (parameter)         = Height of plot circles   (default = 2)
+.    8. circlew  (parameter)         = Width  of plot circles   (default = 1)
+.    9. decplace (parameter)         = Number of decimal places (default = 4)
+.   10. titlesw  (parameter)         = (0,1) Switch for title printing (default = 1 ==> Main Effects Plot)
+.   11. titlesiz (parameter)         = Size of title to appear at top of plot (default = 2)
+.   12. labelsiz (parameter)         = Size of label to appear at right & bottom of plot (default = 2)
+
+.   15. rigmarsw (parameter)         = (0,1) switch dictating the listing of factors & levels in right margin
+.                            (default = 1, but requires existence of stx1, stx2, . . . and stx1l, stx2l, . . .)
+.   16. stx1, stx2, stx3, . . . (strings) = Names of the 1st, 2nd, 3rd, . . . factors
+.                                      (default = no names)
+.   17. stx1l, stx2l, stx3l, . . . (strings) = Names of the  levels within each of the factors
+.                                      (default = no names)
+.   18. stxshort (string)            = Multi-component shorter names for each factor (optional)
+.   19. framet (parameter)           = top    frame line (in %) (optional) (default = 90)
+.   20. frameb (parameter)           = bottom frame line (in %) (optional) (default = 20)
+.
+. Note: Graphics output produced = A 1-page plot: DEX Scatter Plot
+.          Vertical   axis = Response variable
+.          Horizontal axis = Each factor and each level within a factor
+.
+. Note: Graphics interpretation: I_f the response values differ
+.                                across levels within a factor,
+.                                then the factor is deemed to "have an effect"
+.
+. Note: Macros called by this macro:
+.       dexcheck.dp, alertk, alertv
+.       dexplotiniti.dp
+.       dexwriteproject.dp
+.       dexknbox.dp
+.       tagcorn.dp
+.
+. Date: May 2005, July 2010
+.
+. -----start point-----
+.
+feedback save; feedback off
+printing off
+let bugswsp = 0
+.
+if bugswsp exists and bugswsp = 1; print "dexsp.dp"; end if
+.
+if bugswsp = 1
+   print " "
+   print "--At the Beginning of Step 2 (DEXSP.DP) . . ."
+   print "   levelsw = ^levelsw"
+   print stx1 stx2 stx3 stx4 stx5
+   print stx1l stx2l stx3l stx4l stx5l
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+. ----------------------------------------------
+. -----Do Analysis Step 2: DEX Scatter Plot-----
+. ----------------------------------------------
+.
+. -----Step 1: Check for missing input values-----
+.
+if bugswsp = 1; print "--At dexsp.dp step 1"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+let string stmacro = dexsp.dp
+if k not exist
+   call determine_k.dp
+end if
+set check name output filliben
+set check length output filliben
+feedback on
+let iflag = check name k y x1 to x^k
+let iflag = check equal length y x1 to x^k
+feedback off
+.
+let numlevto = 0
+loop for jz = 1 1 k
+    let numlev^jz = unique x^jz
+    let numlevva(jz) = numlev^jz
+end of loop
+let numlevto = sum     numlevva
+let numlevmn = minimum numlevva
+let numlevmx = maximum numlevva
+let numlevdi = unique  numlevva
+.
+. -----Step 2: Define plot settings-----
+.
+if bugswsp = 1; print "--At dexsp.dp step 2"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+call dexplotinit.dp
+call dexplotdefplotset.dp
+.
+. -----Step 3: Define plot limits and turn labels off-----
+.
+if bugswsp = 1; print "--At dexsp.dp step 3"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+let kp1 = k+1
+let kp2 = k+2
+.
+. xtic offset 10 10
+xtic offset 0 0
+. xlimits 1 k
+xlimits 0 kp1
+. major x1tic number k
+major x1tic number kp2
+minor x1tic number 0
+.
+x3label Factors (^k)
+x3label size 3
+if stprex exists
+   x3label ^stprex Factors (^k)
+end if
+x3label displacement 11
+if k >= 6
+   x3label displacement 13
+end if
+.
+set string space ignore
+let string igtempe = cr()
+let string igtempo = cr()
+if k >= 6
+   let string igtempo = cr()
+   let string igtempe = cr()sp()cr()
+end if
+.
+let string ig1 = sp()
+let icnt = 1
+loop for jz = 1 1 k
+    let icnt = icnt + 1
+    let string igtemp2 = X^jz
+    let string ig^icnt = ^igtemp2
+    let ieven = mod(jz,2)
+    let string igtemp = ^igtempo
+    if ieven = 0
+       let string igtemp = ^igtempe
+    end if
+    if stx^jz exists
+       let string stjunk = ^stx^jz
+       let ig^icnt = string concatenate igtemp2 igtemp stjunk
+    end if
+    if stxshort exists
+       let stjunk = string word stxshort jz
+       let ig^icnt = string concatenate igtemp2 igtemp stjunk
+       delete igtemp2
+    end if
+    delete stjunk igtemp2
+end of loop
+delete igtemp
+let string ig^kp2 = sp()
+let ig = group label ig1 to ig^kp2
+x1tic mark label format group label
+x1tic mark label content ig
+x1tic mark label on
+label color blue
+tic mark label color blue
+.
+. -----Step 4: Define titles and labels-----
+.
+if bugswsp = 1; print "--At dexsp.dp step 4"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+char X blank
+char hw 2 1
+call setcircle.dp
+char offset 0 0 all
+.
+if titlesw not exist; title Scatter Plot; end if
+if titlesw exist and titlesw = 1; title Scatter Plot; end if
+.
+if sty not exist; y1label Response Y; end if
+if sty exists; y1label Response Y (^sty); end if
+.
+. x1label Factors
+if labelsiz exists; label size ^labelsiz; end if
+if ticlabsi exists; tic label size ^ticlabsi; end if
+.
+. -----Step 5: Generate and display the basic dex scatter plot-----
+.
+if bugswsp = 1
+   print "Start of Step 5"
+   print "--At dexsp.dp step 5"
+   if ibatch exists and ibatch = 0; pause; end if
+   print "k = ^k"
+end if
+.
+.
+dex scatter plot y x1 to x^k              ;. <============================
+.
+if bugswsp = 1
+   print xplot yplot tagplot
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+x3label
+label displacement
+x1tic mark label format
+x1tic mark label content
+x1tic mark label off
+limits freeze
+pre-erase off
+char bl all
+lines solid all
+.
+delete xplotd
+let xplotd = distinct xplot
+retain xplotd for i = 1 1 numlevto
+let nxplot = size xplotd
+.
+if bugswsp exists and bugswsp = 1; print "End of Step 5"; end if
+.
+. -----Step 6: Write out the factor level labels-----
+.
+if bugswsp = 1; print "--At dexsp.dp step 6"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+let factt = sequence 1 1 k
+let cxfactz = sequence factt numlevva
+let jstart = 1 for i = 1 1 k
+if numlevdi = 1
+   let cxplotz = sequence jstart 1 numlevva
+else
+   let cxplotz = sequence 1 1 numlevto
+end if
+.
+let numlevmx = maximum numlevva
+let bz = 18
+character justification cece all
+character hw 2 1 all
+character offset 0 0 all
+.
+character blank all
+if numlevdi = 1
+   if numlevmx = 2
+     character - +
+   else if numlevmx = 3
+     character - 0 +
+   else if numlevmx = 1
+     character 0
+   else if numlevmx = 4
+     character  1 2 3 4
+   else if numlevmx = 5 or numlevmx = 7
+     character  1 blank 3 blank 5 blank 7
+   else if numlevmx = 6
+     character  1 blank . . blank 6
+   else if numlevmx = 8
+     character 1 blank blank . . blank blank 8
+   else if numlevmx = 9
+     character 1 blank blank blank 5 blank blank blank 9
+   else if numlevmx = 10
+     character 1 blank blank 4 blank blank 7 blank blank 10
+   else if numlevmx = 11
+     character 1 blank blank blank blank 6 blank blank blank blank 11
+   else if numlevmx = 12
+     character 1 blank blank blank 5 blank blank 8 blank blank blank 12
+   else if numlevmx = 13
+     character 1 blank blank blank blank blank 7 blank blank blank blank blank 13
+   else if numlevmx = 14
+     character 1 bl bl bl 5 bl bl bl bl 10 bl bl bl 14
+   else if numlevmx = 15
+     character 1 bl bl bl bl bl bl 8 bl bl bl bl bl bl 15
+   else if numlevmx = 16
+     character 1 bl bl bl bl . bl . bl bl bl bl bl bl bl 16
+   else if numlevmx >= 17
+     character 1
+     let plot character numlevmx = ^numlevmx
+     let evodd = mod(numlevmx,2)
+     if evodd = 1
+        let midcaz = (numlevmx + 1)/2
+        let plot character midcaz = ^midcaz
+     end if
+     if evodd = 0
+        let midcazm = numlevmx/2
+        let midcazp = midcazm + 1
+        let plot character midcazm = .
+        let plot character midcazp = .
+     end if
+   end if
+else
+   let icnt = 0
+   character blank all
+   .
+   .  In code below, only set the non-blank character settings
+   .
+   set hyphen word separator off
+   loop for j = 1 1 k
+       let numlevt = numlevva(j)
+       let jtemp = j
+       if numlevt = 2
+         let icnt = icnt + 1
+         let plot character icnt = -
+         let cxplotz(icnt) = icnt
+         let icnt = icnt + 1
+         let plot character icnt = +
+         let cxplotz(icnt) = icnt
+       end if
+       if numlevt = 3
+         let icnt = icnt + 1
+         let plot character icnt = -
+         let cxplotz(icnt) = icnt
+         let icnt = icnt + 1
+         let plot character icnt = 0
+         let cxplotz(icnt) = icnt
+         let icnt = icnt + 1
+         let plot character icnt = +
+       end if
+       if numlevt = 1
+         let icnt = icnt + 1
+         let plot character icnt = 0
+       end if
+       if numlevt = 4
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 1
+         let plot character icnt = 2
+         let icnt = icnt + 1
+         let plot character icnt = 3
+         let icnt = icnt + 1
+         let plot character icnt = 4
+       end if
+       if numlevt = 5
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 2
+         let plot character icnt = 3
+         let icnt = icnt + 2
+         let plot character icnt = 5
+       end if
+       if numlevt = 6
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 2
+         let plot character icnt = .
+         let icnt = icnt + 1
+         let plot character icnt = .
+         let icnt = icnt + 2
+         let plot character icnt = 6
+       end if
+       if numlevt = 7
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 2
+         let plot character icnt = 3
+         let icnt = icnt + 2
+         let plot character icnt = 5
+         let icnt = icnt + 2
+         let plot character icnt = 7
+       end if
+       if numlevt = 8
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 3
+         let plot character icnt = .
+         let icnt = icnt + 1
+         let plot character icnt = .
+         let icnt = icnt + 3
+         let plot character icnt = 8
+       end if
+       if numlevt = 9
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 4
+         let plot character icnt = 5
+         let icnt = icnt + 4
+         let plot character icnt = 9
+       end if
+       if numlevt = 10
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 3
+         let plot character icnt = 4
+         let icnt = icnt + 3
+         let plot character icnt = 7
+         let icnt = icnt + 3
+         let plot character icnt = 10
+       end if
+       if numlevt = 11
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 5
+         let plot character icnt = 6
+         let icnt = icnt + 5
+         let plot character icnt = 11
+       end if
+       if numlevt = 12
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 4
+         let plot character icnt = 5
+         let icnt = icnt + 3
+         let plot character icnt = 8
+         let icnt = icnt + 4
+         let plot character icnt = 12
+       end if
+       if numlevt = 13
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 6
+         let plot character icnt = 7
+         let icnt = icnt + 6
+         let plot character icnt = 13
+       end if
+       if numlevt = 14
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 4
+         let plot character icnt = 5
+         let icnt = icnt + 5
+         let plot character icnt = 10
+         let icnt = icnt + 4
+         let plot character icnt = 14
+       end if
+       if numlevt = 15
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 7
+         let plot character icnt = 8
+         let icnt = icnt + 7
+         let plot character icnt = 15
+       end if
+       if numlevt = 16
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let icnt = icnt + 5
+         let plot character icnt = .
+         let icnt = icnt + 2
+         let plot character icnt = .
+         let icnt = icnt + 8
+         let plot character icnt = 16
+       end if
+       if numlevt >= 17
+         let icnt = icnt + 1
+         let plot character icnt = 1
+         let evodd = mod(numlevt,2)
+         if evodd = 1
+            let midcaz = (numlevt + 1)/2
+            let icnt = icnt + (midcaz-1)
+            let plot character icnt = ^midcaz
+            let icnt = icnt + (midcaz-1)
+         else
+            let midcazm = numlevt/2
+            let midcazp = midcazm + 1
+            let icnt = icnt + (midcazm-1)
+            let plot character icnt = .
+            let icnt = icnt + 1
+            let plot character icnt = .
+            let icnt = icnt + (midcazm-1)
+         end if
+         let plot character icnt = ^numlevt
+       end if
+   end of loop
+   set hyphen word separator on
+end if
+.
+if levelsw not exist or levelsw = 1
+   drawds symbol xplotd bz cxplotz
+else if levelsw = 2
+   loop for jz = 1 1 numlevmx
+       let plot character jz  = ^jz
+   end of loop
+   drawds symbol xplotd bz cxplotz
+else if levelsw = 3
+   if stx11 not exist
+      drawsymb xplotd bz cxplotz
+   else
+.
+.    User specified strings
+.
+     loop for jz = 1 1 nxplot
+         let az = xplotd(jz)
+         let caz = cxplotz(jz)
+         let factz = cxfactz(jz)
+         let numlevfa = numlev^factz
+         moveds az bz
+         call dexwritelevel.dp
+     end loop
+   end if
+end if
+.
+character hw
+character justification
+.
+if levelsw exists and levelsw = 3
+   drawdsds xplotd 20 xplotd 19
+end if
+.
+. -----Step 11: Write out . . .-----
+.
+if bugswsp = 1; print "--At dexsp.dp step 11"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+let bz = 12
+just cece
+hw texth textw
+loop for jz = 1 1 k
+   let az = jz
+   moveds az bz
+   if suv^az exist; text ^suv^az; end if
+end loop
+.
+. -----Step 12: Write out project title, (n,k) box, and zzStepzz----
+.
+if bugswsp = 1; print "--At dexsp.dp step 12"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+call dexknbox.dp
+.
+if step exists
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+   call tagcorn.dp
+end if
+.
+if annotate exists and annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if
+.
+. -----Step 13: Write out right margin factor and setting info-----
+.
+if rightmsw exists and rightmsw = 1 or rightmsw not exist
+   if stx1 exists and stx1l exists
+      let ypdel = 2
+      let lh = 1.8
+      let lw = 0.9
+      if k >= 9
+         let ypdel = 1.5; let lh = 1.6; let lw = 0.8
+         let string colorl = red blue green black
+      end if
+      call dexrightmargin.dp
+      delete ypdel lh lw
+   end if
+end if
+.
+. -----Step 14: If called for, write out customized upper left info-----
+.
+if bugswsp = 1; print "--At dexsp.dp step 14"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+. -----Step 15: If called for, print out a target reference line-----
+.
+if bugswsp = 1; print " "; print "---At dexmp.dp step 15: draw target line"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+if ytarget exists
+   lines dotted; drawsdsd 15 ytarget 85 ytarget
+   lines solid; drawsdsd 84.25 ytarget 85.75 ytarget
+   movesd 86 ytarget; move relative 0 .3; hw 2 1; just lece; text Target = ^ytarget
+   just left
+end if
+.
+. -----Step 17: All Done-----
+.
+if bugswsp = 1; print "--At the end of dexsp.dp"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+limits
+char blank all
+char fill off all
+char hw 2 1 all
+lines solid all
+xtic offset 5 5
+ytic offset 5 5
+tic label format default
+minor xtic number default
+major xtic number default
+just left
+title
+label
+x1tic mark label on
+pre-erase on
+.
+. pause
+. stop
+.
+. feedback on
+.
+delete cxplotz cxfactz coefz tagz relcoefz cdfz temp
+delete dxz bz xplotd
+.
+feedback restore
+.
+if itime exists and itime = 1
+   cpu time
+   let t2 = cputime
+end of if

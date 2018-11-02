@@ -1,0 +1,28 @@
+reset data
+reset plot control
+reset i/o
+dimension 300 rows
+label size 3
+read mpc61b.dat  wafer probe mo1 day1 y1 mo2 day2 y2 diff
+let t = mo1+(day1-1)/31.
+let t2= mo2+(day2-1)/31.
+x3label WAFER 138
+multiplot corner coordinates 2 2 98 98
+multiplot 3 2
+plot y1 t subset wafer 138 and
+plot y2 t2 subset wafer 138
+x3label wafer 139
+plot y1 t subset wafer 139 and
+plot y2 t2 subset wafer 139
+x3label WAFER 140
+plot y1 t subset wafer 140 and
+plot y2 t2 subset wafer 140
+x3label WAFER 140
+plot y1 t subset wafer 141 and
+plot y2 t2 subset wafer 141
+x3label WAFER 142
+plot y1 t subset wafer 142 and
+plot y2 t2 subset wafer 142
+end of multiplot
+. end of calculations
+ 

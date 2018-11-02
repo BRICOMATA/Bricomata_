@@ -1,0 +1,400 @@
+. This is dataplot macro   DEXSP.DP
+. Purpose: Generate a DEX scatter plot
+.          (= step 2 of the DEXPLOT.DP 10-step DEX analysis procedure)
+.
+. Note: Input parameters, vectors, matrices, or strings needed:
+.
+. Input (Required):
+.    1. y (vector)                   = Response variable
+.    2. x1, x2, x3, . . . (vectors)    = Factors
+.    3. k (parameter)                = Total number of factors
+
+. Input (Optional):
+.    4. project (string)             = Project title to appear at top of page
+.    5. sty      (string)             = Name of response variable
+.    6. cx1, cx2, cx3, . . . (strings) = Names of the 1st, 2nd, 3rd, . . . factors
+.    7. circleh  (parameter)         = Height of plot circles   (default = 2)
+.    8. circlew  (parameter)         = Width  of plot circles   (default = 1)
+.    9. decplace (parameter)         = Number of decimal places (default = 4)
+.   10. titlesw  (parameter)         = (0,1) Switch for title printing (default = 1 ==> Main Effects Plot)
+.   11. titlesiz (parameter)         = Size of title to appear at top of plot (default = 2)
+.   12. labelsiz (parameter)         = Size of label to appear at right & bottom of plot (default = 2)
+
+.   15. rigmarsw (parameter)         = (0,1) switch dictating the listing of factors & levels in right margin
+.                                      (but requires existence of stx1, stx2, . . . and stx1l, stx2l, . . .
+.                                      (default = 0 = no listing)
+.   16. stx1, stx2, stx3, . . . (strings) = Names of the 1st, 2nd, 3rd, . . . factors
+.                                      (default = no names)
+.   17. stx1l, stx2l, stx3l, . . . (strings) = Names of the  levels within each of the factors
+.                                      (default = no names)
+.   18. stxshort (string)            = Multi-component shorter names for each factor (optional)
+.   19. framet (parameter)           = top    frame line (in %) (optional) (default = 90)
+.   20. frameb (parameter)           = bottom frame line (in %) (optional) (default = 20)
+.
+. Note: Graphics output produced = A 1-page plot: DEX Scatter Plot
+.          Vertical   axis = Response variable
+.          Horizontal axis = Each factor and each level within a factor
+.
+. Note: Graphics interpretation: I_f the response values differ
+.                                across levels within a factor,
+.                                then the factor is deemed to "have an effect"
+.
+. Note: Macros called by this macro:
+.       dexcheck.dp, alertk, alertv
+.       dexplotiniti.dp
+.       dexwriteproject.dp
+.       dexknbox.dp
+.       tagcorn.dp
+.
+. Date: May 2005, July 2010
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexsp.dp"; end if; end if
+.
+feedback save; feedback off
+printing off
+let pausesp = 0
+.
+if pausesp = 1
+   print " "
+   print "--At the Beginning of Step 2 (DEXSP.DP) . . ."
+   print "   levelsw = ^levelsw"
+   print stx1 stx2 stx3 stx4 stx5
+   print stx1l stx2l stx3l stx4l stx5l
+   . feedback on
+   . echo on
+   pause
+end if
+.
+. ----------------------------------------------
+. -----Do Analysis Step 2: DEX Scatter Plot-----
+. ----------------------------------------------
+.
+. -----Step 1: Check for missing input values-----
+.
+if pausesp = 1; print "--At dexsp.dp step 1"; pause; end if
+.
+let string stmacro = dexsp.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+. -----Step 2: Define plot settings-----
+.
+if pausesp = 1; print "--At dexsp.dp step 2"; pause; end if
+.
+call dexplotinit.dp
+call dexplotdefplotset.dp
+.
+. -----Step 3: Define plot limits and turn labels off-----
+.
+if pausesp = 1; print "--At dexsp.dp step 3"; pause; end if
+.
+let kp1 = k+1
+let kp2 = k+2
+.
+. xtic offset 10 10
+xtic offset 0 0
+. xlimits 1 k
+xlimits 0 kp1
+. major x1tic number k
+major x1tic number kp2
+minor x1tic number 0
+. x1tic label format alphabetic
+. let string junk = sp() cr()
+. loop for jz = 1 1 k
+.    let string junk = ^jzunk X^jz
+. end loop
+. x1tic label contents ^jzunk
+x1tic label off
+.
+. -----Step 4: Define titles and labels-----
+.
+if pausesp = 1; print "--At dexsp.dp step 4"; pause; end if
+.
+char X blank
+char hw 2 1
+call setcircle.dp
+.
+lines blank dotted
+.
+if titlesw not exist; title Scatter Plot; end if
+if titlesw exist; if titlesw = 1; title Scatter Plot; end if; end if
+.
+if sty not exist; y1label Response Y; end if
+if sty exists; y1label Response Y (^sty); end if
+.
+. x1label Factors
+if labelsiz exists; label size ^labelsiz; end if
+if ticlabsi exists; tic label size ^ticlabsi; end if
+.
+. -----Step 5: Generate and display the basic dex scatter plot-----
+.
+if tracesw exists; if tracesw = 1; print "Start of Step 5"; end if; end if
+if pausesp = 1; print "--At dexsp.dp step 5"; pause; end if
+.
+if pausesp = 1
+   print "k = ^k"
+   print y x1 x2 x3
+end if
+.
+dex scatter plot y x1 to x^k              ;. <============================
+.
+if pausesp = 1
+   print xplot yplot tagplot
+   pause
+end if
+.
+if tracesw exists; if tracesw = 1; print "End of Step 5"; end if; end if
+.
+. -----Step 6: Write out the tic labels-----
+.
+if pausesp = 1; print "--At dexsp.dp step 6"; pause; end if
+.
+. -----Step 7: Draw out solid vertical connecting lines-----
+.
+if pausesp = 1; print "--At dexsp.dp step 7"; pause; end if
+.
+limits freeze
+pre-erase off
+char bl all
+lines solid all
+.
+let maxtagpl = maximum tagplot
+plot yplot xplot xplot except tagplot maxtagpl        ;. <=================
+.
+if pausesp = 1
+   print xplot yplot tagplot
+   pause
+end if
+.
+pre-erase on
+
+limits
+.
+. -----Step 8: Generate a hidden dex mean plot to get xplot, yplot, tagplot-----
+.
+if pausesp = 1; print "--At dexsp.dp step 8"; pause; end if
+.
+. print tagz coef
+. pause
+. stop
+device 1 off; device 2 off; device 3 off
+dex mean plot y x1 to x^k       ;. <=======================================
+.
+device 1 on; device 2 on; device 3 on
+.
+. -----Step 9: Write the X factor labels, then
+.              write out the engineering-based factor names-----
+.
+if pausesp = 1; print "--At dexsp.dp step 9"; pause; end if
+.
+hw 2 1;. 9/2/15
+loop for jz = 1 1 k
+   let xp0 = 15+((jz/(k+1))*(85-15))
+   just center
+   let ypz = 15; if frameb exists; let ypz = 15 - (20 - frameb); end if
+   move xp0 ypz; text X^jz
+   .
+   if stx^jz exists
+      let string stjunk = ^stx^jz
+   end if
+   .
+   if stxshort exists
+      delete stjunk2; let stjunk2 = string word stxshort jz
+      let string stjunk = ^stjunk2
+   end if
+   .
+   if stjunk exists
+      if stxshort not exist
+         let ypz = 12.5; if frameb exists; let ypz = 12.5 - (20 - frameb); end if
+         let ypz2 = ypz - 2
+         if k <= 5; move xp0 ypz; text ^stjunk; end if
+         let jzmod = mod(jz,2)
+         if k >= 6; if jzmod = 1; move xp0 ypz; text ^stjunk; end if; end if
+         if k >= 6; if jzmod = 0; move xp0 ypz2; text ^stjunk; end if; end if
+      end if
+      .
+      if stxshort exists
+         let ypz = 12.5; if frameb exists; let ypz = 12.5 - (20 - frameb); end if
+         move xp0 ypz; text ^stjunk
+      end if
+   end if
+   .
+end loop
+delete xp0
+.
+let ypz = 9; if frameb exists; let ypz = 9 - (20 - frameb); end if
+let ypz2 = ypz - 2
+if stprex not exist
+   if k <= 5; move 50 ypz; hw 3.0 1.5; text Factors; end if
+   if k >= 6; move 50 ypz2; hw 3.0 1.5; text Factors; end if
+end if
+.
+if stprex exists
+   if k <= 5; move 50 ypz; hw 3.0 1.5; text ^stprex Factors; end if
+   if k >= 6; move 50 ypz2; hw 3.0 1.5; text ^stprex Factors; end if
+end if
+.
+. <here>
+. -----Step 10: Write out the factor level labels-----
+.
+if pausesp = 1; print "--At dexsp.dp step 10"; pause; end if
+.
+. print yplot xplot tagplot k nxplot
+. print junk. yplot xplot tagplot k nxplot
+. pause
+.
+retain yplot xplot tagplot subset tagplot <= k
+let xplot = sortc xplot yplot tagplot
+let nxplot = number xplot
+. print yplot xplot tagplot k nxplot
+. print junk. yplot xplot tagplot k nxplot
+. pause
+.
+loop for jz = 1 1 k
+   let numlev^jz = number tagplot subset tagplot jz
+end loop
+. print "k = ^k"
+. print "numlev1 numlev2 numlev3 = ^numlev1 ^numlev2 ^numlev3"
+. pause
+.
+let pos = 0
+loop for jz = 1 1 k
+   let pos = pos+1
+   let startpos = pos
+   let stoppos = startpos + numlev^jz - 1
+   let cxplotz = sequence 1 1 numlev^jz for  i = startpos 1 stoppos
+   let pos = stoppos
+end loop
+. print xplot tagplot cxplotz
+. print nxplot
+. pause
+.
+let bz = 18
+just cece
+loop for jz = 1 1 nxplot
+   let az = xplot(jz)
+   let caz = cxplotz(jz)
+   let factz = tagplot(jz)
+   let numlevfa = numlev^factz
+   .
+   . print " "
+   . print "From middle of step 10 in dexsp.dp:"
+   . print "   levelsw = ^levelsw"
+   . print "   az = ^az"
+   . print "   bz = ^bz"
+   . print "   caz = ^caz"
+   . print "   factz = ^factz"
+   . print "   numlevfa = ^numlevfa"
+   . pause
+   .
+   moveds az bz
+   call dexwritelevel.dp
+   if levelsw exists; if levelsw = 3; drawdsds az 20 az 19; end if; end if
+   .
+end loop
+.
+. -----Step 11: Write out . . .-----
+.
+if pausesp = 1; print "--At dexsp.dp step 11"; pause; end if
+.
+let bz = 12
+just cece
+hw texth textw
+loop for jz = 1 1 k
+   let az = jz
+   moveds az bz
+   if suv^az exist; text ^suv^az; end if
+end loop
+.
+. -----Step 12: Write out project title, (n,k) box, and zzStepzz----
+.
+if pausesp = 1; print "--At dexsp.dp step 12"; pause; end if
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+call dexknbox.dp
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+. -----Step 13: Write out right margin factor and setting info-----
+.
+if rigmarsw exists; if rigmarsw = 1
+   if stx1 exists
+      call dexrightmargin.dp
+   end if
+end if; end if
+.
+. -----Step 14: If called for, write out customized upper left info-----
+.
+if pausesp = 1; print "--At dexsp.dp step 14"; pause; end if
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+. -----Step 15: Generate a hidden dex mean plot to establish original plot limits-----
+.
+if pausesp = 1; print "--At dexsp.dp step 15"; pause; end if
+.
+device 1 off; device 2 off; device 3 off
+dex scatter plot y x1 to x^k
+.
+device 1 on; device 2 on; device 3 on
+.
+. -----Step 15: All Done-----
+.
+if pausesp = 1; print "--At the end of dexsp.dp"; pause; end if
+.
+xlimits
+char blank all
+char fill off
+char hw 2 1
+lines solid all
+xtic offset 5 5
+ytic offset 5 5
+tic label format default
+minor xtic number default
+major xtic number default
+just left
+title
+y1label
+x1label
+x3label
+x1tic label on
+.
+. pause
+. stop
+.
+. feedback on
+.
+delete cxplotz coefz tagz relcoefz cdfz temp
+delete dxz
+.
+feedback restore
+.

@@ -1,0 +1,51 @@
+#!/bin/bash
+#xsel | espeak -v mb/mb-en1 -s140 --stdin
+#xsel | espeak -v mb/mb-en1 -s120 -p10 -k20 -a100 --stdin
+
+INPUTb=`xsel`
+INPUT=`echo $INPUTb | tr -d '\n'`
+
+
+#wget "https://tts.readspeaker.com/a/speak?key=f9b4d00cbfe65a310dcdfcdc2ed8a3ed&mp3bitrate=64&lang=en_us&voice=James&text=Hello, $tt" --output-document /tmp/omo.mp3
+#nvlc speak.mp3
+
+#say() { local IFS=+;/usr/bin/mplayer -ao alsa -really-quiet -noconsolecontrols "http://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=$*&tl=en"; }
+#say $INPUT
+
+
+#https://elinux.org/RPi_Text_to_Speech_(Speech_Synthesis)
+STRINGNUM=0
+
+#ary=($INPUT)
+IFS=$'!?.,;:'
+ary=($INPUT)
+
+#echo "---------------------------"
+#echo "Speech Script by Dan Fountain"
+#echo "TalkToDanF@gmail.com"
+#echo "---------------------------"
+for key in "${!ary[@]}" 
+  do
+    SHORTTMP[$STRINGNUM]="${SHORTTMP[$STRINGNUM]} ${ary[$key]}"
+    LENGTH=$(echo ${#SHORTTMP[$STRINGNUM]})
+#    echo "word:$key, ${ary[$key]}"
+#    echo "adding to: $STRINGNUM"
+    if [[ "$LENGTH" -lt "100" ]]; then
+#      echo starting new line
+      SHORT[$STRINGNUM]=${SHORTTMP[$STRINGNUM]}
+    else
+      STRINGNUM=$(($STRINGNUM+1))
+      SHORTTMP[$STRINGNUM]="${ary[$key]}"
+      SHORT[$STRINGNUM]="${ary[$key]}"
+    fi
+done
+ 
+for key in "${!SHORT[@]}"
+  do
+#    echo "$(($key+1))/$(($STRINGNUM+1))"
+    echo "${SHORT[$key]}"
+ 
+    NEXTURL=$(echo ${SHORT[$key]} | xxd -plain | tr -d '\n' | sed 's/\(..\)/%\1/g')
+    mpg123 -q "http://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=$NEXTURL&tl=En-us"
+done
+

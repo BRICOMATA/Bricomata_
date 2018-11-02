@@ -1,0 +1,58 @@
+.
+. Starting Step 2.2
+title Sonoluminescent Light Intensity cr()Scatter Plot
+xlimits 1 7
+major x1tic mark number 7
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5 ^x6 ^x7
+y1label ^y
+line solid all
+line blank
+char blank all
+char x
+dex scatter plot y x1 x2 x3 x4 x5 x6 x7
+limits freeze
+pre-erase off
+char bl all
+lines solid all
+let k2 = 2*k
+plot yplot xplot xplot subset tagplot 1 to k2
+pre-erase on
+limits
+.
+let dxplot = distinct xplot
+let dxplot = sort dxplot
+let ndxplot = number dxplot
+let b = 18
+just cece
+loop for j = 1 1 ndxplot
+   let a = dxplot(j)
+   moveds a b
+   let evenodd = mod(j,2)
+   if evenodd = 1
+      text -
+   end if
+   if evenodd = 0
+      text +
+   end if
+end loop
+.
+box 15 85 21 90
+hw 2 1
+just left
+move 16 87.75
+text k = ^k
+move 16 85.75
+text n = ^n
+.
+line blank
+title
+y1label
+xlimits
+x1tic mark label format
+major x1tic mark number
+minor x1tic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.2: Page Back for Output

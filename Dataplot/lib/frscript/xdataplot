@@ -1,0 +1,49 @@
+#!/bin/csh
+#
+#  C-Shell script to run Dataplot GUI.
+#
+#  We define the "prefix" for Tcl/Tk and for the Dataplot
+#  files.  Based on this, we define some environment variables.
+#
+#  Step 1: Define the location for Dataplot and for Tcl/Tk
+#          on your local system.  Determine these paths automatically.
+#          Need to strip off the "dataplot", "wish", and "bin" from
+#          the names, so apply the ":h" twice (e.g., first to remove
+#          "dataplot" and the second time to remove "bin").  If
+#          this is not working, then just set the paths explicitly.
+#
+set zzzztemp = `which dataplot`
+set zzzztemp = $zzzztemp:h
+set zzzztemp = $zzzztemp:h
+set dataplot_prefix = $zzzztemp
+#set dataplot_prefix = /usr/local/lib/dataplot
+set zzzztemp = `which wish`
+set tcl_prefix = $zzzztemp:h
+set tcl_prefix = $zzzztemp:h
+#set tcl_prefix = /usr/lib
+#set tcl_prefix = /usr/local/lib
+#
+#  Step 2: Define enviroment variables.  These should not need
+#          to be modified if "dataplot_prefix" and "tcl_prefix"
+#          are defined correctly for your local system.
+#
+setenv TCL_LIBRARY $tcl_prefix/lib/tcl
+setenv TK_LIBRARY  $tcl_prefix/lib/tk
+#
+setenv DATAPLOT_FILES $dataplot_prefix/lib/dataplot/
+setenv XDP_FILE       $dataplot_prefix/lib/dataplot/frmenus
+setenv XDP_CODE       $dataplot_prefix/lib/dataplot/frscript
+
+#
+#  Step 3: Now invoke the main Tcl/Tk script.  The following
+#          options may be modified to suit your taste:
+#
+#          -left    => Windows will be left-justified on the screen
+#          -right   => Windows will be right-justified on the screen
+#          -soft    => Use Tcl/Tk for screen graphics (if not
+#                      specified, X11 will be used).  Although the
+#                      X11 graphics will probably be more efficient,
+#                      the Tcl/Tk graphics have cleaner graph restore
+#                      when the menus over-write the graphs.
+#
+$dataplot_prefix/lib/frscript/xdp -right -soft $argv

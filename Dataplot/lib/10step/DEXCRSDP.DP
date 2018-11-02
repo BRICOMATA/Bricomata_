@@ -1,0 +1,238 @@
+. This is dataplot macro   DEXCRSDP.DP
+. Purpose: Generate a DEX cumulative residual standard deviation plot
+.          (= step 9 of the DEXPLOT.DP 10-step DEX analysis procedure)
+. Date: May 2005
+. Input
+.    1. k (parameter)               = Total number of plot factors
+.    2. y (vector)                  = Response variable
+.    3. x1, x2, x3, . . . (vectors) = Factors
+.
+.    4. framet (parameter)          = top    frame line (in %) (optional) (default = 90)
+.    5. frameb (parameter)          = bottom frame line (in %) (optional) (default = 20)
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexcrsdp.dp"; end if; end if
+.
+feedback save; feedback off
+printing off
+let pausecrs = 0
+.
+if pausecrs = 1
+   print " "
+   print "---At the Beginning of Step 9 (DEXCRSDP.DP) . . ."
+   . feedback on
+   . echo on
+   pause
+end if
+.
+. ---------------------------------------------------------
+. -----Do Analysis Step 9: Cumulative Residual SD Plot-----
+. ---------------------------------------------------------
+.
+. -----Step 1: Check for missing input values-----
+.
+if pausecrs = 1; print "---At dexcrsdp.dp step 1"; pause; end if
+.
+let string stmacro = dexcrsdp.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+. -----Step 2: Define Plot settings-----
+.
+if pausecrs = 1; print "---At dexcrsdp.dp step 2"; pause; end if
+call dexplotinit.dp
+
+. -----Step 3: Compute Confounding Structure-----
+.
+if pausecrs = 1; print "---At dexcrsdp.dp step 3"; pause; end if
+.
+let kp1 = k+1
+.
+. -----Step 3: Compute  all effect estimates and confounding (the following are all sorted by |eff|)-----
+. -----        The number of effects                      (parameter) numeff
+. -----        The sorted dummy index (1 to numeff)       (vector)    effindex
+. -----        The means at the "high" side               (vector)    meanh
+. -----        The means at the "low"  side               (vector)    meanl
+. -----        The effect estimates                       (vector)    eff
+.
+.
+. -----        The effect estimates (ordered by | |)      (vector)    eff
+. -----        The effect ID's                            (vectors)   effid1, effid2
+. -----        The corresponding tags and confounding     (strings)   steft.. and stefc..
+.
+. -----        The relative effect estimates              (vector)    releff
+. -----        The sd(effects)                            (vector)    sdeff
+. -----        The t(effects)                             (vector)    teff
+. -----        The residual SD for each single model      (vector)    rsd
+. -----        The residual SD for each cumulative model  (vector)    cumrsd
+. -----        The effect ID's                            (vector)    effid
+. -----        The effect ID's (as multiplier definitions)(strings)   stcore1, stcore2, etc.
+. -----        The effect confouding                      (strings)   stconf1, stconf2, etc.
+.
+if pausecrs = 1; print "---At dexcrsdp.dp step 3"; pause; end if
+. print "project = ^project"
+.
+if confdone not exist
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if
+.
+if confdone exists; if confdone = 0
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if; end if
+.
+. -----Step 4: Generate the plot-----
+.
+if pausecrs = 1; print "---At dexcrsdp.dp step 4"; pause; end if
+title Cumulative Residual SD Plot
+y1label Residual SD
+x1label Cumulative Model
+x3label
+label size labelsiz
+tic label size ticlabsi
+ygrid
+if foreground exists; grid color ^foreground; end if
+x1tics off
+x1tic label off
+y1tic offset 10
+.
+char X
+call setcircle.dp
+.
+lines blank
+.
+delete vertv horv
+let vertv = cumrsd
+let horv = 1 1 numeff
+. print vertv horv effid
+. pause
+.
+spike on
+if foreground exists; spike color ^foreground; end if
+let numeffp1 = numeff+1
+let s = sd y
+let vertv(numeffp1) = s
+let horv(numeffp1) = 0
+plot vertv horv
+. print vertv horv
+. pause
+. print cumrsd index2
+. stop
+.
+if pausecrs = 1; print "---At dexcrsdp.dp step 6"; pause; end if
+hw 2 1
+if n > 20; hw 1.5 .75; end if
+just cece
+if colorall exists; color ^colorall; end if
+loop for j = 1 1 numeff
+   let x0 = xplot(j)
+   let evenodd = mod(j,2)
+   let y0 = 23
+   if evenodd = 0; let y0 = 27; end if
+   if n < 10; let y0 = 27; end if
+   if frameb exists; let y0 = y0 - (20 - frameb); end if
+   .
+   let string ch = ^steft^j
+   moveds x0 y0
+   text ^ch
+   .
+end loop
+.
+let ypz = 27
+if frameb exists; let ypz = ypz - (20 - frameb); end if
+moveds 0 ypz
+if n <= 20; text Average; end if
+if n > 20; text Ave.; end if
+.
+if pausecrs = 1; print "---At dexcrsdp.dp step 7"; pause; end if
+let numyplot = number yplot
+let numyplm1 = numyplot-1
+just lece
+if colorall exists; color ^colorall; end if
+loop for j = 1 1 numyplm1
+   let yplotj = yplot(j)
+   .
+   let string ch = ^steft^j
+   movesd 86 yplotj
+   text ^ch&:
+   .
+   let string ch = ^stefc^j
+   if ch = -999; let string ch = sp(); end if
+   movesd 90 yplotj
+   text ^ch
+   .
+end loop
+let j = numyplot
+let yplotj = yplot(j)
+movesd 86 yplotj
+text Average
+let frametz = 90
+if framet exists; let frametz = framet; end if
+move 86 frametz
+text Factor: Confounding
+.
+if pausecrs = 1; print "---At dexcrsdp.dp step 8"; pause; end if
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+call dexknbox.dp
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+. -----Step xx: If called for, write out customized upper left info-----
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+. -----Step xx: Finish up-----
+.
+grid off
+y1tic offset 5
+x1tics on
+x1tic label on
+char blank all
+char hw 2 1
+lines solid all
+spike off
+just left
+title
+y1label
+x1label
+tic offset 5 5
+hw 2 1
+.
+delete vertv horv
+.
+feedback restore
+.

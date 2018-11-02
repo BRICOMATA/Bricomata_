@@ -1,0 +1,203 @@
+. This is dataplot macro   DEXHPP.DP
+. Purpose: Generate a DEX halfnormal probability plot
+.          (= step 8 of the DEXPLOT.DP 10-step DEX analysis procedure)
+. Date: May 2005
+. Input
+.    1. k (parameter)               = Total number of plot factors
+.    2. y (vector)                  = Response variable
+.    3. x1, x2, x3, . . . (vectors) = Factors
+.    4. index
+.
+.    5. framet (parameter)          = top    frame line (in %) (optional) (default = 90)
+.    6. frameb (parameter)          = bottom frame line (in %) (optional) (default = 20)
+.
+. Pre-call: dexplotinit.dp
+. Caution/Danger: j will get overwritten in the lower-level called macros
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexhpp.dp"; end if; end if
+.
+feedback save; feedback off
+printing off
+let pausehpp = 0
+.
+if pausehpp = 1
+   print " "
+   print "---At the Beginning of Step 8 (DEXHPP.DP) . . ."
+   print "   numeffec = ^numeffec"
+   print y x1 x2 x3
+   . feedback on
+   . echo on
+   pause
+end if
+.
+. ---------------------------------------------------------
+. -----Do Analysis Step 8: Halfnormal Probability Plot-----
+. ---------------------------------------------------------
+.
+. -----Step 1: Check for missing input values-----
+.
+if pausehpp = 1; print "---At dexhpp.dp step 1"; pause; end if
+.
+let string stmacro = dexhpp.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+. -----Step 2: Define plot settings-----
+.
+if pausehpp = 1; print "---At dexhpp.dp step 2"; pause; end if
+call dexplotinit.dp
+.
+. -----Step 3: Compute Confounding Structure-----
+.
+if pausehpp = 1; print "---At dexhpp.dp step 3"; pause; end if
+.
+let kp1 = k+1
+.
+. -----Step 3: Compute  all effect estimates and confounding (the following are all sorted by |eff|)-----
+. -----        The number of effects                      (parameter) numeff
+. -----        The sorted dummy index (1 to numeff)       (vector)    effindex
+. -----        The means at the "high" side               (vector)    meanh
+. -----        The means at the "low"  side               (vector)    meanl
+.
+.
+. -----        The effect estimates (ordered by | |)      (vector)    eff
+. -----        The effect ID's                            (vectors)   effid1, effid2
+. -----        The corresponding tags and confounding     (strings)   steft.. and stefc..
+.
+. -----        The effect estimates                       (vector)    eff
+. -----        The relative effect estimates              (vector)    releff
+. -----        The sd(effects)                            (vector)    sdeff
+. -----        The t(effects)                             (vector)    teff
+. -----        The residual SD for each single model      (vector)    rsd
+. -----        The residual SD for each cumulative model  (vector)    cumrsd
+. -----        The effect ID's                            (vector)    effid
+. -----        The effect ID's (as multiplier definitions)(strings)   stcore1, stcore2, etc.
+. -----        The effect confouding                      (strings)   stconf1, stconf2, etc.
+.
+if pausehpp = 1; print "---At dexhpp.dp step 3"; pause; end if
+. print "project = ^project"
+.
+if confdone not exist
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if
+.
+if confdone exists; if confdone = 0
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if; end if
+.
+. -----Step 4: Generate the plot-----
+.
+if pausehpp = 1; print "---At dexhpp.dp step 4"; pause; end if
+.
+char X
+call setcircle.dp
+.
+lines bl
+.
+if titlesw not exist
+   title Halfnormal Probability Plot of |Effects|
+end if
+if titlesw exist; if titlesw = 1;
+   title Halfnormal Probability Plot of |Effects|
+end if; end if
+.
+y1label Ordered |Effects|
+x1label Halfnormal Distribution Order Statistic Medians
+x3label
+label size labelsiz
+tic label size ticlabsi
+.
+let eff2 = abs(eff)
+halfnormal probability plot eff2
+.
+. -----Step 5: Write out confounding structure in the right margin-----
+.
+if pausehpp = 1; print "---At dexhpp.dp step 5: Write confound."; pause; end if
+. print "project = ^project"
+. . feedback on
+hw 2 1;. new 5/11/05
+. print yplot xplot tagplot
+. let effidr = flip effid
+. print effid effidr
+. pause
+just lece
+loop for j = 1 1 numeff
+   let jrev = numeff - j + 1
+   let yplotj = yplot(j)
+   let string ch = sp()
+   . let effidrj = effidr(j)
+   . let string ch = ^effidrj
+   .
+   let string ch = ^steft^jrev
+   movesd 86 yplotj
+   text ^ch&:
+   .
+   let string ch = ^stefc^jrev
+   if ch = -999; let string ch = sp(); end if
+   movesd 90 yplotj
+   text ^ch
+   .
+end loop
+hw 2 1
+let frametz = 90
+if framet exists; let frametz = framet; end if
+move 86 frametz
+text Factor: Confounding
+.
+. -----Step 7: Annotate the plot-----
+.
+if pausehpp = 1; print "---At dexhpp.dp step 7: annotate; pause; end if
+.
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+call dexknbox.dp
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+. -----Step 8: All Done-----
+.
+just left
+limits
+title
+y1label
+x1label
+.
+feedback restore
+.

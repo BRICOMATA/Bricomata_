@@ -1,0 +1,141 @@
+. This is dataplot macro     dexrightmargin.dp
+. Purpose: Write factors (and levels if available) in right margin (towards the top)
+.          of the plots for the 10-step dex analysis
+. Date: 01/10/14, 6/29/15
+. Input:
+.    k (parameter)                        = number of factors
+.    stx1, stx2, stx3, . . . (strings)    = names of each of the k factors
+.    stx1l, stx2l, stx3l, . . . (strings) = all levels within each factor (optional)
+.    cpperc (parameter)                   = (0,1) switch indicating center point values are given
+.                                           AND (-,+) values are percentages around center point
+.                                           (e.g., Jeff Fong) (opt.)
+.    stcp (string)                        = center point values (optional)
+.
+.    lh    (parameter) = height of labels (optional, default = 1)
+.    lw    (parameter) = width  of labels (optional, default - 0.5)
+.
+.    xp0   (parameter) = horizontal location of labels (optional, default = 86)
+.    yp0   (parameter) = vertical   location of labels   (optional, default = 88.2)
+.    ypdel (parameter) = vertical   increment for successive labels (optional, default = 2)
+.    xpdel (parameter) = horizontal indentation for levels (optional, default = 3)
+.
+.    prog  (parameter) = numerical suffix for the calling program
+.                        (for special cases) (optional, default = not exist)
+.
+. -----start point-----
+.
+let pauserm = 0
+if pauserm = 1
+   print " "
+   print "--At the beginning of dexrightmargin.dp"
+   print stx1 stx2 stx3 stx4 stx5
+   print stx1l stx2l stx3l stx4l stx5l
+   pause
+end if
+.
+. -----Step 1: Check for missing input values-----
+.
+let string stmacro = dexrightmargin.dp
+.
+let string stall = k
+call checkinput.dp
+.
+loop for jz = 1 1 k
+   let string stall = stx^jz
+   call checkinput.dp
+end loop
+.
+. loop for jz = 1 1 k
+.    let string stall = stx^jz&l
+.    call checkinput.dp
+. end loop
+.
+. -----Step 2: Check for pre-set values-----
+.
+let lhz = 1
+if lh exists; let lhz = lh; end if
+.
+let lwz = 0.5
+if lw exists; let lwz = lw; end if
+.
+let xp0z = 86
+if xp0 exists; let xp0z = xp0; end if
+.
+let yp0z = 88.2
+if yp0 exists; let yp0z = yp0; end if
+.
+. let xpdelz = 3
+let xpdelz = 5
+if xpdel exists; let xpdelz = xpdel; end if
+.
+let ypdelz = 2
+if ypdel exists; let ypdelz = ypdel; end if
+.
+. -----Step 3: loop through and write out all levels of all factors-----
+.
+just center; hw lhz lwz
+let ypz = yp0z
+. let ypz = ypz + ypdelz
+.
+let fudge = 1
+if k >= 6; let fudge = 0.5; end if
+if k >= 7; let fudge = 0.25; end if
+if k >= 8; let fudge = 0.0; end if
+.
+loop for jz = 1 1 k
+   delete dxz; let dxz = distinct x^jz
+   let numlevfa = number dxz
+   if jz >= 2; let ypz = ypz - fudge*ypdelz; end if
+   move xp0z ypz; just left; hw 2 1; text X^jz: ^stx^jz
+   hw ^lhz ^lwz
+   .
+   if stx^jz&l exists
+      let nlevz = number of words stx^jz&l
+      .
+      let cppercsw = 0
+      if numlevfa = 2; if cpperc exists; if cpperc = 1; if stcp exists
+         delete stjunk; let stjunk = string word   stcp jz
+         let string cp = ^stjunk
+         let nlevz = 2
+         let cppercsw = 1
+         let ypcpz = ypz - 1.5*ypdelz
+      end if; end if; end if; end if
+      .
+      loop for jlevz = 1 1 nlevz
+         let xp2z = xp0z + xpdelz
+         let ypz = ypz - ypdelz
+         
+         .
+         let caz = jlevz
+         call dexgetlevelcoded.dp
+         .
+         . print "colorl jlevz = ^colorl ^jlevz"
+         . pause
+         if colorl exists
+            delete stjunkc; let stjunkc = string word   colorl jlevz
+            color ^stjunkc
+         end if
+         move xp2z ypz; just center; text ^stoutz
+         color blue
+         let xp3z = xp2z + 1
+         move xp3z ypz; just center; text :
+         .
+         if stx1l exists
+            delete stjunk; let stjunk = string word   stx^jz&l  jlevz
+            let string stout2 = ^stjunk
+            let xp4z = xp2z + 2
+            move xp4z ypz; just left; text ^stout2
+         end if
+      end loop
+      .
+      if cppercsw = 1
+         let xpcpz = xp4z + 8
+         just left; hw 2 1; move xpcpz ypcpz; text ^cp
+      end if
+      .
+   end if
+   let ypz = ypz - ypdelz
+end loop
+.
+delete lhz lwz xp0z yp0z xpdelz ypdelz xp2z
+.

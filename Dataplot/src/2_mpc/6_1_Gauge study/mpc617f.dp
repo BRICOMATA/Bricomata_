@@ -1,0 +1,26 @@
+reset data
+reset plot control
+reset i/o
+dimension 500 rows
+label size 3
+. set read format f1.0,f6.0,f8.0,f8.0,f8.0,f8.0,f8.2,f10.4,f10.4
+set read format f1.0,6x,f8.0,42x,f10.4
+. read mpc61.dat run wafer probe mo day op hum y sr
+read mpc61.dat run probe sr
+retain run probe sr subset probe 2362
+let df = sr - sr + 5.
+let var = sr*sr
+let df11 = sum df subset run 1
+let df12 = sum df subset run 2
+let s11 = sum var subset run 1
+let s12 = sum var subset run 2
+let s11 = (5.*s11/df11)**(1/2)
+let s12 = (5.*s12/df12)**(1/2)
+print "s11 = ^s11, df11 = ^df11"
+print "s12 = ^s12, df12 = ^df12"
+let s1 = ((s11**2 + s12**2)/2.)**(1/2)
+let df1=df11+df12
+. repeatability standard deviation and df for run 2
+print "Run 2: repeatability sd = ^s1, df = ^df1"
+. end of calculations
+

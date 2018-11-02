@@ -1,0 +1,933 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/239761287
+ROAuth: Recommendation based open authorization
+Article · July 2011
+DOI: 10.1145/2078827.2078842
+
+CITATIONS
+9
+3 authors, including:
+Mohamed Shehab University of North Carolina at Charlotte 74 PUBLICATIONS 981 CITATIONS
+SEE PROFILE
+
+READS
+72
+Christopher Hudel University of North Carolina at Charlotte 2 PUBLICATIONS 11 CITATIONS
+SEE PROFILE
+
+Some of the authors of this publication are also working on these related projects: Secure OAuth Implementations in Mobile Phones View project Android Keylogging Threat View project
+
+All content following this page was uploaded by Christopher Hudel on 28 May 2014.
+The user has requested enhancement of the downloaded file.
+
+ROAuth: Recommendation Based Open Authorization
+
+Mohamed Shehab
+Department of Software & Information Systems
+University of North Carolina Charlotte, NC, USA
+mshehab@uncc.edu
+
+Said Marouf
+Department of Software & Information Systems
+University of North Carolina Charlotte, NC, USA
+smarouf@uncc.edu
+
+Christopher Hudel
+Department of Software & Information Systems
+University of North Carolina Charlotte, NC, USA
+chudel@uncc.edu
+
+ABSTRACT
+Many major online platforms such as Facebook, Google, and Twitter, provide an open Application Programming Interface which allows third party applications to access user resources. The Open Authorization protocol (OAuth) was introduced as a secure and eﬃcient method for authorizing third party applications without releasing a user’s access credentials. However, OAuth implementations don’t provide the necessary ﬁne-grained access control, nor any recommendations vis-a-vis which access control decisions are most appropriate. We propose an extension to the OAuth 2.0 authorization that enables the provisioning of ﬁne-grained authorization recommendations to users when granting permissions to third party applications. We propose a mechanism that computes permission ratings based on a multi-criteria recommendation model which utilizes previous user decisions, and application requests to enhance the privacy of the overall site’s user population. We implemented our proposed OAuth extension as a browser extension that allows users to easily conﬁgure their privacy settings at application installation time, provides recommendations on requested privacy attributes, and collects data regarding user decisions. Experiments on the collected data indicate that the proposed framework eﬃciently enhanced the user awareness and privacy related to third party application authorizations.
+Categories and Subject Descriptors
+H.4 [Computers and Society]: Public Policy Issues; D.2.8. [Management of Computing and Information Systems]: System Management
+General Terms
+Security, Experimentation
+Keywords
+Privacy, OAuth, Collaboration, Recommendations, Social networks
+Copyright is held by the author/owner. Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee. Symposium on Usable Privacy and Security (SOUPS) 2011, July 20–22, 2011, Pittsburgh, PA USA
+
+1. INTRODUCTION
+Open standards and third party software development have long formed a partnership that aﬀords internet users the tools and capabilities to better manage their own identity, privacy, and conﬁdentiality. Seeing a need for users to better know the privacy policies in force for various websites led the World Wide Web Consortium (W3C) to create an open speciﬁcation titled the Platform for Privacy Preferences (P3P) and the corresponding Preference Exchange Language (APPEL) which is in-use today by various internet websites to provide, in machine readable format, a policy ﬁle specifying that site’s particular privacy policies [3]. This machine readable XML ﬁle was ﬁrst available to plug-in or addon software developed by third parties, such as AT&T’s Privacy Bird [8] before being incorporated directly into web browser software by such manufacturers as Microsoft (Internet Explorer) and then Netscape (Navigator).
+The OAuth open standard protocol is another example of an available standard created to provide users with the ability to share information and resources with third party application components of other, more primary, web applications. For example, the OAuth framework might allow for the sharing of photographs from a primary web-based photo sharing website so that a third party photo printing service may access the permitted photographs [5]. Popular within online social networks, Facebook today represents the largest single OAuth 2.0 implementation permitting a mechanism for third party web based applications to access Facebook user identity and privacy information and resources.
+Third-party software developers have led charges to improve user privacy and security all on their own, using extensible frameworks available in the Chrome, Firefox, and (recently) Safari web browsers. These browser extensions protect users, for example from unwanted advertisements, malicious software installations, and compromise of user credential data. Indeed, Joshi et al [22] showcase a browser plugin that attempts to solve man-in-the-middle attacks prevalent in modern Phishing attacks.
+While the partnering relationship between standards and browser-based extensions is rich in history and likely to continue, there may exist one gap that needs fulﬁlling. Appreciating that individual privacy preferences may be just that - individual - how can a single extension reﬂect the privacy preferences of a unique set of individuals? It is in this vein that we oﬀer our novel research in providing a recommenderbased model that enables users to make important privacybased decisions at the time of third party application installation. Recommendations give users conﬁdence in mak-
+
+1
+
+ing their decisions, especially that most privacy requests are vague and do not clearly convey the accesses requested. The decisions that users make are their own of course, but our algorithm and model provides a mechanism to inform them and provide recommendations based on the collaborative decisions (grant/deny) on similar privacy requests within the user’s larger social network.
+1.1 Contributions
+Our contributions in this space include:
+- A browser-based extension that intercepts the default OAuth 2.0 request ﬂow, interprets it, and provides the user with an easy and usable interface to make decisions that provide for the protection of private identity attributes before application installation.
+- A multi-criteria recommender model approach that provides users with rating measures on requested privacy attributes based on the collaborative eﬀort of users who have historically made grant/deny decisions for similarly requested privacy attributes.
+- A recommendation to extend the Open Authorization speciﬁcation to provide an avenue through which webbrowsers (through browser extensions method or otherwise) might assist users in making informed decisions regarding their full privacy attributes before the installation of a third party application.
+- A user study that shows the results and eﬀectiveness of using our proposed browser extension.
+2. PROBLEM DEFINITION
+The OAuth framework provides a mechanism for thirdparty service providers to request end-user resources from an application without releasing the user’s application access credentials to the service provider. However, speciﬁc implementations may not provide the user with the necessary ﬁne-grain access control, and does not provide any recommendations vis-a-vis which access control decisions may be the most appropriate.
+An example we use throughout this paper is one of the free Facebook online video and voice calling applications available through “friendcameo.com”. 1 The FriendCameo Facebook application requests the following extended permissions when a user ﬁrst installs the application: access to the user’s email address, ability to publish status and post messages to the user’s wall, the ability to access the Facebook chat application, and the ability to enumerate the online presence status of other users (within the ﬁrst user’s social network).
+It becomes quickly clear that several of the extended permissions, once granted, cannot realistically be revoked. For example, once users provide FriendCameo access to their email addresses, they cannot realistically remove that email address from FriendCameo’s servers and databases by preventing further access to the information through Facebook’s application and privacy settings. We ﬁnd there are several user attributes that are practically irrevocable, once granted since the attributes are generally immutable (i.e.: birthday) or generally change with very little frequency (i.e.: hometown locations, religious and political views). (See Figure 1)
+1We make no value judgement of the extended permissions requested by the example applications we present in this paper and the example applications are simply that, examples.
+
+Figure 1: 3rd party application permission request
+We view the permanent loss of personal attributes as only one part of the problem; should a method be devised to permit users a “last line of defense” against such information loss, how may they know best what decisions to take. Can users beneﬁt from a community of knowledge to better inform their own decision making?
+Our novel approach provides both the aforementioned “last line of defense” mechanism and a recommender model based on the decisions of all users within a system, and the previous decisions of an individual user. Later, we show how such a model might further inform individual privacy decisions through prediction.
+3. PRELIMINARIES
+3.1 Third Party Applications and APIs
+Most of the major online platforms such as Facebook, Google, and Twitter, provide an open API which allows third party applications to directly interact with their platform. APIs provide a mechanism to read, write, or modify user information on these platforms through other third party applications on behalf of users themselves. An API comes with a set of methods, each representing a certain user interaction executed through a third party application. For example, the FriendCameo [12] Facebook application is able to post content (e.g. messages, photos) to a user’s Facebook feed/wall using Facebook’s /proﬁle id/feed API method, where proﬁle id is the targeted Facebook user ID. It is important to note that third party applications can potentially execute any API call on behalf of a user, relying on the type and scope of permissions granted to these apps. In the previous example, the FriendCameo application could only perform the /proﬁle id/feed API call given the user has granted it the “publish stream” permission. The full set of permissions available to third party apps are deﬁned by the online platforms, and it is up to third party applications to request the proper subset of permissions required. We believe users should have the ﬁnal decision on whether to grant requested permissions or not.
+3.2 OAuth Standard
+With an increasing trend towards oﬀering online web services that provide third party applications the ability to in-
+
+2
+
+teract through open APIs and access user resources, OAuth was introduced as a more secure and eﬃcient method for authorizing third party applications [32]. Traditional authentication models such as the client-server model require third party applications to authenticate with online services using the resource owner’s private credentials, typically a username and password. This requires users to present their credentials to third party applications, hence granting them broad access to all their online resources with no restrictions. A user may revoke access from a third party application by changing her credentials, but doing so subsequently revokes access from all third party applications that continue to use her previous credentials. These issues are ampliﬁed given the high number of third party applications that potentially get access to a user’s online resources. OAuth uses an intuitive mechanism where the roles of third party applications and resource owners are separated. OAuth does not require users to share their private credentials with third party applications; instead it issues a new set of credentials for each application. These new set of credentials are per application, and reﬂect a unique set of permissions to a user’s online resources. In OAuth, these new credentials are represented via an Access Token. An Access Token is a string which denotes a certain scope of permissions granted to an application, it also denotes other attributes such as the duration the Access Token is considered valid. We are mainly interested in the scope attribute within an Access Token. Access Tokens are issued by an authorization server after the approval of the resource owner. In this paper we extend upon this authorization stage of the OAuth protocol. When a third party application needs to access a user’s protected resources, it presents its Access Token to the service provider hosting the resource (e.g. Facebook, Twitter) which in turn veriﬁes the requested access against the scope of permissions denoted by the Access Token. For example, Alice (resource owner) on Facebook (service provider and resource host) can grant the FriendCameo Facebook application (third party application) access to her email address on her Facebook proﬁle without ever sharing her username & password with FriendCameo. Instead, she authenticates the FriendCameo application with Facebook (authorization server) which in turn provides FriendCameo with a proper Access Token that denotes permission to access Alice’s email address. OAuth provides multiple authorization ﬂows depending on the client (third party application) type (e.g. Web servers, and native applications). In this paper we focus on the Web server authorization ﬂow shown in ﬁgure 2 and detailed in the OAuth 2.0 speciﬁcation [33]. The web server ﬂow is typically used for third party applications that are able to interact with a user’s web browser (e.g. Facebook applications). The authorization ﬂow process consists of three parties: 1)The end-user (resource owner) at browser, 2)The web client (third party application), and 3)The authorization server (usually the service provider, e.g. Facebook). Our main focus will be on step “(A)” and “(B)” within the web server authorization ﬂow [33]. Step “(A)” is where third party applications initiate the ﬂow by redirecting a user’s browser to the authorization server and passes along the requested scope of permissions. In step “(B)”, the authorization server authenticates the end-user, and establishes her decision on whether to grant or deny the third party application’s access request.
+
+End-User at
+Browser
+
+(A)
+
+(C)
+
+Web Client
+
+(A) Client Identifier & Redirect URI
+(B) User authenticates
+(C) Authorization Code
+
+Authorization Server
+
+(D) Client Credentials, Authorization Code, & Redirect URI
+
+(E) Access Token (w/ Optional Refresh Token)
+
+Figure 2: Web Server OAuth Flow
+
+!
+
+3.3 OAuth and User Privacy
+One of the main reasons behind OAuth was to increase user privacy by separating the role of users (resource owners) from that of third party applications. OAuth uses the concept of Access Tokens, where a token denotes a set of credentials granted to third party applications by the resource owners [31]. This avoids the need for users to share their private credentials such as their username & password. It also allows users to revoke access to a speciﬁc third party application by revoking its Access Token. OAuth 2.0 allows third party applications to request a set of permissions via the scope attribute, and for users to grant or deny such requests. If a user grants a third party application’s request, then an Access Token (denoting the scope) is issued for that application, hence granting it the scope of permissions requested. The scope attribute represents the set of permissions requested by third party applications, and will is our main focus in this paper. In the web server authorization ﬂow seen in ﬁgure 2, the scope parameter is part of the request URI that is generated by third party applications (Step “(A)” in ﬁgure 2). It is a list of space-delimited strings, each string mapped to a certain permission or access level. For example, the FriendCameo Facebook application requests permission to post to a user’s Facebook feed/wall, to log in to Facebook chat, to access her email address, and to check her friend’s online/oﬄine presence. FriendCameo requests these permissions with a scope attribute value of “publish stream,xmpp login,email,friends online presence”. The scope value becomes part ‘of the OAuth request URI sent to the authorization server (Facebook’s OAuth implementation uses comas rather than spaces to separate each requested permission). Step “(B)” of ﬁgure 2 is where users grant or deny the requested scope value.
+We propose an extension to the OAuth 2.0 authorization ﬂow regarding the Web Server client proﬁle detailed in section 1.4.1 of the OAuth 2.0 speciﬁcation [32]. Before users make their decision on the requested scope of permissions, we introduce a new level of awareness and control to the user via an in-house developed browser extension. The extension represents a ﬁnal line of defense against third party applications and their requested permissions.
+3.4 Collaborative Filtering
+Recommendation systems are systems that try to assist users in evaluating and making decisions on items by providing them opinions and prediction values as a set of recommendations [35]. These set of recommendations are usually based on other people’s opinions and the potential rel-
+
+3
+
+evance of items to a target user. The ﬁrst recommender
+
+a six stage process as shown in ﬁgure 3 and explained in the
+
+system Tapestry [14], followed the approach of “Collabora-
+
+following steps:
+
+tive Filtering”, in which users collaborate towards ﬁltering documents via their individual reactions after reading certain documents. Since then, collaborative ﬁltering has been widely adopted and is accepted as a highly successful technique in recommender systems [25, 28, 26, 38]. In a context of access control and user privacy, items in a collaborative ﬁltering model can be mapped to individual privacy attributes or permissions. Users make decisions on privacy attributes, i.e. grant them to third party applications or not. This is similar to other recommendation systems in which users make decisions on items, e.g. to rent a movie or not. Users have their own privacy preferences, but may beneﬁt from the community’s collaborative privacy decisions to make their own, especially if they lack the knowledge to make good privacy decisions [20]. The effect of community data on user privacy has been investigated
+
+- (A1): The web client (third party application) redirects the browser to the end-user authorization endpoint by initiating a request URI that includes a scope parameter.
+- (A2): The Permission Guide extension captures the scope value from the request URI and parses the requested permissions. At this step the extension allows users to choose a subset of the permissions requested.
+- (A3): The Permission Guide extension requests a set of recommendations on the parsed permissions. This is achieved by passing the set of permissions to the Recommendation Service.
+- (A4): The Recommendation Service returns a set of recommendations for the permissions requested by the web client.
+
+by Besmer et al. [4], who explored the eﬀect of community
+
+- (A5): Using the set of returned recommendations, the
+
+data on user behavior when conﬁguring access control poli-
+
+extension represents the permissions with their respec-
+
+cies. Their work indicated that community data impacts
+
+tive recommendations in a user friendly way.
+
+user behavior, when substantial visual cues were provided.
+
+- (A6): The Permission Guide extension redirects the
+
+Goecks et al. [13] explored the eﬀects of community data in
+
+end-user’s browser to a new request URI with the new
+
+the domain of ﬁrewall policy conﬁguration and web browser
+
+scope (scope ), assuming the user chooses to modify
+
+cookie management. Their results also indicated that users
+
+the requested permissions.
+
+did utilize community data in making their own decisions. In this paper we propose a collaborative ﬁltering model
+
+4.1 Permission Guide
+
+that utilizes community decisions in providing recommenda-
+
+The Permission Guide is represented by a browser exten-
+
+tions to users who install third party applications requesting
+
+sion that integrates into the authorization process by captur-
+
+access to their privacy attributes.
+
+ing the scope parameter value within the request URI gen-
+
+erated by a third party application. Once the scope is cap-
+
+! ! ! !
+
+4. PROPOSED OAUTH FLOW
+We propose an extension to the OAuth 2.0 authorization ﬂow for Web Servers, by introducing two new modules into the ﬂow: 1)A Permission Guide that guides users through the requested permissions, and shows them a set of recommendations on each of the requested permissions, and 2)A Recommendation Service that retrieves a set of recommendations for the requested permissions following a collaborative ﬁltering model as explained in section 4.2. Our OAuth
+
+tured, the extension parses the requested permissions and presents them in a user friendly manner as shown in Figure 7. A readable label of each requested permission is shown to the end-user e.g. it shows “Facebook Chat” rather than “xmpp login”, and a detailed description for each permission is also shown when the user hovers over a certain permission label.
+The extension also shows users a set of recommendations for the requested permissions. For each permission there is a thumbs-up and a thumbs-down recommendation value.
+
+(A3) Permissions Requested (Scope)
+
+These recommendations represent prediction values that we calculate following our model in section 4.2. These predic-
+
+Permission Guide
+Extension
+
+(A4) Permission Recommendations
+
+Recommendation Service
+
+tion values represent the likeliness of a user to grant or deny a certain permission based on her previous decisions and on the collaborative decisions of other users. Users who have
+
+(A5) Show Recommendations
+
+(A2) Request URI + New Scope
+
+(A6) Client Identifier, Redirect URI, & New Scope
+
+End-User at
+Browser
+
+(B) User authenticates (C) Authorization Code
+
+Extension
+Authorization Server
+
+not made any decisions yet, are shown recommendations based on other user decisions.
+The extension allows users to customize the requested permissions by checking or unchecking individual permissions, where a checked permission is one the user wishes to grant to the third party application and an unchecked permission is one she wishes to deny access to.
+
+(A1)
+
+(C)
+
+Request URI
+
+Web Client
+
+(D) Client Credentials, Authorization Code, &
+Redirect URI
+(E) Access Token (w/ Optional Refresh Token)
+
+Once a user decides on the permissions she wishes to grant and deny, she simply needs to click a Set Permissions button on the extension (blue button in Figure 7). This will trigger the extension to generate a new request URI with a new scope scope , and forward the user’s browser to this new
+
+request URI. scope will always be a subset of the original
+
+Figure 3: Proposed OAuth Flow
+
+requested scope, i.e. scope ⊆ scope. An example scope from the FriendCameo application we
+
+extension focuses on step “(A)” of the Web Server authoriza-
+
+saw earlier could be as follows:
+
+tion ﬂow in OAuth 2.0 [33]. We revise step “(A)” to become
+
+scope = publish stream
+
+4
+
+reﬂecting the user’s desire to allow FriendCameo to post to her feed/wall, but deny it access to her email, Facebook chat and friend’s online/oﬄine presence. Note that using a subset of the permissions requested could potentially hinder the functionality of a third party application once installed. Investigating such consequence is out of the scope of this paper, but we include it as part of our future work.
+Our Permission Guide extension also collects the user’s decisions on the requested permissions, hence allows us to generate a data set of decisions to be used in our recommendation model explained in section 4.2. These decisions are uploaded to our servers once a user sets her desired permissions within the extension, i.e. clicks the Set Permissions button. The data uploaded to our servers includes: app id, requested perms, decisions, recommendations, where the app id is the application’s unique id which is assigned by the service provider (e.g. Facebook), the requested perms are the scope of permissions requested by the third party application, the decisions are the individual user decisions (grant or deny) on each of the requested permissions, and the recommendations are the recommendation values at the time the user made her decision.
+Our goal is to provide a simple and usable user interface for interacting with permission requests, hence increasing user awareness and providing an easy mechanism for guiding users in making their decisions.
+4.2 Recommendation Model
+We propose a Recommendation Service component that extends upon our Permission Guide extension. Let A, U and P represent the set of applications, users and permissions respectively. A user ui ∈ U can make a decision di ∈ {grant, deny} on a permission pj ∈ P for an application ak ∈ A. An application ak which requests permissions p1, · · · , pm is mapped to a set of decisions d1, · · · , dm made by the user installing ak.
+Our model follows the multi-criteria recommendation model where user recommendations are calculated per criterion [25, 2]. The model utilizes the set of permissions P as a set of criteria, i.e. each permission pj ∈ P represents an individual criterion within the model. The multi-criteria approach ﬁts our model as decisions are made per permission (criteria) rather than an application as a whole. We model a user’s utility for a given application with the user’s decisions d1, · · · , dm on each individual permission p1, · · · , pm using Function 1.
+D : U sers × Applications → d1 × · · · × dm (1)
+Function 1 represents a user’s overall decision on a certain application via the set of decisions made on each individually requested permission. That is, a user ui makes a decision di on an application ak with respect to an individual permission. For each permission pj, there exists a matrix Cpj representing user decisions on pj for each application ak ∈ A, see Figure 4. A matrix entry di with a value of 1 denotes a user has granted ak the permission pj, whereas a 0 denotes a deny. Entries with “?” values denote the user is yet to make a decision on permission pj for application ak. Our model provides recommendations to users that guide them in making these future decisions. Applications that do not request a permission pj have an empty entry in Cpj and are handled properly in our implementation.
+
+Users
+
+Applications
+
+a1
+
+a2
+
+.
+
+.
+
+an
+
+p1 : birthday
+
+u1
+
+1
+
+?
+
+0
+
+1
+
+0
+
+p2 : email
+
+u2
+
+?0
+
+?
+
+0
+
+0
+
+1
+
+p3 : location
+
+.
+
+1? 1
+
+?
+
+0
+
+1
+
+0
+
+.
+
+10 ?
+
+1
+
+1
+
+0
+
+?
+
+um
+
+00 0
+
+0
+
+?
+
+?
+
+1
+
+11
+
+0
+
+0
+
+?
+
+?
+
+00???
+
+Figure 4: A three-permission (criteria) model with
+Cp1 , Cp2 , & Cp3 . User decisions on applications made per-permission
+
+For example, let p1 = birthday, p2 = email, and p3 = location, where each represents a single criterion within a three-criteria model. Let u1 = Alice who installed application a1 that requests access to the permissions birthday, email, and location. As illustrated in Figure 4, Alice has granted a1 the permissions birthday and location (d1 = grant, d3 = grant), whereas denied email (d3 = deny). Alice has yet to make a decision on a2 i.e. a single decision on each requested permission ∈ {birthday, email, location}. Our proposed model utilizes the set of decisions for each Cpj , hence providing a recommendation that ﬁts each criterion.
+4.3 Collaborative Application Filtering
+We deﬁne P rpj,ak as the overall probability of permission pj being granted to application ak. The various probabilities can be represented as a P ermissions × Applications matrix as seen in Figure 5. Each entry Pjk in the matrix maps to the P rpj,ak for permission pj and application ak. Lower P r values indicate less user willingness towards granting certain permissions to an application. These probability values are based on our collected data set as explained in detail in section 6. Note that these values are driven by user decisions within! our framework and are frequently updated. Figure 6 shows!an example set of applications {a1, a2, a3, a4, a5}, permissions (birthday,email,location,sms,photos) and their corresponding P rpj ,ak values. For example, P r32 = P rlocation,a2 = 0.15, which denotes a low probability of the permission location being granted to application a2 by users who installed a2.
+Applications
+
+Pr11 Pr12
+
+!
+
+Pr1n
+
+Pr21
+!!
+
+Permissions
+
+!
+
+Prm1
+
+Prmn
+
+Figure 5: Permissions × Applications matrix In our system, users collaborate towards increasing or de-
+
+5
+
+Permissions
+
+Applications
+
+a1
+
+a2
+
+a3
+
+a4
+
+a5
+
+birthday 0.6 0.75 1
+
+0.2 0.3
+
+email 0
+
+0.9 0.25 0.7 0.1
+
+location 1 0.15 0 0.35 0
+
+sms 0
+
+0.4
+
+0
+
+1
+
+0.5
+
+photos 0.2
+
+0
+
+0.6 0.25 0
+
+Figure 6: Example P rpj,ak values.
+
+creasing the P rpj,ak values of various applications, hence ﬁltering applications according to the willingness of users to grant them certain permissions. Filtering applications is based on similarity values calculated using the P rpj,ak of each application. We also use the similarity value to predict recommendation values within our model.
+Collaborative ﬁltering algorithms have mainly been based on one of two popular similarity measures, 1)Pearson Correlation and 2)Cosine-similarity [18, 28]. Our model measures similarities between applications using Pearson Correlation based on the P ermissions×Applications matrix. We use an application-based similarity measure similar to item-based similarity in Collaborative Filtering algorithms. Item-based similarity proved to be more accurate than others such as user-based similarity [37], hence we follow a similar approach where items in our context map to applications.
+Equation 2 represents our application-based similarity measure, which in terms is the Pearson correlation value between applications ai and aj, where P is the set of all permissions in our system and P rai is the average probability for application ai being granted a permission in P.
+
+sim(ai, aj ) =
+
+(P rp,ai − P rai )(P rp,aj − P raj )
+∀p∈P
+
+(P rp,ai − P rai )2
+
+(P rp,aj − P raj )2
+
+∀p∈P
+
+∀p∈P
+
+(2)
+
+Applications that don’t request a certain permission pj have a P rpj,ai of zero. Also note that −1 sim(ai, aj ) 1 where -1 denotes a reverse correlation between ai and aj, 0 denotes no correlation, and 1 denotes a exact correla-
+
+tion. Applications which are similar and highly correlated,
+
+are those which request a similar set of permissions, and
+
+have similar P rpj,ak values for each of their requested permissions. For example, if both applications a1 & a2 requested the same set of permissions {p1, p2}, and they have a P rp1,a1 = P rp1,a2 and a P rp2,a1 = P rp2,a2 , then a1 and a2 are considered highly correlated and their applicationsimilarity value sim(ai, aj) will be close to 1.
+When predicting recommendation values for permissions
+
+of application ai, we make sure they are based on ai’s “Nearest Neighbors”, that is, the set of applications where sim(ai, aj) is highest and sim(ai, aj) 0 [35].
+
+Prediction Model.
+When a user ui, say Alice, wants to install application ai,
+we calculate a set Rai , where rui,pj ∈ Rai is a prediction value for permission pj requested by ai. rui,pj ∈ Rai is a prediction of how likely Alice would be willing to grant pj
+
+to ai. Equation 3 is how we calculate rui,pj for application ai. Note that we calculate rui,pj for each pj requested by an application ai.
+
+rui,pj = P rpj +
+
+a∈N sim(ai, a) ∗ dui,a a∈N |sim(ai, a)|
+
+(3)
+
+rui,pj is based on multiple factors: First, P rpj , which is the average probability permission pj is granted over all applications in A. P rpj can easily be calculated via it’s corresponding row in the P ermissions×Applications matrix (see
+Figure 5). Note that P rpj is driven by all users in our system. Second, sim(ai, a), which is the application-similarity value between ai and a ∈ N , where N represents ai’s “Nearest Neighbors”. The number of applications in N depends
+on the application-similarity values calculated by sim(ai, aj) earlier. Third and ﬁnally, dui,a which is ui’s previous decisions on the applications within N in regards to permission
+pj. dui,a values are captured via the Cpj matrix explained earlier (see Figure 4).
+Notice that the prediction values calculated are based on
+both a user’s previous decisions and on the decisions of other
+users, hence capturing the essence of Collaborative Applica-
+tion Filtering.
+
+5. BENEFITS AND ATTACKS
+In presenting our browser extension, we must also acknowledge the various attacks against which it might be purported. We believe the most likely attack scenarios all center around abusing the extension to manipulate the recommender model into recommending decisions that most favor the attacker. These attacks might take the form of:
+a) Frequent use of the extension for the same application. Attackers may use the extension to load the same application repeatedly in the hopes to increase the frequency of their own decision in the underlying database. For example, an attacker may want to direct users to reveal their email address and so may attempt to load the OAuth request repeatedly, choosing that option.
+We can mitigate this risk considerably by linking the user’s request to their Facebook user id (available to the plug-in through the DOM model of the browser page) and ensuring that only the most recent permission decisions are stored in the database.
+b) Decoding and manipulation of the API. Attackers may decode the extension and exploit its internal programming interface to make direct calls to the underlying web service in an attempt to inﬂate user statistics with an eye to inﬂuencing decisions. Our previous mitigation method will be useless here since any information sent to the web-service may be captured and replayed, perhaps varying slightly the unique user information in an appearance of legitimacy. Further complicating any countermeasures is the fact that the entire code resides on the client computer and can reasonably be suspect to successful reverse engineering.
+In this case, we propose to use out-of-band methods to attempt to deter and detect fraud. We can use the source IP address as one method to further link an individual web service call to a unique user. This has an admittedly loss of ﬁdelity when user requests are routed through proxies (such as those found in institutional use, or at very large internet service providers). Combining an IP address with a minimum time interval between requests may provide us
+
+6
+
+adequate protection in this regard. Limiting unique webservice calls to calls within a 15 minute window from the same source IP address may serve as a suﬃcient preventative control; post-request log ﬁle analysis may further provide some detective measures towards preventing fraud.
+Our web-service must also be resilient against known web attacks and our servers undergo web application and server scanning to prevent the most common and known attack vectors such as buﬀer overﬂow, SQL injection, and crosssite scripting attacks.
+6. EXPERIMENTS
+We evaluate our proposed OAuth 2.0 extension using Facebook as our target platform, keeping in mind that our extension is also applicable to other OAuth 2.0 platforms. Facebook is an ideal target given its large user base of over 500 million active users, and its extensive directory of third party applications (over 550,000 active applications) [9]. Facebook is also one of the major platforms to adopt the OAuth 2.0 protocol, which makes it a good ﬁt for our evaluation process.
+Figure 7: Permission Guide Plugin UI To evaluate our proposed OAuth extension, we implemented two main components: a permission guide, and a recommendation service.
+Permission Guide.
+Our proposed Permission Guide in section 4.1 was implemented as a Firefox plugin using a combination of Mozilla’s XML User Interface Language (XUL) [29] and Javascript. XUL was used to build the user interface of the plugin as seen in ﬁgure 7 whereas Javascript was used to interact with our back-end recommendation service API. The plugin was tested on Firefox versions 3.6 and 3.5 running on Mac OS X 10.6, Linux CentOS and Windows (XP, Vista) machines.
+Once installed, the extension resides within the browser’s bottom status bar and begins monitoring, waiting for a Facebook application installation process to commence. The extension does not otherwise interfere with a user’s browsing experience. Once a Facebook application installation process is detected, the extension is activated and instantly appears in the bottom right corner of the browser’s window. An installation process is detected by parsing the URLs a user visits and searching for the following:
+1. Permission Request: The URL for permission requests by Facebook applications can be identiﬁed by locating the substrings permissions.request and facebook.com/connect/uiserver, denoting a Facebook application permission request.
+
+2. Request Type: If a permission request is detected, the plugin looks for the type of request issued, i.e. Basic permission access, or Extended permission access. A basic permission access request is identiﬁed by a missing or empty scope attribute within the permission request URL. Otherwise, if the scope attribute is located, the extension recognizes that an extended permission access request in progress.
+Recommendation Service.
+The service is a PHP based solution running on Apache 2.2.14 with MySQL 5.1.5 as the data store solution. We run the service on a desktop machine running Linux CentOS, with 2GB RAM and a 2.0 GHz Intel Xeon CPU. The recommendation service applies the recommendation based schema explained in section 4.2 by providing two private API methods which are used by our Firefox plugin. The ﬁrst API method is the getRecommendations method which accepts an app id and a set of requested permissions. It then returns a set of recommendations in a JSON [23] format which maps a recommendation value to each permission. The second API method provided is the postDecisions method which is invoked by our plugin when a user makes her decision on the requested permissions. This API method takes an app id, a set of requested permissions, a set of user decisions on these permissions, and the set of recommendation values displayed at decision time. These values are stored onto our recommendation back-end server and used later in our recommendation based schema.
+For our evaluation purposes, we are primarily focused on extended permission requests because those are the permissions which are customizable by users on the targeted platform (Facebook), whereas basic permissions are mandatorily granted to each installing application. In the case of basic permission access requests, our extension notiﬁes users that basic access is requested, and no customization is possible. In the case of extended permission requests for application ak, the plugin performs the following :
+1. Extracts the extended permissions requested by parsing the scope value from within the request URI. For Facebook, the scope value is a list of comma-delimited strings, each string representing a certain requested permission.
+2. Asynchronously retrieves recommendations for the set of requested permissions by invoking our getRecommendations API. Once the recommendations are retrieved, the plugin user interface is updated properly.
+3. Dynamically generates the user interface to be shown to the user based on the requested permissions and their respective recommendation values. Figure 7 is an example interface for
+scope=publish stream,oﬄine access,user photos,email
+4. Attracts the user’s attention by changing the plugin status to ”Customize Now!” and revealing the user interface at the bottom right corner of Firefox.
+Figure 8 illustrates the overall process of handling and detecting a Facebook application permission request.
+Once the user makes a decision on the permissions she would like to grant or deny by clicking the ”Set Permissions” button, the plugin will perform two actions: 1)Invoke
+
+7
+
+Parse request URI
+
+scope exists?
+
+YES
+
+NO
+
+Extract permissions
+
+Basic Access
+
+Get recommendations
+
+Notify User
+
+Build user interface
+
+Reveal & activate plugin
+
+Figure 8: Handling Permission Requests
+our postDecisions API method passing along the user decisions. 2)Generate a new scope value using the permissions granted by the user. Using this new scope scope the user is then redirected to a customized application request URI, resulting in a new Facebook application permission request page. At this point the user has defended herself against unnecessary accesses by applications. It is important to note that our approach does not allow applications to get access to private data (e.g. email) at all, because we prevent this before the application is installed. The default approach by Facebook is to remove access to private data after the application is installed, which is realistically not suﬃcient because applications have already gotten access to the data they need.
+6.1 Results
+Our proposed browser extension is hosted on the Mozilla Add-Ons website under the add-on name (FBSecure)2, in addition to our own website3. These two websites, in addition to using Twitter [39], were used as means of recruiting participants for this study which is approved by our university’s IRB. The extension was installed by 1286 Facebook and Firefox users who installed 1561 unique Facebook applications. The results summarized in this section are based on the population of users who installed our Firefox extension, use Facebook, and sought out privacy extensions. This user sample is mainly biased towards privacy aware users, but also includes regular users recruited via Twitter, whom did not speciﬁcally seek out privacy extensions.
+We gathered over 4700 user decisions on 56 diﬀerent Facebook extended permissions. In this section we present the evaluation of our recommendation model based on the user decisions collected during the usage of the plugin. For every application permission request, our extension enabled the collection of the details of the requested permission, the generated recommendation, and the user selected permission settings. Figure 9(a), shows the probability of applications requesting diﬀerent permissions, for example we found that the most popular requested permission is the “publish stream” permission, which enables apps to post messages on a user’s wall, and is requested by 45% of the Facebook apps. Other popular permissions include email, ofﬂine access and user birthday.
+Over all our user population, Figure 9(b) shows how likely
+2https://addons.mozilla.org/firefox/addon/fbsecure 3http://liisp.uncc.edu/fbs
+
+users were willing to grant diﬀerent permissions. Our results show that users have varying willingness towards diﬀerent permissions, for example only 31% of the users shared their email will apps, while 58% shared their online status. Note that some of the permissions requested from a user to give application access to his friends’ information, for example “friends location”. Users were on average 12.3% more willing to share their friends’ data compared to their own data. Figure 9(c), summarizes distribution of the number of permissions requested by applications, with an average of 3.1 permissions requested per application. Figure 9(d), shows the average number of granted permissions for apps requesting permissions, it can be noted that on average applications are granted around 44.7% of the permissions that are requested. Figure 9(e), shows the distribution of number of applications by users who installed the plugin, on average the plugin was used to install 5.2 applications. The extension provides users with recommendations for each of the application requested permissions. The recommendation is presented to the user as thumbs up and thumbs down with their associated recommendation values based on the the recommender model presented in previous sections. We are interested in evaluating whether the recommender system properly predicts the user’s decision. Also we are interested in evaluating what is the lowest (highest) recommendation value that will inﬂuence users into granting (denying) a requested permission, we refer to this value as the threshold T . Where users said to be encouraged to grant the permission if the recommendation is higher than T and to deny otherwise. In this case we have four possible outcomes for the recommended and decided value, as shown in Table 6.1. In literature there are several proposed metrics for evaluat-
+
+Recommended Not Recommended
+
+Used
+
+True Positive (TP) False Negative (FN)
+
+Not Used False Positive (FP) True Negative (TN)
+
+Table 1: Classiﬁcation based on user decisions
+
+ing recommender system performance, we focus on the most
+
+adopted metrics in literature which are based on three mea-
+
+sures namely accuracy, precision and recall [19]. Accuracy of
+
+the recommender system is the degree of closeness of the rec-
+
+ommender system to the actual decision taken by the user,
+
+which
+
+is
+
+calculated
+
+as
+
+T
+
+P
+
+T P +T N +T N +F P +F
+
+N
+
+.
+
+The
+
+precision
+
+or
+
+the
+
+repeatability of the recommender system, is a measure of the
+
+degree to which repeated recommendations under the simi-
+
+lar conditions generate the same results, which is computed
+
+as
+
+T
+
+TP P +F
+
+P
+
+.
+
+The recall
+
+or
+
+sensitivity is
+
+a
+
+measure
+
+of
+
+the
+
+abil-
+
+ity of the recommender system to select instances of either
+
+to
+
+recommend
+
+or
+
+not,
+
+which
+
+is
+
+computed
+
+as,
+
+T
+
+TP P +F
+
+N
+
+.
+
+Fig-
+
+ure 10, shows the accuracy, precision and recall calculated
+
+for diﬀerent threshold values. Note that the system main-
+
+tained an accuracy about 90% over all threshold values. The
+
+precision and recall are inversely proportional with a break
+
+even region around the threshold value of 45%, which could
+
+explain that the recommendation value of 45% or higher is
+
+an indication that the system is recommending to grant the
+
+requested permission, and lower than 45% is recommending
+
+to deny the permission. Also note that the system achieves
+
+a precision and recall values of 92% and 85% around this
+
+threshold.
+
+In addition to investigating the accuracy, precision and
+
+recall measures we further investigated the causality of our
+
+8
+
+publish_stream email
+offline_access user_birthday read_stream
+user_photos user_likes
+friends_photos user_location
+friends_birthday user_about_me
+user_status user_work_history
+user_interests friends_location
+user_videos friends_relationships
+user_relationships user_hometown user_events
+friends_work_history friends_likes user_groups
+user_activities user_website user_religion_politics user_education_history read_friendlists friends_status friends_videos friends_website user_online_presence read_mailbox friends_about_me friends_hometown friends_groups friends_events
+user_notes friends_religion_politics
+friends_interests read_requests read_insights friends_notes
+
+0
+
+5
+
+10 15 20 25 30 35 40 45 50
+
+Pr(App. requests permssion)
+
+(a) Probability of Requesting a Permission
+
+friends_notes read_requests read_mailbox
+user_website user_relationships
+friends_groups friends_religion_politics
+user_online_presence friends_videos
+friends_website read_friendlists
+user_status user_groups read_stream user_religion_politics user_videos user_hometown user_about_me friends_about_me user_interests read_insights
+user_notes friends_relationships
+user_activities friends_work_history
+friends_status friends_location friends_birthday
+user_photos publish_stream user_work_history
+user_likes friends_hometown user_education_history
+user_events friends_photos
+friends_likes friends_events
+user_location offline_access user_birthday friends_interests
+email
+
+0
+
+10 20 30 40 50 60 70 80 90 100
+
+Pr(Allow Requested Permission)
+
+(b) Probability of Allowing a Requested Permission
+
+25
+
+100
+
+50
+
+20
+
+80
+
+15
+
+Pr(Users installing M Apps)
+
+60
+
+Average number of granted permissions (%)
+
+40
+
+30
+
+Pr(App requesting N permissions)
+
+10
+
+40
+
+20
+
+5
+
+20
+
+10
+
+0
+
+0
+
+0
+
+0 2 4 6 8 10 12 16 18 23 30 Number of requested permissions (N)
+(c) App. Requested Permissions
+
+0 2 4 6 8 10 12 16 18 23 30 Number of requested permissions
+(d) App. Granted Permissions
+
+1 3 5 7 9 12 15 18 23 34 50 Number of Apps installed (M)
+(e) User Plugin Usage Stats
+
+Figure 9: Application and User Permission Probability Proﬁles
+
+recommendation scheme. That is, do users who use the recommendation based scheme less likely to grant permissions to applications. To investigate, our browser extension was designed to accommodate two groups of users. The ﬁrst group (G1), are users who were not shown the recommendation values (see Figure 11(a)). The second group (G2), are users who were shown the recommendation values generated by the recommendation system (see Figure 11(b)). The plugin randomly selected users who belonged in each of the groups. For each group we recorded the users’ openness, which is the percentage of granted permissions for each application installed. The average user openness of G1 and G2 were 57.4% and 33.2% respectively, which indicates that users who were not presented with the recommendation were more likely to grant permissions to applications. To compare the two groups we performed a T-test of the hypothesis to investigate the following question, “on average, are users in G2 less open than users in G1?”. Using the collected data,
+
+with a signiﬁcance level of 5% this hypothesis was accepted (P-Value of 0.0001). These results show that the users who were presented with the recommendation values were less open to granting permissions to applications. Note that, in this experiment there was no control over speciﬁc apps within each group. The results presented in this experiment are based on the average openness values calculated over all installed apps in both groups. This experiment can be further enhanced by controlling speciﬁc apps across both groups, which will be addressed in future experiments.
+7. RELATED WORK
+Developing usable tools that provide ﬁne-grained control over user private data is a highly emerging problem in online platforms especially within social networks (e.g. Facebook, Twitter, MySpace) [15, 1, 6, 17]. Studies such as the one by Acquisti and Gross [16, 1] indicate user concern over
+
+9
+
+90 100
+
+90 100
+
+90 100
+
+80
+
+Recall (%)
+
+80
+
+Precision (%)
+
+80
+
+Accuracy (%)
+
+70
+
+70
+
+70
+
+60
+
+60
+
+60
+
+50
+
+50
+
+50
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+Recommendation Value Threshold (T)
+
+(a) Accuracy
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+Recommendation Value Threshold (T)
+
+(b) Precision
+
+0
+
+20
+
+40
+
+60
+
+80
+
+100
+
+Recommendation Value Threshold (T)
+
+(c) Recall
+
+Figure 10: Recommendation system accuracy, precision and recall evaluation
+
+(a) Group (G1) no recommendation shown
+
+(b) Group (G2) recommendation shown
+
+Figure 11: Recommendation experimental setup
+
+their privacy on social networks while most users did not apply strict privacy settings on their online social proﬁles. This was mostly due to the lack or poor understanding of what privacy controls are available to them. Our work in this paper focuses on providing a usable tool via a browser extension which allows for users to easily understand and customize their privacy settings at application installation time. We also increase user awareness by providing them a set of recommendations on the requested privacy attributes.
+Using browser-based plugins and extensions is another widely used approach in aiding information privacy. Jenkin et al. [21] originally identiﬁed this approach to address the problem of ”an information provider wanting to serve secrets embedded within regular web pages to authorized users“. The authors’ original italicized elements hold true for our model, substituting users for information providers, identity attributes for secrets, and authorized third party applications for authorized users. Today the “open source” model is routinely used to enable community-contributed plug-ins for web browsers that aid in some aspect of security; as one example, the Mozilla Firefox browser boasts over 500 security and privacy plug-ins available at their add-ons website [30]. As part of this community we made our browser extension available to the public via Mozilla’s website.
+
+Felt et al. [11] detail a novel solution for protecting privacy within social networking platforms through the use of an application programming interface to which independent application owners would agree to adhere to. Our approach requires no such agreement and, barring a wholesale adoption of a privacy proxy such as the one which Felt proposes, still enables the user to protect their information attributes. We achieve this by utilizing the already popular OAuth 2.0 authorization ﬂow and providing a seamless experience to users for customizing and protecting their private information attributes.
+Fang and LeFevre’s work asserts the value in providing highly accurate privacy settings with reduced user input [10]. Using real user input, they infer a set of privacypreferences using a machine learning approach. While the authors’ study is based on real users, i.e collecting data from real users, they do not provided a technique that applies the inferred privacy settings onto a user’s real online proﬁle. Our implemented browser extension is not only based on real user data, but also capable of applying a user’s desired privacy decisions to their real online proﬁle, in this case their Facebook proﬁle. They also focus on privacy settings related to a user’s friends network, where our work focuses on third party applications which we believe represent a big-
+
+10
+
+ger threat to user privacy, especially given the huge catalog of third party online social applications which request access to a user’s private data and are also able to execute actions on behalf of users (e.g. posting images to a user’s proﬁle, or sending an SMS message). We also note that using a machine learning technique is not ideal in situations where instant privacy suggestions are required, which is the case when installing third party applications within social networks such as Facebook.
+Besmer et al. [4] demonstrated in their research the value of social navigation cues in prompting users to make informed privacy decisions; where that research was not concerned with the type of data and arbitrarily assigned a recommended positive or negative cue for each item, our research is very speciﬁcally tied to data types and our recommender model provides cues that are based on real user privacy decisions. Our work is also signiﬁcantly diﬀerent in that we provide a real life user study through a real world implementation of a browser extension that integrates with a user’s actual Facebook proﬁle, where the research by Besmer et al. was experimental. We also note that our browser extension applies a user’s privacy decisions onto their real privacy settings within Facebook.
+While much has been researched about the privacy impacts of recommender systems themselves [36, 34, 7], little research appears to be available for the use of recommender systems in aiding privacy and security systems. One notable exception is in the research of Kelly et al. [24] where the authors demonstrated the beneﬁt of combining collaboration among a user population in the suggestion of an individual user’s privacy policy. They also propose an incremental model for optimizing a user’s policy over time. We ﬁnd this approach not optimal when dealing with third party applications, that once installed, can harvest a user’s private social network data. Optimal and instant privacy protection should be provided to users at installation time, which we achieve through our browser extension.
+Liu and Terzi oﬀer a framework for deriving a “privacy score” to inform the user of the potential risk to their privacy created by their activities within the social network [27]. However, such research does not account for the discrete control over attributes which our research enables.
+Goecks et al. [13] explore the eﬀects of community data in the domains of ﬁrewall policy conﬁguration and web browser cookie management. Their research indicates that users utilized community data in making their privacy decisions. They also investigate the eﬀects of informational cascades and the possible misuse of community data within social navigation systems. They present two approaches for mitigating the eﬀects, and we believe these can complement our work.
+8. CONCLUSION AND FUTURE WORK
+Usable privacy conﬁguration tools are essential in providing user privacy and protecting their data from third party applications in social networks. We proposed an extension to the web server authorization ﬂow of OAuth, and implemented a browser-based extension that integrates into the existing authorization ﬂow, and provides users the ability to easily conﬁgure their privacy settings for applications at installation time. We also proposed a multi-criteria recommendation model based on collaborative ﬁltering which incorporates the decisions of the community and previous de-
+
+cisions made by an individual user. Based on this model our browser extension provides users with recommendations on permissions requested by applications. We successfully demonstrate that our extension, combined with our multicriteria recommendation model leads to the preservation of irrevocable, immutable private identity attributes and the preventing of their uninformed disclosure during application installation. Among popularly requested extended permissions, individuals - when given the choice - will, in the majority of cases, deny the request. We demonstrate the effectiveness of the recommendations through a causal group of users who were not shown any recommendations, and we found them to be more willing to grant permissions to third party applications than those who were provided with recommendations.
+In the future, we will investigate cases where over time, users might setup multiple privacy conﬁgurations for the same application. We will investigate possible reasons for this, such as: a user’s increased privacy awareness, or misconﬁgurations that hinder an application’s ability to function properly. In the later case, we can build a feedback mechanism that handles such misconﬁgurations. We also plan on investigating the eﬀect of using diﬀerent visual styles of showing recommendations. Instead of thumbs up and down, we could explore using a horizontal bar indicating the recommendation value and adapting its color to the value itself. We will also investigate clustering applications based on their functionality before composing the recommendations and incorporate this the similarity measure. Finally, we want to test our proposed framework in OAuth 2.0 environments other than Facebook, plus provide various versions of our browser extension that are compatible with other browsers such as Google Chrome, and Safari.
+9. ACKNOWLEDGEMENTS
+This work was funded by the National Science Foundation (NSF-CNS-0831360).
+10. REFERENCES
+[1] A. Acquisti and R. Gross. Imagined communities: Awareness, information sharing, and privacy on the facebook. In Privacy Enhancing Technologies, pages 36–58, 2006.
+[2] G. Adomavicius and Y. Kwon. In Recommender Systems Handbook: A Complete Guide for Research Scientists and Practitioners, chapter Multi-Criteria Recommender Systems - Forthcoming. Springer, 2010.
+[3] G.-J. Ahn, M. Ko, and M. Shehab. Privacy-enhanced user-centric identity management. In ICC, pages 1–5, 2009.
+[4] A. Besmer, J. Watson, and H. R. Lipford. The impact of social navigation on privacy policy conﬁguration. In Proceedings of the Sixth Symposium on Usable Privacy and Security, SOUPS 2010, Redmond, Washington, USA, July 14-16, 2010.
+[5] W. Bin, H. H. Yuan, L. X. Xi, and X. J. Min. Open identity management framework for saas ecosystem. In e-Business Engineering, 2009. ICEBE ’09. IEEE International Conference on, pages 512 –517, 2009.
+[6] D. Carrie and E. Gates. Access control requirements for web 2.0 security and privacy. In Proc. of Workshop on Web 2.0 Security & Privacy (W2SP 2007), 2007.
+
+11
+
+[7] S. Chen and M.-A. Williams. Towards a comprehensive requirements architecture for privacy-aware social recommender systems. In APCCM ’10: Proceedings of the Seventh Asia-Paciﬁc Conference on Conceptual Modelling, pages 33–42, 2010.
+[8] L. F. Cranor. P3p: Making privacy policies more useful. IEEE Security and Privacy, 1:50–55, 2003.
+[9] Facebook. Facebook Press Room. http://www.facebook.com/press/info.php?statistics, 2010.
+[10] L. Fang and K. LeFevre. Privacy wizards for social networking sites. In M. Rappa, P. Jones, J. Freire, and S. Chakrabarti, editors, WWW, pages 351–360. ACM, 2010.
+[11] A. Felt and D. Evans. Workshop on web 2.0 security and privacy. oakland, ca. 22 may 2008. privacy protection for social networking platforms, 2008.
+[12] FriendCameo, Inc. FriendCameo. http://friendcameo.com, 2010.
+[13] J. Goecks, W. K. Edwards, and E. D. Mynatt. Challenges in supporting end-user privacy and security management with social navigation. In Proceedings of the 5th Symposium on Usable Privacy and Security, SOUPS ’09, pages 5:1–5:12, New York, NY, USA, 2009. ACM.
+[14] D. Goldberg, D. Nichols, B. M. Oki, and D. Terry. Using collaborative ﬁltering to weave an information tapestry. Commun. ACM, 35(12):61–70, 1992.
+[15] K. K. Gollu, S. Saroiu, and A. Wolman. A social networking-based access control scheme for personal content. Proc. 21st ACM Symposium on Operating Systems Principles (SOSP ’07). Work in progress.
+[16] R. Gross and A. Acquisti. Information revelation and privacy in online social networks. In Proceedings of the 2005 ACM workshop on Privacy in the electronic society, WPES ’05, pages 71–80, New York, NY, USA, 2005. ACM.
+[17] M. Hart, R. Johnson, and A. Stent. More content less control: Access control in the Web 2.0. Web 2.0 Security & Privacy, 2003.
+[18] J. L. Herlocker, J. A. Konstan, A. Borchers, and J. Riedl. An algorithmic framework for performing collaborative ﬁltering. In Proceedings of the international ACM SIGIR conference, SIGIR ’99, pages 230–237, New York, NY, USA, 1999. ACM.
+[19] J. L. Herlocker, J. A. Konstan, L. G. Terveen, and J. T. Riedl. Evaluating collaborative ﬁltering recommender systems. ACM Trans. Inf. Syst., 22:5–53, January 2004.
+[20] A. Herzog and N. Shahmehri. User help techniques for usable security. In Proceedings of the 2007 symposium on Computer human interaction for the management of information technology, CHIMIT ’07, New York, NY, USA, 2007. ACM.
+[21] M. Jenkin and P. Dymond. A plugin-based privacy scheme for world-wide web ﬁle distribution. In System Sciences, 1998., Proceedings of the Thirty-First Hawaii International Conference on, volume 7, pages 621 –627 vol.7, Jan. 1998.
+[22] Y. Joshi, D. Das, and S. Saha. Mitigating man in the middle attack over secure sockets layer. In 2009 IEEE
+
+International Conference on Internet Multimedia Services Architecture and Applications (IMSAA), pages 1–5. IEEE, December 2009.
+[23] JSON. JSON. http://tools.ietf.org/html/rfc4627, 2006.
+[24] P. G. Kelley, P. Hankes Drielsma, N. Sadeh, and L. F. Cranor. User-controllable learning of security and privacy policies. In AISec ’08: Proceedings of the 1st ACM workshop on Workshop on AISec, pages 11–18, New York, NY, USA, 2008. ACM.
+[25] H.-H. Lee and W.-G. Teng. Incorporating multi-criteria ratings in recommendation systems. In IRI’07, pages 273–278, 2007.
+[26] M. Li, B. Dias, W. El-Deredy, and P. J. G. Lisboa. A probabilistic model for item-based recommender systems. In Proceedings of the 2007 ACM conference on Recommender systems, RecSys ’07, pages 129–132, New York, NY, USA, 2007. ACM.
+[27] K. Liu and E. Terzi. A framework for computing the privacy scores of users in online social networks. In W. Wang, H. Kargupta, S. Ranka, P. S. Yu, and X. Wu, editors, ICDM, pages 288–297. IEEE Computer Society, 2009.
+[28] M. R. McLaughlin and J. L. Herlocker. A collaborative ﬁltering algorithm and evaluation metric that accurately model the user experience. In Proceedings of the 27th annual international ACM SIGIR conference on Research and development in information retrieval, SIGIR ’04, pages 329–336, New York, NY, USA, 2004. ACM.
+[29] Mozilla. Mozilla XML User Interface Language (XUL). https://developer.mozilla.org/En/XUL.
+[30] Mozilla Firefox. Mozilla Firefox Privacy and Security Extensions. https://addons.mozilla.org/enUS/ﬁrefox/extensions/privacy-security.
+[31] OAuth 2.0. Access Token, OAuth 2.0. http://tools. ietf.org/html/draft-ietf-oauth-v2-10\#page-5.
+[32] OAuth 2.0. The OAuth 2.0 Protocol. http://tools.ietf.org/html/draft-ietf-oauth-v2-10, 2010.
+[33] OAuth 2.0. Web server client proﬁle, oauth 2.0. http://tools.ietf.org/html/ draft-ietf-oauth-v2-10\#section-1.4.1, 2010.
+[34] N. Ramakrishnan, B. Keller, B. Mirza, A. Grama, and G. Karypis. Privacy risks in recommender systems. Internet Computing, IEEE, 5(6):54 –63, 2001.
+[35] P. Resnick, N. Iacovou, M. Suchak, P. Bergstrom, and J. Riedl. Grouplens: an open architecture for collaborative ﬁltering of netnews. In CSCW ’94: Proceedings of the 1994 ACM conference on Computer supported cooperative work, pages 175–186, New York, NY, USA, 1994. ACM.
+[36] J. Riedl. Personalization and privacy. Internet Computing, IEEE, 5(6):29 –31, 2001.
+[37] B. Sarwar, G. Karypis, J. Konstan, and J. Reidl. Item-based collaborative ﬁltering recommendation algorithms. In Proceedings of the 10th international conference on World Wide Web, WWW ’01, pages 285–295, New York, NY, USA, 2001. ACM.
+[38] X. Su and T. M. Khoshgoftaar. A survey of collaborative ﬁltering techniques. Adv. in Artif. Intell., 2009:4:2–4:2, January 2009.
+[39] Twitter, Inc. Twitter. http://twitter.com.
+
+12
+
+View publication stats
+

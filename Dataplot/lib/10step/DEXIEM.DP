@@ -1,0 +1,248 @@
+. This is dataplot macro   DEXIEM.DP
+. Purpose: Generate a DEX interaction effects matrix (of plots)
+.          (= step 4 of the DEXPLOT.DP 10-step DEX analysis procedure)
+. Date: May 2005
+. Input 
+.    1. k (parameter)               = Total number of plot factors
+.    2. y (vector)                  = Response variable
+.    3. x1, x2, x3, . . . (vectors) = Factors
+.
+.    4. y1displa (parameter)        = displacement for vertical axis label (opt.) (default= 15)
+.    5. yoffup   (parameter)        = offset for upper ytic offset (optional) (default = 5)
+.    6. cutoff   (parameter)        = cutoff value such that larger |effects| will be hihglighted in red (opt.) (def. = none)
+.
+.    7. framet (parameter)          = top    frame line (in %) (optional) (default = 90)
+.    8. frameb (parameter)          = bottom frame line (in %) (optional) (default = 20)
+.
+. Output:
+.    a 1 page matrix of plots
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexiem.dp"; end if; end if
+.
+feedback save; feedback off
+printing off
+let pauseiem = 0
+.
+if pauseiem = 1
+   print " "; print "---At the Beginning of DEXIEM.DP . . ."; pause
+end if
+.
+. -----Step 1: Check input values for existence and equivalent length-----
+.
+let string stmacro = dexiem.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+let nyz = number y
+loop for jz = 1 1 k
+   let nxz = number x^jz
+   if nxz <> nyz
+      print " "
+      print "========================================================="
+      print "Fatal error at beginning of ^stmacro:"
+      print "   Length of x^jz (= ^nxz) not equal to length of y (= ^nyz)"
+      print "========================================================="
+      pause
+      exit
+   end if
+end loop
+.
+. -----Step 2: Define plot settings-----
+.
+if pauseiem = 1; print "---At dexiem.dp step 2: limits"; pause; end if
+call dexplotinit.dp
+.
+device 1 off; device 2 off; device 3 off
+tic offset units screen
+tic offset 5 5
+ytic offset 0 0
+plot y     ;.    <===============================================
+probe fy1min; let mintic = probeval
+probe fy1max; let maxtic = probeval
+let rangetic = maxtic-mintic
+.
+let yoffupz = 5
+if yoffup exists; let yoffupz = yoffup; end if
+ytic offset 5 yoffupz
+.
+device 1 on; device 2 on; device 3 on
+.
+. -----Step 3: Generate the plot-----
+.
+if pauseiem = 1; print "---At dexiem.dp step 3"; pause; end if
+if pauseiem = 1; feedback on; echo on; end if
+.
+let kp1 = k+1
+.
+x1label;. patch may 20, 2004
+x3label;. patch august 10, 2007
+.
+. -----Step 3.1:
+.
+if pauseiem = 1; print "---At dexiem.dp step 4"; pause; end if
+device 1 off; device 2 off; device 3 off
+.
+xlim           ;. 02/05/14 general
+
+. ylim .75 1.25 (for Antonio Possolo's problem when both main effects were 0)
+ylim .031 .036;. 02/03/14
+ylim           ;. 02/05/14 general
+if yminiem exists; ymin ^yminiem; end if
+if ymaxiem exists; ymax ^ymaxiem; end if
+.
+dex mean plot y x1 to x^k           ;. <===========================
+.
+device 1 on; device 2 on; device 3 on
+.
+. -----Step xx:
+.
+if pauseiem = 1; print "---At dexiem.dp step 5: ybar & auto-number of digits";
+pause; end if
+let numfac = k
+.
+let ybar = mean y
+let ybar2 = abs(ybar)
+let lybar2 = log10(ybar2)
+if lybar2 >= 0; let lybar3 = int(lybar2); end if
+if lybar2 < 0; let lybar3 = -int(abs(lybar2))-1; end if
+if dp not exist
+   let dp = 3-lybar3
+   if dp < 0; let dp = 0; end if
+end if
+.
+. -----Step xx:
+.
+if pauseiem = 1; print "---At dexiem.dp step 6: ylim freeze"; pause; end if
+.
+let statflag = 0
+if stat exists; let statflag = 1; let string statsave = ^stat; end if
+let string stat = mean
+.
+. probe fy1min; let ybottom = probeval
+. probe fy1max; let ytop = probeval
+. let a = ybottom
+. let b = ytop
+. ylimits a b
+ylimits freeze
+.
+. -----Step xx:
+.
+if pauseiem = 1; print "---At dexiem.dp step 7: plot labels"; pause; end if
+if cy not exist; let string s0 = Average Y; end if
+if cy exists; let string s0 = Average Y (^cy); end if
+if ylabelsw exists
+   if ylabelsw = 0; let string s0 = sp(); end if
+end if
+.
+let y1displz = 15
+if y1displa exists; let y1displz = y1displa; end if
+let y1ldisp = y1displz
+.
+loop for jz = 1 1 k
+   if stxshort not exist
+      if stx^jz not exist; let string s^jz = X^jz; end if
+      if stx^jz exists; let string s^jz = X^jz(^stx^jz); end if
+   end if
+   if stxshort exists
+      let stjunk = string word stxshort jz
+      let string s^jz = X^jz(^stjunk)
+   end if
+end loop
+.
+. -----Step xx: Generate the multiplot (via a call to dexstat2.dp)-----
+.
+if pauseiem = 1; print "---At dexiem.dp step 8: Generate the upper triangle of plots";
+pause; end if
+. erase;. commented out for mills251.dp 2/15/12
+,
+.                     :. <=====================================================
+call dexstat2.dp
+.
+.
+if statflag = 1; let string stat = ^statsave; end if
+if statflag = 0; delete stat; end if
+.
+if pauseiem = 1; feedback on; echo on; end if
+.
+. -----Step xx:
+.
+if pauseiem = 1; print "---At dexiem.dp step 9"; pause; end if
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+if pauseiem = 1; feedback on; echo on; end if
+.
+. -----Step xx:
+.
+if pauseiem = 1; print "---At dexiem.dp step 10: write out an IEM title line";
+pause; end if
+.
+hw 2 1
+if titlesiz exists; let titleh = titlesiz; end if
+let titlew = titleh/2
+hw titleh titlew
+.
+justification center
+if titlesw not exist
+   move 50 91; text Interaction Effects Matrix
+end if
+if titlesw exist; if titlesw = 1
+   move 50 91; text Interaction Effects Matrix
+end if; end if
+.
+just left; hw 2 1
+move 15 23; text Diagonal (Shaded)
+move 30 23; text = Main Effects
+move 15 20; text Off-Diagonal
+move 30 20; text = 2-Term Interactions
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+if rigmarsw exists; if rigmarsw = 1
+   if stx1 exists
+      call dexrightmargin.dp
+   end if
+end if; end if
+.
+. -----Step xx: If called for, write out customized upper left info-----
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+. -----Step xx: Finish up-----
+.
+ylimits
+title
+x1label
+.
+delete dtemp prod prod2 dxz
+.
+feedback restore
+.

@@ -1,0 +1,77 @@
+# statnet.common 4.1.0
+
+## New utilities
+
+* `despace()` removes whitespace from a string.
+
+* Pseudo-methods `colMeans.mcmc.list()`, `sweep.mcmc.list()`, and `lapply.mcmc.list()` (migrated from the `ergm` package).
+
+* `filter_rhs.formula()` selectively deletes terms in on the RHS of a formula.
+
+* `eval_lhs.formula()` extracts the LHS of the formula and evaluates it in the specified environment.
+
+* `NVL2()` and `NVL3()` for flexible substitution of null values.
+
+* `message_print()` formats its arguments as if for `print()` or `show()` methods, but then prints to stderr like `message()`.
+
+## Enhancements to existing utilities
+
+* `paste.and()` now takes an additional `con=` argument, allowing a conjunction other than "and" to be used.
+
+* `ERRVL()` now uses lazy evaluation and lets the user dot-substitute the previous argument's try-error into the next argument.
+
+## Bug fixes
+
+* Printing for control lists now works for function arguments.
+
+* A number of improvements to `rle` methods.
+
+## Miscellaneous
+
+* A number of functions have been renamed for consistency:
+    * `term.list.formula()` →  `list_rhs.formula()`
+    * `append.rhs.formula()` →  `append_rhs.formula()`
+    * `nonsimp.update.formula()` →  `nonsimp_update.formula()`
+
+# statnet.common 4.0.0
+
+* The package now uses `Roxygen` for documentation.
+
+* `term.list.formula()` output format has been changed, since support of attributes on symbols is being deprecated.
+
+* A library of methods has been added for the base `rle` class, implementing concatenation, compaction, and a number of binary operations.
+
+* `all_same()` has been  moved from ergm and renamed to `all_identical()`.
+
+* A new assignment method `NVL()<-` overwrites a variable if its value is NULL.
+
+* A set of classes and functions for manipulating and efficiently performing calculations on dense matrices or vectors with weighted rows or elements (possibly on the log scale) has been added.
+
+* New control parameter helper function, control.remap() has been added. Autodetection of function names by `set.control.class()` and `check.control.class()` has been deprecated and now results in a warning.
+
+* Improvements to the compressed data frame code, including an order() generic.
+
+* Miscellaneous robustifications added.
+
+* Native routine registration has been added.
+
+# statnet.common 3.3.0
+* `append.rhs.formula()`, `vectors.namesmatch()`, `term.list.formula()`, and `ergm.update.formula()` (renamed to `nosimp.update.formula()`) moved from `ergm`.
+
+* Skye Bender-deMoll has been added as a contributor.
+
+# statnet.common 3.2.3
+* `ERRVL()` moved from `ergm`.
+
+* Some `NAMESPACE` and other fixes to pass CRAN checks.
+
+# statnet.common 3.2.2
+* control class improvements and bug fixes.
+
+# statnet.common 3.1.1
+* Updated e-mail address
+
+* Some improvements to opttest.
+
+# statnet.common 3.1.0
+* Initial release, incorporating the control class framework (`set.control.class()`, `check.control.class()`, `print.control.list()`); startup message framework; `NVL()`; `sort.data.frame()`; `compress.data.frame()`; `paste.and()`; citation utilities framework; and `opttest()` framework.

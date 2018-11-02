@@ -1,0 +1,1 @@
+{"autoCheck":true,"allowRemoteCheck":true,"lastCheck":1538669832297,"usageCounter":13,"showShortcutHint":false}

@@ -1,0 +1,182 @@
+. This is dataplot macro     dexrightmargin.dp
+. Purpose: Write factors (and levels if available) in right margin (towards the top)
+.          of the plots for the 10-step dex analysis
+. Date: 01/10/14, 6/29/15
+. Input:
+.    k (parameter)                        = number of factors
+.    stx1, stx2, stx3, . . . (strings)    = names of each of the k factors
+.    stx1l, stx2l, stx3l, . . . (strings) = all levels within each factor (optional)
+.    cpperc (parameter)                   = (0,1) switch indicating center point values are given
+.                                           AND (-,+) values are percentages around center point
+.                                           (e.g., Jeff Fong) (opt.)
+.    stcp (string)                        = center point values (optional)
+.
+.    lh     (parameter)  = height of factor levels (optional, default = 1.8)
+.    lw     (parameter)  = width  of factor levels (optional, default = 0.9)
+.
+.    xp0    (parameter)  = horizontal location of labels (optional, default = 86)
+.    yp0    (parameter)  = vertical   location of labels   (optional, default = 88.2)
+.    ypdel  (parameter)  = vertical   increment for successive labels (optional, default = 2)
+.    xpdel  (parameter)  = horizontal indentation for levels (optional, default = 3)
+.
+.    prog   (parameter)  = numerical suffix for the calling program
+.                         (for special cases) (optional, default = not exist)
+.    framet (parameter)  = top    frame line (in %) (optional) (default = 90)
+.    frameb (parameter)  = bottom frame line (in %) (optional) (default = 20)
+.
+. -----start point-----
+.
+let pauserm = 0
+if pauserm exists and pauserm = 1
+   print " "
+   print "--At the beginning of dexrightmargin.dp"
+   print "k: ^k"
+   print stx1 stx2 stx3 stx4 stx5
+   print stx1l stx2l stx3l stx4l stx5l
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+. -----Step 1: Check for missing input values-----
+.
+let string stmacro = dexrightmargin.dp
+.
+set check name output filliben
+feedback save; feedback on
+let iflag = check name k stx1 to stx^k
+feedback restore
+delete xposvec yposvec tag numlevva
+.
+. -----Step 2: Check for pre-set values-----
+.
+let lhz = 1.8   ;. changed from 1 to 2 on 4/8/16
+if lh exists; let lhz = lh; end if
+.
+let lwz = 0.9     ;. changed from 0.5 to 1 on 4/8/16
+if lw exists; let lwz = lw; end if
+.
+let xp0z = 86
+if xp0 exists; let xp0z = xp0; end if
+.
+let yp0z = 88.2
+if framet exists; let yp0z = 88.2 - (90 - framet); end if
+if yp0 exists; let yp0z = yp0; end if
+.
+. let xpdelz = 3
+let xpdelz = 4.7
+if xpdel exists; let xpdelz = xpdel; end if
+.
+let ypdelz = 2
+if ypdel exists; let ypdelz = ypdel; end if
+.
+. -----Step 3: loop through and write out all levels of all factors-----
+.
+let ypz = yp0z
+.
+. =====here here here=====
+.
+let fudge = 1
+let fudge2 = 1
+if k >= 12
+   let fudge = 0.70; . 5/8/17
+   let fudge2 = 0.8
+else if k >= 8 and k <= 11
+   let fudge = 0.75; . inserted 9/25/17 for the j=8 hecht (nist stanford) case
+else if k = 7
+   let fudge = 0.25
+else if k = 6
+   let fudge = 0.5
+end if
+.
+let rmhz = 1.8
+if textrmh exists; let rmhz = textrmh; end if
+let rmwz = 0.9
+if textrmw exists; let rmwz = textrmw; end if
+.
+loop for jz = 1 1 k
+   let numlev^jz = unique x^jz
+   let numlevva(jz) = numlev^jz
+end of loop
+.
+if pauserm exists and pauserm = 1
+   print "numlevva--"
+   print numlevva
+   print "rmhz: ^rmhz, rmwz: ^rmwz"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+let xp2z = xp0z + xpdelz
+let xp3z = xp2z + 1.3
+let xp4z = xp2z + 2.3
+let xpcpz = xp4z + 8
+.
+let numlevfa = maximum numlevva
+call dexgetlevelcoded.dp
+character color blue all
+if colorall exists
+   color ^colorall
+   delete stjunk; let stjunk = string word colorall 
+   character color ^stjunk all
+end if
+character justification left all
+character hw rmhz rmwz all
+.
+let icnt2 = 0
+justification left
+hw rmhz rmwz
+let ypz = ypz + fudge*ypdelz
+loop for jz = 1 1 k
+   let ypz = ypz - fudge*ypdelz
+   move xp0z ypz; text X^jz: ^stx^jz;. 6/6/16
+   .
+   delete stjunk stjunka stjunkb stjunkc
+   let numlevfa = numlev^jz
+   let cppercsw = 0
+   if numlevfa = 2 and cpperc = 1 and stcp exists
+      let stjunk = string word   stcp jz
+      let string cp = ^stjunk
+      let nlevz = 2
+      let cppercsw = 1
+      let ypcpz = ypz - 1.5*ypdelz
+      just left; hw 2 1; move xpcpz ypcpz; text ^cp; hw rmhz rmwz
+   end if
+   .
+   let icnt = 0
+   loop for jlev = 1 1 numlevfa
+       let ypz = ypz - fudge2*ypdelz
+       .  Get y-coordinate for next row
+       let icnt2 = icnt2 + 1
+       let yposvec(icnt2) = ypz
+       let tag(icnt2) = icnt2
+       .  Set x-coordinate, character and character color for coded level
+       let xposvec(icnt2) = xp2z
+       let tag(icnt2) = icnt2
+       let stjunka = string word stoutz jlev
+       let plot character icnt2 = ^stjunka
+       if colorl exists
+          let stjunkb = string word colorl jlev
+          let plot character color icnt2 = ^stjunkb
+       end if
+       .  Set character and character color for ":"
+       let icnt2 = icnt2 + 1
+       let xposvec(icnt2) = xp3z
+       let yposvec(icnt2) = ypz
+       let tag(icnt2) = icnt2
+       let plot character icnt2 = :
+       let plot character justification icnt2 = center
+       .  Set character and character color for uncoded level
+       if stx^jz&l exists
+          let icnt2 = icnt2 + 1
+          let xposvec(icnt2) = xp4z
+          let yposvec(icnt2) = ypz
+          let tag(icnt2) = icnt2
+          let stjunkc = string word stx^jz&l  jlev
+          let plot character icnt2 = ^stjunkc
+       end if
+   end of loop
+   if k >=  6; let ypz = ypz - 0.3*ypdelz; end if
+end of loop
+.
+.  Now plot the level values
+.
+draw symbol xposvec yposvec tag
+.
+delete xp0z yp0z xpdelz ypdelz xp2z xp3z xp4z yposvec xposvec tag

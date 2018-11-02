@@ -1,0 +1,479 @@
+. This is dataplot macro   DEXCP.DP
+. Purpose: Generate a DEX contour plot
+.          (= step 10 of the DEXPLOT.DP 10-step DEX analysis procedure)
+. Date: May 2005 ==> 1/26/15 ==> 2/23/15
+.
+. Input
+.    1. k (parameter)               = Total number of plot factors
+.    2. y (vector)                  = Response variable
+.    3. x1, x2, x3, . . . (vectors) = Factors
+.    4. ycont (vector)              = Desired contour line values (optional) (default = auto)
+.
+.    4. contourh (parameter) = factor id for #1 dominant (=> horizontal axis) (optional) (default = automatic)
+.    5. contourv (parameter) = factor id for #2 dominant (=> vertical   axis) (optional) (default = automatic)
+.    6. meancent (parameter) = mean of center point values (if existent)      (optional) (default = not exist)
+.    7. ncent    (parameter) = number of center point values (if existent)    (optional) (default = 0)
+.
+.    8. confdone (parameter) = 0,1 switch defining whether effects & confounding have been computed or not (optional)
+.
+.    9. framet (parameter)          = top    frame line (in %) (optional) (default = 90)
+.   10. frameb (parameter)          = bottom frame line (in %) (optional) (default = 20)
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexcp.dp"; end if; end if
+.
+feedback save; feedback off
+printing off
+let pausecp = 0
+. let pausecp = 1
+.
+if pausecp = 1
+   print " "
+   print "--At the Beginning of DEXCP.DP . . ."
+   .
+   print "contourh contourv = ^contourh ^contourv"
+   print "meancent ncent = ^meancent ^ncent"
+   print "confdone = ^confdone"
+   print "steft1 steft2 = ^steft1 ^steft2"
+   pause
+   . feedback on
+   . echo on
+end if
+.
+. -------------------------------------------
+. -----Do Analysis Step 10: Contour Plot-----
+. -------------------------------------------
+.
+x3label
+.
+. -----Step 1: Check for missing input values-----
+.
+if pausecp = 1; print "--At dexcp.dp step 1"; pause; end if
+.
+let string stmacro = dexcp.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+. -----Step 2: Generate a null plot to extract future plot settings-----
+.
+if pausecp = 1; print "--At dexcp.dp step 2"; pause; end if
+.
+let maxyz = maximum y
+let minyz = minimum y
+let rangetic = maxyz - minyz
+call dexplotinit.dp
+device 1 off; device 2 off; device 3 off
+   ytic offset 0 0
+   plot y
+   .
+   probe fy1min; let mintic = probeval
+   probe fy1max; let maxtic = probeval
+   let rangetic = maxtic-mintic
+   let sigdig = msd(rangetic)
+   let inc = rangetic/sigdig
+   let numinc = rangetic/inc
+   let inc2 = inc
+   if numinc = 1; let inc2 = inc/10; end if
+   if numinc = 2; let inc2 = inc/5; end if
+   if numinc = 3; let inc2 = inc/3; end if
+   if numinc = 4; let inc2 = inc/2; end if
+   if numinc = 5; let inc2 = inc/2; end if
+   if numinc = 6; let inc2 = inc/2; end if
+   ytic offset 5 5
+device 1 on; device 2 on; device 3 on
+. print mintic maxtic rangetic sigdig inc numinc inc2
+. pause
+.
+. -----Step 3: Compute  all effect estimates and confounding (the following are all sorted by |eff|)-----
+. -----        The number of effects                      (parameter) numeff
+. -----        The sorted dummy index (1 to numeff)       (vector)    effindex
+. -----        The means at the "high" side               (vector)    meanh
+. -----        The means at the "low"  side               (vector)    meanl
+. -----        The effect estimates                       (vector)    eff
+. -----        The relative effect estimates              (vector)    releff
+. -----        The sd(effects)                            (vector)    sdeff
+. -----        The t(effects)                             (vector)    teff
+. -----        The residual SD for each single model      (vector)    rsd
+. -----        The residual SD for each cumulative model  (vector)    cumrsd
+. -----        The effect ID's                            (vector)    effid
+. -----        The effect ID's (as multiplier definitions)(strings)   stcore1, stcore2, etc.
+. -----        The effect confouding                      (strings)   stconf1, stconf2, etc.
+.
+if pausecp = 1; print "--At dexcp.dp step 3"; pause; end if
+. print "project = ^project"
+.
+if confdone not exist
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if
+if confdone exists; if confdone = 0
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if; end if
+
+. -----Step 4: Extract the ID of the most important factor-----
+.
+if pausecp = 1; print "--At dexcp.dp step 4"; pause; end if
+.
+. let effhor = effid1(1)
+let effhor = ^steft1
+let string ch = ^effhor
+let posint = ^ch
+. call digit.dp      ;. replaced by digits command + sdigit macro   1/26/15
+let digitv = digits posint
+let numdigit = number digitv
+call sdigit.dp
+.
+let numdig1 = numdigit
+.
+let d1 = digitv(1)
+if numdig1 >= 2; let d2 = digitv(2); end if
+.
+if pausecp = 1
+   print effid1 effid2
+   print effhor
+   print digitv
+   print numdig
+   print posint
+   print d1
+   pause
+end if
+.
+. -----Step 5: Extract the ID of the second most important factor-----
+.
+if pausecp = 1; print "--At dexcp.dp step 5"; pause; end if
+.
+. let effvert = effid1(2)
+let effvert = ^steft2
+let string ch = ^effvert
+let posint = ^ch
+. call digit.dp      ;. replaced by digits command + sdigit macro   1/26/15
+let digitv = digits posint
+let numdigit = number digitv
+call sdigit.dp
+let numdig2 = numdigit
+let d3 = digitv(1)
+if numdig2 >= 2; let d4 = digitv(2); end if
+.
+if pausecp = 1
+   print effvert
+   print digitv
+   print numdig
+   print posint
+   print d1 d2 d3 d4
+   pause
+end if
+. -----Step 6: Determine the ID (1 to k) (= hit1) for the horizontal axis factor
+. -----        and (= hit2) for the vertical axis factor-----
+.
+if pausecp = 1; print "--At dexcp.dp step 6"; pause; end if
+.
+if contourh not exist; if contourv not exist
+   if pausecp = 1
+      print numdig1 numdig2
+      if d1 exists; print d1; end if
+      if d2 exists; print d2; end if
+      if d3 exists; print d3; end if
+      if d4 exists; print d4; end if
+   end if
+   .
+   if numdig1 >= 2
+      let u1 = x^d1; let hit1 = d1
+      let u2 = x^d2; let hit2 = d2
+   end if
+   .
+   if numdig1 = 1
+      let u1 = x^d1; let hit1 = d1
+      let u2 = x^d3; let hit2 = d3
+      if numdig2 >= 2
+         if d3 = d1; let u2 = x^d4; let hit2 = d4; end if
+         if d4 = d1; let u2 = x^d3; let hit2 = d3; end if
+      end if
+   end if
+end if; end if
+.
+if contourh exists; if contourv exists
+   let hit1 = contourh
+   let hit2 = contourv
+   let numdig1 = 1
+   let numdig2 = 1
+   let u1 = x^hit1
+   let u2 = x^hit2
+end if; end if
+.
+if pausecp = 1
+   print contourv contourh numdig1 numdig2 hit1 hit2
+   pause
+end if
+.
+. -----Step 7: Define response values (ycont) for the contour lines-----
+.
+if pausecp = 1; print "--At dexcp.dp step 7"; pause; end if
+.
+if ycont not exist
+   let start = mintic - 3*inc2
+   let stop = maxtic + 3*inc2
+   . let inc3 = inc2/10
+   . let inc3 = .01
+   let ycont = sequence start inc2 stop
+   . let ycont = sequence start inc3 stop
+   . print mintic inc2 maxtic ycont
+   . pause
+end if
+.
+. -----Step 8: Print out the subtitle immediately above the plot-----
+.
+if pausecp = 1; print "--At dexcp.dp step 8"; pause; end if
+.
+title: Contour Plot of 2 Dominant Factors: X^hit1 & X^hit2
+.
+if cx^hit1 exist; if cx^hit2 exist
+   title: Contour Plot of 2 Dominant Factors: X^hit1 (^cx^hit1) & X^hit2 (^cx^hit2)
+end if; end if
+.
+if cx^hit1 not exist; if cx^hit2 not exist
+   if stx^hit1 exist; if stx^hit2 exist
+      title: Contour Plot of 2 Dominant Factors: X^hit1 (^stx^hit1) & X^hit2 (^stx^hit2)
+   end if; end if
+end if; end if
+.
+. -----Step 9: Determine axis labels for the upcoming contour plot-----
+.
+.
+if pausecp = 1; print "--At dexcp.dp step 9"; pause; end if
+.
+. let pausecp = 1
+. feedback on
+. echo on
+.
+if stx^hit2 exist; if cx^hit2 exist
+   y1label X^hit2(^cx^hit2)
+end if; end if
+if stx^hit2 not exist; if cx^hit2 exist
+   y1label X^hit2(^cx^hit2)
+end if; end if
+if stx^hit2 exist; if cx^hit2 not exist
+   y1label X^hit2(^stx^hit2)
+end if; end if
+if stx^hit2 not exist; if cx^hit2 not exist
+   y1label X^hit2
+end if; end if
+.
+if stx^hit1 exist; if cx^hit1 exist
+   x1label X^hit1(^cx^hit1)
+end if; end if
+if stx^hit1 not exist; if cx^hit1 exist
+   x1label X^hit1(^cx^hit1)
+end if; end if
+if stx^hit1 exist; if cx^hit1 not exist
+   x1label X^hit1(^stx^hit1)
+end if; end if
+if stx^hit1 not exist; if cx^hit1 not exist
+   x1label X^hit1
+end if; end if
+.
+. -----Step 10: Generate the actual contour plot-----
+.
+if pausecp = 1; print "--At dexcp.dp step 10"; pause; end if
+.
+. echo on
+label size labelsiz
+. print "labelsiz = ^labelsiz"
+. pause
+tic label size ticlabsi
+. print "ticlabsi = ^ticlabsi"
+. pause
+. erase   9/8/07
+. let ncenter = ncent
+.
+. ---refine the increment value to be used---
+.
+call checkcorners.dp
+. print maxcorn mincorn delcorn
+.
+. let inccorn = delcorn/10
+let inccorn = delcorn/5
+if inccorn < inc2
+. print delcorn inccorn
+. pause
+   let mincorn2 = mincorn - 2*delcorn
+   let maxcorn2 = maxcorn + 2*delcorn
+   if ycont not exist
+      delete ycont
+      let ycont = mincorn2 inccorn maxcorn2
+      print junk. ycont
+      print ycont
+      pause
+      let inc2 = inccorn
+   end if
+end if
+.
+. print ycont
+. pause
+if colorall exists; color ^colorall; end if
+.
+if dpcp exists; let dpcont = dpcp; end if
+.                <========================================
+call dexcont.dp
+.                <========================================
+.
+. -----Step 11: For the horizontal axis, write out the real values at -2 -1 0 1 2-----
+.
+if pausecp = 1; print "--At dexcp.dp step 11"; pause; end if
+.
+if colorall exists; color ^colorall; end if
+.
+if stx1l1 exists
+   delete stjunk; let string stjunk = stx^hit1&l1
+   let string out1 = ^^stjunk
+   if nlevv exist; let upperz = nlevv(^hit1); end if
+   if nlevv not exist; let upperz = number of words stx^hit1&l; end if
+   delete stjunk; let string stjunk = stx^hit1&l^upperz
+   let string out2 = ^^stjunk
+end if
+.
+if stx1l exists
+   delete stjunk; let stjunk = string word   stx^hit1&l  1
+   let string out1 = ^stjunk
+   if nlevv exist; let upperz = nlevv(^hit1); end if
+   if nlevv not exist; let upperz = number of words stx^hit1&l; end if
+   delete stjunk; let stjunk = string word   stx^hit1&l  upperz
+   let string out2 = ^stjunk
+end if
+.
+if stx1l exists
+   let string staxissw = h
+   call dexcp_write_augmented_tic_labels.dp
+end if
+.
+. -----Step 12: For the vertical axis, write out the real values at -2 -1 0 1 2-----
+.
+if pausecp = 1; print "--At dexcp.dp step 12"; pause; end if
+.
+if stx1l1 exists
+   delete stjunk; let string stjunk = stx^hit2&l1
+   let string out1 = ^^stjunk
+   if nlevv exist; let upperz = nlevv(^hit2); end if
+   if nlevv not exist; let upperz = number of words stx^hit2&l; end if
+   delete stjunk; let string stjunk = stx^hit2&l^upperz
+   let string out2 = ^^stjunk
+end if
+.
+if stx1l exists
+   delete stjunk; let stjunk = string word   stx^hit2&l  1
+   let string out1 = ^stjunk
+   if nlevv exist; let upperz = nlevv(^hit2); end if
+   if nlevv not exist; let upperz = number of words stx^hit2&l; end if
+   delete stjunk; let stjunk = string word   stx^hit2&l  upperz
+   let string out2 = ^stjunk
+end if
+.
+if stx1l exists
+   let string staxissw = v
+   call dexcp_write_augmented_tic_labels.dp
+end if
+.
+. -----Step 13: Write out center point predicted value in bottom margin of the
+.
+if pausecp = 1; print "--At dexcp.dp step 13"; pause; end if
+.
+let ybar = mean y
+hw texth textw
+move 50 06; just center; text Model-Based Predicted Value at Center Point = ^ybar
+.
+if meancent exists
+   if ncent = 1
+      move 15 03; just center; text Observed Single Data Value at Center Point    = ^meancent
+   end if
+end if
+.
+if meancent exists
+   if ncent > 1.5
+      if colorall exists; color ^colorall; end if
+      move 10 05; just left; text Mean of Data                 at Center Point
+      move 40 05; just left; text = ^meancent
+      move 10 03; just left
+      text Number of center data points = ^ncent       SD(center data points) = ^sdcent
+      move 10 01; just left
+      let numer = meancent - ybar
+      let numer = abs(numer)
+      let denom = (1/(ncent**2)) + (1/(n**2))
+      let denom = sdcent*sqrt(denom)
+      let tcent = numer/denom
+      let tcent = abs(tcent)
+      let tcent = round(tcent,2)
+      let dfcent = ncent-1
+      let tcutoff = tppf(0.975,dfcent)
+      let tcutoff = round(tcutoff,2)
+      let string tconclus = Model is Adequate
+      if tcent > tcutoff; let string tconclus = Model Not Adequate; end if
+      text t Test of Model Adequacy at Center Point:
+      text       |t stat| = ^tcent     tcutoff = ^tcutoff   ==>   Conclusion: ^tconclus
+   end if
+end if
+.
+. -----Step 14; Annotate the plot-----
+.
+if pausecp = 1; print "--At dexcp.dp step 14"; pause; end if
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+. -----Step 15: Write out right margin factor and setting info-----
+.
+if pausecp = 1; print "--At dexcp.dp step 15"; pause; end if
+.
+if rigmarsw exists; if rigmarsw = 1
+   if stx1 exists
+      call dexrightmargin.dp
+   end if
+end if; end if
+.
+. -----Step 16: All Done-----
+.
+if pausecp = 1; print "--At dexcp.dp step 16 (All done)"; pause; end if
+.
+just center
+title
+y1label
+x1label
+.
+delete ycont yprime u1prime u2prime yprim2 u1prim2 u2prim2
+delete digitv meancorn junkvar dxz
+.
+feedback restore
+.

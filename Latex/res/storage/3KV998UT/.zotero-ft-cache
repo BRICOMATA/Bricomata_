@@ -1,0 +1,2049 @@
+Information and Computation 254 (2017) 84–104
+Contents lists available at ScienceDirect
+Information and Computation
+www.elsevier.com/locate/yinco
+
+Differential privacy in probabilistic systems
+Jiannan Yang, Yongzhi Cao ∗, Hanpin Wang
+Key Laboratory of High Conﬁdence Software Technologies (MOE), School of Electronics Engineering and Computer Science, Peking University, Beijing 100871, China
+
+article info
+Article history: Received 20 November 2015 Received in revised form 1 December 2016 Available online 22 March 2017
+Keywords: Differential privacy Probabilistic system Metric Probabilistic bisimilarity Logical characterization
+
+abstract
+Ever since proposed by Dwork, differential privacy has been a hot topic in academia. However, few attempts have been made on reasoning about differential privacy at a system level. In this paper, we propose a formal framework to verify differential privacy in probabilistic systems. With a metric on the states of a system, we formalize differential privacy by the ratio of the probabilities in the distributions after the same labeled transitions of relevant states. We explain how traditional differential privacy can be embedded in our framework and raise an inﬁmum metric, the least distance between two states, while not violating differential privacy. It is proven that the inﬁmum metric is also a metric instance of differential privacy itself. Furthermore, we propose a two-level logic, a privacy variant of the familiar Hennessy–Milner logic, to characterize differential privacy in our framework. Our results have close relations to probabilistic bisimilarity as well.
+© 2017 Elsevier Inc. All rights reserved.
+
+1. Introduction
+There has always been a conﬂict divergence between data publishers and their adversaries. Therefore, it is a hot topic in academia to eﬃciently protect the privacy of the participants in a dataset, and meanwhile publish some useful information [1–4]. Many protocols have been proposed in the literature to protect sensitive information. Among them, differential privacy, proposed by Dwork in [5], has gained widespread attention in many ﬁelds of computer science [6]. It describes a promise made by a data publisher that an adversary cannot gain much information about a particular individual using the exposed information. Speciﬁcally, a randomized algorithm on a dataset satisﬁes differential privacy, when it returns a result that can be regarded probabilistically unchanged if the dataset increases or decreases by one element. Many papers on differential privacy have been published [6–8] and most of them focus on the tasks of designing an algorithm which satisﬁes differential privacy and analyzing the trade-offs between privacy and utility [9–12]. In particular, some discuss the applications of differential privacy in terms of location protection [13,14], social network [15,16], and cloud computing [17].
+Remarkably, there exist some works in the ﬁeld of differential privacy veriﬁcation in systems. Reed et al. proposed a functional language with a type system that automatically guarantees differential privacy in [18]. This functional language can help the programmer to write complex privacy-safe programs in a ﬂexible way. Gaboardi et al. extended this language with a combination of linear indexed types and lightweight dependent types in [19]. This combination allows a richer sensitivity analysis that is able to certify a larger class of queries. Tschantz et al. extended differential privacy into interactive systems modeled by a kind of probabilistic automata and introduced the notion of differential noninterference for probabilistic automata in [20]. In their settings, actions are separated into input and output actions; the former are further
+* Corresponding author.
+E-mail addresses: yjn19920627@pku.edu.cn (J. Yang), caoyz@pku.edu.cn (Y. Cao), whpxhy@pku.edu.cn (H. Wang).
+http://dx.doi.org/10.1016/j.ic.2017.03.002
+0890-5401/© 2017 Elsevier Inc. All rights reserved.
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+85
+
+separated into data and query actions, while the latter are divided based on whether they can be observed by the data examiner. A probabilistic automaton has -differential noninterference if the ratio of probabilities that adjacent paths produce the same observable output is at most e , where two paths are adjacent if their input labels differ in only one data label. Xu et al. examined differential privacy in concurrent systems with a model of probabilistic process algebra and probabilistic automata in [21,22]. They concerned with the probabilities of a given ﬁnite trace in adjacent probabilistic automata. Additionally, they proposed three different metrics to verify their differential privacy and compared these metrics, proving that the latter two metrics are indeed more permissive than the ﬁrst one, but incomparable with each other.
+In this paper, we propose a formal framework to verify differential privacy in the context of probabilistic systems. Probabilistic systems [23,24] are a kind of systems where system dynamics encode the probability of making a transition between states rather than just the existence of such a transition. The main motivation behind the employment of probabilities in our approach is the need for quantitative information, as opposed to qualitative information, when reasoning about the non-functional aspects of systems such as throughput and resource utilization [23]. We utilize the model of probabilistic labeled transition system (or simply pLTS), which admits both non-deterministic and probabilistic behavior. Furthermore, we suppose a preset metric on its states which expresses the viewpoint of an observer on the difference between its states. The metric is similar to the difference between datasets in the traditional differential privacy. The notion of differential privacy in our framework is deﬁned in terms of the probability ratio in the distributions after the same labeled transitions of relevant states. We then explain how traditional differential privacy can be embedded in our framework and raise an inﬁmum metric, the least distance possibly between two states, while not violating differential privacy. It is proven that the inﬁmum metric is also a metric instance of differential privacy itself, so the work of characterizing differential privacy focuses on this metric. We propose a two-level logic, which is a privacy variant of the familiar HML logic [25], and proceed to construct an extension for each formula with privacy and distance parameters. We succeed to characterize differential privacy with this logic and show that it provides an approach to measuring the distance between states in the inﬁmum metric logically. In addition, we examine a real case, an extended Crowds protocol with different behavior members. We model it with a pLTS and verify our notions of differential privacy and inﬁmum metric in this pLTS.
+As mentioned above, Xu et al. also introduced three metrics to verify differential privacy in concurrent systems [22]. Compared to their work, our work differs in two main aspects. (1) In our framework, we establish differential privacy on the behavior of the system when performing a single transition or step. We focus on the distinction of probabilities between transitions of relevant states. After the transition, the whole system is still under the same privacy parameter. However, Xu et al. built differential privacy upon traces. They studied the probabilities of different probabilistic automata performing the same trace. So, they adopted a notion of privacy leakage which may increase or decrease when performing a transition. (2) In our framework, the metric distance is affected by the privacy parameter. As pointed in our Proposition 3.2, different privacy parameters may lead to different metrics. So, we have to determine the privacy parameter ﬁrst and deduce the inﬁmum metric with the privacy parameter. However, the distance in their metric is independent of the privacy parameter and also a limit of the privacy parameter. Part of their main theorems state that the privacy parameter is no less than the distance in their metrics.
+On the other hand, probabilistic bisimilarity is a classical theory and has been well studied in probabilistic systems. Our work has a close relation to it; for example, the distance between two states in the inﬁmum metric is 0 iff they are probabilistic bisimilar. Thus, our inﬁmum metric can be considered to measure the difference between the equivalence classes of probabilistic bisimilarity. We notice that Desharnais et al. did some work on metric extensions of probabilistic bisimilarity [26–28]. The distance between two states in their metric is 0 iff they are probabilistic bisimilar. As a result, it is also equivalent to that the distance in our inﬁmum metric is 0. The essential distinction between these two metrics is that our inﬁmum metric originates from veriﬁcation of differential privacy in probabilistic systems, which is a different view from their metrics. In addition, we focus on the quotients of probabilities in distributions, rather than the differences in their settings. However, further research is needed regarding the deeper and more speciﬁc relations between the two metrics.
+The main contributions of the paper are listed as follows.
+(1) We propose a notion of differential privacy in the context of probabilistic systems and show how traditional differential privacy can be embedded in our framework.
+(2) We introduce an inﬁmum metric and show that it is also a metric instance of differential privacy. Further, we raise a two-level logic as a privacy variant of the familiar HML logic and deﬁne an extension for formulae with privacy and distance parameters. With its help, we succeed to characterize differential privacy through the inﬁmum metric.
+(3) We explore the relation between our differential privacy and the traditional probabilistic bisimilarity and discover that the distance between two states in the inﬁmum metric is 0 iff they are probabilistic bisimilar. Additionally, our privacy variant logic retains the ability to characterize probabilistic bisimilarity.
+The remainder of the paper is structured as follows. After reviewing some preliminaries in Section 2, we introduce our notion of differential privacy for probabilistic systems and propose the inﬁmum metric in Section 3. Section 4 is devoted to characterizing differential privacy logically, including the presentation of a new two-level logic and the extension for its formulae. We study a variant of Crowds protocol in Section 5 and conclude the paper in Section 6. For the convenience of the reader, we place all the proofs of theorems, propositions, corollaries, and lemmas in Appendix.
+
+86
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+2. Preliminaries
+In this section, we give the preliminaries that will be utilized in our paper. They are separated into three parts, on metric, on differential privacy, and on probabilistic bisimilarity.
+
+2.1. Metric
+
+We recall the notion of metric in this subsection (see, for example [29]).
+
+Deﬁnition 2.1. A metric on a set X is a function (called the distance function),
+d : X × X → [0, +∞], such that for all x, y, z ∈ X , the following conditions are satisﬁed:
+(1) d(x, y) = 0 iff x = y (coincidence axiom), (2) d(x, y) = d(y, x) (symmetry), (3) d(x, z) ≤ d(x, y) + d(y, z) (triangle inequality),
+where the interval [0, +∞] includes all non-negative real numbers and a special element of positive inﬁnity.
+
+For the neatness of our framework, we introduced an extension in this deﬁnition to include positive inﬁnity into the value range of the distance function d. We will make a speciﬁed explanation on it in Remark 3.2.
+Additionally, the “only if” direction of the ﬁrst condition “coincidence axiom” is sometimes eliminated, that is, the distance between two different elements is allowed to be 0. Such a “weak metric” is called a pseudometric. In our framework, we actually adopt pseudometric, rather than metric. With a little abuse of notation, we still use metric in the paper.
+
+2.2. Differential privacy
+
+Differential privacy [9] formalizes the idea that a private algorithm should not expose too much information about a particular participant. A randomized private algorithm processes a dataset and returns a result that should remain probabilistically unchanged as one data element is added to or deleted from the dataset.
+
+Deﬁnition 2.2. A randomized algorithm A is -differential privacy if for all datasets D1 and D2 that differ in a single element and all S ⊆ Range(A),
+Pr[A(D1) ∈ S] ≤ e × Pr[A(D2) ∈ S],
+where the probability is taken over the coins of the algorithm and the set Range(A) denotes the output range of the algorithm A.
+
+Formally, two datasets differ in a single element means that one dataset can be generated by adding an element into the other dataset.
+Differential privacy has many pleasant properties. For example, when we query an -differential private algorithm on two datasets D1 and D2 that differ in n elements, then the probabilities of A(D1) and A(D2) being in the same set S will be within a factor of en of the other.
+2.3. Probabilistic bisimilarity
+
+In this subsection, we review some preliminaries about the theory of probabilistic bisimilarity (see, for example [30]). We begin with the model pLTS, since it is a common object of probabilistic bisimilarity.
+
+Deﬁnition 2.3. A probabilistic labeled transition system (pLTS) is a triple S, Act, → , where
+• S is a set of states, • Act is a set of transition labels, and • the relation → is a subset of S × Act × D(S),
+where D(S) is the set of probabilistic distributions over S.
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+87
+
+As usual, we shall use the more suggestive notation s −→a μ in lieu of (s, a, μ) ∈→, which means that s can afford an a-labeled transition and reach the distribution μ after the transition. In addition, a pLTS is ﬁnitely branching if, for each state s, the set {(a, μ) | s −→a μ} is ﬁnite. A pLTS is ﬁnitary if it has ﬁnite states and is ﬁnitely branching.
+The model of pLTSs admits both non-deterministic and probabilistic behavior. The non-deterministic behavior of pLTSs
+lies in that one particular state can reach more than one distribution after the same labeled transition, while the probabilis-
+tic behavior lies in the probabilities of distributions.
+
+Deﬁnition 2.4. Given a pLTS P , an equivalence relation R over the states of P is a probabilistic bisimulation if for any states s and t with (s, t) ∈ R, s −→a μ implies that there exists a distribution η, such that t −→a η and η(E) = μ(E) for every
+equivalence class E induced by R.
+
+As in the above deﬁnition, probabilistic bisimulation is a special equivalence relation on the states. It only admits the states with the same transitions to be equivalent with each other. While probabilistic bisimilarity is a special probabilistic bisimulation, it can be regarded as the “largest” probabilistic bisimulation.
+
+Deﬁnition 2.5. Given a pLTS P and two states s and t of P , we say that s and t are probabilistic bisimilar, denoted by s ∼ t, if there is a probabilistic bisimulation R of P , which contains the pair (s, t) of states.
+
+It is proved that the relation ∼ of probabilistic bisimilarity is also a probabilistic bisimulation itself and every other probabilistic bisimulation is a subset of probabilistic bisimilarity. We set R∼ to be equivalence classes of probabilistic bisimilarity. Obviously, the equivalence classes of any other probabilistic bisimulation is a division of R∼ .
+3. Differential privacy in probabilistic systems
+
+In this section, we propose our notion of differential privacy in probabilistic systems. We discuss the pLTSs with metrics on their states. The metrics are initialized under an earlier impression on the states and will not change as the system evolves. They often reﬂect how much difference there is between states in the observer’s opinion. Usually, zero distance means that two states are the “same”, i.e., they should share the same behavior in the pLTS. Larger distance means that the behaviors of the states are “less similar” to each other. Furthermore, the distance of positive inﬁnity means that two states are totally different, i.e., their behaviors in the pLTS may have no relation. In general, we say that two states are relevant, if the distance between them is a real number rather than positive inﬁnity. That is, the behaviors of relevant states are more or less alike. Some metrics have been well studied in the literature and can be directly adopted in our framework. For example, Xu et al. proposed three metrics in [22]. In their framework, larger distance means larger ratio of the probabilities that two automata produce the same trace.
+In Subsection 3.1, we introduce our deﬁnition of differential privacy in probabilistic systems and display two examples and some properties. We propose an inﬁmum metric in terms of our differential privacy and show its relation to probabilistic bisimilarity in Subsection 3.2. With two preparation lemmas, we prove that this inﬁmum metric is also a metric instance of differential privacy in Subsection 3.3.
+
+3.1. Differential privacy
+
+In this subsection, we deﬁne the notion of differential privacy in probabilistic systems and present some remarks about the reason why we deﬁne differential privacy in this way. Then, we give an example about how to embed the traditional differential privacy in our framework and another example on an ordinary probabilistic system. Finally, we present some basic properties on our notion of differential privacy.
+Given a pLTS P with a preset metric m on its states, we ﬁrst deﬁne a relation Rm on the states, such that (s, t) ∈ Rm iff m(s, t) = 0, where s and t are two states of P . Obviously, Rm is an equivalence relation. As stated in Subsection 2.1, we actually adopt pseudometrics in our framework, so the equivalence class may contain more than one state. The states in the same equivalence class are regarded as “identical” with each other.
+Deﬁnition 3.1. Given a pLTS P with a metric m on its states and a privacy parameter ∈ R+, we say that P satisﬁes -differential privacy on m if for any pair (s1, s2) of states of P , such that m(s1, s2) < +∞, and any transition label a, if
+s1 −→a μ1, then there exists a transition s2 −→a μ2 such that
+μ2(E) ≤ e m(s1,s2)μ1(E),
+for any equivalence class E of Rm.
+
+On this deﬁnition, we have the following two remarks, which explain why we deﬁne differential privacy in this form.
+
+88
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+Fig. 1. A pLTS.
+Remark 3.1. Compared to Deﬁnition 2.2, we formalize the computation of algorithm with the transition in pLTS, the range set with the equivalence class, and the neighborhood of datasets with the metric on states. Suppose that there is a black box with a button. The black box has several internal states and when we press the button, it alters the internal state and releases partial information about the current state. We want to make sure that the internal state is secret and no one can identify the previous state when presented with the latter information. The action of pressing the button causes the transition and if the previous states are relevant to each other, the current states should not be too much different in case that too much information about the previous states is revealed. We adopt the notion of differential privacy to express the restriction on the transition. Since the distance between states is a real number, not limited to either 0 or 1, it is a natural idea to add m(s1, s2) to the exponent of e in our deﬁnition. We notice that a similar idea also appears in the work [31] of Chatzikokolakis et al.
+Remark 3.2. As stated in Subsection 2.1, the value range of metric is extended to contain positive inﬁnity. We will give an explanation in this remark. Technically, if we skip this extension and discard the limitation m(s1, s2) < +∞ in Deﬁnition 3.1, then the notion of differential privacy is too powerful. It commands that if any state affords an a-labeled transition for some a, then all states should afford an a-labeled transition. Therefore, we should introduce a special element, i.e. positive inﬁnity, into the value range of the metric, which denotes that the states are too different to be forced to share transitions of the same label. Actually, we ﬁrst adopted a similar form to ( , δ)-differential privacy. However, for the sake of easing the computation and simplifying our theorems, we eventually convert our deﬁnition to this form.
+We now consider two examples of our notion of differential privacy. The ﬁrst one shows the relation to the traditional differential privacy. The second one is about an ordinary pLTS and will be frequently utilized in our framework to illustrate our results.
+Example 3.1. Given a randomized algorithm A with ﬁnite outputs, we can construct a pLTS P as follows. Its states consist of two kinds, dataset states S D , each for an available dataset D, and output states So , each for a possible output o of the algorithm. It has one transition label a, standing for this algorithm, and the transition on this label is deﬁned according to the behavior of this algorithm, that is, for any s ∈ S D , we have a transition s −→a μ and μ(t) = Pr[A(D) = o], for any t ∈ So.
+We then set a metric m on this pLTS. The distance between two dataset states equals the count of elements that the corresponding datasets differ in. The distance between two output states or between one dataset state and one output state is set to be positive inﬁnity. Then each equivalence class of Rm consists of one single state. It is not diﬃcult to verify that the algorithm A is -differential privacy iff the pLTS P satisﬁes -differential privacy on m.
+Example 3.2. Consider the pLTS P displayed in Fig. 1. The edges with labels on them denote the transitions of this pLTS. The a-labeled edge at the top denotes that s1 can afford an a-labeled transition and arrive at s3 or s4 with probability 1/3 or 2/3, respectively. Similarly, s2 can afford an a-labeled transition and arrive at s3 or s4 with probability 2/3 or 1/3,
+respectively. The b-labeled edge between s3 and s5 denotes that there is a transition s3 −→b μ3 and μ3 is a Dirac distribution for s5, that is, μ3(s5) = 1 and μ3(s) = 0 for any other state s. Similarly, the c-labeled edge between s4 and s6 denotes that
+s4 can afford a c-labeled transition and arrive at s6 with probability 1. We set a distance function m on the states of the pLTS, such that
+m(s1, s2) = m(s2, s1) = ln 2,
+m(s5, s6) = m(s6, s5) = 0, and
+m(s, t) = +∞
+for any other pair (s, t) of states. Clearly, m is a metric and the equivalence classes of Rm are
+{{s1}, {s2}, {s3}, {s4}, {s5, s6}}.
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+89
+
+Now, let us check whether P satisﬁes 1-differential privacy on m. There are only two pairs of states that have real numbers as distance. Further, s5 and s6 do not afford any transition, so this pair does not violate differential privacy. For the pair
+(s1, s2) of states, s1 affords a transition s1 −→a μ1 and s2 affords a transition s2 −→a μ2, such that
+
+μ1
+
+=
+
+1 3 s3
+
++
+
+2 3 s4,
+
+μ2
+
+=
+
+2 3 s3
+
++
+
+1 3 s4.
+
+One can easily verify that the pair (s1, s2) does not violate differential privacy by Deﬁnition 3.1, as well. So we can conclude that P satisﬁes 1-differential privacy on m.
+
+Now let us state some simple properties of our differential privacy. The ﬁrst two properties can be achieved by some basic mathematical technologies.
+
+Proposition 3.1. Given a pLTS P with a metric m on its states, if P satisﬁes -differential privacy on m for some , then P also satisﬁes -differential privacy on m for any ≥ .
+
+Proposition 3.2. Given a pLTS P with a metric m on its states and a privacy parameter , if P satisﬁes -differential privacy on m,
+
+then
+
+P
+
+also
+
+satisﬁes
+
+1
+α
+
+-differential privacy on αm for any α ∈ R+.
+
+In the above proposition, αm is deﬁned by
+(αm)(s, t) = α · m(s, t)
+for any states s and t, which turns out to be a metric as well. The following two propositions take the ﬁrst step towards the relation between our differential privacy and probabilistic
+bisimilarity.
+
+Proposition 3.3. Given a pLTS P with a metric m on its states and a privacy parameter , if P satisﬁes -differential privacy on m, then Rm is a probabilistic bisimulation.
+Proposition 3.4. Given a pLTS P with a metric m on its states and a privacy parameter , if P satisﬁes -differential privacy on m,
+then for any pair (s1, s2) of states of P , such that m(s1, s2) < +∞, and any transition label a, if s1 −→a μ1, then there exists a transition s2 −→a μ2 such that μ2(E) ≤ e m(s1,s2)μ1(E), for any equivalence class E of R∼.
+It should be noticed that in the above proposition, the equivalence class E is a member of R∼, rather than Rm in Deﬁnition 3.1.
+3.2. Inﬁmum metric
+In Example 3.2, we set a metric on the states of the pLTS displayed in Fig. 1 and proved that the pLTS satisﬁes 1-differential privacy on the metric. We know that smaller distance means more similarity, so a natural question is to what degree the distance between two given states could be small, while not violating differential privacy. In this subsection, we will give a speciﬁc deﬁnition of such a distance, called inﬁmum distance, and show its relation to probabilistic bisimilarity.
+
+Deﬁnition 3.2. Given a pLTS P and a privacy parameter , we deﬁne a distance function m on the states of P , such that the distance between any two states is the inﬁmum of distances between them in such metrics that P satisﬁes -differential privacy on them. Formally,
+m (s, t) = inf{m(s, t) | P satisﬁes -differential privacy on m}.
+Additionally, we set m (s, t) = +∞, if m(s, t) = +∞ for every metric m such that P satisﬁes -differential privacy on m.
+
+In this deﬁnition, m is merely a distance function between states, but we will prove that it indeed satisﬁes the conditions of metric in Lemma 3.2. We call this distance function inﬁmum metric or -metric, if we want to emphasize the privacy parameter, in the rest of the paper.
+As stated in Propositions 3.3 and 3.4, we have obtained some properties of differential privacy that are related to probabilistic bisimilarity. Inspired by them, we are going to explore whether there exists close relation between inﬁmum metric and probabilistic bisimilarity. To this end, we give a metric which will play an important role in the proofs of our subsequent results.
+
+90
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+Deﬁnition 3.3. Given a pLTS P , we deﬁne a distance function mp on its states as follows,
+
+mp(s, t) =
+
+0 +∞
+
+if s ∼ t, if s t.
+
+Obviously, mp is a metric and Rmp has the same equivalence class with R∼. Furthermore, for any , P satisﬁes -differential privacy on metric mp . The metric mp is called p-metric (for probabilistic bisimilarity) in the rest of the paper.
+The following theorem discloses the relation between the inﬁmum metric and probabilistic bisimilarity and actually provides a method to show that two states are probabilistic bisimilar.
+Theorem 3.1. Given a ﬁnitary pLTS P and a privacy parameter , two states s and t of P are probabilistic bisimilar iff m (s, t) = 0. Therefore, Rm = R∼ for any .
+In the theorem, we placed a condition on pLTS, which has to be ﬁnitary. We now give an example extended from Example 3.2 to show the necessity of this condition.
+Example 3.3. Consider a pLTS Pr , arisen from the pLTS in Example 3.2. We erase the existing a-labeled transitions from s1 and s2 and replace them with T1 and T2, respectively, where T1 and T2 are deﬁned as follows.
+T1 ={s1 −→a μ1 | μ1(s3) = x and μ1(s4) = 1 − x, for some rational number x ∈ (0, 1)}, T2 ={s2 −→a μ2 | μ2(s3) = y and μ2(s4) = 1 − y, for some irrational number y ∈ (0, 1)}.
+Note that, x in T1 is a rational number while y in T2 is an irrational number. Having this revision, we can easily verify that Pr is no longer a ﬁnitary pLTS and the equivalence classes of R∼ on Pr are {{s1}, {s2}, {s3}, {s4}, {s5, s6}}. Therefore, s1 and s2 are not probabilistic bisimilar.
+However, m (s1, s2) is indeed 0 for any ∈ R+. Given a distance limit d ∈ R+, no matter how small d is, we can construct a distance function m by slightly editing mp deﬁned in Deﬁnition 3.3, setting m(s1, s2) = m(s2, s1) = d/2. Obviously, m is a metric. Additionally, it can be easily checked that Pr satisﬁes -differential privacy on m for any ∈ R+, if we notice that there exist at least one rational number and one irrational number in any real interval.
+Thus, it is necessary to add the condition of ﬁnitary pLTS in this theorem.
+We now give a corollary of Theorem 3.1 which speciﬁes that m treats the equivalence classes of probabilistic bisimilarity as a whole and describes the amount of difference between two equivalence classes.
+Corollary 3.1. Given a ﬁnitary pLTS P and a privacy parameter , if s1 ∼ s2 and t1 ∼ t2, then m (s1, t1) = m (s2, t2), for any states s1, s2, t1, and t2 of P .
+3.3. Inﬁmum metric satisﬁes differential privacy
+In the last subsection, we introduced a distance function to specify the least distance between two states while not violating differential privacy. We wonder whether such a distance function is also a metric and if so, whether this metric is a metric instance of differential privacy. In this subsection, we show that the answers are both YES.
+Before stating the main result, we ﬁrst give a lemma which is an extension of Theorem 3.1, showing the relation between m and ordinary metrics, which will be used when proving that m is a metric.
+Lemma 3.1. Given a ﬁnitary pLTS P and a privacy parameter , for any two states s and t of P , there exists a metric m, such that m(s, t) = m (s, t) and P satisﬁes -differential privacy on m.
+In a ﬁnitary pLTS, for any pair (s, t) of states, we have a metric m which has the same distance with m between these two states. That is, the distance between each pair of states in m is “reachable”. Additionally, we would like to remark that for different pairs of states, the metric m may be different, so this lemma does not directly result that P satisﬁes
+-differential privacy on m . Having this lemma, we are ready to show that m is also a metric.
+Lemma 3.2. Given a ﬁnitary pLTS P , m is a metric for any privacy parameter .
+We conﬁrm that m is also a metric in this lemma before m becomes a candidate of a metric instance of -differential privacy. We continue to check whether the pLTS P satisﬁes -differential privacy on m .
+Theorem 3.2. Given a ﬁnitary pLTS P and a privacy parameter , P satisﬁes -differential privacy on m .
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+91
+
+With this theorem, we discover that the inﬁmum metric m owns a special position among all metric instances of -differential privacy. First, it is a metric instance of -differential privacy itself, as shown in this theorem. On the other hand, the distance between any pair of states in m is no greater than that in any other metric instance of -differential privacy, according to the deﬁnition of m . This is similar to the relation between probabilistic bisimilarity and probabilistic bisimulation. Probabilistic bisimilarity is a probabilistic bisimulation itself and contains any other probabilistic bisimulation as its subset. Since larger distance means less similarity, the studies of metric instances of -differential privacy can be focused on m , including the logical characterization that we will introduce in the next section.
+4. Logical characterization of differential privacy
+In this section, we propose a logic, which is extending from the familiar HML logic proposed in [25], and characterize our notion of differential privacy with this logic. We introduce the formula structure of the logic and how they are satisﬁed by states in Subsection 4.1 and characterize probabilistic bisimilarity in Subsection 4.2. In Subsection 4.3, we give an extension of the formulae and present our main result on how we can characterize differential privacy through the inﬁmum metric with our logic.
+4.1. Logic for differential privacy
+In this subsection, we deﬁne a logic extending from the HML logic [25] and illustrate how the formulae are satisﬁed by states and distributions over states.
+We now deﬁne our logic, which is based on a set of transition labels Act. The set of its formulae is given by the following abstract syntax:
+F ::= tt | ff | F1 ∧ F2 | F1 ∨ F2 | a ϕ | [a]ϕ, ϕ ::= tt | ff | ϕ1 ∧ ϕ2 | ϕ1 ∨ ϕ2 | ♦p F | p F ,
+where a ∈ Act and p ∈ [0, 1]. We call this logic pHML logic, for the privacy extension of the HML logic.
+
+Remark 4.1. There have already existed a lot of variants of the HML logic, such as in these works [32–35]. However, we cannot follow them due to the following two reasons.
+First, the semantics of our logic should be given in terms of a single state, rather than a distribution over states, because the inﬁmum metric, as deﬁned in Deﬁnition 3.2, is over states and we characterize differential privacy through the inﬁmum metric. In some papers, for example [33], the semantics of the logic is given in terms of distributions, as they need to express probabilistic transitions. We also refer to probabilistic transitions in our framework, so we make a compromise and adopt a two-level logic, for states and distributions, respectively. This idea is taken from Jonsson et al. [36].
+On the other hand, we have not introduced the negative symbol ¬ in our logic, because we need an extension of the formulae when characterizing differential privacy. However, the extensions of a ϕ and [a]ϕ apply different rules. If we use the same way as Hennessy [35] and introduce ¬ in our logic, then [a]ϕ would be expressed as ¬ a ¬ϕ. As a result, it would be impossible to distinguish them when generating extensions of formulae. The speciﬁc extension rules of the formulae can be found in Deﬁnition 4.1.
+
+As seen, we have two kinds of formulae in this logic. The formulae with the form F , called F -formulae, are satisﬁed
+by states of a pLTS with the set Act of transition labels, while those with the form ϕ, called ϕ-formulae, are satisﬁed by
+distributions over states. Since we mainly concern about states rather than distributions in differential privacy, we will focus the study of this logic on F -formulae.
+Formally, the satisfaction can be described as follows. For F -formulae,
+• s tt for all states s. • s ff for no state s. • s F1 ∧ F2 iff s F1 and s F2. • s F1 ∨ F2 iff s F1 or s F2. • s a ϕ iff there exists a distribution μ, such that s −→a μ and μ ϕ. • s [a]ϕ iff for any distribution μ, s −→a μ results in μ ϕ.
+For ϕ-formulae,
+• μ tt for all distributions μ. • μ ff for no distribution μ. • μ ϕ1 ∧ ϕ2 iff μ ϕ1 and μ ϕ2. • μ ϕ1 ∨ ϕ2 iff μ ϕ1 or μ ϕ2.
+
+92
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+• μ ♦p F iff the probability of those states that satisfy F in μ is no less than p, that is, s F μ(s) ≥ p. • μ p F iff the probability of those states that satisfy F in μ is less than p, that is, s F μ(s) < p.
+The symbol represents satisfaction for both F -formulae and ϕ-formulae. We write pHML(s) = {F | s F } for the set of all F -formulae that are satisﬁed by the state s, and write state(F ) = {s | s F } for the set of all states that satisfy the given
+formula F . We give an example on the satisfaction of formulae.
+
+Example 4.1. Consider the formula F = a tt ∧ [b]♦ 1 ( c tt). If a state s satisﬁes the formula F , it should afford an a-labeled 2
+transition. Meanwhile, for any distribution after s performs a b-labeled transition, the probabilities of those states that can
+afford a c-labeled transition should be no less than 1/2.
+
+4.2. Characterizing probabilistic bisimilarity
+
+In this subsection, we ﬁrst construct the negations of the formulae in our pHML logic and then characterize probabilistic bisimilarity with our pHML logic.
+Since the HML logic is proposed to characterize probabilistic bisimilarity, we desire that our pHML logic, as an extension of the HML logic, also has the ability. In addition, the techniques used in characterizing probabilistic bisimilarity are helpful to characterize differential privacy. Following the existing manner in probabilistic bisimilarity [30], the negation of a formula is necessary when we attempt to characterize probabilistic bisimilarity logically. However, we did not include a negation operator in our pHML logic. Thus, we need to construct an F -formula F c for each F -formula F , which behaves like the negation of F . The construction method is deﬁned by the structural recursion as follows:
+
+• ttc = ff , for both F -formulae and ϕ-formulae,
+
+• ff c = tt, for both F -formulae and ϕ-formulae,
+
+• •
+
+(F1 (F1
+
+∧ ∨
+
+F 2 )c F 2 )c
+
+= =
+
+F F
+
+c 1c 1
+
+∨ ∧
+
+F F
+
+c 2c 2
+
+, ,
+
+• ( a ϕ)c = [a]ϕc ,
+
+• ([a]ϕ)c = a ϕc ,
+
+• (ϕ1 ∧ ϕ2)c = ϕ1c ∨ ϕ2c , • (ϕ1 ∨ ϕ2)c = ϕ1c ∧ ϕ2c , • (♦p F )c = p F ,
+
+• ( p F )c = ♦p F .
+
+Now, we present an example to illustrate the construction method.
+
+Example 4.2. Consider the formula in Example 4.1, F = a tt ∧ [b]♦ 1 ( c tt). Applying the construction method for negation, 2
+we can get that F c = [a]ff ∨ b 1 ( c tt). 2 The following lemma shows that F c indeed behaves in the way that is opposite to F .
+Lemma 4.1. Given a pLTS, for any state s and any F -formula F , s F iff s F c .
+The existence of F c will play a part in the proof of the following theorem, on the relation between our pHML logic and probabilistic bisimilarity.
+
+Theorem 4.1. Given a ﬁnitary pLTS P , two states s1, s2 of P are probabilistic bisimilar iff they satisfy the same formulae, i.e., pHML(s1) = pHML(s2).
+With this theorem, we know that if two states are probabilistic bisimilar with each other, then they share the same formulae in our pHML logic. That is, given an equivalence class E of R∼ and a formula F , either all states in E satisfy F or none of them satisfy F . We use E F to denote the former case.
+4.3. Characterizing differential privacy
+In this subsection, we characterize differential privacy through the inﬁmum metric deﬁned in Deﬁnition 3.2 with our pHML logic. We ﬁrst introduce an extension of the formulae, which is constructed with privacy and distance parameters, and give a property on the extension. Then, we present our main theorem which states that the distance between two states is no greater than a threshold if and only if the formulae satisﬁed by one state can be satisﬁed by the other state, after
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+93
+
+extension constructed with the threshold as distance parameter. We derive a method to determine the distance between states in the inﬁmum metric from the theorem and give an example to illustrate the method.
+Since the inﬁmum metric is a metric instance of differential privacy, the distance between two states in the inﬁmum metric describes the difference between their behavior when performing the same labeled transition. Thus, if the distance between two states is d, the relation between the formulae satisﬁed by them should be relevant to the distance d. So, we deﬁne an extension of formulae which takes privacy and distance parameters.
+
+Deﬁnition 4.1. Given an F -formula F , a privacy parameter , and a distance d, we deﬁne the extension of F , denoted by F e , by the following construction method, which is according to the structural recursion on formulae.
+
+For the extension F e of F -formulae,
+
+• tte = tt,
+
+• ff e = ff ,
+
+•
+
+(F1
+
+∧
+
+F 2 )e
+
+=
+
+F
+
+e 1
+
+∧
+
+F
+
+e 2
+
+,
+
+•
+
+(F1
+
+∨
+
+F 2 )e
+
+=
+
+F
+
+e 1
+
+∨
+
+F
+
+e 2
+
+,
+
+• ( a ϕ)e = a ϕe1 ,
+
+• ([a]ϕ)e = [a]ϕe2 .
+
+As seen, when constructing F e , we utilize the extension of ϕ-formulae, which has two kinds, ϕe1 and ϕe2 . They are
+applied to the cases F = a ϕ and F = [a]ϕ, respectively. For the ﬁrst extension ϕe1 of ϕ-formulae,
+
+• tte1 = tt, • ff e1 = ff , • (ϕ1 ∧ ϕ2)e1 = ϕ1e1 ∧ ϕ2e1 , • (ϕ1 ∨ ϕ2)e1 = ϕ1e1 ∨ ϕ2e1 , • (♦p F )e1 = ♦1−e d(1−p) F , • ( p F )e1 = e d p F .
+For the second extension ϕe2 of ϕ-formulae,
+
+• tte2 = tt, • ff e2 = ff , • (ϕ1 ∧ ϕ2)e2 = ϕ1e2 ∧ ϕ2e2 , • (ϕ1 ∨ ϕ2)e2 = ϕ1e2 ∨ ϕ2e2 , • (♦p F )e2 = ♦e− d p F , • ( p F )e2 = 1−e− d(1−p) F .
+In the construction of ϕe1 and ϕe2 , the probability parameters of the operators ♦ and are modiﬁed. However, we
+command that the probability parameters should be between 0 and 1 when deﬁning our pHML logic and the modiﬁcation
+may break this limitation. We observe that in both extensions of ϕ-formulae, the probability parameters of ♦ become lesser and the probability parameters of become larger. So, if the parameters break the limitation of [0, 1], it must be a ♦-formula with negative probability parameter or a -formula with probability parameter which is greater than 1. Intuitively, these ϕ-formulae are satisﬁed by all distributions, which helps us to make a simple rule. In both situations, we
+can set the corresponding extensions to be tt directly. We will specify this rule in the following example. However, since it is an intuitive solution under the idea of this construction, we will not give a detailed discussion on it in our subsequent proofs.
+
+Example 4.3. Consider the formula
+
+F = a ( 3 ( b tt ∨ c tt)) ∧ [b](♦ 3 ( a 1 ([c]ff )))
+
+4
+
+4
+
+6
+
+and its extension with privacy parameter = ln 2 and distance d = 1. According to the construction method, its extension is
+
+F e = a ( 3 ( b tt ∨ c tt)) ∧ [b](♦ 3 ( a 1 ([c]ff ))).
+
+2
+
+8
+
+6
+
+However, the probability parameter under the ﬁrst operator is 3/2, larger than 1. With the special rule, we should make a modiﬁcation and set it tt directly. Thus, it turns out that
+
+F e = a tt ∧ [b](♦ 3 ( a 1 ([c]ff ))).
+
+8
+
+6
+
+94
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+With this example, we can discover that the extension of F -formulae does not change the structure. It only modiﬁes some probability parameters of the operators ♦ and , if the aforementioned special rule is not applied.
+
+Proposition 4.1. Given an F -formula F , a ϕ-formula ϕ, a privacy parameter , a distance d, a pLTS P , a state s of P , and a distribution μ over states of P ,
+(1) if s F , then s F e ; (2) if μ ϕ, then μ ϕe1 ; (3) if μ ϕ, then μ ϕe2 ,
+where the extensions F e, ϕe1 , and ϕe2 are all constructed with and d.
+This proposition speciﬁes that F e , ϕe1 , and ϕe2 are indeed extensions of F and ϕ, because they extend the sets of states and distributions that satisfy F and ϕ, respectively.
+With the extension of formulae, we are ready to characterize differential privacy now.
+
+Lemma 4.2. Given a ϕ-formula ϕ, a privacy parameter , a distance d, a ﬁnitary pLTS P , and two distributions μ1 and μ2 over its states, such that μ2(E) ≤ e dμ1(E) for all equivalence classes E of R∼ on P ,
+(1) if μ1 ϕ, then μ2 ϕe1 ; (2) if μ2 ϕ, then μ1 ϕe2 ,
+where the extensions ϕe1 and ϕe2 are both constructed with and d.
+
+The above lemma shows the relation between distributions over states and two extensions of ϕ-formulae. With this
+lemma, we state the ﬁnal result on how to characterize differential privacy with our pHML logic, in the following theorem.
+
+Theorem 4.2. Given a privacy parameter , a distance d, a ﬁnitary pLTS P , and two states s1 and s2 of P , the following two statements are equivalent.
+(1) m (s1, s2) ≤ d. (2) s1 F results in s2 F e and s2 F results in s1 F e , for any F -formula F ,
+where F e is constructed with and d.
+
+Comparing this theorem with Theorem 4.1, the ﬁrst statement “m (s1, s2) ≤ d” is similar to that s1 ∼ s2, both describing the relation between two states. The distinction is that in Theorem 4.1, we only concern whether these two states are probabilistic bisimilar, while in this theorem, we still concern how much difference they have if the distance between them is not 0, which is equivalent to that they are not probabilistic bisimilar.
+The second statement “s1 F results in s2 F e and s2 F results in s1 F e ” is similar to that s1 and s2 satisfy the same formulae, both describing the relation between the formulae satisﬁed by them. Since we introduce a measure on the difference between these two states, the formulae satisﬁed by them naturally need a transformation, exactly the extension of formula that we deﬁned in Deﬁnition 4.1.
+In this theorem, we only give an upper bound of the distance between two states, rather than the precise value. However, we may still acquire the distance in the inﬁmum metric with this theorem. The ﬁrst statement of the theorem gives an upper bound of the distance, but if we use the theorem conversely, that is, we construct an extension of formula with a distance parameter such that the extension violates the second statement, then we can see that the ﬁrst statement is also wrong, which gives us a lower bound of the distance. That is, the logical characterization can help us to ﬁnd a witness formula when the distance of two states cannot be less than a distance threshold. Combining the lower and upper bounds, we can possibly determine the exact distance between two states in the inﬁmum metric. The following is an example of the method.
+
+Example 4.4. Consider the pLTS P displayed in Fig. 1. We have constructed a metric m on the states of this pLTS and shown
+
+that P satisﬁes 1-differential privacy on m in Example 3.2. That is, we have known that m1(s1, s2) ≤ m(s1, s2) = ln 2. Here,
+
+m1 is the -metric for = 1. We wonder whether m1(s1, s2) can be less or what the value of m1(s1, s2) is.
+
+Suppose that there is another distance limitation d < ln 2. According to Theorem 4.2, if m1(s1, s2) ≤ d , then for any
+
+formula F with s1 F , we have that s2 F e , where F e is constructed with 1 and d . We notice that s1 F = [a](♦ 2 ( c tt)),
+
+3
+
+and
+
+its
+
+extension
+
+Fe
+
+=
+
+[a](♦
+
+2 3
+
+e−d
+
+(
+
+c
+
+tt)).
+
+Since
+
+d
+
+< ln 2,
+
+we
+
+have
+
+that
+
+2 3
+
+e−d
+
+>
+
+1 3
+
+.
+
+However,
+
+s2
+
+has
+
+an
+
+a-labeled
+
+transition
+
+and reaches a distribution with only 1/3 probability to afford a c-labeled transition, that is, s2 F e .
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+95
+
+Fig. 2. The pLTS for Crowds.
+
+After this discussion, we see that it does not hold that m1(s1, s2) ≤ d , for any distance limit d < ln 2. That is, m1(s1, s2) = ln 2.
+
+We notice that the method in the last example is not a general method. The method requires us to ﬁnd the logic and verify the satisfaction manually. So, we desire a more automated method which can determine the distance in the inﬁmum metric logically without too much intervention. To achieve such a method, we investigate some work on the automatic veriﬁcation of ﬁnite-state processes [37–39]. They provided a workbench to check whether two processes are equivalent to each other in the sense of having the same behavior and whether a process satisﬁes a particular logic formula. But the equivalence checking is through an algorithm, which maintains partitioning of states and reﬁnes it with the bisimulation restriction [40]. Since they does not check equivalence logically, we need some further study to acquire a method that can determine the distance in the inﬁmum metric logically and we would like to defer it to our future work.
+
+5. Case study: crowds protocol
+
+In this section, we study a real case, an extended Crowds protocol with different behavior members. We build a pLTS for the protocol and preset a metric on its states following an intuitive idea. We prove that the system satisﬁes differential privacy on the metric under some privacy parameter, and deduce the inﬁmum metric of the privacy parameter.
+The Crowds protocol, proposed by Reiter et al. in [41], is a network protocol for anonymous web browsing. The main idea behind Crowds is to hide each member’s communications by routing them randomly within a group of similar members. So, the message receiver and the other group members cannot distinguish the true sender of this message. Therefore, the Crowds protocol performs well when defending against corrupt internal attackers and receiver.
+Technically, the protocol works as follows.
+
+(1) When a member in the network, called sender, wants to send a message, she does not directly send it to the receiver. However, she selects a member randomly (possibly herself) and sends this message to this member.
+(2) When a member receives a message, she ﬁrst checks whether she is the receiver. If not, she tosses a coin. If getting “Heads”, she selects a member randomly (possibly herself) and forwards the message to that member. If getting “Tails”, she forwards the message to the receiver.
+
+The
+
+coin
+
+used
+
+here
+
+is
+
+not
+
+fair,
+
+which
+
+turns
+
+out
+
+“Head”
+
+with
+
+probability
+
+pf
+
+>
+
+1 2
+
+.
+
+Members in the network are not allowed to get any knowledge about the route of this message. They have only access
+
+to the identiﬁer of their predecessors and message receiver. In this way, even though the message is caught by a corrupt
+
+internal member or message receiver, they cannot make sure who sends this message, because their predecessor may only
+
+be a forwarder. We notice that Xu studied an extended Crowds protocol with member-wise trusted forwarders in [21], and
+
+applied the compositionality result in that extended protocol.
+
+We study another variant of the Crowds protocol with different behavior members. In our framework of differential
+
+privacy, we concern about the difference between behaviors of relevant states. So we suppose that there are two kinds of
+
+members in the network, who differ in the probabilities of their coins. Speciﬁcally, there are n members tossing a coin
+
+which
+
+turns
+
+out
+
+“Head”
+
+with
+
+probability
+
+p1,
+
+and
+
+m
+
+members
+
+with
+
+probability
+
+p2
+
+(p1 > p2 >
+
+1 2
+
+).
+
+Additionally,
+
+there
+
+is
+
+another member playing the role of message receiver. Since this member does not forward messages, we do not care the
+
+probability of her coin.
+
+We build a pLTS Pc for our variant of the Crowds protocol and display it in Fig. 2. There are totally 2n + 2m + 2 states in this pLTS and their implications are listed as follows.
+
+96
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+Table 1 Transitions in the pLTS for Crowds.
+
+state
+
+s
+
+s
+
+s1i or s2j
+
+t
+
+1 i
+
+t
+
+2 j
+
+t
+
+label
+a a b c c d
+
+distribution
+
+1 · s1i for each i
+
+1 · s2j for each j
+
+i
+
+1 n+m+1
+
+ti1
+
++
+
+j
+
+1 n+m+1
+
+t
+
+2 j
+
++
+
+1 n+m+1
+
+t
+
+i
+
+p1 n+m
+
+ti1
+
++
+
+j
+
+p1 n+m
+
+t
+
+2 j
+
++ (1 −
+
+p 1 )t
+
+i
+
+p2 n+m
+
+ti1
+
++
+
+j
+
+p2 n+m
+
+t
+
+2 j
+
++ (1 −
+
+p 2 )t
+
+1·s
+
+Table 2 Metric on states of the pLTS for Crowds.
+
+state 1
+
+state 2
+
+s
+
+t
+
+s1i or s2j
+
+s1i
+
+s1i1 s2j1 ti1
+
+ti11
+
+t
+
+2 j1
+
+X
+
+X
+
+ti1 or t2j
+
+s2j
+
+s1i2
+
+s2j2
+
+t
+
+2 j
+
+t
+
+1 i2
+
+t
+
+2 j2
+
+distance
++∞ +∞ +∞ 2 0 0 2 0 0
+
+(1) The state s means that currently, this system is idle and no message is forwarding. (2) The state s1i or s2j means that a member wants to send a message to the receiver. The parameters i and j denote the
+index of the member. (3) The state ti1 or t2j means that a member has received a message and is going to forward it. The parameters i and j still
+denote the index of the member.
+(4) The state t means that a message has been delivered to the receiver.
+
+The subscripts i and j are in ranges that i ∈ {1, 2, . . . , n} and j ∈ {1, 2, . . . , m}. Transitions in this pLTS are divided into
+
+four kinds and labeled with a, b, c, and d. The state s can afford an a-labeled transition and arrive at some s1i or s2j with
+
+probability 1, standing for that the corresponding member wants to send a message. The state s1i or s2j can afford a b-labeled
+
+transition
+
+and
+
+arrive
+
+at
+
+some
+
+t i1 ,
+
+t
+
+2 j
+
+,
+
+or
+
+t
+
+with
+
+the
+
+same
+
+probability,
+
+standing
+
+for
+
+the
+
+random
+
+selection
+
+in
+
+the
+
+ﬁrst
+
+step
+
+of
+
+the
+
+protocol.
+
+The
+
+state
+
+ti1
+
+or
+
+t
+
+2 j
+
+can
+
+afford
+
+a
+
+c-labeled
+
+transition
+
+and
+
+arrive
+
+at
+
+t
+
+with
+
+probability
+
+1−
+
+pj
+
+and
+
+some
+
+ti1
+
+or
+
+t
+
+2 j
+
+with
+
+probability p j/(n + m), standing for the forwarding stage in the second step. The state t can afford a d-labeled transition
+
+and arrive at s with probability 1, meaning the completeness of this sending. For the neatness of the ﬁgure, we omit some
+
+states, all probabilities in distributions, and the transitions of sn1, sm2 , tn1, and tm2 , while ﬁll all the transitions of Pc in Table 1.
+
+We then set a distance function mc on the states of the pLTS Pc , speciﬁed in Table 2, where the symbol X stands for
+
+any state in the pLTS. Clearly, mc is a metric and the equivalence classes of Rmc are
+
+{{s}, {s11, . . . , sn1}, {s21, . . . , sm2 }, {t11, . . . , tn1}, {t12, . . . , tm2 }, {t}}.
+
+The metric mc is set according to the following idea. First, the distance between the states of different kinds should be positive inﬁnity for their totally different behavior. Second, the distance between the states in the same kind should be 0,
+
+if their corresponding members toss the coins with the same probability of “Head”, and 2 otherwise, because one can
+
+transform between these two states by erasing a message from some member and adding it to another member.
+
+With the metric on its states, we can verify our notion of differential privacy in this pLTS.
+
+Proposition
+
+5.1.
+
+The
+
+pLTS
+
+Pc
+
+satisﬁes
+
+(
+
+1 2
+
+ln
+
+1− p 2 1− p 1
+
+)-differential
+
+privacy
+
+on
+
+the
+
+metric
+
+mc .
+
+As stated in Remark 3.1, our notion of differential privacy in probabilistic systems prevents the previous internal states from being revealed by the later information. Since the Crowds protocol satisﬁes differential privacy, we conclude that the initial member who sends the message, as a previous internal state, is protected and cannot be known by any malicious member of the system if he only knows whether or not he is on the transition route, which is exactly the purpose of the Crowds protocol.
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+97
+
+We also remark that our notion of differential privacy is a guarantee at system level. The privacy parameter is a
+
+property of the system, regardless of which state the system is in. If a system is -differential private, then it is still
+
+-differential private after it executes some steps. As mentioned in Introduction, we do not involve privacy budget and
+
+privacy leakage in our framework. For example, in our Crowds case, the system keeps executing forever and no matter
+
+which
+
+state
+
+it
+
+is
+
+in,
+
+it
+
+is
+
+always
+
+(
+
+1 2
+
+ln
+
+1− p 2 1− p 1
+
+)-differential
+
+private.
+
+However, here comes another question: Is the metric mc identical to the inﬁmum metric m under the privacy parameter
+
+=
+
+1 2
+
+ln
+
+1− p 2 1− p 1
+
+?
+
+By
+
+the
+
+deﬁnition
+
+of
+
+inﬁmum
+
+metric,
+
+those
+
+pairs
+
+of
+
+states
+
+with
+
+the
+
+distance
+
+of
+
+0
+
+in
+
+mc
+
+must
+
+also
+
+have
+
+the
+
+distance of 0 in m . For those pairs of states with the distance of +∞ in mc , they have totally different behaviors and
+
+afford transitions with different labels. It is not diﬃcult to verify that the distances between them are all +∞ under every
+
+metric that the pLTS Pc satisﬁes -differential privacy on. That is, the distances between them are also +∞ under the metric m . Excluding these two kinds of pairs of states, we only need to check the distance between s1i and s2j and the
+
+distance
+
+between
+
+t
+
+1 i
+
+and
+
+t 2j
+
+in
+
+the
+
+inﬁmum
+
+metric.
+
+On the pair of s1i and s2j , we can observe from Table 1 that they actually afford the transition with the same label and
+
+arrive at the same distribution. When we apply the observation to Deﬁnition 3.1, we have that μ1 and μ2 are the same
+
+distribution and μ1(E) equals μ2(E) for any set E of states, which shows that even though the distance between them is 0,
+
+the inequality still holds. This suggests that we should check whether the pLTS Pc satisﬁes -differential privacy on mc , where mc is acquired from mc by modifying the distance between s1i and s2j to 0. It is routine to check that the pLTS Pc
+
+indeed satisﬁes -differential privacy on mc , and we do not go into the details here. So the distance between s1i and s2j
+
+in the inﬁmum metric m is 0. Then we look back to the behaviors of members in Crowds protocol. Although we assume
+
+two different kinds of members with coins of different probabilities, their behaviors are the same in the ﬁrst step because
+
+when a member wants to send a message, she just selects a member randomly without tossing her coin. Since the states s1i and s2j denote that a member wants to send a message, it is not surprising that the distance between them in the inﬁmum
+
+metric m is 0.
+
+On
+
+the
+
+pair
+
+of
+
+t
+
+1 i
+
+and
+
+t2j ,
+
+we
+
+suppose
+
+that
+
+m
+
+(ti1, t2j ) = d
+
+for
+
+some
+
+d < 2.
+
+According
+
+to
+
+Theorem
+
+4.2,
+
+if
+
+ti1
+
+satisﬁes
+
+some
+
+formula
+
+F,
+
+then
+
+t
+
+2 j
+
+satisﬁes
+
+Fe
+
+constructed
+
+with
+
+and d. With the transitions in the pLTS Pc , we notice that ti1
+
+c ( p d tt)
+
+iff p > 1 − p1 and t2j
+
+c(
+
+p
+
+d
+
+tt) iff
+
+p
+
+> 1 − p2. To make a contradiction, we set
+
+p
+
+=
+
+(1 −
+
+p2
+
+)
+
+·
+
+(
+
+1− 1−
+
+p1 p2
+
+d
+)2
+
+.
+
+With
+
+p1
+
+>
+
+p2
+
+>
+
+1 2
+
+and
+
+d < 2,
+
+we
+
+have
+
+that
+
+1− p 1 1− p 2
+
+<1
+
+and
+
+p > (1 − p2) ·
+
+1− p 1 1− p 2
+
+= 1 − p1,
+
+so
+
+ti1
+
+F = c ( p d tt). Then we get the extension
+
+of F , F e = c (
+
+e d p d tt) = c (
+
+1− p 2
+
+d
+
+tt),
+
+which
+
+is
+
+not
+
+satisﬁed
+
+by
+
+t2j .
+
+This
+
+shows
+
+that
+
+m
+
+(ti1
+
+,
+
+t
+
+2 j
+
+)
+
+=
+
+d
+
+does
+
+not
+
+hold
+
+for
+
+any
+
+d < 2,
+
+so
+
+m
+
+(ti1
+
+,
+
+t
+
+2 j
+
+)
+
+=
+
+2.
+
+That
+
+is,
+
+the
+
+metric
+
+mc
+
+in
+
+the
+
+last
+
+paragraph
+
+is
+
+actually
+
+the
+
+inﬁmum
+
+metric
+
+m
+
+of the pLTS Pc ,
+
+under the privacy parameter
+
+=
+
+1 2
+
+ln
+
+1− p 2 1− p 1
+
+.
+
+6. Conclusion and future work
+
+In this paper, we have proposed a formal framework for the analysis of differential privacy in the context of probabilistic systems. More speciﬁcally, based on the model of pLTSs, admitting both non-deterministic and probabilistic behavior, and a preset metric on its states, we have deﬁned differential privacy by the probability difference of the distributions after the same labeled transitions of relevant states. We have explained how traditional differential privacy could be embedded in our framework and raised an inﬁmum metric, the minimum distance between states, while not violating differential privacy. The inﬁmum metric holds some desirable properties, such as the distance between states in the inﬁmum metric is 0 iff they are probabilistic bisimilar. So, this metric can be regarded as a measure of the difference among equivalence classes of probabilistic bisimilarity. Moreover, the inﬁmum metric is also a metric instance of differential privacy itself, so the work of characterizing differential privacy logically is carried out via this metric. We have developed a new two-level logic, called pHML, which is a privacy variant of the traditional HML logic. With this logic, we have initially characterized probabilistic bisimilarity after the construction of negation for each formula. In addition, we have proposed the extension of each formula, which is constructed with privacy and distance parameters. This extension enables us to characterize differential privacy. We have also succeeded to provide a method to measure the distance in the inﬁmum metric with our pHML logic. Further, we have discussed a real case, an extended Crowds protocol with different behavior members. We have modeled this protocol with a pLTS, built a metric on its states, and investigated our concepts of differential privacy and inﬁmum metric on this pLTS.
+There are several problems worth further studying in our framework. First, we plan to extend some properties of the traditional differential privacy into our framework and discuss the relations to the computational differential privacy [42], where the adversary of system is computationally-bounded. Secondly, we are going to verify our notion of differential privacy in other existing systems, such as the mobile systems with noisy channels [43], the protocol of Mix Networks [44], and Onion Routing in anonymous network communications [45]. Lastly, as stated earlier in the paper, the deeper relation between our inﬁmum metric and the metric extensions of probabilistic bisimilarity by Desharnais et al. [26–28] and an automated method to determine the distance in the inﬁmum metric logically need further exploration.
+
+98
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+Acknowledgments
+
+The authors are very grateful to the anonymous reviewers for their invaluable suggestions. This work was supported by the National Natural Science Foundation of China (Grant Numbers 61370053, 61572003, and 61421091).
+
+Appendix. Proofs in the paper
+
+Proof of Proposition 3.1. For any pair (s1, s2) of states of P , such that m(s1, s2) < +∞, and any transition label a, if s1 −→a μ1, according to that P satisﬁes -differential privacy on m, then there exists a transition s2 −→a μ2 such that μ2(E) ≤ e m(s1,s2)μ1(E) for any equivalence class E of Rm. Since ≥ , we see that μ2(E) ≤ e m(s1,s2)μ1(E), and thus
+P also satisﬁes -differential privacy on m. 2
+
+Proof of Proposition 3.2. For any pair (s1, s2) of states of P , such that (αm)(s1, s2) < +∞, we also have that m(s1, s2) <
+
++∞. If s1 −→a μ1 for some transition label a and distribution μ1, then there exists a transition s2 −→a μ2 such that μ2(E) ≤
+
+e m(s1,s2)μ1(E) for any equivalence class E of Rm. We observe that E is also an equivalence class of Rαm and μ2(E) ≤
+
+e(
+
+1
+α
+
+)(αm)(s1 ,s2 ) μ1 ( E ),
+
+so
+
+P
+
+satisﬁes
+
+1
+α
+
+-differential privacy on αm.
+
+2
+
+Proof of Proposition 3.3. For any two states s1 and s2 in the same equivalence class of Rm , we have that m(s1, s2) = 0. If s1 −→a μ1 for some transition label a and distribution μ1, then there exists a transition s2 −→a μ2 such that μ2(E) ≤ e m(s1,s2)μ1(E) = μ1(E) for any equivalence class E of Rm. Since E μ1(E) = E μ2(E) = 1, we have that μ2(E) = μ1(E)
+for any E. So, Rm is a probabilistic bisimulation. 2
+
+Proof of Proposition 3.4. According to Proposition 3.3, Rm is a probabilistic bisimulation, so any two states s1 and s2 in
+the same equivalence class of Rm are probabilistic bisimilar, that is, in the same equivalence class of R∼. Consequently, any equivalence class E of R∼ is a combination of several equivalence classes of Rm . For any pair (s1, s2) of states of P , such that m(s1, s2) < +∞, and any transition label a, if s1 −→a μ1, according to that P satisﬁes -differential privacy on m, there exists a transition s2 −→a μ2 such that μ2(Ei ) ≤ e m(s1,s2)μ1(Ei ) for any equivalence class Ei of Rm. Considering any
+equivalence class E of R∼,
+
+μ2(E) =
+
+{Ei is a block of E} μ2(Ei ) ≤ e m(s1,s2)
+
+as desired. This ﬁnishes the proof. 2
+
+{Ei is a block of E} μ1(Ei ) = e m(s1,s2)μ1(E),
+
+Proof of Theorem 3.1. The “only if” direction is obvious, if we notice that P satisﬁes -differential privacy on p-metric
+deﬁned in Deﬁnition 3.3.
+Now, let us focus on the “if” direction. By contradiction, suppose that s and t are not probabilistic bisimilar. Then there
+must exist a transition s −→a μ which has no corresponding transition t −→a η. Consider the set of distributions D = {η | t −→a η}. Since P is ﬁnitary, D is a ﬁnite set. We use ηi to range over D. As
+a result of that no t −→a η is corresponding to s −→a μ, μ is not the same distribution with any ηi . However, E μ(E) = E ηi(E) = 1, for all equivalence classes E of R∼, so there must exist an equivalence classes Ei for each distribution ηi ,
+such that ηi(Ei) > μ(Ei). We set a few variables ri ’s as follows.
+
+ri =
+
+ηi ( E i )/μ( E i )
+2
+
+if μ(Ei) > 0, otherwise,
+
+and r = mini ri . Clearly, r > 1 and for any distribution ηi , there exists an equivalence class Ei of R∼, such that ηi(Ei) ≥ r μ( E i ).
+We continue to set d = 1 ln r. Since m (s, t) = 0, there exists a metric m, such that m(s, t) < d and P satisﬁes
+-differential privacy on m. So, for the transition s −→a μ, there exists a transition t −→a η, such that
+
+η(Ei) ≤ e m(s,t)μ(Ei) < e dμ(Ei) = rμ(Ei),
+for any equivalence class Ei of R∼. The ﬁrst inequality is a result of Proposition 3.4. However, none of distributions in D satisﬁes this condition, so we get a contradiction. That is, s and t are probabilistic bisimilar.
+We thus complete the proof of the theorem. 2
+
+In the proof of Corollary 3.1, we will use the result of Lemma 3.2, so we place the proof of Corollary 3.1 after the proof of Lemma 3.2.
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+99
+
+Proof of Lemma 3.1. The idea in this proof is similar to that of the “if” direction of Theorem 3.1.
+We ﬁrst set d = m (s, t). According to Theorem 3.1, if d = 0, then s ∼ t. So mp deﬁned in Deﬁnition 3.3 is a metric as
+desired. If d = +∞, then s t. So mp is still a metric that we need.
+If d ∈ (0, +∞), we also have that s t. We construct a metric m by slightly modifying mp , setting m(s, t) = m(t, s) = d.
+Clearly, m is a metric and Rm = R∼. So any equivalence class E of Rm is also an equivalence class of R∼.
+By contradiction, suppose that no metric satisﬁes that the distance between s and t is d and P satisﬁes -differential
+privacy on it. So P does not satisfy -differential privacy on m. That is, there must exist a transition s −→a μ which has no corresponding transition t −→a η.
+Consider the set of distributions D = {η | t −→a η}. Since P is ﬁnitary, D is a ﬁnite set. We use ηi to range over D. As a result of that no t −→a η is corresponding to s −→a μ, there must exist an equivalence class Ei of Rm, such that ηi(Ei) > e dμ(Ei), for each distribution ηi . We set a few variables ri ’s as follows:
+
+ri =
+
+ηi ( E i )/μ( E i ) e d+1
+
+if μ(Ei) > 0, otherwise,
+
+and r = mini ri . Clearly, r > e d and for any distribution ηi , there exists an equivalence class Ei of Rm, such that ηi(Ei) ≥
+
+riμ(Ei) ≥ rμ(Ei).
+
+We
+
+continue
+
+to
+
+set
+
+d
+
+=
+
+1
+
+ln
+
+r+e 2
+
+d
+
+.
+
+Obviously,
+
+d <d
+
+<
+
+1 ln r.
+
+Since
+
+m
+
+(s, t) = d,
+
+there
+
+exists
+
+a
+
+metric
+
+m,
+
+such
+
+that
+
+m (s, t) < d and P satisﬁes -differential privacy on m . So, for the transition s −→a μ, there exists a transition t −→a η, such
+
+that
+
+η(Ei) ≤ e m (s,t)μ(Ei) < e d μ(Ei) < rμ(Ei),
+
+for any equivalence class Ei of Rm. The ﬁrst inequality is a result of Proposition 3.4 and R∼ = Rm. However, none of distributions in D satisﬁes this condition, so we get a contradiction. That is, there exists a metric m such that m(s, t) =
+m (s, t) and P satisﬁes -differential privacy on m. 2
+
+Proof of Lemma 3.2. We can easily verify that m (s, s) = 0 and m (s1, s2) = m (s2, s1) ≥ 0. It remains to check that m satisﬁes the triangle inequality, that is, m (s1, s2) + m (s2, s3) ≥ m (s1, s3), for any states s1, s2, and s3 of P .
+Suppose that m (s1, s2) = d1 and m (s2, s3) = d2. Then there exist two metrics m1 and m2 such that m1(s1, s2) = d1, m2(s2, s3) = d2, and P satisﬁes -differential privacy on both m1 and m2, according to Lemma 3.1. We need to explain why m (s1, s3) ≤ d1 + d2, which can be deduced by constructing a metric that satisﬁes this distance limit and P satisﬁes
+-differential privacy on it.
+We construct a distance function m3 as follows.
+
+(1) Set m3(s, t) = min{m1(s, t), m2(s, t)}, for all pairs (s, t) of states. (2) While there exist three states s1, s2, s3, such that m3(s1, s3) > m3(s1, s2) + m3(s2, s3), set m3(s1, s3) = m3(s3, s1) =
+m3(s1, s2) + m3(s2, s3).
+
+Now, we will explain why this mechanism will eventually stop. After the ﬁrst step, m3(s, t) has a value of real number or positive inﬁnity, for each pair (s, t) of states. We select all the values of real numbers and construct a set S to involve them. Since P is a ﬁnitary pLTS, the set S is also a ﬁnite set. According to the update rule of the second step, the updated distance between states s and t must be the sum of some numbers in S. So the possible distances between s and t are only ﬁnitely many (at most the size of the power set of S). Furthermore, the distance is updated in descending order, so there are only ﬁnitely many steps to update the distance between s and t. When we consider all the pairs of states, this still holds, so the mechanism will always stop after ﬁnitely many steps.
+When this mechanism stops, it produces a metric m3 which satisﬁes
+
+m3(s1, s3) ≤ m3(s1, s2) + m3(s2, s3) ≤ m1(s1, s2) + m2(s2, s3) = d1 + d2.
+
+That is, we only need to show that P satisﬁes -differential privacy on m3.
+Consider two states s, t such that m3(s, t) is a real number. If m3(s, t) is not updated in the second step, then m3(s, t) = min{m1(s, t), m2(s, t)}. Without loss of generality, suppose that m3(s, t) = m1(s, t). Then, for any transition s −→a μ, there exists a transition t −→a η, such that η(E1) ≤ e m1(s,t)μ(E1), for any equivalence class E1 of Rm1 , according to that P satisﬁes
+-differential privacy on m1. For any two states s , t in the same E1, m1(s , t ) = 0, and we have that m3(s , t ) = 0 according
+to the ﬁrst step of the previous algorithm. That is, any equivalence class E3 of Rm3 is a combination of several equivalence classes of Rm1 . So μ(E3) = i μ(E1i) and η(E3) = i η(E1i), where E1i ’s are all equivalence classes of Rm1 . Consequently,
+
+η(E3) = η(E1i ) ≤ e m1(s,t)μ(E1i) = e m3(s,t) μ(E1i ) = e m3(s,t)μ(E3),
+
+i
+
+i
+
+i
+
+100
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+for any equivalence class E3 of Rm3 . If m3(s, t) is updated in the second step, then suppose that m3(s, t) is last updated by m3(s, r) + m3(r, t). Obviously,
+m3(s, r) and m3(r, t) will not be updated any more. For any transition s −→a μs, we can deduce, by induction on the lastupdate time of pairs of states, that there exist two transitions r −→a μr and t −→a μt , such that μr (E3) ≤ e m3(s,r)μs(E3) and μt (E3) ≤ e m3(r,t)μr (E3). Consequently,
+μt (E3) ≤ e (m3(r,t)+m3(s,r))μs(E3) = e m3(s,t)μs(E3),
+for any equivalence class E3 of Rm3 . Thus, P satisﬁes -differential privacy on m3. So, m satisﬁes the triangle inequality. 2
+
+Proof of Corollary 3.1. Combining Theorem 3.1 and Lemma 3.2, we can immediately get that m (s2, s1) = 0 and m (s2, t1) ≤ m (s2, s1) + m (s1, t1), so m (s2, t1) ≤ m (s1, t1). Similarly, m (s1, t1) ≤ m (s2, t1), which results in that m (s2, t1) = m (s1, t1). In the same way, m (s2, t1) = m (s2, t2), which yields that m (s1, t1) = m (s2, t2), ﬁnishing the proof. 2
+
+Proof of Theorem 3.2. Given two states s and t, such that m (s, t) < +∞, there exists a metric m such that m(s, t) = m (s, t), and P satisﬁes -differential privacy on m, according to Lemma 3.1. So, for any transition s −→a μ, there exists another transition t −→a η, such that η(Em) ≤ e m(s,t)μ(Em), for any equivalence class Em of Rm.
+On the other hand, if m(s1, s2) = 0 for two states s1 and s2, then m (s1, s2) = 0 by the deﬁnition of m . That is, any
+equivalence class E of Rm is a combination of several equivalence classes of Rm. So μ(E ) = i μ(Emi) and η(E ) = i η(Emi), where Emi ’s are all equivalence classes of Rm. Consequently,
+
+η(E ) = η(Emi ) ≤ e m(s,t)μ(Emi ) = e m (s,t) μ(Emi ) = e m (s,t)μ(E ),
+
+i
+
+i
+
+i
+
+for any equivalence class E of Rm . Thus, P also satisﬁes -differential privacy on m . 2
+
+Proof of Lemma 4.1. We ﬁrst prove the claim
+μ ϕ iff μ ϕc
+by the structural induction on ϕ, where μ is a distribution over the states of the pLTS and ϕ is a ϕ-formula. We omit the cases that ϕ = tt, ff , ϕ1 ∨ ϕ2, and p F , and give detailed proofs for the following two cases.
+• Case 1: ϕ = ϕ1 ∧ ϕ2 and ϕc = ϕ1c ∨ ϕ2c . Supposing that μ ϕc , we have that μ ϕ1c and μ ϕ2c , which leads to that μ ϕ1 and μ ϕ2, so μ ϕ1 ∧ ϕ2 = ϕ. Conversely, there is no diﬃcult to verify that μ ϕc from μ ϕ.
+• Case 2: ϕ = ♦p F and ϕc = p F . For the two formulae, we have that μ ϕ iff s F μ(s) ≥ p and μ ϕc iff s F μ(s) < p. So we can easily get that μ ϕ iff μ ϕc .
+Now, we prove this lemma by the structural induction on F . We omit the cases that F = tt, ff , F1 ∧ F2, and F1 ∨ F2, and give detailed proofs for the following two cases.
+• Case 1: F = a ϕ and F c = [a]ϕc . This leads to that s F c iff for any distribution μ, s −→a μ results μ ϕc . Consequently, s F c iff there exists a distribution μ, such that s −→a μ and μ ϕc iff there exists a distribution μ, such that s −→a μ and μ ϕ iff s a ϕ = F .
+• Case 2: F = [a]ϕ and F c = a ϕc . This leads to that s F c iff there exists a distribution μ, such that s −→a μ and μ ϕc . Consequently, s F c iff for any distribution μ, s −→a μ results μ ϕc iff for any distribution μ, s −→a μ results μ ϕ iff s [a]ϕ = F .
+Thus, this lemma is proven. 2
+
+Proof of Theorem 4.1. We ﬁrst prove the “only if” direction. We prove the following two claims by the structural induction
+on F and ϕ.
+
+If s1 ∼ s2 and s1 F , then s2 F ; If μ1(E) = μ2(E) for all E and μ1 ϕ, then μ2 ϕ;
+
+where F is an F -formula, ϕ is a ϕ-formula, and E is an equivalence class of R∼. We omit the cases that F = tt, ff , F1 ∨ F2, F1 ∧ F2 and ϕ = tt, ff , ϕ1 ∧ ϕ2, ϕ1 ∨ ϕ2,
+following three cases.
+
+p F , and give detailed proofs for the
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+101
+
+• Case 1: F = a ϕ. Since s1 F , there exists a distribution μ1, such that s1 −→a μ1 and μ1 ϕ. According to s1 ∼ s2, there exists a distribution μ2, such that s2 −→a μ2 and μ2(E) = μ1(E) for any equivalence class E of R∼. By induction,
+μ2 ϕ, so s2 a ϕ = F . • Case 2: F = [a]ϕ. We consider a distribution μ2, which satisﬁes s2 −→a μ2. According to s1 ∼ s2, there exists a distribu-
+tion μ1, such that s1 −→a μ1 and μ1(E) = μ2(E) for any equivalence class E of R∼. Since s1 F = [a]ϕ, we have that
+μ1 ϕ. By induction, μ2 ϕ, so s2 [a]ϕ = F .
+• Case 3: ϕ = ♦p F . By induction, for this F and two states s1, s2 in the same equivalence class E of R∼, s1 F iff
+s2 F . So for any distribution μ, we have that s F μ(s) = {E|s F , for some s∈E} μ(E). Since μ1(E) = μ2(E) for any equivalence class E, we have s F μ1(s) = s F μ2(s). According to μ1 ϕ = ♦p F , we have that s F μ1(s) ≥ p, so
+s F μ2(s) ≥ p, which results in that μ2 ♦p F = ϕ.
+
+Thus, the “only if” direction, as the ﬁrst claim, is proven. Now, let us focus on the “if” direction. First we construct a relation R on the states of P :
+
+R = {(s, t) | s and t satisfy the same formulae}.
+
+Obviously, R is an equivalence relation and it is suﬃcient for us to prove that R is a probabilistic bisimulation.
+
+Set S/R = {E1, E2, . . . , En}, where Ei ’s are all equivalence classes of R. For any two equivalence classes Ei and E j , they
+
+satisfy different formulae, so there must exist a formula Fij , such that Ei Fij , while E j Fij . If Fij is satisﬁed by E j , not
+
+by
+
+Ei,
+
+then
+
+F
+
+c ij
+
+is
+
+a
+
+formula
+
+that
+
+we
+
+need.
+
+(Since
+
+the
+
+states
+
+in
+
+Ei
+
+share
+
+the
+
+same
+
+formulae,
+
+we
+
+use
+
+Ei
+
+F to simply express
+
+that s F for some s ∈ Ei .) For equivalence class Ei , we set Fi = ∧ j=i Fij . Clearly, Fi is satisﬁed by Ei , but not by any other
+
+equivalence class E j .
+Let us focus on the relation R again. Given (s, t) ∈ R and s −→a μ, we set pi = μ(Ei) for each equivalence class Ei , so
+
+s a (∧i ♦pi Fi). Since s and t satisfy the same formulae, we have that t a (∧i ♦pi Fi), that is, there exists a distribution η, such that t −→a η and η ∧i ♦pi Fi . Setting qi = η(Ei ), we get that qi ≥ pi for each equivalence class Ei , because Fi is only
+satisﬁed by Ei . On the other hand, i pi = i qi = 1, which results that qi = pi , that is, μ(Ei ) = η(Ei) for any equivalence class Ei of R. So R is a probabilistic bisimulation.
+
+Thus, any pair of states in R, including (s1, s2), is probabilistic bisimilar and the “if” direction is also proven. 2
+
+Proof of Proposition 4.1. We ﬁrst prove the second assertion by the structural induction on ϕ and the third assertion can be proven in the similar way. We omit the cases that ϕ = tt, ff , ϕ1 ∧ ϕ2, and ϕ1 ∨ ϕ2, and give detailed proofs for the
+following two cases.
+• Case 1: ϕ = ♦p F . Since μ ϕ, we have that s F μ(s) ≥ p ≥ 1 − e d(1 − p). So, μ ♦1−e d(1−p) F = ϕe1 . • Case 2: ϕ = p F . Since μ ϕ, we have that s F μ(s) < p ≤ e d p. So, μ e d p F = ϕe1 .
+Then, we prove the ﬁrst assertion by the structural induction on F . We omit the cases that F = tt, ff , F1 ∧ F2, and F1 ∨ F2, and give detailed proofs for the following two cases.
+• Case 1: F = a ϕ. Since s F , there exists a distribution μ, such that s −→a μ and μ ϕ. According to the second assertion, μ ϕe1 . Consequently, s a ϕe1 = F e .
+• Case 2: F = [a]ϕ. Since s F , for any distribution μ, s −→a μ results μ ϕ. According to the third assertion, μ ϕe2 . Consequently, s [a]ϕe2 = F e .
+Thus, three assertions of this proposition are all proven. 2
+
+Proof of Lemma 4.2. We prove the ﬁrst assertion by the structural induction on ϕ and omit the proof of the second assertion. For the cases that ϕ = tt, ff , ϕ1 ∧ ϕ2, and ϕ1 ∨ ϕ2, the proofs are trivial.
+
+• Case 1: ϕ = ♦p F . We ﬁrst divide all the equivalence classes of R∼ by whether they satisfy F :
+
+E1, E2,..., E j F, E j+1, E j+2, . . . , En F .
+
+So, for any distribution μ, s F μ(s) = Focusing on μ1 and μ2, we have that
+
+j
+
+n
+
+μ2(Ei) = 1 −
+
+μ2 ( E i )
+
+i=1
+
+i= j+1
+
+j i=1
+
+μ(
+
+E
+
+i
+
+).
+
+102
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+n
+
+≥1−
+
+e dμ1(Ei)
+
+i= j+1
+
+j
+= 1 − e d(1 − μ1(Ei))
+i=1
+j
+= 1 − e d + e d μ1(Ei),
+i=1
+
+that is, s F μ2(s) ≥ 1 − e d + e d s F μ1(s). Since μ1 ϕ = ♦p F , we see that s F μ1(s) ≥ p, which leads to that
+
+s F μ2(s) ≥ 1 − e d + e d p. Consequently, μ2 ♦1−e d(1−p) F = ϕe1 .
+
+• Case 2: ϕ = p F . Since μ1 ϕ, we obtain that
+
+s F μ1(s) < p, which leads to that
+
+s F μ2(s) =
+
+j i=1
+
+μ2 ( E i )
+
+≤
+
+j i=1
+
+e
+
+dμ1(Ei ) = e
+
+d
+
+s F μ1(s) < pe d. So μ2
+
+e d p F = ϕe1 .
+
+Thus, we have proven all the cases of the ﬁrst assertion. 2
+
+Proof of Theorem 4.2. (1) ⇒ (2): We prove this assertion by the structural induction on F , and by symmetry, it is suﬃcient to prove that s1 F results in s2 F e . We omit the cases that F = tt, ff , F1 ∧ F2, and F1 ∨ F2 here.
+• Case 1: F = a ϕ. Since s1 F , there exists a distribution μ1, such that s1 −→a μ1 and μ1 ϕ. According to Theorem 3.2, we know that P satisﬁes -differential privacy on m , so there exists a distribution μ2, such that s2 −→a μ2 and μ2(E) ≤ e m (s1,s2)μ1(E) ≤ e dμ1(E), for any equivalence class E of Rm . Noticing that E is also an equivalence class of R∼, we have that μ2 ϕe1 , with the help of Lemma 4.2. Thus, s2 a ϕe1 = F e .
+• Case 2: F = [a]ϕ. We ﬁrst consider all distributions μ2’s, such that s2 −→a μ2. According to Theorem 3.2, we know that P satisﬁes -differential privacy on m , so for any distribution μ2, there exists a distribution μ1, such that s1 −→a μ1 and μ1(E) ≤ e m (s1,s2)μ2(E) ≤ e dμ2(E), for any equivalence class E of Rm . Since s1 F = [a]ϕ, we see that μ1 ϕ. Noticing that E is also an equivalence class of R∼, we have that μ2 ϕe2 , due to Lemma 4.2. Thus, s2 [a]ϕe2 = F e .
+
+We ﬁnish the proof of this assertion.
+(2) ⇒ (1): We start by considering the equivalence classes of probabilistic bisimilarity. Set R∼ = {E1, E2, . . . , En}. If s1 and s2 are in the same Ei , then s1 and s2 are probabilistic similar. By Theorem 3.1, m (s1, s2) = 0 ≤ d.
+If s1 and s2 are not in the same Ei , suppose that s1 ∈ E1 and s2 ∈ E2 without loss of generality. To prove that m (s1, s2) ≤ d, it is suﬃcient to construct a metric such that the distance between s1 and s2 is d and P satisﬁes -differential
+privacy on it.
+
+We construct a distance function m on states of P as follows,
+
+⎧ ⎪⎨0 m(s, t) = ⎪⎩d+∞
+
+if s, t are in the same Ei, if either (i) s ∈ E1 and t ∈ E2 or (ii) t ∈ E1 and s ∈ E2, otherwise.
+
+Obviously, m is a metric, m(s1, s2) = d, and Rm = R∼ = {E1, E2, . . . En}. It remains to verify that P satisﬁes -differential privacy on m. Let s and t be two states, such that m(s, t) < +∞.
+
+• If s, t are in the same Ei , then s ∼ t. For any transition s −→a μ, there exists a distribution η, such that t −→a η and η(Ei) = μ(Ei) for any equivalence class Ei . Immediately, it also holds that η(Ei ) ≤ e m(s,t)μ(Ei) for any equivalence
+class Ei .
+• If s ∈ E1 and t ∈ E2, given a transition s −→a μ, we set pi = μ(Ei ). So s a (∧i ri Fi ) if ri > pi , where Fi is a formula satisﬁed by Ei , but not satisﬁed by any other E j for j = i. Such formulae Fi ’s can be constructed by the same way in
+the proof of the “if” direction of Theorem 4.1.
+Since s and s1 are both in E1, they are probabilistic bisimilar and accordingly satisfy the same formulae. Here, s1 a (∧i ri Fi ), which results in that s2 ( a (∧i ri Fi ))e = a (∧i ri Fi )e1 = a (∧i rie d Fi ). Noticing that t and s2 are both in E2, we have that t a (∧i rie d Fi ).
+Consequently, there exists a distribution η such that t −→a η and η ∧i rie d Fi . Setting qi = η(Ei), we have that qi < rie d. Let ri be close to pi and we will ﬁnally get that qi ≤ pie d, that is, η(Ei) ≤ μ(Ei )e m(s,t) for any equivalence
+class Ei . • For the case of s ∈ E2 and t ∈ E1, the proof is similar to that of the last case.
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+103
+
+Putting these together, we ﬁnd that P satisﬁes -differential privacy on m. That is, we have proven that m (s1, s2) ≤ m(s1, s2) = d. 2
+
+Proof of Proposition 5.1. We can verify this proposition by checking the pairs of states with distance less than positive inﬁnity in the metric mc . However, we only discuss the pair (ti1, t2j ) in this proof and omit the other pairs for their simplicities.
+We ﬁrst name the equivalence classes of Rmc :
+
+E1 = {s}, E2 = {s11, . . . , sn1}, E3 = {s21, . . . , sm2 }, E4 = {t11, . . . , tn1}, E5 = {t12, . . . , tm2 }, E6 = {t}.
+
+The
+
+transitions
+
+from
+
+t
+
+1 i
+
+and
+
+t 2j
+
+are
+
+ti1
+
+−→c μi
+
+and
+
+t
+
+2 j
+
+−→c η j ,
+
+respectively.
+
+Further,
+
+n
+
+m
+
+μi(E4) = n + m p1, μi(E5) = n + m p1, μi(E6) = 1 − p1
+
+n
+
+m
+
+ηj(E4) = n + m p2, ηj(E5) = n + m p2, ηj(E6) = 1 − p2.
+
+Considering mc(ti1, t2j ) = 2 and
+
+=
+
+1 2
+
+ln
+
+1− p 2 1− p 1
+
+,
+
+it
+
+is
+
+suﬃcient
+
+to
+
+prove
+
+that
+
+μi(E) ≤
+
+1− p 1− p
+
+2 1
+
+η
+
+j
+
+(
+
+E
+
+)
+
+and
+
+ηj(E) ≤
+
+1− 1−
+
+p2 p1
+
+μi
+
+(
+
+E
+
+)
+
+for
+
+any
+
+equivalence
+
+class
+
+E.
+
+We
+
+observe
+
+that
+
+p1 > p2 >
+
+1 2
+
+,
+
+leading
+
+to
+
+that
+
+p2(1 − p2) > p1(1 − p1).
+
+Consequently,
+
+1− p 2 1− p 1
+
+>
+
+p1 p2
+
+>
+
+p2 p1
+
+>
+
+1− 1−
+
+p1 p2
+
+,
+
+proving
+
+that
+
+μi(E) ≤
+
+1− 1−
+
+p2 p1
+
+η
+
+j
+
+(
+
+E
+
+)
+
+and
+
+ηj(E) ≤
+
+1− 1−
+
+p2 p1
+
+μi
+
+(
+
+E
+
+)
+
+for
+
+any
+
+E.
+
+Thus,
+
+the
+
+pair
+
+(ti1
+
+,
+
+t
+
+2 j
+
+)
+
+does
+
+not
+
+violate
+
+-differential privacy for
+
+=
+
+1 2
+
+ln
+
+1− p 2 1− p 1
+
+.
+
+2
+
+References
+
+[1] C.C. Aggarwal, P.S. Yu, A General Survey of Privacy-Preserving Data Mining Models and Algorithms, Springer, 2008. [2] B.C.M. Fung, K. Wang, R. Chen, P.S. Yu, Privacy-preserving data publishing: a survey of recent developments, ACM Comput. Surv. 42 (4) (2010)
+14:1–14:53. [3] S. Hartung, A. Nichterlein, R. Niedermeier, O. Suchý, A reﬁned complexity analysis of degree anonymization in graphs, Inf. Comput. 243 (2015) 249–262. [4] A. Giurgiu, R. Guerraoui, K. Huguenin, A. Kermarrec, Computing in social networks, Inf. Comput. 234 (2014) 3–16. [5] C. Dwork, Differential privacy, in: Proceedings of the 33rd International Colloquium on Automata, Languages and Programming, 2006, pp. 1–12. [6] Y. Yang, Z. Zhang, G. Miklau, M. Winslett, X. Xiao, Differential privacy in data publication and analysis, in: Proceedings of the 2012 International
+Conference on Management of Data, 2012, pp. 601–606. [7] C. Dwork, Differential privacy: a survey of results, in: Proceedings of the 5th International Conference on Theory and Applications of Models of
+Computation, 2008, pp. 1–19. [8] C. Dwork, Differential privacy in new settings, in: Proceedings of the 21st Annual Symposium on Discrete Algorithms, 2010, pp. 174–183. [9] C. Dwork, A. Roth, The algorithmic foundations of differential privacy, Found. Trends Theor. Comput. Sci. 9 (3–4) (2014) 211–407. [10] Z. Huang, S. Kannan, The exponential mechanism for social welfare: private, truthful, and nearly optimal, in: Proceedings of the 53rd Annual Sympo-
+sium on Foundations of Computer Science, 2012, pp. 140–149. [11] F. McSherry, K. Talwar, Mechanism design via differential privacy, in: Proceedings of the 48th Annual Symposium on Foundations of Computer Science,
+IEEE, 2007, pp. 94–103. [12] M. Hardt, A. Roth, Beating randomized response on incoherent matrices, in: Proceedings of the 44th Annual Symposium on Theory of Computing,
+ACM, 2012, pp. 1255–1268. [13] R. Chen, B.C.M. Fung, B.C. Desai, N.M. Sossou, Differentially private transit data publication: a case study on the montreal transportation system, in:
+Proceedings of the 18th International Conference on Knowledge Discovery and Data Mining, 2012, pp. 213–221. [14] W.H. Qardaji, W. Yang, N. Li, Differentially private grids for geospatial data, in: Proceedings of the 29th International Conference on Data Engineering,
+2013, pp. 757–768. [15] C. Task, C. Clifton, A guide to differential privacy theory in social network analysis, in: Proceedings of the 2012 International Conference on Advances
+in Social Networks Analysis and Mining, 2012, pp. 411–417. [16] F.M. Naini, J. Unnikrishnan, P. Thiran, M. Vetterli, Privacy-preserving function computation by exploitation of friendships in social networks, in: Pro-
+ceedings of the 2014 International Conference on Acoustics, Speech and Signal Processing, 2014, pp. 6250–6254. [17] Y. Shin, K. Kim, Differentially private client-side data deduplication protocol for cloud storage services, J. Secur. Commun. Netw. 8 (12) (2015)
+2114–2123. [18] J. Reed, B.C. Pierce, Distance makes the types grow stronger: a calculus for differential privacy, in: Proceeding of the 15th International Conference on
+Functional Programming, ACM, 2010, pp. 157–168. [19] M. Gaboardi, A. Haeberlen, J. Hsu, A. Narayan, B.C. Pierce, Linear dependent types for differential privacy, in: Proceeding of the 40th Annual Symposium
+on Principles of Programming Languages, 2013, pp. 357–370. [20] M.C. Tschantz, D.K. Kaynar, A. Datta, Formal veriﬁcation of differential privacy for interactive systems (extended abstract), Electron. Notes Theor.
+Comput. Sci. 276 (2011) 61–79.
+
+104
+
+J. Yang et al. / Information and Computation 254 (2017) 84–104
+
+[21] L. Xu, Modular reasoning about differential privacy in a probabilistic process calculus, in: Proceedings of the 7th International Symposium on Trustworthy Global Computing, 2012, pp. 198–212.
+[22] L. Xu, K. Chatzikokolakis, H. Lin, Metrics for differential privacy in concurrent systems, in: Proceedings of the 34th International Conference on Formal Techniques for Distributed Objects, Components, and Systems, 2014, pp. 199–215.
+[23] F. Bartels, A. Sokolova, E. de Vink, A hierarchy of probabilistic system types, Theor. Comput. Sci. 327 (1) (2004) 3–22. [24] N. Trcka, S. Georgievska, Branching bisimulation congruence for probabilistic systems, Electron. Notes Theor. Comput. Sci. 220 (3) (2008) 129–143. [25] M. Hennessy, R. Milner, Algebraic laws for nondeterminism and concurrency, J. ACM 32 (1) (1985) 137–161. [26] J. Desharnais, V. Gupta, R. Jagadeesan, P. Panangaden, Metrics for Labeled Markov Systems, Lect. Notes Comput. Sci., vol. 1664, 1999. [27] J. Desharnais, R. Jagadeesan, V. Gupta, P. Panangaden, The metric analogue of weak bisimulation for probabilistic processes, in: Proceedings of the 17th
+Symposium on Logic in Computer Science, 2002, pp. 413–422. [28] J. Desharnais, V. Gupta, R. Jagadeesan, P. Panangaden, Metrics for labelled Markov processes, Theor. Comput. Sci. 318 (3) (2004) 323–354. [29] P.M.B. Vitányi, Information distance in multiples, IEEE Trans. Inf. Theory 57 (4) (2011) 2451–2456. [30] L. Aceto, A. Ingólfsdóttir, K.G. Larsen, J. Srba, Reactive Systems: Modelling, Speciﬁcation and Veriﬁcation, Cambridge University Press, 2007. [31] K. Chatzikokolakis, M.E. Andrés, N.E. Bordenabe, C. Palamidessi, Broadening the scope of differential privacy using metrics, in: Proceedings of the 13th
+International Symposium on Privacy Enhancing Technologies, Springer, 2013, pp. 82–102. [32] K.G. Larsen, A. Skou, Bisimulation through probabilistic testing, Inf. Comput. 94 (1) (1991) 1–28. [33] A. Parma, R. Segala, Logical characterizations of bisimulations for discrete probabilistic systems, in: Proceedings of the 10th International Conference
+on Foundations of Software Science and Computational Structures, 2007, pp. 287–301. [34] H. Hermanns, A. Parma, R. Segala, B. Wachter, L. Zhang, Probabilistic logical characterization, Inf. Comput. 209 (2) (2011) 154–172. [35] M. Hennessy, Exploring probabilistic bisimulations, part I, Form. Asp. Comput. 24 (4–6) (2012) 749–768. [36] B. Jonsson, W. Yi, K.G. Larsen, Probabilistic extensions of process algebras, in: Handbook of Process Algebra, 2001, pp. 685–710. [37] R. Cleaveland, J. Parrow, B. Steffen, The concurrency workbench: a semantics-based tool for the veriﬁcation of concurrent systems, ACM Trans. Program.
+Lang. Syst. 15 (1) (1993) 36–72. [38] F. Moller, P. Stevens, The Edinburgh concurrency workbench (version 7), Laboratory for Foundations of Computer Science, University of Edinburgh, UK. [39] R. Cleaveland, S. Sims, The NCSU concurrency workbench, in: Proceedings of the 8th International Conference on Computer Aided Veriﬁcation, Springer,
+1996, pp. 394–397. [40] P.C. Kanellakis, S.A. Smolka, CCS expressions, ﬁnite state processes, and three problems of equivalence, in: Proceedings of the 2nd Annual ACM SIGACT-
+SIGOPS Symposium on Principles of Distributed Computing, ACM, 1983, pp. 228–240. [41] M.K. Reiter, A.D. Rubin, Crowds: anonymity for web transactions, ACM Trans. Inf. Syst. Secur. 1 (1) (1998) 66–92. [42] I. Mironov, O. Pandey, O. Reingold, S.P. Vadhan, Computational differential privacy, in: Proceedings of the 29th Annual International Cryptology Confer-
+ence, 2009, pp. 126–142. [43] Y. Cao, Reliability of mobile processes with noisy channels, IEEE Trans. Comput. 61 (9) (2012) 1217–1230. [44] S. Zhioua, Analyzing anonymity attacks through noisy channels, Inf. Comput. 244 (2015) 76–112. [45] K. Peng, Anonymous Communication Networks: Protecting Privacy on the Web, CRC Press, 2014.
+

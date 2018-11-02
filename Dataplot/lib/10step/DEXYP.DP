@@ -1,0 +1,310 @@
+. This is dataplot macro   DEXYP.DP
+. Purpose: Generate a DEX Youden plot
+.          (= step 6 of the DEXPLOT.DP 10-step DEX analysis procedure)
+. Date: May 2005 ==> February 2015
+. Input
+.    1. k (parameter)               = Total number of plot factors
+.    2. y (vector)                  = Response variable
+.    3. x1, x2, x3, . . . (vectors) = Factors
+.
+.    4. framet (parameter)          = top    frame line (in %) (optional) (default = 90)
+.    5. frameb (parameter)          = bottom frame line (in %) (optional) (default = 20)
+.
+. -----start point-----
+.
+if tracesw exists; if tracesw = 1; print "dexyp.dp"; end if; end if
+.
+feedback save; feedback off
+printing off
+let pauseyp = 0
+. print "start: pauseyp = ^pauseyp"
+. pause
+.
+if pauseyp = 1
+   print " "
+   print "--At the Beginning of Step 6 (DEXYP.DP) . . ."
+   print y x1 to x^k
+   let n = number y
+   print "   k = ^k"
+   print "   n = ^n"
+   pause
+end if
+.
+. -----------------------------------------
+. -----Do Analysis Step 6: Youden Plot-----
+. -----------------------------------------
+.
+. -----Step 1: Check for missing input values-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 1"; pause; end if
+. print "project = ^project"
+.
+let string stmacro = dexyp.dp
+let string stall = k y
+call checkinput.dp
+.
+if k not exist
+   call determine_k.dp
+end if
+.
+loop for jz = 1 1 k
+   let string stall = x^jz
+   call checkinput.dp
+end loop
+.
+. -----Step 2: Define plot settings-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 2"; pause; end if
+. print "project = ^project"
+.
+call dexplotinit.dp
+call dexplotdefplotset.dp
+.
+. -----Step 3: Compute  all effect estimates and confounding-----
+. -----        The number of effects                      (parameter) numeff
+. -----        The dummy index (1 to numeff)              (vector)    effindex
+. -----        The means at the "high" side               (vector)    meanh
+. -----        The means at the "low"  side               (vector)    meanl
+.
+. -----        The effect estimates (ordered by | |)      (vector)    eff
+. -----        The effect ID's                            (vectors)   effid1, effid2
+. -----        The corresponding tags and confounding     (strings)   steft.. and stefc..
+.
+. -----        The relative effect estimates              (vector)    releff
+. -----        The sd(effects)                            (vector)    sdeff
+. -----        The t(effects)                             (vector)    teff
+. -----        The residual SD for each single model      (vector)    rsd
+. -----        The residual SD for each cumulative model  (vector)    cumrsd
+. -----        The effect ID's (as multiplier definitions)(strings)   stcore1, stcore2, etc.
+. -----        The effect confouding                      (strings)   stconf1, stconf2, etc.
+.
+if pauseyp = 1; print "--At dexyp.dp step 3"; pause; end if
+. print "project = ^project"
+.
+if confdone not exist
+   . all 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if
+.
+if confdone exists; if confdone = 0
+   . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+   call conf.dp
+   call core.dp
+   call est.dp
+end if; end if
+.
+. -----Step 4.1: Generate a hidden dex mean plot to get plot limits-----
+.
+. print "pauseyp = ^pauseyp"
+. pause
+.
+if pauseyp = 1; print "--At dexyp.dp step 6.1"; pause; end if
+
+device 1 off; device 2 off; device 3 off
+dex mean plot y x1 to x^k
+device 1 on; device 2 on; device 3 on
+. dex mean plot y x1 to x^k
+.
+. -----Step 4.2: Compute automatic plot limits-----
+.
+. here
+.
+if pauseyp = 1; print "--At dexyp.dp step 6.2"; pause; end if
+.
+probe fy1min; let ybottom = probeval
+probe fy1max; let ytop = probeval
+. let leftz = 50
+. let rightz = 80
+let ydel = ytop-ybottom
+. print "ytop = ^ytop   ybottom = ^ybottom"
+. print "ydel = ^ydel"
+. pause
+.
+. patch 2/5/16 from dex class
+let ymeanz = mean y
+let ydel1 = ymeanz - ybottom
+let ydel2 = ytop - ymeanz
+let ytop2 = ytop
+let ybottom2 = ybottom
+if ydel1 > ydel2; let ytop2 = ymeanz + ydel1; end if
+if ydel1 < ydel2; let ybottom2 = ymeanz - ydel2; end if
+let ydel = ydel1
+if ydel2 > ydel1; let ydel = ydel2; end if
+let ydel = 2*ydel
+. print "ymeanz = ^ymeanz"
+. print "ydel1 = ^ydel1   ydel2 = ^ydel2"
+. print "ytop = ^ytop   ybottom = ^ybottom"
+. print "ytop2 = ^ytop2   ybottom2 = ^ybottom2"
+. print "ydel = ^ydel"
+. pause
+.
+let leftz = ybottom2 + (1/14)*ydel; . 1/14 is correct for offset 5 5
+let rightz = ytop2 - (1/14)*ydel
+let dpz = 0
+let dpz = 0
+if ydel >= 1; if ydel <= 10; let dpz = 1; end if; end if
+if ydel >= 0.1; if ydel <= 1; let dpz = 2; end if; end if
+if ydel >= 0.01; if ydel <= .1; let dpz = 3; end if; end if
+if ydel >= 0.001; if ydel <= .01; let dpz = 4; end if; end if
+if ydel >= 0.0001; if ydel <= .001; let dpz = 5; end if; end if
+if ydel >= 0.00001; if ydel <= .0001; let dpz = 6; end if; end if
+if ydel >= 0.000001; if ydel <= .00001; let dpz = 7; end if; end if
+if ydel >= 0.0000001; if ydel <= .000001; let dpz = 8; end if; end if
+let leftzz = round(leftz,dpz)
+let rightzz = round(rightz,dpz)
+. print "ydel = ^ydel"
+. print "leftz = ^leftz    rightz = ^rightz"
+. print "leftzz = ^leftzz    rightzz = ^rightzz"
+. print "dpz = ^dpz"
+. pause
+ylimits leftzz rightzz
+xlimits leftzz rightzz
+if yminyp exists; ymin ^yminyp; xmin ^yminyp; end if
+if ymaxyp exists; ymax ^ymaxyp; xmax ^ymaxyp; end if
+.
+. -----Step 5: Define labels and generate the blank background plot-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 7"; pause; end if
+.
+char bl all
+lines blank all
+title Youden Plot
+y1label Average Response for  +  Setting
+x3label
+if cy not exist; y1label Response Y for  +  Setting; end if
+if cy exists; y1label Response Y (^cy) for  +  Setting; end if
+if cy not exist; x1label Response Y for  -  Setting; end if
+if cy exists; x1label Response Y (^cy) for  -  Setting; end if
+label size labelsiz
+tic label size ticlabsi
+.
+. print meanh meanl effindex
+. pause
+plot meanh meanl effindex
+.
+. -----Step 8: Determine plot characters and individually plot them out-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 8"; pause; end if
+
+loop for j = 1 1 numeff
+   let ypos = meanh(j)
+   let xpos = meanl(j)
+   let tagzj = effindex(j)
+   . let effid1j = effid1(j)
+   . let effid2j = effid2(j)
+   . let string ch = ^effidj
+   let string ch = ^steft^j
+   .
+   movedata xpos ypos
+   just cece
+   text ^ch
+end loop
+.
+. -----Step 9: Draw a dotted cross-hair at (grand mean, grand mean)-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 9"; pause; end if
+. print "project = ^project"
+.
+lines solid
+let ybar = mean y
+. draw data ybar a ybar b
+. draw data a ybar b ybar
+.
+let frametz = 90
+let framebz = 20
+if framet exists; let frametz = framet; end if
+if frameb exists; let framebz = frameb; end if
+drawdsds ybar frameb ybar framet
+.
+drawsdsd 15 ybar 85 ybar
+.
+. -----Step 10: Write out confounding structure in the right margin-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 10: Write confound."; pause; end if
+. print "project = ^project"
+. . feedback on
+hw 2 1;. new 5/11/05
+just lece
+loop for j = 1 1 numeff
+   let yplotj = yplot(j)
+   let string ch = sp()
+   . let effid1j = effid1(j)
+   . let effid2j = effid2(j)
+   . let string ch = ^effidj
+   .
+   let string ch = ^steft^j
+   movesd 86 yplotj
+   text ^ch
+   .
+   let string ch = ^stefc^j
+   if ch = -999; let string ch = sp(); end if
+   movesd 90 yplotj
+   text ^ch
+end loop
+.
+hw 2 1
+let ypz = 90
+if framet exists; let ypz = ypz - (90 - framet); end if
+move 86 ypz
+text Factor: Confounding
+.
+. -----Step 11: Write ID's at important plot points-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 11"; pause; end if
+. print "project = ^project"
+.
+. -----Step 12: draw crosshairs at (gmeanz,gmeanz)-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 12"; pause; end if
+.
+let gmeanz = mean y
+.
+lines dotted
+drawdsds gmeanz framebz gmeanz frametz
+drawsdsd 15 gmeanz 85 gmeanz
+lines bl
+.
+. -----Step 13: Annotate the plot-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 13: write ID's"; pause; end if
+call dexwriteproject.dp
+call dexknbox.dp
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+end if
+.
+if step exists
+   call tagcorn.dp
+end if
+.
+if annotate exists; if annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if; end if
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+if pauseyp = 1
+   end capture
+end if
+.
+. -----Step 14: All Done-----
+.
+if pauseyp = 1; print "--At dexyp.dp step 14: All Done"; pause; end if
+.
+xlimits
+ylimits
+title
+y1label
+x1label
+.
+if pauseyp = 1; print "--At dexyp.dp final line"; pause; end if
+.
+feedback restore
+.

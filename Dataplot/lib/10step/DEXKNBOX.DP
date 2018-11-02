@@ -1,0 +1,76 @@
+. This is dataplot macro   DEXKNBOX.DP
+. Purpose: Write out k = ...  n = ... is upper left  corner of plot frame
+. Note   : Used by DEXPLOT.DP macros
+. Date   : March 2, 2005
+. Input:
+.    y      (vector)    = response variable
+.    k      (parameter) = number of plot factors (usually = number of real factors)
+.    k0     (parameter) = number of factors (no interactions) (optional) (default = k)
+.    n      (parameter) = total number of observations in y
+.    texth  (parameter) = desired height for plot annotation (in %)
+.    textw  (parameter) = desired width for plot annotation (in %)
+.    framet (parameter) = top    frame line (in %) (optional) (default = 90)
+.    frameb (parameter) = bottom frame line (in %) (optional) (default = 20)
+.
+. -----start point-----
+.
+. print "at the beginning of     dexknbox.dp"
+. print framet frameb
+. pause
+.
+. let njunk = n
+delete njunk
+. if n exists
+.    let njunk = n
+. else
+   let njunk = number y
+. end if
+.
+let texthtem = 2
+if texth exists; let texthtem = texth; end if
+let textwtem = texthtem/2
+if textw exists; let textwtem = textw; end if
+.
+let frametz = 90
+let framebz = 20
+if framet exists; let frametz = framet; end if
+if frameb exists; let framebz = frameb; end if
+.
+. print framet frameb frametz framebz
+. pause
+.
+let boxright = 19 + 5*textwtem
+if njunk <= 999; let boxright = 17 + 5*textwtem; end if
+. if njunk <= 99;. let boxright = 15 + 5*textwtem;. end if
+if njunk <= 99; let boxright = 16 + 5*textwtem; end if
+.
+if foreground exists
+   box color ^foreground
+   box fill pattern solid
+   box fill color 67
+end if
+if brfudge exists
+   let boxright = boxright + brfudge
+end if
+.
+let boxtop = frametz
+let boxbot = boxtop - 5
+lines solid; box 15 boxbot boxright boxtop;.      <======================
+.
+if leecolor exists; color ^leecolor; end if
+.
+let ypz = 87.75
+if framet exists; let ypz = 87.75 - (90 - framet); end if
+if k0 exists
+   hw texthtem textwtem; just left; move 16 ypz; text k = ^k0
+end if
+if k0 not exist
+   hw texthtem textwtem; just left; move 16 ypz; text k = ^k
+end if
+.
+let ypz = 85.75
+if framet exists; let ypz = 85.75 - (90 - framet); end if
+move 16 ypz; text n = ^njunk
+.
+box fill pattern blank; box fill color g80
+.

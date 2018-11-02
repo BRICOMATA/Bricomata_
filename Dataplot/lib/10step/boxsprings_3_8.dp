@@ -1,0 +1,33 @@
+. This is dataplot program   boxsprings_3_8.dp     1/13/15
+. Purpose: Analyze Box & Bisgaard Defective Springs dataset via 10-step analysis
+. Date: 1/13/15
+.
+. -----start point-----
+.
+dimension 100 variables
+.
+. -----Step 1: Read in the data and define strings-----
+.
+let k = 3
+skip 25; read   boxsprings_3_8.dat   Y X1 X2 X3
+.
+let string project = Metal Springs: % Acceptable (Box & Bisgaard)
+let string sty = % Acceptable Springs
+.
+let string stx1 = Oven Temp
+let string stx2 = Carb Conc
+let string stx3 = Quench Temp
+.
+let string stx1l = 1450 1600
+let string stx2l = .5 .7
+let string stx3l = 70 120
+.
+let string colorl = red blue
+.
+. -----Step 2: Generate 10-step DEX analysis-----
+.
+let projecth = 3
+let projectw = projecth/2
+.
+call dex10stepanalysis.dp
+.

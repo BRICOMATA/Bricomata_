@@ -1,0 +1,105 @@
+-----DEX CORE-----------------------------------------
+ 
+DEX CORE
+ 
+Name:
+    DEX CORE (LET)
+ 
+Type:
+    Let Subcommand
+ 
+Purpose:
+    This is a utility command used by the EST.DP macro for the analysis
+    of 2-level full or fractional factorial design.
+ 
+Description:
+    The DEX10STEPANALYSIS.DP macro can be used to analyze 2-level full
+    or fractional factorial designs.
+
+
+    For 2-level full or fractional factorial design, the low level is
+    typically coded as "-1" and the upper level is typically coded as
+    "+1".  Center points are typically coded as "0".  This command
+    checks whether each of the listed factor variables contains only
+    "-1", "+1" and "0" values.
+
+    If the factor variables are in the original units rather than coded
+    as -1 and +1, you can use the CODE DEX command to convert them to
+    -1 and +1 values.
+
+Syntax:
+    LET <iflag> = DEX CHECK CLASSIC  <name1> <name2> ... <namek>
+    where <name1> <name2> ... <namek> is a list of 1 to k variable names;
+    and   <iflag> is a parameter where the status is saved.
+ 
+    If all variable names contain only -1, +1, or 0, <iflag> will be set
+    to 1.  Otherwise <iflag> will be set to 0.
+
+Examples:
+    LET IFLAG = CHECK NAMES X1 X2 X3
+    LET IFLAG = CHECK NAMES X1 X2 X3 X4 X5
+
+Default:
+    None
+ 
+Synonyms:
+    None
+ 
+Related Commands:
+    CODE DEX            = Convert data to -1, 0, +1 codeing.
+    CHECK TYPES         = Check the types for a list of names.
+    CHECK EQUAL LENGTH  = Check whether a list of variables have the same
+                          number of elements.
+ 
+Applications:
+    Analysis of full and fractional factorial designs
+ 
+Implementation Date:
+    2018/02
+ 
+Program:
+    skip 25
+    read scott_8_16.dat y x1 to x8
+    let string stall = string combine x1 to x^k
+    let iflag = dex check classic ^stall
+
+-----DEX CONTOUR PLOT-----------------------------------------------
+ 
+DEX CONTOUR PLOT
+ 
+Name:
+    DEX CONTOUR PLOT
+ 
+Type:
+    Graphics Command
+ 
+Purpose:
+    Generates a linear dex contour plot.
+ 
+Description:
+    A contour plot is a graphical technique for representing a
+    3-dimensional z = f(x,y) surface by plotting constant-z "slices"
+    (contours) on a 2-dimensional format.
+
+    The dex contour plot is a specialized contour plot used in the
+    design of experiments..  It is used in the case where you have
+    two independent factors, each with two levels.  The
+    low level is coded as "-1" and the high level is coded as
+    "+1".  In addition, you can optionally have center points
+    (center points are coded as "0" and represent the value
+    of the independent variable halfway between the low level and
+    high level of that variable).  These types of designs are
+    common for full and fractional factorial designs.
+    The dex contour plot is typically generated for the two
+    most important factors in the full or fractional factorial
+    design.  The determination of exactly which are the two
+    most important factors is determined prior to generating
+    the dex contour plot (e.g., through the use of dex mean
+    plots).
+
+    The typical application of the dex contour plot is in
+    determining settings that will maximize (or minimize) the
+    response variable.  It can also be helpful in determining
+    settings that result in the response variable hitting a
+    pre-determined target value.
+

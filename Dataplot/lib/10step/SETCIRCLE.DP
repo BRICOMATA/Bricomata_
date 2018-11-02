@@ -1,0 +1,27 @@
+. This is dataplot macro   setcircle.dp
+. Purpose: If called for, define circle as the plot character
+. Date: 8/1/14
+. Input:
+.    circlesw (parameter) = circle switch (0 = no, 1 = yes) (optional) (default = 0)
+.    circleh  (parameter) = circle height                   (optional) (default = 1)
+.    circlew  (parameter) = circle width                    (optional) (default = 1)
+.    colorcha (string)    = character color                 (optional) (default = blue)
+.
+. -----start point-----
+.
+. print circlesw circleh circlew colorcha
+.
+if circlesw exists; if circlesw = 1
+   char circle; char fill on
+end if; end if
+.
+char hw 1 1
+if circlesw exists; if circlesw = 1
+   if circleh exists; if circlew exists
+      char hw ^circleh ^circlew
+   end if; end if
+end if; end if
+.
+char color blue
+if colorcha exists; char color ^colorcha; end if
+.

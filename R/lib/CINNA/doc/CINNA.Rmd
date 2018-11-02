@@ -1,0 +1,323 @@
+---
+title: "CINNA"
+author: "Minoo Ashtiani, Mohieddin Jafari"
+date: "`r Sys.Date()`"
+output:
+ rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 3
+bibliography: bibliography.bib
+vignette: >
+  %\VignetteIndexEntry{CINNA}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## 1 Introduction
+
+`CINNA` is an R package submitted on CRAN repository which has been written for centrality analysis in network science. It can be useful for assembling, comparing, evaluating and visualizing several types of centrality measures. This document is an introduction to the usage of this package and includes some user interface examples. 
+
+Centrality is defined as a measure for identifying the most important vertices within a network in graph theory. Several centrality types have been provided to compute central nodes by different formulas, while some analysis are needed to evaluate the most informative ones. In this package, we have prepared these resolutions and some examples of real networks.
+
+For the examples in the following sections, we assume that the `CINNA` package has been properly installed into the R environment. This can be done by typing
+
+> install.packages("CINNA")
+
+into the R console. The `igraph`[@Csardi2006] ,`network`[@Butts2015;@Butts2008],`sna`[@ButtsCT2008;@Butts2007] and `centiserve`[@Jalili2015] packages are required and must be installed in your R environment as well. These are analogous to installing `CINNA` and for more other calculations, packages such as `FactoMineR`[@Sebastien2008], `plyr`[@Wickham2011] `qdapTools`[@Rinker2015], `Rtsne`[@Krijthe2015] are necessary. For some plots, `factoextra`[@Kassambara2015], `GGally`[@Barret2016], `pheatmap`[@kolde2015], `corrplot`[@Taiyun2016], `dendextend`[@Galili2015], `circlize`[@Gu2014], `viridis`[@Garnier2017] and `ggplot2`[@Wickham2016] packages must be installed too. After installations, the `CINNA` package can be loaded via
+
+```{r}
+
+library(CINNA)
+
+```
+
+## 2 Some real network examples
+
+We collected five graphs instances based on factual datasets and natural networks. In order to develop some instructions for using this package, we prepared you a brief introduction about the topological of these networks as is described below:
+
+|   Name     |         Type           |                  Description                     | Nodes | Edges  |    References   |
+|:----------:|:----------------------:|:------------------------------------------------:|:-----:|:------:|:---------------:|
+| zachary    | unweighted, undirected |       friendships between members of a club      |  34   |  78    | [@Zachary1977]  |
+| cortex     | unweighted,  directed  |     pathways among cortical region in Macaque    |  30   |  311   | [@Felleman1991] |
+| kangaroo   |  weighted, undirected  |          interactions between kangaroos          |  17   |  90    | [@Kangaroo2016] |
+| rhesus     |  weighted,  directed   |     grooming occurred among monkeys of an area   |  16   |  110   | [@Rhesus2016]   |
+| drugTarget |  bipartite,directed    |interactions among drugs and their protein targets|  1599 |  3766  | [@Barneh2015]   |
+
+### 2.1 Undirected & unweighted network
+
+`zachary`[@Zachary1977] is an example of undirected and unweighted network in this package. This data set illustrates friendships between members of a university karate club. It is based on a faction membership after a social portion. The summary of important properties of this network is described below:
+
+Edge Type: Friendship
+
+Node Type: Person
+
+Avg Edges: 77.50
+
+Avg Nodes: 34.00
+
+Graph properties: Unweighted, Undirected
+
+This data set can be easily accessed by using data() function:
+
+```{r warning=FALSE,message=FALSE}
+
+data("zachary")
+zachary
+
+```
+
+The result would have a class of "igraph" object.
+
+### 2.2 Undirected & weighted network
+
+`kangaroo`[@Kangaroo2016] is a sample of undirected and weighted network which indicates interactions among free-ranging grey kangaroos. The edge between two nodes shows a dominance interaction between two kangaroos. The positive weight of each edge represents number of interaction between them. A brief explanation of it's properties is clarified below:
+
+Edge Type: Interaction
+
+Node Type: Kangaroo
+
+Avg Edges: 91
+
+Nodes: 17
+
+Graph properties: Weighted, Undirected
+
+Edge weights:	Positive weights
+
+### 2.3 Directed & unweighted network
+
+`cortex`[@Felleman1991] is a sample of macaque visual cortex network which is collected in 1991. In this data set, vertices represents neocortical areas which involved in visual functions in Macaques. The direction displays the progress of synapses from one to another. A summary of this can be as follows:
+
+Edge Type: Pathway
+
+Node Type: Cortical region
+
+Avg Edges: 315.50
+
+Nodes: 31.00
+
+Graph properties: Directed, Unweighted
+
+Edge weights:	Positive weights
+
+### 2.4 Directed & weighted network
+
+`rhesus`[@Rhesus2016] is a directed and weighted network which describes grooming between free ranging rhesus macaques (Macaca mulatta) in Cayo Santiago during a two month period in 1963. In this data set a vertex is identified as a monkey and the directed edge among them means grooming between them. The weights of the edges demonstrates how often this manner happened. The network summary is as follows:
+
+Edge Type: Grooming
+
+Node Type: Monkey
+
+Avg Edges: 111
+
+Nodes: 16
+
+Graph properties: Directed, Weighted
+
+Edge weights:	Positive weights
+
+### 2.5 Bipartite & directed network
+
+`drugTarget`[@Barneh2015] is a bipartite, unconnected and directed network demonstrating interactions among Food and Drug Administration (FDA)-approved drugs and their corresponding protein targets. This network is a shrunken one in which metabolizing enzymes, carriers and transporters associated with drug metabolism are filtered and solely targets directly related to their pharmacological effects are included. A summary of this can be like:
+
+Edge Type: interaction
+
+Node Type: drug, protein target
+
+Avg Edges: 3766
+
+Nodes: 1599
+
+Graph properties: Bipartite, unconnected, directed
+
+## 3 Network component analysis
+
+In order to apply several centrality analysis, it is recommended to have a connected graph. Therefore, approaching the connected components of a network is needed. In order to extract components of a graph and use them for centrality analysis, we prepared some functions as below. 
+
+### 3.1 The segregation of "igraph" and "network" objects
+
+"graph.extract.components" function is able to read `igraph` and `network` objects and returns their components as a list of `igraph` objects. This function also has this ability to recognized bipartite graphs and user can decide that which project is suitable for his analysis. In order to use this function, we use zachary data set and develop it in all of our functions. 
+
+```{r warning=FALSE,message=FALSE}
+
+graph_extract_components(zachary)
+
+```
+
+This results the only component of the zachary graph. This function is also applicable for bipartite networks. Using the `num_proj` argument, user can decide on which projection is interested to work on. As an example of bipartite graphs, we use `drugTarget` network as follows:
+
+```{r}
+
+data("drugTarget")
+
+drug_comp <- graph_extract_components( drugTarget, directed = TRUE , bipartite_proj=TRUE, num_proj=2)
+head(drug_comp)
+
+```
+
+It will return all components of the second projection of the network.
+
+### 3.2 The segregation of other graph formats
+
+If you had an edge list, an adjacency matrix or a grapnel format of a network, the `misc_extract_components` can be useful. This function extracts the components of other formats of graph. For illustration, we convert `zachary` graph to an edge list to be able to use it for this function.
+
+```{r warning=FALSE,message=FALSE}
+library(igraph)
+zachary_edgelist <- as_edgelist(zachary)
+
+misc_extract_components(zachary_edgelist)
+
+```
+
+### 3.3 Giant component extraction 
+
+In the most of research topics of network analysis, network features are related to the largest connected component of a graph[@Newman2010]. In order to get that for an `igraph` or a `network` object, `giant_component_extract` function is specified. For using this function we can do:
+
+```{r warning=FALSE,message=FALSE}
+
+giant_component_extract(zachary)
+
+```
+
+This function extracts the strongest components of the input network as `igraph` objects.
+
+## 4 Centrality measure analysis
+
+This section particularly is specified for centrality analysis in network science. 
+
+### 4.1 Suggestion of proper centralities 
+
+All of the introduced centrality measures are not appropriate for all types of networks. So, to figure out which of them is suitable, `proper_centralities` is specified. This function distinguishes proper centrality types based on network topology. To use this, we can do: 
+
+```{r warning=FALSE,message=FALSE}
+
+proper_centralities(zachary)
+
+```
+
+It returns the full names of suitable centrality types for the input graph. The input must have a class of `igraph` object.
+
+### 4.2 Centrality computations 
+
+In the next step, proper centralities and those which are looking for can be chosen. In order to compute proper centrality types resulted from the `proper_centralities`, you can use `calculate_centralities` function as below. 
+
+```{r warning=FALSE, message=FALSE}
+
+calculate_centralities(zachary, include = "Degree Centrality")
+
+```
+
+In this function, you have the ability to specify some centrality types that is not your favor to calculate by the `conclude` argument. Here, we will select first ten centrality measures for an illustration: 
+
+```{r warning=FALSE,message=FALSE}
+
+pr_cent <- proper_centralities(zachary)
+
+calc_cent <- calculate_centralities(zachary, include  = pr_cent[1:10])
+
+```
+
+The result would be a list of computed centralities. 
+
+### 4.3 Recognition of most informative measures
+
+In order to figure out the order of most important centrality types based on your graph structure, `pca_centralities` function can be used. This applies principal component analysis on the computed centrality values[@Husson2010]. For this, the result of `calculate_centralities` method is needed:
+
+```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = "A display of most informative centrality measures based on principal component analysis. The red line indicates the random threshold of contribution. This barplot represents contribution of variable values based on the number of dimensions."}
+
+pca_centralities( calc_cent )
+
+```
+
+For choosing the number of principal components, we considered cumulative percentage of variance values which are more than 80 as the cut off which can be edited using `cut.off` argument. It returns a plot for visualizing contribution values of the computed centrality measures due to the number of principal components. The `scale.unit` argument gives the ability to whether it should normalize the input or not.
+
+```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = "A representation of most informative centrality measures based on principal component analysis between unscaled(not normalized) centrality values."}
+
+pca_centralities( calc_cent , scale.unit = FALSE )
+
+```
+
+Another method for distinguishing which centrality measure has more information or in another words has more costs is using (t-SNE) t-Distributed Stochastic Neighbor Embedding analysis[@VanDerMaaten2014]. This is a non-linear dimensional reduction algorithm used for  high-dimensional data. `tsne_centralities` function applies t-sne on centrality measure values like below: 
+
+```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = "A display of most informative centrality measures based on t-Distributed Stochastic Neighbor Embedding analysis among scaled(not normalized) centrality values."}
+
+tsne_centralities( calc_cent, dims = 2, perplexity = 1, scale=TRUE)
+
+```
+
+This returns the bar plot of computed cost values of each centrality measure on a plot. In order to access only computed values of PCA and t-sne methods, `summary_pca_centralities` and `tsne_centralities` functions can be helpful.
+
+## 5 visualization of centrality analysis 
+
+To visualize the results of network centrality analysis some convenient functions have been developed as it described below.
+
+### 5.1 Graph visualization regarding to the centrality type
+
+After evaluating centrality measures, demonstrating high values of centralities in some nodes gives an overall insight about the network to the researcher. By using `visualize_graph` function, you will be able to illustrate the input graph based on the specified centrality value. If the centrality measure values were computed, `computed.centrality.value` argument is recommended. Otherwise, using `centrality.type` argument, the function will compute centrality based on the input name of centrality type. For practice, we specifies `Degree Centrality`. Here,
+
+```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = " Graph illustration based on centrality measure. The size of nodes represent the degree centrality values."}
+
+visualize_graph( zachary , centrality.type="Degree Centrality")
+
+```
+
+### 5.2 Heatmap of centrality measure values
+
+On of the way of complex large network visualizations(more than 100 nodes and 200 edges) is using heat map[@Pryke2007].
+`visualize_heatmap` function demonstrates a heat map plot between the centrality values. The input is a list containing the computed values.
+
+```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = "Observed centrality measure heatmap. The colors from blue to red displays scaled centrality values."}
+
+visualize_heatmap( calc_cent , scale = TRUE  )
+
+```
+
+### 5.3 Correlation between computed centrality measures
+
+Comprehending pair correlation among centralities is a popular analysis for researchers[@Dwyer2006]. In order to that, `visualize_correlations` method is appropriate. In this you are able to specify the type of correlation which you are enthusiastic to obtain.
+
+```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = "A display of correlation among computed centrality measures.  The red to blue highlighted circles represent the top to bottom Pearson correlation coefficients[@Benesty2009] which differ from -1 to 1. The higher the value becomes larger, circles' sizes get larger too."}
+
+visualize_correlations(calc_cent,"pearson")
+
+```
+
+### 5.4 Node dendrogram based on a centrality type
+
+In order to visualize a simple clustering across the nodes of a graph based on a specific centrality measure, we can use the `visualize_dendrogram` function. This function draw a dendrogram plot in which colors indicate the clusters. 
+
+```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = "Circular dendrogram plot of vertices based on specified centrality measure. Each color represents a cluster."}
+
+visualize_dendrogram(zachary, k=4)
+
+```
+
+
+### 5.5 Regression across centrality measures
+
+In this package additionally to correlation calculation, ability to apply linear regression for each pair of centralities has been prepared to realize the association between centralities. For visualization, `visualize_association` method is an appropriate function to use:
+
+```{r fig.width=7, fig.height=6, warning=FALSE, message=FALSE, fig.cap = "Association plot between two centrality variables. The red line is an indicator of linear regression line among them."}
+
+subgraph_cent <- calc_cent[[1]]
+Topological_coef <- calc_cent[[2]]
+
+visualize_association(  subgraph_cent , Topological_coef)
+
+```
+
+
+### 5.6 Pairwise correlation between centrality types
+
+To access the distribution of centrality values and their corresponding pair correlation value, `visualize_pair_correlation` would be helpful. The Pearson correlation[@Benesty2009] has been used for this method.
+
+```{r fig.width=7, fig.height=6,message=FALSE, fig.cap = "Pairwise Pearson correlation between two centrality values."}
+
+visualize_pair_correlation( subgraph_cent , Topological_coef)
+
+```
+
+The result is a scatter plot visualizing correlation values.
+
+# References
+

@@ -1,0 +1,2731 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/220626610
+Privacy-Preserving Data Publishing
+Article in Foundations and Trends in Databases · January 2009
+DOI: 10.1561/1900000008 · Source: DBLP
+
+CITATIONS
+90
+4 authors, including: Bee-Chung Chen 41 PUBLICATIONS 1,289 CITATIONS
+SEE PROFILE
+
+READS
+365
+
+All content following this page was uploaded by Bee-Chung Chen on 02 April 2015.
+The user has requested enhancement of the downloaded file.
+
+Foundations and Trends R in Databases Vol. 2, Nos. 1–2 (2009) 1–167 c 2009 B.-C. Chen, D. Kifer, K. LeFevre and A. Machanavajjhala DOI: 10.1561/1900000008
+Privacy-Preserving Data Publishing
+By Bee-Chung Chen, Daniel Kifer, Kristen LeFevre and Ashwin Machanavajjhala
+Contents
+
+1 Introduction
+
+2
+
+1.1 Information Protection in Censuses, Oﬃcial Statistics
+
+4
+
+1.2 Real-World Attacks and Attack Demonstrations
+
+7
+
+1.3 Running Example
+
+11
+
+1.4 Overview
+
+14
+
+1.5 Examples of Sanitization Mechanisms
+
+17
+
+2 Privacy Deﬁnitions
+
+21
+
+2.1 Disclosure Risk
+
+22
+
+2.2 k-Anonymity
+
+25
+
+2.3 -Diversity
+
+26
+
+2.4 Protection Against Boolean Background Knowledge
+
+31
+
+2.5 Protection Against Probabilistic Background Knowledge 36
+
+2.6 Diﬀerential Privacy
+
+38
+
+2.7 Perfect Privacy
+
+40
+
+2.8 Other Privacy Deﬁnitions
+
+43
+
+2.9 Discussion and Comparison
+
+50
+
+3 Utility Metrics
+
+59
+
+4 Mechanisms and Algorithms
+
+67
+
+4.1 Deterministic Sanitization Techniques
+
+68
+
+4.2 Randomized Sanitization Techniques
+
+78
+
+4.3 Summary
+
+95
+
+5 Using Sanitized Data
+
+96
+
+5.1 Query Processing
+
+97
+
+5.2 Machine Learning and Data Mining
+
+99
+
+5.3 Statistical Analysis
+
+101
+
+5.4 Summary
+
+105
+
+6 Attacking Sanitized Data
+
+106
+
+6.1 Attacks on Sanitization Schemes
+
+109
+
+6.2 Attacks Using External Information
+
+119
+
+7 Challenges and Emerging Applications
+
+125
+
+7.1 Social Network Privacy
+
+126
+
+7.2 Search Log Privacy
+
+131
+
+7.3 Location Privacy and Mobile Applications
+
+139
+
+7.4 Additional Challenges
+
+145
+
+8 Conclusions
+
+149
+
+Acknowledgments
+
+150
+
+References
+
+151
+
+Foundations and Trends R in Databases Vol. 2, Nos. 1–2 (2009) 1–167 c 2009 B.-C. Chen, D. Kifer, K. LeFevre and A. Machanavajjhala DOI: 10.1561/1900000008
+Privacy-Preserving Data Publishing
+Bee-Chung Chen1, Daniel Kifer2, Kristen LeFevre3 and Ashwin Machanavajjhala4
+1 Yahoo! Research, USA, beechun@yahoo-inc.com 2 Penn State University, USA, dkifer@cse.psu.edu 3 University of Michigan, USA, klefevre@eecs.umich.edu 4 Yahoo! Research, USA, mvnak@yahoo-inc.com
+Abstract
+Privacy is an important issue when one wants to make use of data that involves individuals’ sensitive information. Research on protecting the privacy of individuals and the conﬁdentiality of data has received contributions from many ﬁelds, including computer science, statistics, economics, and social science. In this paper, we survey research work in privacy-preserving data publishing. This is an area that attempts to answer the problem of how an organization, such as a hospital, government agency, or insurance company, can release data to the public without violating the conﬁdentiality of personal information. We focus on privacy criteria that provide formal safety guarantees, present algorithms that sanitize data to make it safe for release while preserving useful information, and discuss ways of analyzing the sanitized data. Many challenges still remain. This survey provides a summary of the current state-of-the-art, based on which we expect to see advances in years to come.
+
+1
+Introduction
+I have as much privacy as a goldﬁsh in a bowl. — Princess Margaret
+Privacy is an important issue when one wants to make use of data that involve individuals’ sensitive information, especially in a time when data collection is becoming easier and sophisticated data mining techniques are becoming more eﬃcient. It is no surprise that research on protecting the privacy of individuals and the conﬁdentiality of data has received many contributions from many ﬁelds such as computer science, statistics, economics, and social science. With the current rate of growth in this area it is nearly impossible to organize this entire body of work into a survey paper or even a book. Thus we have proceeded with a more modest goal. This survey describes research in the area of privacy-preserving data publishing. We are mainly concerned with data custodians such as hospitals, government agencies, insurance companies, and other businesses that have data they would like to release to analysts, researchers, and anyone else who wants to use the data. The overall intent is for the data to be used for the public good: in the evaluation of economic models, in the identiﬁcation of social trends, and in the pursuit of the state-of-the-art in various ﬁelds. Usually, such
+2
+
+3
+data contain personal information such as medical records, salaries, and so on, so that a straightforward release of data is not appropriate. One approach to solving this problem is to require data users to sign non-disclosure agreements. This solution will need signiﬁcant legal resources and enforcement mechanisms and may be a barrier to wide dissemination of the data. Furthermore, this cannot protect against data theft even when the victim takes reasonable precautions. Thus, it is important to explore technological solutions which anonymize the data prior to its release. This is the focus of this survey.
+In Section 1, we begin by describing the information-protection practices employed by census bureaus (Section 1.1), and we motivate the importance of considering privacy protection in data publishing through a number of real-world attacks (Section 1.2). We then use a simple example (Section 1.3) to introduce the problem and its challenges (Section 1.4). Section 2 is devoted to formal deﬁnitions of privacy, while Section 3 is devoted to ways of measuring the utility of sanitized data or the information lost due to the sanitization process. In Section 4, we present algorithms for sanitizing data. These algorithms seek to output a sanitized version of data that satisﬁes a privacy definition and has high utility. In Section 5, we discuss how a data user can make use of sanitized data. Then, in Section 6, we discuss how an adversary might attack sanitized data. In Section 7, we cover emerging applications and their associated research problems and discuss diﬃcult problems that are common to many applications of privacy-preserving data publishing and need further research.
+Having explained what this survey is about, we will now brieﬂy mention what this survey is not about. Areas such as access control, query auditing, authentication, encryption, interactive query answering, and secure multiparty computation are considered outside the scope of this paper. Thus we do not discuss them except in places where we deem this to be necessary. We also focus more on recent work as many of the older ideas have already been summarized in book and survey form [4, 263, 264]. Unfortunately, we cannot cover every technique in detail and so the choice of presentation will largely reﬂect the authors’ bias. We have tried to cover as much ground as possible and regret any inadvertent omissions of relevant work.
+
+4 Introduction
+1.1 Information Protection in Censuses, Oﬃcial Statistics
+The problem of privacy-preserving data publishing is perhaps most strongly associated with censuses, oﬃcial processes through which governments systematically collect information about their populations. While emerging applications such as electronic medical records, Web search, online social networks, and GPS devices have heightened concerns with respect to collection and distribution of personal information, censuses have taken place for centuries, and considerable eﬀort has focused on developing privacy-protection mechanisms in this setting. Thus, we ﬁnd it appropriate to begin this survey by describing some of the diverse privacy-protection practices currently in place at national census bureaus and aﬃliated statistical agencies around the world.
+1.1.1 Public-Use Data
+Most related to the topic of this survey is the problem of releasing public-use data sets. Worldwide, many (though not all) governmental statistical agencies distribute data to the public [54, 58, 133, 234] to be used, for example, in demographic research. However, it is also a common belief that these public-use data sets should not reveal information about individuals in the population. For example, in the United States, Title 13 of the US Code requires that census information only be collected to produce statistics, and that census employees be sworn to protect conﬁdentiality.
+Thus, over the years, government statistical agencies have developed a variety of mechanisms intended to protect individual privacy in public-use data. (This research area is commonly known as statistical disclosure limitation or conﬁdentiality, and it is a subset of the broader ﬁeld of oﬃcial statistics.) Historically, this work has focused on two main classes of data that are commonly released by governmental agencies:
+• Aggregate count data (contingency tables) Contingency tables contain frequency count information, tabulated on the basis of one
+
+1.1 Information Protection in Censuses, Oﬃcial Statistics 5
+of more variables.1 For example, a contingency table might contain a population count based on Zip Code, Age Range, and Smoking Status; i.e., in each zip code and each age range, how many people smoke? • Non-aggregate data (Microdata) Microdata are simply conventional (non-aggregate) data, where each row refers to a person in the population.
+In order to limit the possibility that an individual could be identiﬁed from the public-use data, statistical agencies commonly use a combination of techniques [54, 58, 59, 95, 133, 234, 257]; however, statistical disclosure limitation experts at statistical agencies do not typically provide details of the mechanisms used for conﬁdentiality, only generic descriptions. A recent report [95] outlines, in general terms, the practices of the various federal agencies in the United States. (We will describe some of these techniques in more detail in Section 4.)
+• Cell suppression and noise addition (for contingency tables) In contingency tables, it is common to suppress cells with small counts (primary suppression), as well as additional cells that can be inferred using marginal totals (complementary suppression). Similarly, it is common to make small perturbations to the counts.
+• Data swapping (for microdata and contingency tables) Data swapping is a method of making controlled changes to microdata; modiﬁed contingency tables can also be re-computed from the results. This technique was used in the United States during the 1990 and 2000 censuses [101].
+• Sampling, geographic coarsening, and top/bottom-coding (for microdata) For microdata, it is common to only release a subset of respondents’ data (e.g., a 1% sample). In addition, it is common to restrict geographic identiﬁers to regions containing at least a certain population. (In the United States, this is typically 100,000 [257].) It is also common to “top-code” and “bottom-code” certain values. For example, if there are suﬃciently few respondents
+1 In SQL, this is analogous to releasing the answer to a COUNT(*) query with one or more attributes in the GROUP BY clause.
+
+6 Introduction
+over age 90, then a top-coding approach would replace all ages ≥ 90 with the value 90. • Synthetic data (for microdata) Finally, sometimes synthetic data are generated. The idea is to produce data with similar distributional characteristics to the original microdata. The US Census Bureau is considering using a synthetic data approach to release microdata following the 2010 census [272].
+Many of the above-mentioned mechanisms for microdata and contingency table sanitization, respectively, have been implemented in the µ- and τ - Argus software packages [127, 128]; these packages have also been used extensively by Statistics Netherlands.
+The US Census Bureau also provides an online (real-time) system called the American FactFinder Advanced Query System [122], which provides custom tabulations (count queries) from the census data. Disclosure control in this system is done primarily by applying queries to the sanitized (e.g., swapped) microdata, and also by imposing cell suppression and top-coding rules to the results.
+1.1.2 Restricted-Use Data, Research Data Centers, and Remote Servers
+While many statistical agencies release sanitized public-use data sets, there is also a commonly held belief that certain data (e.g., highprecision geographical units) cannot be sanitized enough to release, or that the process would yield the data useless for certain kinds of research. For these reasons, federal agencies in the United States [256, 225], Canada [46], and Germany [219] have also set up secure research data centers to allow outside researchers to access more precise and detailed data. The idea is to provide a secure physical facility, staﬀed by census personnel, in which vetted researchers can carry out approved studies using computers with limited external access. In the United States, there are approximately a dozen such locations. Before conducting a study, a researcher must undergo a background check and provide a sworn statement. Before removing results or data from the center, the results must undergo a strict disclosure review, which is conducted by Census Bureau personnel. Similarly, a variety of countries
+
+1.2 Real-World Attacks and Attack Demonstrations 7
+provide “virtual” secure research data centers (also known as remote access servers) that serve a similar purpose [214].
+While secure facilities and data centers are not the topic of this survey, this example highlights the multifaceted nature of the privacyprotection problem. Technical tools for privacy-preserving data publishing are one weapon in a larger arsenal consisting also of legal regulation, more conventional security mechanisms, and the like. In addition, this example highlights a (perceived and sometimes formal) tradeoﬀ between privacy and utility, a theme that has been repeated throughout the literature and that will be repeated throughout this survey.
+1.2 Real-World Attacks and Attack Demonstrations
+A number of real-world attacks and demonstrations indicate the importance of taking privacy into consideration when publishing personal data. In this section, our goal is to brieﬂy recap some notable recent events and attacks, which serve to illustrate the challenges in developing privacy-preserving publishing tools.
+One published attack on (purportedly) de-identiﬁed data was described by Sweeney [241]. The dataset in consideration was collected by the Group Insurance Commission (GIC) and contained medical records of Massachusetts state employees. Since the data did not contain identiﬁers such as names, social security numbers, addresses, or phone numbers, it was considered safe to give the data to researchers. The data did contain demographic information such as birth date, gender, and zip code. Unfortunately, it is not common for two individuals to have the same birth date, less common for them to also live in the same zip code, and less common still for them to also have the same gender. In fact, according to the Massachusetts voter registration list (available at the time for $20), no one else had the same combination of birth date, gender, and zip code as William Weld, who was then the governor. Thus, his medical records were easy to identify in the data provided by GIC. This sort of attack, where external data are combined with an anonymized data set, is called a linking attack.
+Not all linking attacks are as simple as performing a join between the GIC data and the voter registration list. This is especially true for text.
+
+8 Introduction
+As an example, consider the case of AOL. On Sunday, August 6, 2006, AOL released a 2 GB ﬁle containing approximately 20 million search queries from 650,000 of its users, which were collected over a period of three months [24]. In addition to the queries themselves, the data set contained information such as which URL from the search results was clicked and what was its ranking. Although the data set was withdrawn within a few hours, it had already been widely downloaded. The anonymization scheme used to protect the data consisted of assigning a random number (pseudonym) to each AOL user and replacing the user id with this number. Three days later, two New York Times reporters [28] found and interviewed user number 4417749 from the data set. They tracked down this user based on the semantic information contained in her search queries: the name of a town, several searches with a particular last name, age-related information, etc. In the case of AOL, there was no single authoritative table (such as a voter list) to link against; instead, there were many scattered sources of information that were used. The privacy breach occurred since AOL failed to reason about these sources and about the semantic content of search queries. We will return to a more detailed discussion of state-of-the-art privacy protection tools for search logs in Section 7.2.
+A few months later, Netﬂix, a movie rental service, announced the Netﬂix Prize for the development of an accurate movie recommendation algorithm. To aid participants in their research eﬀorts, Netﬂix also released a data set of 100 million ratings for 18,000 movie titles collected from 480,000 randomly chosen users. Personal information had been removed, and user ids were replaced with pseudonyms, as in the AOL data. This data set contained movie ratings and the dates when the ratings were created [191]. The high-dimensionality of the data set proved to be a tempting target and an attack on such a data set was anticipated by Frankowski et al. [105], who showed that movie ratings can be linked to posts in an online forum. The Netﬂix data were attacked shortly after it came out by Narayanan and Shmatikov [186], who showed that external information (such as IMDB reviews) can indeed be linked to the Netﬂix data set using techniques that are commonly known as record linkage. Record linkage was ﬁrst formalized in the 1960s by Fellegi and Sunter [96]; for a survey, see [270]. Record linkage techniques are
+
+1.2 Real-World Attacks and Attack Demonstrations 9
+frequently used to estimate re-identiﬁcation probabilities: the probabilities that users in a data set can be re-identiﬁed through auxiliary data [268]. These techniques can often handle varying amounts of noise in the auxiliary data, and are also commonly used for the purpose of data cleaning.
+Finally, even further illustrating the vulnerability of public personal data sets, several recent attacks have been demonstrated on (purportedly) de-identiﬁed social network graphs. Social networks describe a set of people (nodes) and the relationships between them (edges). As in the cases of search logs and movies, a graph can be considered naively anonymized if all identifying characteristics of the people (e.g., names, etc.) have been removed and replaced with pseudonyms. Interestingly, though by this point perhaps unsurprising, a series of attacks have illustrated the fallacy of this approach. Using data from LiveJournal (a blogging site), Backstrom et al. [26] demonstrated that it is often possible for a particular user to re-identify himself in a social network graph, and with minimal collusion, he can frequently re-identify a large fraction of users. Hay et al. [123] and Narayanan and Shmatikov [187] both took this observation a step further, observing that users can often be re-identiﬁed using various forms of structural auxiliary information; these results were demonstrated using a real e-mail graph from Enron Corporation [123] and social network graphs from LiveJournal, Twitter, and Flickr [187]. We will return to an in-depth discussion of the state-of-the-art in privacy protection for social network graphs in Section 7.1. In addition to these examples, attacks on purportedly deidentiﬁed data sets have been illustrated in domains as diverse as GPS traces [120, 145] and genomic records [125, 170, 171, 172].
+Note that not all attacks need to involve linking. Some involve reconstructing the original data to uncover pieces of information that are considered conﬁdential. One such example was discussed by Meyer and Kadane [177] in relation to the 1990 decennial census. Two important uses of census data are distribution of federal funds and reapportionment (the assignment of seats in the House of Representatives to diﬀerent states). Thus, undercounting diﬀerent segments of the population (including minorities) is a serious political issue, and there is a debate about whether to adjust the census data to control for undercounting.
+
+10 Introduction
+In 1991, the Commerce Department decided not to use the adjusted census data. It also refused to release the adjusted data. Following a congressional subpoena, a compromise was reached and the Commerce Department released adjusted population counts for every other census block and for all blocks whose adjusted population was at least 1,000 [177]. The leaders of the Florida House of Representatives asked Meyer and Kadane to reconstruct these missing values based on the actual census counts and on the released adjusted counts. Later, due to a lawsuit, the rest of the adjusted data was released and Meyer and Kadane were able to evaluate the accuracy of their reconstruction. Using relatively simple techniques based on comparisons of unadjusted counts for various blocks (see [177] for more details), they were able to obtain remarkably accurate results. For the 23 congressional districts of Florida that existed at the time, their estimate of the adjusted population diﬀered from the oﬃcial adjusted counts by at most 79 people. Meanwhile, the diﬀerence between the adjusted and unadjusted counts was on the order of several thousand people. Thus the Commerce Department’s naive use of suppression ended up concealing less information than they intended.
+Algranati and Kadane [19] discuss another example of data reconstruction. This time it involves the U.S. Department of Justice. In 2000, the U.S. Department of Justice released a report [248] about death penalty statistics for federal crimes. When a federal crime has been committed, the U.S. Attorney in charge of the case must make a recommendation on whether or not to seek the death penalty. The case is also reviewed by the Department of Justice, which also submits a recommendation. Finally, the Attorney General reviews the case and makes the ﬁnal decision about this process (for more details about the circumstance of the report and the nature of the decisions, see [19, 248]). The Attorney General’s decision is made public but the recommendations made by the U.S. Attorney and the Department of Justice are conﬁdential. Algranati and Kadane focused on the 682 cases from 1995 to 2000 that are contained in this report. This report contains eight measured variables: the federal district, defendant’s race, victim’s race, the crime, whether or not there were multiple victims,
+
+1.3 Running Example 11
+and the recommendations made by the U.S. Attorney, the Department of Justice, and the Attorney General. The data were released as a set of lower-dimensional tables of counts. Using some simple combinatorial techniques, Algranati and Kadane were able to fully recover 386 out of 682 records. They were also able to recover the combination of defendant race, federal district and all three recommendations for all of the 682 cases. Again, a naive release of data allowed for the recovery of most of the information that was considered conﬁdential.
+All of these examples serve to illustrate the challenges and importance of developing appropriate anonymization measures for published data.
+1.3 Running Example
+To prevent privacy breaches, organizations that want to publish data must resolve possible privacy issues before releasing data. We introduce privacy issues in data publishing by the following example scenario. A centralized trusted data collection agency, say Gotham City Hospital, collects information from a set of patients. The information collected from each patient consists of identifying information like name; demographic information like age, gender, zip code, and nationality; and the patient’s medical condition. The data are put into a table like Table 1.1. Researchers in Gotham City University, who study how
+
+Table 1.1. Medical record table.
+
+Name Age Gender Zip Code Nationality Condition
+
+1 Ann 28
+
+F
+
+2 Bruce 29
+
+M
+
+3 Cary 21
+
+F
+
+4 Dick 23
+
+M
+
+5 Eshwar 50
+
+M
+
+6 Fox
+
+55
+
+M
+
+7 Gary 47
+
+M
+
+8 Helen 49
+
+F
+
+9 Igor
+
+31
+
+M
+
+10 Jean 37
+
+F
+
+11 Ken 36
+
+M
+
+12 Lewis 35
+
+M
+
+13053 13068 13068 13053 14853 14750 14562 14821 13222 13227 13228 13221
+
+Russian Chinese Japanese American Indian Japanese Chinese Korean American American American American
+
+Heart disease Heart disease Viral infection Viral infection
+Cancer Flu
+Heart disease Flu
+Cancer Cancer Cancer Cancer
+
+12 Introduction
+diseases correlate with patients’ demographic attributes, can beneﬁt substantially from analyzing these data and have made a request to the hospital for releasing the table. Now, the question is whether releasing Table 1.1 is safe. In fact, the hospital has a privacy policy that prevents it from releasing patients’ identifying information. Obviously, releasing Table 1.1, which contains names, would violate this policy. However, does removal of names from Table 1.1 make the table safe for release? Consider a researcher, say Mark, who is a friend of Eshwar and knows that Eshwar is a 50-year-old Indian male having zip code 14853. He also knows that Eshwar visited Gotham City Hospital several times. If Mark saw this table with names removed, he would be almost sure that his friend Eshwar got cancer, because the ﬁfth record is the only record that matches Mark’s knowledge about Eshwar. Age, gender, zip code, and nationality are called quasi-identiﬁer attributes, because by looking at these attributes an adversary may potentially identify an individual in the data set.
+One way to prevent Mark from being able to infer Eshwar’s medical condition is to make sure that, in the released data, no patient can be distinguished from a group of k patients by using age, gender, zip code, and nationality. We call a table that satisﬁes this criterion a k-anonymous table. Table 1.2 is a modiﬁed version of the medical record table that is 4-anonymous, where names have been removed, age values have been generalized to age groups, gender values have been generalized to Any, zip codes have been generalized to ﬁrst few digits and nationality values have been generalized to diﬀerent geographical granularities. Now, when Mark sees this generalized table, he only knows that Eshwar’s record is in the second group and is not sure whether Eshwar had ﬂu or cancer. However, as will be seen later, this table is still not safe for release.
+For now, let us assume that Gotham City Hospital somehow decides to consider 4-anonymous tables to be safe for release; but in addition to Table 1.2, there are many 4-anonymous tables which can be derived from the medical record table. Table 1.3 is another 4-anonymous table derived from the original medical record table. Which one should Gotham City Hospital choose to release? Intuitively, the hospital should choose the one that is the most useful for the researchers who request
+
+1.3 Running Example 13
+
+Table 1.2. Generalized medical record table.
+
+Age Gender Zip Code Nationality Condition
+
+(Ann) 1 20–29 Any (Bruce) 2 20–29 Any (Cary) 3 20–29 Any
+(Dick) 4 20–29 Any
+
+130∗∗ 130∗∗ 130∗∗ 130∗∗
+
+Any
+
+Heart disease
+
+Any
+
+Heart disease
+
+Any
+
+Viral infection
+
+Any
+
+Viral Infection
+
+(Eshwar) 5 40–59 Any (Fox) 6 40–59 Any
+(Gary) 7 40–59 Any (Helen) 8 40–59 Any
+
+14∗∗∗ 14∗∗∗ 14∗∗∗ 14∗∗∗
+
+Asian Asian Asian Asian
+
+Cancer Flu
+Heart disease Flu
+
+(Igor) 9 30–39 Any (Jean) 10 30–39 Any (Ken) 11 30–39 Any (Lewis) 12 30–39 Any
+
+1322∗ 1322∗ 1322∗ 1322∗
+
+American American American American
+
+Cancer Cancer Cancer Cancer
+
+aNo record can be distinguished from a group of four based on Age, Gender,
+
+Zip Code, and nationality. bNames are removed. Age values are generalized to age groups. Gender values
+
+are generalized to Any. Zip codes are generalized to ﬁrst few digits. Nationality
+
+values are generalized to diﬀerent geographical granularities.
+
+Table 1.3. Another generalized medical record table.
+
+Age Gender Zip Code Nationality Condition
+
+(Ann) 1 20–59
+
+F
+
+(Helen) 8 20–59
+
+F
+
+(Cary) 3 20–59
+
+F
+
+(Jean) 10 20–59
+
+F
+
+1∗∗∗∗ 1∗∗∗∗ 1∗∗∗∗ 1∗∗∗∗
+
+Any
+
+Heart disease
+
+Any
+
+Flu
+
+Any
+
+Viral infection
+
+Any
+
+Cancer
+
+(Eshwar) 5 20–59
+
+M
+
+(Fox) 6 20–59
+
+M
+
+(Gary) 7 20–59
+
+M
+
+(Bruce) 2 20–59
+
+M
+
+1∗∗∗∗ 1∗∗∗∗ 1∗∗∗∗ 1∗∗∗∗
+
+Asian Asian Asian Asian
+
+Cancer Flu
+Heart disease Heart Disease
+
+(Igor) 9 20–39
+
+M
+
+(Dick) 4 20–39
+
+M
+
+(Ken) 11 20–39
+
+M
+
+(Lewis) 12 20–39
+
+M
+
+13∗∗∗ 13∗∗∗ 13∗∗∗ 13∗∗∗
+
+American American American American
+
+Cancer Viral infection
+Cancer Cancer
+
+aThe second record has been swapped with the eighth record, and the fourth
+
+record has been swapped with the tenth record.
+
+for the data. Assume that the primary objective of the researchers is to understand how diseases correlated with genders. Thus, the researchers want as little replacement of a gender value by Any as possible. It should be easy to see that Table 1.3 is a better choice than Table 1.2 in terms of the number of replacements of gender values by Any.
+
+14 Introduction
+1.4 Overview
+Given a data set, privacy-preserving data publishing can be intuitively thought of as a game among four parties:
+• Data user, like the researchers in Gotham City University, who wants to utilize the data.
+• Adversary, like Mark in the running example, who wants to derive private information from the data.
+• Data publisher, like Gotham City Hospital, who collects the data and wants to release the data in a way that satisﬁes the data user’s need but also prevents the adversary from obtaining private information about the individuals in the data.
+• Individuals, like Eshwar, whose data are collected by the data publisher. In some cases, the individuals agree with the data publisher’s privacy policy, trust the data publisher and give the data publisher all the requested information. In these cases, it is the data publisher’s responsibility to ensure privacy preservation. In other cases, the individuals do not trust the data publisher and want to make sure that the data publisher cannot precisely identify their sensitive information (e.g., by adding noise to their data records so that the data publisher can only have accurate aggregate statistics, but noisy individual data values). Although the primary focus of this paper is on trusted data publishers, we will also discuss untrusted data publishers in Section 4.2.
+There is a fundamental tradeoﬀ between privacy and utility. At one extreme, the data publisher may release nothing so that privacy is perfectly preserved; however, no one is able to use the data. At the other extreme, the data publisher may release the data set without any modiﬁcation so that data utility can be maximized; however, no privacy protection is provided. For the data publisher to release useful data in a way that preserves privacy, the following three components need to be deﬁned.
+
+1.4 Overview 15
+• Sanitization mechanism: Given an original data set, e.g., Table 1.1, a sanitization mechanism sanitizes the data set by making the data less precise. This mechanism deﬁnes the space of possible “snapshots” of the original data set that are considered as candidates for release. We call such a snapshot a release candidate. Generalization is an example sanitization mechanism. Tables 1.2 and 1.3 are two release candidates of such a mechanism when applied to Table 1.1. We will ﬁrst introduce some common sanitization mechanisms in Section 1.5 and have an in-depth discussion in Section 4.
+• Privacy criterion: Given a release candidate, the privacy criterion deﬁnes whether the release candidate is safe for release or not. k-Anonymity is an example privacy criterion. Privacy criteria are the focus of Section 2.
+• Utility metric: Given a release candidate, the utility metric quantiﬁes the utility of the release candidate (equivalently, the information loss due to the sanitization process). For example, the researchers in Gotham City University use the number of replacements of gender values by Any as their utility measure. We survey utility metrics in Section 3.
+Given the above three components, one approach to privacypreserving data publishing is to publish the most useful release candidate that satisﬁes the privacy criterion. An algorithm that takes an original data set and generates a release candidate that satisﬁes a given privacy criterion while providing high utility2 is called an anonymization (or sanitization) algorithm. The terms “anonymization” and “sanitization” will be used interchangeably. A selected list of interesting anonymization algorithms is presented in Section 4.
+After the data publisher ﬁnds a good release candidate and makes it public, the data user will use it for good and the adversary will attack it. Because the sanitization mechanism has perturbed the data to make it less precise and less sensitive, the data user may not be able
+2 Note that providing the maximum utility among all release candidates may not be algorithmically feasible and may also be undesirable because it gives an adversary an additional avenue of attack (see Section 6).
+
+16 Introduction
+to use the data in a straightforward manner. For example, suppose that Table 1.3 is released, and the data user wants to know the fraction of patients with ages between 20 and 30 who have heart disease. This query cannot be answered precisely based on Table 1.3, but may be answered probabilistically. A methodology is needed to answer such queries in a meaningful and consistent manner. In addition to database queries, the data user may also want to build machine-learning models (for a prediction task) or conduct statistical analysis (to test whether a ﬁnding from a sanitized data set is statistically signiﬁcant). We will discuss how to do so in Section 5 and point the readers to related literature.
+From the adversary’s point of view, although the released data satisfy a privacy criterion (or a few criteria), it is still possible to uncover some individuals’ sensitive information. This is because each privacy criterion has its own assumption and sometimes only protects data against a few types of attacks. For example, Table 1.2 satisﬁes the k-anonymity criterion. However, it is vulnerable to a homogeneity attack : although no one cannot distinguish Jean’s record from the other three records (Igor’s, Ken’s, and Lewis’) based on the quasi-identiﬁer attributes, we are 100% sure that she has cancer (if we know her quasiidentiﬁer attributes and the fact that her data are in Table 1.2). Furthermore, some anonymization algorithm have special behavior that may allow the adversary to make further inference about the data, and the adversary may have more background knowledge than a privacy criterion assumes. We review interesting attacks against sanitized data in Section 6.
+We note that there can potentially be multiple data users with diﬀerent data needs, multiple adversaries with diﬀerent purposes and knowledge about individuals in the data, and multiple data publishers (whose data sets may overlap with each other) who would like to release versions of their data. A single data publisher may also want to release diﬀerent versions of the data at diﬀerent times. Furthermore, the original data set may not be a single table; it may be a relational database (that contains multiple tables), a market-basket database (in which each record is a set of items), a search log (in which each record is a search query with some metadata), a social network
+
+1.5 Examples of Sanitization Mechanisms 17
+(relating individuals), and so on. These variations all add to the complexity of the problem and will be addressed with diﬀerent levels of details (in proportion to the progress that has been made on these problems). In particular, we discuss social network privacy in Section 7.1, search log privacy in Section 7.2, location privacy of mobile applications in Section 7.3, and challenges for future research in Section 7.4.
+1.5 Examples of Sanitization Mechanisms
+Before proceeding to the next chapter, we will ﬁrst brieﬂy introduce a number of common sanitization mechanisms to facilitate our discussion. It is important to have a basic idea of such mechanisms because a privacy criterion is deﬁned on the output of such a mechanism, an adversary breaches privacy by analyzing such an output, and a data user studies such an output. However, we do not try to cover all of the sanitization mechanisms here. An in-depth discussion of mechanisms and algorithms will be presented in Section 4.
+Recall that a sanitization mechanism deﬁnes the space of all possible release candidates in an application of privacy-preserving data publishing. An anonymization algorithm ﬁnds a release candidate that is both useful and safe (according to a given privacy criterion) from this space. To simplify our discussion, we consider the original data set to be a table (e.g., Table 1.1), in which each column is an attribute and each row is the data record of an individual. Other kinds of data (sets of items, text data, graph and network data, and others) will be discussed later (primarily in Section 7).
+Generalization: The generalization mechanism produces a release candidate by generalizing (coarsening) some attribute values in the original table. We have seen two examples of such release candidates in Tables 1.2 and 1.3. The basic idea is that, after generalizing some attribute values, some records (e.g., Ann’s record and Bruce’s record in Table 1.2) would become identical when projected on the set of quasiidentiﬁer (QI) attributes (e.g., age, gender, zip code, and nationality). Each group of records that have identical QI attribute values is called an equivalence class.
+
+18 Introduction
+Suppression: The suppression mechanism produces a release candidate by replacing some attribute values (or parts of attribute values) by a special symbol that indicates that the value has been suppressed (e.g., “*” or “Any”). Suppression can be thought of as a special kind of generalization. For example, in Table 1.2, we can say that some digits of zip codes and all the gender values have been suppressed.
+Swapping: The swapping mechanism produces a release candidate by swapping some attribute values. For example, consider Table 1.1. After removing the names, the data publisher may swap the age values of Ann and Eshwar, swap the gender values of Bruce and Cary, and so on.
+Bucketization: The bucketization mechanism produces a release candidate by ﬁrst partitioning the original data table into non-overlapping groups (or buckets) and then, for each group, releasing its projection on the non-sensitive attributes and also its projection on the sensitive attribute. Table 1.4 is a release candidate of the bucketization mechanism when applied to Table 1.1. In this case the Condition attribute is considered to be sensitive and the other attributes are not. The idea is that after bucketization, the sensitive attribute value of an individual would be indistinguishable from that of any other individual in the same group. Each group is also called an equivalence class.
+
+Table 1.4. Bucketized medical record table.
+
+Age Gender Zip Code Nationality BID BID Condition
+
+(Ann) 28
+
+F
+
+(Bruce) 29
+
+M
+
+(Cary) 21
+
+F
+
+(Dick) 23
+
+M
+
+13053
+
+Russian
+
+1
+
+13068
+
+Chinese
+
+1
+
+13068 Japanese 1
+
+13053 American 1
+
+1 Heart disease 1 Heart disease 1 Viral infection 1 Viral infection
+
+(Eshwar) 50
+
+M
+
+(Fox) 55
+
+M
+
+(Gary) 47
+
+M
+
+(Helen) 49
+
+F
+
+14853
+
+Indian
+
+2
+
+14750 Japanese 2
+
+14562
+
+Chinese
+
+2
+
+14821
+
+Korean
+
+2
+
+2
+
+Cancer
+
+2
+
+Flu
+
+2 Heart disease
+
+2
+
+Flu
+
+(Igor) 31
+
+M
+
+(Jean) 37
+
+F
+
+(Ken) 36
+
+M
+
+(Lewis) 35
+
+M
+
+13222 American 3
+
+3
+
+13227 American 3
+
+3
+
+13228 American 3
+
+3
+
+13221 American 3
+
+3
+
+Cancer Cancer Cancer Cancer
+
+aThree buckets are created and identiﬁed by their bucket IDs (BID). bA patient’s condition in a bucket is indistinguishable from any other patient’s con-
+dition in the same bucket.
+
+1.5 Examples of Sanitization Mechanisms 19
+
+Table 1.5. Randomized medical record table.
+
+Age Gender Zip code Nationality Condition
+
+(Ann) 1 30
+
+F
+
+(Bruce) 2 28
+
+M
+
+(Cary) 3 22
+
+M
+
+(Dick) 4 20
+
+M
+
+...
+
+...
+
+...
+
+13073 13121 13024 13030
+...
+
+Russian American Japanese American
+...
+
+Heart disease Heart disease
+Cancer Viral infection
+...
+
+aNames are removed. Random noise is added to each attribute value. For numeric attributes (age and zip code), Gaussian noise is added. For categorical attributes (gender, zip code, and nationality), with some probability, an attribute value is replaced by a random value in the domain.
+
+Randomization: A release candidate of the randomization mechanism is generated by adding random noise to the data. The sanitized data could be sampled from a probability distribution (in which case it is known as synthetic data) or the sanitized data could be created by randomly perturbing the attribute values. For example, Table 1.5 is such a release candidate for Table 1.1, where random noise is added to each attribute value. We add Gaussian noise with mean 0 and variance 4 to age and also Gaussian noise with 0 mean and variance 500 to zip code. For gender, nationality, and condition, with probability 1/4, we replace the original attribute value with a random value in the domain; otherwise, we keep the original attribute value. Note that, in general, we may add diﬀerent amounts of noise to diﬀerent records and diﬀerent attributes. Several application scenarios of randomization can be distinguished. In input randomization, the data publisher adds random noise to the original data set and releases the resulting randomized data, like Table 1.5. In output randomization, data users submit queries to the data publisher and the publisher releases randomized query results. In local randomization, individuals (who contribute their data to the data publisher) randomize their own data before giving their data to the publisher. In this last scenario, the data publisher is no longer required to be trusted.
+Multi-view release: To increase data utility, the data publisher may release multiple views of a single original data set, where the released views are outputs of one (or more) of the above sanitization mechanisms. For example, a release candidate could be a set of generalized tables. As a special case of multiple generalized tables, we show an
+
+20 Introduction
+
+Table 1.6. An example of multi-marginal release.
+
+(a) Marginal on gender, nationality
+
+Gender Nationality Count
+
+F
+
+Russian
+
+1
+
+F
+
+Japanese
+
+1
+
+F
+
+Korean
+
+1
+
+F
+
+American
+
+1
+
+M
+
+Chinese
+
+2
+
+M
+
+American
+
+4
+
+M
+
+Indian
+
+1
+
+M
+
+Japanese
+
+1
+
+(b) Marginal on gender, condition
+
+Gender Condition Count
+
+F
+
+Heart disease
+
+1
+
+F
+
+Viral infection
+
+1
+
+F
+
+Flu
+
+1
+
+F
+
+Cancer
+
+1
+
+M
+
+Heart disease
+
+2
+
+M
+
+Viral infection
+
+1
+
+M
+
+Flu
+
+1
+
+M
+
+Cancer
+
+4
+
+example of multi-marginal release in Table 1.6, which consists of two views of the original data Table 1.1. Each view is generated by projecting the original data table on a subset of attributes and computing the counts. Such a view is called a marginal table or a histogram on the subset of attributes.
+
+2
+Privacy Deﬁnitions
+All the evolution we know of proceeds from the vague to the deﬁnite.
+— Charles Sanders Peirce Intuition and conventional wisdom have long indicated that the privacy of individuals can be protected by coarsening personal data, adding random noise (to the data themselves, or to the output of aggregate queries), swapping attribute values amongst individuals’ records, or removing small counts in published contingency tables. A large body of recent work has begun to formalize this intuition, providing numerous deﬁnitions of privacy, and characterizing the nature of the information protected. In this section, we will describe formal privacy deﬁnitions that, we believe, represent milestones in the literature. These deﬁnitions include Samarati and Sweeney’s k-anonymity [226, 241], Machanavajjhala et al.’s -diversity [166], Martin et al.’s (c, k)-safety [173] and Chen et al.’s 3D privacy criterion [51] (against Boolean background knowledge), Evﬁmievski et al.’s (α, β)-privacy and γ-ampliﬁcation [92] (against probabilistic background knowledge), Dwork’s diﬀerential privacy [85], and Shannon’s perfect secrecy [232] (equivalent to Miklau’s
+21
+
+22 Privacy Deﬁnitions
+perfect privacy [179]). Beyond these milestones, a selected list of other privacy deﬁnitions will be brieﬂy summarized in Section 2.8. Then, we conclude this section with a uniﬁed framework whose aim is to allow one to compare diﬀerent privacy deﬁnitions on the same basis.
+2.1 Disclosure Risk
+Before describing what we consider to be milestones in the recent development of formal privacy deﬁnitions, we ﬁrst discuss work on measuring disclosure risk. Disclosure risk is a term frequently used in the oﬃcial statistics literature to refer to quantiﬁable estimates of the possibility of a privacy breach. It has long been known that publishing data collected from individuals can potentially breach privacy even when identiﬁer attributes are removed from the data. Techniques like coarsening personal data, adding random noise, swapping attribute values, removing small counts in published contingency tables, and generating synthetic data were proposed to address this problem. However, to ensure privacy preservation, data publishers must at least be able to measure the disclosure risk of the outputs from these techniques. Measuring disclosure risk is a key step in deﬁning privacy criteria. Many privacy criteria are deﬁned based on placing a threshold on a measure of disclosure risk. It is, of course, important to distinguish measures of disclosure risk and privacy deﬁnitions from the mechanisms used to sanitize data since the quantity we measure (amount of privacy) should not depend on how we choose to represent the data.
+There is a large body of work on measuring and estimating disclosure risk in data publishing. Since our main interest is in the resulting privacy deﬁnitions, we will only brieﬂy discuss a small number of studies to set up the background for the privacy deﬁnitions to be introduced later in this section. A survey of disclosure risk measures is beyond the scope of this paper, and the interested reader can consult [264, 263].
+Small counts in contingency tables: Consider releasing a contingency table; for each combination of attribute values in the table, we release the number of individuals having that combination. One could also release marginals of the table (i.e., the counts associated with various subsets of the attributes). One measure of disclosure risk is the
+
+2.1 Disclosure Risk 23
+smallest count in the table or in a marginal. A small count indicates a rare combination of attributes and may lead to the re-identiﬁcation of the associated individuals. Fellegi [97] discussed this kind of disclosure risk in the early 1970s and pointed out that, in the case of only releasing marginals of the contingency table, even if all the marginal counts are large, small counts in the contingency table may still be reconstructed by solving a system of linear equations. Recent work on bounding counts in contingency tables for marginal releases includes [75, 77, 78, 235]. Also, models have been proposed for estimating population counts (number of individuals in the population having a combination of attribute values) from the counts in a contingency table [30, 103]. This allows one to distinguish between population uniques and sample uniques.
+Identiﬁcation rules for microdata: Another way of measuring disclosure risk is by designing rules that can be used to identify individuals in a sanitized data set and assessing the eﬀectiveness of the rules (for example, by counting how many individuals can be identiﬁed by the rules with high conﬁdence). Spruill [236], in the early 1980s, suggested a distance-based method. For each sanitized record, compute the Euclidean distance between the sanitized record and each of the records in the original data set. Spruill then deﬁnes the disclosure risk as the sampling fraction (fraction of the original records released) times the percentage of sanitized records whose nearest neighbors in the original data set are their own original records.
+Since then, there have been many studies based on identiﬁcation rules. For example, Lambert [148] discussed some deﬁnitions of disclosure risk using rules based on probabilistic models. Let r, i, j, and N denote a rule, a record in the sanitized data set, an individual in the population, and the population size, respectively. She deﬁned the worst-case risk as
+max max Pr(record i is individual j’s record by rule r),
+ji
+the average risk as
+N
+(1/N ) max Pr(record i is individual j’s record by rule r),
+i j=1
+
+24 Privacy Deﬁnitions
+and a threshold-based risk as the fraction of individuals j in the population with
+max Pr(record i is individual j’s record by rule r) ≥ τ,
+i
+for a given threshold τ . For an overview of diﬀerent identiﬁcation rules, see [268, 269, 270].
+Decision-theoretic approach: To give disclosure risk a theoretic foundation, Duncan and Lambert [83] in the late 1980s proposed the use of the decision theory. Suppose the adversary’s “target” is t (the target could be the identity of an individual, an attribute value, or a property of the original data set). Let x denote a possible value of the target and pt(x | D∗) denote the probability density that the target t has value x after observing the sanitized data set D∗. In a very general sense, one can deﬁne a loss function Lt(δ, x) that represents the adversary’s loss if he/she decides the target t has value δ, and the true value is x. Since the adversary does not know the true value, he/she would take the decision δ that minimizes the expected loss; this minimum expected loss is the adversary’s “uncertainty” Ut about t after seeing D∗ and is written as:
+Ut(D∗) = min Lt(δ, x)pt(x|D∗)dx.
+δ
+Observe that when Lt(δ, x) = (δ − x)2 (for a numerical target t), the optimal decision is δ = E[x|D∗] and Ut(D∗) is the variance of t (given D∗). When Lt(δ, x) = − log pt(x|D∗) (for a categorical target t), Ut(D∗) is the entropy of t (given D∗). Variance and entropy are two common uncertainty functions which measure the disclosure risk for t caused by releasing D∗. Small uncertainty represents high risk. For microdata, Duncan and Lambert [83] provided two other appropriate loss functions (hence two risk measures), which we omit. It is easy to see that when there are multiple possible targets, the worst-case disclosure risk can be measured by the inverse of mint Ut(D∗). Interestingly, many modern privacy criteria (that will be described later) can be viewed as instantiations of this framework, requiring mint Ut(D∗) ≥ θ, for some threshold θ, with diﬀerent loss functions, probabilistic models and, in some cases, with background knowledge.
+
+2.2 k-Anonymity 25
+2.2 k-Anonymity
+Sweeney in [241] demonstrated that releasing a data table by simply removing identiﬁers (e.g., names and social security numbers) can seriously breach the privacy of individuals whose data are in the table. By combining a public voter registration list and a released medical database of health insurance information, she was able to identify the medical record of the governor of Massachusetts. In fact, according to her study of the 1990 census data [240], 87% of the population of the United States can be uniquely identiﬁed on the basis of their ﬁve-digit zip code, gender, and date of birth.
+This kind of attack is called linking attack (see Section 1.2). Take Table 1.1 for example. Suppose that we remove the Name attribute and release the resulting table. It is common that the adversary has access to several public databases. For instance, he can easily obtain a public voter registration list as shown in Table 2.1. Assume the area of zip code 13068 is a small town and Ann is the only 28-year-old female living in that town. When the adversary looks at Table 1.1 with names removed, he can almost be sure that the ﬁrst record with Age = 28, Gender = F, and Zip code = 13068 is Ann’s record by matching that record with Ann’s record in the voter registration list. The goal of a linking attack is to ﬁnd the identity of an individual in a released data set that contains no identifying attributes by linking the records in the data set to a public data set that contains identifying attributes. This linkage is performed with a set of quasi-identiﬁer (QI) attributes that are in both data sets. In the above example, Age, Gender, and Zip code are QI attributes.
+To protect data from linking attacks, Samarati and Sweeney proposed k-anonymity [226, 241]. Let D (e.g., Table 1.1) denote the
+
+Table 2.1. Example voter registration list.
+
+Name
+
+Age
+
+Gender
+
+Zip code
+
+Ann
+
+28
+
+F
+
+Bob
+
+21
+
+M
+
+Carol
+
+24
+
+F
+
+Dan
+
+21
+
+M
+
+Ed
+
+52
+
+M
+
+...
+
+...
+
+...
+
+13068 13068 13068 13068 13068
+...
+
+26 Privacy Deﬁnitions
+original data table and D∗ (e.g., Table 1.2) denote a release candidate of D produced by the generalization mechanism.
+Deﬁnition 2.1 (k-Anonymity). Given a set of QI attributes Q1, . . . , Qd, release candidate D∗ is said to be k-anonymous with respect to Q1, . . . , Qd if each unique tuple in the projection of D∗ on Q1, . . . , Qd occurs at least k times.
+Table 1.2 is 4-anonymous. Now, no matter what public databases the adversary has access to, he can only be sure that Ann’s record is one of the ﬁrst four. While k-anonymity successfully protects data from linking attacks, an individual’s private information can still leak out. For example, the last four individuals of Table 1.2 have cancer. Although the adversary is not able to know which record belongs to Jean, he is sure that Jean has cancer if he knows Jean’s age, gender, and zip code from a public database. This motivated Machanavajjhala et al., who propose the principle of -diversity, which is presented in the next section.
+In practice, multiple criteria should be enforced at the same time in order to protect data from diﬀerent kinds of attacks. We note that, for a given data publication scenario, the issues of setting the parameter k and deciding which attributes to include in the set of QI attributes have not been well-addressed in the literature. For the second question, a simple approach that has often been taken is to conservatively include all of the non-sensitive attributes in the set of QI attributes. However, further research is still needed to develop principles to help determine the right k value for a given scenario; we brieﬂy return to this question in Section 7.4.3.
+2.3 -Diversity
+k-Anonymity ensures that individuals cannot be uniquely re-identiﬁed in a data set and thus guards against linking attacks. However, Machanavajjhala et al. [166, 168] showed that adversaries with more background knowledge, also called adversarial knowledge, can infer sensitive information about individuals even without re-identifying them.
+
+2.3 -Diversity 27
+The following two attacks — homogeneity attack and background knowledge attack — presented in that paper illustrate such adversaries.
+We already encountered the homogeneity attack in the previous section. Recall the case of Jean from Table 1.2. Her neighbor Alice knows that Jean is a 37-year-old American woman from zip code 13227. If Alice knows that Jean is in the table, then she knows that Jean’s information resides in one of the last four tuples in the table. Though Alice cannot uniquely identify Jean’s record, she knows that Jean has cancer thus breaching Jean’s privacy.
+Next suppose Alice knows that her pen friend Cary, who is a 21-yearold Japanese living in zip code 13068, is also admitted to the hospital. Unlike in the previous case, given only this information Alice can only deduce that Cary has either the heart disease or the viral infection. However, it is well-known in medical circles that 25-year-old Japanese have a very low incidence of heart disease due to their diet. Thus Alice can deduce that Cary is much more likely to have the viral infection rather than the heart disease and breach her privacy. Machanavajjhala et al. identiﬁed the importance of incorporating adversarial background knowledge into a privacy metric and proposed the Bayes-Optimal privacy and the principle of -diversity. More complex forms of background knowledge attacks will be described in the later sections.
+In order to guarantee privacy against such adversaries, Machanavajjhala et al. ﬁrst propose a formal but impractical deﬁnition of privacy called Bayes-Optimal privacy. The attributes in the input table are considered to be partitioned into non-sensitive QI attributes (called Q) and sensitive attributes (called S). The adversary is assumed to know the complete joint distribution f of Q and S. Publishing a generalized table breaches privacy according to Bayes-Optimal privacy if the adversary’s prior belief in an individual’s sensitive attribute is very diﬀerent from the adversary’s posterior belief after seeing the published generalized table. More formally, adversary Alice’s prior belief, α(q,s), that Bob’s sensitive attribute is s given that his non-sensitive attribute is q, is her background knowledge:
+
+f (s, q)
+
+α(q,s) = Pf (t[S] = s | t[Q] = q) =
+
+, s ∈S f (s, q)
+
+28 Privacy Deﬁnitions
+where t[S] and t[Q] denote the sensitive value and the vector of QI attribute values of individual t, respectively; Pf denotes the probability computed based on distribution f . On observing the published table T which is generalized from T , and in which Bob’s quasi-identiﬁer q has been generalized to q∗, her posterior belief about Bob’s sensitive attribute is denoted by β(q,s,T ) and is equal to:
+β(q,s,T ) = Pf (t[S] = s | t[Q] = q and T and t ∈ T )
+Given the joint distribution f and the output table T , Machanavajjhala et al. derived a formula for β(q,s,T ).
+
+Theorem 2.1 (from [166]). Let T be a published table which is obtained by performing generalizations on a table T ; let X be an individual with X[Q] = q who appears in the table T (and also T ); let q be the generalized value of q in T ; let s be a possible value of the sensitive attribute; let n(q ,s ) be the number of tuples t ∈ T where t [Q] = q and t [S] = s ; and let f (s | q ) be the conditional probability of the sensitive attribute being s conditioned on the fact that the non-sensitive attribute Q is some q which can be generalized to q . Then the posterior belief that X[S] = s after observing T is given by:
+
+β(q,s,T ) =
+
+n(q
+
+f (s|q) ,s) f (s|q )
+
+s
+
+∈S n(q
+
+,s
+
+f (s |q) ) f (s |q )
+
+(2.1)
+
+Publishing a table T satisﬁes Bayes-Optimal privacy if the distance between α(q,s) and β(q,s,T ) is small for every q ∈ Q and for every s ∈ S; where distance is measured either using the diﬀerence or ratio of the two quantities.
+However, Bayes-Optimal privacy has the following limitations. First, the data publisher is unlikely to know the full distribution f . Second, it is unlikely that the adversary knows the entire joint distribution either. Further, the data publisher may not know the exact knowledge the adversary possesses. For instance, Alice knew that Cary had a very low incidence of heart disease; but the data publisher may not know this. Third, the above analysis captures only distributional
+
+2.3 -Diversity 29
+knowledge and does not capture instance level knowledge. For instance, Alice may know that Igor has heart disease by talking to his wife. Next, there will be multiple adversaries, each with varying amounts of knowledge about the individuals in the table and the joint distribution; the data publisher would have to be able to specify which of these adversaries are guarded against. Finally, checking the Bayes-Optimal condition for every (q, s) combination in the domain might be computationally tedious.
+To overcome the limitations of Bayes-Optimal privacy, Machanavajjhala et al. proposed the -diversity principle, which is motivated by the fact that Bayes-Optimal privacy is not satisﬁed (a) when there is lack of diversity in the sensitive values within a group of tuples sharing the same QI values (like in the homogeneity attack), and (b) when the adversary is able to eliminate all but one of the sensitive values associated with the group (like in the background knowledge attack). A table is said to satisfy the -diversity principle if every group of tuples that share the same QI values in the table have at least well-represented sensitive values; i.e., there are at least -distinct sensitive values that are of roughly equal proportion. Table 2.2 is an example of a 3-diverse table.
+This principle and the associated notion of well-representedness can be instantiated in many ways. One instantiation is called entropy
+
+Table 2.2. A 3-diverse generalized table.
+
+Age Gender Zip code Nationality Condition
+
+(Ann)
+
+1 20–59
+
+F
+
+(Helen)
+
+8 20–59
+
+F
+
+(Cary)
+
+3 20–59
+
+F
+
+(Jean)
+
+10 20–59
+
+F
+
+1∗∗∗∗ 1∗∗∗∗ 1∗∗∗∗ 1∗∗∗∗
+
+Any
+
+Heart disease
+
+Any
+
+Flu
+
+Any
+
+Viral infection
+
+Any
+
+Cancer
+
+(Eshwar) 5 20–59
+
+M
+
+(Fox)
+
+6 20–59
+
+M
+
+(Gary)
+
+7 20–59
+
+M
+
+(Ken)
+
+11 20–39
+
+M
+
+1∗∗∗∗ 1∗∗∗∗ 1∗∗∗∗ 13∗∗∗
+
+Asian Asian Asian American
+
+Cancer Flu
+Heart disease Cancer
+
+(Igor)
+
+9 20–39
+
+M
+
+(Dick)
+
+4 20–39
+
+M
+
+(Bruce)
+
+2 20–59
+
+M
+
+(Lewis) 12 20–39
+
+M
+
+13∗∗∗ 13∗∗∗ 1∗∗∗∗ 13∗∗∗
+
+American American
+Asian American
+
+Cancer Viral infection Heart disease
+Cancer
+
+aEach 4 anonymous group of tuples has at least three distinct sensitive values
+
+of roughly equal proportions. bThe above table is 1.5-entropy diverse, and is recursive (2, 3)-diverse.
+
+30 Privacy Deﬁnitions
+-diversity, where in each group of tuples with the same QI value, the entropy of the sensitive attribute should be at least log . Entropy -diversity was ﬁrst proposed by Ohrn and Ohno-Machado [194] as a way of defending against the homogeneity problem (without considering the role of background knowledge).
+Another instantiation of the -diversity principle is captured by recursive (c, ) diversity. Let s1, . . . , sm be the possible values of the sensitive attribute S in a group of tuples with generalized QI value q , henceforth called a q -block (which is also called a equivalence class). Assume that we sort the counts n(q ,s1), . . . , n(q ,sm) in descending order and name the elements of the resulting sequence r1, . . . , rm. -Diversity can also be interpreted as follows: an adversary can breach the privacy of a -diverse q -block only if he/she can eliminate at least − 1 possible values of S. That is, in a 2-diverse table, none of the sensitive values should appear too frequently. A q -block is deﬁned to be (c, 2)-diverse if r1 < c(r2 + · · · + rm) for some user-speciﬁed constant c. For > 2, we say that a q -block satisﬁes recursive (c, )-diversity if we can eliminate one possible sensitive value in the q -block and still have a (c, − 1)-diverse block. This recursive deﬁnition can be succinctly stated as follows:
+Deﬁnition 2.2 (Recursive (c, )-Diversity). In a given q -block, let ri denote the number of times the i-th most frequent sensitive value appears in that q -block. Given a constant c, the q -block satisﬁes recursive (c, )-diversity if r1 < c(r + r +1 + · · · + rm). A table T satisﬁes recursive (c, )-diversity if every q -block satisﬁes recursive -diversity. We say that 1-diversity is always satisﬁed.
+The recursive (c, )-diversity, thus, can be interpreted in terms of adversarial background knowledge. It guards against all adversaries who possess at most − 2 statements of the form “Bob does not have heart disease”. We call such statements negation statements.
+At this point we would like to remind the readers the question we raised in the previous section: “How does a data publisher decide which attributes should be included in the set of QI attributes?” QI attributes are just a special case of background knowledge. k-Anonymity only
+
+2.4 Protection Against Boolean Background Knowledge 31
+considered background knowledge quantiﬁed by the set of QI attributes. -Diversity considered adversaries possessing negation statements in addition to QI attributes. In the next few sections, we will describe formal models of adversarial background knowledge and progressively more complex forms of background knowledge.
+2.4 Protection Against Boolean Background Knowledge
+-Diversity highlighted the importance of a formal speciﬁcation of the background knowledge available to the adversary, and the fact that the data publisher may not know the adversarial background knowledge but may still be able to guard against it. Motivated by this, Martin et al. [173] and Chen et al. [51] considered more general forms of background knowledge. In general, one can describe background knowledge using Boolean logic sentences and seek to provide privacy protection against an adversary who knows a certain number of such sentences. Martin et al. ﬁrst introduced a privacy framework based on such an idea. Then, Chen et al. provided a privacy criterion that is easily understandable (i.e., can be explained precisely using plain English) and encompasses k-anonymity and (c, )-diversity as special cases.
+Consider the running example. Let D denote the original medical record table (Table 1.1). After applying a sanitization procedure, the data publisher obtains a generalized view of D (Table 1.2), denoted by D∗. To understand whether D∗ is safe for release, we consider an adversary whose goal is to predict (or infer) whether a target individual t (say, Eshwar) has a target sensitive value s (say, cancer). In making this prediction, the adversary would be assumed to have access to the release candidate D∗, as well as his own knowledge K. This knowledge may include information from similar data sets released by other organizations, social networks relating individuals, and other instance-level information. A robust privacy criterion should place an upper bound on the adversary’s conﬁdence in predicting any individual t to have sensitive value s. In other words, the criterion should guarantee that, for any t and s, Pr(t has s | K, D∗) < c, for some threshold value c. It is equivalent to say
+max Pr(t has s | K, D∗) < c.
+t,s
+
+32 Privacy Deﬁnitions
+We call maxt,s Pr(t has s | K, D∗) the breach probability, which represents the adversary’s conﬁdence in predicting the sensitive value s of the least protected individual t when the adversary has knowledge K and obtains release candidate D∗.
+Returning to the example, assume that each individual has only one disease in D. In the absence of adversarial knowledge, intuitively the adversary can predict Eshwar to have cancer with conﬁdence Pr(Eshwar has Cancer | D∗) = 1/4 because there are four individuals in Eshwar’s equivalence class, only one of whom has cancer; without additional knowledge, no one is more likely than the other. However, the adversary can improve his conﬁdence if he has some additional knowledge. For example:
+• The adversary knows Eshwar personally, and is sure that he does not have heart disease. After removing the record with heart disease, the probability that Eshwar has cancer becomes 1/3.
+• From another data set, the adversary determines that Fox has Flu. By further removing Fox’s Flu record, the probability that Eshwar has cancer becomes 1/2.
+In deﬁning a privacy criterion incorporating such background knowledge, two key problems need to be addressed. First, one must provide the data publisher with the means to specify adversarial knowledge K. Second, one must compute the breach probability (in a computationally eﬃcient way).
+2.4.1 Speciﬁcation of Adversarial Knowledge
+We will ﬁrst discuss how the adversarial knowledge can be speciﬁed, and then we will discuss how to compute breach probabilities. We note that computation of breach probabilities under general Boolean logic sentences is NP-hard [173]. That means our focus should be on special logic sentences that are eﬃciently computable and represent useful adversarial knowledge.
+The problem of adversarial-knowledge speciﬁcation is further complicated by the fact that, in general, the data publisher does not know
+
+2.4 Protection Against Boolean Background Knowledge 33
+precisely what knowledge an adversary has. To address this, Martin et al. proposed the use of a language for expressing such knowledge. Because it is nearly impossible for the data publisher to anticipate speciﬁc adversarial knowledge, they instead propose to quantify the amount of knowledge an adversary could have, and to release data that are resilient to a certain amount of knowledge regardless of the speciﬁc content of this knowledge. Speciﬁcally, they deﬁne the language Lbasic(k) to be the set of all possible conjunctions of k implications (i.e., k implications connected by “and”). Each implication is of the following form:
+[(u1 has v1) and . . . and (um has vm)] implies [(t1 has s1) and . . . and (tn has sn)],
+where ui and tj are individuals in D, vi and sj are sensitive values, and m and n can be any positive numbers. An example logic sentence in Lbasic(2) is
+[((Fox has Flu) and (Igor has Cancer)) implies (Ken has Cancer)] and
+[(Helen has Flu) implies ((Fox has Flu) and (Lewis has Cancer))]
+
+Deﬁnition 2.3 ((c, k)-Safety). Given knowledge threshold k > 0 and conﬁdence threshold c ∈ [0, 1], release candidate D∗ is (c, k)-safe
+if
+
+max
+
+Pr(t has s | K, D∗) < c,
+
+t∈T, s∈S, K∈Lbasic(k)
+
+where T is the set of individuals involved in D and S is the set of sensitive attribute values.
+
+Chen et al. argued that Lbasic(k) is not intuitive. It is diﬃcult for the data publisher to understand the practical meaning of a conjunction of k implications, thus making it hard to set an appropriate k value in practice. Instead, they proposed to quantify possible adversarial knowledge from three intuitive dimensions. Suppose that the adversary’s target is to determine whether individual t has sensitive value s. They deﬁne the language Lt,s( , k, m) to be the set of all logic sentences,
+
+34 Privacy Deﬁnitions
+each of which represents an adversary that knows: (1) sensitive values that the target individual t does not have, (2) the sensitive values of k other individuals, and (3) m individuals in t’s same-value family for a sensitive value s (meaning that we can be sure that t has sensitive value s if any one of those m individuals has s, especially if s is a contagious disease).
+
+Deﬁnition 2.4 (Basic 3D privacy criterion). Given knowledge
+
+threshold ( , k, m) and conﬁdence threshold c ∈ [0, 1], release candidate D∗ is safe if
+
+max
+
+Pr(t has s | K, D∗) < c,
+
+t∈T, s∈S, K∈Lt,s( ,k,m)
+
+where T is the set of individuals involved in D and S is the set of
+
+sensitive attribute values.
+
+Note that, for simplicity, we slightly modiﬁed the deﬁnition of the basic 3D privacy criterion of Chen et al. In the original deﬁnition, one can have possibly diﬀerent ( , k, m) and c values for diﬀerent sensitive values in order to give some sensitive values (e.g., AIDS as opposed to Flu) more protection. We also note that Chen et al. extended the basic 3D privacy criterion to a skyline privacy criterion, which provides the data publisher further ﬂexibility, and studied set-valued sensitive attributes and diﬀerent kinds of schema-level constraints.
+To make the Boolean background knowledge used in k-anonymity and -diversity explicit, Chen et al. showed that k-anonymity is a special case of the basic 3D privacy criterion where the identities of the individuals in the data set are considered to be the sensitive values, the knowledge threshold is (0, k − 2, 0) and the conﬁdence threshold is 1, for all sensitive values. They also showed that (c, )-diversity is a special case of the basic 3D privacy criterion where the knowledge threshold is ( − 2, 0, 0) and the conﬁdence threshold is c/(c + 1), for all sensitive values. In other words, k-anonymity provides privacy protection against any adversarial knowledge about the identities of k − 2 individuals, and (c, )-diversity provides privacy protection against any adversarial knowledge about − 2 sensitive values that an adversary’s chosen target individual does not have.
+
+2.4 Protection Against Boolean Background Knowledge 35
+2.4.2 Computation of Breach Probabilities
+Detailed discussion of how to compute breach probabilities is beyond the scope of this paper. Here, we only provide key ideas. We ﬁrst note that one has to carefully pick the form of adversarial knowledge (i.e., kind of logic sentence); otherwise, computation of breach probabilities under background knowledge is likely to be infeasible.
+Pr(t has s | K, D∗) is generally computed based on the random world assumption. Intuitively, given a release candidate D∗, each possible original data D that can produce D∗ by applying the sanitization mechanism to D is called a possible world of D∗. One commonly used assumption that simpliﬁes probability computation is that, without the given adversarial knowledge, each possible world is equally likely. Notice that “t has s” and K are logic sentences that can be evaluated on each possible world and return either true or false. Let n(X | D∗) denote the number of possible worlds of D∗ on which logic sentence X is true. By the deﬁnition of conditional probability, we obtain:
+
+Pr(t
+
+has
+
+s | K, D∗)
+
+=
+
+n((t
+
+has s) n(K
+
+and K | D∗)
+
+| D∗) .
+
+To compute maxt∈T, s∈S, K∈L Pr(t has s | K, D∗), where L is a language, it would be computationally infeasible if we try all possible (t, s, K) triples to ﬁnd the maximum. The trick is to analyze the necessary conditions of the maximum; i.e., ﬁnd a small set of (t, s, K) triples that includes the maximum solution. Then, restrict the search to that set of (t, s, K) triples. If this restricted set is signiﬁcantly smaller than the set of all possible (t, s, K) triples, we can observe signiﬁcant eﬃciency improvement. After having this restricted set, Martin et al. used dynamic programming to search for the maximum [173]. Chen et al. further proposed a congregation property (saying when the breach probability is maximized, all the individuals involved in adversarial knowledge K are in at most two equivalence classes) and showed that their language Lt,s( , k, m) satisﬁes the property. Based on the congregation property, they improved eﬃciency over dynamic programming by several orders of magnitude [51].
+
+36 Privacy Deﬁnitions
+2.5 Protection Against Probabilistic Background Knowledge
+Until now, we have described privacy deﬁnitions based on adversaries with only precise knowledge; -diversity [166, 168] guards against negation statements of the form “Bob does not have heart disease”, and in addition Martin et al. [173] and Chen et al. [51] proposed algorithms to guard against implications of the form “If Bob has the ﬂu then Clara has the ﬂu”. However, as described in the case of Bayes-Optimal privacy (in Section 2.3) adversaries may possess probabilistic knowledge about parts of the domain. For instance, an adversary may know that the incidence of cancer in Gotham City is only 10%, but is higher (about 50%) if only males in Gotham City are considered. In order to capture such kinds of adversarial knowledge, Evﬁmievski et al. [92] proposed a privacy criterion called (α, β)-privacy.
+Consider an anonymization algorithm R with input domain DU and output domain DV . Suppose R acts on a (secret) data item u ∈ DU and outputs v ∈ DV . For example, R may add some random noise into u to generate v. Evﬁmievski et al. say that R allows privacy breaches if for some property φ about u, the adversary’s prior probability that φ(u) = true is very diﬀerent from the adversary’s posterior probability that φ(u) = true after seeing the output v. The adversary’s background knowledge is captured in terms of the prior probability, and additional information due to the access to v represented by the posterior probability.
+Deﬁnition 2.5 ((α, β)-Privacy). Let R be an algorithm that takes as input u ∈ DU and outputs v ∈ DV . R is said to allow an upward (α, β)-privacy breach with respect to a predicate φ if for some probability distribution f ,
+∃u ∈ DU , ∃v ∈ DV s.t. Pf (φ(u)) ≤ α and Pf (φ(u)|R(u) = v) ≥ β
+Similarly, R is said to allow a downward (α, β)-privacy breach with respect to a predicate φ if for some probability distribution f ,
+∃u ∈ DU , ∃v ∈ DV s.t. Pf (φ(u)) ≥ α and Pf (φ(u)|R(u) = v) ≤ β
+
+2.5 Protection Against Probabilistic Background Knowledge 37
+
+R is said to satisfy (α, β)-privacy if it does not allow any (α, β)-privacy breach for any predicate φ.
+
+Notice that, unlike the privacy criteria in previous sections which
+
+deﬁne whether or not a release candidate is safe, (α, β)-privacy deﬁnes
+
+whether an anonymization algorithm is safe. Speciﬁcally, (α, β)-privacy
+
+considers all possible inputs (no matter what the data publisher’s orig-
+
+inal data set is) and all possible outputs (no matter what release candi-
+
+date is actually published) of an anonymization algorithm. If there is an
+
+input–output pair that allows a privacy breach, then the anonymization
+
+algorithm is not safe.
+
+Evﬁmievski et al. derived the necessary and suﬃcient conditions for
+
+R to satisfy (α, β)-privacy for any prior distribution and any property
+
+φ in terms of the ampliﬁcation of R. An algorithm R is deﬁned to be
+
+γ-amplifying if
+
+∀v ∈ DV , ∀u1, u2 ∈ DU ,
+
+P (R(u1) = v) ≤ γ, P (R(u2) = v)
+
+(2.2)
+
+where the probabilities are measured using the random coins of the
+
+algorithm R.
+
+Theorem 2.2 (From [92]). Let R be an algorithm that is γ-
+
+amplifying. R does not permit an (α, β)-privacy breach for any adver-
+
+sarial prior distribution if and only if
+
+γ
+
+≤
+
+β α
+
+·
+
+1 1
+
+− −
+
+α β
+
+(2.3)
+
+Unlike the previous privacy deﬁnitions, the (α, β) condition does not
+
+limit the information known to the adversary as it considers every possi-
+
+ble adversarial prior belief. Consequently, the anonymization algorithm
+
+is forced to satisfy the strict γ-ampliﬁcation condition. For instance, no
+
+deterministic algorithm (which includes generalization and bucketiza-
+
+tion schemes) can satisfy (α, β)-privacy, unless R maps all the inputs
+
+to the same output. If R deterministically maps two inputs u1 and u2
+
+to two distinct outputs v1 and v2, its ampliﬁcation is
+
+P (R(u1) = v1) = P (R(u1) = v1) = ∞
+
+P (R(u2) = v1)
+
+0
+
+38 Privacy Deﬁnitions
+We will describe random perturbation-based techniques that satisfy (α, β)-privacy in Section 4.2.
+2.6 Diﬀerential Privacy
+Organizations are primarily interested in publishing information collected from individuals in the form of relational tables. Each individual contributes to only a few (say, at most c) tuples in the table. The diﬀerential privacy criterion, proposed by Dwork [85], is designed to guarantee the privacy of individuals and is motivated by the following intuition. The sanitization process should guarantee that, for any individual i, the sanitized output generated by including i’s data should be nearly indistinguishable from that generated without i’s data. In other words, an individual’s privacy is guaranteed if given access to the sanitized data set and information about all but one individual, say i, in the table, an adversary cannot determine the value of individual i’s tuple. For instance, in Table 1.1, even if the adversary knows the disease of all the individuals except Bruce, given access to the sanitized table, the adversary should not be able to say whether Bruce has the heart disease or the ﬂu or even hepatitis.
+Similar to (α, β)-privacy, diﬀerential privacy deﬁnes whether or not an anonymization algorithm is safe over all possible inputs and outputs. Let T upn denote the set of all possible tables having n tuples.
+Deﬁnition 2.6 ((c, )-Diﬀerential Privacy [85]). An algorithm A that takes as input a table T ∈ T upn satisﬁes (c, )-diﬀerential privacy if for every output S, and every pair of input tables T1 and T2 that diﬀer in at most c tuples,
+P (A(T1) = S) ≤ , P (A(T2) = S)
+where the probabilities are measured using the random coins in algorithm A.
+Diﬀerential privacy can be formally motivated in many ways; we present one in terms of (α, β)-privacy. When considering relational
+
+2.6 Diﬀerential Privacy 39
+tables, one can relax the (α, β)-privacy condition by considering only properties φ that pertain to individuals as follows.
+Suppose c = 1 like in Table 1.1; i.e., every tuple in the relation contains the information about a unique individual. First, it is suﬃcient to guarantee that the adversary’s prior and posterior are not very different for individual properties of the form “Does Bob have cancer” or “Does Bob earn more than $50,000”. These properties can be captured using the set of all functions φ whose domain is T up (the domain from which each tuple is picked) and whose range is {0, 1}; each predicate φ(t) = 1 represents a unique property.
+Next, since we are only interested in safeguarding individual properties, we can relax the adversarial knowledge too. Assume, unlike in the case of Martin et al. or Chen et al., that the adversary does not know any information linking two individuals in the table. Now in the worst case, an adversary may know the exact information about all the tuples in the table, except one (the individual being the adversary’s target). Moreover, the adversary may know an arbitrary probability distribution f for the target tuple. Dwork et al. [87] term such an adversary as informed. The following deﬁnition (similar to the semantic privacy in [87]) rephrases the (α, β)-privacy criterion with only individual properties and the “all but one” adversary model.
+
+Deﬁnition 2.7 ((α, β)-Individual Privacy). Consider an algorithm A that takes a secret table T ∈ T upn and outputs S. A is deﬁned to satisfy (α, β)-individual privacy against an informed adversary if for every D ∈ T upn−1, denoting the exact information about n − 1 tuples in the table, for every function φ : T up → {0, 1} and every probability distribution f on the rest tuple,
+
+Pf (φ(t) = 1|D) ≤ α → Pf (φ(t) = 1|D, S) ≤ β and Pf (φ(t) = 1|D) ≥ α → Pf (φ(t) = 1|D, S) ≥ β
+
+(2.4) (2.5)
+
+We can use Theorem 2.2 to derive the necessary and suﬃcient conditions for an algorithm to satisfy Deﬁnition 2.7. Note that the adversary already knows the exact values of all but one of the tuples. Hence, it
+
+40 Privacy Deﬁnitions
+
+is enough to consider the ampliﬁcation based on two tables T1 and T2 that diﬀer in only one tuple. For every such pair of T1, T2 and for every output S, we need
+
+P (A(T1) P (A(T2)
+
+= =
+
+S) S)
+
+≤
+
+β α
+
+1 1
+
+− −
+
+α β
+
+(2.6)
+
+Now suppose we want the prior and posterior probabilities to always be within a factor of , for some > 1. That is, we want (α, · α)individual privacy for every value of α between 0 and 1. This would force Equation (2.6) to become,
+
+∀α, P (A(T1) = S) ≤ P (A(T2) = S)
+iﬀ, ∀α, P (A(T1) = S) ≤ P (A(T2) = S)
+iﬀ, P (A(T1) = S) ≤ P (A(T2) = S)
+
+·α 1−α α 1− ·α
+1−α 1− ·α
+
+(2.7)
+
+Equation (2.7) corresponds to (1, )-diﬀerential privacy condition. In summary, like (α, β)-privacy, diﬀerential privacy deﬁnes whether
+an anonymization algorithm is safe, and not whether a speciﬁc release candidate is safe. Intuitively -diﬀerentially privacy is guaranteed if an adversary cannot suﬃciently distinguish any two input tables that diﬀer in the data for a single individual based on any output of the algorithm; the parameter denotes the extent to which an adversary can distinguish the tables. Semantically, -diﬀerential privacy is stronger than (α, β)-privacy, since the latter only considers adversarial knowledge about a single individual, but the former considers adversarial knowledge about all individuals in the table. However, by adding adversarial knowledge of exact information about “all but one” individuals in the table, we showed that the variant (α, α)-individual privacy (for all α) is equivalent to -diﬀerential privacy.
+
+2.7 Perfect Privacy
+Until now we have considered privacy deﬁnitions that bound the disclosure of information sensitive to individuals. However, some data are
+
+2.7 Perfect Privacy 41
+
+so secret that an individual may not want any information to be disclosed. Such a stringent privacy requirement is termed perfect privacy and is equivalent to Shannon’s notion of perfect secrecy [232]. More formally, suppose the absolutely sensitive information is captured by the answer to query QS over a relational database. Then, publishing a view V (by answering query QV ) of a relational table T violates perfect privacy if for some prior probability distribution f over the domain of all relational tables, and for some answer S to the secret query QS,
+
+Pf (QS(T ) = S) = Pf (QS(T ) = S | QV (T ) = V )
+
+(2.8)
+
+Again, this means that there is an adversary with prior background knowledge that is captured by the probability distribution f , and whose belief about the answer to the secret query changes after seeing the published view.
+Unfortunately, it can be shown that for any non-trivial query QS, publishing any view V violates Shannon secrecy. For example, consider Table 1.1. Suppose Bruce does not want researchers from Gotham City University to learn any information about his disease. So the sensitive query here is
+
+SELECT Disease FROM Hospital WHERE Name = Bruce.
+
+Intuitively, one might expect that publishing the disease information only about women in the hospital would not leak any information about Bruce (who is male). However, there may be some adversary who knows the information that only one of Cary and Bruce has the ﬂu. Thus publishing the information that Cary has the ﬂu leaks the information that Bruce does not have the ﬂu. This changes the adversary’s belief about Bruce’s disease, thus violating Shannon’s secrecy.
+Since in most cases sensitive information about one individual does not depend on other individuals, Miklau and Suciu [179] proposed a perfect privacy deﬁnition that only guards against adversaries who consider diﬀerent tuples in a relation to be independent of each other. More formally, let f be a probability distribution over all the possible tuples f : T up → [0, 1], where f (t) denotes the probability that tuple t occurs in a database instance. Hence, the probability of a table T is given by
+
+42 Privacy Deﬁnitions
+
+the following product:
+
+Pf (T ) = f (t) × (1 − f (t ))
+
+t∈T
+
+t ∈T
+
+Let T denote the set of all possible relational tables. Miklau et al. call the pair (T up, f ) a dictionary, which deﬁnes a probabilistic table (i.e., a probability distribution over the set T of all possible realizations of such a table). Let Pf (QS = S) denote the probability that the query QS outputs S; i.e.,
+
+Pf (QS = S) =
+
+Pf (T )
+
+T ∈T : QS (T )=S
+
+Deﬁnition 2.8 (Perfect Privacy [179]). The query QS is perfectly private with respect to query QV if for every probability distribution f (which considers diﬀerent tuples to be independent) and for all answers S, V to the queries QS, QV , respectively,
+
+Pf (QS = s) = Pf (QS = S | QV = V ).
+
+(2.9)
+
+In other words, the query QS is perfectly private with respect to QV if the adversary’s belief about the answer to QS does not change even after seeing the answer to QV , on all tuple-independent probability distributions.
+Miklau and Suciu presented an elegant characterization of the above condition in terms of a logical condition on critical tuples. A tuple t is critical to a query Q, denoted by t ∈ crit(Q), if ∃T ∈ T , Q(T ∪ {t}) = Q(T ). That is, a tuple is critical to a query if removing it from a table changes the answer to the query.
+Theorem 2.3 (Critical Tuple Privacy [179]). Let (T up, f ) be a dictionary. Two queries QS and QV are perfectly private with respect to each other if and only if
+crit(QS) ∩ crit(QV ) = ∅.
+
+2.8 Other Privacy Deﬁnitions 43
+However, checking whether a tuple is critical was shown to be hard for the second level of the polynomial hierarchy (Πp2-complete1 in the size of the query) even for conjunctive queries (simple SQL queries without aggregation, recursion, or negation). Subsequently, Machanavajjhala and Gehrke [165] showed that the problem is indeed tractable for suﬃciently large subclasses of conjunctive queries.
+2.8 Other Privacy Deﬁnitions
+Until now, we have described a variety of deﬁnitions of privacy. Many extensions and relaxations of these privacy deﬁnitions have been discussed in the literature. These may be broadly classiﬁed into extensions of k-anonymity, extensions of -diversity, relaxations of diﬀerential privacy, and relaxations of perfect privacy. We brieﬂy discuss these variants in this section.
+2.8.1 Extensions of k-Anonymity
+k-Anonymity was proposed for deterministic sanitization mechanisms (e.g., generalization). Aggarwal extended it to deﬁning privacy for a randomization mechanism [8]. Let D = {µ1, . . . , µn} denote the original data table, where µi is the vector of attributes for the i-th individual. Suppose that we want to release a sanitized version D∗ of D by adding random noise. For simplicity, suppose each record µi only contains numeric values and we add Gaussian noise. We represent a release candidate D∗ by {(x1, σ12), . . . , (xn, σn2)}, where xi = µi + i is the sanitized record of individual i, and i is drawn from the multivariate normal distribution with mean 0 and covariance matrix σi2. Note that σi2 controls the amount of noise added to the data and needs to be determined by an anonymization algorithm. Let p(x; µi, σi2) denote the probability density function of the normal distribution with mean µi and covariance matrix σi2, which is the probability that the randomized version of the i-th record (i.e., xi) takes value x.
+1 The ﬁrst level of the polynomial hierarchy contains the sets NP and co-NP. Problems in Πp2 are conjectured to be harder than problems in NP. For more details we refer the reader to Section 5 in Arora and Barak [23].
+
+44 Privacy Deﬁnitions
+Diﬀerent from a deterministic sanitization mechanism (e.g., generalization), when a randomization mechanism is used, the goal of an anonymization algorithm is to determine the noise levels σi2, instead of the sanitized records xi, because each xi is simply generated from a probability distribution deﬁned by σi2 (and µi). Thus, a privacy criterion is also deﬁned on the noise levels σi2, instead of the actual sanitized records xi.
+
+Deﬁnition 2.9 (k-Anonymity in expectation). Release candidate D∗ is k-anonymous in expectation if, for each individual i, the expected
+number of individuals j whose original records µj are more likely to generate i’s sanitized record than i’s own original record µi is at least k; i.e., for each i,
+
+n
+Pr[p(Xi; µj, σi2) > p(Xi; µi, σi2)] ≥ k,
+j=1:j=i
+
+(2.10)
+
+where Xi is a normal random variable with mean µi and covariance matrix σi2, which represents i’s sanitized record.
+
+To better understand the above deﬁnition, let Yij ∈ {0, 1} be a random variable representing whether µj is more likely to generate Xi than µi does. Note that Yij is a function of Xi: Yij = 1 if p(Xi; µj, σi2) > p(Xi; µi, σi2); otherwise, Yij = 0. Then, j:j=i Yij is the number of individuals whose original record is more likely to generate
+i’s sanitized record Xi than i’s own original record is. It can be easily seen that requiring E[ j=i Yij] ≥ k is equivalent to Formula (2.10).
+We note that this deﬁnition has several properties that may not be
+desirable. First, it is possible that the sanitized record xi is exactly the same as or very close to the original record µi. Although the probability that it happens to a given record is small, the probability that it hap-
+pens to at least one record may be large, especially when the number of
+records in the data set is large. Note that, when the data publisher does
+publish an xi that happens to be the same as µi, he can always claim that they are not the same. Although an adversary would not know the
+fact that they are actually the same, the individual who contributes the
+
+2.8 Other Privacy Deﬁnitions 45
+record would not be happy about seeing his record published without any protection. Second, notice that the larger (in terms of the number of records) the original data set is, the smaller the amount of noise is needed. To see this, consider any subset D1 of records of D. When we sanitize D, the amount of noise that is needed to be added into a record that belongs to the subset D1 is always smaller than the amount of noise that is needed to be added into the same record if we just want to sanitize the subset D1. This property is the consequence of having the summation in Formula (2.10) and it is not clear whether this is desirable. Third, k-anonymity in expectation does not guarantee kanonymity with high probability (e.g., probability 0.95). Note that the latter provides a stronger safety guarantee than the former and can be deﬁned by the requirement that, for each i, Pr j=i Yij ≥ k ≥ c, where c is the conﬁdence threshold.
+While k-anonymity prevents an adversary from precisely identifying individuals’ data records, it does not prevent the adversary from knowing that an individual is in the data set. To address this, Nergiz et al. [188] propose δ-presence. Given an external public data table T (that deﬁnes the set of the individuals to be considered, e.g., a voter registration list) and two threshold values δ = (δmin, δmax), a release candidate D∗ of a original data set D is said to satisfy δ-presence if, for any individual t ∈ T ,
+δmin ≤ Pr(t ∈ D | D∗) ≤ δmax.
+2.8.2 Extensions of -Diversity
+Recall that -diversity guarantees privacy (speciﬁcally, non-disclosure of a sensitive attribute) by ensuring that within each equivalence class (also called q -block, which is a group of tuples with the same generalized value for the quasi-identiﬁer attributes), the most frequent sensitive values have roughly equal proportions. It has been shown that recursive (c, )-diversity provides privacy guarantees when the adversary’s knowledge is limited to − 2 negation statements of the form “Bruce does not have the Flu”. Clearly, this formulation does not guarantee privacy in all scenarios. First, an adversary may have background knowledge that cannot be captured by only negation statements; in
+
+46 Privacy Deﬁnitions
+Section 2.4 we discussed work by Chen et al. [51] and Martin et al. [173] who formulated more complex forms of background knowledge.
+Next, -diversity considers sensitive attributes that are categorical, and assumes that the adversary does not know any semantic information about the relationships between attribute values. As an example, consider a 3-diverse table having an equivalence class of 10 individuals that is associated with the three diseases: stomach ulcer (three individuals), dyspepsia (three individuals), and gastroenteritis (four individuals). This table does not allow an adversary to deduce with high probability whether an individual in the equivalence class has one of these three speciﬁc diseases. However, the adversary can deduce with certainty that every individual in this equivalence class has a stomachrelated disease, which might be considered a breach of privacy. Xiao and Tao [274] proposed a privacy criterion that requires -diversity over such general concepts rather than individual values in the sensitive attribute domain. More precisely, consider a hierarchy on the domain of the sensitive attribute, where the leaf nodes are labeled by speciﬁc values in the domain of the sensitive attribute, and internal nodes are concepts that generalize all the leaf nodes in its subtree. Figure 2.1 shows one such hierarchy. Xiao and Tao allow users to specify which nodes in the hierarchy are sensitive; i.e., a user could say that the nodes cancer, stomach disease, and heat-related disease are sensitive nodes. For privacy, they require -diversity on sensitive nodes that do not have sensitive parents; i.e., in Figure 2.1, -diversity is required
+Fig. 2.1 Hierarchy of concepts on the sensitive attribute Disease. Dashed boxes are considered sensitive.
+
+2.8 Other Privacy Deﬁnitions 47
+on “stomach-related diseases”, “cancer”, “heart-related diseases,” and “diabetes”.
+We should note that a variant of -diversity (also proposed in [166]) is able to handle some form of semantic information about the degree of sensitivity of a value of a sensitive attribute. In this case, a data publisher decides on a subset Y of values of the sensitive attribute. Values in Y are considered minimally sensitive so that “ﬂu” might be in Y but “AIDS” should not be; a frequently occurring value may also be included in Y at the discretion of the data publisher. Thus Y is called a don’t-care set [168]. With this set Y , a version of -diversity that is called positive disclosure -diversity [166, 168] is designed to protect the sensitive values that are not listed in Y . This modiﬁed version of -diversity addresses charges that were later made by Li et al. [157] that -diversity is unnecessary to achieve when some values are much more sensitive than others. It also addresses their second complaint that skewed data such as 49 AIDS patients with one healthy patient in an equivalence class is treated the same as 49 healthy patients and one AIDS patient. This problem is easily solved using recursive (c, )-diversity with don’t-care sets and a properly chosen constant c. For more ﬁne-grained control, each sensitive value could have its own constant c, which essentially places a cap on the fraction of times a sensitive value can appear inside an equivalence class. Fine-grained control for each sensitive value was explored in [51].
+Yet another set of extensions target privacy for numeric attributes. Here again, ensuring the diversity of speciﬁc numeric values may not be enough to guarantee conventional notions of privacy. For example, a 3-diverse table may contain three salaries: 100 K, 101 K, and 99 K, but an adversary can deduce that the salary is between 99 K and 101 K, which appears to be a breach of privacy. Several approaches have been proposed to handling this problem [151, 155, 157]; most recently, Li et al. proposed proximity-aware privacy, which requires that every equivalence class contain sensitive values from at least disjoint ranges (of width more than a pre-speciﬁed parameter) in roughly equal proportions.
+The above papers advance the state-of-the-art by correctly recognizing that semantic information about sensitive attributes is important,
+
+48 Privacy Deﬁnitions
+and potentially increases the risk of a privacy breach. However, the work in this space has not yet been able to formalize the range of semantic information that an adversary might possess. For instance, there may not be a single hierarchy of concepts on the sensitive attribute domain; it is thus diﬃcult to reason about the attacker’s “mental taxonomy.” Similarly, -diversity on numeric ranges is implicitly designed to protect against an adversary with background knowledge captured by negation statements of the form “Bruce’s salary is not $100,000” or “Bruce’s salary is not between $99,000 and $101,000”. However, it is also reasonable to consider inequality statements like “Bruce’s salary is greater than $100,000”, which are not captured by the existing notion of proximity-aware privacy. Further work is necessary to precisely characterize the semantics of sensitive attribute values in relationship to extended privacy deﬁnitions.
+Finally, -diversity only ensures that the posterior probability that, say, Bruce has cancer given the published table and the adversarial knowledge is less than c/(c + 1). However, in some cases, an adversary may know statistical information that 70% of males in Gotham City above the age of 40 have cancer; here, learning that Bruce has cancer with probability of 75% may not violate his privacy. t-Closeness [157] attempts to guarantee privacy against such adversaries by assuming that the distribution of the sensitive attribute (say disease) in the whole table is public information. Privacy is said to be breached when the distribution of the sensitive attribute in an equivalence class is not close to the distribution of the sensitive attribute in the whole table. For instance, Table 2.3 satisﬁes t-closeness, since the disease distribution
+
+Table 2.3. Table satisfying t-closeness.
+
+Non-Sensitive
+
+Age Gender
+
+< 40
+
+M
+
+< 40
+
+M
+
+≥ 40
+
+M
+
+≥ 40
+
+M
+
+≥ 40
+
+F
+
+≥ 40
+
+F
+
+Sensitive
+Disease
+Flu Cancer
+Flu Cancer
+Flu Cancer
+
+Count
+400 200 400 200 400 200
+
+2.8 Other Privacy Deﬁnitions 49
+in each equivalence class is the same as the disease distribution in the whole table.
+While t-closeness raises an important point that privacy should be measured relative to the adversary’s prior information, its particular implementation is ad hoc. There is no clear characterization of what kind of background knowledge an adversary might have. One could argue that t-closeness guards against adversaries who know the marginal distribution of the sensitive attribute in the table being published. This means that t-closeness will never say that a table is too sensitive for anything to be published, even if it only includes one individual. Also, when the marginal distribution of the sensitive attribute in the data is very diﬀerent from the general belief and is indeed sensitive, t-closeness may incorrectly assume that the adversary knows that distribution and release it. We believe that a data publisher should not automatically assume that the adversary knows the marginal distribution of the sensitive attribute in the table (a) when the total number of individuals in the table is small, or (b) if there exists some public information about the distribution that is diﬀerent from the marginal distribution in the table being published.
+2.8.3 Relaxations of Perfect Privacy
+Perfect privacy is breached when the adversary’s prior belief about the answer to the secret query changes on seeing some published data. Due to this, Miklau and Suciu showed that no aggregate information relating to the sensitive query can be published; e.g., if “Does Bruce have Cancer” is the sensitive query, then any aggregate that includes Bruce’s disease cannot be released. Dalvi et al. [61] propose a relaxation wherein privacy is breached only if the adversary’s prior belief asymptotically diﬀers from his posterior belief as the size of the database increases to inﬁnity. The authors show that this relaxation allows some aggregates to be published. Stoﬀel and Studer [237] propose certain answer privacy wherein privacy is breached only if the adversary can say that some tuple is certainly in the answer to the secret query, given the published data.
+
+50 Privacy Deﬁnitions
+2.8.4 Relaxations of Diﬀerential Privacy
+Variants of diﬀerential privacy have been discussed in [49, 86, 167]. The basic idea is the following. Diﬀerential privacy requires that, given any output of the algorithm, the adversary should not be able to distinguish between any two input tables D1 and D2 that diﬀer in one tuple. However, given D1 and D2, some of the outputs are very unlikely. For instance, let D1 and D2 have 100 tuples; let D1 be a table with all 0s and D2 be a table with one 1 and rest 0s. Let the algorithm be sampling with replacement 100 times. Consider an output that has 100 tuples, all of which are 1. This output is very unlikely (with probability 10−200). So it might be acceptable to allow a privacy breach with such a low probability. This is the motivation behind probabilistic diﬀerential privacy [167], where diﬀerential privacy may be violated by a set of outputs whose total probability is less than a small constant δ.
+2.9 Discussion and Comparison
+In this section, we have described several distinct privacy deﬁnitions and their extensions. All of these have diﬀerent intuitions and operate on diﬀerent adversarial assumptions. While this state-of-the-art may be good in terms of our understanding of the deﬁnition of privacy, it poses the following problem to a data publisher: “Which privacy deﬁnition should be used for a speciﬁc application?” Unfortunately, there is neither a mandate on how to deﬁne privacy for a new application, nor a clear technique to compare the various privacy deﬁnitions prevalent in the literature. The problem can be solved if all privacy deﬁnitions can be expressed under one common framework. In this section we describe initial work toward one such uniﬁcation based on a framework for privacy deﬁnitions presented by Machanavajjhala [164].
+2.9.1 Semantic Privacy Deﬁnitions
+In order to unify privacy deﬁnitions, we must ﬁrst understand the common denominators underlying the deﬁnitions. Every privacy deﬁnition must answer three important questions:
+• What information should be kept private?
+
+2.9 Discussion and Comparison 51
+• How is private information leaked; i.e., how does an adversary learn private information?
+• When does information disclosure lead to a privacy breach, and how is disclosure measured?
+Some privacy deﬁnitions, e.g., (c, k)-safety, 3D privacy (and the related privacy skyline), (α, β)-privacy, and perfect privacy, explicitly answer these questions. We follow Machanavajjhala [164] and term these definitions as semantic privacy deﬁnitions. Other privacy deﬁnitions like recursive (c, )-diversity, t-closeness, and diﬀerential privacy do not explicitly state these assumptions; these algorithmic criteria are termed syntactic deﬁnitions. Some of these syntactic criteria like -diversity and diﬀerential privacy are equivalent to semantic variants that explicitly state the assumptions. Below we summarize all the privacy deﬁnitions we described in terms of their semantic variants.
+Any semantic privacy deﬁnition has the following structure. The sensitive information can be described in terms of a set of sensitive predicates. For instance, in (c, k)-safety the truth value of every predicate of the form “Bruce has Cancer” is sensitive. In perfect privacy, the truth value of the predicate “S is the answer to QS” is considered sensitive for every S. Next, the adversarial background knowledge can be described by a set of adversarial distributions on the space of input tables, and that is independent of any speciﬁc input table. Again, in the case of (c, k)-safety, each adversarial distribution is captured by a Boolean formula over statements about the sensitive attribute of individuals in the population, and all adversarial distributions that correspond to Boolean formulas expressed by at most k implications are considered. Finally, the privacy metric is described in terms of the prior and posterior probabilities in each adversarial distribution. In (c, k)-safety, privacy is breached if the posterior probability is greater than or equal to c for some adversarial distribution that is considered.
+k-Anonymity [241]:
+• Sensitive information: For every individual i, the actual association of the record of i to the identity of i is sensitive. Let the record ID attribute (which contains identiﬁers or keys,
+
+52 Privacy Deﬁnitions
+each of which uniquely identiﬁes one record) be denoted by RID. A predicate of the form “i[RID] = n” (e.g., “This particular record belongs to Bob”) is sensitive. • Adversarial background knowledge/belief: All input tables are equally likely. Furthermore, the adversary may know a conjunction of k − 2 statements of the form i[RID] = n (denote the set of all such conjunctions by Lpos(k − 2)). • Privacy metric: Publishing D breaches privacy if ∃i, ∃n ∈ RID, ∃K ∈ Lpos(k − 2) such that
+P (i[RID] = n | K, published data D ) = 1.
+-Diversity [166, 168]:
+• Sensitive information: For every individual i and every sensitive value s ∈ S, the predicate “i[S] = s” is sensitive. E.g., “Does Bob have cancer?”
+• Adversarial background knowledge/belief: All input tables are equally likely. Furthermore, the adversary may know a conjunction of − 2 negation statements of the form i[S] = s (denote the set of all such conjunctions by Lneg( − 2)).
+• Privacy metric: Publishing D breaches privacy if ∃i, ∃s ∈ S, ∃K ∈ Lneg( − 2) such that
+P (i[S] = s | K, published data D ) ≥ c/(c + 1).
+(c,k )-Safety [173]:
+• Sensitive information: For every individual i and every sensitive value s ∈ S, the truth value of predicate “i[S] = s” is sensitive. E.g., “Does Bob have cancer?”
+• Adversarial background knowledge/belief: All input tables are equally likely. Furthermore, the adversary may know a Boolean formula that can be expressed as a conjunction of k implication statements (denote the set of all such conjunctions by Lbasic(k)).
+
+2.9 Discussion and Comparison 53
+• Privacy metric: Publishing D breaches privacy if ∃i, ∃s ∈ S, ∃K ∈ Lbasic(k) such that
+P (i[S] = s | K, published data D ) ≥ c.
+3D Privacy Criterion [51]:
+• Sensitive information: For every individual i and every sensitive value s ∈ S, the truth value of predicate “i[S] = s” is sensitive. E.g., “Does Bob have cancer?”
+• Adversarial background knowledge/belief: All input tables are equally likely. Furthermore, the adversary may know (1) sensitive values an individual does not have, (2) the sensitive values of k other individuals, and (3) an implication of the form: if one of i1, . . . , im have sensitive value s, then i has sensitive value s (denote the set of all such conjunctions of (1), (2), and (3) by Li,s(k, , m)).
+• Privacy metric: Publishing D breaches privacy if ∃i, ∃s ∈ S, ∃K ∈ Li,s(k, , m) such that
+P (i[S] = s | K, published data D ) ≥ c.
+(α, β)-Privacy and γ-Ampliﬁcation [92]:
+• Sensitive information: For every individual i, let D be the domain of i’s tuple. For every D ⊆ D, the truth value of predicate “i ∈ D ” is sensitive. E.g., “Does Bob have one of cancer, heart disease, or the Flu?”, or “Does Bob not have ulcer?”
+• Adversarial background knowledge/belief: An arbitrary probability distribution over the space of input tables.
+• Privacy metric: An anonymization algorithm allows privacy breaches if ∃i, ∃D ⊆ D, ∃ output table D , ∃ probability distribution P such that
+P (i ∈ D ) < α ∧ P (i ∈ D | D ) > β.
+
+54 Privacy Deﬁnitions
+
+-Diﬀerential privacy [87, 85]:
+
+• Sensitive information: For every individual i, let D be the domain of i’s tuple. For every D ⊆ D, the truth value of predicate “i ∈ D ” is sensitive. E.g., “Does Bob have one of cancer, heart disease, or the Flu?”, or “Does Bob not have ulcer?”
+• Adversarial background knowledge: The adversary knows exact information about all individuals in the table except for record i, and the adversary also has an arbitrary probability distribution P over the value of record i. Let A denote such an informed adversary.
+• Privacy metric: An anonymization algorithm allows privacy breaches if ∃i, ∃D ⊆ D, ∃ output table T , ∃ informed adversary A such that
+
+PA(i ∈ D | T
+
+) >
+
+.
+
+PA(i ∈ D )
+
+Perfect Privacy [179]
+
+• Sensitive information: Given a secret query QS, then for every possible answer S to QS, the predicate “S is the answer to QS” is sensitive. E.g., if QS is the query “Names of coauthors of Ashwin”, then the answer to the question “Is Dan Ashwin’s co-author” is sensitive.
+• Adversarial background knowledge: The adversary knows an arbitrary probability distribution P over tuples in the table. All tuples in a database instance are considered independent.
+• Privacy metric: Answering query QV breaches privacy if ∃S, ∃ published view V , ∃ tuple-independent probability distribution P such that
+P (QS = S|QV = V ) = P (QS = S).
+
+Some other privacy deﬁnitions may look like semantic deﬁnitions, but are not. For example, t-closeness does not have an equivalent
+
+2.9 Discussion and Comparison 55
+semantic deﬁnition. t-Closeness can be seemingly rephrased in terms of a semantic deﬁnition as follows:
+• Sensitive information: For every individual i and every sensitive value s ∈ S, the truth value of predicate “i[S] = s” is sensitive. E.g., “Does Bob have cancer?”
+• Adversarial background knowledge: All input tables are equally likely. Furthermore, the adversary knows the exact marginal distribution of the sensitive attribute in the data that are input to the anonymization algorithm.
+• Privacy metric: Privacy is breached if the distribution P (i[S] | K, published data D ) is not close to the marginal distribution of the sensitive attribute in D (measured by a distance function).
+However, the above deﬁnition is not a semantic deﬁnition because the adversary’s prior knowledge depends on the speciﬁc database being sanitized. The above list of semantic deﬁnitions also point out a signiﬁcant diﬀerence of t-closeness from the rest of the privacy deﬁnitions. While other privacy deﬁnitions guarantee privacy under a set of adversarial distributions, t-closeness guarantees privacy against a single adversary. This is because t-closeness assumes that the data publisher exactly knows what the adversary know, while this is not true in other privacy deﬁnitions.
+2.9.2 Publishing Multiple Horizontal Partitions
+In some data publishing scenarios, data are collected periodically and also published periodically. Diﬀerent privacy deﬁnitions behave diﬀerently in the scenario of multiple or periodic releases. In this section, we consider a simple case of multiple releases, namely multiple releases of horizontal partitions of a table, and point out a subtle issue for some privacy deﬁnitions in this case. A general discussion of multiple releases is in Section 7.4.2.
+We illustrate the issue by applying t-closeness to multiple releases of Table 2.3 in a straightforward way. If the data publisher wants to publish the entire Table 2.3, then by the assumptions of t-closeness, the
+
+56 Privacy Deﬁnitions
+data publisher would assume that the adversary knows that the ratio of Flu:Cancer is 2:1 over all the individuals in the table. Now, suppose the data publisher acquires the data in Table 2.3 piece by piece: ﬁrst the information on males is collected and then the information on females is collected. The data publisher also releases sanitized versions piece by piece: ﬁrst the information about males and then the information about females. Note that one might believe the assumption that each piece is independent of the other is reasonable because they share no common individuals and their domains are disjoint. Thus it may seem that there should not be any issues with multiple release of data over time. However, in this scenario the data publisher would assume that the adversary knows the distribution of sensitive values among males (when publishing the ﬁrst piece) and also the distribution of sensitive values among females (when publishing the second piece). This is more knowledge than if the both pieces had been released as one table and could lead to trouble as follows.
+In the extreme case, consider two data publishers A and B. Suppose A decides to publish Table 2.4 and B publishes each equivalence class in Table 2.4 in a separate table (i.e., B publishes four tables, the disease distribution of males under 20, the disease distribution of males between 20 and 40, the disease distribution of males above 40, and the disease distribution of females above 40). According to t-closeness, A should not publish the data while B should. Data publisher A should not publish the data since the distribution of cancer among males between 20 and 40 years of age is very diﬀerent from the overall distribution of cancer (in fact, A should publish Table 2.3 instead). On the other hand, B is allowed to publish the four tables, since the t-closeness assumption
+
+Table 2.4. 200-Anonymous table.
+
+Non-Sensitive
+
+Age Gender
+
+< 20
+
+M
+
+20 − 40
+
+M
+
+≥ 40
+
+M
+
+≥ 40
+
+M
+
+≥ 40
+
+F
+
+≥ 40
+
+F
+
+Sensitive
+Disease
+Flu Cancer
+Flu Cancer
+Flu Cancer
+
+Count
+400 200 400 200 400 200
+
+2.9 Discussion and Comparison 57
+lets B assume that the adversary already knows the distribution of the sensitive attribute in each table. However, A and B were indeed considering publishing the same information, thus leading to an apparent inconsistency.
+The solution to this dilemma is to realize that t-closeness assumes that the tuples in the data are dependent. Two equivalence classes are, in fact, not independent once we assume the adversary already knows the overall distribution of sensitive values since the two equivalence classes contribute to this distribution. Privacy deﬁnitions like (c, k)-safety and 3D privacy (and its more general version called skyline privacy) also assume tuples are correlated (because the form of background knowledge that an adversary may have included relationships between individuals across equivalence classes). Thus for these deﬁnitions one has to be careful about horizontally partitioning the data and then reasoning about each partition separately. One may even have to reason about the eﬀect that future data may have (e.g., should we assume the adversary knows the distribution of the sensitive attribute among the males in the current sample, in which case this sample is independent of future data; or should we assume the adversary knows what the distribution of the sensitive attribute will be once we also collect data on female patients, in which case the sample is dependent on future data?). Without careful consideration of this issue, the privacy guarantee might end up being inconsistent; previously released safe tables may become unsafe because of a new release that is safe on its own. Thus, the publication of horizontal partitions of the data over time is an important research problem for such privacy deﬁnitions. We will discuss issues of other kinds of multiple releases in Section 7.4.2.
+2.9.3 Summary
+Diﬀerent applications will need to keep diﬀerent kinds of information secret, and they will require diﬀerent assumptions about the adversary. For instance, a military application might require absolutely no information to be leaked about some queries, forcing the use of perfect privacy. Some applications may need to model adversaries using complex distributions; in this case, one may want to use diﬀerential privacy
+
+58 Privacy Deﬁnitions
+or (α, β)-privacy. In other applications, simpler adversary models and generalization schemes might be suﬃcient, and -diversity, (c, k)-safety, 3D privacy criterion, and their variants might be suﬃcient. We believe that it is better for data publishers to choose privacy deﬁnitions that are themselves semantic (or provably equivalent to some semantic definition); this helps to evaluate whether the deﬁnitions suit the needs of the application, and allows the deﬁnitions to be adapted to new applications. Deﬁnitions that do not have a semantic equivalent may result in subtle and unanticipated problems.
+
+3
+Utility Metrics
+The temptation to form premature theories upon insufﬁcient data is the bane of our profession.
+— Sherlock Holmes (Sir Arthur Conan Doyle) A data publisher seeks to release data that are not only safe, but also useful. In this section, we discuss ways of measuring the amount of useful information that is still in the data after sanitization. These measures are needed by a data publisher to evaluate the utility of different release candidates, and they are also needed by the data recipient to gauge how useful an analysis will be.
+Collections of data about individuals provide two kinds of information. The ﬁrst kind is individual-level personal information. Consider the medical record example. This is the kind of information a doctor would need to treat a particular patient. It is also the kind of information an attacker would need to run a convincing scam. The second kind of information is statistical information about a population. This is the kind of information that is of interest to medical researchers and economists, and the kind of information that a data publisher wants to publicize. When sanitizing a data set, some instance-level
+59
+
+60 Utility Metrics
+sensitive information is invariably removed. However, the unintended consequence is that some aggregate or statistical information is also lost. Thus, the utility of a sanitized data set is intuitively measured by the extent to which it preserve aggregate and statistical information.
+In general, there are two ways to evaluate the quality of sanitized data. The ﬁrst approach is to actually use the data as input to a query or an analysis task, and to evaluate the quality of the results. We postpone discussion of this approach to Section 5. The second approach, described in this section, is to develop one or more quantitative measures of information loss, which an anonymization algorithm could try to optimize. Recent results indicate that this optimization approach should be used with caution. The ﬁrst reason is that a poorly chosen measure of information loss could degrade the quality of the sanitized data. For example, recent work by Nergiz and Clifton [190] has shown experimentally that if the goal is to build a good classiﬁer from sanitized data, then optimizing for the LM, DM, CM, or AM metrics (discussed in the following sections) may provide little beneﬁt. The second reason for caution is that in certain cases, the act of optimizing an information loss measure subject to privacy constraints can itself leak additional information [94, 271] (for more details, see Section 6). With these caveats in mind, let us discuss some proposed measures of utility.
+Many utility measures have been proposed in the literature. Rather than provide a laundry list of formulas, we will discuss a smaller set that illustrates the key ideas that are in use.
+Generalization/Suppression Counting: One of the earliest and most intuitive measures of information loss involves counting the number of anonymization operations performed on a data set. For example, one of the key operations in the k-anonymity framework is generalization, which coarsens the value of an attribute (e.g., changing “age = 20” to “age ∈ [10 − 30]”). If generalization is the only operation being performed, then it is reasonable to measure information loss by the number of generalization steps performed. Samarati used one version called generalization height [226]. In their proof of the NP-hardness of k-anonymity, Meyerson and Williams used another variation: they measured the total number of attribute values that were suppressed
+
+61
+[178]. One can even imagine weighted version of these methods since some attributes may be more important than others.
+One problem with this approach is that not all operations aﬀect utility in the same way. A generalization operation that maps “male” to “*” and “female” to “*” eﬀectively removes gender information from the data while a generalization operation that turns age into an age range of length 2 (i.e., [0 − 1], [2 − 3], etc.) seems much more benign. Iyengar [132] addresses these issues with two measures of information loss: the aptly named loss metric (LM) and the classiﬁcation metric (CM).
+Loss Metric (LM): LM is deﬁned in terms of a normalized loss for each attribute of every tuple. For a tuple t and categorical attribute A, suppose the value of t[A] has been generalized to x. Letting |A| represent the size of the domain of attribute A and letting M represent the number of values in this domain that could have been generalized to x, then the loss for t[A] is (M − 1)/(|A| − 1). The loss for attribute A is deﬁned as the average of the loss t[A] for all tuples t. The LM for the entire data set is deﬁned as the sum of the losses for each attribute.
+Classiﬁcation Metric (CM): The classiﬁcation metric (CM) is designed to measure the eﬀect of the anonymization on a hypothetical classiﬁer. In this scenario, there is a distinguished class attribute, and tuples are placed into groups (usually they are grouped by quasiidentiﬁer value). Each tuple incurs a penalty of 1 if it is suppressed or if its class attribute is not the same as the majority class attribute in the group. The classiﬁcation metric is deﬁned as the average of the penalties of all the tuples. Similar ideas were presented by Wang et al. [259] and LeFevre et al. [151] as local measures of information loss to guide anonymization algorithms.
+Discernibility Metric (DM): Bayardo and Agrawal [29] proposed a metric similar in spirit to Iyengar’s LM called the discernibility metric (DM). DM assigns a penalty to each tuple based on how many other tuples in the database are indistinguishable from it, and therefore it works naturally in the k-anonymity framework. For a database of size n, DM assigns a penalty of n for each suppressed tuple. If a tuple is not suppressed, the penalty it receives is the total number of tuples in the database having the same quasi-identiﬁer values. Thus, when tuples are
+
+62 Utility Metrics
+
+grouped by quasi-identiﬁer, the DM for a data set is the sum of squared group sizes plus n times the number of suppressed tuples. Average group size (instead of sum of squared group sizes) has also been used [166, 150].
+
+Ambiguity Metric (AM): Nergiz and Clifton [190] proposed another
+metric, called the ambiguity metric (AM), that is especially suitable for the k-anonymity framework. For each tuple t∗ in the sanitized data, AM
+considers the number of tuples in the domain of the data that could have been mapped (generalized) to t∗. This number is the ambiguity of t∗. The AM for the sanitized data set is then the average ambiguity
+for all tuples in the sanitized data.
+
+KL-Divergence: Most of the metrics discussed thus far are oblivious
+
+to the distribution of actual attribute values in the data. If age was
+
+uniformly distributed, and independent of all other attributes, then
+
+replacing the age attribute with an age range would have little eﬀect
+
+since a data analyst is very likely to take the age range and, following
+
+the principle of maximum entropy, assume a uniform distribution of
+
+ages within the range. In this case the analyst’s assumption is accu-
+
+rate. On the other hand, if the age distribution were skewed, then the
+
+uniformity assumption could bias the analyst’s results. For this rea-
+
+son, a utility metric commonly used in the statistics community and
+
+known as KL-divergence would be more appropriate for measuring the
+
+information loss of sanitized data [75, 142]. To use KL-divergence, the
+
+original table is treated as a probability distribution p1 as follows. p1(t)
+
+is the fraction of tuples equal to t. The sanitized data are also converted
+
+to a probability distribution p2 (possible ways of doing this will be dis-
+
+cussed next). The KL-divergence between the two is
+
+t
+
+p1(t)
+
+log
+
+p1(t) p2(t)
+
+.
+
+The larger this number is, the greater the information loss. There are
+
+many ways of interpreting the sanitized data as a probability distribu-
+
+tion. If the sanitized version of the data is a set of histograms, then
+
+the histograms can be interpreted as constraints and the probability
+
+distribution p2 is the maximum entropy distribution consistent with
+
+those constraints. Another way is to posit a statistical model such that
+
+the sanitized data form the suﬃcient statistics [229] of the model. One
+
+example of this is the fact that histograms (also known as marginals)
+
+63
+
+form the suﬃcient statistics for a class of models known as loglinear
+
+models [53]. When this approach is taken, then the KL-divergence has
+
+the following nice interpretation. A model that overﬁts the original
+
+data (i.e., a multinomial model with one parameter for every possible
+
+tuple) has the maximum likelihood L1 on this data set. A model using
+
+the sanitized data as suﬃcient statistics has lower likelihood L2. The
+
+quantity
+
+log
+
+L1 L2
+
+is
+
+known
+
+as
+
+the
+
+log-likelihood
+
+ratio
+
+and
+
+it
+
+measures
+
+the amount of likelihood that is not captured by the model built from
+
+sanitized data (thus a value of 0 means that all of the likelihood is cap-
+
+tured by such a model). It is well-known that the log-likelihood ratio
+
+is formally equivalent to KL-divergence.
+
+Another information theoretic metric was proposed by Gionis and
+
+Tassa [115] and is applicable to anonymization algorithms that parti-
+
+tion the data into groups. It is computed as the sum of the entropies of
+
+each attribute for each group. Xu and Ye [277] proposed the use of the
+
+diﬀerence in entropy of the quasi-identiﬁer between the original data
+
+and the sanitized data. The overall change in entropy was proposed by
+
+Gomatam and Karr [116], and for uses of conditional entropy see [264].
+
+Lp norm: KL-divergence is not the only way to measure the distance between the original probability distribution and the probability distribution reconstructed from the sanitized data. Agrawal and Aggarwal [15] used the L1 norm. The L1 norm is an example of an Lp norm, which is deﬁned as { t |p1(t) − p2(t)|p}1/p for p < ∞ and maxt |p1(t) − p2(t)| for p = ∞. Any Lp norm (where p ≥ 1) can also be used to measure the distance between the original and reconstructed probability distributions. The total variation distance is equal to one-half of the L1 norm. For numeric data it can make more sense to estimate the original values (from the sanitized data) instead of directly computing probabilities. This approach is used for sanitized streams [154, 198] where the L2 norm between the original and reconstructed stream is used as a measure of the variance still remaining in the sanitized data.
+
+Hellinger Distance: Another statistical measure of dissimilarity between distributions is known as Hellinger Distance. It is deﬁned as
+2
+t p1(t) − p2(t) /2 and is used in [116].
+
+64 Utility Metrics
+Bivariate Measures: Gomatam and Karr [116] also discuss bivariate measures of information loss. For a pair of attributes A and B, they compute the χ2 statistic in both the original data and the sanitized data. The χ2 statistic is then used to compute either the Cramer’s V or Pearson’s contingency coeﬃcient C. The information loss measure is then the diﬀerence in Cramer’s V (or Pearson’s contingency coeﬃcient C) from the original data and sanitized data. For more details, see [116].
+Workload-Aware Metrics: LeFevre et al. [151] argue that the utility metric should depend on the intended uses of the sanitized data (in cases where the use is known beforehand). The uses considered are classiﬁcation, regression, and answering count queries over regions speciﬁed by range queries. These metrics apply to algorithms that partition the domain of the quasi-identiﬁer into groups. For classiﬁcation, the goal is to be able to predict the value of a distinguished attribute called the class attribute. The corresponding measure of information loss is the weighted average of the entropy of the class attribute in each group. If there are multiple class attributes, then the total information loss is the sum of the information loss for each attribute. In regression problems, the class attribute is continuous, so the information loss is measured as the weighted average of the variance of the class attribute in each group.
+In the case of count queries, the measure of information loss for each query is called imprecision. Imprecision is measured as the number of points in all groups that overlap with the selection region of the query minus the true answer. The total imprecision is the sum of the imprecision of all the queries. Zhang et al. [282] measure the information loss in a partition as the diﬀerence between the maximum and minimum value of a distinguished numeric attribute (usually the sensitive attribute) in the partition. The total information loss is measured as either the maximum of these losses or the sum of these losses.
+First- and Second-Order Statistics: Torres [254] used measures of information loss that are minimized when the original data and the sanitized data have the same ﬁrst- and second-order statistics. Our discussion here follows Sanchez et al. [227], and assumes that there are p attributes (all numeric) and that the original data and sanitized data both have the same number of tuples (n).
+
+65
+
+A variety of diﬀerent metrics can be deﬁned by comparing descrip-
+tive statistics computed on the original data with those computed on
+the sanitized data. In the following, let xij denote the value of attribute j for tuple i in the original data, and let xij be the corresponding value for the sanitized data. Let µi (µi) denote the mean of attribute i in the original (sanitized) data, and let vij (vij) denote the covariance between attributes i and j in the original (sanitized) data. Similarly, let ρij and ρij be the correlation between attributes i and j in the original and sanitized data, respectively.
+Some sample metrics described in [227] include:
+
+• Assuming a one-to-one map between tuples in the origi-
+
+nal and sanitize data sets, the mean variation is deﬁned as
+
+1 np
+
+n i=1
+
+p j=1
+
+|xij −xij |xij |
+
+|
+
+.
+
+•
+
+The
+
+variation
+
+of
+
+the
+
+means
+
+is
+
+deﬁned
+
+as
+
+1 p
+
+p i=1
+
+|µi−µi| |µi|
+
+.
+
+•
+
+The variation of covariances
+
+is
+
+1 p(p+1)/2
+
+p i=1
+
+1≤j≤i
+
+|vij −vij |vij |
+
+|
+
+.
+
+•
+
+The
+
+variation
+
+of
+
+variances
+
+is
+
+1 p
+
+p i=1
+
+|vii −vii |vii|
+
+|
+
+.
+
+• The
+
+mean
+
+absolute
+
+error
+
+of
+
+correlations
+
+is
+
+1 p(p−1)/2
+
+p i=1
+
+1≤j<i |ρij − ρij |.
+
+Clearly countless variations of these measures can be produced by replacing relative errors with absolute errors (and vice versa), replacing absolute values with squares of absolute values, etc. These measures can also be combined by taking weighted averages (for more details, see [227]).
+Analytical Validity: A similar, but less formal, approach can be seen in the statistics literature (see for example [1, 143, 218]). The amount of information present in the sanitized data is known as analytical validity, and is evaluated by building models over both the original data and the sanitized data, and then comparing the learned parameters. Usually this is done by computing conﬁdence intervals for the parameters learned from the original data and observing how many times the parameters from the sanitized model fall into the computed conﬁdence intervals. Karr et al. [139] initiate a formal study on this topic by proposing to compute the average probability of overlap in conﬁdence
+
+66 Utility Metrics
+intervals and the average relative overlap. A utility measure can also be deﬁned without building a model by computing statistics over the original and sanitized data and comparing the results [81].
+Invariance: The ideas in these workload-aware methods can even be taken to the following extreme. Bu et al. [40] suggest that anonymization schemes should be devised so that they do not alter the output of pre-selected data mining algorithms. This approach would typically apply in situations where data are outsourced for the purposes of data mining. The resulting model (built by an external expert on sanitized data) could then be processed by the data owner to yield the same model that would have been built over the original data.
+Reconstructibility: The approaches discussed so far measure the utility of the sanitized data that are actually produced. It is also possible to measure utility in terms of the algorithm used to create the sanitized data; in this case, the result is usually a probabilistic utility guarantee.
+As one example, Agrawal et al. [17] deﬁne the utility associated with a randomized anonymization algorithm in terms of the ability to reconstruct statistics from the sanitized data. More formally, if f is a real-valued function computed over the original data, and f is the estimator of f computed over the sanitized data, then f is (n, , δ) reconstructible if |f − f | < max( , f ) with probability at least (1 − δ) whenever the number of tuples in the original data is at least n. Thus utility can be deﬁned in terms of the class of functions that are (n, , δ) reconstructible.
+Rastogi et al. [211] measure utility in terms of how likely it is that the answer to a count query will be smaller than the sampling error. Formally, a randomized anonymization algorithm is (ρ, )-useful if for any count query Q, with probability (1 − ), the absolute diﬀerence between the true answer to Q a√nd the estimated answer (computed from sanitized data) is at most ρ n (where n is the number of tuples in the data).
+For anonymizations that can be expressed in terms of matrix multiplication, Agrawal and Haritsa [18] observed that reconstruction accuracy depends on the condition number of the anonymization matrix, and they used this condition number as a measure of information loss.
+
+4
+Mechanisms and Algorithms
+An algorithm must be seen to be believed. — Donald Knuth
+Data publishing organizations usually face a fundamental tradeoﬀ between privacy and utility. They can choose not to publish any release candidate in order to keep their data perfectly private.1 Or, they can choose to release the data without any modiﬁcation to maximize data utility and provide no privacy protection. In this section, we present algorithms that make good tradeoﬀs between the two extremes. Intuitively, each algorithm tries to ﬁnd the release candidate of a sanitization mechanism that satisﬁes a privacy criterion and maximizes a utility metric. We ﬁrst discuss algorithms based on deterministic sanitization mechanisms (including suppression, generalization, microaggregation, bucketization, and decomposition), and then describe algorithms based on randomized sanitization mechanisms (including local randomization, input randomization, and synthetic data generation).
+1 Even the “perfect privacy” criterion cannot keep data perfectly private because the data publisher may fail to recognize a secret or sensitive query. 67
+
+68 Mechanisms and Algorithms
+4.1 Deterministic Sanitization Techniques
+Data recoding, generalization, suppression, and aggregation techniques have been used for many years to provide support for identity and privacy protection. Such techniques have the advantage of producing results that are semantically consistent with the input (sometimes described as “truthful” output), and they have been used to implement a variety of privacy requirements, including k-anonymity, -diversity, and variations incorporating more complex models of adversarial background knowledge.
+In this section, we describe techniques and algorithms for data suppression, microdata recoding, structured aggregation, microaggregation, and decomposition. These approaches share a number of clear similarities, but there are also some subtle diﬀerences.
+In the interest of clarity, we will use the term microdata to refer to a non-aggregate data set (as found, for example, in a single relational database table). We will use the term contingency table to refer to a cross-tabulation of counts, as obtained, for example, using an SQL GROUP BY query.
+
+4.1.1 Suppression-Based Mechanisms
+One of the simplest techniques that can be used to implement privacy requirements such as k-anonymity is suppression of selected cells in the input microdata set D. For example, the release candidate shown in Table 4.1(b) replaces certain cells from the microdata in Table 4.1(a)
+
+Table 4.1. Example of cell-suppression anonymization.
+
+(a) Original table
+
+Zip code Gender Disease
+
+94085
+
+M
+
+HIV
+
+14085
+
+M
+
+HIV
+
+14085
+
+F
+
+None
+
+94085
+
+F
+
+HIV
+
+14085
+
+F
+
+Flu
+
+14085
+
+F
+
+None
+
+14085
+
+F
+
+None
+
+14085
+
+F
+
+Flu
+
+(b) Anonymized table
+
+Zip code Gender Disease
+
+*
+
+*
+
+HIV
+
+*
+
+*
+
+HIV
+
+14085
+
+F
+
+None
+
+*
+
+*
+
+HIV
+
+14085
+
+F
+
+Flu
+
+14085
+
+F
+
+None
+
+14085
+
+F
+
+None
+
+14085
+
+F
+
+Flu
+
+4.1 Deterministic Sanitization Techniques 69
+with wildcard values, denoted “*”. In this case, for QI attributes Zip code and Gender, this suppression is suﬃcient to obtain 3-anonymity.
+If we view the number of cells suppressed from D as a rough indicator of data utility, then the problem of optimal k-anonymization is easily formulated in terms of the suppression function s() producing k-anonymous output D∗ that suppresses the fewest cells.
+This simple version of the problem has been widely studied. Meyerson and Williams [178] and Aggarwal et al. [13] both proved that the problem is NP-hard. Meyerson and Williams provide an O(k log k) approximation algorithm [178], meaning that the number of cells suppressed by their algorithm is guaranteed to be within a factor of O(k log k) of the optimal. Aggarwal et al. improve this result to obtain an O(k) approximation [13], and Park and Shim further reﬁned the result to obtain an O(log k) approximation [200].
+4.1.2 Generalization-Based Mechanisms
+Rather than making a binary decision for each data value (i.e., to suppress the data value, or preserve it in its original form), intuition says that we should be able to obtain better data utility by allowing for the generalization of certain values through a number of intermediate states.
+In the input microdata D, there is a domain (e.g., dates, ﬁve-digit integers, etc.) associated with each attribute. We denote the domain of attribute A as dom(A). Based on this original input domain, it is possible to construct a more “general” and semantically consistent domain in a variety of ways. For example, the domain of attribute City can be generalized by replacing city values with states, and integer values can be replaced with ranges.
+For categorical attributes, this idea of generalization can be implemented through the user-deﬁned generalization hierarchies proposed by Samarati and Sweeney [226, 241]. Formally, such a hierarchy is deﬁned by a set of many-to-one value generalization functions. Each generalization function γ : dom(A) → dom(A ) maps each value in dom(A) to a semantically consistent value in domain dom(A ). For example, Figure 4.1 shows a value generalization hierarchy for the Nationality
+
+70 Mechanisms and Algorithms
+Fig. 4.1 Example generalization hierarchy for nationality.
+attribute. Values of dom(N ationality) are shown at the leaves of the tree. Notice that γ(Japanese) = Asian and γ(Asian) = Any.
+We will refer to the height of the generalization hierarchy as the total number of generalizations that can be applied. (E.g., The height of the hierarchy in Figure 4.1 is 2.) We will use the notation γ+(a) to refer to the generalization closure for input value a. For example, γ+(Japanese) = {Japanese, Asian, All}.
+While user-deﬁned generalization hierarchies are well-suited to unordered categorical attributes, numeric attributes permit an additional degree of ﬂexibility. In this case, generalization can instead take the form of a coarsened range of values. For example, we might replace the age value 22 with the range [18–24]. Alternatively, we could choose a diﬀerent, yet still consistent, range [22–28]. This is also closely related to the classical ideas of top-coding and bottom-coding, commonly used in oﬃcial statistics. For example, we might replace the age value 99 with the top-coded range [90–∞].
+4.1.2.1 Local Recoding Incorporating user-speciﬁed generalization hierarchies, it is possible to generalize the basic cell-suppression problem described in Section 4.1.1. We will refer to this new problem as local recoding, where each record can be generalized at a diﬀerent granularity from the other records, even when they have the same attribute values.
+In this case, it is easy to think of the generalization process as applying the generalization functions γ() (often repeatedly) to the
+
+4.1 Deterministic Sanitization Techniques 71
+individual cells of input microdata D. One way to quantify the utility of the resulting data is to count invocations of the γ() function. In this case, the optimal k-anonymous generalization problem can be stated in terms of the generalization function g() such that D∗ = g(D) satisﬁes k-anonymity and g() minimizes invocations of γ(). Of course, minimum cell suppression is a special case of this more general problem; thus, the local recoding problem is also NP-hard. Sweeney’s DataFly system provides some simple heuristic algorithms for this problem [239, 241, 238], and Aggarwal et al. provide an O(k) approximation algorithm for the local recoding problem as well [13].
+4.1.2.2 Global Recoding and Structured Aggregation
+Another class of techniques seeks to recode or generalize the domain of each QI attribute in the input microdata D. This can be done by treating each attribute independently (called single-dimensional recoding), or by recoding the domain of n-vectors (called multidimensional recoding). Note that the domain of n-vectors is the cross product of the domains of individual attributes.
+Deﬁnition 4.1(Single-Dimensional Global Recoding). A singledimensional global recoding for input data set D with QI attributes Q1, . . . , Qn is deﬁned by a family of n generalization functions φi : dom(Qi) → dom(Qi), such that the values in dom(Qi) are semantically consistent generalizations of the values in dom(Qi).
+For example, consider the input data in Table 4.2, with QI attributes Nationality and Age. A 2-anonymous single-dimensional recoding is shown in Table 4.3(a). Notice also that, for each single-dimensional global recoding, there exists a corresponding (partially aggregated) contingency table, expressed over the QI attributes, as shown in Table 4.3(b). Note that, unlike local recoding, if two tuples share the same value of an attribute, then after single-dimensional global recoding, the two tuples will share the same generalized value of that attribute.
+The multidimensional recoding approach loosens the restrictions on generalization functions.
+
+72 Mechanisms and Algorithms
+
+Table 4.2. Example input data.
+
+Nationality Age
+
+Disease
+
+Russian Russian Russian German German French French Japanese Japanese Japanese Chinese Korean
+
+20
+
+HIV
+
+21
+
+Flu
+
+24
+
+Flu
+
+21
+
+Cancer
+
+23
+
+Hepatitis
+
+25
+
+Cancer
+
+25
+
+HIV
+
+20 Bronchitis
+
+24
+
+Hepatitis
+
+25
+
+Flu
+
+22
+
+Hepatitis
+
+21
+
+Flu
+
+Table 4.3. Single-dimensional global recoding.
+
+(a) Expressed as microdata
+
+Nationality Age
+
+Disease
+
+European European European European European European European
+Asian Asian Asian Asian Asian
+
+[20–22] [20–22] [23–25] [20–22] [23–25] [23–25] [23–25] [20–22] [23–25] [23–25] [20–22] [20–22]
+
+HIV Flu Flu Cancer Hepatitis Cancer HIV Bronchitis Hepatitis Flu Hepatitis Flu
+
+[20–22] [23–25]
+
+(b) Expressed as a 2D aggregate contingency table
+
+European
+
+Asian
+
+French German Russian Japanese Chinese
+
+3
+
+3
+
+4
+
+2
+
+Korean
+
+Deﬁnition 4.2 (Multidimensional Global Recoding). A multidimensional global recoding for input data set D with QI attributes Q1, . . . , Qn is deﬁned by a single generalization function φ : dom(Q1) × · · · × dom(Qn) → dom(Q ), where the values in dom(Q ) are ndimensional vectors that are semantically consistent with values in dom(Q1) × · · · × dom(Qn).
+
+4.1 Deterministic Sanitization Techniques 73
+For example, consider again the input data from Table 4.2. A multidimensional global recoding is shown in Table 4.4. Notice that, under this less-restrictive variation, we can further reﬁne the Age values of Europeans beyond what was permitted under single-dimensional recoding (Table 4.3), while still satisfying 2-anonymity.
+A variety of algorithms have been proposed for single-dimensional and multidimensional global recodings, including optimal search over various restricted spaces of generalizations [29, 149, 226], randomized search [132, 267], and heuristic search [107, 150, 151, 261]. Many of these algorithms can be applied to enforce more than one privacy requirement (e.g., k-anonymity, -diversity, etc.). For example, the recoded data in Table 4.4(a) satisfy both 2-anonymity and entropy 2-diversity.
+To give a concrete example, one such algorithm (Mondrian) is based on greedy recursive spatial partitioning, and is shown in Algorithm 1. As input, this algorithm takes the d-dimensional quasiidentiﬁer domain space (i.e., dom(Q1) × · · · × dom(Qn)), which is
+
+Table 4.4. Multidimensional global recoding.
+
+(a) Expressed as microdata
+
+Nationality Age
+
+Disease
+
+European European European European European European European
+Asian Asian Asian Asian Asian
+
+[20–22] [20–22] [23–24] [20–22] [23–24]
+25 25 [20–22] [23–25] [23–25] [20–22] [20–22]
+
+HIV Flu Flu Cancer Hepatitis Cancer HIV Bronchitis Hepatitis Flu Hepatitis Flu
+
+[20–22] [23–24]
+25
+
+(b) Expressed as a 2D aggregate contingency table
+
+European
+
+Asian
+
+French German Russian Japanese Chinese
+
+3
+
+3
+
+2 2
+
+2
+
+Korean
+
+74 Mechanisms and Algorithms
+denoted G, a data set D, and a privacy requirement ρ. The algorithm greedily partitions the domain space, at each step choosing the axisparallel split that optimizes some objective function without violating privacy requirement ρ. (In the pseudo-code, the functions ChooseAttr() and ChooseThresh() denote the selection of a dimension upon which to split, as well as the threshold point about which to split. Resulting regions are captured using ranges max − min for numeric attributes, and values in the generalization hierarchy for categorical attributes.) In the case of nominal (unordered categorical) attributes, these splits are further restricted by user-provided value generalization hierarchies.
+The correctness of Mondrian (and many of the other algorithms) relies on two properties of the privacy requirement ρ: monotonicity and bucket independence, which are deﬁned below. It is easy to think of the recoding function φ as partitioning the input data set D into a set of non-overlapping buckets, each with identical quasi-identiﬁer values. In the following, we deﬁne a partial order on the set of all partitionings of input data D. We say that partitioning D1∗ D2∗ if and only if each bucket in D2∗ is the union of one or more buckets in D1∗. In the following, the notation ρ(D∗) indicates that D∗ satisﬁes privacy requirement ρ.
+Deﬁnition 4.3 (Monotonicity Property). Let D1∗ and D2∗ be partitionings of input data D such that D1∗ D2∗. A privacy requirement ρ satisﬁes the monotonicity property iﬀ ρ(D1∗) → ρ(D2∗).
+Deﬁnition 4.4(Bucket Independence Property). Let D1 and D2 be disjoint tuple sets, and let D1∗ and D2∗ be partitionings of D1 and D2, respectively. A privacy requirement ρ satisﬁes bucket independence iﬀ ρ(D1∗) ∧ ρ(D2∗) → ρ(D1∗ ∪ D2∗).
+The Mondrian algorithm can be used to implement privacy requirements ρ satisfying the monotonicity and bucket independence properties. Examples of such requirements include k-anonymity, entropy -diversity, and recursive (c, )-diversity. The bucket independence property allows for the recursive decomposition of the problem, while the monotonicity property guarantees that the output is minimal
+
+4.1 Deterministic Sanitization Techniques 75
+
+Algorithm 1 Mondrian domain-space partitioning
+
+Input: QI domain space G, data set D, privacy requirement ρ
+
+Output: recoding function φ
+
+1: if no allowable split for G, D under ρ then
+
+2: return φ : t ∈ D → tuple representation of G, D
+
+3: else
+
+4: best ←ChooseAttr(D, {Q1, . . . , Qd}, ρ)
+
+5: if numeric(best) or ordinal(best) then
+
+6: threshold ← ChooseThresh(best, D, ρ)
+
+7:
+
+D1 ← {t : t ∈ D, t.best ≤ threshold}
+
+8:
+
+D2 ← {t : t ∈ D, t.best > threshold}
+
+9:
+
+G1 ← Update G by setting best.max = threshold
+
+10:
+
+G2 ← Update G by setting best.min = threshold
+
+11:
+
+return Mondrian(G1,D1,ρ) ∪ Mondrian(G2,D2,ρ)
+
+12: else if nominal(best) then
+
+13:
+
+recodings ← {}
+
+14:
+
+for all child vi of root(best.hierarchy) do
+
+15:
+
+Di ← {t : t ∈ D, t.best descended from vi in best.hierarchy}
+
+16:
+
+Gi ← Update G by setting best.value = vi
+
+17:
+
+end for
+
+18:
+
+Q ← Replace best.hierarchy with subtree rooted at vi in
+
+{Q1, . . . , Qd}
+
+19:
+
+recodings ← recodings ∪ Mondrian(Gi, Di, Q , ρ)
+
+20:
+
+return recodings
+
+21: end if
+
+22: end if
+
+(i.e., no partition can be further divided without violating the privacy requirement). It is important to note that the algorithm does not directly apply to privacy requirements that do not satisfy bucket independence, including (c, k)-safety (Deﬁnition 2.3) and the 3D privacy criterion (Deﬁnition 2.4). However, Chen et al. adapted the algorithm to the 3D criterion by incorporating a set of constant-sized global summary statistics [51]. Later work considered scaling variations of this algorithm to large data sets [131, 152].
+
+76 Mechanisms and Algorithms
+4.1.3 Microaggregation
+Another related technique for releasing microdata is called microaggregation. Microaggregation conceptually involves two diﬀerent phases: data partitioning and partition aggregation [79]. During the ﬁrst phase, the input microdata D is partitioned into subsets D1, . . . , Dn such that Di ∩ Dj = ∅ (for i = j) and D1 ∪ · · · ∪ Dn = D.2 This involves [69] (a) segmenting the set of attributes into s parts, where each segment contains similar attributes, (b) partitioning each segment into groups that satisfy a privacy constraint (like k-anonymity) and a homogeneity constraint (e.g., minimizing a norm between the largest and smallest elements) for utility. A variety of such partitioning and clustering algorithms have been proposed [14, 69, 79, 253].
+Following the partitioning phase, the data in each partition Di are replaced with one or more aggregate values (e.g., sum, variance, median, etc.). For example, consider the input data shown in Table 4.5(a) and a possible microaggregated version of this data set shown in Table 4.5(b).
+Alternatively, rather than replacing each cluster with one or more aggregates, Aggarwal and Yu [10] proposed generating synthetic data based on the aggregate properties of each partition.
+
+Table 4.5. Example of microaggregation.
+
+(a) Original Data
+
+Age
+
+Sex
+
+25
+
+M
+
+23
+
+M
+
+20
+
+F
+
+(b) Aggregated data
+
+Mean(Age) Mode(Sex)
+
+22.67
+
+M
+
+22.67
+
+M
+
+22.67
+
+M
+
+27
+
+F
+
+19
+
+F
+
+24
+
+F
+
+23.33
+
+F
+
+23.33
+
+F
+
+23.33
+
+F
+
+40
+
+F
+
+30
+
+F
+
+35
+
+F
+
+35
+
+F
+
+2 This phase is subtly diﬀerent from the partition phase of global recoding algorithms such as Mondrian [150], which are based on partitioning the domain space, rather than the data.
+
+4.1 Deterministic Sanitization Techniques 77
+
+Table 4.6. Example bucketized data.
+
+Bucket Nationality Age
+
+1
+
+Russian
+
+20
+
+1
+
+Russian
+
+21
+
+1
+
+Russian
+
+24
+
+2
+
+German 21
+
+2
+
+German 23
+
+2
+
+French
+
+25
+
+2
+
+French
+
+25
+
+3
+
+Japanese 20
+
+3
+
+Japanese 24
+
+3
+
+Japanese 25
+
+4
+
+Chinese
+
+22
+
+4
+
+Korean
+
+21
+
+Bucket
+1 1 1
+2 2 2 2
+3 3 3
+4 4
+
+Disease
+HIV Flu Flu
+Cancer Hepatitis Cancer
+HIV
+Bronchitis Hepatitis
+Flu
+Hepatitis Flu
+
+4.1.4 Bucketization
+Also building on similar intuition, recent work has considered using a bucketization technique to achieve -diversity [273]. Like microaggregation, bucketization partitions the input data D into non-overlapping “buckets.” However, rather than summarizing each bucket, the bucketization approach simply breaks the connection between quasi-identiﬁer and sensitive attributes. For example, Table 4.6 shows a bucketized representation of the input data from Table 4.2. The drawback of this approach is that its application is limited to privacy deﬁnitions based on clearly deﬁned sensitive attributes (e.g., -diversity). Also, since the quasi-identiﬁer attributes are released without any modiﬁcation, an adversary is likely to be able to identify the records of some individuals by a link attack. Although the predeﬁned sensitive attribute values of those individuals are not identiﬁed, allowing an adversary to pinpoint your record in a published data set is sometimes considered to be undesirable. Also, once a link is established it may be possible to re-establish a probabilistic relationship between a tuple and its sensitive value by building a statistical model over the sanitized data (see Section 6.1.3).
+
+4.1.5 Decomposition and Marginals
+Finally, a signiﬁcant amount of work has focused on marginalization and decomposition techniques for identity and attribute protection
+
+78 Mechanisms and Algorithms
+[75, 77, 78, 142, 235]. The idea of marginalization is, given a full joint contingency table as input, “sum out” selected subsets of the attributes to produce lower-dimensional (marginal) contingency tables (these can be thought of as histograms on subsets of the attributes). Similarly, in decomposition, the idea is to take a single table of microdata as input, and project on selected attribute subsets. Past work is this area has considered computing upper and lower bounds on cell counts in the original contingency table, given marginals [75, 78, 235], as well as techniques for probabilistically reasoning about disclosure of a sensitive attribute [75, 142].
+4.2 Randomized Sanitization Techniques
+Generalization, aggregation, and suppression are attractive privacy mechanisms since they only output truthful facts about the original data. However, data collected by most organizations like the Census Bureau are incomplete, imprecise, and sometimes uncertain. Moreover, aggregation techniques do not satisfy very strict privacy criteria like differential privacy. This led to the development of privacy mechanisms based on random perturbations of the original data such that the perturbed data retain the statistical properties of the input data. As we will see in this section, these techniques are reasonable since the input data themselves are an approximation of the truth and, in addition, these techniques are able to guarantee stronger privacy than aggregation techniques. We describe the following randomization techniques for privacy — local randomization, input randomization, perturbing statistics, statistics-preserving input randomization, and model-based synthetic data generation.
+4.2.1 Local Randomization Techniques
+Data collectors including the Census Bureau do not obtain truthful answers to all questions on their surveys. Respondents do not trust the data collectors especially when answering sensitive questions (e.g., “Have you ever used illegal drugs?”). Local randomization techniques have been used to elicit truthful answers. As the name suggests, in these techniques each individual respondent randomly perturbs his/her
+
+4.2 Randomized Sanitization Techniques 79
+
+data before sharing it with the the data collector. The randomization operators are designed such that (a) they preserve the privacy of the individuals, while (b) allowing the data collector to learn statistical properties of the data if a suﬃciently large amount of data is collected.
+Warner’s randomized response technique [262] for answering sensitive Boolean questions is the earliest local randomization technique. Here each individual i independently answers a yes/no question Q as follows: i answers truthfully with probability pi, and lies with probability (1 − pi). Given n such perturbed answers, the aggregate answer can be estimated as follows (when all the respondents use the same probability p). Let π be the fraction of the population for which the true response to Q is yes. Then the expected proportion of yes responses is
+
+P (yes) = π · p + (1 − π) · (1 − p)
+
+(4.1)
+
+P (yes) − (1 − p) Hence, π =
+2p − 1
+
+(4.2)
+
+If m out of the n individuals answered yes, then the following πˆ is an
+
+estimator for π.
+
+πˆ
+
+=
+
+m n
+
+−
+
+(1
+
+−
+
+p)
+
+2p − 1
+
+(4.3)
+
+Instead of lying with probability (1 − p), respondents could also perturb their answers using a second scheme proposed by Warner. An individual answers the question posed by the data collector (Q) honestly with probability p and answers a diﬀerent innocuous question (QI ) with probability (1 − p). For instance, with probability p, the respondent truthfully answers if he/she had used illegal drugs, and with probability (1 − p), the respondent ﬂips a coin with bias α and answers yes if the respondent got a head. In this case, the probability that the answer to QI is yes is α. If m out of the n individuals answered yes, an estimator for π is derived below.
+
+P (yes) = π · p + α · (1 − p)
+
+P (yes) − (1 − p) · α π=
+p
+
+π¯
+
+=
+
+m n
+
+−
+
+(1
+
+−
+
+p)
+
+·
+
+α
+
+p
+
+(4.4) (4.5) (4.6)
+
+80 Mechanisms and Algorithms
+
+π¯ has a smaller variance than πˆ when the probability of answering the correct question p is not too small. Hence, typically the innocuous question technique is better than naive randomized response.
+Randomized response techniques can be proven to guarantee (α, β)privacy using the γ ampliﬁcation condition (Section 2.5). Warner’s original technique has an ampliﬁcation of
+
+p 1−p
+
+max(
+
+,
+
+)
+
+1−p p
+
+To maximize utility, the probability of lying should be smaller (p > 1 − p). Moreover, (α, β)-privacy is guaranteed if p satisﬁes the following condition,
+
+p 1−
+
+p
+
+<
+
+β α
+
+·
+
+1−α 1−β
+
+β(1 − α) or if, p <
+β(1 − α) + α(1 − β)
+
+Subsequent work [92, 18] generalized the above randomized response techniques to other domains. Each record u ∈ U corresponds to the sensitive information of a distinct individual. Each u is independently randomized using a perturbation matrix A; the entry A[u, v] describes the transition probability P (u → v) of perturbing a record u ∈ DU to a value v in the perturbed domain DV . The matrix A should satisfy the following properties:
+
+A ≥ 0,
+
+A[u, v] = 1 ∀u ∈ DU
+
+v∈DV
+
+(4.7)
+
+Evﬁmievski et al. [92] studied the problem where individuals share itemsets (e.g., set of movies rented) with an untrusted server (e.g., an online movie rental company) in return for services (e.g., movie recommendations), and were the ﬁrst to propose a formal deﬁnition of privacy breaches using the (ρ1, ρ2)-privacy deﬁnition. Here, the purpose of collecting itemsets is to identify those sets of items that occur frequently across users (for example, movies that tend to be rented together). Evﬁmievski et al. showed that itemsets randomized using Algorithm 2, with parameters ρ and {p[j]}mj=0, both preserve privacy
+
+4.2 Randomized Sanitization Techniques 81
+Algorithm 2 Select-a-Size Algorithm Input: Itemset Iu ⊆ DU , |Iu| = m. Output: Randomized itemset Iu.
+1: Select an integer j ∈ [1, m], with probability p[j]. 2: Iu ← simple random sample of size j of Iu. 3: For every a ∈ DU \ Iu, add a to Iu with probability ρ.
+and allow a data collector to correctly estimate the frequent itemsets. Later, Agrawal and Haritsa [18] improved on this by ﬁnding an optimal perturbation matrix A.
+Evﬁmievski et al. [92] proved suﬃcient conditions on the parameters, ρ and {p[j]}mj=0, in order to satisfy the γ-ampliﬁcation condition and simultaneously maximize the utility of the randomization method (e.g., maximizing |Iu ∩ Iu|, the number of original items retained in the randomized itemset). Algorithms for recovering the original data from the randomized itemsets and for producing unbiased estimators for the mean and the covariance of these estimates are provided in [93].
+4.2.2 Input Randomization Techniques
+While local randomization techniques protect the privacy of individuals right at the stage of data collection, there are many scenarios where fairly accurate data are being collected from individuals. Examples include search queries collected by search engine companies and movie ratings collected by companies like Netﬂix. These organizations would like to extract user statistics from these collected data D without disclosing personal information. One way to achieve this could be to apply a local randomization technique on D; i.e., independently perturb the records of each individual in D to get Dind and use Dind. However, since the data collector has access to the complete data D in this case, more interesting randomization operators could be used to perturb groups of records. Intuitively, such a methodology should provide strictly more utility since we are allowed to use a richer set of perturbation schemes. We call the class of such methods as input randomization techniques.
+
+82 Mechanisms and Algorithms
+Additive Perturbation A simple technique to perturb numeric data, proposed by Agrawal and Srikant [16], is to independently add 0-mean noise to each record. Let V be a noise matrix, then the perturbed data are Up = U + V . The random noise added to each record (v ∈ V ) is usually either a uniform random variable in [−α, α] or distributed as a Gaussian with 0 mean and a known variance. The privacy of such a scheme is unclear; in fact, if the random noise variables are uncorrelated, Kargupta et al. [138] and Huang et al. [126] showed that very accurate estimates of the original data can be recovered from such additively perturbed data due to dependencies inherent in U . For instance, suppose an adversary knows that all the records in U have the same value, say z. Then, additive randomization does not guarantee any privacy; the mean of the perturbed data accurately estimates z if there are enough records in U .
+Additive randomization can be broken using Principal Component Analysis (PCA). Suppose the data have m dimensions and are perturbed by adding noise independently to each dimension. Usually, different attributes in the data are correlated; hence, the data can be projected onto a smaller number, p < m, of dimensions. The ﬁrst principal component (PC) of the data is the direction, e1, along which the data have the highest variance. The i-th PC, ei, is a vector orthogonal to the ﬁrst (i − 1) PCs with the largest variance. These vectors are the eigenvectors of the covariance matrix of the data. In correlated data, only the variances along p directions are large. However, for the random noise, the variances are the same along all directions. The variances of the perturbed data are roughly the sum of the variances of the original data and the random noise. Hence, by dropping (m − p) directions along which the perturbed data have the least variance, while much information is not lost about the original data, a (1 − p/m) fraction of the noise added is removed; this might lead to privacy breaches.
+Post Randomization The post-randomization method (PRAM) [117] is very similar in spirit to local randomization techniques. Suppose every entry in the database takes values in 1 . . . K. Then PRAM randomly perturbs each entry in the database to some other value in [1, K]. Let pk denote the probability that value k ∈ [1, K] is transformed to
+
+4.2 Randomized Sanitization Techniques 83
+
+a value . Let P = {pk } be a Markov K × K matrix with pk as its (k, l)-th entry. It is easy to see that the privacy guaranteed by PRAM is identical to that of local randomization. Moreover, the original data can be regenerated from the perturbed data using the following unbiased estimator:
+
+Tˆ = (P −1)tT ,
+
+where T = {T1, . . . , Tk}t is the vector of counts, such that Ti is the number of entries in the database with value i, and T is a similar vector of counts on the perturbed database.
+Since PRAM perturbs the data after collection, one could potentially choose P based on the data distribution. For instance, in invariant PRAM, P is chosen such that P tT − T < , in particular can be 0. The advantage of such a perturbation matrix is that the perturbed vector of counts is itself an unbiased estimator of T . That is the perturbed database can be used directly instead of the original database (without multiplying by P −1).
+Note that P = I, the identity matrix, always satisﬁes this constraint (equivalent to publishing the original data), but is uninteresting. A nontrivial P can be constructed as follows. Let m ∈ [1, K] be the category appearing the smallest number of times in the database; i.e., Tm is the smallest count. Then, for some 0 ≤ θ ≤ 1, let
+
+pkl =
+
+1
+
+−
+
+θ
+
+·
+
+Tm T (k)
+
+,
+
+θ K −1
+
+·
+
+Tm T (k)
+
+,
+
+k= ; k= .
+
+However, as K becomes very large, Tm tends to 0. Hence, it becomes very hard to ﬁnd an invariant P . Hence, the authors [117] suggest that it is probably best to apply PRAM such that some distributions/marginals are preserved while others are not.
+
+4.2.3 Perturbing Statistics
+Sometimes the desired sanitized data are just a set of statistics that describe the original data (for example, the mean, median, etc.). In these cases, there is a strong similarity between privacy-preserving query answering (in statistical databases) [4] and privacy preserving
+
+84 Mechanisms and Algorithms
+
+data publishing. In this section we will review some of the most important ideas from query answering that are applicable to data publishing. These include negative results on which statistics can be published, and positive results on how to publish them.
+Adding noise to every tuple in the database may not guarantee privacy but may still cause a large distortion in the data. Recent work has shown that it is possible to add noise directly to statistics of interest while guaranteeing strong privacy [74, 37, 87, 192]. The general framework is (a) list out the statistics of interest Q1, . . . , Qk, (b) independently draw k samples η1, . . . , ηk from a preferably heavy-tailed distribution (such as the Laplace distribution, although a Gaussian distribution N (0, σ2) is sometimes used), and (c) return the noisy statistics Q1(D) + η1, . . . , Qk(D) + ηk. The statistics of interest could be the complete contingency table (where {1, . . . , k} represent the domain from which all the values in the database are drawn, and each Qi is the count of records in the database with value i), or a set of marginals, or an arbitrarily complex set of aggregate queries (like in statistical databases). Hence, we will use the term query instead of statistic in the rest of this section. The key contribution of this line of work is that adding noise proportional to the sensitivity of a query guarantees diﬀerential privacy. We next describe how to add Laplacian noise to achieve diﬀerential privacy, then describe an extension of this technique to publish marginals of a contingency table, and conclude with limits to this approach.
+
+Laplacian Noise Addition and Query Sensitivity. Let Q : dom(D) → R be a statistic. Deﬁne the sensitivity of query Q to be the smallest number S(Q), such that
+
+∀U1, U2 that diﬀer in one record, |Q(U1) − Q(U2)| ≤ S(Q) (4.8)
+
+Let Lap(λ) denote the Laplace distribution which has a density function
+
+h(y) ∝ exp(−|y|/λ). Suppose a query Q(U ) posed to a database U is
+
+answered using Q(U ) + Y , where Y ∼ Lap(S(Q)/ ). This perturbation
+
+scheme indeed satisﬁes -diﬀerential privacy. For every U1, U2 that diﬀer
+
+in only one record ui,
+
+P (Q(U1) + Y = x) = h(x − Q(U1)) P (Q(U2) + Y = x) h(x − Q(U2))
+
+(4.9)
+
+4.2 Randomized Sanitization Techniques 85
+
+= exp(−|x − Q(U1)| × /S(Q)) exp(−|x − Q(U2)| × /S(Q))
+≤ exp( × |Q(U1) − Q(U2)|/S(Q)) ≤ exp( )
+
+(4.10) (4.11) (4.12)
+
+For instance, consider publishing the entire contingency table of counts (also called histogram query). The sensitivity of the histogram query is 2 — changing the value of one individual from i to j, reduces the count Qi by 1, and increases the count Qj by 1. Hence, one can publish the entire contingency table by adding noise drawn from Lap(2/ ). There are still a couple of problems — (a) we can get fractional or negative counts and (b) for a sparse domain where most values have count 0, the total noise added might be very large. We will describe Barak et al.’s [27] techniques to handle (a).
+Barak et al. [27] propose a solution to publish marginals of a contingency table using the Laplacian noise-addition. Publishing a set of noise-infused marginals is not satisfactory; such marginals may not be consistent, i.e., there may not exist a contingency table that could simultaneously generate all these marginals, and the resulting “counts” in the the noise-infused marginals may even be negative. Barak et al. solve this problem by adding noise to a small number of Fourier coeﬃcients; any set of Fourier coeﬃcients correspond to a (fractional and possibly negative) contingency table. They show that only a “small” number of Fourier coeﬃcients are required to generate the required marginals, and hence only a small amount of noise (proportional to the size of the marginal domain) is required. In order to create non-negative and integral marginals, the authors employ a linear program solution (in time polynomial in the size of multidimensional domain) to generate the ﬁnal non-negative integral set of noise-infused marginals.
+
+Instance Speciﬁc Noise. Nissim et al. [192] proposed a novel algorithm where the noise added to a statistic is not only calibrated to the sensitivity of the query, but also to the input database. The new scheme, which allows for much less noise to be added in many cases, has the following intuition. Suppose U is the input data. Let LS(Q, U )
+
+86 Mechanisms and Algorithms
+be the maximum value of |Q(U ) − Q(U )| over all U that diﬀer from U in one tuple. Nissim et al. term LS(Q, U ) as the local sensitivity of Q at U . Let us consider the impact of adding Lap(LS(Q, U )/ ) on both utility and privacy.
+It is easy to see that S(Q) is the maximum local sensitivity of Q over all inputs U . Hence, the local sensitivity of a function may be much smaller than the (global) sensitivity of a query on some inputs. For instance, let the database have ﬁve tuples, and suppose each tuple in the database takes values between 0 and Λ. Let Q be the function that returns the median of these tuples. The sensitivity of Q is Λ. Let U = [0, 0, Λ, Λ, Λ] and U = [0, 0, 0, Λ, Λ]; Q(U ) = 0, while Q(U ) = Λ. On the contrary, the local sensitivity of the function is only max{x2 − x3, x3 − x4}, where xi is the i-th largest tuple in the database; this could be as small as 0. Hence, there will be many cases when Lap(LS(Q, U )/ ) will be much smaller than Lap(S(Q)/ ) and thus guarantee more utility.
+On the privacy front, one may be wrongly led to believe that adding Lap(LS(Q, U )/ ) noise satisﬁes diﬀerential privacy; after all, Equations (4.9)–(4.12) hold even if S(Q) is replaced with LS(Q, U1). Unfortunately, privacy is not guaranteed since the amount of noise added also leaks information to the adversary; especially when LS(Q, U1) is much diﬀerent from LS(Q, U2) for U1 and U2 diﬀering in one tuple. For instance, when the local sensitivity is 0 (like in the previous example), no noise will be added, and thus one cannot expect privacy. Nissim et al. instead proposed adding noise proportional to a smooth upper bound of LS(Q, U ), and showed that this guarantees diﬀerential privacy.
+Deﬁnition 4.5 (Smooth Upper Bound). A function S(Q, U ) is deﬁned to be a β-smooth upper bound of LS(Q, U ) if
+• ∀U , S(Q, U ) ≥ LS(Q, U ). • ∀U1, U2, that diﬀer in one tuple, S(Q, U1) ≤ βS(Q, U2).
+Note that S(Q) = maxU LS(Q, U ) is one such smooth upper bound. Nissim et al. [192] proposed techniques for computing smooth upper bounds and provided noise distributions that could be used to protect privacy.
+
+4.2 Randomized Sanitization Techniques 87
+Impossibility results There are inherent limits to the amount information that can be published by adding noise to statistics. For instance, if multiple copies of the same statistic are published m times with answers X1, . . . , Xm, where Xi = Q(D) + i, i ∼ N (0, σ2), then
+= i i ∼ N (0, σ2/m) m
+Therefore, for a suﬃciently large m, the average of all the Xis is a very good estimator of the real answer Q(D). Motivated by this intuition, Dinur and Nissim [74] showed the following stronger results.
+Consider a database with n tuples, where each tuple is a bit, i.e., D ∈ {0, 1}n. Consider an interactive algorithm3 A that allows an adversary to pose subset-sum queries. Each subset-sum statistic Q ⊆ [n] deﬁnes a subset of tuples in the database, and Q(D) is the sum of these tuples.
+A is deﬁned to be within E perturbation if
+∀ query Q ∈ Q, |A(Q(D)) − Q(D)| < E
+A is said to be non-private if an adversary can eﬃciently reconstruct the entire database accurately.
+
+Deﬁnition 4.6 (Non-Privacy). An A operating on database D ∈ {0, 1}n is said to be t(n)-non-private if for every > 0 there exists an adversary M who runs in time t(n) and outputs a database C such that:
+
+P r[MA(1n) outputs C s.t. dist(C, D) < n] ≥ 1 − neg(n),
+
+where MA denotes the algorithm used by the adversary with access
+
+to the output perturbation mechanism, n is the size of D, dist(C, D)
+
+is
+
+the
+
+number
+
+of
+
+tuples
+
+C
+
+and
+
+D
+
+diﬀer
+
+in,
+
+neg(n)
+
+∈
+
+o(
+
+1 p(n)
+
+)
+
+for
+
+any
+
+polynomial p(n), and the probabilities are taken over the coin tosses of
+
+M and A.
+
+3 While the Dinur and Nissim’s, [74] results are in the context of the interactive setting where queries can be posed adaptively by the adversary, there are obvious connections to the data publishing scenario where a set of queries are answered by the data publisher up front.
+
+88 Mechanisms and Algorithms
+Algorithm 3 Exponential time adversary Input: Access to output randomizer A with perturbation within E. Output: A database C.
+1: [Query Phase] 2: For all Q ⊆ [n], get perturbed answer A(Q(D)). 3: [Weeding Phase] 4: for all C ∈ {0, 1}n do 5: if for all Q ⊆ [n], |Q(C) − A(Q(D))| ≤ E, return C and halt. 6: end for
+
+Dinur et al. ﬁrst show that for every A within o(n) perturbation, an adversary can accurately reconstruct D using Algorithm 3, which runs in time exponential in n. Since A is within E perturbation, the database D will never be weeded out; therefore, M always halts. One can show that dist(C, D) < 4E = o(n). Suppose on the contrary dist(C, D) > 4E. Let Q1 be the query that sums the tuples that have the value 0 in D and 1 in C. Let Q2 be the query that sums the tuples that have the value 1 in D and 0 in C. Clearly, |Q1| + |Q2| = dist(C, D) > 4E. Without loss of generality, let |Q1| ≥ 2E + 1. Then, Q1(D) = 0, Q1(C) > 2E, and A(Q1(D)) < E. However, Q1(C) − A(Q1(D)) > E and hence C will never be output by Algorithm 3.
+The above attack algorithm can, in fact, be improved to accurately reconstruct the database us√ing t(n) = n(log n)2 queries as long as A is within a perturbation of o( n). In the improved attack, an adversary
+ﬁrst asks t(n) random queries Q1, . . . , Qt(n). In the weeding phase the adversary uses the following linear program with unknowns c1, . . . , cn that correspond to the entries in the reconstructed database C:
+
+A(Q (D)) − E ≤ Q (C) ≤ A(Q (D)) + E 1 ≤ ≤ t(n)
+
+0 ≤ ci ≤ 1
+
+1≤i≤n
+
+The
+
+adversary
+
+rounds
+
+oﬀ
+
+each
+
+ci
+
+to
+
+1
+
+if
+
+it
+
+is
+
+greater
+
+than
+
+1 2
+
+.
+
+Dinur
+
+et
+
+al.
+
+show that the reconstructed C diﬀers from D in only o(n) positions.
+
+More recently, Dwork et al. [88] showed a much stronger result
+
+that any privacy mecha√nism, interactive or noninteractive, providing reasonably accurate (o n) answers to approximately 0.761 fraction
+
+4.2 Randomized Sanitization Techniques 89
+of randomly generated weighted subset-sum queries, and arbitrary answers on the remaining ≈0.239 fraction, is non-private.
+On the positive side, Dinur et al. also proposed a technique that provably protects against a bounded adversary who is allowed to ask only T (n) ≥ polylog(n) queries by using additive perturbation of the magnitude O˜ ( T (n)). Building on this result, Blum et al. [37] propose the SULQ framework that answers up to a sub-linear number of aggregate queries by adding Laplacian noise while guaranteeing diﬀerential privacy [85].
+In summary, Laplacian noise addition guarantees strong privacy and has been shown to provide researchers with useful data. However, the problem of choosing the correct set of statistics for publication is still an open question. Publishing the entire contingency table, for instance, will lead to a lot of noise (especially in the portions of the domain with no data). Also, too many statistics cannot be published without arbitrary perturbation. Hence, we describe next a model-based approach to publishing data.
+4.2.4 Statistics-Preserving Input Randomization
+First proposed by Dalenius and Reiss [60], data swapping attempts to preserve privacy of individuals by swapping values for one attribute between diﬀerent individuals. More precisely, consider a database with n ≥ t attributes. Let A = {A1, . . . , At} be a subset of attributes whose marginal distribution must be preserved in the published table. Two individuals x and x are said to be (t − 1, Ai)-equivalent if they agree on every attribute in A except for possibly Ai. The data swapping algorithm ﬁrst forms all equivalence classes of (t − 1, A1)-equivalent records, and within each equivalence class performs a primitive swap — picks any two records and swaps the values for the attribute on which they diﬀer. This is then repeated for (t − 1, A2)-equivalent records, etc. Dalenius and Reiss state that privacy is preserved if for every attribute of every record, there is at least one database with the same t-order marginal statistics that assigns a diﬀerent value to that attribute.
+Greenberg and Moore present extensions to the original data swapping algorithm for masking ordinal attributes. In an unpublished 1987
+
+90 Mechanisms and Algorithms
+manuscript, Greenberg proposed a data swapping algorithm for ordinal attributes that works on one attribute at a time. First, the ordinal attribute is sorted and for each value of the attribute, one computes its rank (i.e., the number of values larger than it). Swapping can only be performed between records whose ranks are within a pre-speciﬁed threshold α. This algorithm was shown to preserve statistics with acceptable error. Moore’s algorithm [181] enhances this rank-based proximity swapping algorithm by intelligently choosing the threshold α to approximately preserve multivariate correlations or univariate means of large subsets of the data.
+Takemura [242] presents an algorithm that combines local generalization and data swapping. The idea is to ﬁnd, for every record, its “nearest record” based on a schema speciﬁc distance metric and swap/locally generalize the diﬀering attributes. However, care should be taken that the pairing is two-way; i.e., if x is paired to y, then y should also be paired with x. Hence, Takemura proposes an algorithm based on maximum weight matching using the Edmonds Algorithm [89].
+Primitive swaps were shown to be important also for the problem of generating entries in a contingency table given a ﬁxed set of multiple marginals. Diaconis and Sturmfels [72] proposed a general algorithm for sampling from the set of tables that satisfy the ﬁxed marginals. Their technique is very powerful since it can be used irrespective of what the marginals are. However, the technique’s applicability is limited since it requires access to a Markov basis, or a ﬁnite set of “moves” such that any two tables that satisfy the marginal can be connected via a ﬁnite set of moves. Diaconis and Sturmfels use a Gro¨bner basis to construct their set of moves, but computing it even for tables with three dimensions is diﬃcult. However, Dobra [75, 76] showed that when the marginals satisfy a property called decomposability, then Dalenius and Reiss’ primitive swaps precisely form the Markov basis; i.e., every pair of tables satisfying a decomposable set of marginals is connected via a sequence of primitive swaps. Fienberg and McIntyre [101] present a great review of other work in data swapping and its variants. None of the above techniques are associated with formal privacy guarantees.
+
+4.2 Randomized Sanitization Techniques 91
+Controlled tabular adjustment (CTA) [48, 57, 63, 64] is another technique for perturbing a contingency table while preserving marginal statistics. The problem is formulated as an integer programming problem with linear constraints for the statistics to be preserved as well as for privacy (e.g., lower and upper protection levels on the cell values), and the objective function is a norm (L1 [57, 63], L2 [48], or L∞ [48]). Algorithms for CTA solve this integer problem either using an LP relaxation followed by rounding or using the interior point method. Privacy is analyzed in terms of whether the adversary can solve for the noise added to the cells of the table using a related integer program; but the authors consider privacy to be breached only when the adversary can determine the noise for a suﬃcient number of cells.
+4.2.5 Model-Based Synthetic Data Generation
+Another paradigm for releasing sanitized data sets is to generate a statistical model from a noise-infused version of the existing data, and to sample data points from this model to create the synthetic data set. Noise is introduced into the synthetic data from two sources: the noise infused prior to building the model and the noise due to random sampling.
+The use of multiple imputation [223] to create synthetic data was ﬁrst proposed by Rubin [221]. Under this proposal, a model is built over the data and then multiple data sets are sampled from the model (Liew et al. [159] had earlier proposed building a model of the data and sampling one data set from it). A variant of this approach, using multiple imputation to create partially synthetic data, has also been popular [1, 2, 100, 140, 159, 161, 182, 218]. To create partially synthetic data, a data publisher suppresses the sensitive attributes and then multiply imputes them from a model. Both of these multiple imputation approaches create multiple data sets which have the following beneﬁts. First, a statistical model can be built on each of the data sets using standard software packages. These models can then be combined into a single model (for more details, see Section 5.3). This allows for better estimation of the variance of parameters of interest than if only one data set was released.
+
+92 Mechanisms and Algorithms
+The choice of model is very important. An overly simplistic model will create a severe bias in the data. A model should be as general as possible and, ideally, nonparametric. For example, Reiter [218] studied the use of decision trees for creating partially synthetic data and Machanavajjhala et al. [167] used a multinomial model with a Dirichlet prior with one parameter for each element in the domain of the data. Polettini [203] presented an approach where diﬀerent parts of the data were modeled diﬀerently. For each part, given a set of constraints on a set of variables, the maximum entropy distribution is constructed. Generalized linear models [175] are then used to model variables that do not appear in any constraints. Another common approach is to use algorithms like MICE [258] or Sequential Regression Multivariate Imputation (SRMI) [206] which generally work as follows. First, select an attribute whose values are to be imputed and learn a model for it based on the other attributes. Then, replace the value of the attribute with random samples from the predictive distribution according to the model. Then, choose another attribute whose values are to be imputed and learn a model for it based on the other attributes (including the attribute whose values were imputed in the previous step). Again, replace the true values with sampled values from the model. This process can be repeated several times for each attribute. See [1, 218] for more detailed examples of this process.
+There are several reasons why multiply imputed data sets should be released instead of the actual models. In the case of MICE and SRMI, there are no explicit model parameters since the output data sets are essentially created using Gibbs sampling. Thus in this case there is no explicit model to release. In other cases, such as [167], the release of model parameters will result in a privacy breach. Thus if there is an explicit model and the parameters of the model cannot be used to breach privacy, then releasing the model is preferable to releasing data sampled from it.
+An alternative approach to multiple imputation for creating partially synthetic data uses the concept of suﬃcient statistics. A statistic is a set of values computed from the data. A set of statistics is sufﬁcient for a statistical model if that model can be built using only those statistics and without access to the original data. More formally,
+
+4.2 Randomized Sanitization Techniques 93
+a statistic is suﬃcient if the distribution of the data conditioned on the statistic is independent of the model parameters. For more details see [47]. To create suﬃciency-based synthetic data, one ﬁrst constructs a model (that admits suﬃcient statistics) for predicting the sensitive attributes given the non-sensitive attributes. Each sensitive attribute value is replaced by sample from the predictive distribution in such a way that the suﬃcient statistics are exactly preserved. For linear models, such constructions are given by [44, 183].
+Franconi and Stander [104] present a diﬀerent approach where a sensitive value is replaced by the midpoint of its predicted conﬁdence interval if the original value was not one of the p% highest or p% lowest values in the data. Otherwise, if the original value is one of the p% lowest, it is replaced with a value higher than the predicted midpoint and if the original value is one of the p% highest, it is replaced with a value lower than the predicted midpoint.
+Note that the suﬃciency approach can also be used to replace the entire data set instead of just the sensitive values. Mateo-Sanz et al. [174] present a fast method for generating synthetic data that preserves the mean and covariance matrix of the data. Dandekar et al. [65] use ideas from Latin Hypercube Sampling to generate synthetic data with the aim of preserving univariate statistics as well as the rank correlation matrix.4
+Diﬀerent algorithms for generating synthetic data can be created by varying the synthetic model that is built using the data. However, these approaches in general do not have formal privacy guarantees because they do not analyze the disclosure caused by the use of estimated model parameters in the sampling process. For example, a single outlier can have a large inﬂuence on these parameters and the existence of an outlier in the original data may then be detected from the synthetic data and thus information about the magnitude of the outlier can be leaked. In some cases, the privacy guarantees require the assumption that the actual data really were generated exactly from a statistical model [182] even though it is widely recognized that “essentially, all
+4 Rank correlation [121] measures the correlation between the ranks of two variables instead of their actual values. The rank correlation is less sensitive to outliers than the standard covariance and correlation.
+
+94 Mechanisms and Algorithms
+models are wrong, but some are useful” [38, p. 424], (see also Polettini and Stander’s [204] response to Muralidhar and Sarathy [182]).
+One simple technique that does provide formal privacy guarantees for synthetic data is the work of Machanavajjhala et al. [167] based on Dirichlet resampling. Let U be a table with discrete attributes and let DU be its domain. Let H denote the histogram of U , i.e., H = {f (v) | v ∈ DU , f (v) = multiplicity of v in U }, and let R denote a histogram of noise. Synthetic data are generated as follows. First, form the prior Dir(H + R), where Dir denotes the Dirichlet distribution. Then, draw a vector of probabilities, X, from Dir(H + R), and generate m points according to the probabilities in X. The above process is mathematically equivalent to the following resampling technique. Consider an urn with balls marked with values v ∈ DU such that the number of balls marked with v equals the sum of the frequency of v in U and the frequency of v in the noise histogram. Synthetic data are generated in m sampling steps as follows. In each sampling step, a ball, say marked v, is drawn at random and two balls marked v are added back to the urn. In this step, the synthetic data point is v.
+Machanavajjhala et al. [167] characterized the privacy guaranteed by this algorithm in terms of the noise histogram. Speciﬁcally, they showed that in order to guarantee -diﬀerential privacy, the frequency of every v ∈ DU in the noise histogram should be at least m/(e − 1). For large m and small the noise required for privacy overwhelms all of the signal in the data and renders the synthetic data completely useless. Such a large requirement of noise is due to the following worst case requirement of diﬀerential privacy. Consider a scenario where an adversary knows that U contains exactly one record ui that can take either the value v1 or v2. Now suppose that in the output sample, every record takes the value v1. If m is large, then the adversary’s belief that ru = v1 is close to 1 (see [167] for details). In order to guard against such scenarios, diﬀerential privacy requires large amounts of noise. However, the probability that such synthetic data are output is negligibly small, and so it may not always be necessary to guard against events which almost certainly will never happen. Thus this situation can be remedied using a weaker ( , δ)-probabilistic diﬀerential privacy deﬁnition, where an algorithm is private if it satisﬁes -diﬀerential privacy for all
+
+4.3 Summary 95
+
+outputs that are generated with a probability at least (1 − δ). Under this weaker deﬁnition, the Dirichlet resampling technique is private with much smaller noise requirements.
+Rastogi et al. [211] propose another algorithm for synthetic data called the αβ algorithm (also with privacy guarantees). It is similar to the select-a-size randomization operator [93] for publishing itemsets. Given an itemset I that is a subset of the domain of all items D, the αβ algorithm creates a randomized itemset V by retaining items in I with probability α + β and adding items in D \ I with probability β. This algorithm satisﬁes a variant of -diﬀerential privacy. Moreover, the authors show that for queries Q : 2D → R, Q(I) can be estimated as follows:
+
+Qˆ(I) = (Q(V ) − βQ(D))/α,
+
+(4.13)
+
+where Q(V ) and Q(D) are the answers to the query Q on the randomized itemset V and the full domain D, respectively. Qˆ(I) is shown to
+provably approximate Q(I) with high probability.
+
+4.3 Summary
+Privacy researchers have developed a plethora of sanitization algorithms; but, only a few of them satisfy provable guarantees of privacy. Much early research focused primarily on generalization and suppression-based techniques for privacy. However, these deterministic mechanisms do not guarantee privacy against powerful adversaries with probabilistic knowledge, thus increasing the signiﬁcance of randomized solutions to the privacy problem.
+
+5
+Using Sanitized Data
+Errors using inadequate data are much less than those using no data at all.
+— Charles Babbage Once sanitized data are made public, if we are an attacker, then we proceed to Section 6. Otherwise, we must resolve the question of how to make good use of data, given that they have been sanitized. A recipient of sanitized data generally needs to answer two important questions. The ﬁrst question is how much information has been lost due to the sanitization process, and the second question is how to perform the intended analysis using sanitized data. Utility metrics discussed in Section 3 aim to quantify the amount of information loss. In this section, we discuss how to use the sanitized data. In Section 5.1, we discuss how to answer queries over sanitized data. Since there is inherent uncertainty in the published data, the queries will necessarily have a probabilistic interpretation. In Section 5.2, we discuss data analysis over sanitized data from the point of view of machine learning and data mining, and in Section 5.3 we discuss statistical data analysis techniques for understanding whether a ﬁnding in the sanitized data
+96
+
+5.1 Query Processing 97
+is statistically signiﬁcant. We note that a detailed survey of privacyrelated query processing, machine learning, data mining, and statistical techniques is beyond the scope of this paper. The purpose of this section is only to motivate the problems and point the readers to the related literature.
+5.1 Query Processing
+After applying sanitization techniques to the original data sets to enforce privacy criteria, the resulting sanitized data sets are usually imprecise (e.g., some attribute values have been generalized) or probabilistic (e.g., attribute values have been perturbed with random noise). For example, after we generalize Table 1.1 to enforce 4-anonymity and obtain Table 1.3, we are no longer able to distinguish between individuals’ ages. On one hand, this imprecision is an unavoidable cost of privacy protection. On the other hand, a data user still wants to be able to answer queries about ages (e.g., the number of patients who have cancer and are less than 40 years old) as accurately as possible. In this section, we start with a brief introduction of general query processing for imprecise and probabilistic data and then cover techniques tailored to speciﬁc sanitization algorithms. Note that query processing for imprecise and uncertain data is an active and extensive research area in its own right; an exhaustive discussion is beyond the scope of this article.
+Probabilistic query processing: One approach to querying a sanitized data set is to represent the data set in terms of a probabilistic database. Query processing techniques have been well-studied, and can be useful for answering queries on sanitized data sets interpreted in this manner. For example, Table 1.4 is a bucketized version of Table 1.1. A possible representation of such a table as a probabilistic database is shown in Table 5.1. This table can be interpreted to mean that each row appears with probability 0.5. Of course, this translation does not preserve all information from the bucketization; for example, it does not capture the fact that Ann has either heart disease or viral infection, but not both. More complex probabilistic data models such as those incorporating lineage can potentially be used to capture this
+

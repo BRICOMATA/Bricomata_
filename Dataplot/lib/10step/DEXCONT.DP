@@ -1,0 +1,335 @@
+. This is the dataplot macro file     dexcont.dp
+. Purpose: Generate a dex contour plot for 2-level designs
+.          this macro generates a contour plot
+.          of y versus u1 and u2
+.          at isolines as given in ycont.
+. Input:
+.    1. y      (vector)    = the response variable
+.    2. u1     (vector)    = desired horizontal axis factor (as -1 and +1)
+.    3. u2     (vector)    = desired vertical axis factor (as -1 and +1)
+.    4. ycont  (vector)    = desired contour line values
+.    5. dpcont (parameter) = number of dec. places for the corner means (optional) (def. = 3)
+.    6. qual   (string)    = a subset/except qualification
+. Output:
+.    A Contour plot
+.
+. Note: The contour plot will range for -2 to 2
+.       in both u1 and u2 directions.
+. Note: The input u1 and u2 vectors usually consist
+.       of only -1 and +1 values, but may in fact
+.       have other values other than -1 and +1
+.       (e.g., center point values of (0,0)).
+.       note however that any u1 and u2 values other
+.       than -1 and +1 will    not    be used in the computation
+.       of the model coefficients
+.       and the subsequent contour lines.
+. Updated: June 1995, April 2007, 11/18/15
+.
+. Note: This macro creates several intermediate variables.
+.       Note that a common cause for this macro to fail is that the user    ******
+.       has an internal dataplot worksheet that is dimensioned
+.       (max number of variables)
+.       too small (for example, the default dimension
+.       on some computers may allow a max of 10 variables only).
+.       to adjust for this, the analyst may "manually"
+.       increase the max number of variables in the main program
+.       via the dimension statement, as in:
+.          dimension 50 variables
+. Example:
+.       dimension 50 variables
+.       skip 25
+.       read boxyield.dat y x1 x2
+.       let u1 = x1
+.       let u2 = x2
+.       let ycont = sequence 50 2 70
+.       call dexcont.dp
+.
+. -----start point-------------------
+.
+feedback save; feedback off
+printing off
+.
+let pausecon = 0
+.
+if pausecon = 1; print "at the beginning of dexcont.dp"; pause; end if
+.
+. -----Step 1: Check input arguments for existence-----
+.
+let string stmacro = dexcont.dp
+let string stall = y u1 u2 ycont
+call checkinput.dp
+.
+.
+if yid not exist; let yid = 1; end if
+.
+multiplot freeze
+.
+. limits -2 2
+if plotleft not exist; let plotleft = -2; end if
+if plotrigh not exist; let plotrigh = 2; end if
+if plotbott not exist; let plotbott = -2; end if
+if plottop not exist; let plottop = 2; end if
+xlimits plotleft plotrigh
+ylimits plotbott plottop
+.
+tic offset units screen
+tic offset 0 0
+.
+. -----Step 2: Extract only the corner points of the design
+.              (ignore center points, for example)-----
+.
+let yprime = y
+let u1prime = u1
+let u2prime = u2
+retain yprime u1prime u2prime ^qual
+.
+let yprim2 = yprime
+let u1prim2 = u1prime
+let u2prim2 = u2prime
+retain yprim2 u1prim2 u2prim2 subset u1 -1 +1 subset u2 -1 +1
+.
+. -----Step 3: Compute coefficients from the corner points,
+.              compute predicted values and residuals everywhere-----
+.
+let mu = mean yprim2
+let junkvar = yprim2*u1prim2
+let junkscal = mean junkvar
+let b1 = 2*junkscal
+let junkvar = yprim2*u2prim2
+let junkscal = mean junkvar
+let b2 = 2*junkscal
+let junkvar = yprim2*u1prim2*u2prim2
+let junkscal = mean junkvar
+let b12 = 2*junkscal
+.
+let pred = mu+0.5*(b1*u1+b2*u2+b12*u1*u2) ^qual
+let res = y-pred ^qual
+.
+. -----Step 4: Generate the contour plot-----
+.
+. let v1 = sequence -2 .4 2 for i = 1 1 121
+. let v2 = sequence -2 11 .4 2
+. let ygrid = mu+0.5*(b1*v1+b2*v2+b12*v1*v2)
+. contour plot ygrid v1 v2 ycont
+.
+lines solid all;. patch august 2007
+char bl all;. patch january 2008
+x3label
+.
+. here here here
+.
+. let u1junk = sequence -2 .05 2
+let u1junk = sequence plotleft .05 plotrigh
+. print mu b1 b2 b12
+. pause
+
+. let function fjunk = (2*(yvalue-mu)-b1*u1junk)/(b2+b12*u1junk)
+let function fjunknum = (2*(yvalue-mu)-b1*u1junk)
+let function fjunkden = (b2+b12*u1junk)
+let function fjunk = fjunknum / fjunkden
+let nycont = number ycont
+. if color not exist;. line color black;. end if;. 5/25/07
+. if color exists;. line color ^color;. end if
+. print "===From within dpcont.dp==="
+. print fjunknum fjunkden fjunk
+. print ycont
+. print junk2.out ycont
+. stat v
+. pause
+.
+loop for kzz = 1 1 nycont
+   let yvalue = ycont(kzz)
+   . print "kzz = ^kzz     yvalue = ^yvalue"
+   . print u1junk
+   . print fjunknum
+   . print fjunkden
+   . print fjunk
+   . pause
+   let y1junkn = fjunknum
+   let y1junkd = fjunkden
+   . print y1junkn y1junkd
+   . pause
+   let y1junk = y1junkn / y1junkd subset y1junkd <> 0
+   . let y1junk = y1junkn / y1junkn  subset y1junkd = 0      ;. <================bombs here
+   . print y1junk
+   . pause
+   .
+   . let y1junk = fjunk
+   . print y1junk u1junk yvalue;. here
+   .
+   . plot y1junk u1junk       ;. <========================= draw contour lines
+   plot y1junk u1junk subset y1junkd <> 0
+   .
+   . pause
+   title
+   y1label
+   x1label
+   . print y1junk u1junk
+   . pause
+   pre-erase off
+end of loop
+delete u1junk y1junk y1junkn y1junkd
+. stat v
+. pause
+. line color black
+.
+. -----Step 5: Draw the inner sampling square
+.              (and the center point, if existent)-----
+.
+pre-erase off
+lines dotted
+character circle
+character hw 1.5 1.2
+character fill on
+.
+pre-sort off
+let w1 = data -1 1 1 -1 -1
+let w2 = data -1 -1 1 1 -1
+plot w2 w1             ;. <========================== draw inner square
+delete w1 w2
+. stat v
+. pause
+.
+let ncenter = number yprime subset u1prime 0 subset u2prime 0
+if ncenter > 0
+   let w3 = data 0 0
+   plot w3 w3            ;. <============================= draw center point
+   delete w3
+end if
+.
+. -----Step 6: Write the averages near the vertices
+.              and the average near the center point, if existent)-----
+.
+. here
+.
+. print yprim2 u1prim2 u2prim2
+. pause
+.
+delete ymm ypm ymp ypp
+.
+let nmm = 0
+let nmm = number yprim2 subset u1prim2 -1 subset u2prim2 -1
+if pausecon = 1; print nmm; end if
+if nmm >= 1
+   let ymm = mean yprim2 subset u1prim2 -1 subset u2prim2 -1
+end if
+.
+let npm = 0
+let npm = number yprim2 subset u1prim2 1 subset u2prim2 -1
+if pausecon = 1; print npm; end if
+if npm >= 1
+   let ypm = mean yprim2 subset u1prim2 1 subset u2prim2 -1
+end if
+   .
+let nmp = 0
+let nmp = number yprim2 subset u1prim2 -1 subset u2prim2 1
+if pausecon = 1; print nmp; end if
+if nmp >= 1
+   let ymp = mean yprim2 subset u1prim2 -1 subset u2prim2 1
+end if
+.
+let npp = 0
+let npp = number yprim2 subset u1prim2 1 subset u2prim2 1
+if pausecon = 1; print npp; end if
+if npp >= 1
+   let ypp = mean yprim2 subset u1prim2 1 subset u2prim2 1
+end if
+.
+if texth exists
+   if textw exists
+      hw texth textw
+   end if
+end if
+.
+if texth not exist; hw 2 1; end if
+if textw not exist; hw 2 1; end if
+.
+. if color not exists;. color black;. end if
+. if color exists;. color ^color;. end if
+.
+let ylower0 = -0.95
+let yupper0 = 1.05
+let ymiddle0 = 0.05
+.
+if yid not exist; let ydel = 0; end if
+if yid = 1; let ydel = 0; end if
+if yid = 2; let ydel = 0.15; end if
+.
+let ylower = ylower0 - ydel
+let yupper = yupper0 - ydel
+let ymiddle = ymiddle0 - ydel
+.
+let string stymm = ^ymm
+let string stypm = ^ypm
+let string stymp = ^ymp
+let string stypp = ^ypp
+let dpcontz = 3
+if dpcont exists; let dpcontz = dpcont; end if
+set write decimals ^dpcontz
+let stymm = number to string ymm
+let stypm = number to string ypm
+let stymp = number to string ymp
+let stypp = number to string ypp
+set write decimals
+.
+just right; movedata -1.1 ylower; text ^stymm
+just left; movedata +1.1 ylower; text ^stypm
+just right; movedata -1.1 yupper; text ^stymp
+just left; movedata +1.1 yupper; text ^stypp
+.
+if ncenter > 0
+   let ycp = mean yprime subset u1prime 0 subset u2prime 0
+   just left; movedata +0.1 ymiddle; text ^ycp
+end if
+. color black
+.
+. -----Step 7: Check for replicated center points.
+.              if have replicated center points,
+.              then do curvature check via t test-----
+.
+if ncenter > 1.5
+   let mcenter = mean yprime subset u1prime 0 subset u2prime 0
+   let sdcenter = sd yprime subset u1prime 0 subset u2prime 0
+   let nedge = number yprime subset u1prime -1 +1 subset u2prime -1 +1
+   let medge = mean yprime subset u1prime -1 +1 subset u2prime -1 +1
+   let statnum = medge-mcenter
+   let statden = sdcenter*sqrt((1/nedge)+(1/ncenter))
+   let teststat = statnum/statden
+   let teststat = abs(teststat)
+   let ndf = ncenter-1
+   let cutoff = tppf(.975,ndf)
+.
+      let string tconclus = The center point is stat. equiv. to edge points ==> no curvature
+   if teststat > cutoff
+      let string tconclus = The center point stat. differs from edge points ==> curvature
+   end if
+end if
+.
+if ncenter > 1.5
+   just center; hw 2 1
+   move 50 9
+   text Center: Number of Observations = ^ncenter    Average = ^mcenter    SD(data) = ^sdcenter
+   move 50 6.5
+   text Edge   : Number of Observations = ^nedge    Average = ^medge
+   move 50 4
+   text Curvature Check:  |t test stat value| = ^teststat     t^ndf cutoff = ^cutoff
+   move 50 1.5
+   text Conclusion: ^tconclus
+end if
+.
+. -----Step 8: Clean up-----
+.
+multiplot unfreeze
+.
+limits
+tic offset units screen
+tic offset 5 5
+pre-erase on
+lines solid all
+characters blank all
+character fill off
+pre-sort on
+.
+delete yprime u1prime u2prime yprim2 u1prim2 u2prim2 junkvar
+.
+. feedback on

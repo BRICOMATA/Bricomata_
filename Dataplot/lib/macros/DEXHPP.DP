@@ -1,0 +1,220 @@
+. This is dataplot macro   DEXHPP.DP
+. Purpose: Generate a DEX halfnormal probability plot
+.          (= step 8 of the DEXPLOT.DP 10-step DEX analysis procedure)
+. Date: May 2005
+. Input
+.    1. k (parameter)               = Total number of plot factors
+.    2. y (vector)                  = Response variable
+.    3. x1, x2, x3, . . . (vectors) = Factors
+.    4. index
+.
+.    5. framet (parameter)          = top    frame line (in %) (optional) (default = 90)
+.    6. frameb (parameter)          = bottom frame line (in %) (optional) (default = 20)
+.
+. Pre-call: dexplotinit.dp
+. Caution/Danger: j will get overwritten in the lower-level called macros
+.
+. -----start point-----
+.
+if tracesw exists and tracesw = 1; print "dexhpp.dp"; end if
+.
+feedback save; feedback off
+printing off
+let bugswhpp = 0
+.
+if bugswhpp = 1
+   print " "
+   print "---At the Beginning of Step 8 (DEXHPP.DP) . . ."
+   print "   numeffec = ^numeffec"
+   print y x1 x2 x3
+   . feedback on
+   . echo on
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+. ---------------------------------------------------------
+. -----Do Analysis Step 8: Halfnormal Probability Plot-----
+. ---------------------------------------------------------
+.
+. -----Step 1: Check for missing input values-----
+.
+if bugswhpp = 1; print "---At dexhpp.dp step 1"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+let string stmacro = dexhpp.dp
+if k not exist
+   call determine_k.dp
+end if
+set check name output filliben
+set check length output filliben
+feedback on
+let iflag = check name k y x1 to x^k
+let iflag = check equal length y x1 to x^k
+feedback off
+.
+. -----Step 2: Define plot settings-----
+.
+if bugswhpp = 1; print "---At dexhpp.dp step 2"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+call dexplotinit.dp
+.
+. -----Step 3: Compute Confounding Structure-----
+.
+if bugswhpp = 1; print "---At dexhpp.dp step 3"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+let kp1 = k+1
+.
+. -----Step 3: Compute  all effect estimates and confounding (the following are all sorted by |eff|)-----
+. -----        The number of effects                      (parameter) numeff
+. -----        The sorted dummy index (1 to numeff)       (vector)    effindex
+. -----        The means at the "high" side               (vector)    meanh
+. -----        The means at the "low"  side               (vector)    meanl
+.
+.
+. -----        The effect estimates (ordered by | |)      (vector)    eff
+. -----        The effect ID's                            (vectors)   effid1, effid2
+. -----        The corresponding tags and confounding     (strings)   steft.. and stefc..
+.
+. -----        The effect estimates                       (vector)    eff
+. -----        The relative effect estimates              (vector)    releff
+. -----        The sd(effects)                            (vector)    sdeff
+. -----        The t(effects)                             (vector)    teff
+. -----        The residual SD for each single model      (vector)    rsd
+. -----        The residual SD for each cumulative model  (vector)    cumrsd
+. -----        The effect ID's                            (vector)    effid
+. -----        The effect ID's (as multiplier definitions)(strings)   stcore1, stcore2, etc.
+. -----        The effect confouding                      (strings)   stconf1, stconf2, etc.
+.
+if bugswhpp = 1; print "---At dexhpp.dp step 3"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+. print "project = ^project"
+.
+if confsw2 = 1
+   if confdone exists and confdone = 0 or confdone not exist
+      . call 2_level_design_effects_and_confounding.dp    ;. <=====================
+      let stall = string combine x1 to x^k
+      let conftag1 conftag2 = dex confound ^stall
+      let corefac = dex core ^stall
+      let corefac1 = corefa1
+      let corefac2 = corefa2
+      let corefac3 = corefa3
+      let corefac4 = corefa4
+      let corefac5 = corefa5
+      let numcore = number corefac1
+      let confdone = 1
+      let coredone = 1
+      call est.dp
+   end if
+end if
+.
+. -----Step 4: Generate the plot-----
+.
+if bugswhpp = 1; print "---At dexhpp.dp step 4"
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+char X
+call setcircle.dp
+.
+lines bl
+.
+if titlesw not exist
+   title Halfnormal Probability Plot of |Effects|
+end if
+if titlesw exist and titlesw = 1;
+   title Halfnormal Probability Plot of |Effects|
+end if
+.
+y1label Ordered |Effects|
+x1label Halfnormal Distribution Order Statistic Medians
+x3label
+label size labelsiz
+tic label size ticlabsi
+.
+let eff2 = abs(eff)
+halfnormal probability plot eff2
+.
+. -----Step 5: Write out confounding structure in the right margin-----
+.
+if bugswhpp = 1; print "---At dexhpp.dp step 5: Write confound."
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+hw 2 1;. new 5/11/05
+character justification lece all
+character blank all
+character color blue all
+if colorall exists; character color ^colorall all; end if
+delete xpos ypos tagzj
+let ypos = yplot
+let ypos = combine ypos ypos
+let jstop = 2*numeff
+let xpos = 90 for i = 1 1 jstop
+let xpos = 86 for i = 1 1 numeff
+let tagzj = sequence 1 1 jstop
+loop for j = 1 1 numeff
+   let jrev = numeff - j + 1
+   let plot character j = ^steft^jrev:
+   .
+   let icnt2 = numeff + j
+   . let string ch = ^stefc^jrev
+   . if ch <> -999
+   if stefc^jrev <> -999
+      let plot character icnt2 = ^stefc^jrev
+   end if
+end loop
+drawsd symbol xpos ypos tagzj
+.
+hw 2 1
+let ypz = 90
+if framet exists; let ypz = ypz - (90 - framet); end if
+move 86 ypz
+text Factor: Confounding
+.
+. -----Step 7: Annotate the plot-----
+.
+if bugswhpp = 1; print "---At dexhpp.dp step 7: annotate
+   if ibatch exists and ibatch = 0; pause; end if
+end if
+.
+.
+if project exists
+   if projcol exists; color ^projcol; end if
+   call dexwriteproject.dp
+end if
+.
+call dexknbox.dp
+.
+if step exist
+   let step = step + 1; hw 2 1; just left; move 5 95
+   . text Step ^step
+   call tagcorn.dp
+end if
+.
+if stcorn1 exists
+   call upperleft.dp
+end if
+.
+if annotate exists and annotate = 1
+   if colorall exists; color ^colorall; end if
+   call annotate.dp
+end if
+.
+. -----Step 8: All Done-----
+.
+just left
+limits
+title
+y1label
+x1label
+.
+feedback restore
+.
+if itime exist and itime = 1
+   cpu time
+   let t8 = cputime
+end if

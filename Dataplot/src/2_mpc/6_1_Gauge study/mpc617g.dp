@@ -1,0 +1,35 @@
+reset data
+reset plot control
+reset i/o
+dimension 500 rows
+label size 3
+. set read format f1.0,f6.0,f8.0,f8.0,f8.0,f8.0,f8.2,f10.4,f10.4
+set read format f1.0,f6.0,f8.0,32x,f10.4
+. read mpc61.dat run wafer probe mo day op hum y sr
+read mpc61.dat run wafer probe y
+retain run wafer probe y subset probe 2362
+sd plot y wafer subset run 1
+let s21 = yplot
+let wafer1 = xplot
+sd plot y wafer subset run 2
+let s22 = yplot
+retain s21 s22 wafer1 subset tagplot = 1
+let nwaf = size s21
+let df21 = 5 for i = 1 1 nwaf
+let df22 = 5 for i = 1 1 nwaf
+. level-2 standard deviations and df for 5 wafers - run 1
+print "level-2 standard deviations and df for 5 wafers - run 1"
+print wafer1 s21 df21
+.
+. level-2 standard deviations and df for 5 wafers - run 2
+print "level-2 standard deviations and df for 5 wafers - run 2"
+print wafer1 s22 df22
+.
+let stemp = (s21**2 + s22**2)/nwaf
+let ssum = sum stemp
+let s2 = sqrt(ssum/2)
+let dtemp = df21 + df22
+let df2 = sum dtemp
+. pooled level-2 standard deviation and df across wafers and runs
+print s2 df2
+. end of calculations

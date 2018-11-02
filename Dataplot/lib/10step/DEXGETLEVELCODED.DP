@@ -1,0 +1,71 @@
+. This is dataplot macro   dexgetlevelcoded.dp
+. Purpose: Determineget (but not write)/ a SINGLE factor level in coded form (-, +, 0, 1, 2, etc.)
+. Date: 02/06/14
+. Input:
+.    numlevfa (parameter) = number of levels for this factor
+.    caz      (parameter) = coded level ID within this factor (1, 2, . . .)
+.    levelsw (parameter) = Switch dictating the desired type of levels
+.                          (optional, default = not exist)
+. Output:
+.    stoutz    (string) = coded string (to be written out by calling routine)
+. Called by: dexrightmargin.dp
+.
+. -----start point-----
+.
+let pausesw = 0
+if pausesw = 1
+   print " "
+   print "At the beginning of dexgetlevelcoded.dp:"
+   print "   numlevfa = ^numlevfa"
+   print "   caz = ^caz"
+   print "   levelsw = ^levelsw"
+   pause
+end if
+.
+. -----Step -1: Check for missing input values-----
+.
+let string stmacro = dexgetlevelcoded.dp
+let string stall = numlevfa caz
+call checkinput.dp
+.
+. -----Step 0: Initialize-----
+.
+delete stoutz
+.
+. -----Step 1: Define the output character string-----
+.
+.
+if numlevfa = 1
+   let string stoutz = 0
+end if
+.
+if numlevfa = 2
+   if caz = 1; let string stoutz = -; end if
+   if caz = 2; let string stoutz = +; end if
+end if
+.
+if numlevfa = 3
+   if caz = 1; let string stoutz = -; end if
+   if caz = 2; let string stoutz = 0; end if
+   if caz = 3; let string stoutz = +; end if
+end if
+.
+if numlevfa >= 4
+   let string stoutz = ^caz
+end if
+.
+if levelsw exist; if levelsw = 2
+   let string stoutz = ^caz
+end if; end if
+.
+. -----Step 2: All Done-----
+.
+if pausesw = 1
+   print " "
+   print "At the end of dexgetlevelcoded.dp:"
+   print "   numlevfa = ^numlevfa"
+   print "   caz = ^caz"
+   print "   levelsw = ^levelsw"
+   print "   stoutz = ^stoutz"
+   pause
+end if

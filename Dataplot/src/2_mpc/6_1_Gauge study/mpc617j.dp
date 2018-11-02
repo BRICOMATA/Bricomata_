@@ -1,0 +1,17 @@
+reset data
+reset plot control
+reset i/o
+dimension 500 rows
+read mpc61a.dat wafer probe d1 d2
+let biasrun2 = mean d2 subset probe 2362
+print biasrun2
+title GAUGE STUDY FOR 5 PROBES
+Y1LABEL OHM.CM
+lines dotted dotted dotted dotted dotted solid
+characters 1 2 3 4 5 blank
+xlimits 137 143
+let zero = pattern 0 for I = 1 1 30
+x1label DIFFERENCES AMONG PROBES VS WAFER (RUN 2)
+plot d2 wafer probe and
+plot zero wafer
+. end of calculations

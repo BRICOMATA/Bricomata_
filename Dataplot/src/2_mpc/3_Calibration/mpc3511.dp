@@ -1,0 +1,23 @@
+Dataplot commands:
+
+reset data
+reset i/o
+reset plot control
+dimension 500 30
+skip 4
+read mass.dat t id y bal s ds
+y1label MICROGRAMS
+x1label TIME IN YEARS
+xlimits 75 90
+x2label STANDARD DEVIATIONS ON BALANCE 12
+characters * blank blank blank
+lines blank solid dotted dotted
+let ss=s*s
+let sp=mean ss
+let sp=sqrt(sp)
+let scc=s-s+sp
+let f = fppf(.99,3,351)
+let f=sqrt(f)
+let sul=f*scc
+multiplot 1 1
+plot s scc sul vs t

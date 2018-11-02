@@ -1,0 +1,897 @@
+A comparison of web privacy protection techniques
+
+Johan Mazel National Institute of Informatics/JFLI
+johan.mazel@ssi.gouv.fr
+
+Richard Garnier ENSIMAG
+garnier.richard.s@gmail.com
+
+Kensuke Fukuda National Institute of Informatics/Sokendai
+kensuke@nii.ac.jp
+
+arXiv:1712.06850v1 [cs.CR] 19 Dec 2017
+
+Abstract—Tracking is pervasive on the web. Third party trackers acquire user data through information leak from websites, and user browsing history using cookies and device ﬁngerprinting. In response, several privacy protection techniques (e.g. the Ghostery browser extension) have been developed. To the best of our knowledge, our work is the ﬁrst study that proposes a reliable methodology for privacy protection comparison, and extensively compares a wide set of privacy protection techniques. Our contributions are the following. First, we propose a robust methodology to compare privacy protection techniques when crawling many websites, and quantify measurement error. To this end, we reuse the privacy footprint [1] and apply the KolmogorovSmirnov test on browsing metrics. This test is likewise applied to HTML-based metrics to assess webpage quality degradation. To complement HTML-based metrics, we also design a manual analysis. Second, we study the overlap of blocking resources between most popular browser extensions, and compare the performances using the proposed methodology. We show that protection techniques have vastly different performances, and that the best of them exhibit a wide overlap. Next, we analyze the impact of privacy protection techniques on webpage quality. We show that automated HTML-based analysis sometimes fails to expose quality reduction perceived by users. Finally, we provide a set of usage recommendations for end-users and research recommendations for the scientiﬁc community. Ghostery and uBlock Origin provide the best trade-off between protection and webpage quality. Ghostery however requires a conﬁguration step which is difﬁcult for users. The RequestPolicy Continued and NoScript extensions exhibit the best performances but reduce webpage quality. Ghostery and uBlock Origin use manually built blocking lists which are cumbersome to maintain. Research efforts should focus on improving existing approaches that do not rely on blocking lists (such as Privacy badger or MyTrackingChoices), and automatically building reliable blocking lists.
+I. INTRODUCTION
+The huge growth of the Internet comes along with an ever-
+increasing advertising market. Internet users access content
+provided for free by publishers. Consequently, publishers
+monetize their audience through advertisement. Companies
+thus buy online exposure to promote their products. In order
+to maximize advertisement efﬁciency, advertisers tailor ads to
+
+users regarding their interests. To this end, advertisers leverage context (e.g. visited website) or previous browsing interests.
+Advertisers use techniques such as cookies to identify users across websites and build their browsing history. Other techniques have also been developed to allow advertising actors to communicate with each other (such as cookie syncing [2]), or circumvent cookie removal by respawning cookies using diverse types of data storage inside the browser (e.g. using Flash [3]). Browser ﬁngerprinting [4] allows a tracking entity to follow a user across websites without any in-browser data storage. In response to these techniques, several countermeasures were designed. We can here quote the Do Not Track HTTP header [5] by which a user can ask not to be tracked. Browsers can also block some or all cookies. Finally, many browser extensions hinder third party tracking by preventing cookie creation and/or blocking requests to tracking services.
+End-users thus have many techniques available but have trouble picking one that offers good protection. Similarly, privacy researchers often want to assess protection efﬁciency but do not want to test all available tools. Our goal is to compare existing privacy protection techniques and provide efﬁciencybased recommendations. Some work previously tried to compare privacy protection techniques [6], [7], [8], [9], [10], [11], [12], [13]. Krishnamurthy et al. [6] provide the ﬁrst comparison of privacy protection methods but do not evaluate most of the browser extensions available today because they appeared after the publication of the paper. Balebako et al. [8] focus on a very speciﬁc use case: behavioral advertising. Mayer et al. [7], Hill [9], [10] and Traverso et al. [13] evaluate 4, 4, 4 and 7 browser extensions on a limited set of websites (respectively Alexa Top 500, 45, 84 and 100 italian URLs). Wills et al. [11] crawl a thousand of websites but use only six browser extensions. Merzdovnik et al. [12] use ﬁve browser extensions. Furthermore, these studies do not use the same metrics, it is thus difﬁcult to compare their results. Our extensive coverage improves the state of the art regarding measurement methodology and error, and evaluated techniques.
+Our contributions are the following. First, we propose a robust methodology to compare privacy protection techniques against third party tracking when crawling many websites. To this end, we reuse the privacy footprint [1] and apply the Kolmogorov-Smirnov test on browsing metrics. This test is likewise applied to HTML-based metrics to assess webpage quality degradation. We also design a manual analysis to complement HTML-based metrics. Second, we analyze the
+
+Other Ind. Heur. Blocking lists
+
+Name
+
+License User number (K) Version
+
+AdBlock Plus [16]
+
+GPL v3
+
+uBlock Origin [17]
+
+GPL v3
+
+Ghostery [18]
+
+Proprietary
+
+Disconnect [19]
+
+GPL v3
+
+NoTrace [20]
+
+-
+
+DoNotTrackMe/Blur [21] Prop.
+
+BeefTaco [22]
+
+Apa. 2.0
+
+13,917
+
+2.7
+
+3,759
+
+1.6
+
+966 5.4.10
+
+204 3.15.3
+
+0.8
+
+2.4
+
+86 6.0.2091
+
+10 1.3.7.1
+
+Privacy Badger [23]
+
+GPL v3
+
+MyTrackingChoices [22] -
+
+205 1.0.6
+
+0.1
+
+1.0
+
+NoScript [24] RPC [25]
+
+GPL v2 GPL v3
+
+1,765
+
+2.9
+
+6
+
+1.0
+
+HTTPSEverywhere [26] GPL v2
+
+Decentraleyes [27]
+
+MPL 2.0
+
+WebOfTrust [28]
+
+GPL v3
+
+353 5.2.5
+
+69 1.2.2
+
+315
+
+-
+
+TABLE I PRIVACY PROTECTION TECHNIQUE CHARACTERISTICS. HEUR.: HEURISTICS ; IND.: INDISCRIMINATE ; POPULARITY (K): POPULARITY IN
+THOUSANDS.
+
+blocked resource overlap between privacy protection techniques, and compare their performances. Third, we assess the impact of privacy protection techniques on website quality. Finally, we provide recommendations for end-users and scientiﬁc community.
+II. BACKGROUND
+This section presents an overview of third party web tracking and existing privacy protection techniques. We refer the reader to [14], [15] for a more complete description of these aspects.
+A. Third party web tracking
+Websites massively rely on advertisement to monetize user visit. Advertisers purchase ads for their products directly from publishers or ad exchanges. When users access websites, they communicate with all these actors. From the users’ viewpoint, these entities belong to two categories: ﬁrst and third parties. First parties are the entities that users intend to reach, here, publishers. Third parties can be advertisers, ad exchanges or others actors that provide services to ﬁrst parties (such as web analytics). Using techniques such as cookies, local data storage or ﬁngerprinting, third parties can identify users across websites. Combining HTTP referrer ﬁeld and user identiﬁcation, they can reconstruct users’ browsing history. Using cookie syncing, trackers can also exchange user identiﬁcation and thus improve data collection.
+B. Privacy protection techniques
+Several techniques have been designed to protect users from third party tracking. Network-based techniques use DNS ﬁltering or proxy. They however exhibit several shortcomings: proxies cannot analyze encrypted trafﬁc while DNS ﬁltering only blocks entire domains [12]. User agent spooﬁng browser extensions may also improve privacy by hindering ﬁngerprinting, but exhibit poor performance in practice [29].
+
+The next subsections provide a breakdown of browser-related techniques that we compare in this work. Unless speciﬁed otherwise, these extensions are open source.
+1) Extensions: We classify extensions regarding used third party tracking impediment methods: blocking lists, heuristics, indiscriminate blocking, or other.
+The following browser extensions use blocking lists made of regex-based rules on domain names. These lists are usually community maintained. Ghostery [18] is a proprietary, privacyfocused extension that uses a speciﬁc tracker blocking list. It has recently been bought by the privacy-focused browser Cliqz [30]. Ghostery requires a conﬁguration step to select categories of trackers to block. uBlock Origin [17] is a general purpose blocker. It can also understand the syntax used by the famous ad-blocker AdBlock Plus. uBlock Origin includes by default: EasyList, EasyPrivacy, Peter Lowe’s Adservers, Malware domains and some speciﬁc lists. Disconnect [19] is another blocker. Blur [21] (also known as Do Not Track Me) is a proprietary extension owned by Abine. It blocks trackers, protects mail addresses and passwords. NoTrace [20] uses a wide range of techniques in order to enhance privacy on the Internet. NoTrace needs to be conﬁgured after installation. One can also block tracking by setting opt-out cookies that block domains from setting standard cookies. Several entities [31], [32] provide opt-cookie lists. BeefTaco [33] creates opt-out cookies in the browser. Another privacy protection approach uses ad-blockers to hinder tracking in the same way they block advertisements. AdBlock Plus [16] is the most popular ad blocker. Using speciﬁc lists, it can block trackers, social widgets, or malwares. Since 2011, AdBlock Plus is commercially exploited by Eyeo which monetizes domain whitelisting [34]. In addition to the ad-focused EasyList [35] that is used by default in AdBlock Plus, there is a privacyfocused list called EasyPrivacy [35].
+Unlike previous extensions relying on blocking list, some use heuristics to block trackers. Privacy Badger [23] is developed by the Electronic Frontier Foundation and its behavior is further described in § V-B. By default, Privacy Badger uses the Do Not Track HTTP header [5] and strips the referrer ﬁeld in HTTP requests. MyTrackingChoices [22] is an advertisement friendly privacy protection extension. It uses an hybrid approach which leverages both heuristics similar to Privacy Badger and blocking list for bootstrapping. Users can allow tracking for some website categories.
+Some extensions indiscriminately block resources NoScript [24] disables JavaScript. As a side effect, this also disables some tracking. RequestPolicy Continued [25] blocks all third party requests.
+Finally, some extensions use other mechanisms to protect users’ privacy. HTTPSEverywhere [26] tries to replace HTTP connections with HTTPS ones if HTTPS is supported. WebOfTrust (WOT) [28] provides website rating regarding trustworthiness and child safety. It was temporarly removed from extensions stores when it was revealed that WOT broke privacy rules of browser developers [36]. Decentraleyes uses local ﬁles to emulate resources, e.g. freely available JavaScript
+
+2
+
+libraries, hosted on centralized entities. This blocks tracking from these entities. Table I provides popularity (measured as the number of users for Firefox), source code license and version of the extensions used in our work.
+2) Browsers: Some browsers also have built-in privacy protection features. DoNotTrack [5] is a ﬁeld in the HTTP header that asks the destination not to track the sender. It was proposed in 2009 and is currently under standardization in W3C. This feature is turned off by default in Firefox. The last proposed amendments to the European Union’s ePrivacy Regulation hints at an increase interest of policy makers towards DoNotTrack [37]. Firefox [38] can block cookies: either all or only third parties’ ones or only third party cookies from previously visited domains. A tracking protection [39] has also been added in Firefox version 42. Brave [40] and Cliqz [41] are browsers that emphasize their privacy protection features.
+III. RELATED WORK
+A. Tracking on the Internet
+The seminal contribution in the ﬁeld of web privacy was by Krishnamurthy et al. They ﬁrst studied the diffusion of privacy information [1], then, analyzed the impact of counter-measures on this diffusion and webpage quality [6], and observed the increase of user-data aggregation by a small number of entities [58]. Several works then tried to analyze this phenomenon with more details by classifying tracking [59] or analyzing geographical variations of tracking [43], [44].
+While early studies focused on cookie-based tracking, two main new tracking techniques trends emerged: resilient inbrowser data storage [3] and browser ﬁngerprinting [4]. Local data storage allows one to store data in multiple locations (for example, Flash Local Storage Object, HTML5 or ETags among other means) on a device to bypass standard cookie removal. This technique thus provides resilient local identiﬁer storage. By using browser ﬁngerprint, a tracker can completely avoid using and storing an identiﬁer inside the browser and instead recognize a browser, or the device it is installed on, using its characteristics such as fonts [60], battery [61], canvas [62] or hardware level features [63]. Several studies then tried to detect ﬁngerprinting [64], or both local storage and ﬁngerprinting [2], [48]. Furthermore, Lerner et al. [65] show that local storage ﬁngerprinting increased between 1996 and 2016. Another privacy threat is the practice of sharing user identiﬁcation across tracking entities. This is called IDsharing, cookie-syncing or cookie-matching. While the phenomenon has been documented for some time [66], recent work analyzed its prevalence in the wild and its impact on user browsing history sharing among trackers [2], [67], [48].
+Finally, the feasibility of user surveillance through bulk passive network trafﬁc monitoring-based cookie observation has also been analyzed [47].
+B. Automated blocking list building
+Many privacy protection tools have been proposed (see § II-B). Most of these tools use manually maintained blocking
+
+lists (see Table I). Some proposals automatically build tracking blocking lists using speciﬁc keys in URL that correspond to user identifying data [52], machine learning on DOM structure [68], Javascript [53], [55] or user browsing behavior [69]. The same machine-learning-based approach was also applied to adblocking list building using network trafﬁc features [51].
+C. Privacy protection techniques comparison
+While some extensions are used in almost all studies (e.g AdBlock Plus [16] and Ghostery [18]), many of them are seldom employed. Similarly, some works compare between four and seven extensions [7], [8], [9], [10], [11], [12], [13] while another focuses on two [6]. Table II describes how existing web privacy-related work used or analyzed existing privacy protection techniques.
+Features used to compare privacy protection techniques are very diverse and thus complicate result comparison across work. Some works compare privacy protection techniques in terms of HTTP request number [7], [9], [10], [12], cookie number [7], [8], [9], [10], domain number [9], [11], [13], private information diffusion [6], and occurrence of behavioral advertising [8]. Some counter-measure proposals are also comparing their approaches to others regarding tracker blocking [49], [50], [39] or impact on browser performance [22]. Table III lists metrics and features leveraged by existing web privacy-related studies.
+Our work is close to [6], [7], [8], [9], [10], [11], [12], [13] but improves the state of the art along four axes: protection techniques, target websites, metrics, and reliability. First, we compare more protection techniques (15 and additional combination of blocking lists), than Krishnamurthy et al. [6] (2), Mayer et al. [7] (4), Balebako et al. [8] (4), Hill [9], [10] (4), Wills et al. [11] (6), Merzdovnik et al. [12] (5) and Traverso et al. [13] (7). It is difﬁcult to compare the extensions covered by our work with Krishnamurthy et al. [6] since the ecosystem was much simpler at the time (AdBlock Plus and NoScript were the only extensions available). We did not use some extensions that were addressed in previous studies because they are either, not supported anymore (e.g. TACO which was owned by Abine [8], [56]), or not available for Firefox (AdBlock [46], [22], [11], Superblock Adblocker [22], Adremover [22] and Adblock Pro [22]). Furthermore, AdBlock (resp Firefox Tracking Protection [39]) uses the same blocking list as AdBlock Plus (resp. Disconnect). By analyzing AdBlock Plus and Disconnect, we thus provide performance bounds on these two techniques. Achara et al. [22] and Wills et al. [11] also evaluated the performance of an ad-blocking extension that we do not address in this study: AdGuard Adblocker. Second, we us more websites than most existing work. We use the Alexa Top 1000 while Mayer et al. [7], Hill [9], [10] and Traverso et al. [13] use the Alexa Top 500, 45, 84 and 100 URLs, and 100 italian URLs. Balebako et al. discussed ﬁve browsing scenarios that use a small number of websites to assess the occurrence of behavioral advertising, we thus cannot compare the websites we use. We crawled a number of websites similar to Wills et al. [11] but analyzed
+
+3
+
+Type
+
+Authors & references
+
+Extensions
+
+Browsers
+
+AdBlock [42] AdBlock Plus EL [16], [35] AdBlock Plus EP [16], [35] uBlockOrigin [17] Ghostery [18] Privacy Badger [23] Disconnect [19] NoTrace [20] WebOfTrust [28] DoNotTrackMe/Blur [21] MyTrackingChoices [22] RPC [25] Decentraleyes [27] NoScript [24] DNT [5] Opt-out cookies [31], [32], [33] HTTPSEverywhere [26] Firefox [39] Cliqz
+
+Web privacy
+analysis
+
+Krishnamurthy et al [1]
+Castelluccia et al [43] Fruchter et al [44] Carrascosa et al [45] Metwalley et al [46] · Englehardt et al [47]
+Englehardt et al [48]
+
+Malandrino et al [49] Privacy Malandrino et al [50] protection Kontaxis et al [39]
+Achara et al [22]
+
+Tracker detection
+
+Gugelmann et al [51] Metwalley et al [52] Wu et al [53] Yu et al [54] Ikram et al [55]
+
+User
+
+Leon et al [56]
+
+ana.
+
+Malandrino et al [57]
+
+Comp.
+
+Krishnamurthy et al [6] Mayer et al [7] Balebako et al [8] Hill [9] Hill [10] Wills et al [11] Merzdovnik et al [12] Traverso et al [13]
+
+·
+
+++
+
++
+
++
+
++
+
++
+
++
+
+++
+
++ +
+
++
+
+++
+
++
+
++
+
++
+
++
+
++ ++
+
++
+
++
+
++
+
++
+
++ + + + +
+++ +
++ + ++ + + ++
+++
+
+· + +
++ +
++ + + + +
++
+
++ + +
++ ++
+
++ ·
++
++ +
+
+++ +
++ +
+
++ ++
++ +
+++
+
+++
+
+Our work -
+
+∼ + + + + + + ++ + +++++++∼
+
+TABLE II EXTENSIONS USED IN PREVIOUS PUBLICATIONS (· FOR USAGE IN THE WILD, FOR GROUND-TRUTH, FOR GROUND-TRUTH AND USAGE, + FOR COMPARISON, ⊕ FOR COMPARISON AND GROUND-TRUTH, FOR ML BOOTSTRAPPING , ∼MEANS THAT WE DID NOT EVALUATE THESE TECHNIQUES BUT THAT THEIR RESULTS CAN BE DERIVED FROM OUR WORK: ADBLOCK USES THE SAME DEFAULT BLOCKING LIST AS ADBLOCK PLUS AND FIREFOX
+TRACKING PROTECTION USES THE SAME BLOCKING LIST AS DISCONNECT).
+
+many more protection techniques. We use a smaller number of crawled websites than Merzdovnik et al. [12] (who uses Alexa Top 100000) because some of our metrics (such as number of cookies) require a stateful crawl and thus forbid parallelism. Third, we use more metrics (see Table III) than any existing work. We are thus able to provide a better description of techniques’ performance. We did not compute the host number metric used by Hill [9], [10] because it is very similar to the number of domains. This metric actually reﬂects the internal network architecture of trackers, which is not relevant for privacy protection comparison. Finally, none of these work performs several measurements on each website to remove measurement error, except Mayer et al. [7] who perform three
+
+crawls for each URL but does not provide any justiﬁcation for this number. To the best our knowledge, we here propose the ﬁrst measurement error analysis for privacy protection technique comparison (see § V-A).
+IV. METHODOLOGY
+This section presents data collection and used metrics for privacy protection and webpage quality.
+A. Data collection
+We use OpenWPM [48], an open-source framework written in Python that relies on Selenium for browser automation. OpenWPM supports Firefox and provides some extensions. With minor modiﬁcations, we add extensions presented in
+
+4
+
+Type
+
+Authors & references
+
+Privacy protection
+
+Webpage quality
+
+Browser
+
+# domains # 3rd party domains # hosts # cookies # third party cookies # requests # ﬁrst party requests # third party requests TP/FP/FN/TN Privacy footprint # script # image Data Script data size Image data size Manual analysis Loading time Browser CPU usage Browser memory usage Use-case speciﬁc metric
+
+Web privacy
+analysis
+
+Krishnamurthy et al. [1] Fruchter et al. [44] Carrascosa et al. [45] Englehardt et al. [47] Englehardt et al. [48]
+
+Privacy protection
+
+Malandrino et al. [49] Malandrino et al. [50]
+Kontaxis et al. [39]
+Achara et al. [22]
+
+Tracker Yu et al. [54] detection Ikram et al. [55]
+
+Krishnamurthy et al. [6]
+Mayer et al. [7] Comparison Balebako et al. [8]
+Hill [9] Hill [10] Wills et al. [11] Merzdovnik et al. [12] Traverso et al. [13]
+
+Our work -
+TABLE III METRICS USED FOR PRIVACY PROTECTION TECHNIQUE COMPARISON ( FOR METRIC USED AND
+
+FOR METRIC USED WITH BREAKDOWN).
+
+Table I and § II-B. This study has been conducted with Firefox 45.
+We crawl the highest-ranked websites by Alexa [70]. Unless stated otherwise, we perform measurements in August 2017, using IP addresses located in Japan. Typically, a crawl on the Alexa Top 1000 (§ VI-A) takes about three days with commodity hardware.
+B. Privacy protection
+In this section, we present our robust methodology to compare privacy protection techniques across several websites and using several metrics. We also present privacy footprint [1].
+1) Browsing metrics: As explained in § II-A, privacy leakage occurs through communications with trackers, and local data storage (e.g. cookie) allows trackers to easily identify users across website. We consider ﬁve simple browsing-related metrics that reﬂect the ability of protection techniques to hinder these two phenomena. We ﬁrst focus on HTTP requests. We separately count the requests that are made to the accessed domain (the number of ﬁrst party requests), and the requests that are made to other domains (the number of third party requests). To this end, we use the second level domain name obtained from the Public Sufﬁx List [71]. These metrics give a rough estimation on the performance of a particular extension.
+
+A protection technique is effective if the number of ﬁrst party requests is not impacted, and the number of third party requests decreases.
+The third metric is the number of third party domains accessed during a crawl. This is complementary to the number of third party requests. It provides a metric on the number of blocked entities. There may be a few domains that generate a lot of requests, or a many domains that produce a few requests. Efﬁcient protection techniques reduce the number of third party domains.
+This is however not sufﬁcient since third party requests are not always used to track users, they can also provide content to users (e.g. media resources) or contact non-tracking third parties (e.g. website analytics). The fourth metric is the number of the proﬁle cookies obtained from a stateful crawl.
+Protection techniques with good performances diminish the number of cookies.
+The last metric is the total amount of data transferred. It is especially important in low-bandwidth situations for example on mobile. This metric is directly related to tracking and advertisement. Advertisement often generates considerable trafﬁc during browsing. However, as we will see in § V-A, this metric shows high variability when crawling the same website. We thus did not use this metric in our analysis.
+
+5
+
+ECDF
+
+1.0
+
+0.8
+
+0.6
+
+0.4
+
+0.2 0.0 10 1
+
+bare uBlock Origin
+
+me1a0n0# 3rd p1a0r1ty reque1s0t2s
+
+103
+
+the same hosting service or Content Delivery Network (CDN) are grouped together by ADNS because they share authoritative DNS servers. They thus develop a new method called root. With root, if a third party is located in a hosting service or a CDN, the second-level domain-name of the third party domain is the node identiﬁer. Otherwise, as with ADNS, the second-level domain name of the authoritative DNS server of the considered third party is the node.
+We use three metrics that are built on the graph. (1) the number of third parties reveals tracking breadth. (2) the mean number of third parties per ﬁrst party corresponds to tracking intensity. (3) the number of ﬁrst parties associated with the top 10 third parties estimates how much tracking is concentrated on the most prominent third parties.
+
+Fig. 1. Example of ECDF of the mean number of third party requests for all websites in the Alexa Top 1000 with two conﬁgurations: default Firefox (bare) and Firefox with uBlock Origin. The arrow represents the KS statistic.
+2) Kolmogorov-Smirnov test-based browsing metrics comparison: While the metrics introduced in § IV-B1 provide a good estimation of the privacy protection for a particular website, summarizing this aspect for a set of websites is non-trivial. Figure 1 presents two empirical cumulative distribution functions (ECDFs) built on the mean number of third party requests sent, for each website of the Alexa Top 1000 world. We use the mean of each metrics for ten crawls to reduce measurement error (see § V-A). We here use two Firefox conﬁgurations: one without any extension (bare) and one with uBlock Origin. To determine whether one Firefox conﬁguration exhibits the same performance as another, we use the Kolmogorov-Smirnov (or KS) test. It is a non-parametric test that does not make any assumption on the underlying distributions which ﬁt our context. This test relies on the KS-statistic which is the maximum difference between two cumulative distributions. The KS statistic is represented by the arrow on Figure 1. The null hypothesis is that both ECDFs belong to the same distribution. In our case, this means that both conﬁgurations have the same performance. We use a signiﬁcance level α of 0.05. If the p-value of the KS-test is smaller than α, we consider the two ECDFs as distinct. In other words, the two considered conﬁgurations have performances that are statistically different.
+3) Privacy footprint: In this work, we also use the privacy footprint proposed by Krishnamurthy et al. [1]. The privacy footprint represents interactions between ﬁrst parties and third parties (i.e. potential trackers) in a graph. For each third party accessed by the user when visiting a ﬁrst party, an edge is added between the nodes representing the considered ﬁrst and third parties. Privacy footprint thus captures both the potential information leaking from ﬁrst parties, and the aggregating behavior of third parties. Krishnamurthy et al. [1] used the second-level domain name of the authoritative DNS server of third parties to group domains in the same entity on the same node in the graph. This method is called ADNS. Krishnamurthy et al. [58] then noticed that unrelated third parties located on
+
+C. Webpage quality
+Privacy protection techniques prevent privacy information leakage by hindering of communications with trackers and blocking cookie creation, among other techniques. This may however have negative side-effects on webpage quality. Blocked third party domains may actually host images or JavaScript that are needed to render the webpage correctly. We ﬁrst analyze the impact of privacy protection on browsing data in an automated fashion. We then perform a manual analysis to assess privacy protection repercussion on rendered webpage.
+1) HMTL-based metrics: Our goal is to detect layout differences or missing elements that may reduce webpage quality both in terms of rendering quality and functionality. We crawl HTML data using OpenWPM. We devise several metrics that analyze the browsed page. The ﬁrst metric is the HTML page size. We then derive two metrics from the crawled HTML data itself: number of images and scripts. The last two metrics are the total size of images and scripts. For all metrics, a reduction is associated with a webpage quality decrease. We here reuse the metric comparison method presented in § IV-B2.
+2) Manual analysis: By analyzing HTML, we are able to determine how many elements and how much data is missing when privacy protection is used. This, however, does not assess how well the webpage is rendered inside the browser. We thus perform a manual analysis to determine webpage quality obtained with privacy protection techniques. Webpage screenshots are captured using OpenWPM. First, we want to determine whether privacy protection techniques impact webpage layout. Our ﬁrst question thus is: “Please rate layout similarity between Bare (left) and Extension (right).”. Good layout similarity, however, does not guarantee lack of missing elements. The next step is to compare webpage elements when privacy protection is used and not used. We want to avoid comparing elements of the same webpages that may change for different users or crawling time (e.g. news items). We thus ask user to focus on webpage elements that are part of the user interface. Our second question thus is: “Please rate the proportion of elements (image, text frame, widgets, etc.) of the user interface (e.g.: login button, tabs, etc, but not news items or pictures) in Bare (left) that are also in Extension (right)”. For both questions, users give a rating between 0 and 10, 0
+
+6
+
+Relative standard error of the mean (%) ECDF
+
+80
+
+1.0
+
+# 1st party requests
+
+70
+
+# 3rd party requests
+
+# 3rd party domains
+
+0.8
+
+60
+
+# bytes received
+
+50
+
+0.6
+
+40
+
+30
+
+0.4
+
+20
+
+0.2
+
+10
+
+05
+
+10
+
+15
+
+20
+
+25
+
+30
+
+35
+
+40
+
+0.100-4
+
+Number of measurements
+
+# 1st party requests # 3rd party requests # 3rd party domains
+
+10-3
+
+10-2
+
+10-1
+
+100
+
+101
+
+Relative standard error of the mean (%)
+
+Fig. 2. Relative standard error of the mean of browsing metrics in function of the number of measurements when accessing www.yahoo.jp. Solid lines represent the median, dashed lines correspond to 5 and 95-centiles.
+
+Fig. 3. ECDF of the relative standard error of the mean of browsing metrics on the Alexa Top 1000 websites crawled ten times. Vertical dashed lines represent the relative standard error for www.yahoo.jp.
+
+being the worst and 10 the best. Our manual analysis was performed by six users.
+V. MEASUREMENT PARAMETERS
+We address two measurement parameters: the impact of crawling parameters on measurement error, and the training of Privacy Badger.
+A. Impact of crawling parameters on measurement error
+During our preliminary experiment, we notice that measurement results are not stable. Querying twice a website usually yields two different metric values. To determine the appropriate number of measurements that generates a small error, we conducted a detailed study on the website showing the highest variability in our preliminary experiment: www.yahoo.jp. These measurements were performed is November 2016. Varying the number of measurements, we computed the relative standard error of the mean of four browsing metrics.
+Figure 2 shows that the relative standard error decreases when the number of measurements increases. Performing ten crawls reduces the relative standard error on the number of ﬁrst party requests, third party requests, and third party domains to less than 5%. The number of bytes received, however, still has a large error, we thus discard this metric. One possible reasons for this measurement error is the webpage advertisement churn. Guha et al. [72] analyze ad churn during page reloads. They show that the number of unique new ads increases quickly during the ﬁrst ten reloads but only linearly thereafter. This further justiﬁes our choice to use ten measurements. An existing comparison of privacy protection techniques [7] uses three crawls for each website and extension. They however do not motivate this choice nor provided measurement error analysis.
+Figure 3 is the ECDF of the relative standard error of the mean of the number of ﬁrst and third party requests, and of the number of third party domains for all websites in
+
+the Alexa Top 1000 crawled 10 times. Most websites have a relative standard error smaller than that of www.yahoo.jp (here in dashed lines). Overall, 99% of websites have a relative standard error smaller than 1% for all observed features.
+B. Privacy Badger training
+Privacy Badger employs heuristics to determine if a domain is performing tracking (see § II-B1). Privacy Badger measures the number of times that a domain reads a cookie as a third party. When this number is greater than three, the considered domain is blocked. On top of this, cookies are also whitelisted using heuristics. This behavior causes a freshly installed Privacy Badger not to block any domain. As the user browses websites, more and more domains are blocked. To fairly evaluate Privacy Badger, we analyze the impact of Privacy Badger training. In other words, we intend to quantify how many websites need to be accessed to ensure that Privacy Badger is completely trained.
+If we were to determine the number of websites regular users need to browse to train Privacy Badger, we should use a browsing model such as AOL search logs [73] as Roesner et al. [59] do. Our use-case here is however to ensure that Privacy Badger is trained for a speciﬁc set of websites. We thus measure Privacy Badger’s performance on the Alexa Top 100 websites after training. These crawls were performed is November 2016. This training consists of several repeated crawls targeting the same set of websites and performed without reinitializing the user proﬁle, i.e. Privacy Badger continues its training. We use zero to ﬁve successive training crawls and then perform a single measurement crawl.
+The results of this experiment are shown in Figure 4. The dashed line corresponds to a reference: crawling results of a bare browser. KS test groups the six measurements with Privacy Badger together, but separates them from the bare browser. Without training, Privacy Badger is already able to
+
+7
+
+# cookies # 3rd party dom.# 3rd party req. # 1st party req.
+
+3400 3200 3000 2800 2600
+
+5566778050505000000000000000
+
+222233324680240000000
+
+10677889905050505000000000
+
+1
+
+2
+
+3
+
+4
+
+5
+
+# of training crawls
+
+Fig. 4. Performances of Privacy Badger depending on the number of crawl
+
+performed for its training. The horizontal dashed line represents a default
+
+Firefox as reference.
+
+provide partial protection. After a single training pass, the number of third party requests is reduced by 10.3%. The results however do not improve when the number of training crawl increases. We also ran a single training crawl on the Alexa Top 500 websites and observed similar performance as with a single training crawl. The training is thus complete with less than one crawl (here one hundred websites). MyTrackingChoices uses the same principle but without Privacy Badger’s cookie data-based white-listing heuristics. One can thus expect MyTrackingChoices to train faster. Moreover, MyTrackingChoices is provided with a small bootstrapping tracker list which should further reduce training time. For the remainder of this paper, we train Privacy Badger using a single crawl on the considered Alexa Top websites. Out of the four existing work that uses Privacy Badger [55], [9], [12], [13], only two actually peform some training [9], [12]. We here provide the ﬁrst estimation of how much website needs to be visited to complete Privacy Badger’s training.
+VI. RESULTS
+A. Privacy protection
+We compare protection techniques, ﬁrst in terms of performance and then, regarding their blocking overlap.
+1) Browsing metrics: We perform a general comparison of privacy protection techniques. We crawled the Alexa Top 1000 World using 21 different browser conﬁgurations. One conﬁguration is the default setup of the Firefox browser (Bare). One conﬁguration is Firefox setup with the DoNotTrack HTTP header. Two conﬁgurations use Firefox’s ability to block cookies: third party ones or third party cookies except from previously visited websites. We do not use complete cookie blocking because we hypothesize that users want to keep using cookie for some domains. Three conﬁgurations set up AdBlock Plus with various lists: EasyList, EasyList and EasyPrivacy and a ﬁlter set similar to uBlock Origin
+
+(EasyList, EasyPrivacy, Peter Lowe’s Ad Server list and Malware domains). One conﬁguration uses NoTrace with the high preset (the default conﬁguration has no effect on our metrics). The last 14 conﬁgurations are extensions with their default setting. We do not use the Firefox Tracking Protection [39] because OpenWPM does not support it yet. However, this technique uses the Disconnect blocking list. This means that by analyzing Disconnect, we provide a performance bound on Firefox Tracking Protection’s performances. The results are shown in Figure 5. The number on top of technique name is the KS-based rank (see § IV-B2).
+All techniques have a limited impact on ﬁrst party requests. The most aggressive technique is NoScript [24]. This is due to the fact that Javascript is pervasive on Internet. Other techniques exhibit a limited impact on th enumber of blocked ﬁrst party requests.
+Except for the number of cookies, the two most effective extensions are RequestPolicy Continued and NoScript which reduce the number of third party HTTP requests by 96% and 87%. However, as shown in § VI-B and other studies [6], [50], they strongly impact webpage quality.
+Among other techniques, Ghostery [18] and uBlock Origin [17] provide the best performances. They reduce the number of third party HTTP requests by 58% and 55%. Ghostery however needs to be conﬁgured which is difﬁcult for users [56]. AdBlock Plus [16] uBO-like has similar performances with uBlock Origin and Ghostery. Our results show that users can manually setup AdBlock to obtain good results, unfortunately this is difﬁcult [56]. Furthermore, AdBlock Plus used with EasyList is much more CPU and memory-hungry than uBlock Origin [22].
+Another group of techniques provides average performances: Disconnect (and Firefox Tracking Protection), AdBlock Plus (with EasyList and EasyList + EasyPrivacy), Privacy Badger, Blur, BeefTaco and NoTrace. Their results are mostly consistent across third party requests and domains, and cookies. Privacy Badger [23], Blur [21], Disconnect [19] and AdBlock Plus with the EasyList block a relatively large number of third party HTTP requests (between 33% and 48%), but a fairly small number of third party domains (between 8% and 33%). We hypothesize that these techniques block the main trackers but fail to impact the tracking long-tail [48]. MyTrackingChoices performances are worse than untrained Privacy Badger. We hypothesize that this is due to a GUI bug that forbids users from customizing website categories where blocking occurs. MyTrackingChoices thus always block tracking on 13 websites categories out of 32. BeefTaco has a noticeable impact on cookies but no impact on other metrics. This is consistent with previously observed tracking long tail [48]. This phenomenom makes the opt-out cookie maintenance very difﬁcult while the protection that they offer is limited to cookie blocking. NoTrace [20] provides average protection despite being setup at its highest level. NoTrace increases users’ online privacy awareness [57], but unfortunately, users cannot reliably setup the extensions [56] which is required.
+Remaining techniques provide poor protection. Decen-
+
+8
+
+Nb requests 1st party Nb requests 3rd party
+
+35000
+
+30000
+
+80000
+
+25000
+
+60000
+
+20000
+
+15000
+
+40000
+
+10000
+
+20000
+
+5000
+
+0
+
+0
+
+11 10 -9 -9 -9 -9 -9 -9 -8 -8 -7 -6 -6 -5 -5 -4 -3 -3 -3 -2 -1
+
+7 7 7 7 7 7 7 7 7 6 6 5 5 4 4 4 3 3 3 2 1
+
+-
+
+FFHnFTNBoFTDoeFPF3enTeFSFrfcPoWaTeBCEDM3cOanavtPTETerNcer.T.VeCCo-uAPBBADlBiPBos(GcPtNcurhkooABEaoiSOnoBLsr-cntniPlBrR+ilieeegPPikErEupcdPtLeytCB)nr
+
+PB (trained) FuAFBBHADlinFPTBosBoFGTcPDNcNueFhPkF3eonooAeBFEoSFfcPSoOnToBLsrrTe-cBCtniEPlWDBMrR3+iaanliaeevgtPPTPEikrcNOcErEupcer.PtTTL.eytVCBeCnrCoe
+
+Nb domain Nb cookie
+
+(a) # ﬁrst party requests
+2000 1500 1000 500
+0
+
+50000 40000 30000 20000 10000
+0
+
+(b) # third party requests
+
+15 14 14 14 14 13 12 11 10 -9 -8 -7 -6 -5 -4 -3 -2 -2 -2 -1 -1
+
+15 14 14 14 14 14 13 12 11 10 10 -9 -8 -7 -6 -5 -4 -3 -3 -2 -1
+
+FuAHFPBBTADlBBinFPTBDoNes(oFFGPFcPteNcoueFrhSFkfc3onoTABEaorTePBiSoOnEoBLWsDMraan-canCtvniPltTBPrR3rcNOc+ilieeeregPPE.TT.BeCoeikErEupcdPtLeytVC)Cnr---------
+
+FFuAHPnBFBTADlBBoiFPTBDoNes(FGPFcPt3eNncoueFrhSFkfcPoooTABEaorTeBiCSOnEoBLWsDM3raan-cantvniPltPTBPErRrcNOc+ilieeeregP.TT.VBeCCoeikErEupcdPtLeytC)nr-----------
+
+(c) # third party domains
+
+(d) # cookies
+
+Fig. 5. Performance comparison of protection techniques regarding the mean # ﬁrst party request, mean # third party requests, mean # third party domains and # cookies. Each metric value corresponds to the total obtained by crawling the Alexa Top 1000 websites. The mean and standard deviation are computed on ten crawls. The number on top of technique name is the KS-based rank. Bare: Firefox alone, MTC: MyTrackingChoices, PB: Privacy Badger, FF no 3PC: Firefox no 3rd party cookie, FF no 3PC EV: Firefox no 3rd party cookie blocking except from previously visited domains, ABP: AdBlockPlus, EL: EasyList, EP: EasyPrivacy, RPC: RequestPolicy Continued . AdBlock Plus uBo-like uses all uBlock Origin’s lists except uBlock Origin’s speciﬁc ones; it thus loads EasyList, EasyPrivacy, Peter Lowe’s Ad Server list and Malware domains.
+
+traleyes [27] has almost no effect on the results. We hypothesize that blocking library loading requests only marginally impacts HTTP trafﬁc. The DoNotTrack HTTP header [5] also has barely no effect. If trackers complied with DoNotTrack, the number of cookies would signiﬁcantly drop. We thus conclude that DoNotTrack is not respected by most trackers. WebOfTrust and HTTPSEverywhere have no effect.
+We note that WebOfTrust and NoTrace both yield signiﬁcantly more third party requests than Firefox without any extensions. WebOfTrust also contacts more third party domains and increases the number of cookies. WebOfTrust annotate hyperlinks in webpages with trust rating. We hypothesize that this rating is obtained from WebOfTrust servers and thus impact our metrics. We do not have any explanation regarding NoTrace’s behavior.
+When we block third party cookies in Firefox, there is a reduction in the number of third party domains. Blocking
+
+cookies also slightly reduces the number of third party requests. As hypothesized in [48], this may be due to impeded cookie-syncing interactions. However, contrary to Englehardt et al. [48], third party cookie blocking here has poor performances. This may be due to the fact that, unlike [48], we perform a stateful crawl. In a previous study [47] that uses stateful crawl and OpenWPM, third party cookie blocking also exhibits poor performances. The metric used in this study is however extremely speciﬁc, it thus is very difﬁcult to compare our results with theirs. Furthermore, some third parties from the Alexa Top 1000 are ﬁrst party at some point (e.g. Twitter, Facebook). Their cookies are thus created as ﬁrst parties.
+2) Privacy footprint: We then compared extensions using the privacy footprint (see § IV-B3 and [1]). Figure 6 presents these results. They are similar to browsing metrics’ Figure 5. Six extensions exhibit much better results than the rest: RequestPolicy Continued, NoScript, Ghostery, uBlock Origin
+
+9
+
+WebOfTrust FF Bare
+PrDiev(EctarveccFaFenByiHortFFcenrToyPFBBoAenraenTkFfilaawioBooPdTveddhek)PSDiaay3g3egerErrNccEeeedrseTLVrydo MDiyCsThcNroooainTccrnkeiaesnccteg Blur ABP EL+EP ABP uBo-like uBlockOrigin Ghostery
+ReCqounetsiNtnouPSecolridicpyt
+
+# 3rd party
+
+Mean # 3rd party by 1st party
+
+# 1st party link. to top 10 3rd parties
+
+1000
+
+800
+
+600
+
+400
+
+200
+
+0
+
+Fig. 6. Privacy footprint [1], [58] for the Alexa Top 1000 world. The mean and standard deviation are computed on the metric value of the ten crawl. EV: Firefox no 3rd party cookie blocking except from previously visited domains, ABP: AdBlockPlus, EL: EasyList, EP: EasyPrivacy.
+and AdBlock Plus with uBlock Origin’s list. For RequestPolicy Continued, the mean number of third parties per ﬁrst party is very small while the total number of third parties is much higher. This means that some third parties are detected but that they are present on a limited set of ﬁrst parties. NoScript results are here close to Ghostery’s. The hierarchy between Ghostery, uBlock Origin and the customized AdBlock Plus is here very clear and follows this order. We hypothesized that the uniqueness of Ghostery and uBlock Origin blocking lists (see § VI-A3) is the main factor of their superior performances.
+3) Overlap: Next, we measure the overlap between the ﬁve extensions among the most popular ones regarding the number of blocked third party requests and blocked third party domains using a matrix view. We here data crawled on the Alexa Top 100 websites in November 2016. We do not analyze NoScript [24] (resp. RequestPolicy Continued [25]) here because it indiscriminately blocks Javascript (resp. third party requests). Privacy Badger has been trained on the Alexa Top 100 websites and each extension is used with its default blocking list. AdBlock Plus uses the EasyList. uBlock Origin loads EasyList, EasyPrivacy, Peter Lowe’s Ad Server list, Malware domains, and some uBlock speciﬁc lists. Ghostery is set up with all its ﬁlter categories, while Disconnect is employed with its own ﬁlters.
+Let us consider two extensions. Let Ei be the extension on the row i, and Ej the extension on the column j. The resources blocked by Ei (resp. Ej) are noted Bi (resp. Bj). On the left (resp. top), the green (resp. purple) square on row i (resp. column j) represents the total number of resource blocked by Ei (resp. Ej). On each line i of the matrix, the surface of the square represents the total number of resources blocked by Ei: |Bi|. The inner purple square on row i and column j represents the intersection between Ei and Ej and its surface is |Bi∩Bj|. The diagonal orange square surface displays resources that are
+
+only blocked by Ei: |Bi − {Bk∀k = i}|. As an example, we see AdBlock Plus on the second line
+of Fig. 7a. Square surfaces on this line represent the number of third party requests blocked by AdBlock Plus: 1356. The ﬁrst square on the considered line represents the intersection with Privacy Badger which is encoded by the surface of the inner purple square, here 678. The green surface outside the purple square describes the resources blocked by AdBlock Plus but not by Privacy Badger. The next square on this line is located on the diagonal, and represents the resources blocked by AdBlock Plus only. Remaining squares on this line depicts intersections with Disconnect, Ghostery and uBlock Origin in the same fashion as the intersection with Privacy badger is represented (see above).
+The overlap of the third party requests (Fig. 7a) shows that there is a big overlap across all extensions. All third party requests blocked by Privacy Badger are also blocked by uBlock Origin. Similarly, Ghostery almost completely covers Privacy Badger. Despite using two different blocking techniques, lists and heuristics, these extensions exhibit a signiﬁcant overlap. This proves that the Privacy Badger’s heuristics are reliable.
+Results on the third party domains on Fig. 7b are similar to Figure 7a. The major difference is that Privacy Badger’s impact is smaller. This is consistent with the heuristics behavior (see § V-B) that only block third party domains that are seen across several websites. These heuristics thus have trouble blocking less prominent trackers [48].
+Both ﬁgures illustrate that Ghostery and uBlock Origin block many speciﬁc resources that other extensions do not block. We speculate that this is due the fact that their blocking list settings are unique. This may explain why they exhibit the best performance (see § VI-A1).
+Some resources are only blocked by AdBlock Plus. It however uses EasyList which is also employed by uBlock Origin. The ten crawls made with AdBlock Plus may have reached some third parties that were not contacted during the ten measurements made with uBlock Origin. We thus hypothesize that this observation is another side-effect of the ad churn observed by Guha et al. [72].
+Summary: The most popular extensions show a wide overlap. Ghostery and uBlock Origin block speciﬁc resources that are not affected by other extensions. In terms of overall privacy protection, RequestPolicyContinued and NoScript show the best performances. Ghostery and uBlock Origin protect users slightly less. Remaining techniques provide average to low protection. The DoNotTrack HTTP header provides almost no protection.
+B. Webpage quality
+We ﬁnally analyze how privacy protection techniques impact website quality. We use an HTML-based automated approach and perform a manual analysis.
+1) HTML metrics: We crawl the Alexa Top 100 world on the 21 different browser conﬁgurations of § VI-A1. We use the metrics presented in § IV-C1 and the ranking method exposed in § IV-B2. Figure 8 presents the results. We discard
+
+10
+
+(a) # third party requests
+
+(b) # third party domains
+
+Fig. 7. Overlap of third party requests and domains blocked by ﬁve extensions (PB: Privacy Badger, Dis: Disconnect, ADB: AdBlock Plus, Gho: Ghostery, uBO: uBlock Origin). Square surfaces represent the metric value for the extension on the row.
+
+the HTML size metric because there is no signiﬁcant change across protection techniques. NoScript has a noticeable impact on all metrics. This is especially visible for the script number, and image and script size. RequestPolicy Continued’s impact is smaller than NoScript’s except for image size. We hypothesize that RequestPolicy Continued blocks third party image hosting services, and thus impacts many websites. NoScript greatly reduces the total size of scripts which is consistent with its goal: blocking JavaScript on webpages. Other privacy protection techniques appear to have a limited impact of website quality. Compared to other techniques, Ghostery exhibits a smaller impact on images and a higher reduction of the number of script and their total size. This is consistent with its tracking protection goal. This extension actually does not intend to block media such as advertisements.
+2) Manual analysis: The previous subsubsection analyzes webpages quality in terms of HTML and associated data. This automated approach does not necessarily reﬂect the quality of the rendered webpage. We perform a manual analysis to cope with this limitation. We gather screenshots of the Alexa Top 50 without pages from the same entity but with distinct localization (e.g. Google and Amazon). These screenshots were gathered in November 2016. We use the seven techniques that provided the best privacy protection (see § VI-A1): Privacy Badger trained, Blur, Disconnect, uBlock Origin, Ghostery, NoScript and RequestPolicy Continued. For each webpage and protection technique, we display a picture that contains two screenshots side-to-side to the user: the left one captured with Firefox alone, the other with Firefox used with an extension.
+
+We use the questions about layout similarity and missing elements presented in § IV-C2. Figure 9 exposes our results. The blue (resp. red) boxplot corresponds to the ﬁrst (resp. second) question. Overall, Privacy Badger, Blur, Disconnect, uBlockOrigin and Ghostery have a very small impact on rendered webpages. On the other hand, RequestPolicy Continued and NoScript signiﬁcantly impact on pages both in terms of layout and missing elements. This is consistent with § VI-B1 and previous results [6], [50]. The manual analysis uncovers RequestPolicy Continued’s strong impact on webpage quality which was not exposed by HTML-based metrics.
+Summary: Both studies show that RequestPolicyContinued and NoScript reduce webpage quality. Other extensions do not have such impact.
+C. Summary
+Figure 10 summarizes our ﬁndings. Each metric-based synthetic index is build as the mean of previously used metrics (see § IV-B1 § IV-C1) normalized using the metric value obtained with Firefox used alone. Manual analysisbased index is the mean of the mean rating of both questions. Figure 10a shows that our manual analysis captures the negative effects of RequestPolicy Continued that are not visible with HTML-based metrics. Figures 10b and 10c demonstrate RequestPolicy Continued and NoScript show the best protection performances but impact browsing experience. Ghostery and uBlock Origin protect users slightly less but have a smaller impact on webpage quality. Remaining techniques provide average protection.
+
+11
+
+# image Image data size (byte)
+
+1e7
+
+5000
+
+7
+
+4000
+
+6 5
+
+3000
+
+4
+
+2000
+
+3
+
+2
+
+1000
+
+1
+
+0
+
+0
+
+4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 3 2 1
+
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1
+
+-
+
+-
+
+FuAFPBBHADlBinFPTBos(BoFGTcPtDNcNueFrhPkF3eonooAeBFEaoSFfcPiSoOnToBLsrrTe-cnBCtniEPlWDBMrR3+iaanliaeeevgtPPTPEikrcNOcErEupcder.PtTTL.eytVCBe)CnrCoe
+
+PABB(PtrEaiLn+eEdP) FuAFBBHDlinFPTosBoFGTcDNcNueFhPkF3eonooAeBFoSFfcPSoOnToBsrrTe-cBCtniEPlWDBMrR3iaanliaeevgtPPTPEikrcNOcrEupcer.tTTL.eytVCBeCnrCoe
+
+# script Script data size (byte)
+
+(a) # images
+2500 2000 1500 1000 500
+0
+
+3.0 1e7 2.5 2.0 1.5 1.0 0.5 0.0
+
+(b) Image size
+
+4 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 1
+
+4 4 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 1
+
+-
+
+-
+
+FFPHBnFT(BoFTtDNeFrPF3enoAeFaSFfcPioTBrTenBCEPDB3aanlaevtPErcNcEuder.TL.Ve)Croe uABBADliPBosGcPNcuhkooBEoSOnoLsr-ctnilWMrR+iieegPTPikOErpcPtTeytCBnC
+
+FFPBnF(oFtDr3enAacPioBenCPWB3nletPEOEudrTL.V)Cr uABBHADliPTBosBGTcPNcNueFhPkFoooeBFEoSFfSOnToLsrrT-cBtniElDMrR+iaaiaeevgPTPikrcNcErpce.PtTeytCBenCoe
+
+(c) # scripts
+
+(d) Script size
+
+Fig. 8. Comparison of protection techniques’ website quality regarding: number of image and scripts and size of images and scripts. We crawled the Alexa Top 100 websites. The mean and standard deviation are computed on ten crawls. The number on top of technique name is the KS-based rank. Bare: Firefox alone, FF: Firefox feature, MTC: MyTrackingChoices, PB (trained): Privacy Badger (trained), FF no 3rd coo. EV: Firefox no 3rd party cookie blocking except from previously visited domains, ABP: AdBlockPlus, EL: EasyList, EP: EasyPrivacy, RPC: Request Policy Continued. AdBlock Plus uBo-like uses all uBlock Origin’s lists except uBlock Origin’s speciﬁc ones; it thus loads EasyList, EasyPrivacy, Peter Lowe’s Ad Server list and Malware domains.
+
+VII. DISCUSSIONS
+A. Recommendations
+Our analysis shows that RequestPolicy Continued and Noscript are the most effective privacy protection techniques. Similarly to previous work [6], [50], we conﬁrm that they affect webpage quality. Users that want to avoid website breakage can instead use uBlock Origin or Ghostery. The latter however needs to be conﬁgured which is difﬁcult for users [56]. We note that previous work [12], [13] also recommended uBlock Origin and Ghostery. Their results were however noisy (percentiles are overlapping in [13] and some techniques actually observed more ﬁngerprintting than the default browser in [12]) due to the use of single crawl to each website. Our robust measurement methodology does not suffer from the same weakness, and show that uBlock Origin or Ghostery exhibit statistically better performance than other techniques.
+Previous network trafﬁc monitoring studies [46], [74] show
+
+that users are more preoccupied by blocking ads than tracking. Malloy et al. [75] show that ad-blockers usage vary between 18% and 37% in analyzed countries (US, UK, Germany, France, and Canada). Metwalley et al. show [46] that 10 to 18% of users had installed AdBlock Plus while less than 3.5% (resp. 2%) were using DoNotTrackMe/Blur (resp. Ghostery). Similarly, Pujol et al. [74] speculate that out of the 19.7% of users that install AdBlock Plus, less than 15% of them setup the EasyPrivacy list. We show that the default setup of AdBlock Plus has average performances but that it can be conﬁgured to achieve good results. This task is however difﬁcult for users [56]. We thus advise ad-blocking users that want to improve their privacy to directly change to more efﬁcient extensions (see above).
+Extensions that do not rely on manually maintained ﬁlters, Privacy Badger and MyTrackingChoices, exhibit average performances. It however is not clear how their performances may be improved. Analyzing extensions’ behavior against
+
+12
+
+Good
+
+Score
+
+Bad
+
+Layout similarity rating Proportion of element missing with extension
+
+10
+
+8
+
+6
+
+4
+
+2
+
+0PrivacTyrBaiandegder
+
+Blur
+
+Disconnect uBlock Origin
+
+Ghostery
+
+NoScript RequCeosnttPinouliecdy
+
+Fig. 9. Webpage quality manual analysis. Users are presented two screenshots obtained with Firefox alone and with a privacy protection technique. The ﬁrst question (blue) asks user to rate layout similarity. The second question (red) corresponds to the proportion of elements observed with Firefox alone also present when a privacy protection technique is used. Screenshots are captured on the Alexa Top 50. Boxplots extend to the upper and lower quartile and contain a line that represents the median. Dashed lines show min/max range. When not visible, median is located on top of the upper quartile.
+
+existing blocking lists would help to improve their results. Blocking list-based protection techniques are efﬁcient but their scalability is limited due to human intervention. Current efforts [68], [52], [53], [51], [55] to automatically build blocking list are thus extremely relevant.
+Ghostery and uBlock Origin block a signiﬁcant amount of resources that are not blocked by other protection techniques. Both should thus be considered as relevant when assessing users’ ability to protect themselves.
+B. Limitations
+In this work, we estimate the impact of privacy protection techniques on webpage quality in terms of missing elements and data (using HTML-based metrics § IV-C1 and alteration to the webpage layout and elements (using a user manual analysis § IV-C2). We however do not address the functionality loss. We intend to explore this aspect in future work along two axes. We plan to explore each website beyond its homepage to improve website coverage.
+Several work [59], [68], [51], [52], [53], [55] automatically build blocking lists. We did not evaluate them because produced lists are not publicly available.
+Evaluated approaches aim at blocking tracking. One side effect is advertisement blocking. These approaches thus threaten the current economic model of many publishers on the Internet. Techniques examined in this work however do not have the same impact on third party tracking. For example, Ghostery and MyTrackingChoices can block tracking for speciﬁc website categories. Similarly, Firefox’s third party cookie blocking only partially impacts advertisement techniques (such as RealTime Bidding, RTB) that rely on user interests. Olejnik et al. [67] show that new users (i.e. users without any browsing his-
+
+tory) are less valued by advertisers. A user that blocks all third parties cookies thus reduces his customer value for advertisers, and, consequently, publisher’s revenue. This however does not completely block tracking and thus, advertisement transactions (e.g. bidding in RTB). Indiscriminate third party blocking techniques (such as RequestPolicy Continued [25]) however have a much bigger impact on advertising. They for example block interactions between ad exchange and bidders in the case of RTB. All privacy protection techniques presented in this work may thus have very different impact on advertising. We intend to address this aspect in future work.
+Ghostery [18] and MyTrackingChoices [22] can block tracking for speciﬁc website categories, and thus, allow monetization for others. This is obviously less aggressive than most approaches addressed in this work. Achara et al. [22] however report that 30% of users block the tracking for all categories. These users thus have no reason to use these two techniques instead of other ones.
+C. Future work
+As shown in § III, existing work uses a vast array of metrics. Some of them are tailored to very speciﬁc use cases (such as behavioral advertising [8], [45] and cookie-based masssurveillance [47]). Similarly, data-related metrics present an obvious interest in a mobile context. We intend to add new metrics to this work. We also want to analyze the impact of all these protection techniques on speciﬁc attacks (browser ﬁngerprinting [4], [48], cookie syncing [67], [2], [76], [48]).
+Analyzing extensions inside other browsers, such as Chrome, Internet Explorer or Opera, would provide a wider picture of privacy protection techniques in the wild. Selenium, the browser automation framework used by OpenWPM, supports these browsers. OpenWPM, however, currently only supports Firefox. Furthermore, browsers include more and more privacy protection (e.g. Firefox [39], Brave [40], Cliqz [54]). Cliqz and Brave are not supported by Selenium, which make both browsers impossible to use with OpenWPM (see § IV-A). We however intend to add them later on.
+While some works use domain name-based heuristics [77], [67] to identify third parties, others use blocking lists-based extensions as ground-truth (see Table II). When the latter method is used, tracking’s long tail [48] may cause many false negatives. Beyond our analysis in § VI-A, we intend to investigate blocking lists more thoroughly.
+VIII. CONCLUSIONS
+This work extensively compares existing privacy protection techniques against third party tracking and provides four contributions. First, we propose a robust methodology to compare privacy protection techniques when crawling many websites, and quantify measurement error. We use the privacy footprint [1] and apply the Kolmogorov-Smirnov (KS) test on browsing metrics to evaluate privacy protection. This test is likewise applied to HTML-based metrics to assess the impact on webpage quality. We also design a manual analysis to complement HTML-based metrics. Our second contribution is
+
+13
+
+Manual analysis quality index High
+
+Low
+
+9.5 9.0
+
+High
+
+Disconnect
+
+1.05
+
+Ghostery
+
+1.00
+
+uBlockOrigin Blur
+
+0.95
+
+High
+
+Blur
+
+uBlockOrigin
+
+9.5
+
+Disconnect Ghostery P(trriavianceydB) adger 9.0
+
+Disconnect
+
+uBlockOrigin Ghostery
+
+P(trriavianceydB) adger
+
+Blur
+
+0.90
+
+Low Manual analysis quality index
+
+HTML quality index
+
+8.5
+
+P(trriavianceydB) adger
+
+8.0 7.5 NoScript
+
+RCeoqntuiensutePdolicy
+
+0.L6o5w 0.70 0.75HTM0.L80qua0li.t8y5ind0e.9x0 0.95 1.00Hig1h.05
+
+Low
+
+0.85
+
+0.80 RCeoqntuiensutePdolicy 0.75
+
+0.70
+
+NoScript
+
+0.65 0H.2igh 0.3 P0ri.v4acy p0r.o5tectio0n.6index0.7
+
+0.8Low
+
+8.5
+8.0 7.5 RCeoqntuiensutePdolicyNoScript
+0H.2igh 0.3 0P.r4ivacy 0p.r5otecti0o.n6index0.7
+
+0.8Low
+
+(a) HTML-based vs manual analysis quality
+
+(b) Privacy protection vs HTML-based quality
+
+(c) Privacy protection vs manual analysis
+
+Fig. 10. Scatter plots of synthetic index for privacy protection, HTML-based quality and manual analysis-based quality.
+
+a privacy protection techniques comparison in terms of overlap and performances. We show that the most popular privacy protection techniques exhibit a common blocking baseline. We also highlight the fact that some extensions, namely Ghostery and uBlock Origin, have a very speciﬁc behavior and are the only ones to block some domains. Our third contribution is a comparison of the impact of privacy protection techniques on webpage quality. Our fourth contribution is a set of usage recommendations for end-users, and research recommendation for the scientiﬁc community. Ghostery and uBlock Origin provide the best trade-off between protection and webpage quality. Ghostery however requires a conﬁguration step which is difﬁcult for users [56]. The RequestPolicy Continued and NoScript extensions exhibit the best performances but reduce webpage quality. Ghostery and uBlock Origin use manually built blocking lists which are cumbersome to maintain. Research efforts should focus on improving existing approaches that do not rely on blocking lists (such as Privacy Badger or MyTrackingChoices) and automating blocking list building.
+REFERENCES
+[1] B. Krishnamurthy and C. E. Wills, “Generating a privacy footprint on the internet,” in IMC 2006, pp. 65–70.
+[2] G. Acar, C. Eubank, S. Englehardt, M. Juarez, A. Narayanan, and C. Diaz, “The web never forgets: Persistent tracking mechanisms in the wild,” in CCS 2014, pp. 674–689.
+[3] A. Soltani, S. Canty, Q. Mayo, L. Thomas, and C. J. Hoofnagle, “Flash cookies and privacy,” in SSRN, 2009, pp. 158–163.
+[4] P. Eckersley, “How unique is your web browser?” in PETS 2010, pp. 1–18.
+[5] “DoNotTrack,” accessed: 2017-07-30. [Online]. Available: https: //tools.ietf.org/html/draft-mayer-do-not-track-00
+[6] B. Krishnamurthy, D. Malandrino, and C. E. Wills, “Measuring privacy loss and the impact of privacy protection in web browsing,” in SOUPS 2007, pp. 52–63.
+[7] J. R. Mayer and J. C. Mitchell, “Third-party web tracking: Policy and technology,” in SP 2012, pp. 413–427.
+[8] R. Balebako, P. Leon, R. Shay, B. Ur, Y. Wang, and L. Cranor, “Measuring the effectiveness of privacy tools for limiting behavioral advertising,” in W2SP 2012.
+
+[9] R. Hill, “Comparative benchmarks against widely used blockers: Top 15 most popular news websites,” 2014, accessed: 2017-07-30. [Online]. Available: https://github.com/gorhill/httpswitchboard/ wiki/Comparative-benchmarks-against-widely-used-blockers: -Top-15-Most-Popular-News-Websites
+[10] ——, “ublock and others: Blocking ads, trackers, malwares,” 2015, accessed: 2017-07-30. [Online]. Available: https://github.com/gorhill/uBlock/wiki/uBlock-and-others% 3A-Blocking-ads%2C-trackers%2C-malwares
+[11] C. E. Wills and D. C. Uzunoglu, “What ad blockers are (and are not) doing,” in HotWeb 2016, pp. 72–77.
+[12] G. Merzdovnik, M. Huber, D. Buhov, N. Nikiforakis, S. Neuner, M. Schmiedecker, and E. Weippl, “Block me if you can: A large-scale study of tracker-blocking tools,” in EuroSP 2017.
+[13] S. Traverso, M. Trevisan, L. Giannantoni, M. Mellia, and H. Metwalley, “Benchmark and comparison of tracker-blockers:should you trust them?” in TMA 2017.
+[14] T. Bujlow, V. Carela-Espan˜ol, J. Sole´-Pareta, and P. Barlet-Ros, “A survey on web tracking: Mechanisms, implications, and defenses,” Proceedings of the IEEE, vol. PP, no. 99, pp. 1–35, 2017.
+[15] J. Estrada-Jime´nez, J. Parra-Arnau, A. Rodr´ıguez-Hoyos, and J. Forne´, “Online advertising: Analysis of privacy threats and protection approaches,” Computer Communications, 2016.
+[16] “AdBlock Plus,” accessed: 2017-07-30. [Online]. Available: https: //adblockplus.org/
+[17] “uBlock Origin,” accessed: 2017-07-30. [Online]. Available: https: //github.com/gorhill/uBlock
+[18] “Ghostery,” accessed: 2017-07-30. [Online]. Available: https://www. ghostery.com/
+[19] “Disconnect,” accessed: 2017-07-30. [Online]. Available: https:// disconnect.me/
+[20] “NoTrace,” accessed: 2017-07-30. [Online]. Available: http://www. isislab.it/projects/NoTrace/
+[21] “Blur,” accessed: 2017-07-30. [Online]. Available: https://dnt.abine.com [22] J. P. Achara, J. Parra-Arnau, and C. Castelluccia, “Mytrackingchoices:
+Pacifying the ad-block war by enforcing user privacy preferences,” in WEIS 2016. [23] “Privacy Badger,” accessed: 2017-07-30. [Online]. Available: https: //www.eff.org/fr/privacybadger [24] “NoScript,” accessed: 2017-07-30. [Online]. Available: https://noscript. net/ [25] “RequestPolicyContinued,” accessed: 2017-07-30. [Online]. Available: https://requestpolicycontinued.github.io/ [26] “HTTPS Everywhere,” accessed: 2017-07-30. [Online]. Available: https://www.eff.org/fr/https-everywhere [27] “Decentraleyes,” accessed: 2017-07-30. [Online]. Available: https: //decentraleyes.org [28] “WebOfTrust,” accessed: 2017-07-30. [Online]. Available: https: //www.mywot.com/
+
+14
+
+[29] N. Nikiforakis, A. Kapravelos, W. Joosen, C. Kruegel, F. Piessens, and G. Vigna, “Cookieless monster: Exploring the ecosystem of web-based device ﬁngerprinting,” in SP 2013, pp. 541–555.
+[30] J. Vincent, “Ghostery has been bought by the developer of a privacy-focused browser,” 2 2017, accessed: 2017-0730. [Online]. Available: http://www.theverge.com/2017/2/15/14622484/ ghostery-ad-tracking-plug-in-cliqz
+[31] “Network advertising industry,” accessed: 2017-07-30. [Online]. Available: http://www.networkadvertising.org/choices/
+[32] “Digital advertising alliance,” accessed: 2017-07-30. [Online]. Available: http://www.aboutads.info/choices/
+[33] “Beeftaco,” accessed: 2017-07-30. [Online]. Available: https://jmhobbs. github.io/beef-taco/
+[34] “Allowing acceptable ads in adblock plus - agreements,” accessed: 2017-07-30. [Online]. Available: https://adblockplus.org/ acceptable-ads-agreements
+[35] “EasyList/EasyPrivacy,” accessed: 2017-07-30. [Online]. Available: https://easylist.to/
+[36] V. S. Eckert, J. Klofta, and J. L. Strozyk, ““Web of Trust” spa¨ht nutzer aus,” 11 2016, accessed: 2017-07-30. [Online]. Available: https://www.tagesschau.de/inland/tracker-online-103.html
+[37] L. Olejnik, “Proposed amendments to eprivacy regulation are great,” 6 2017, accessed: 201707-30. [Online]. Available: https://blog.lukaszolejnik.com/ proposed-amendments-to-eprivacy-regulation-are-great
+[38] “Firefox,” accessed: 2017-07-30. [Online]. Available: https://www. mozilla.org/en-US/ﬁrefox
+[39] G. Kontaxis and M. Chew, “Tracking protection in ﬁrefox for privacy and performance,” in W2SP 2015.
+[40] “Brave,” accessed: 2017-07-30. [Online]. Available: https://brave.com/ [41] “Cliqz,” accessed: 2017-07-30. [Online]. Available: https://cliqz.com/en [42] “AdBlock,” accessed: 2017-07-30. [Online]. Available: https:
+//getadblock.com/ [43] C. Castelluccia, S. Grumbach, and L. Olejnik, “Data harvesting 2.0:
+from the visible to the invisible web,” in WEIS 2013. [44] N. Fruchter, H. Miao, S. Stevenson, and R. Balebako, “Variations in
+tracking in relation to geographic location,” in W2SP 2015. [45] J. M. Carrascosa, J. Mikians, R. Cuevas, V. Erramilli, and N. Laoutaris,
+“I always feel like somebody’s watching me. measuring online behavioural advertising,” in CoNext 2015. [46] H. Metwalley, S. Traverso, M. Mellia, S. Miskovic, and M. Baldi, “The online tracking horde: a view from passive measurements,” in TMA 2015, pp. 111–125. [47] S. Englehardt, D. Reisman, C. Eubank, P. Zimmerman, J. Mayer, A. Narayanan, and E. W. Felten, “Cookies that give you away: The surveillance implications of web tracking,” in WWW 2015, pp. 289–299. [48] S. Englehardt and A. Narayanan, “Online tracking: A 1-million-site measurement and analysis,” in CCS 2016. [49] D. Malandrino, A. Petta, V. Scarano, L. Serra, R. Spinelli, and B. Krishnamurthy, “Privacy awareness about information leakage: Who knows what about me?” in WPES 2013, pp. 279–284. [50] D. Malandrino and V. Scarano, “Privacy leakage on the web: Diffusion and countermeasures,” Computer Networks, vol. 57, no. 14, pp. 2833– 2855, 2013. [51] D. Gugelmann, M. Happe, B. Ager, and V. Lenders, “An automated approach for complementing ad blockers blacklists,” in PETS 2015, pp. 282–298. [52] H. Metwalley, S. Traverso, and M. Mellia, “Unsupervised detection of web trackers,” in GLOBECOM 2015, pp. 1–6. [53] Q. Wu, Q. Liu, Y. Zhang, and G. Wen, “Trackerdetector: A system to detect third-party trackers through machine learning,” Computer Networks, vol. 91, pp. 164–173, 2015. [54] Z. Yu, S. Macbeth, K. Modi, and J. M. Pujol, “Tracking the trackers,” in WWW 2016, pp. 121–132. [55] M. Ikram, H. J. Asghar, M. A. Kaafar, A. Mahanti, and B. Krishnamurthy, “Towards seamless tracking-free web: Improved detection of trackers via one-class learning,” ser. PETS 2017. [56] P. Leon, B. Ur, R. Shay, Y. Wang, R. Balebako, and L. Cranor, “Why johnny can’t opt out: A usability evaluation of tools to limit online behavioral advertising,” in CHI 2012, pp. 589–598. [57] D. Malandrino, V. Scarano, and R. Spinelli, “How increased awareness can impact attitudes and behaviors toward online privacy protection,” in SocialCom 2013, pp. 57–62.
+
+[58] B. Krishnamurthy and C. Wills, “Privacy diffusion on the web: a longitudinal perspective,” in WWW 2009, pp. 541–550.
+[59] F. Roesner, T. Kohno, and D. Wetherall, “Detecting and defending against third-party tracking on the web,” in NSDI 2012, pp. 12–26.
+[60] D. Fiﬁeld and S. Egelman, “Fingerprinting web users through font metrics,” in FC 2015, pp. 107–124.
+[61] Ł. Olejnik, G. Acar, C. Castelluccia, and C. Diaz, “The leaking battery,” in DPM 2015, pp. 254–263.
+[62] K. Mowery and H. Shacham, “Pixel perfect: Fingerprinting canvas in html5,” in W2SP 2012.
+[63] Y. Cao, S. Li, and E. Wijmans, “(Cross-)Browser Fingerprinting via OS and Hardware Level Features,” in NDSS 2017.
+[64] G. Acar, M. Juarez, N. Nikiforakis, C. Diaz, S. Gu¨rses, F. Piessens, and B. Preneel, “Fpdetective: dusting the web for ﬁngerprinters,” in CCS 2013, pp. 1129–1140.
+[65] A. Lerner, A. K. Simpson, T. Kohno, and F. Roesner, “Internet jones and the raiders of the lost trackers: An archaeological study of web tracking from 1996 to 2016,” in Usenix Security 2016, pp. 997–1013.
+[66] A. Ghosh and A. Roth, “Selling privacy at auction,” in EC 2011, pp. 199–208.
+[67] L. Olejnik, T. Minh-Dung, and C. Castelluccia, “Selling off privacy at auction,” in NDSS 2014, pp. 104–114.
+[68] J. Bau, J. Mayer, H. Paskov, and J. C. Mitchell, “A promising direction for web tracking countermeasures,” in W2SP 2013.
+[69] V. Kalavri, J. Blackburn, M. Varvello, and K. Papagiannaki, “Like a pack of wolves: Community structure of web trackers,” pp. 42–54.
+[70] “Alexa top 500 sites on the web,” accessed: 2017-07-30. [Online]. Available: http://www.alexa.com
+[71] “Public sufﬁx list,” accessed: 2017-07-30. [Online]. Available: https: //publicsufﬁx.org/
+[72] S. Guha, B. Cheng, and P. Francis, “Challenges in measuring online advertising systems,” in IMC 2010, pp. 81–87.
+[73] G. Pass, A. Chowdhury, and C. Torgeson, “A picture of search.” InfoScale, vol. 152, p. 1, 2006.
+[74] E. Pujol, O. Hohlfeld, and A. Feldmann, “Annoyed users: Ads and adblock usage in the wild,” in IMC 2016, pp. 93–106.
+[75] M. Malloy, M. McNamara, A. Cahn, and P. Barford, “Ad blockers: Global prevalence and impact,” in IMC 2016, pp. 119–125.
+[76] M. Falahrastegar, H. Haddadi, S. Uhlig, and R. Mortier, “Tracking personal identiﬁers across the web,” in PAM 2016, pp. 30–41.
+[77] ——, “The rise of panopticons: Examining region-speciﬁc third-party web tracking.” in TMA 2014, pp. 104–114.
+
+15
+

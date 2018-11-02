@@ -1,0 +1,1282 @@
+Analysis, Modelling and Protection of Online Private Data
+a dissertation presented by
+Silvia Puglisi to
+The Department of Telematics Engineering in partial fulfilment of the requirements
+for the degree of Doctor of Philosophy
+in the subject of Privacy and Security
+advisers: Jordi Forné and David Rebollo-Monedero Universitat Politècnica de Catalunya (UPC) Barcelona, Catalunya June 2017
+
+© 2017 - Silvia Puglisi All rights reserved.
+
+Analysis, Modelling and Protection of Online Private Data
+Abstract
+Online communications generate a consistent amount of data flowing among users, services and applications. This information results from the interactions between different parties, and once collected, it is used for a variety of purposes, from marketing profiling to product recommendations, from news filtering to relationship suggestions. Understanding how data is shared and used by services on behalf of users is the motivation behind this work. When a user creates a new account on a certain platform, this creates a logical container that will be used to store the user’s activity. The service aims to profile the user. Therefore, every time some data is created, shared or accessed, information about the user’s behaviour and interests is collected and analysed. Users produce this data but are unaware of how it will be handled by the service, and of whom it will be shared with. More importantly, once aggregated, this data could reveal more over time that the same users initially intended. Information revealed by one profile could be used to obtain access to another account, or during social engineering attacks. The main focus of this dissertation is modelling and analysing how user data flows among different applications and how this represents an important threat for privacy. A framework defining privacy violation is used to classify threats and identify issues where user data is effectively mishandled. User data is modelled as categorised events, and aggregated as histograms of relative frequencies of online activity along predefined categories of interests. Furthermore, a paradigm based on hypermedia to model online
+iii
+
+footprints is introduced. This emphasises the interactions between different usergenerated events and their effects on the user’s measured privacy risk. Finally, the lessons learnt from applying the paradigm to different scenarios are discussed.
+iv
+
+Análisis, modelado y protección de datos privados en línea
+Resumen
+Las comunicaciones en línea generan una cantidad constante de datos que fluyen entre usuarios, servicios y aplicaciones. Esta información es el resultado de las interacciones entre diferentes partes y, una vez recolectada, se utiliza para una gran variedad de propósitos, desde perfiles de marketing hasta recomendaciones de productos, pasando por filtros de noticias y sugerencias de relaciones. La motivación detrás de este trabajo es entender cómo los datos son compartidos y utilizados por los servicios en nombre de los usuarios. Cuando un usuario crea una nueva cuenta en una determinada plataforma, ello crea un contenedor lógico que se utilizará para almacenar la actividad del propio usuario. El servicio tiene como objetivo perfilar al usuario. Por lo tanto, cada vez que se crean, se comparten o se accede a los datos, se recopila y analiza información sobre el comportamiento y los intereses del usuario. Los usuarios producen estos datos pero desconocen cómo serán manejados por el servicio, o con quién se compartirán. O lo que es más importante, una vez agregados, estos datos podrían revelar, con el tiempo, más información de la que los mismos usuarios habían previsto inicialmente. La información revelada por un perfil podría utilizarse para obtener acceso a otra cuenta o durante ataques de ingeniería social. El objetivo principal de esta tesis es modelar y analizar cómo fluyen los datos de los usuarios entre diferentes aplicaciones y cómo esto representa una amenaza importante para la privacidad. Con el propósito de definir las violaciones de privacidad, se utilizan patrones que permiten clasificar las
+v
+
+amenazas e identificar los problemas en los que los datos de los usuarios son mal gestionados. Los datos de los usuarios se modelan como eventos categorizados y se agregan como histogramas de frecuencias relativas de actividad en línea en categorías predefinidas de intereses. Además, se introduce un paradigma basado en hipermedia para modelar las huellas en línea. Esto enfatiza la interacción entre los diferentes eventos generados por el usuario y sus efectos sobre el riesgo medido de privacidad del usuario. Finalmente, se discuten las lecciones aprendidas de la aplicación del paradigma a diferentes escenarios.
+vi
+
+Anàlisi, modelat i protecció de dades privades en línea
+Resum
+Les comunicacions en línia generen una quantitat constant de dades que flueixen entre usuaris, serveis i aplicacions. Aquesta informació és el resultat de les interaccions entre diferents parts i, un cop recol·lectada, s’utilitza per a una gran varietat de propòsits, des de perfils de màrqueting fins a recomanacions de productes, passant per filtres de notícies i suggeriments de relacions. La motivació darrere d’aquest treball és entendre com les dades són compartides i utilitzades pels serveis en nom dels usuaris. Quan un usuari crea un nou compte en una determinada plataforma, això crea un contenidor lògic que s’utilitzarà per emmagatzemar l’activitat del propi usuari. El servei té com a objectiu perfilar a l’usuari. Per tant, cada vegada que es creen, es comparteixen o s’accedeix a les dades, es recopila i analitza informació sobre el comportament i els interessos de l’usuari. Els usuaris produeixen aquestes dades però desconeixen com seran gestionades pel servei, o amb qui es compartiran. O el que és més important, un cop agregades, aquestes dades podrien revelar, amb el temps, més informació de la que els mateixos usuaris havien previst inicialment. La informació revelada per un perfil podria utilitzar-se per accedir a un altre compte o durant atacs d’enginyeria social. L’objectiu principal d’aquesta tesi és modelar i analitzar com flueixen les dades dels usuaris entre diferents aplicacions i com això representa una amenaça important per a la privacitat. Amb el propòsit de definir les violacions de privacitat, s’utilitzen patrons que permeten classificar les amenaces i identificar els problemes en què les
+vii
+
+dades dels usuaris són mal gestionades. Les dades dels usuaris es modelen com esdeveniments categoritzats i s’agreguen com histogrames de freqüències relatives d’activitat en línia en categories predefinides d’interessos. A més, s’introdueix un paradigma basat en hipermèdia per modelar les petjades en línia. Això emfatitza la interacció entre els diferents esdeveniments generats per l’usuari i els seus efectes sobre el risc mesurat de privacitat de l’usuari. Finalment, es discuteixen les lliçons apreses de l’aplicació del paradigma a diferents escenaris.
+viii
+
+Contents
+
+1 Introduction
+
+1
+
+1.1 Motivation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+
+1.2 Contribution . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+
+1.3 Related publications . . . . . . . . . . . . . . . . . . . . . . . 3
+
+1.4 Outline . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+2 Background and Related Work
+
+8
+
+2.1 Privacy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+
+2.2 Web tracking . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+
+2.3 Online footprints . . . . . . . . . . . . . . . . . . . . . . . . . 23
+
+3 Users profiling in social tagging systems
+
+32
+
+3.1 Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+
+3.2 Contribution . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+
+3.3 Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+
+3.4 Evaluation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+
+3.5 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . 54
+
+4 Privacy in proximity-based apps: the nightmare of serendip-
+
+itous discovery
+
+65
+
+4.1 Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+
+4.2 Contribution . . . . . . . . . . . . . . . . . . . . . . . . . . . 68
+
+ix
+
+4.3 Modelling the location probe method . . . . . . . . . . . . . . 70 4.4 Modelling the user activity profile . . . . . . . . . . . . . . . . 71 4.5 Experimental results . . . . . . . . . . . . . . . . . . . . . . . 73 4.6 Mitigation possibilities . . . . . . . . . . . . . . . . . . . . . . 78 4.7 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79
+
+5 Web tracking: how advertising networks collect users’ brows-
+
+ing patterns
+
+81
+
+5.1 Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . 82
+
+5.2 Contribution . . . . . . . . . . . . . . . . . . . . . . . . . . . 83
+
+5.3 Modelling the user profile . . . . . . . . . . . . . . . . . . . . 84
+
+5.4 Modelling the user’s online footprint . . . . . . . . . . . . . . . 90
+
+5.5 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . 108
+
+6 An information-theoretic model for measuring the anonymity
+
+risk in time-variant user profiles
+
+109
+
+6.1 Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110
+
+6.2 Contribution . . . . . . . . . . . . . . . . . . . . . . . . . . . 112
+
+6.3 An information-theoretic model for measuring anonymity risk . 114
+
+6.4 Experimental results . . . . . . . . . . . . . . . . . . . . . . . 124
+
+6.5 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . 130
+
+7 Conclusions and future work
+
+132
+
+7.1 Conclusions and discussion . . . . . . . . . . . . . . . . . . . 132
+
+7.2 Future work . . . . . . . . . . . . . . . . . . . . . . . . . . . . 136
+
+References
+
+150
+
+x
+
+I certify that I have read this dissertation and that, in my opinion, it is fully adequate in scope and quality as a dissertation for the degree of Doctor of Philosophy.
+Jordi Forné Muñoz (Principal Co-Adviser)
+I certify that I have read this dissertation and that, in my opinion, it is fully adequate in scope and quality as a dissertation for the degree of Doctor of Philosophy.
+David Rebollo Monedero (Principal Co-Adviser)
+xi
+
+Listing of figures
+1.2.1 Advertising services feedback loop . . . . . . . . . . . . . . . . 4
+3.2.1 User PMF. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37 3.2.2 Population PMF. . . . . . . . . . . . . . . . . . . . . . . . . . 38 3.3.1 Architecture. . . . . . . . . . . . . . . . . . . . . . . . . . . . 48 3.4.1 Experimental methodology. . . . . . . . . . . . . . . . . . . . 57 3.4.2 Privacy risk against forgery rate for a single user. . . . . . . . . . 58 3.4.3 Privacy risk for all users. . . . . . . . . . . . . . . . . . . . . . 59 3.4.4 Utility measurement P@30. . . . . . . . . . . . . . . . . . . . 60 3.4.5 Utility measurement P@50. . . . . . . . . . . . . . . . . . . . 61 3.4.6 Privacy risk against forgery rate. . . . . . . . . . . . . . . . . . 62 3.4.7 Privacy risk against forgery rate compared to the average utility
+value P@50 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 63 3.4.8 Increased privacy risk. . . . . . . . . . . . . . . . . . . . . . . 64
+4.3.1 Computational time needed to estimate a user position. . . . . . 71 4.5.1 Location samples for a single user. . . . . . . . . . . . . . . . . 75 4.5.2 Facebook pages likes by Tinder users. . . . . . . . . . . . . . . 77 4.5.3 Social Graph attack . . . . . . . . . . . . . . . . . . . . . . . . 78
+5.3.1 Advertising services feedback loop . . . . . . . . . . . . . . . . 86 5.4.1 Structure of a tracker request . . . . . . . . . . . . . . . . . . . 92 5.4.2 Connections between trackers and visited pages . . . . . . . . . 93
+xii
+
+5.4.3 A user’s profile . . . . . . . . . . . . . . . . . . . . . . . . . . 95 5.4.4 User activity network degree distribution . . . . . . . . . . . . 101 5.4.5 Blockmodel decomposition of the tracker network . . . . . . . . 102 5.4.6 Blockstate representation of the network of tracking service re-
+sulting from our simulation. Here we highlight connections between known tracker networks and visited page. . . . . . . . . . 103 5.4.7 Pagerank of the trackers network . . . . . . . . . . . . . . . . . 104 5.4.8 Page impact on the actual user’s profile . . . . . . . . . . . . . . 105 5.4.9 How Facebook track the user’s profile . . . . . . . . . . . . . . 106 5.4.10Profile third-party requests to Facebook . . . . . . . . . . . . . 107
+6.3.1 Information projection p∗ of a reference distribution q onto a convex set P. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118
+6.3.2 Probability simplices showing, the population distribution q, the user’s profile p0, the updated profile p1. . . . . . . . . . . . . . . 118
+6.3.3 Probability simplices showing, the population distribution q = (0.417, 0.333, 0.250), the user’s profile p0 = (0.167, 0.333, 0.500), the updated profile p1 = (0.167, 0.167, 0.666). The intermediate points show the value of pα for different α. . . . . . . . . . . . . 119
+6.4.1 For different values of the recent activity parameter α, we plot (a) the anonymity risk D(pα∥q) of a synthetic example of updated user profile pα = (1 − α)p0 + αp1, with respect to the population’s profile q = (5/12, 1/3, 1/4), across three hypothetical categories of interest, where p0 = (1/6, 1/3, 1/2) represents the user’s online history, and p1 = (1/6, 1/6, 2/3) contains the recent activity in the form of a histogram. We verify the convexity bound (6.3) and the first-order Taylor approximation (6.4) in our theoretical analysis. In addition, we plot (b) the special case of uniform population profile, in which the anonymity risk becomes H(pα). . . . 125
+xiii
+
+6.4.2 In this example we consider two categories of interest, therefore profiles are completely determined by a single scalar p, being 1−p the other frequency. We fix the activity parameter α = 1/20, set the historical profile to p0 = 2/3, the reference profile to q = 3/5, and verify the analysis on the worst anonymity risk update of §6.3.5 plotting D(pα∥q) against profile updates p1 ranging from 0 to 1. In the entropy case we plot H(pα). . . . . . . . . . . . . . 126
+6.4.3 The image represents how the user initial profile was computed starting from the timeline data included in the dataset. Furthermore we show how the window W of 15 posts is chosen from the last post of the series and how we considered a sliding window w of 5 posts each time. . . . . . . . . . . . . . . . . . . . . . . . 128
+6.4.4 The figure considers the privacy risk between a user profile and a reference population distribution for two facebook users (Figs. 6.4.4b, 6.4.4d), and the risk increment ΔR = D(pα∥q) − D(p0∥q) where p0 is a user’s profile in the Facebook dataset and q is the reference population distribution calculated for all the posts in the dataset (Figs. 6.4.4b, 6.4.4d). . . . . . . . . . . . . . . . . . . . . . . . 129
+xiv
+
+Listing of tables
+2.1.1 Classification of privacy violations . . . . . . . . . . . . . . . . 30 2.3.1 A JSON example . . . . . . . . . . . . . . . . . . . . . . . . . 31 2.3.2 An XML example . . . . . . . . . . . . . . . . . . . . . . . . . 31 3.2.1 Summary of the tag-forgery strategies under study. In this work,
+we investigate three variations of a data-perturbative mechanism that consists of annotating false tags. The optimised tag forgery implementation corresponds to the strategy that minimises the privacy risk for a given forgery rate. The TMN-like approach generates false tags according to the popular privacy-preserving mechanism TrackMeNot [56]. The uniform approach considers the uniform distribution as forgery strategy. . . . . . . . . . . . . . 43 3.4.1 Statistics regarding Delicious dataset . . . . . . . . . . . . . . . 50 4.5.1 Information regarding active users per application. . . . . . . . . 73 4.5.2 Information regarding the applications analysed . . . . . . . . . 74 5.4.1 Statistics regarding collected users data . . . . . . . . . . . . . 95 5.4.2 The table shows the top 20 identified tracker domains based on the average degree of the neighbourhood. . . . . . . . . . . . . 100
+xv
+
+The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion.
+Albert Camus
+xvi
+
+Acknowledgments
+It has been a great pleasure , working these years with the faculty, staff, and students at the Universitat Politècnica de Catalunya · BarcelonaTech (UPC). This work would never have been possible if it were not for the freedom I was given to explore my own research interests.
+This is thanks, in large part, to the kindness patience and mentoring provided by my adviser Prof. Jordi Forné and my co-adviser David Rebollo-Monedero.
+A great deal of thanks is also reserved for Prof. Mónica Aguilar Igartua.
+xvii
+
+It is poor civic hygiene to install technologies that could someday facilitate a police state.
+Bruce Schneier
+1
+Introduction
+online communications are increasingly opening new possibilities for people to access and create content and interact with one another on the web. On the one hand, web applications facilitate access to information and foster relationships creation. On the other hand, as networking systems are constantly evolving, and online interactions are becoming more frequent and complex, it is becoming impossible to retain control over what is perceived as our online footprint. More specifically, users can share data with different services, which can subsequently share this information with third parties, sometimes without asking for permission to do so. Third parties are entitled to retain data over time, even if they have no direct connection with the user of the original service. Moreover, it has become a general practice to share content on different platforms and applications simultaneously. Such behaviour creates multiple possibilities for users to be potential
+1
+
+targets of various attacks and different profiling activities. Up to now, in an online context, the right to privacy has commonly been inter-
+preted as a right to information self-determination. Acts typically claimed to breach online privacy concern the collection of personal information without consent, the selling of personal information and the further processing of that information. This definition of a privacy breach can be considered valid until the user has direct control of the data they have created. This is not always the case. In 2011, the amount of digital information created and replicated globally exceeded 1.8 zettabytes (1.8 trillion gigabytes). 75% of this information is created by individuals through new media fora such as blogs and via social networks. By the end of 2011, Facebook had 845 million monthly active users, sharing over 30 billion pieces of content [29]. Three-quarters of the 1.8 trillion gigabytes of digital information online has been created by individual users. On top of that, an increasing amount of additional data about those users is collected by public and private companies, for the most disparate range of uses.
+1.1 Motivation
+This dissertation is motivated by understanding how data, created by users, flows between applications and services. A very powerful example in this field is the use of federated log in mechanisms. To register to a new social application, users grant them a certain level of access to their identity data, through, for example, their Facebook, Twitter or Google accounts. This data includes details about their identity, their whereabouts and in some situations even the company they work for. Third parties, like Facebook or Google, offer log in technologies, allowing the application to identify the user and receive precise information about them. Once the user grants access to their data, the application stores it and assumes control over how it is further shared. The user will never be notified again on who is accessing their data, nor if these are transferred to third parties.
+2
+
+1.2 Contribution
+In summary, this dissertation makes the following contributions to research within the field of Information Privacy:
+1. An analysis of how PETs affect recommendation systems for social tagging platforms.
+2. An analysis of privacy risks for proximity based social applications. 3. An analysis of how users are tracked while surfing the web. 4. An information theoretic approach to measuring the differential update of
+the anonymity risk for time variant user profiles.
+Furthermore, Fig. 1.2.1 illustrates how the contributions listed are mapped to chapters of this thesis.
+1.3 Related publications
+Most of the research results presented in this dissertation have been published in journals and conferences. In this section, we provide a list of such publications, together with their complete bibliographic information. Further, we include other complementary articles that are not directly related to the research topic of this thesis, but which are especially significant from the state-of-the-art perspective.
+1.3.1 Journal publications 1. S. Puglisi, J. Parra-Arnau, J. Forné, and D. Rebollo-Monedero, ”On contentbased recommendation and user privacy in social-tagging systems,” Computer Standards & Interfaces, vol. 41, pp. 17–27, Sep. 2015. [Online]. Available: https://doi.org/10.1016/j.csi.2015.01.004
+3
+
+Chapter 3 Chapter 4 Chapter 5 Chapter 6
+
+PETs in Recommendation
+Systems
+Proximity Based Social Applications
+Web Tracking
+Time-varian user proﬁles
+
+Figure 1.2.1: The following image illustrates how contributions are mapped to chapters.
+2. S. Puglisi, D. Rebollo-Monedero and J. Forné, ”On web user tracking of browsing patterns for personalised advertising,” International Journal of Parallel, Emergent and Distributed Systems, pp. 1–20, 2017, accepted for publication. [Online]. Available: https://doi.org/10.1080/17445760.2017.1282480
+3. S. Puglisi, D. Rebollo-Monedero and J. Forné, ”On the anonymity risk of timevarying user profiles,” Entropy, vol. 19, no. 5, 2017. [Online]. Available: https://www.mdpi.com/1099-4300/19/5/190. DOI: 10.3390/e19050190.
+1.3.2 Conference publications 1. S. Puglisi, D. Rebollo-Monedero and J. Forné, ”Potential mass surveillance and privacy violations in proximity-based social applications,” in Proc. IEEE
+4
+
+International Conference on Trust, Security and Privacy in Computing and Communications (TrustCom), Helsinki, Finland, Aug. 2015, pp. 1045– 1052. Available: https://doi.org/10.1109/Trustcom.2015.481
+2. S. Puglisi, D. Rebollo-Monedero and J. Forné, ”You Never Surf Alone. Ubiquitous Tracking of Users’ Browsing Habits,” in Proc. International Workshop on Data Privacy Management (DPM), ser. Lect. Notes Comput. Sci. (LNCS), vol. 9481, Vienna, Austria, Sep. 2015, pp. 273–280. Available: https://doi.org/10.1007/978-3-319-29883-2_20
+3. S. Puglisi, D. Rebollo-Monedero and J. Forné, ”On Web user tracking: How third-party HTTP requests track users’ browsing patterns for personalised advertising,” in Proc. IFIP Mediterranean Ad Hoc Networking Workshop (MedHocNet), Vilanova i la Geltrú, Spain, Jun. 2016, pp. 1–6. Available: https://doi.org/10.1109/MedHocNet.2016.7528432
+Finally, we list the complementary publications.
+1. S. Puglisi, ”RESTful Rails Development: Building Open Applications and Services,” O’Reilly Media, Inc., 2015
+1.4 Outline
+The focus of this work is exploring the intersection between accurately modelling users’ interactions. We are interested in obtaining a numerical estimation of the impact of certain user’s activities on their privacy.
+The thesis is structured as follows. This first chapter introduces the thesis and its outline.
+The second chapter presents a literature review of the problems considered throughout this work.
+5
+
+The third chapter introduces an approach to users’ profile modelling based on probability mass functions. We continue presenting Privacy Enhancing Technologies in the field of social tagging systems. This chapter is particularly concerned with understanding how recommendation algorithms react to profile perturbation and how the utility of the algorithm is affected.
+The fourth chapter is centred on how proximity-based social applications and the idea of serendipitous discovery of interests, places and social connections can be exploited by potential attackers. It is analysed how these services allow users to interact with people that are currently close to them, by revealing some information about their preferences and whereabouts. This information is acquired through passive geo-localisation and used to build a sense of serendipity. Unfortunately, while this class of applications opens different interaction possibilities for people in urban settings, obtaining access to certain identity information could lead a possible privacy attacker to identify and follow a user in their movements in a specific period of time. The same information shared through the platform could also help an attacker to link the victim’s online profiles to physical identities. This chapter is also concerned with the possibilities presented by mobile devices to act as listening sensors and how these could eventually lead to newer privacy attacks.
+The fifth chapter is focused on web tracking and how advertising networks are able to follow users while they surf the web. This chapter highlights the shift in the evolution of the Internet, from a stage when websites were just hypertext documents, with no personalisation of the user experience offered, to the web of today, a worldwide distributed system following specific architectural paradigms. Nowadays, an enormous quantity of user-generated data is shared and consumed by a network of applications and services, reasoning upon user’s expressed preferences and their social and physical connections. Advertising networks follow users’ browsing habits while they surf the web, continuously collecting their traces and surfing patterns. We analyse how user tracking happens on the web by measuring their online footprint and estimating how quickly advertising networks are able to profile users by their browsing habits.
+The sixth chapter explores how the user’s profile change every time a user pub-
+6
+
+lishes a new post or creates a link with another entity, either another user or some online resource. When new information is added to the user profile, new private data is exposed. This does not only reveal information about single users’ preferences, increasing their privacy risk, but can expose more about their network that single actors intended. This mechanism is self-evident on social networks where users receive suggestions based on their friends’ activity. An information theoretic approach to measuring the differential update of the anonymity risk for time variant users’ profiles is proposed. This expresses how privacy is affected when new content is posted and how much third party services get to know about the users when a new activity is shared. We use real Facebook data to show how our model can be applied to a real world scenario.
+Finally, the seventh chapter presents conclusions and future work, where we discuss how we hope the results presented will motivate and provide a solid theoretical basis for additional analysis and privacy management techniques. Furthermore, we reason on how this thesis could ultimately have a direct impact on users’ privacy, by eliminating or reducing barriers to the development of new and existing privacy-aware protocols and services.
+7
+
+Experience should teach us to be most on our guard to protect liberty when the government’s purposes are beneficent. Men born to freedom are naturally alert to repel invasion of their liberty by evil-minded rulers. The greatest dangers to liberty lurk in insidious encroachment by men of zeal, well-meaning but without understanding.
+Louis D. Brandeis
+2
+Background and Related Work
+Privacy issues involve a plurality of complexities. The right to privacy is a concept that has evolved over human history and has enclosed different other rights. A few centuries ago having a right to privacy meant protecting property rights, along with life and cattle. This right protected individuals from physical interference. At the end of the 19th century, it was assumed that the common law needed to guarantee the right of deciding to what extent the thoughts, sentiments and emotions of an individual could be communicated to third parties [140].
+Nowadays privacy has acquired a completely different meaning because people conduct part of their existence through and on communication platforms. Privacy rights need to consider the implication of information privacy, given that a person shares parts of their activities, interests and even thoughts with online service providers. As a consequence, the philosophical definition of privacy has evolved,
+8
+
+while laws protecting individual privacy rights have tried to follow.
+2.1 Privacy
+The literature on privacy violation has struggled to agree on a definition of Privacy considered its elusive nature. Yet, the right to privacy is considered one of the most fundamental rights for modern democratic societies, which also includes freedom of thoughts, control over a person body, protection of reputation and from indiscriminate search, interrogation and surveillance, control over personal information and right to solitude. Article 12 of the Universal Declaration of Human Rights [7], states that ”No one shall be subjected to arbitrary interference with his privacy”. Article 18.4 of the Spanish constitution protects privacy and limits the use of information technology to safeguard personal intimacy of the citizens. In addition, the United States and a vast majority of nations also protect privacy in their constitutions and in laws.
+2.1.1 A taxonomy of privacy
+Privacy violations involve a multitude of activities, some of these harmful others problematic. In fact, personal computers and more generally communication devices that are carried around by people are capable of being located, identified and tracked across different locations, networks and services [89]. All these devices can, therefore, be used for a variety of surveillance activities, which are in itself detrimental to the user’s interests. Until recently, in fact, the cost of surveillance and tracking of people and activities was proportional to the cost of directly reaching, asking or following a single person or a group of people. Technology, therefore, enhances the surveillance capabilities by introducing tools that allow the collection of information arising from a person’s activities. This information can furthermore be combined and inferred, therefore offering a complete picture of that person. Daniel J. Solove in [130] defines a taxonomy of privacy to classify violation and understand privacy issues in a comprehensive and concrete manner. Following this approach privacy violations are classified in four main categories (Table
+9
+
+2.1.1). These are:
+1. Information collection
+2. Information processing
+3. Information dissemination
+4. Invasion
+Information collection: Information collection results from activities such as surveillance, interrogation or information probing. It refers to actions aimed at watching, reading, listening, recording of individual activities or data about activities. It also refers to direct questioning of individuals or inference of information from data about them.
+Information processing: Information processing concerns the aggregation and identification of data. Failure to provide data security and the possibility for users to know who has accessed their data. This also includes secondary use of data to which the user has not been informed.
+Information dissemination: Information dissemination includes activity such as breach of confidentiality, unwanted disclosure and exposure of information. This also includes increased accessibility to individuals’ information, appropriation and distortion of data about people. Information dissemination defines the very action of breaking the promise of keeping information confidential. It, therefore, implies actions aimed at the revelation of information about an individual that can change the image of that person within a group, including the appropriation of identity information and dissemination of false or misleading facts.
+10
+
+Invasion:
+Invasion is the threat of intrusion of an entity into someone private life and it includes acts that are said to disturb one tranquillity or solitude.
+2.1.2 Identifying privacy violation on social networks and applications
+The classification of privacy violations introduced suggests that users should be particularly careful with the information they share on social networks and applications. It has been shown how leaking bits of personal information on one platform can be used for concrete privacy attacks. For example, physical identification and password recovery attacks can be based on the knowledge of personal information or the use of a known secret [63]. It has been shown how the attribute set birth-date, gender, zip code poses concrete risks of individual identification [132], leading to details that can be used to identify physical persons or to infer answers to password recovery questions.
+Another important aspect to consider is that the average online user joins different social networks with the objective to enjoy distinct services and features. On each service or application, an identity gets created, containing personal details, preferences, generated content and a network of relationships. The set of attributes used to describe these identities is often unique to the user. In addition, application or services sometimes require the disclosure of different personal information, such as email or full name, to create a profile. Users possessing different identities on different services, often use those to verify another identity on a particular application, i.e. a user will use their Facebook and LinkedIn profile to verify their account on the third service [66]. A set of information required by one service could, in fact, add credibility to the information the user has provided for a second application, by demonstrating that certain personal details overlap, and by adding other information, like, for example, a set of shared social relationships.
+The analysis of publicly available attributes in public profiles shows a correlation
+11
+
+between the amount of information revealed in social network profiles, specific occupations or job titles and use of pseudonyms. It is possible to identify certain patterns regarding how and when users reveal precise information [26]. Finally, aggregating this information can lead an attacker to obtain direct contact information by cross-linking the obtained features with other publicly available sources, such, for example, online phone directories.
+A famous method for information correlation was presented by Alessandro Acquisti and Ralph Gross [1]. Leveraging on the correlation between individuals’ Social Security numbers and their birth date, they were able to infer people Social Security numbers by using only publicly available information.
+Privacy attackers can also exploit loose privacy settings of a user’s online social connections, taking advantage of how humans interpret messages and interact with one another [127], developing semantic attacks [78]. Therefore, mechanism helping to promote coordinated privacy policies could be more efficient to count attacks [21].
+Accurate coordinated policy could also warn users of which third party application they authorise to access their data. Social networking platforms, in fact, expose users’ privacy to possible attacks by allowing third party application that accesses their data to be able to replicate it. Sandboxing techniques could be implemented allowing users to share information among social relationships, while also helping third party application to securely aggregate data according to differential privacy properties [139].
+Users should be allowed to choose an appropriate level of privacy for their needs and should be made aware of unwanted access to their data. This would permit protection of personal information that is being collected by mobile devices, including the derived inferences that could be drawn from the data. Semantic Web technologies can be implemented to specify high-level, declarative policies describing user information sharing preferences [65].
+A study on how users perceive the value of online and offline Personal Information (PI), shows that users value their PI related to their offline identities more (3 times) than what they willing share online [24]. This includes also valuing more
+12
+
+information related to their financial transactions and social network interactions than other online activities like search and shopping. Studies of this kind show how users are probably unknowingly sharing online more than they intended and how tracking technologies implement methods that collect user data without informing the users. In fact, studies that have considered the users’ perception of online advertising and the extent of online tracking have shown how the users’ attitude generally changed when they found out that most of online advertising and therefore tracking activities happens without their consent [31]
+Users, in fact, consider three main deciding factors when consulted about how and to what extent they are willing to disclose personal and sensitive information, especially information about their location, to social relations [28]. These factors were: who was requesting a particular information, why that information was requested, and what level of detail would be most useful to the requester.
+This aspect of users’ perception of sensitive information disclosure is particularly relevant when it has been shown [135] that knowing a user location is used as a grounding mechanism in applications that lets users interact with their nearby. Geo-tagged information set the basis for a platform for honest and truthful signals in the process of forming new social relations.
+At the same time, geolocalised information attached to users’ activities can be used, by an attacker, to derive models of user mobility and provide data for contextaware applications and recommendation systems [88]. This information can also be used to cluster communities with different preferences and interests into different geographical communities [144].
+Also, while some social networking applications use some form of obfuscation of the users’ actual positions, precise location information can be still be derived. An attacker could use the partial information to identify a user’s real position even when their exact coordinates are hidden or obfuscated by various location hiding techniques [79].
+While malicious attackers can target users, online services and platforms can also track their behaviour for a variety of purposes. Therefore, although there are certainly innumerable advantages in creating services that enable people to com-
+13
+
+municate so easily, it is as well important for users to retain control over which data they have been shared online over time. In the private sphere it has been said that ”literally, Google knows more about us than we can remember ourselves.” This situation has led to growing concerns regarding online privacy. In China, for example, one estimate suggests there are over 30.000 [62] government censors monitoring online information.
+In addition to user-generated content, ”metadata” regarding this content, are collected and stored by public and private organisations. Metadata are descriptions of actual documents that can be easily read by a machine for a variety of uses, from searching and sorting to pattern recognition. This has lead in the last few years to the development of a new term to describe hyperlinked data objects: hyperdata. Hyperdata indicates data objects linked to other data objects in other places as hypertext indicates text linked to another text in other documents. Hyperdata enables the formation of a web of data, evolving from the ”data on the web” that is not interrelated (or at least, not linked). Tools and information technology architectures employing visualisation and privacy enhancing technologies become, therefore, central to help users maintain a desired online footprint and retain a certain level of control over their data. At the same time, these tools can be useful to developers as well, to be aware of the possible privacy and security implication of their work.
+2.1.3 User profiling
+With user profile we mean a container of an individual tastes, preferences and behaviour that can be used to predict future activities. A user’s profile gives away the answer to whether or not that person can be interested in a certain product or service.
+In recommendation systems employing tags or in any system allowing resource annotation, users decide to disclose personal data in order to receive, in exchange, a certain benefit. This earned value can be quantified in terms of the customised experience of a certain product [49]. For such a recommendation system to work,
+14
+
+and successfully propose items of interest, user preferences need to be revealed and made accessible partially or in full, and thus exposed to possible privacy attacks.
+When a user expresses and shares their interests by annotating a set of items, these resources and their categorisation will be part of their activity. The recorded users’ activities will allow the used platform to “know more” about each of them, and therefore suggesting over time useful resources. These could be items similar to others tagged in the past, or simply close to the set of preferences expressed in their profile. In order to protect their privacy, a user could refrain from expressing their preferences altogether. While in this case, an attacker would not be able to build a profile of the user in question, it would also become impossible for the service provider to deliver a personalised experience: the user would then achieve the maximum level of privacy protection, but also the worst level of utility.
+Various and numerous approaches have been proposed to protect user privacy by also preserving the recommendation utility in the context of social tagging platform. These approaches can be grouped around four main strategies [128]: encryptionbased methods, approaches based on trusted third parties (TTPs), collaborative mechanisms and data-perturbative techniques. In traditional approaches to privacy, users or application designers decide whether certain sensitive information is to be disclosed or not. While the unavailability of this data, traditionally attained by means of access control or encryption, produces the highest level of privacy, it would also limit access to particular content or functionalities. This would be the case of a user freely annotating items on a social tagging platform. By adopting traditional PETs, the profile of this user could be made available only to the service providers but kept completely or partially hidden from their network of social connections on the platform. This approach would indeed limit the chances of an attacker profiling the user, but would, unfortunately, prevent them from receiving content suggested by their community.
+A conceptually simple approach to protecting user privacy consists in a TTP acting as an intermediary or anonymiser between the user and an untrusted information system. In this scenario, the system cannot know the user ID, but merely the identity of the TTP involved in the communication. Alternatively, the TTP
+15
+
+may act as a pseudonymiser by supplying a pseudonym ID’ to the service provider, but only the TTP knows the correspondence between the pseudonym ID’ and the actual user ID. In online social networks, the use of either approach would not be entirely feasible as users of these networks are required to authenticate to login. Although the adoption of TTPs in the manner described must, therefore, be ruled out, the users could provide a pseudonym at the sign-up process. In this regard, some sites have started offering social-networking services where users are not required to reveal their real identifiers. Social Number [129] is an example of such networks, where users must choose a unique number as their ID.
+Unfortunately, none of these approaches effectively prevents an attacker from profiling a user based on the annotated items content, and ultimately inferring their real identity. This could be accomplished in the case of a user posting related content across different platforms, making them vulnerable to techniques based on the ideas of re-identification. As an example, suppose that an observer has access to certain behavioural patterns of online activity associated with a user, who occasionally discloses their ID, possibly during interactions not involving sensitive data. The same user could attempt to hide under a pseudonym ID’ to exchange information of confidential nature. Nevertheless, if the user exhibited similar behavioural patterns, the unlinkability between ID and ID’ could be compromised through the exploitable similarity between these patterns. In this case, any past profiling inferences carried out by the pseudonym ID’ would be linked to the actual user ID.
+A particularly rich group of PETs resort to users collaborating to protect their privacy. One of the most popular is Crowds [123], which assumes that a set of users wanting to browse the Web may collaborate to submit their requests. Precisely, a user wishing to send a request to a Web server selects first a member of the group at random, and then forwards the request to them. When this member receives the request, it flips a biased coin to determine whether to forward this request to another member or to submit it directly to the Web server. This process is repeated until the request is finally relayed to the intended destination. As a result of this probabilistic protocol, the Web server and any of the members forwarding
+16
+
+the request cannot ascertain the identity of the actual sender, that is, the member who initiated the request.
+We consider collaborative protocols [36, 37, 119] like Crowds, not suitable for the applications addressed in this work although they may be effective in applications such as information retrieval and Web search. The main reason is that users are required to be logged into online social tagging platforms. That is, users participating in a collaborative protocol would need the credentials of their peers to login, and post on their behalf, which in practice would be unacceptable. Besides, even if users were willing to share their credentials, this would not entirely avoid profiling based on the observation of the resources annotated.
+In the case of perturbative methods for recommendation systems, [109] proposes that users add random values to their ratings and then submit these perturbed ratings to the recommender. When the system has received these ratings, it executes an algorithm and sends the users some information that allows them to compute the final prediction themselves. When the number of participating users is sufficiently large, the authors find that user privacy is protected to some degree, and the system reaches an acceptable level of accuracy. However, even though a user may disguise all their ratings, merely showing interest in an individual item may be just as revealing as the score assigned to that item. For instance, a user rating a book called ”How to Overcome Depression” indicates a clear interest in depression, regardless of the score assigned to this book. Apart from this critique, other works [58, 74] stress that the use of certain randomised data-distortion techniques might not be able to preserve privacy completely in the long run.
+In line with these two latter works, [110] applies the same perturbative technique to collaborative filtering algorithms based on singular-value decomposition, focusing on the impact that their technique has on privacy. For this purpose, they use the privacy metric proposed by Agrawal, and Aggarwal, [4], effectively a normalised version of the mutual information between the original and the perturbed data, and conduct some experiments with datasets from Movielens [90] and Jester [70]. The results show the trade-off curve between accuracy in recommendations and privacy. In particular, they measure accuracy as the mean absolute error between
+17
+
+the predicted values from the original ratings and the predictions obtained from the perturbed ratings.
+The approach considered in this study follows the idea of perturbing the information implicitly or explicitly disclosed by the user. It, therefore, represents a possible alternative to hinder an attacker in their efforts to profile their activity precisely, when using a personalised service. The submission of false user data, together with genuine data, is an illustrative example of data-perturbative mechanism. In the context of information retrieval, query forgery [99, 102, 121, 121] prevents privacy attackers from profiling users accurately based on the content of queries, without having to trust the service provider or the network operator, but obviously at the cost of traffic overhead. In this kind of mechanisms, the perturbation itself typically takes place on the user side. This means that users do not need to trust any external entity such as the recommender, the ISP or their neighbouring peers. Naturally, this does not signify that data perturbation cannot be used in combination with other third-party based approaches or mechanisms relying on user collaboration.
+Certainly, the distortion of user profiles for privacy protection may be done not only by means of the insertion of false activity but also by suppression. An example of this latter kind of data perturbation is the elimination of tags as a privacyenhancing strategy [97, 98, 100, 122], applied in the context of the semantic Web. This strategy allows users to preserve their privacy to a certain degree, but it comes at the cost of a degradation in the semantic functionality of the Web. Precisely, the the privacy-utility tradeoff posed by the suppression of tags was investigated mathematically [100, 101, 112], measuring privacy as the Shannon entropy of the perturbed profile, and utility as the percentage of tags users are willing to eliminate. Closely related to this are also other studies regarding the impact of suppressive PETs [98, 103, 112], where the impact of tag suppression is assessed experimentally in the context of various applications and real-world scenarios.
+While PETs to protect user profiles have been introduced and implemented we also believe that the privacy and sensitiveness of the information becoming accessible to third parties can be easily overlooked. The problem of measuring user
+18
+
+privacy in systems that profile users on the basis of the items they rate or tag is approached adopting a quantifiable measure of user privacy. Jaynes’ rationale on maximum entropy methods [67, 68] was used to measure the privacy of confidential data modelled by a probability distribution by means of its Shannon entropy and Kullbach-Lieber divergence [101, 124]. This is particularly relevant when online services provide the users with the perception that sharing less data impact their optimal services experience.
+2.2 Web tracking
+Information regarding locations, browsing habits, communication records, health information, financial information, and general preferences regarding user online and offline activities are shared by different parties. This level of access is often directly granted from the user of such services. In a wide number of occasion though, private information is captured by online services without the direct user consent or even knowledge. We believe that the privacy and sensitiveness of the information becoming accessible to third parties can be easily overlooked.
+To personalise their services or offer tailored advertising, web applications use tracking services that identify a user through different networks [43, 138]. These tracking services usually combine information from different profiles that users create, for example, their Gmail address or their Facebook or LinkedIn accounts. In addition, specific characteristics of the user’s devices can be used to identify them through different sessions and websites, as described by the Panopticlick project [38].
+Browser fingerprinting is a technique implemented by analytics services and tracking technologies to identify uniquely a user while they browser different websites. Different features of a specific browser setup can be used to identify uniquely a user. Supported languages, browser extensions or installed fonts [18] can be used to identify a browser setup among others. More advanced techniques distinguish between browsers’ JavaScript execution characteristics [91]. These features are particularly interesting since they are more difficult to simulate or mitigate in prac-
+19
+
+tice. Targeting JavaScript execution characteristics actually means looking at the innate performance signature of each browser’s JavaScript engine, allowing the detection of browser version, operating system and micro-architecture. These attacks can also work in situations where traditional forms of system identification (such as the user-agent header) are modified or hidden. Other techniques exploit the whitelist mechanism of the popular NoScript Firefox extension.This mechanism allows the user to selectively enabling web pages’ scripting privileges to increase privacy by allowing a site to determine if particular domains exist in a user’s NoScript whitelist.
+It is important to note that while tracking creates serious privacy concerns for Internet users, the customisation of results is also beneficial to the end user [25]. In fact, while tailored services offer to the user only information relevant to their interests, it also allows some companies and institutions to concentrate an enormous amount of information about Internet users in general. [118] investigate user profiling and access mechanisms offered by online data aggregator to users’ collected data. Both the collected data and its accuracy was analysed together with the user’s concerns. In their findings, about 70% of the participants to the study expressed some concerns about the collection of sensitive data, its level of detail and how it might be used by third parties, especially for credit and health information.
+Generally speaking, the activity of tracking a user across different websites, visits and devices, involves three main actors: the user, the tracking network, the list of websites visited. Every time a user visits a website a piece of code on the page is called asynchronously from the user’s browser. When the call to the tracking network is performed a number of user data is transferred and used to profile the user at a later time and/or on a different website or device. By modelling the user behaviour as a directed graph, it is possible to uncover the underlying network structure of the user footprint and the tracking networks tracking the user across the web [72] [126].
+It has been shown how most successful tracking networks exhibit a consistent structure across markets, with a dominant connected component that, on average, includes 92.8% of network vertexes and 99.8% of the connecting edges [45]. [45]
+20
+
+have measured the chance that a user will become tracked by all top 10 trackers in approximately 30 clicks on search results to be of 99.5%. More interesting, [45] have shown how tracking networks present properties of the small world networks. Therefore, implying a high-level global and local efficiency in spreading the user information and delivering targeted ads.
+It is interesting to note that the behaviour of tracking networks follows that of telemarketing operations of the 80s and 90s. In [55] the authors present an analysis of the history of telemarketing from cold calling potential customers on the phone, to the modern web tactics of tracking them across their browsing activities. It is particularly relevant how they point out that although users can try to avoid some modern communication tracking techniques, it is not guaranteed to assume that advertisers will respect individuals’ choices and will not try to find alternative methods. In the past, technologies adopted to avoid sales calls were circumvented through clever new approaches by telemarketers. In 2010 in fact, the Wall Street Journal presented a series of articles on monitoring [5], stating how the ”nation’s 50 top websites on average installed 64 pieces of tracking technology onto the computers of visitors, usually with no warning.”
+An interesting property of networks to understand their architecture is the behaviour of the average degree of nearest neighbours [13] [104]. The average degree of the nearest neighbours of a node knn(k) is a quantity related to the correlations between the degree of connected vertices [87], since it can be expressed as the conditional probability that a given vertex with degree k is connected to a vertex of degree k′. This property defines if the network in consideration is assortative if knn is an increasing function of k or dissortative [93] if it is not. The property of assortativity has been used in the field of epidemiology, to help understand how a disease or cure spreads across a network. It is particularly interesting to note that assortativity can give a measurement if the removal of a set of network’s vertices may correspond in curing, vaccinating or quarantining individual cells in the network.
+Another interesting aspect of networks is the presence of communities. A common activity when analysing large network is to start finding communities by di-
+21
+
+viding the nodes into modules. A common approach applies generative models able to infer the model parameters directly from the data. A simple generative process is the Stochastic Block Model (SBM) [54]. A stochastic block model is able to explicitly describe the global structure of a network, providing a model of how the network can be partitioned into subgroups (blocks) and how the probability distribution of the connections between the nodes (i.e. probability that a node is connected to another) depends on the blocks to which the nodes belong [41].
+The microcanonical formulation [105] of blockmodels takes as parameters the partition of the nodes into groups b and a B × B matrix of edge counts e, where ers is the number of edges between groups r and s. Since edges are then placed randomly, nodes belonging to the same group possess the same probability of being connected with other nodes of the network. Furthermore, to be able to find small groups in large network nested SBM are used. With nested SBM groups are clustered into groups, and the matrix e of edge counts are generated recursively from another SBM [108]. Agglomerative multilevel Markov chain Monte Carlo (MCMC) algorithm as described in [107], can be implied to compute a partition of the resulting graph.
+Protection techniques against tracking networks are implemented through software agents able to identify if third-party requests are accessing private data. These agents include Privacy Badger [111], Mozilla Lightbeam [80], Ghostery [44], AdBlock [2], and so on. Some of these agents block certain JavaScript functions or attempts to access determined browser functionality that can be used to uniquely identify the user. Some others implement a Tracking Protection Lists (TPL). A TLP can be seen as a blacklist of identified tracking domains that user might want to block.
+Another interesting aspect of advertising services is how they are designed to work on feedback loops [33]. An advertising service can, in fact, be seen as a blackbox providing the tracker trying to identify or profile the user, and the returned advertising content. The tracker is used to send information back to the advertising service, which in response will return a certain content tailored to the user preferences. Within this feedback loop, different aspects of the user behaviour are taken
+22
+
+into consideration. These include certainly the users browsing history and their click through rate, i.e. a measurement of the amount of time users in a population are more likely to interact with an ad. In more sophisticated advertising solution also user social connections are taken into consideration.
+Advertising, therefore, services raise the problem of confidentiality of the user reading activity [6]. Up to know an eloquent example of this problem was provided by the way public library in the US operates. Reading activities were considered historically private and were protected through a set of rules that restricted libraries ability to exploit reading records. This regime is clearly bypassed when libraries decide to provide digital services to their users. Digital services providers and third parties can, in fact, access users reading activities without agreeing to the library confidentiality regime.
+2.3 Online footprints
+As users spend time online they produce private information across a multitude of services. These are web and mobile apps, websites, different platforms, social media, mobile and Internet of Things (IoTs) devices. Furthermore, data shared with one platform can be then shared with third-parties without the user having to consent again. The notion of secondary privacy diffusion was introduced to describe when user data are either deliberately transmitted or inadvertently leaked to a third-party [77]. Examples of secondary privacy diffusion in today’s web are numerous. Imagine a scenario where a user is setting up their mobile phone for the first time. When they configure the device, all their data is transferred to various service providers. Among this data are also contact details of other people. Some of these people might have gone a long way trying to protect their details from disclosure, nor have they consented to their communications and information to be sent and stored by a third-party.
+Different projects have tried to capture how services track users across websites, applications and devices, some of these are: Mozilla Lightbeam [80], which allow users to visualise how web trackers are connected to the websites they visit,
+23
+
+Facebook-Tracking-Exposed [3], a project aiming at increase transparency behind personalization algorithms and expose how Facebook filtering works, Data Selfie, a browser extension that tracks users on Facebook to show their data traces and reveal how machine learning algorithms the very same data to gain insights about their profile [32].
+Hyperdata represents the evolution of the web as we know now. When Tim Berners-Lee envisioned the semantic web in 2001 [16], the web of data was described as a framework where autonomous agents could access structured information and conduct automated reasoning. These agents can be imagined as interconnected services accessing streams of data through a set of protocols or interfaces. APIs can provide such interfaces by specifying how software components can interact with each others through one or more protocols. When a request is sent to an individual service through an API, a stream of data is obtained as a reply. This reply is expressed in a format that can be parsed and interpreted. A hypermedia API would additionally specify links between the data object returned; therefore, a hypermedia browser would be able to explore such flow of information as web browser can navigate through the hyperlink in a web page.
+Secondary data leakages are in reality a by-product of the way the web works. Data on the web is consumed in the form of objects, like documents, or simple snippets of data, linked to other objects. These objects are often referred to as hyperdata. Hyperdata can be easily explained by considering it as an evolution of the hypertext. Within a hypertext document, in fact, paragraphs composing the document could be linked to some other text in the same or a different location. Hyperdata objects instead are either consumed through an Application Programming Interface (API), specifying how the different software components should interact with each other’s or also embedded into existing document.
+Examples of hyperdata are markup standards like Microformats, Microdata and RDFa used by websites to embed structured data to describe products, services, events, and make user information available already into their HTML pages [17].
+24
+
+A microformat (sometimes abbreviated μF) is an approach to describe data in a way that can be understandable both to machines and to humans. It builds on top of existing standards, and it is used to include metadata or other attributes into existing web pages or RSS feeds. This way software agents can process information that would otherwise be readable only for humans, such as contact information, geographical coordinates, or calendar events.
+When hyperdata objects are explored through an API, this would probably implement different communication protocols to allow several technologies to access independently to hyperdata objects. To enable this exchange of information among heterogeneous systems, the API can implement a language-neutral message format to communicate. This could be the case of XML or JSON languages, used as containers for the exchanged messages. In this extent, an ’Hypermedia API’ is one that is designed to be accessed and explored by any device or application. Its architecture is hence similar to the structure of the web and the same reasoning when serving and consuming the API it is applied.
+The response data for any API call can be returned in the desired format. Most RESTful services return either XML or JSON, while some give the options to choose a preferred format. The format is defined either in the request header or the URI called. It is also possible to set the default format that is returned unless another format is specified.
+JSON stands for JavaScript Object Notation, and it is defined as a lightweight data-interchange format. It has been based on a subset of the JavaScript Programming Language, Standard ECMA262 3rd Edition December 1999. JSON is a language to exchange data, so it is defined as language independent format and easy to be read by humans as well as being parsed by programs. A JSON object is a collection of name/value pairs, like a dictionary data structure in python or a hash in ruby. An object begins with { (left brace) and ends with } (right brace). Each name is followed by : (colon) and the name/value pairs are separated by , (comma). JSON also supports ordered lists. These can be seen as a list of values, as in an array. An array begins with [ (left bracket) and ends with ] (right bracket). Values
+25
+
+are separated by , (comma). A value can be a string in double quotes, or a number, or true or false or null, or an object or an array. These structures can be nested (Table: 2.3.1).
+XML stands for Extensible Markup Language, and it is designed as a language to define a set of rule to encode documents in a format that is both human-readable and machine-readable. It is defined in the XML 1.0 Specification produced by the W3C. XML was created to structure, store, and transport information, so this is why it is so handy and straightforward to use for application to communicate with each others. With XML, it is possible to define the tags, attributes and nesting rules that make a document valid according to a particular document type definition (DTD) or XML schema (XSD, XML Schema Definition), according to the application-specific choices. A DTD is a set of markup declarations that define a document type, while an XML schema expresses a set of rules to which an XML document must conform in order to be considered ’valid’ according to that schema (Table: 2.3.2).
+To protect data collected by third-parties and preserve the confidentiality of users’ footprints a privacy framework around the concept of ”virtual walls” was proposed in [73]. A virtual wall extends the notion of real world privacy provided by a closed room, sheltering a person from the outside world. A virtual wall would be a set of user specified policies controlling access to all their personal data in a way that is as intuitive and consistent with their notion of physical privacy.
+A common problem for user footprints protection tools has been identified in the user attitude towards disclosing new information and their awareness, or lackof-there-of, regarding possible data leakage. These aspects are amplified by the economics of web services based on advertising. It has been shown though, that an efficient client-side tool that maximises users’ awareness over their online footprint can help users making informed decisions over how they disclose new data [85].
+Different approaches for data management have also been proposed using cryp-
+26
+
+tographic techniques. Anonrep [143] is an anonymous reputation system where users anonymously post messages and tag them with their reputation score, without revealing other sensitive information. AnonRep reliably tallies other users’ feedback (e.g., likes or votes) without leaking the user identity or the exact reputation score, and also maintaining a level of security against duplicate feedback and score tampering. Smart contracts based on the concept of decentralised cryptocurrencies can facilitate data transactions and service management between individuals, applications and devices. In the field of smart contracts, Hashcash [8, 9] was probably the first of such systems. Hashcash proposes a CPU cost function to compute a token that can be used as a proof-of-work. This concept introduced by Hashcash, together with previous ideas from other systems as e-cash and b-money, create the basis for a cryptocurrency. Bitcoin [92] uses and expands these ideas to define a cryptographically secure mechanism to reach consensus over a series of cryptographically signed financial transactions. Bitcoin can be considered the first decentralised transaction ledger. Bitcoin itself has been forked several times and different version of the crypto-coin have been created introducing a number of variations over the protocols used [136] [131]. Other projects instead re-purpose core paradigms of Bitcoin to different applications and domains.
+The Ethereum project builds upon previous work on the usage of a cryptographic proof of computational expenditure as a means of transmitting a value signal over the Internet [22]. in Ethereum the Bitcoin ledger is considered as a state transition system. The current state in Bitcoin is the collection of all unspent transaction outputs (UTXO) with each UTXO having a denomination and an owner (defined by an address of a given length which can be considered as a cryptographic public key). A state transition function takes the current state and a transaction as inputs, and the new resulting state as output. This is similar to the standard banking system where the state is the balance sheet, a transaction is a request to move a sum of money X from A to B, and the state transition function is the mechanism reducing the value in A’s account by X and incrementing the value in B’s account by X. Moreover, UTXO in Bitcoin can be owned not just by a public key but also by a more complicated script. Scripts in Bitcoin are expressed through a stack-based
+27
+
+programming language allowing simple operations. With this paradigm, a transaction spending in UTXO must provide data satisfying the script. Likewise, the basic public key ownership mechanism of Bitcoin is implemented via scripts. In this case, the script takes an elliptic curve signature as input, verifies it against the transactions and address owning the UTXO and return 1 for success and 0 otherwise. More complicated scripts can be created for different purposes, allowing a decentralised cross-cryptocurrency exchange. Bitcoin scripting capabilities are however quite limited. The lack of Turing completeness and different states are a drawback to building more complex applications on top of the Bitcoin paradigm. Ethereum provides a blockchain with a Turing-complete programming language. A computer program that runs on the blockchain is a contract. It consists of program code, storage file and account balance. A contract is created by posting a transaction to the blockchain. Once created the program code of a contract is fixed, and its code executed whenever it receives a message, either from a user or from another contract. This concept has been used to define the decentralised autonomous organisation and trust [69] [76].
+In the field of the Internet of Things (IoTs), a number of techniques have been proposed. An interesting research effort in anonymous authentication systems is EPID [125]. EPID is technology for active anonymity aiming at solving the problems of authentication, anonymity and revocation with finite field arithmetic and elliptic curve cryptography (ECC). In the EPID ecosystem three entities are defined: the authority responsible for generating, signing and revoking keys, the platform device receiving a service, the verifier that provides the service to the device. EPID provides a solution for a device to authenticate itself anonymously to a service provider. The defined protocol is one-way because the service provider is not authenticating back to the platform.
+An extension of EPID, ChainAnchor [52], uses the blockchain as a mechanism to anonymously register device commissioning and decommissioning.ChainAnchor provides a privacy-preserving technique for device commissioning and assurance to service providers that the device is a genuine product issued by the manufacturer. Another blockchain-based approach proposes a combination of blockchain
+28
+
+and off-blockchain storage instead. This combination is used to construct a privacyfocused personal data management platform [145]. With a decentralised approach, users are not required to blindly trust any third-party and are always aware of how their data is being managed and used. In addition, the blockchain recognises data ownership to the user, and not to the company providing the service.
+The blockchain has also be used to extend the GPG approach to the web of trust [39, 141], providing an alternative certificate format based on Bitcoin which allows a user to verify a PGP certificate using Bitcoin identity-verification transactions. The user will be able to form first degree trust relationships that are tied to actual values. Furthermore, the blockchain approach can also be used to design a novel distributed PGP key server and store and retrieve, to and from the ledger, Bitcoin-Based PGP certificates.
+Certcoin is a Public key infrastructure (PKIs) with no central authority [42] leveraging the consistency guarantees provided by cryptocurrencies such as Bitcoin and Namecoin to build a PKI that ensures identity retention, effectively preventing one user from registering a public key under another’s already-registered identity.
+Other digital identities management techniques have been built on top of common cross-site authentication schemes such as OAuth and OpenID. An example of such approach is Crypto-Book [84] an approach which extends existing digital identities through public-key cryptography and ring signatures. A similar technique is proposed by UnlimitID [64] a method for enhancing the privacy of common mechanisms for authorization and authentication, such as OAuth.
+29
+
+Table 2.1.1: Classification of privacy violations
+
+Violation
+
+Activities
+
+Actions
+
+Collection
+
+- Surveillance; - Information probing; - Interrogation.
+
+- Watching, listening, recording of individuals’ activities. - Questioning individuals directly. - Inferring information from data.
+
+Processing
+
+- Aggregation; - Identification; - Insecurity; - Secondary use; - Exclusion.
+
+- Gathering of data about individuals. - Identification of physical identities from online data. - Carelessness in protecting data. - Failure in allowing users to know who has accessed to their data.
+
+Dissemination
+
+- Breach of confidentiality; - Disclosure; - Exposure; - Increased accessibility; - Data appropriation; - Distortion.
+
+- Breaking the promise of keeping the information confidential. - Revelation of information about an individual that impacts the way other see them. - Appropriation of identity information. - Dissemination of false or misleading information. - Transfer of personal data to third party or threat to do so.
+
+Invasion
+
+- Intrusion of someone private life.
+
+- Acts that can disturb one tranquillity or solitude.
+
+The table summarises the classification used to categorise privacy violation in proximity-based social application.
+
+30
+
+{ ”products”: [ { ”type”:”Sneakers” , ”brand”:”Adidas” }, { ”type”:”Runners” , ”brand”:”Nike” }, { ”type”:”Accessories” , ”brand”:”Puma” } ] }
+Table 2.3.1: A JSON example
+< product > < type > Sneakers < /type > < brand > Adidas < /brand > < /product >
+Table 2.3.2: An XML example
+31
+
+I live on Earth at present, and I don’t know what I am. I know that I am not a category. I am not a thing — a noun. I seem to be a verb, an evolutionary process – an integral function of the universe.
+R. Buckminster Fuller
+3
+Users profiling in social tagging systems
+Recommendation systems and content filtering approaches based on annotations and ratings, essentially rely on users expressing their preferences and interests through their actions, in order to provide personalised content. This activity, in which users engage collectively has been named social tagging, and it is one of the most popular in which users engage online, and although it has opened new possibilities for application interoperability on the semantic web, it is also posing new privacy threats. It, in fact, consists of describing online or offline resources by using free-text labels (i.e. tags), therefore exposing the user profile and activity to privacy attacks. Users, as a result, may wish to adopt a privacy-enhancing strategy in order not to reveal their interests completely.
+In this chapter we investigate the impact of PETs on comment recommendation systems extending results from [112]. Tag forgery is a privacy enhancing technol-
+32
+
+ogy consisting of generating tags for categories or resources that do not reflect the user’s actual preferences. By modifying their profile, tag forgery may have a negative impact on the quality of the recommendation system, thus protecting user privacy to a certain extent but at the expenses of utility loss. The impact of tag forgery on content-based recommendation is, therefore, investigated in a real-world application scenario where different forgery strategies are evaluated, and the consequent loss in utility is measured and compared.
+3.1 Background
+Recommendation and information filtering systems have been developed to predict users’ preferences, and eventually use the resulting predictions for a variety of services, from search engines to resources suggestions and advertisement. The system functionality relies on users implicitly or explicitly revealing their activity and personal preferences, which are ultimately used to generate personalised recommendations.
+Such annotation activity has been called social tagging and it consists of users collectively assigning keywords (i.e. tags) to real life objects and web-based resources that they find interesting. Social tagging is currently one of the most popular online activities. Therefore, different functionalities have been implemented in various online services, such as Twitter [137], Facebook [40], YouTube [142], and Instagram [60], to encourage their users to tag resources collectively.
+Tagging involves classifying resources according to one own experience. Unlike traditional methods where classification happens by choosing labels from a controlled vocabulary, in social tagging systems users freely choose and combine terms. This is usually referred to as free-form tag annotation, and the resulting emergent information organisation has been called folksonomy.
+This scenario has opened new possibilities for semantic interoperability in web applications. Tags, in fact, allow autonomous agents to categorise web resources easily, obtaining some form of semantic representation of their content. However, annotating online resources poses potential privacy risks, since users reveal
+33
+
+their preferences, interests and activities. They may then wish to adopt privacyenhancing strategies, masquerading their real interests to a certain extent, by applying tags to categories or resources that do not reflect their actual preferences. Specifically, Tag forgery is a privacy enhancing technology (PET) designed to protect user privacy, by creating bogus tags in order to disguise real user’s interests. As a perturbation-based mechanism, tag forgery poses an inherent trade-off between privacy and usability. Users are able to obtain a high level of protection by increasing their forgery activity, but this can substantially affect the quality of the recommendation.
+3.2 Contribution
+The primary goal of this chapter is to investigate the effects of tag forgery to contentbased recommendation in a real-world application scenario, studying the interplay between the degree of privacy and the potential degradation of the quality of the recommendation. An experimental evaluation is performed on a dataset extracted from Delicious [34], a social bookmarking platform for web resources. In particular, three different tag forgery strategies have been evaluated, namely: optimised tag forgery [121], uniform tag forgery and TrackMeNot (TMN) [56], the last consists of simulating a possible TMN like agent, periodically issuing randomised tags according to popular categories.
+Using the dataset and a measure of utility for the recommendation system, a threefold experiment is conducted to evaluate how the application of tag forgery may affect the quality of the recommender. Hence, we simulate a scenario in which users only apply one of the different tag forgery strategies considered. Measures of the recommender performances are computed before and after the application of each PET, obtaining an experimental study of the compromise between privacy and utility.
+To the best of our knowledge, this is the first systematic evaluation of the impact of applying perturbation-based privacy technologies on the usability of contentbased recommendation systems. For this evaluation, both suitable privacy and
+34
+
+usability metrics are required. In particular, as suggested by Parra et al. [101], the KL divergence is used as privacy metric of the user profile; while the quality of the recommendation is computed following the methodology proposed by Cantador el al. [23].
+In this chapter we first describe the adversary model considered §3.2. Following, we explain a possible practical application for the proposed PET through the implementation of a communication module §3.3. Therefore, we discuss the evaluation methodology and obtained results §3.4.
+sectionAdversary Model Users tagging online and offline resources generate what is has been called a folksonomy, that is, a set composed by all the users that have expressed at least a tag, the tags that have been used and the items that have been described through them. Formally, a folksonomy F can be defined as a tuple F = {T , U , I, A}, where T = {t1, . . . , tL} is the set of tags, or more generally tag categories, which comprise the vocabulary expressed by the folksonomy; U = {u1, . . . , uM} is the set of users that have expressed at least a tag; I = {i1, . . . , iN} is the set of items that have been tagged; and A = {(um, tl, in) ∈ U × T × I} is the set of annotations of each tag category tl to an item in by a user um [23].
+As we shall see in §3.2.1, our user-profile model will rely on categorising tags into categories of interest. This will provide a certain mathematical tractability of the user profile while at the same time allowing for a classification of the user interests into macro semantic topics.
+In our scenario, users assign tags to online resources, according to their preferences, taste or needs. It follows that while the user is contributing to categorise a specific content through their tags, hence adding semantic information to the whole folksonomy, their activity is revealing something regarding their interests, reducing their privacy overall.
+We assume that the set of potential privacy attackers includes any entity capable of capturing the information users convey to a social tagging platform. Accordingly, both service providers and network operators are deemed potential attackers. However, since tags are often publicly available to other users of the tagging platform, any entity able to collect this information is also taken into consideration
+35
+
+in our adversary model. In our model, we suppose that the privacy attacker aims at profiling users through
+their expressed preferences, specifically on the basis of the tags posted. Throughout this work, we shall consider that the objective of this profiling activity is to individuate users, meaning that the attacker wishes to find users whose preferences significantly diverge from the interests of the whole population of users. This assumption is in line with other works in the literature [96, 101, 102].
+
+3.2.1 Modelling the User/Item Profiles
+A tractable model of the user profile as a probability mass function (PMF) is proposed in [96–98, 100] to express how each tag contributes to expose how many times the user has expressed a preference toward a specific category of interest. This model follows the intuitive assumption that a particular category is weighted according to the number of times this has been used in the user or item profile.
+Exactly as in those works, we define the profile of a user um as the PMF pm = (pm,1, . . . , pm,L), conceptually a histogram of relative frequencies of tags across the set of tag categories T . More formally, in terms of the notation introduced at the beginning of Section 3.2, the l-th component of such profile is defined as
+
+pm,l
+
+=
+
+|{(um, tl, i) ∈ A|i ∈ I}| . |{(um, t, i) ∈ A|t ∈ T , i ∈ I}|
+
+Similarly, we define the profile of an item in as the PMF qn = (qn,1, . . . , qn,L), where qn,l is the percentage of tags belonging to the category l which have been assigned to this item. Both user and item profiles can then be seen as normalised histograms of tags across categories of interest. Our profile model is in this extent equivalent to the tag clouds that numerous collaborative tagging services use to visualise which tags are being posted, collaboratively or individually by each user. A tag cloud, similarly to a histogram, is a visual representation in which tags are weighted according to their relevance. Fig. 3.2.1 shows an example of a user’s profile.
+
+36
+
+Relative Frequency of Occurence [%]
+
+40
+
+35
+
+30
+
+25
+
+20
+
+15
+
+10
+
+5
+
+0
+
+Reference Computers Society Science
+
+Arts
+
+Health Recreation Home Business Sports Games
+
+Figure 3.2.1: Example of a user’s profile expressed as a PMF across a set of tag categories.
+
+In view of the assumptions described in the previous section, our privacy attacker boils down to an entity that aims to profile users by representing their interests in the form of normalised histograms, on the basis of a given categorisation. To achieve this objective, the attacker exploits the tags that users communicate to social tagging systems. This work assumes that users are willing to submit false tags, to mitigate the risk of profiling. In doing so, users gain some privacy, although at the cost of certain loss in usability. As a result of this, the attacker observes a perturbed version of the genuine user profile, also in the form of a relative histogram, which does not reflect the actual interests of the user. In short, the attacker believes that the observed behaviour characterises the actual user’s profile.
+Thereafter, we shall refer to these two profiles as the actual user profile p and the apparent user profile t.
+37
+
+Relative Frequency of Occurence [%]
+
+45
+
+40
+
+35
+
+30
+
+25
+
+20
+
+15
+
+10
+
+5
+
+0
+
+Reference Computers Society Science
+
+Arts
+
+Health Recreation Home Business Sports Games
+
+Figure 3.2.2: Profile of the whole population of users in our dataset.
+
+3.2.2 Privacy Metric
+In this section, we propose and justify an information-theoretic quantity as a measure of user privacy in social tagging systems. For the readers not familiar with information theory, next we briefly review two key concepts.
+Recall [30] that Shannon’s entropy H(p) of a discrete random variable (r.v.) with PMF p = (pi)Li=1 on the alphabet {1, . . . , L} is a measure of the uncertainty of the outcome of this r.v., defined as
+∑ H(p) = − pi log pi.
+
+Given two probability distributions p and q over the same alphabet, the KullbackLeibler (KL) divergence is defined as
+
+D(p
+
+∥
+
+q)
+
+=
+
+∑
+
+pi
+
+log
+
+pi qi
+
+.
+
+38
+
+The KL divergence is often referred to as relative entropy, as it may be regarded as a generalisation of the Shannon entropy of a distribution, relative to another.
+Having reviewed the concepts of entropy and relative entropy, we define the initial privacy risk as the KL divergence between the user’s genuine profile p and the population’s tag distribution ¯p, that is,
+R0 = D(p ∥ ¯p).
+Similarly, we define the (final) privacy risk R as the KL divergence between the user’s apparent profile t and the population’s distribution,
+R = D(t ∥ ¯p).
+Next, we justify the Shannon entropy and the KL divergence as measures of privacy when an attacker aims to individuate users based on their tag profiles. The rationale behind the use of these two information-theoretic quantities as privacy metrics is documented in greater detail in [101].
+Leveraging on a celebrated information-theoretic rationale by Jaynes [68], the Shannon entropy of an apparent user profile may be regarded as a measure of privacy, or more accurately, anonymity. The leading idea is that the method of types from information theory establishes an approximate monotonic relationship between the likelihood of a PMF in a stochastic system and its entropy. Loosely speaking and in our context, the higher the entropy of a profile, the more likely it is, and the more users behave according to it. Under this interpretation, entropy is a measure of anonymity, although not in the sense that the user’s identity remains unknown. Entropy has, therefore, the meaning that the higher likelihood of an apparent profile can help the user go unnoticed. In fact, the apparent user profile makes the user more typical to an external observer, and hopefully, less attractive to an attacker whose objective is to target peculiar users.
+If an aggregated histogram of the population is available as a reference profile, as we assume in this work, the extension of Jaynes’ argument to relative entropy
+39
+
+also gives an acceptable measure of anonymity. The KL divergence is a measure of discrepancy between probability distributions, which includes Shannon’s entropy as the particular case when the reference distribution is uniform. Conceptually, a lower KL divergence hides discrepancies with respect to a reference profile, say the population’s profile. Also, it exists a monotonic relationship between the likelihood of a distribution and its divergence with respect to the reference distribution of choice. This aspect enables us to deem KL divergence as a measure of anonymity in a sense entirely analogous to the above mentioned.
+Under this interpretation, the KL divergence is, therefore, interpreted as an (inverse) indicator of the commonness of similar profiles in said population. As such, we should hasten to stress that the KL divergence is a measure of anonymity rather than privacy. The obfuscated information is the uniqueness of the profile behind the online activity, rather than the actual profile. Indeed, a profile of interests already matching the population’s would not require perturbation.
+3.2.3 Privacy-Enhancing Techniques
+Among a variety of PETs, this work focuses on those technologies that rely on the principle of tag forgery. The key strengths of such tag-perturbation technique are its simplicity in terms of infrastructure requirements and its strong privacy guarantees, as users need not trust the social tagging platform, nor the network operator nor other peers.
+In conceptual terms, tag forgery is a PET that may help users tagging online resources to protect their privacy. It consists of the simple idea that users may be willing to tag items that are unknown to them and that do not reflect their actual preferences, in order to appear as similar as possible to the average population profile. A simple example of such technique can be illustrated by thinking to a specific thematic community, such that of a group of individuals interested in jazz music. In this scenario if a user is particularly interested in rock music, their profile could be easily spotted and identified, as they would probably express interest towards artists and tracks that could be categorised outside of the jazz category.
+40
+
+When a user wishes to apply tag forgery, first they must specify a tag-forgery rate ρ ∈ [0, 1]. This rate represents the ratio of forged tags to total tags the user is disposed to submit. Based on this parameter and exactly as in [121], we define the user’s apparent tag profile as the convex combination t = (1 − ρ) p + ρ r. Here r is some forgery strategy modeling the percentage of tags that the user should forge in each∑tag category. Clearly, any forgery strategy must satisfy that ri ⩾ 0 for all i and that ri = ρ.
+In this work, we consider three different forgery strategies, which result in three implementations of tag forgery, namely, optimised tag forgery [121], the popular TMN mechanism [56] and a uniform tag forgery. The optimised tag forgery corresponds to choosing the strategy r∗ that minimises privacy risk for a given ρ, that is,
+r∗ = arg min D((1 − ρ) p + ρ r ∥ ¯p).
+r
+Please note that this formulation of optimised tag forgery relies on the appropriateness of the criteria optimised, which in turn depends on a number of factors. These are: the specific application scenario and the tag statistics of the users; the actual network and processing over-head incurred by introducing forged tags; the assumption that the tag-forgery rate ρ is a faithful representation of the degradation in recommendation quality; the adversarial model and the mechanisms against privacy contemplated.
+The TMN mechanism is described next. Said mechanism is a software implementation of query forgery developed as a Web browser add-on. It exploits the idea of generating false queries to a search engine in order to avoid user profiling from the latter. TMN is designed as a client-side software, specifically a browser add-on, independent from centralised infrastructure or third-party services for its operation. In the client software, a mechanism defined dynamic query lists has been implemented. Each instance of TMN is programmed to create an initial seed list of query terms that will be used to compute the first flow of decoys searches. The initial list of keywords is built from a set of RSS feeds from popular websites, mainly news sites, and it is combined with a second list of popular query words
+41
+
+gathered from recently searched terms. When TMN is first enabled, and the user sends an actual search query, TMN intercepts the HTTP response returned from the search engine, and extracts suitable query-like terms that will be used to create the forged searches. Furthermore, the provided list of RSS feeds is queried randomly to substitute keywords in the list of seeds [57].
+Because TMN sends arbitrary keywords as search queries, the user profile resulting from this forgery strategy is completely random [27]. Although the user possess the ability to add or remove RSS feeds that the extension will use to construct their bogus queries, there is no possible way to control which actual keywords are chosen. Moreover, the user has no control on the random keywords that are included in the bursts of bogus queries, since these are extracted from the HTTP response received from the actual searches that the user has performed. While TMN is a technique designed to forge search queries, we have implemented a TMN-like agent generating bogus tags. To initialise our TMN-like agent we have considered an initial list of seed using RSS feeds from popular news sites, the sites included were the same ones that TMN uses in its built-in list of feeds. By querying the RSS feeds, a list of keywords was extracted. Hence, using the extracted keywords a distribution of tags into eleven categories was constructed, these eleven categories corresponds to the first taxonomy levels of the Open Directory Project (ODP) classification scheme [35]. The profile obtained with this technique has then been assumed as a reference to implement a TMN agent and is denoted by the distribution w.
+Last but not least, the proposed uniform tag forgery strategy is constructed similarly to TMN. We have in fact supposed a TMN agent that would send disguise tags created according to a uniform distribution across all categories. More specifically, in the uniform forgery strategy we have that r = u. Table 3.2.1 summarises the tag-forgery strategies considered here.
+42
+
+Table 3.2.1: Summary of the tag-forgery strategies under study. In this work, we investigate three variations of a data-perturbative mechanism that consists of annotating false tags. The optimised tag forgery implementation corresponds to the strategy that minimises the privacy risk for a given forgery rate. The TMN-like approach generates false tags according to the popular privacypreserving mechanism TrackMeNot [56]. The uniform approach considers the uniform distribution as forgery strategy.
+
+Tag-forgery implementation Optimised [121] TMN [56] Uniform
+
+Forgery strategy r arg minr D((1 − ρ) p + ρ r ∥ ¯p)
+w (TMN distribution) u (uniform distribution)
+
+3.2.4 Similarity Metric
+A recommender, or a recommendation system, can be described as an information filtering system that seeks to predict the rating or preference that a user would give to an item. For the purpose of our study, the idea of rating a resource or expressing a preference has been considered as the action of tagging an item. This assumption follows the idea that a user will most likely tag a resource if they happen to be interested in this resource.
+In the field of recommendations systems, we may distinguish three main approaches to item recommendation: content-based, user-based and collaborative filtering [20]. In content-based filtering items are compared based on a measure of similarity. The assumption behind this strategy is that items similar to those a user has already tagged in the past would be considered more relevant by the individual in question. If in fact a user has been tagging resources in certain categories with more frequency, it is more probable that they would also annotate items belonging to the same categories.
+In user-based filtering, users are compared with other users based again on a defined measure of similarity. It is supposed, in this case, that if two or more users have similar interests, i.e. they have been expressing preference in resources in sim-
+43
+
+ilar categories, items that are useful for one of them can also be significant for the others.
+Collaborative filtering employs both a combination of the techniques described before as well as the collective actions of a group or network of users and their social relationships [75]. In collaborative filtering then, not only the tags and categories that have been attached to certain items are considered, but also what are called item-specific metadata are taken into account, these could be the item title or summary, or other content-related information [19].
+In the coming sections, we shall use a generic content-based filtering algorithm [81] to evaluate the three variations of tag forgery described in §3.2.3.
+We have chosen a content-based recommender because this class of algorithms models users and items as histograms of tags, which is essentially the model assumed for our adversary (§3.2.1). Loosely speaking a content-based recommendation system is composed of: a proper technique for representing the items and users’ profiles, a strategy to compare items and users and produce a recommendation. The field of content recommendation is particularly vast and developed in the literature and its applications are numerous. Recommendation systems in fact span different topics in computer science, information retrieval and artificial intelligence.
+For the scope of this job we are only concentrating on applying a suitable measure of similarity within items and users’ profiles. The recommendation algorithm we have implemented therefore aims to find items that are closer to a particular user profile (i.e. more similar). Three commons measurement of similarity between objects are usually considered in the literature. These are namely: Euclidean distance, Pearson correlation and Cosine similarity [81].
+The Euclidean distance is the simplest and most common example of a distance measure. The Pearson correlation is instead a measurement of the linear relationship between objects. While there are certainly different correlation coefficients that have been considered and applied, the Pearson correlation is among the most commonly used.
+Cosine similarity is another very common approach. It considers items as docu-
+44
+
+ment vectors of an n-dimensional space and compute their similarity as the cosine
+
+of the angle that they form. We have applied this approach in our study.
+
+More specifically, we have considered a cosine-based similarity [86] as a mea-
+
+sure of distance between a user profile and an item profile. The cosine metric is a
+
+simple and robust measure of similarity between vectors which is widely used in
+
+content-based recommenders. Hence if pm = (pm,1, . . . , pm,L) is the profile of user um and qn = (qn,1, . . . , qn,L) is the profile of item in, the cosine similarity between
+
+these two profiles is defined as
+
+∑
+
+s(pm, qn) = √∑ l pm√,l q∑n,l .
+
+l p2m,l
+
+l q2n,l
+
+3.2.5 Utility Metric
+A utility metric is being introduced in order to evaluate the performances of the recommender and understand how these degrade with the application of a specific PET. Prediction accuracy is among the most debated property in the literature regarding recommendation systems. For the purpose of this work it is assumed that a system providing on average more accurate recommendation of items would be preferred by the user. Furthermore the system is evaluated considering a content retrieval scenario where a user is provided with a ranked list of N recommended items, hence performances are evaluated in terms of ranking based metrics used in the Information Retrieval field of study [14] . The performance metric adopted is therefore among the most commonly used for ranked list prediction, i.e. precision at top V results. In the field of information retrieval, precision can be defined as the fraction of recommended items that are relevant for a target user [12] . If the recommendation system evaluated retrieves V items, the previously defined ratio is precision at top V or P@V. Precision at top V is then a metric that measures how many relevant documents the user will find in the ranked list of results. The overall performance value is then calculated by averaging the results over the set of all available users. Considering a likely scenario, for which a user would be presented with a list of top-V results that the system has considered most similar to their pro-
+45
+
+file, we have evaluated precision of the recommender in two possible situations: with V = 30 in one case and V = 50 in the other.
+3.3 Architecture
+In this section, we present an architecture of a communication module for the protection of user profiles in social tagging systems (Fig. 3.3.1). We consider the case in which a user would retrieve items from a social tagging platform, and would occasionally submit annotations in the form of ratings or tags to the resource they would find interesting. This would be the case of a user browsing resources on StumbleUpon, tagging bookmarks on Delicious or exploring photos on Flickr. The social tagging platform would suggest web resources through its recommendation system that would gradually learn about the user interest, hence trying to suggest items more related to the user expressed preferences.
+While the user would normally read the suggested documents, these would also be intercepted by the communication module, running as a software on the user space. This can be imagined as a browser extension analysing the communication between the user and the social tagging platform under consideration.
+More generally, the communication module can be envisioned as a proxy or a firewall, i.e. a component between the user and the outside Internet, responsible for filtering and managing the communication flows that the user generates. While the user would browse the Internet the communication module would be in sleeping mode, and it could be turned on at the user’s discretion only when visiting certain social tagging platforms. It is assumed that while the user would surf a certain platform, eventually annotating resources that they find relevant, they would receive and generate a stream of data, or more specifically a data flow. This is composed of the resources that the platform is sending to the user in the form of recommendation and of those that the user is sending back to the platform in the form of tagged items.
+These data flows are analysed in the communication module by a component, the population profile constructor, and used to build a population profile of ref-
+46
+
+erence. We have supposed that these data streams would probably contain annotations that would help the module profiling the average population of users, together with other information regarding trends and current news. It is also possible that the module would contain specific, pre-compiled profiles, corresponding to particular population that the user would consider either safe or generic.
+The user generated stream of data instead, composed by each annotated item, would be feeding the user profile constructor. This component would keep track of the actual expressed user preferences and feed this data into the forgery controller.
+At this point the forgery controller would calculate a forgery strategy, that at the user discretion is either applied or not to the stream of tagged resources, and that would be sent to the social tagging platform, as the flow of data comprising the user activity. If the user kept the communication module on its off state, no forgery would modify the documents sent to the social tagging service, otherwise a certain stream of annotations would be computed and applied to certain resources.
+This means that according to the strategy and a forgery rate that the user has chosen, the forgery controller would produce a number of bogus tags to certain items. These would be sent to the social tagging platform together with the actual user annotations. The user would hence present to the platform not their real profile, but an apparent profile t resulting from both their real activity and the forged categorisation stream.
+3.3.1 Further considerations
+We would like to stress the fact that at the centre of our approach is the user. The communication module can in fact be used either to calculate a forgery strategy, or to simply warn the user when their privacy risk reaches a certain threshold. At this point the user would be presented with a possible forgery strategy and eventually are set of keywords and resources that could be used to produce bogus tags. We are aware that a mechanism generating tags could eventually produce a strategy introducing sensible topics in the user profile. We have, therefore, addressed this situation by using exclusively a curated list of websites and news portals whose
+47
+
+Figure 3.3.1: The proposed architecture of a communication module managing the user data flows with a social tagging platform and implementing different possible forgery algorithms.
+content can be considered safe. In addition keywords in categories considered sensible could be excluded, either automatically or by the users. In our architecture is the user who ultimately decides whether to follow the recommendations proposed by our communication module or not.
+Additionally, it is worth mentioning that, if the user decided to reduce excessively the number of categories used to produce a possible forgery strategy, their user profile would inevitably exhibits a spike in activity in the chosen categories. As a consequence, the apparent user profile would probably become more identifiable to an external attacker. We therefore believe that although the user should be allowed to tweak their forgery strategy, they should also be informed of the consequences of applying some settings instead of others to the communication module.
+We have also considered the possibility to implement our proposed architecture as a mobile application. We are aware this might add a computational, and networking overhead on the platform where the module will be installed, yet we
+48
+
+also believe that in modern mobile platforms and personal computers this shall not be an issue. More importantly we believe that the benefit of controlling the user perceived profile shall overcome the cost of implementing the proposed architecture.
+Profile data are in fact collected not only by social tagging platforms but also by websites, web applications and third parties even when the user is not connected to a personal account. Through tracking technologies and a networks of affiliated web sites users can be followed online and their footprint collected for a variety of uses. If aggregated, these data could reveal more over time that the same users initially intended. The data then turn from merely figures to piece of information able to describe users’ identity and behaviours. Social engineering attacks could exploit users’ profiles on different social networks to gather certain sensitive information. Similarly, users’ profiles crawling across different services and applications can disclose relevant facts about the users. It is, therefore, important for users to maintain a desired online privacy strategy. At the same time, this approach could also be implemented by developers and systems architects who need to be aware of the possible privacy and security implication of their work.
+3.4 Evaluation
+Evaluating how a recommender system would be affected when tag forgery is applied in a real world scenario is interesting for a different range of applications. We have particularly considered both the point of view of the privacy researcher interested in understanding how user privacy can be preserved, and also the perspective of an application developer willing to provide users with accurate recommendation regarding content and resources available on their platform.
+Every PET must in fact ensure whether the semantic loss incurred in order to protect private data can be acceptable for practical use.
+49
+
+Table 3.4.1: Statistics regarding Delicious dataset
+Statistics about the built dataset
+
+Categories
+
+11 Users
+
+1867
+
+Item-Category Tuples 98998 Avg. Tags per User
+
+477.75
+
+Items
+
+69226 Avg. Items per Category 81044
+
+Avg. Categories per Item 1.4 Tags per item
+
+13.06
+
+Thus, different tag forgery strategies were considered in a scenario where all the users were willing to apply the techniques. It was also considered that a user would try to apply a certain technique at different forgery rates, in order to evaluate how utility would be affected on average at each rate. When forgery rate is equal to zero it means the technique is not applied.
+Hence, the overall utility for the recommender system, based on the applied forgery rate was evaluated against the privacy risk reduction calculated after each step.
+In our simulated scenario, a user would ideally implement a possible PET at a time. We have therefore considered what percentage of utility the hypothetical user would lose when incrementing the ratio of forged tags with each strategy, consequently underlining what percentage of privacy risk reduction has gained in front of a certain loss in utility.
+The user in this setup is presented over time with a list of top results, they would then decide to click or not on a number of these resources. This number divided by the total number of results gives us the percentage of items that the user has actually
+50
+
+found interesting. Our utility metric is then evaluated considering the cases for which the user has been presented with the top 30 results, and the top 50 results.
+Note that since in our experimental setting, we have split the data into a testing and a training set [15, 23], considering relevant only the items in the user’s profile, it is not possible to evaluate items that are as yet unknown to the user but that could also be considered relevant (Fig. 3.4.1). In a real world application in fact, a user could be presented with results that are unknown to them, but that do reflect their expressed interests. Therefore our estimation of precision is in fact an underestimation [53].
+In order to evaluate the impact of a determined PET on the quality of the recommendation, and elaborate a study of the relationship between privacy and utility, a dataset rich in collaborative tagging information was needed. Considering different social bookmarking platforms, Delicious was identified as a representative system. Delicious is a social bookmarking platform for web resources [34]. The dataset containing Delicious data was obtained from the ones publicly available at the 2nd International Workshop on Information Heterogeneity and Fusion in Recommender Systems [61], accessible on http://ir.ii.uam.es/hetrec2011/datasets.html, and kindly hosted by GroupLens research group at University of Minnesota. Furthermore, the dataset also contained category information about their items, this corresponds to the first and second taxonomy levels of the ODP classification scheme (Table 3.4.1) [35]. The ODP project, now DMOZ, is the largest, most comprehensive human-edited directory of the Web, constructed and maintained by a passionate, global community of volunteers editors.
+The chosen dataset specifically contains activity on the most popular tags in Delicious, the bookmarks tagged with those tags, and the users that tagged each bookmark. Starting from this specific set of users, the dataset also exhibits their contacts and contacts’ contacts activity. Therefore it both covers a broad range of document’s topics while also presenting a dense social network [35].
+The experimental methodology is described also by Fig. 3.4.1. The dataset is
+51
+
+randomly divided between two subsets, namely a testing and a training set. The training set contains 80% of the items for each user, and was used to build the users’ profiles. The testing set contained the remaining 20% of the items tagged by each user, and was considered to evaluate (test) the recommender itself.
+The first step of the experiment involved obtaining a metric of the recommender performance without applying any PET. The recommender would then produce estimation of how relevant an item potentially is for a user, by comparing the calculated user profile with each profile of the items in the testing set. This step would return a list of top items for each user. At this point our precision metric is calculated by verifying which of the top V items have actually being tagged by each user. This process is repeated at each value of ρ to understand how applying a different PET affects the prediction performances of a simple recommendation system. Please note that the three different PET have been considered independently for one another, i.e. the users would apply one of the techniques at a time and not a strategy involving a combination of the three.
+3.4.1 Experimental results
+In our experimental setup, we have firstly evaluated what level of privacy users will reach implementing each of the strategies considered. Fig.3.4.3 shows how the application of the different PETs at different values of ρ affect the privacy risk R.
+The first interesting result can be observed by considering how the privacy risk R is affected by the application of a certain PET. For values of ρ ∈ [0, 0.25] (Fig. 3.4.6), R is decreasing for all three strategies, although with optimised forgery this seem to be happening faster.
+When larger values of ρ are considered, the apparent user profile will most likely mimic the profile of either the population distribution, in the case of optimised forgery, the TMN distribution in the case of TMN and the uniform distribution in the case of uniform forgery. If we consider this apparent effect, we understand why, while the privacy risk approaches 0 in the case of optimised forgery, it actu-
+52
+
+ally increases both for TMN and uniform forgery (Fig. 3.4.3). Recalling that our privacy metric, and adversary model, consider the case for which a possible attacker would try to isolate a certain user from the rest of the population, applying a forgery strategy that would generate an apparent profile t that would increase the divergence from an average profile, would actually result in making the user more easily identified from a possible observer.
+This undesirable consequence is also more eloquently present when applying the uniform strategy, in fact as the user apparent profile approached the uniform distribution for higher values of ρ, it would become evident to an external observer which users are forging their tags according to this strategy.
+In the case of optimised forgery instead, privacy risk decreases with ρ. Naturally for ρ = 0 the privacy risk for all the users applying a technique is actually maximum, while it will approach 0% when ρ = 1. It is particularly interesting to see how our optimised tag forgery strategy allows users to reduce their privacy risk more rapidly even for small values or ρ.
+We have therefore measured the total number of users that would actually increase their privacy risk as a consequence of having applied a certain PET (Figs. 3.4.8). It is surprisingly striking to observe how almost 90% of the total number of users, when applying TMN or uniform forgery, would make their apparent profile more recognisable than without implementing any PET. This reflects the intuitive assumption that in order to conceal the actual user’s profile, with the privacy metric considered throughout this work, it would be advisable to make it as close as possible to an average profile of reference, so that it is not possible to individuate it, or in other words to distinguish it from the average population profile.
+We then have evaluated how our utility metric was affected by the application of the tag forgery strategies, for different values of ρ. We have considered two situations to evaluate our utility metric. In the first case the user would be presented with the top 30 results, and in the second with the top 50. This allowed us, not only to evaluate the impact of noise on the metric itself, but also to consider the impact of a certain strategy over longer series of results.
+Fig. 3.4.5 and Fig. 3.4.4, show the obtained utility versus the rate of tag forgery
+53
+
+applied, this has been evaluated again for optimised forgery, uniform forgery, and TMN strategy, in order to understand how these PETs perform in the described scenario.
+In this case we noticed how a uniform forgery strategy, which generates bogus tags according to a uniform distribution across all categories, is able to better preserve utility than either optimised tag forgery or TMN, especially for bigger forgery ratios.
+What we found particularly relevant in our study is that for smaller values of ρ, hence for a forgery rate up to 0.1, corresponding to a user forging 10% of their tags, our optimised forgery strategy shows a privacy risk reduction R of almost 34% opposed to a degradation in utility of 8%. This result is particularly representative of the intuition that it is possible to obtain a considerable increase in privacy, with a modest degradation of performance of the recommender system, or in other words a limited utility loss (Fig. 3.4.7).
+The results obtained therefore present a scenario where applying a tag forgery technique perturbs the profile observed from the outside, thus enabling users to protect their privacy, in exchange of a small semantic loss if compared to the privacy risk reduction. The performance degradation measured for the recommendation systems, is small if compared to the privacy risk reduction obtained by the user when applying the forgery strategy considered.
+3.5 Discussion
+Information filtering systems that have been developed to predict users’ preferences, and eventually use the resulting predictions for different services, depend on users revealing their personal preferences by annotating items that are relevant to them. At the same time, by revealing their preferences online users are exposed to possible privacy attacks and all sorts of profiling activities by legitimate and less legitimate entities.
+Query forgery arises, among different possible PETs, as a simple strategy in terms of infrastructure requirements, as no third parties or external entities need
+54
+
+to be trusted by the user in order to be implemented. However, query forgery poses a trade-off between privacy and utility. Measur-
+ing utility by computing the list of useful results that a user would receive from a recommendation system, we have evaluated how three possible tag forgery techniques would perform in a social tag application. With this in mind a dataset for a real world application, rich in collaborative tagging information has been considered.
+Delicious provided a playground to calculate how the performance of a recommendation system would be affected if all the users implemented a tag forgery strategy. We have hence considered an adversary model where a passive privacy attacker is trying to profile a certain user. The user in response, adopts a privacy strategy aiming at concealing their actual preferences, minimising the divergence with the average population profile. The results presented show a compelling outcome regarding how implementing different PETs can affect both user privacy risk, as well as the overall recommendation utility.
+We have firstly observed how while the privacy risk R decreases initially, for smaller values of ρ (for both TMN and uniform forgery), it increases as bigger forgery ratios are considered. This is because the implied techniques actually modify the apparent user profile to increase its divergence from the average population profile. This actually makes the user activity more easily recognised from a possible passive observer. On the other hand, optimised forgery has been designed to minimise the divergence between the user and the population profile, therefore the effect described is not observed in this case.
+Considering this unfavourable effect, we have computed the number of users that would actually increase their privacy risk. This particular result showed how applying a certain PET could actually be detrimental to the user’s privacy: if the user implemented a strategy that is not accurately chosen, they would be exposed to a higher privacy risk than the one measured before applying the PET. Observing how the application of a PET affects utility, we have found out that especially for a small forgery rate (up to 20%) it is possible to obtain a consistent increase in privacy, or privacy risk reduction, against a small degradation of utility. This re-
+55
+
+flects the intuition that users would be able to receive personalised services while also being able to reasonably protect their privacy and their profiles from possible attackers.
+This study furthermore shows in a simple experimental evaluation, of a real world application scenario, how the performances degradation of a recommendation system, is small if compared to the privacy risk reduction offered by the application of these techniques. This opens many possibilities and paths that need to be explored to better understand the relationship between privacy and utility in recommendation systems. In particular, it would be interesting to explore other definitions of the metrics proposed and apply these on different class of recommendation systems.
+56
+
+80%
+
+Users tags proﬁles 20%
+... ... ... ... ... ... ...
+
+80%
+
+Training
+
+Testing 20%
+
+Apply Forgery Strategy
+
+User-Item pairs Build Recommendations
+
+Evaluate Recommendations
+
+User-Item Relevance Prediction
+
+Actual User-Item Relevance
+Figure 3.4.1: Experimental methodology.
+57
+
+R
+
+1 OPTIMAL UNIFORM
+0.9 TMN
+
+0.8
+
+0.7
+
+0.6
+
+0.5
+
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0
+
+0
+
+0.1
+
+0.2
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+ρ
+
+Figure 3.4.2: Privacy risk R against forgery rate ρ for a single user.
+
+58
+
+R
+
+1 OPTIMAL UNIFORM TMN
+0.9
+
+0.8
+
+0.7
+
+0.6
+
+0.5
+
+0.4
+
+0.3
+
+0.2
+
+0.1
+
+0
+
+0
+
+0.1
+
+0.2
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+ρ
+
+Figure 3.4.3: Privacy risk R against forgery rate ρ for all users. For the optimised forgery strategy the privacy risk R decreases with ρ. Naturally for ρ = 0 the privacy risk for all the users applying a technique is actually maximum, while it will approach 0% when ρ = 1. The graph shows how the optimised tag forgery strategy allows users to reduce more rapidly their privacy
+risk even for small values or ρ. This confirms the intuitive assumption that applying a forgery strategy that actually modifies the user’s apparent profile
+to increase its divergence from the average population profile, would produce
+the unfavourable result to make the user activity more easily recognised from
+a possible passive observer.
+
+59
+
+−3
+x 10 3.5
+
+3
+
+Utility P@30
+
+2.5
+
+2
+
+1.5
+
+1
+
+P@30-OPTIMAL
+
+P@30-UNIFORM
+
+P@30-TMN
+
+0.5
+
+0
+
+0.1
+
+0.2
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+ρ
+
+Figure 3.4.4: Average value of utility P@30 calculated for different values of ρ.
+
+60
+
+−3
+x 10 3.5
+
+3
+
+Utility P@50
+
+2.5
+
+2
+
+1.5
+
+P@50-OPTIMAL
+
+P@50-UNIFORM
+
+P@50-TMN
+
+1
+
+0
+
+0.1
+
+0.2
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+ρ
+
+Figure 3.4.5: Average value of utility P@50 calculated for different values of ρ. It is important to note that the measure of utility averaged across the user population is affected by statistical noise creating some glitches in the function that we can see attenuated if presenting each user with a larger list of results to choose from.
+
+61
+
+0.7
+
+0.6
+
+0.5
+
+0.4
+
+R
+
+0.3
+
+0.2
+
+0.1
+
+OPTIMAL
+
+UNIFORM
+
+TMN
+
+0
+
+0
+
+0.05
+
+0.10
+
+0.15
+
+0.20
+
+0.25
+
+ρ
+
+Figure 3.4.6: Privacy risk R against forgery rate ρ for all users applying a PET considering only values of ρ ⩽ 0.25.
+
+62
+
+−3
+x 10 3.5
+
+Utility P@50
+
+3
+
+2.5
+
+P@50-OPTIMAL P@50-UNIFORM P@50-TMN
+
+2
+
+0
+
+0.05
+
+0.10
+
+0.15
+
+0.20
+
+0.25
+
+ρ
+
+Figure 3.4.7: Privacy risk R against forgery rate ρ, compared with the average value of utility P@50, for small values of ρ, for all users applying a PET. It is interesting to note the ratio between the privacy risk R and the utility loss
+only for small values of ρ.
+
+63
+
+Users [%]
+
+90 OPTIMAL UNIFORM TMN
+80
+
+70
+
+60
+
+50
+
+40
+
+30
+
+20
+
+10
+
+0
+
+0
+
+0.1
+
+0.2
+
+0.3
+
+0.4
+
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1
+
+ρ
+
+Figure 3.4.8: Actual number of users increasing their privacy risk as a side effect of applying a certain strategy for a given value of ρ.
+
+64
+
+If you want to keep a secret, you must also hide it from yourself. George Orwell, 1984
+4
+Privacy in proximity-based apps: the nightmare of serendipitous discovery
+The communication possibilities opened by online services are almost endless. Social media allow people every day to know more about themselves, their friends and their surroundings. To use such services, users grant them a certain level of access to their private data. This data includes details about their identity, their whereabouts and in some situations even the company they work for. This level of access is obtained leveraging on third parties, like Facebook or Google, which offer login technologies, allowing the application to identify the user and receive precise information about them.
+In this chapter we focus on the privacy issues posed by mobile social applications, continuing work presented in [113].
+65
+
+We start by analysing how mobile apps request access permission to user’s information by using a federated login mechanism. Once the user has granted access to their data, the application stores it and assumes control over how it is further shared. The user will never be notified again on who is accessing their data, nor if these are transferred to third parties. Furthermore, mobile applications can access data generated by sensors on the device, disclosing, even more, information about the user and exposing them to privacy attacks, while in addition preventing users to retain direct control over their data and who has access to it over time.
+This aspect of privacy protection is particularly relevant since usually the right to privacy is interpreted as the user’s right to prevent information disclosure. online services use this interpretation to ask the user to access certain information, yet no concrete information is passed on how the data will be used or stored. Furthermore, these services are often designed as mobile applications where all the devices installing the app communicate with a centralised server and constantly exchange users’ information, eventually allowing for unknown third parties, or potential attackers, to fetch and store this data. In addition, this information is often shared with insecure communication through the HTTP protocol, making it possible for a malicious entity to intercept these communications and steal user data.
+We have observed how proximity-based social applications have access to certain identity information that could lead a possible privacy attacker to easily identify users and link their online profiles to physical identities. In our study, we analyse a set of popular dating applications, which are built on the assumption that users can preserve a certain level of privacy by only sharing their relative distance with other users on the platform. Furthermore, the user also shares Facebook likes or common categories of interests.
+These applications are built on the notion of serendipitous discovery of people, places and interests around the user’s surrounding. We consider these applications an example of how many privacy violation users are subjected to without being aware of it. Furthermore, this scenario offers a playground to prove how little details about the user’s whereabouts and personal sensitive information are needed to track the user and discover their real identities. For example, we prove how the
+66
+
+user’s relative distance or their first name and what common interest their share on Facebook, can allow an attacker to follow them along the day and across their movements, or even profile their full interests and discover personal details about them.
+4.1 Background
+Online communications in general and social media in particular, are increasingly opening up new possibilities for users to share and interact with people and content online. At the same time, social networking services collect and share valuable information regarding locations, browsing habits, communication records, health information, financial information, and general preferences regarding user online and offline activities. This level of access is often directly granted from the user of such services, although the privacy and sensitiveness of the information becoming accessible to third parties can be easily overlooked.
+Furthermore, social networks are no longer a novelty and user have become used to share their information with both social relationships as well as third party applications. Leveraging on this perception of social media by Internet users, another class of applications is being developed based on the concept of serendipitous discoveries. The idea of serendipity in mobile applications wants the user to accidentally discover people, places and/or interests around them, by using passive geo-localisation and recommendation systems. Passive geo-localisation is a mechanism using the ability of mobile devices to know the user’s position without having to constantly ask for it. Technologies that provide this capability are GPS, wireless and mobile networks, iBeacon and so on.
+To present the user with a tailored and seamless experience, serendipity applications need to learn the user’s preferences and interests. This is usually accomplished by connecting several of the user’s identities on other social networks. A typical example is asking the user to register an application through their Facebook, Twitter, or Google+ accounts. This technique usually consists in a variant of the OAuth2.0 protocol used to confirm a person’s identity and to control what
+67
+
+data they will share with the application requesting login.
+4.2 Contribution
+In this chapter, we have specifically analysed Facebook login since it was the common login mechanism offered in all applications examined, although the same functionality applies to other third party login mechanisms. Facebook login provides both authentication and authorization. The mechanism is used on the web as well as on iOS and Android, although on those platforms the primary mechanism uses the native Facebook application instead of the web API.
+When an application is connected to the user’s Facebook profile using Facebook login, it can always access their public profile information. Facebook consider this information public and will not apply any restriction on it. Information that is shared with the public profile vary from user to user and depends on their privacy settings. By default, the Facebook public profile includes some basic attributes about the person such as the user’s age range, language and country, but also the name, gender, username and user ID (account number), profile picture, cover photo and networks.
+An application may also ask for more information about the user. These can include the list of friends using the app, their email, the events that they are attending, their hometown or the things they have liked. This information can be obtained by requesting for optional permissions, which are asked for during login process. Apps can also ask for additional permissions later after a person has logged in.
+The information obtained from Facebook is often displayed on the application platform or used to match people with similar interests, thus giving away more hints about an individual real identity. For example, a user swiping through other people on Tinder [133] will know if they have liked similar pages on Facebook. These hints or traces can be used to further identify that individual on other platforms. In fact, this information crossed with the city the user lives in, the user’s photo, and their first name could already be enough to identify their Facebook profile.
+68
+
+The attacker could hence use what they know about the user to identify a number of profiles of people living in a certain city. A query of the form people named John who live in Barcelona and like surfing and volleyball could be used to restrict the attacker’s search space to a smaller number of profiles. Finally, since these applications tend to fetch the profile photo directly from Facebook, the actual user’s profile can be identified by matching the two profile pictures.
+Notice that while some queries might seem very generic, some others might already restrict significantly the set of targeted profiles. It is particularly concerning in fact that these applications might be used to target specific individuals with the objective to reach confidential information about their actual job or company they work for, as reported recently by IBM in a report about the security of dating apps [59].
+The ubiquitous streams of data that users create while they use different application can be seen as a network of interconnected data snippets. Information shared on the web can be linked together so that it is possible to construct semantic connections between user’s activity data. A possible attacker could, therefore, try to link data between different sources of information to identify and target users both online and offline. Users become more frequently exposed to social engineering attacks that can now leverage on facts gathered online about their personal offline lives.
+In this chapter, we formalise an attack showing how proximity-based social applications are inherently insecure. Our attack retrieves information about nearby users, stores certain information about them, and subsequently uses these to retrieve their updated profiles at regular intervals. Our attacker agent is also able to change their relative position at will and therefore can easily perform a multilateration attack and identify the victim position with an arbitrary precision. Furthermore, the attacker can keep following the user, eventually categorising their interests, movements and even identify their Points of Interest (POI) around the city.
+Therefore, we build a Social Graph attack using Facebook likes to know the victim interests. The applications examined, in fact, allow the attacker to know what
+69
+
+they have in common with the victim and use the known expressed interests to identify the user’s Facebook profile through their Graph Search while also profiling individuals nearby.
+4.3 Modelling the location probe method
+Proximity-based social application collect users’ positions and share their relative distances. We show how it is possible to build a multilateration attack able to identify the actual user position with arbitrary precision.
+Multilateration is a navigation technique, often used in radio navigation systems, based on the measurement of the difference in distance to two or more stations, whose locations are known. The stations also produce a certain signal at a known time.
+In our scenario, the signal is replaced by the user distance from the attacker and time is given by the timestamp of the user latest activity. Please note that multilateration is not concerned with measurements of absolute distance or angle between parties, but with measuring the difference in distance between two stations which results in an infinite number of locations that satisfy the measurement. All these possible locations form a hyperbolic curve. Multilateration, therefore, relies on multiple measurements to locate the exact location along that curve. In fact, a second measurement taken to a different pair of stations will produce a second curve, which intersects with the first. When the two curves are compared, a small number of possible locations are revealed.
+If the attacker is able to retrieve an arbitrary number of samples of the user distance, either by changing their relative location or by sampling their distance with the victim with a number of malicious mobile client infiltrating the platform, the multilateration attack can be made arbitrary precise.
+Our location probe method uses a simple multilateration algorithm. At the first step, locations expressed as longitude and latitude coordinates are translated to cartesian coordinates. We then calculate the estimated distance and minimise the linear norm between calculated distance and estimated distance by sensing the to-
+70
+
+Figure 4.3.1: The image illustrates the time needed to compute a user position estimation based on the number of distance samples and the number of iterations of the algorithm. It is important to note how the number of distance samples does not affect the algorithm performances. The example was executed on an Apple Computer with 3 GHz Intel Core i7 Processor.
+tal error. We could have considered the total squared error between the estimated and actual distance, however, in this contest, we have concentrated on demonstrating that the attack is actually feasible, rather than on accuracy or performance of the algorithm (Fig. 4.3.1).
+4.4 Modelling the user activity profile
+We model the user’s activity as series of events belonging to a certain identity. Each event is a document containing different information. We can formally define this a hypermedia document i.e. an object possibly containing graphics, audio, video, plain text and hyperlinks. We call the hyperlinks selectors and we use these to build the connections between the user’s different identities or events. Each identity is a profile that the user has created on a service or platform. This can be an application account or a social network account, such as their LinkedIn or Facebook unique
+71
+
+IDs. Each event is the result of the user performing an action. For the purpose of this
+study we have considered an action as resulting using an application or a service. An action is the activity of interacting with a mobile application or liking a resource on a social network, i.e. directly expressing an interest, or the fact that a user has updated their location at a certain time.
+Formally it is possible to model the graph of the events pertaining to a user as an hypergraph, where each edge can connect any number of vertices, and the root is the first event in the series. A hypergraph H is a pair H = (X, E) where X is a set of nodes (the events in the model), and E is a set of non-empty subsets of X called hyperedges or edges. Hypergraphs are a generalisation of a graph structure and provide a reasonable representation of the connections between the different events resulting from the actions performed by the user.
+We find that this model is able to express the user’s online footprint as a collection of traces left across different services. Furthermore, by using a hypergraph model we are able to grasp the connections between the different profiles and features.
+This results in the possibility to profile users based on chosen selectors. For example, we might want to trace all users who have been in the radius of 500 meters to a certain location, or all the users in a certain neighbourhood who like a selected Facebook page.
+4.4.1 Adversary model
+In view of the assumptions described in the previous section, our privacy attacker boils down to an entity that aims to identify users and link their online profile to their physical identity. To achieve this objective, the attacker possesses a Facebook profile. This profile is used in the first place to register to the application analysed in this study since all three use Facebook login as a personalised way for the user to register and sign in.
+72
+
+4.5 Experimental results
+We have analysed 250 users from a set of social proximity applications (Table: 4.5.2). All applications examined are matchmaking mobile platforms which use geolocation technology. Users can use their location and preferences to search for interesting people in a specific radius. All applications use Facebook profiles to allow their users to login but also to gather basic information and analyse users’ social graph. The information collected are then used to match candidates who are most likely to be compatible based on geographical location, a number of mutual friends, and common interests.
+Table 4.5.1: Information regarding active users per application.
+
+Application
+
+Users
+
+Tinder [133] 10 Million active [134]
+
+Happn [50]
+
+700.000 [51]
+
+Lovoo [82] 24 Million registered [83]
+
+Grindr [47] 2,35 Million active [48]
+
+Badoo [10] 200 million registered [11]
+
+These applications present the user with the possibility to interact with other users by starting a conversation or expressing their interests in them.
+4.5.1 Information collection Information collection is possible on these applications through different techniques. For the purpose of this study, we have intercepted APIs call from mobile
+
+73
+
+Table 4.5.2: Information regarding the applications analysed
+
+Application Fb ID Loc. Distance User Pref. Full Name Birth-date User tracking
+
+Tinder [133]  (1) 
+
+
+
+
+
+Happn [50]  (1) 
+
+
+
+
+
+Lovoo [82]  (1) 
+
+
+
+
+
+Grindr [47]  (1) 
+
+
+
+
+
+Badoo [10]  (1)  (4)
+
+
+
+ (2)  (2)  (2)
+  (2)
+
+ (3)    
+
+     (6)
+
+(1) Facebook ID is not exposed directly but it can be identified by crossing information like the user Facebook’s likes, first name and year of birth. (2) Only first name is shared. (3) A fuzzy birthdate randomised in a range of two weeks is used. Real birthdate can be inferred by using Facebook Graph Search, depending on the victim’s Facebook privacy settings. (4) Offers option not to share distance. (5) Asks for zodiac sign. (6) Distance is shared for some users so it is theoretically possible.
+
+devices through Men In The Middle (MITM) attack in some occasions and interacted with the APIs directly in other occasions. It is important to note that even when the application prevents an attacker from exploiting their APIs, a malicious entity could still use a multitude of profiles to cross gather information about users on the platforms.
+4.5.2 Information processing We have performed two types of attack on the set of application examined, namely a multilateration attack and a social graph attack.
+74
+
+Figure 4.5.1: The image illustrates location samples with radii used to compute actual position estimation for one user across the city of Barcelona, Spain.
+Multilateration attack
+Once we obtain the user’s id on the specific application we are able to query their APIs and update our information about the user constantly. Furthermore, we are also able to change our own location on the platform to a certain extent. By measuring the relative distance to the victim we were able to identify their actual position with arbitrary precision. Furthermore, the same technique was used to follow users across a specific amount of time by retrieving their profile information at regular interval. This type of attacks can be easily overlooked in densely populated cities but might become a serious privacy breach in rural areas.
+Hyper graph attack
+The application examined for the scope of this study use the user’s Facebook token to authenticate and/or authorise the application to request and obtain certain information about the user. An attacker could then use their own Facebook profile token to make a request to the application server through their APIs, pretending to send the request from the app installed on a mobile device. This allows the attacker to receive all the information that users have shared with the platform and
+75
+
+that are constantly exchanged with the application. When the victim’s Facebook id is shared through the application, the attacker
+can directly access and potentially use information publicly shared through the Facebook profile. In this situation, the attacker could easily construct a complete graph of the user’s preferences and social connections through the information that is public available through Facebook APIs.
+When the victim’s Facebook id is not directly shared, the application still discloses some information about the victim. This information includes: the user first name and a set of photos, birthdate, randomised in a range of 15 days, and the Facebook pages that both the victim and the attacker have liked.
+The victim preferences could then be used to identifies their Facebook profile. It, that Facebook has 1.35 billion active users, of these, between 10% and 7% like one of the top 10 Facebook pages with most likes [95]. We have collected a set of 250 Tinder users only in the city of Barcelona, of these 20% were sharing at least one interest with the attacker profile (Fig. 4.5.2).
+Furthermore, Facebook graph search allows any users to answer certain information about Facebook profiles. An example of a graph search on Facebook could be: People who like Shakira and are named ”John” and like Manchester United and been born in 1979. This will create a pool of potential candidates. The list can be reduced by using Facebook reverse graph search, i.e. search for Interests liked by people who like Shakira and are named ”John” and like Manchester United and been born in 1979. This will instead return a list of interests that the attacker can like on Facebook. Therefore, the attacker will return to query Tinder and find out if the number of interests in common with the victim has grown and which pages they now have in common. The attacker can, therefore, use the new information to further identify the victim profile on Facebook and potentially their friends (Fig. 4.5.3).
+It is important to note that some applications might request information outside of Facebook public profile. Therefore, even if the victim has tailored their privacy settings to prevent some information to be leaked, the application can be used to
+76
+
+Figure 4.5.2: The image shows how it is possible to show connections for the population of users on Tinder for a certain area. Here we have collected Facebook pages liked by users in Barcelona and connected users or group of users if they like the same page.
+access data that would be otherwise be kept private.
+4.5.3 Information dissemination Proximity-based social applications, in their current implementation, represent a gateway to access data about individuals. Information dissemination can, therefore, be accomplished both for a large group of people with the purpose of targeting them, as well as for specific victims. Identifying and disclosing the presence of a certain person on a matchmaking application could be enough to influence the opinion of that individual among their social relationships.
+4.5.4 Invasion Once a user location has being inferred, we can continue tracking the same users and their preferences for an unlimited amount of fetches. This could easily lead to the identification of the user habit and where-about at a different moment of
+77
+
+Figure 4.5.3: The image represents a Social Graph attack where an attacker sends queries to Facebook asking questions about a Tinder profile. The attacker is able to restrict the pool of potential candidates and eventually identify the victim’s actual Facebook id. Furthermore, the attacker is able to store information about the user that can be updated at a later time by querying the third party application.
+the day, possibly uncovering their home and work locations and more information about the user.
+4.6 Mitigation possibilities
+Application developers could implement a number of techniques that would mitigate the actions of a possible attacker. Firstly, in their current implementation, the applications examined probe the user device for location information with the maximum precision possible. This information is then transferred to the server and the relative distance between users is returned to be displayed. Yet, for most of the application functionality, this precision is not needed, and a lower precision could be used and sent to the server. This would make position attacks more difficult to perform.
+Secondly, to sparkle interest between users, social proximity applications often
+78
+
+share common Facebook pages between parties involved. This information can then be used to easily identify unique Facebook accounts. Instead, the app could opt to display only the category of interest to which the Facebook page belongs. This way a possible attacker would not know what actual pages the user has liked.
+Thirdly, an individual birth-date if combined with their location and first and/or last name can be used to infer sensitive information about them. Therefore, even sharing the user’s zodiac sign with passive observer need to be considered potentially dangerous for the final user’s privacy.
+To conclude, to avoid exposing users to direct threats of collection and processing of private information, mobile apps should have the option not to supply any personal details to the platform. Users should not be obliged to disclose their personal data. To avoid dissemination and invasion, user data collected by mobile applications should be communicated encrypted to the server.
+4.7 Discussion
+A new class of social application uses the users’ actual location to provide personalised recommendation and allow for new interactions, especially in urban settings. We have shown how these applications can expose their users to different privacy attacks that can be easily overlooked.
+We have analysed a set of popular dating applications, and observed how proximitybased social applications have access to certain identity information that could lead a possible privacy attacker to easily identify users on Facebook and link their online profiles to physical identities.
+Furthermore, we have shown how users constantly sharing their relative distance to other users can be followed by an attacker in their movement without their knowledge. We have demonstrated how this information can be used for a multilateration attack with arbitrary precision. There is, in fact, no restriction to the number of distance samples that a possible attacker might be able to measure.
+We followed a formal framework to identify the classes of privacy violation to which users are subjected to without being aware of it and we have shown how
+79
+
+these violations can all be carried out for the applications examined. This shows how using third party profiles to provide access to a specific appli-
+cation may cause a security honey pot for a possible attacker. We have also stressed how, in order to make the registration process easier, these
+applications often leverage on third party services to provide a login mechanism, while at the same time acquiring certain private information about their new users. The third parties used are often services such as Facebook or Google, and the information accessed concern the public profile of the users on such platforms.
+While this technique certainly allows people to quickly sign up to an application and create a new profile, it also creates different privacy threats for users of such services. Primarily, it concerns who can gain access to such data and how information shared with third parties can also be stored and eventually transferred without the user explicit consent.
+We have then used Facebook graph search to build a hypergraph of the user identity starting from information that was shared through a third application. This shows how each information can be used as a selector to further identify a different piece of the whole user identity and can be used to target the user in real life.
+80
+
+There will come a time when it isn’t ’They’re spying on me through my phone’ anymore. Eventually, it will be ’My phone is spying on me’.
+Philip K. Dick
+5
+Web tracking: how advertising networks collect users’ browsing patterns
+In the early age of the Internet users enjoyed a large level of anonymity. At the time web pages were just hypertext documents; almost no personalisation of the user experience was offered. The Web today has evolved as a world-wide distributed system following specific architectural paradigms. On the web now, an enormous quantity of user generated data is shared and consumed by a network of applications and services, reasoning upon users expressed preferences and their social and physical connections.
+This chapter is focused on web users tracking and advertising networks, extending work presented in [114, 115, 117].
+Advertising networks follow users’ browsing habits while they surf the web, con-
+81
+
+tinuously collecting their traces and surfing patterns since advertising sustains the business model of many websites and applications. Efficient and successful advertising relies on predicting users’ actions and tastes to suggest a range of products to buy. Both service providers and advertisers try to track users’ behaviour across their product network. For application providers, this means tracking users’ actions within their platform. For third-party services following users, means being able to track them across different websites and applications. It is well known how, while surfing the Web, users leave traces regarding their identity in the form of activity patterns and unstructured data. These data constitute what is called the user’s online footprint. We analyse how advertising networks build and collect users footprints and how the suggested advertising reacts to changes in the user behaviour.
+5.1 Background
+Web sites use personalisation services to provide a tailored experience to their visitors. In order to make their product more personal to the single users, they need to keep profiles of their users, collect their in page reading activities and eventually their preferences. This data is then shared to third-party services, accessed and analysed without users’ direct consent. Furthermore, records of users’ activities are used for different purposes, most unknown to the end user, such as marketing or to provide analytics services back to the original website or application. Among the data analysed by websites are also included user preferences and social connections. These can be obtained by tracking users across different applications and sites through cookies or open web sessions. Even if the user does not accept cookies or is not logged into a service account, such as their Google, Twitter or Facebook accounts, the web page and third-party services can still try to profile them by using third-party HTTP requests, among other techniques. Within the HTTP request, various selectors can be included to communicate user preferences or particular features, in the form of URL variables. Features that might be used by advertising networks and malicious trackers include personalised language or
+82
+
+fonts settings, browser extensions, in page keywords, battery charge and status, and so on. These features are then used to identify individual users by restricting the pool of possible candidates among all the visitors in a certain time frame, location, profile of interests. Unique users can then be distinguished across multiple devices or sessions.
+5.2 Contribution
+In this chapter, have observed how users are tracked across the Web and how the displayed advertising is tailored even after they have visited a few websites with a certain interest bias. In previous work [115] [114] we analysed how third-party advertising services are able to profile users on a short series of websites visited and how these are able to follow users while they surf the web. In our study we analyse how the user profile detected by advertising services can be used to estimate the user privacy risk on a certain network. We analyse how advertising networks identify a user and start tracking them, by considering keywords contained in the web page and understanding the underlying network structure of tracked domains. We measure the distance between the observed user profile and the actual user profile, by categorising the set of keywords contained in web pages and by capturing third-party HTTP requests. We introduce a set of metrics to express this distance between the two profiles.
+It is important to note that we have considered the case for which users are not registering, neither connecting any external account, as it could be the case with services like Facebook, Google+, Twitter, and so on. In such scenario, we have measured how these networks still attempt to track the user by sending user information through HTTP requests to their services.
+We present a model of the user profile that is able to capture how each website and tracking network categorise their activities in terms of interests and interactions.
+Therefore, we analyse how much information is sent by each page visited, to third-party services by measuring the partial user profile and the actual user profile.
+83
+

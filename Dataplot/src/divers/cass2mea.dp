@@ -1,0 +1,45 @@
+.
+. Starting Step 4.8 - Mean control chart for cassette,
+.                     but use cassette-cassette variation
+.                     for control limits.
+.
+y1label mean of line width
+x1label cassette
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+device 1 off
+device 2 off
+mean plot width cassette
+device 1 on
+device 2 on
+let ytemp = yplot
+retain ytemp  subset tagplot = 1
+let a = standard deviation ytemp
+let target = mean width
+let usl = target + 3*a
+let lsl = target - 3*a
+mean control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 4
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+let a6 = maximum yplot subset tagplot = 6
+let a7 = maximum yplot subset tagplot = 7
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+movedata a1 a6
+text UCL:<cr>lot-to-lot
+movedata a1 a7
+text LCL:<cr>lot-to-lot
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.8: Page Back for Output

@@ -1,0 +1,84 @@
+.
+. Starting Step 4.1
+.
+. Compute some statistics based on filmthic variable
+. These are used to compute "total sums of squares" statistics
+.
+let ybar = mean filmthic
+let n = number filmthic
+let nx0 = n
+let df0 = n-1
+let s = sd filmthic
+let ss0 = df0*(s*s)
+let ms0 = ss0/df0
+print nx0 df0 ss0 ms0
+.
+. Do one-way anova on runs
+. This used to compute the "run sums of squares" statistics
+.
+anova filmthic run
+let pred1 = pred
+let dx1 = distinct run
+let nx1 = number dx1
+let df1 = nx1-1
+let res1 = pred1-ybar
+let res1sq = res1*res1
+let ss1 = sum res1sq
+let ms1 = ss1/df1
+.
+.  Do one-way anova based on each unique combination of run and zone
+.  This used to compute the ".. sums of squares" statistics
+.
+let tag = 10*run + zone
+anova filmthic tag
+let pred2 = pred
+let dtag = distinct tag
+let ntag = number dtag
+let df2 = ntag-nx1
+let res2 = pred2-pred1
+let res2sq = res2*res2
+let ss2 = sum res2sq
+let ms2 = ss2/df2
+.
+.  Compute the ".. sums of squares" statistics
+.
+let df3 = df0 - df1 - df2
+let res3 = filmthic - pred2
+let res3sq = res3*res3
+let ss3 = sum res3sq
+let ms3 = ss3/df3
+.
+.  Compute the Components of Variance Factors
+.
+let zoned = distinct zone
+let nzone = size zoned
+let wafed = distinct wafer
+let nwafe = size wafed
+let var3 = ms3
+let var2 = (ms2 - var3)/nwafe
+let var1 = (ms1 - nwafe*var2 - var3)/(nzone*nwafe)
+let vartot = var1 + var2 + var3
+let var1p = var1/vartot
+let var2p = var2/vartot
+let var3p = var3/vartot
+.
+.  Print the ANOVA table
+.
+print "Values for ANOVA table"
+print "Source           N        DF         SS    Mean Square"
+print "Total          ^nx0       ^df0     ^ss0     ^ms0"
+print "Run             ^nx1        ^df1     ^ss1    ^ms1"
+print "Location(Run)             ^df2     ^ss2      ^ms2"
+print "Within          ^ntag        ^df3     ^ss3        ^ms3"
+.
+.  Print the Components of Variance table
+.
+print " "
+print " "
+print "Values for Components of Variance table"
+print "Component          Variance       % of Total"
+print "Run                ^var1        ^var1p"
+print "Location(Run)      ^var2        ^var2p"
+print "Within             ^var3       ^var3p"
+.
+. Finished Step 4.1: Page Back for Output

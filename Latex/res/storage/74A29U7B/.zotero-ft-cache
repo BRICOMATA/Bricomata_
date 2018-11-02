@@ -1,0 +1,1172 @@
+PhD THESIS
+Enhancing Privacy Management on Social Network Services
+Author: Ricard Lo´pez Fogue´s Advisors: Dr. Jose M. Such Aparicio
+Dr. Agust´ın Espinosa Minguet Dra. Ana Garc´ıa-Fornes
+Departamento de Sistemas Informa´ticos y Computacio´n, Universidad Polite`cnica de Vale`ncia, Valencia, Spain
+March 2017
+
+A tota la meua fam´ılia; als me´s majors (Lucia, mama`, Jose´ Luis i Francesc)
+i a Jr, que, ﬁns d’ac´ı a uns anys, no podra` llegir aquesta dedicato`ria. Sense vosaltres, cap esforc¸ tindria sentit.
+
+Acknowledgments
+En primer lloc, voldria agrair la inestimable ajuda dels meus directors de tesi Jose, Ana i Agust´ın. M’han servit de guia i suport durant els meus estudis doctorals i han perme´s que no perdera el rumb en el meu treball d’investigacio´. Durant aquests anys m’han demostrat una gran qualitat humana; sempre han estat ah´ı quan els he necessitat i sempre disposats a tirar una ma`. Sense ells, aquesta tesi no existiria. I would also like to thank Munindar Singh and Pradeep Murukannaiah for their guidance and help during my stay at NC State. They were great hosts during my two years in Raleigh and two of the best researchers I have ever worked with. I hope that we can keep working together for years to come. Durant els meus anys com a estudiant de doctorat he conegut a gent excepcional als que considere molt me´s que companys de laboratori. Agrair a tota la gent dels laboratoris 108 i 205 (Bexy, Rau´l, Mario, Joan Andreu, Joan Bellver, Juanmi, Ana, Vero i Matthijs) els meravellosos anys que vaig viure al DSIC. Mai oblidare´ els viatges del GTI, els dinars a la vella, les cerveses, els sopars i tot el que hem viscut dins i fora del treball. Tambie´n quiero agrader a los Ralencianos, parte fundamental de mi aventura en USA, conseguir que mis an˜os all´ı fueran inolvidables. Rita, Manolo, Adri, Lola, Iva´n, Kostas, A` ngels, y Kenneth; imposible olvidar los interminables cafe´s en la facultad, los partidos de volley playa (with chips), las barbacoas en Kensington Park, los domingos de Juego de Tronos, y tantas otras cosas que aqu´ı no caben. Finalment, agrair la conﬁanc¸a que el grup GTI-IA ha dipositat en mi. Tots els anys que vaig passar com a becari al DSIC, vaig sentir que formava part d’una gran fam´ılia. Un plaer haver treballat amb tots vosaltres.
+I
+
+Resumen
+En los u´ltimos an˜os, los servicios de redes sociales, como Facebook o LinkedIn, han experimentado un crecimiento exponencial. Los usuarios valoran positivamente sus muchas funcionalidades tales como compartir fotos, o bu´squeda de amigos y trabajo. En general, los usuarios aprecian los beneﬁcios que las redes sociales les aportan. Sin embargo, mientras el uso de redes sociales se ha convertido en rutina para mucha gente, brechas de privacidad que pueden ocurrir en redes sociales han aumentado los recelos de los usuarios. Por ejemplo, es sencillo encontrar en las noticias casos sobre personas que han perdido su empleo debido a algo que compartieron en una red social. Para facilitar la deﬁnicio´n de los ajustes de privacidad, los proveedores de servicios emplean controles de acceso sencillos que normalmente se basan, de forma exclusiva, en listas o c´ırculos de amigos. Aunque estos controles de acceso son fa´ciles de conﬁgurar por un usuario medio, investigaciones recientes indican que e´stos carecen de elementos tales como la intensidad de los v´ınculos personales, que juegan un papel clave en co´mo los usuarios deciden que´ compartir y con quie´n. Adema´s, a pesar de la simplicidad de los controles de acceso, investigaciones sobre privacidad en redes sociales sen˜alan que los usuarios han de esforzarse para controlar de forma efectiva como su informacio´n ﬂuye en estos servicios. Para ofrecer a los usuarios un marco de privacidad ma´s robusto, trabajos recientes proponen un nuevo paradigma para controles de acceso basado en relaciones. A diferencia de los controles de acceso tradicionales donde los permisos se otorgan en base a usuarios y sus roles, este paradigma emplea elementos sociales como la relacio´n entre el propietario de la informacio´n y su audiencia potencial (por ejemplo, so´lo mis hermanos pueden ver la foto). Los controles de acceso que siguen este paradigma ofrecen a los usuarios mecanismos para el control de la privacidad que
+III
+
+representan de una forma ma´s natural como los humanos razonan sobre cuestiones de privacidad. Adema´s, estos controles de acceso pueden lidiar con problema´ticas espec´ıﬁcas que presentan las redes sociales. Espec´ıﬁcamente, los usuarios comparten de forma habitual informacio´n que atan˜e a muchas personas, especialmente a otros miembros de la red social. En tales situaciones, dos o ma´s personas pueden tener preferencias de privacidad que entran en conﬂicto. Cuando esto ocurre, no hay una conﬁguracio´n correcta de privacidad que sea evidente. Estas situaciones son normalmente identiﬁcadas como escenarios de privacidad multiusuario. Dado que los controles de acceso basados en relaciones son complejos para el usuario promedio de redes sociales, los proveedores de servicios no los han adoptado. Por lo tanto, para permitir la implementacio´n de tales controles de acceso en redes sociales actuales, es necesario que se ofrezcan herramientas y mecanismos que faciliten su uso. En este sentido, esta tesis presenta cinco contribuciones: (1) una revisio´n del estado del arte en manejo de privacidad en redes sociales que permite identiﬁcar los retos ma´s importantes en el campo, (2) BFF, una herramienta para obtener automa´ticamente la intensidad de los v´ınculos personales y las comunidades de usuarios, (3) un nuevo control de acceso que emplea comunidades, identiﬁcadores individuales, la intensidad de los v´ınculos personales, y etiquetas de contenido, (4) un modelo novedoso para representar y razonar sobre escenarios de privacidad multiusario que emplea tres tipos de caracter´ısticas: factores contextuales, preferencias de usuario, y argumentos de usuario; y, (5) Muppet, una herramienta que recomienda conﬁguraciones de privacidad en escenarios de privacidad multiusuario. Las contribuciones de esta tesis emplean te´cnicas de inteligencia artiﬁcial tales como aprendizaje automa´tico, miner´ıa de datos, y colaboracio´n distribuida. Las contribuciones han sido validadas por medio de estudios con participantes humanos. Concretamente, tres estudios con 38, 50, y 988 participantes han aportado los datos que han sido empleados para evaluar cada contribucio´n. Los resultados muestran que los controles de acceso para redes sociales pueden ser mejorados mediante herramientas que automatizan tareas relacionadas con privacidad (BFF y Muppet) y modelos formales que representan ﬁdedignamente co´mo los humanos razonan sobre la privacidad.
+IV
+
+Resum
+En els darrers anys, els servicis de xarxes socials, com Facebook o LinkedIn, han experimentat un creixement exponencial. Els usuaris valoren positivament les seues variades funcionalitats com la comparticio´ de fotos o la cerca d’amics i treball. En general, els usuaris aprecien els beneﬁcis que les xarxes socials els aporten. No obstant aixo`, mentre l’u´s de les xarxes socials s’ha convertit en rutina per a molta gent, bretxes de privacitat que poden oco´rrer en xarxes socials han augmentat els recels dels usuaris. Per exemple, e´s senzill trobar not´ıcies sobre persones que han perdut el seu treball per alguna cosa que compartiren a una xarxa social. Per facilitar la deﬁnicio´ dels ajustos de privacitat, els prove¨ıdors de servicis empren controls d’acce´s senzills que normalment es basen, de forma exclusiva, en llistes o cercles d’amics. Encara que aquests controls d’acce´s so´n fa`cils d’emprar per a un usuari mitja`, investigacions recents indiquen que aquests manquen elements com la forc¸a dels vincles personals, que juguen un paper clau en com els usuaris decideixen que` compartir i amb qui. A me´s a me´s, malgrat la simplicitat dels controls d’acce´s, investigacions sobre privacitat en xarxes socials revelen que els usuaris han d’esforc¸ar-se per a controlar de forma efectiva com ﬂuix la seua informacio´ en aquests servicis. Per a oferir als usuaris un marc de privacitat me´s robust, treballs recents proposen un nou paradigma per a controls d’acce´s basat en relacions. A difere`ncia dels controls d’acce´s tradicionals on els permisos s’atorguen segons usuaris i els seus rols, aquest paradigma empra elements socials com la relacio´ entre el propietari de la informacio´ i la seua audie`ncia potencial (per exemple, sols els meus germans poden veure aquesta foto). Els controls d’acce´s que segueixen aquest paradigma ofereixen als usuaris mecanismes per al control de la privacitat que representen d’una
+V
+
+forma me´s natural com els humans raonen sobre la privacitat. A me´s a me´s, aquests controls d’acce´s poden resoldre problema`tiques espec´ıﬁques que presenten les xarxes socials. Espec´ıﬁcament, els usuaris comparteixen de forma habitual informacio´ que concerneix moltes persones, especialment a altres membres de la xarxa social. En aquestes situacions, dues o me´s persones poden tindre prefere`ncies de privacitat que entren en conﬂicte. Quan ac¸o` ocorre, no hi ha una conﬁguracio´ de privacitat correcta que siga evident. Aquestes situacions so´n normalment identiﬁcades com escenaris de privacitat multiusari. Donat que els controls d’acce´s basats en relacions so´n complexos per a l’usuari mitja` de xarxes socials, els prove¨ıdors de servicis no els han adoptat. Per tant, per a permetre la implementacio´ d’aquests controls d’acce´s en xarxes socials actuals, e´s necessari oferir ferramentes i mecanismes que faciliten el seu u´s. En aquest sentit, aquesta tesi presenta cinc contribucions: (1) una revisio´ de l’estat de l’art en maneig de privacitat en xarxes socials que permet identiﬁcar els reptes me´s importants en el camp, (2) BFF, una ferramenta per a obtenir automa`ticament la forc¸a dels vincles personals i les comunitats d’usuaris (3) un nou control d’acce´s que empra comunitats, identiﬁcadors individuals, forc¸a dels vincles personals, i etiquetes de contingut, (4) un model nou per a representar i raonar sobre escenaris de privacitat multiusari que empra tres tipus de caracter´ıstiques: factors contextuals, prefere`ncies d’usuari, i arguments d’usuaris; i, (5) Muppet, una ferramenta que recomana conﬁguracions de privacitat en escenaris de privacitat multiusuari. Les contribucions d’aquesta tesi empren te`cniques que inclouen intel·lige`ncia artiﬁcial, aprenentatge de ma`quines, mineria de dades, i col·laboracio´ distribu¨ıda. Les contribucions han sigut validades mitjanc¸ant estudis amb participants humans. Concretament, tres estudis amb 38, 50, i 988 participants han aportat les dades que han sigut utilitzades per a avaluar cada contribucio´. Els resultats mostren que els controls d’acce´s per a xarxes socials poden ser millorats mitjanc¸ant ferramentes que automatitzen tasques relacionades amb privacitat (BBF i Muppet) i models formals que representen ﬁdedignament com els humans raonen sobre la privacitat.
+VI
+
+Summary
+In the recent years, social network services, such as Facebook or LinkedIn, have experienced an exponential growth. People enjoy their functionalities, such as sharing photos, ﬁnding friends, looking for jobs, and in general, they appreciate the social beneﬁts that social networks provide. However, as using social network has become routine for many people, privacy breaches that may occur in social network services have increased users’ concerns. For example, it is easy to ﬁnd news about people being ﬁred because of something they shared on a social network. To enable people deﬁne their privacy settings, service providers employ simple access controls which usually rely exclusively on lists or circles of friends. Although these access controls are easy to conﬁgure by average users, research literature points out that they are lacking elements, such as tie strength, that play a key role when users decide what to share and with whom. Additionally, despite the simplicity of current access controls, research on privacy on social media reports that people still struggle to effectively control how their information ﬂows on these services. To provide users with a more robust privacy framework, related literature proposes a new paradigm for access controls based on relationships. In contrast to traditional access controls where permissions are granted based on users and their roles, this paradigm employs social elements such as the relationship between the information owner and potential viewers (e.g., only my siblings can see this photo). Access controls that follow this paradigm provide users with mechanisms for disclosure control that represent more naturally how humans reason about privacy. Furthermore, these access controls can deal with speciﬁc issues that social network services present. Speciﬁcally, users often share information that concerns many people, especially other members of the social network. In such situations, two or more
+VII
+
+people can have conﬂicting privacy preferences; thus, an appropriate sharing policy may not be apparent. These situations are usually identiﬁed as multiuser privacy scenarios. Since relationship based access controls are complex for the average social network user, service providers have not adopted them. Therefore, to enable the implementation of such access controls in current social networks, tools and mechanisms that facilitate their use must be provided. To that aim, this thesis makes ﬁve contributions: (1) a review of related research on privacy management on social networks that identiﬁes pressing challenges in the ﬁeld, (2) BFF, a tool for eliciting automatically tie strength and user communities, (3) a new access control that employs communities, individual identiﬁers, tie strength, and content tags, (4) a novel model for representing and reasoning about multiuser privacy scenarios, employing three types of features: contextual factors, user preferences, and user arguments; and, (5) Muppet, a tool that recommends sharing policies in multiuser privacy scenarios. The contributions of this thesis employ techniques such as artiﬁcial intelligence, machine learning, data mining, and crowdsourcing. The contributions are validated by means of studies with human participants. Speciﬁcally, three studies with 38, 50, and 988 participants provide the foundational data that is employed to evaluate each contribution. The results show that access control models for social network services can be enhanced by means of tools that automatize privacy related tasks (BFF and Muppet), and formal models that capture accurately how humans reason about information disclosure.
+VIII
+
+Contents
+
+I Introduction and Objectives
+
+1
+
+1 Introduction
+
+3
+
+1.1 Objectives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+1.2 Contributions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+
+1.2.1 Deﬁnition of Open Challenges in Access Controls for SNSs 6
+
+1.2.2 BFF . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+
+1.2.3 Evaluation of Tie Strength and Tags as Attributes for Access
+
+Controls . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+
+1.2.4 Modeling Multiuser Privacy Scenarios . . . . . . . . . . . . 9
+
+1.2.5 Muppet . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+
+1.3 Structure of the Thesis . . . . . . . . . . . . . . . . . . . . . . . . 10
+
+1.4 Publication List . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+
+1.5 Research Projects . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+
+II Selected Papers
+
+17
+
+2 Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+19
+
+2.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+
+2.1.1 Privacy and Social Networks . . . . . . . . . . . . . . . . . 23
+
+2.1.2 Requirements for a Social Network Service Privacy Mechanism 24
+
+2.2 Relationship-based Access Control Models . . . . . . . . . . . . . 29
+
+IX
+
+2.3 Content Type Management . . . . . . . . . . . . . . . . . . . . . . 34 2.4 Co-privacy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36 2.5 Modeling Human Relationships on Social Network Services . . . . 41 2.6 Recommender Systems . . . . . . . . . . . . . . . . . . . . . . . . 47
+2.6.1 Based on What Others Do . . . . . . . . . . . . . . . . . . 47 2.6.2 Based on Automatic Learning . . . . . . . . . . . . . . . . 50 2.7 Improving Privacy Settings Understanding . . . . . . . . . . . . . . 56 2.7.1 Graphical Visualization . . . . . . . . . . . . . . . . . . . . 56 2.7.2 Privacy Policy Simpliﬁcation . . . . . . . . . . . . . . . . . 58 2.7.3 Privacy Setting Misconﬁguration Detection . . . . . . . . . 59 2.8 Open Challenges . . . . . . . . . . . . . . . . . . . . . . . . . . . 60 2.8.1 ReBAC and Content Type . . . . . . . . . . . . . . . . . . 61 2.8.2 Inferring Tie Strength from Different Sources . . . . . . . . 61 2.8.3 Adaptive Relationship Models . . . . . . . . . . . . . . . . 62 2.8.4 Tie Strength Utility . . . . . . . . . . . . . . . . . . . . . . 63 2.8.5 Self-presentation Management . . . . . . . . . . . . . . . . 63 2.8.6 ReBAC: Usability and Visibility . . . . . . . . . . . . . . . 64 2.8.7 ReBAC and Co-privacy . . . . . . . . . . . . . . . . . . . . 64 2.8.8 Privacy Settings Interoperability . . . . . . . . . . . . . . . 65 2.8.9 Sticky Policies . . . . . . . . . . . . . . . . . . . . . . . . 66 2.8.10 Personalization . . . . . . . . . . . . . . . . . . . . . . . . 67 2.9 Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+
+3 BFF: A Tool for Eliciting Tie Strength and User Communities in Social
+
+Networking Services
+
+69
+
+3.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 71
+
+3.2 Best Friend Forever . . . . . . . . . . . . . . . . . . . . . . . . . . 75
+
+3.3 Tie Strength Prediction Module . . . . . . . . . . . . . . . . . . . . 77
+
+3.4 Community Prediction Module . . . . . . . . . . . . . . . . . . . . 82
+
+3.5 Experimental Evaluation . . . . . . . . . . . . . . . . . . . . . . . 83
+
+3.5.1 Participants . . . . . . . . . . . . . . . . . . . . . . . . . . 83
+
+3.5.2 Method . . . . . . . . . . . . . . . . . . . . . . . . . . . . 84
+
+3.5.3 Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . 85
+
+3.5.4 Generalizability and Limitations . . . . . . . . . . . . . . . 92
+
+3.6 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 94
+
+3.7 Conclusions and Future Work . . . . . . . . . . . . . . . . . . . . . 96
+
+X
+
+4 Exploring the Viability of Tie Strength and Tags in Access Controls for
+
+Photo Sharing
+
+99
+
+4.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 101
+
+4.2 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 102
+
+4.3 Attributes of Access Controls . . . . . . . . . . . . . . . . . . . . . 103
+
+4.4 Method . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 103
+
+4.4.1 Participants . . . . . . . . . . . . . . . . . . . . . . . . . . 104
+
+4.4.2 Collection of Social Data . . . . . . . . . . . . . . . . . . . 104
+
+4.4.3 Deﬁnition of Sharing Policies and Photo Tags . . . . . . . . 104
+
+4.5 Evaluation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106
+
+4.5.1 Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . 107
+
+4.6 Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 108
+
+4.7 Discussion and Conclusions . . . . . . . . . . . . . . . . . . . . . 109
+
+5 Tie and Tag: A Study of Tie Strength and Tags for Photo Sharing
+
+113
+
+5.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 115
+
+5.2 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117
+
+5.3 Method . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118
+
+5.3.1 Demographics . . . . . . . . . . . . . . . . . . . . . . . . 119
+
+5.3.2 Step 1: Collection of Social Data . . . . . . . . . . . . . . 120
+
+5.3.3 Step 2: Choosing Photos . . . . . . . . . . . . . . . . . . . 121
+
+5.3.4 Step 3: Tagging Photos . . . . . . . . . . . . . . . . . . . . 122
+
+5.3.5 Step 4: Deﬁnition of Privacy Preferences . . . . . . . . . . 123
+
+5.3.6 Step 5: Correcting Sharing Policies . . . . . . . . . . . . . 125
+
+5.3.7 Step 6: Post-Survey Questionnaire . . . . . . . . . . . . . . 126
+
+5.4 Evaluation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 126
+
+5.4.1 Hypotheses . . . . . . . . . . . . . . . . . . . . . . . . . . 126
+
+5.4.2 H-Useful-* . . . . . . . . . . . . . . . . . . . . . . . . . . 127
+
+5.4.3 H-Performance-* . . . . . . . . . . . . . . . . . . . . . . . 128
+
+5.4.4 H-Preference-* . . . . . . . . . . . . . . . . . . . . . . . . 134
+
+5.5 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 136
+
+5.5.1 Thematic Analysis . . . . . . . . . . . . . . . . . . . . . . 138
+
+5.5.2 Practical Implications . . . . . . . . . . . . . . . . . . . . . 139
+
+5.5.3 Limitations . . . . . . . . . . . . . . . . . . . . . . . . . . 140
+
+5.6 Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 141
+
+XI
+
+6 Sharing Policies in Multiuser Privacy Scenarios: Incorporating Context,
+
+Preferences, and Arguments in Decision Making
+
+143
+
+6.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 145
+
+6.2 Factors Inﬂuencing a Multiuser Sharing Decision . . . . . . . . . . 149
+
+6.2.1 Context . . . . . . . . . . . . . . . . . . . . . . . . . . . . 149
+
+6.2.2 Preferences . . . . . . . . . . . . . . . . . . . . . . . . . . 151
+
+6.2.3 Arguments . . . . . . . . . . . . . . . . . . . . . . . . . . 152
+
+6.3 Inference Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . 155
+
+6.3.1 Data Collection via Crowdsourcing . . . . . . . . . . . . . 156
+
+6.3.2 Building a Training Set . . . . . . . . . . . . . . . . . . . . 163
+
+6.4 Evaluation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 166
+
+6.4.1 Hypotheses . . . . . . . . . . . . . . . . . . . . . . . . . . 166
+
+6.4.2 Evaluation Strategy . . . . . . . . . . . . . . . . . . . . . . 167
+
+6.5 Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 170
+
+6.5.1 Context (H-Inﬂuence-Context) . . . . . . . . . . . . . . . . 170
+
+6.5.2 Preferences (H-Inﬂuence-Preferences) . . . . . . . . . . . . 173
+
+6.5.3 Arguments (H-Inﬂuence-Arguments) . . . . . . . . . . . . . 174
+
+6.5.4 Prediction
+
+(H-Prediction-Preferences
+
+and
+
+H-Prediction-Arguments) . . . . . . . . . . . . . . . . . . . 174
+
+6.5.5 Conﬁdence
+
+(H-Conﬁdence-Preferences
+
+and
+
+H-Conﬁdence-Arguments) . . . . . . . . . . . . . . . . . . 177
+
+6.5.6 Analysis of Misclassiﬁed Instances . . . . . . . . . . . . . 177
+
+6.6 Muppet: A Tool for Multiuser Privacy Decision Assistance . . . . . 180
+
+6.7 Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 183
+
+6.7.1 Threats to Validity . . . . . . . . . . . . . . . . . . . . . . 184
+
+6.7.2 Limitations and Directions . . . . . . . . . . . . . . . . . . 185
+
+6.8 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 187
+
+6.9 Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 190
+
+7 Muppet: Recommending Sharing Policies in Multiuser Privacy
+
+Scenarios
+
+201
+
+7.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 203
+
+7.2 Muppet Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . 205
+
+7.3 Features: Context, Users, Preferences, Group . . . . . . . . . . . . 207
+
+7.3.1 Contextual Features . . . . . . . . . . . . . . . . . . . . . 207
+
+7.3.2 User Characteristics . . . . . . . . . . . . . . . . . . . . . 208
+
+7.3.3 Preferences . . . . . . . . . . . . . . . . . . . . . . . . . . 208
+
+7.3.4 Group Characteristics . . . . . . . . . . . . . . . . . . . . . 209
+
+XII
+
+1
+
+7.4 Recommenders . . . . . . . . . . . . . . . . . . . . . . . . . . . . 209 7.4.1 First Round . . . . . . . . . . . . . . . . . . . . . . . . . . 209 7.4.2 Second Round . . . . . . . . . . . . . . . . . . . . . . . . 210 7.4.3 Third Round . . . . . . . . . . . . . . . . . . . . . . . . . 210
+7.5 Bootstrapping Muppet via Crowdsourcing . . . . . . . . . . . . . . 211 7.5.1 Presurvey Questionnaire . . . . . . . . . . . . . . . . . . . 212 7.5.2 Picture Survey . . . . . . . . . . . . . . . . . . . . . . . . 212 7.5.3 Participants and Quality Control . . . . . . . . . . . . . . . 216 7.5.4 Training Muppet’s Classiﬁers . . . . . . . . . . . . . . . . 217
+7.6 Evaluation of Muppet Bootstrapping . . . . . . . . . . . . . . . . . 218 7.6.1 Evaluation Strategy . . . . . . . . . . . . . . . . . . . . . . 218 7.6.2 Hypotheses . . . . . . . . . . . . . . . . . . . . . . . . . . 219 7.6.3 H-Baseline . . . . . . . . . . . . . . . . . . . . . . . . . . 220 7.6.4 H-Aggregation . . . . . . . . . . . . . . . . . . . . . . . . 221 7.6.5 H-Incremental-Improvement . . . . . . . . . . . . . . . . . 222 7.6.6 H-Incremental-Generation . . . . . . . . . . . . . . . . . . 224
+7.7 Discussion of the Results . . . . . . . . . . . . . . . . . . . . . . . 225 7.7.1 Future Work . . . . . . . . . . . . . . . . . . . . . . . . . 226 7.7.2 Limitations . . . . . . . . . . . . . . . . . . . . . . . . . . 226
+7.8 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 227 7.9 Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 228
+
+III Discussion
+
+231
+
+8 Discussion and Future Work
+
+233
+
+8.1 Results on the Deﬁnition of Open Challenges . . . . . . . . . . . . 234
+
+8.2 Results on BFF . . . . . . . . . . . . . . . . . . . . . . . . . . . . 234
+
+8.3 Results on Tie Strength and Tags as Attributes for Access Controls . 235
+
+8.4 Results on Modeling Multiuser Privacy Scenarios . . . . . . . . . . 237
+
+8.5 Results on Muppet . . . . . . . . . . . . . . . . . . . . . . . . . . 238
+
+9 Conclusions
+
+241
+
+Bibliography
+
+247
+
+2
+
+Part I
+Introduction and Objectives
+1
+
+CHAPTER
+1
+Introduction
+1.1 Objectives . . . . . . . . . . . . . . . . . . . . . . . . . . . 5 1.2 Contributions . . . . . . . . . . . . . . . . . . . . . . . . . 6 1.3 Structure of the Thesis . . . . . . . . . . . . . . . . . . 10 1.4 Publication List . . . . . . . . . . . . . . . . . . . . . . . 11 1.5 Research Projects . . . . . . . . . . . . . . . . . . . . . . 15
+Social Network Services (SNSs), such as Facebook or Twitter, appeared more than a decade ago and redeﬁned the way people interact with others on the Internet. With millions of users and millions of photos, comments, and videos uploaded to their servers every day, SNSs have become one of the most prominent services used by people all over the world. Users employ SNSs because the perceive beneﬁts in social capital and opportunities [38]. They can form new friendships, maintain contact with friends and acquaintances, and, in general, be connected with people they care about. However, these beneﬁts also come with a cost. Managing privacy on SNSs is usually a burden that many users do not want to handle, or they are just not capable of [76]. This may lead to privacy breaches that can affect the daily lives of SNS users. For example, nowadays, it is common to ﬁnd news on the media about people who lost their job because of a post on Facebook.
+3
+
+4
+Since the beginning, SNSs have been of interest in the privacy research ﬁeld. Early works, such as Lipford et al. [94], found that users were not aware of the dangers of disclosing sensible information on SNS and left, in many cases, their proﬁles open to everyone. Although more recent research found out that users are no longer that reckless in their privacy management [140], people still struggle to properly control how their information ﬂows on SNSs [42].
+SNS providers are aware of the privacy concerns of their current users and they realize that these concerns can act as a deterrent for potential new users. Hence, privacy controls on SNSs have been maturing during the last few years. In general, SNSs employ very simple privacy models that aim at requiring the least amount of effort from users. These models sacriﬁce complexity in favor of simple conﬁguration. Currently, privacy management on SNSs is based on contact grouping (e.g., Facebook friend lists and Google+ friend circles). To facilitate the deﬁnition of groups, SNSs offer graphical tools and predeﬁned groups, such as friends of friends. Additionally, SNSs have lately increased the visibility of privacy conﬁguration, and many SNSs remind periodically users about the importance of proper privacy settings.
+A number of research works propose Relationship Based Access Controls (ReBAC) for privacy management on social networks [18, 22, 46]. ReBAC is a paradigm that provides mechanisms for disclosure control based on interpersonal relationships, and they represent more naturally how humans decide what to share and with whom. In contrast to traditional access controls where permissions are granted based on users and their roles, ReBAC models employ social elements such as relationship between the owner and potential viewers (e.g., this photo can only be seen by friends). ReBAC models present rich relationship features such as tie strength and asymmetrical relationships, and propose advanced functionality like sharing policy interoperability. However, ReBAC models proposed in the related literature (or similar ones) have not been implemented on commercial SNSs. One of the reasons why SNSs have not adopted such models is that, even though these models present a more powerful framework for privacy management, SNS providers must
+
+1. Introduction
+
+5
+
+weight the trade-off between privacy preservation and usability. This thesis aims at closing the gap between formal ReBAC models and those that are currently in use on SNSs. To achieve this goal, this thesis proposes mechanisms that automatize burdensome privacy related tasks and novel models that capture how users reason about information disclosure. To develop and evaluate the contributions presented in this thesis, a variety of techniques are employed which include machine learning, artiﬁcial intelligence, and crowdsourcing.
+
+1.1 Objectives
+As explained above, the main goal of this thesis work is to facilitate the implementation of formal ReBAC models in commercially successful SNSs. This goal entails a number of challenges: (1) deﬁning the requirements that a ReBAC model must fulﬁll, (2) new additions and modiﬁcations of current privacy models have to be made considering their effects on the usability of those models, and (3) all proposed methods, models, and tools have to be evaluated with data collected from real users. Considering these challenges, the main goal of this thesis is pursued by means of automatization of privacy related tasks and the deﬁnition of ReBAC models that are understandable by users and capture the way they consider information disclosure. The main objective can be subdivided in the following, below detailed, sub-objectives:
+1. Reviewing thoroughly related literature on privacy management on social media. This enables the author to ﬁnd the most pressing research challenges in the ﬁeld.
+2. Based on the challenges found as a result of the ﬁrst sub-objective, speciﬁcation of a list of requirements that privacy management systems and ReBAC models for SNSs should provide to enable users to manage accurately their information disclosure.
+3. Development of tools that help users automatize totally or partially the
+
+6
+
+1.2. Contributions
+
+speciﬁcation of information that new ReBAC models for SNSs will require.
+4. Development and evaluation of ReBAC model prototypes that fulﬁll the requirements identiﬁed previously.
+5. Deﬁnition of an abstract model for representing and reasoning about multiuser privacy scenarios.
+6. Development of a privacy recommender that, based on the model previously deﬁned, suggests sharing policies in multiuser privacy scenarios.
+
+1.2 Contributions
+To achieve the main objective and its sub-objectives, this thesis works presents the following contributions.
+1.2.1 Deﬁnition of Open Challenges in Access Controls for SNSs
+To deﬁne the speciﬁc advances that are needed to offer rich ReBAC models to SNS users, ﬁrst, this thesis dissertation presents a review of current research on the topic of privacy management on SNSs. This review classiﬁes current research into ﬁve categories: (1) content type management, (2) co-privacy, (3) modeling human relationships on SNSs, (4) recommender systems, and, (5) improving privacy settings understanding The review examines and summarizes papers in each category. The summary of each paper highlights its goals and proposals, and reviews the method employed by the authors to evaluate those proposals. Moreover, reviewed research papers are linked by means of conceptual maps that help readers understand, in a visual way, how research on privacy on SNSs is organized.
+
+1. Introduction
+
+7
+
+After summarizing papers in each category, the review lists a number of open challenges that researchers should address in order to improve privacy management on SNSs. Speciﬁcally, the rest of this thesis work focuses on three of these challenges: (1) tie strength automatic inference, (2) ReBAC and content type, and, (3) multiuser privacy management.
+
+1.2.2 BFF
+Research in social media has found that one of the the most important factors that users consider when disclosing information is the strength and type of the relationships they have with other individuals and the communities in which they are involved [156]. This idea was introduced in the 70’s by Granovetter [56]. In his work, Granovetter describes two different types of ties: strong and weak. On the one hand, strong ties usually include relationships such as family and close friends. On the other hand, weak ties may refer to coworkers or less trusted friends. Moreover, in the contextual integrity framework described by Nissenbaum [109], it is pointed out that distinctive relationships, for example individual to spouse, boss, friend, colleague, and so on, are partially deﬁned by distinctive patterns of information sharing. Based on this scientiﬁc evidence, it is reasonable to assume that a richer relationship deﬁnition that includes tie strength would help users manage their privacy on SNSs. However, given the large number of contacts that users can have and the number of communities they may be involved on [117], it is not realistic to assume that users are able to specify this information without the whole eliciting process becoming confusing and time consuming. Therefore, to make the use of tie strength in access controls viable, users require tools that automatize this process. To that aim, this thesis presents the tool BFF. This tool is able of inferring tie strength values and communities employing information that is commonly available on SNSs. This information includes elements such as the number of common contacts, number of exchanged messages, and the duration of the relationship on the SNS. BFF works as a recommender, thus, the information inferred by BFF is presented to the users as a
+
+8
+
+1.2. Contributions
+
+suggestion which they can accept, modify, or dismiss entirely. This thesis reports on a study with 38 users that tested an implementation of BFF on Facebook. The results show that BFF is able to infer accurately tie strength values and the composition of communities.
+
+1.2.3 Evaluation of Tie Strength and Tags as Attributes for Access Controls
+Once tie strength elicitation is not a burdensome task for users, the possibility of including tie strength as an attribute in a ReBAC model becomes plausible. Furthermore, related literature suggests the use of content tags (i.e., labels that identify the content of the item being shared, for example, selﬁe photo) in access controls to facilitate privacy management [83, 163]. Nonetheless, it is necessary to evaluate the beneﬁts and possible disadvantages of the inclusion of both attributes. To justify their inclusion, users employing tie strength or tags when deﬁning sharing policies should be able to deﬁne those policies in a simpler way and they should fully understand the implications of their privacy conﬁguration. To perform this evaluation, ﬁrst, this thesis presents a preliminary study employing real data from users. This study shows that tie strength and tags are promising attributes for access controls on SNSs. Then, three prototypes of access controls that employ different combinations of attributes (tag, tie strength, group, and individual identiﬁer) are developed. These prototypes are tested in a new study. The prototypes are evaluated through a number of quantitative metrics which measure the usefulness and performance of each attribute and their combinations. Further, a qualitative analysis shows that users prefer access controls that employ tie strength and tags. In general, the results indicate that tie strength and tags could be useful additions to current ReBAC models for SNSs. Although, users would need assistance while using these two attributes.
+
+1. Introduction
+
+9
+
+1.2.4 Modeling Multiuser Privacy Scenarios
+One of the particularities of the information shared on SNSs is that, often, it involves more than one user. A natural example is a picture or video showing a group of people. Many SNSs enable users to connect the information they upload to other users so that the connected users can be notiﬁed of the uploaded information. Since the information shared varies depending on the SNS, these connections can take different forms, e.g., tags on a picture uploaded to Instagram or mentions in a tweet. Suppose Alice uploads a picture from last weekend’s party in which she appears together with her friend Bob, and tags Bob in the picture. When these connections are created, the other users are linked to the uploaded information. Usually, a connection implies that the proﬁle of the user can be accessed from the uploaded data or some personal information is shown in conjunction with the uploaded data. Although connections between information and users are widely employed by SNSs, they can pose a privacy threat. For example, Bob may ﬁnd that the picture Alice uploaded is sensitive. However, Bob has no control over uploading that picture, and Alice’s action can threaten Bob’s privacy by revealing information about him from one setting or context into another. In this work, a situation such as this is identiﬁed as a multiuser privacy scenario or, for brevity, multiuser scenario.
+Currently, SNSs do not provide mechanisms to handle multiuser scenarios [42]. Thus, a user who did not upload a piece of information concerning him must deal with the privacy settings chosen by the uploader; at best, the user can remove the connection that links him to the shared information, but the information itself remains nevertheless. An ideal solution in a multiuser scenario is to respect each user’s privacy. However, often such a solution may not be viable since the preferences of the users involved may conﬂict.
+Evidence from self-reported data [6, 87, 159] suggests that, when dealing with a multiuser scenario, users entertain the explanations provided by others and that the optimal solution may depend upon the particular context and reasons behind users’ preferences. Following this idea, this thesis presents a formal model that considers
+
+10
+
+1.3. Structure of the Thesis
+
+three types of factors that potentially inﬂuence a privacy decision: the scenario’s context, users’ preferences, and their arguments about those preferences.
+To evaluate the proposed model, this thesis reports on a study with 988 participants. This study is based on surveys that present hypothetical scenarios to participants where a group of users have to determine the appropriate sharing policy to solve a multiuser conﬂict. The results indicate that all features considered by the model have an inﬂuence on the ﬁnal sharing policy.
+
+1.2.5 Muppet
+Finally, the last contribution of the thesis is Muppet, a recommender for multiuser scenarios. Few recent works focus on helping users deal with multiuser scenarios. Squicciarini et al. [133] propose an auction-based framework to help users reach an agreement. Other approaches elicit sharing policies based on ﬁxed [147] or variable [71] preference aggregation methods. Hu et al. [72] describe a game-theoretic mechanism for multiparty access control. These works base their recommendations on the sharing preferences of the users and require users specifying all the information. Muppet, instead, takes into account elements such as the context, characteristics of users (individually and as a group), and the relationship among them, and can generate a recommendation even when some information is unknown.
+To avoid the common problems of recommenders known as cold start, this thesis presents a bootstrapping approach that enables Muppet to be functional off-the-shelf.
+
+1.3 Structure of the Thesis
+Considering the motivations and objectives of this thesis, the rest of the document is organized as follows: 1. Part I. Introduction and Objectives: This part presents the motivation and the
+
+1. Introduction
+
+11
+
+goals of the thesis as well as the structure of this document.
+2. Part II. Selected Papers: This presents a selection of the most relevant articles supporting this theses which were published in conferences and journals.
+3. Part III. Discussion: This ﬁnal part discusses the results obtained in the published works and possible paths for future work, and presents some concluding remarks.
+
+1.4 Publication List
+In this section, all the international publications related to this thesis are listed. They have been classiﬁed according to their type (journals or international conferences) as well as whether they are listed in JCR or in CORE, respectively. Those publications which have been included in this document are marked with (*).
+• Journals listed in JCR:
+– (*) R. L. Fogue´s, P. K. Murukannaiah, J. M. Such and M. P. Singh. Sharing Policies in Multiuser Privacy Scenarios: Incorporating Context, Preferences, and Arguments in Decision Making. ACM Transactions on Computer-Human Interaction In press, 2017 Impact Factor: 1.293
+– (*) R. L. Fogue´s, J.M. Such, A. Espinosa and A. Garc´ıa-Fornes. Open Challenges in Relationship-Based Privacy Mechanisms for Social Network Services. International Journal of Human–Computer Interaction Vol. 31 N. 5 pp. 350-370. (2015) Impact Factor: 1.260 DOI: 10.1080/10447318.2014.1001300 http://dx.doi.org/10.1080/10447318.2014.1001300
+– (*) R. L. Fogue´s, J.M. Such, A. Espinosa and A. Garc´ıa-Fornes. BFF: A tool for eliciting tie strength and user communities in social networking services. Information Systems Frontiers Vol. 16 N. 2 pp. 225-237 . (2014) Impact
+
+12
+
+1.4. Publication List
+
+Factor: 1.077 · DOI: 10.1007/s10796-013-9453-6 http://dx.doi.org/10.1007/s10796-013-9453-6
+– (*) R. L. Fogue´s, J.M. Such, A. Espinosa and A. Garc´ıa-Fornes. Tie and Tag: A Study of Tie Strength and Tags for Photo Sharing. Plos One Submission under review Impact Factor: 3.057
+– (*) R. L. Fogue´s, P. K. Murukannaiah, J. M. Such and M. P. Singh. SoSharP: Recommending Sharing Policies in Multiuser Privacy Scenarios. IEEE Internet Computing To be published Impact Factor: 2.296
+– R. L. Fogue´s, J.M. Such, J.M. Alberola, A. Espinosa and A. Garc´ıa-Fornes. Supporting Dynamicity in Emergency Response Applications. Computing and Informatics Vol. 33 N. 6 pp. 1288-1311. (2014) Impact Factor: 0.504 · ISSN: 1335-9150 http://www.cai.sk/ojs/index.php/cai/article/view/2815/676
+
+• International conferences listed in CORE:
+
+– (*) R. L. Fogue´s, J.M. Such, A. Espinosa and A. Garc´ıa-Fornes. Exploring the Viability of Tie Strength and Tags in Access Controls for Photo Sharing. 32nd Symposium on Applied Computing, ACM 2017, Marrakesh, Morocco, April. In press. 2017. DOI: 10.1145/3019612.3019909. CORE ERA2014 Rank: B. http://dx.doi.org/10.1145/3019612.3019909
+
+• Other international conferences:
+
+– R. L. Fogue´s, P. K. Murukannaiah, J.M. Such, A. Espinosa, A.
+
+Garc´ıa-Fornes and M. P. Singh. Argumentation for multi-party
+
+privacy management.
+
+The Second International Workshop on
+
+Agents and CyberSecurity (ACySe), Istanbul, Turkey.
+
+2015.
+
+http://nms.kcl.ac.uk/jose.such/acyse2015-proceedings/ACySe2015 submission Fogues.pdf
+
+– R. L. Fogue´s, J.M. Such, A. Espinosa and A. Garc´ıa-Fornes. A Tool for Retrieving Meaningful Privacy Information from Social Networks. ITMAS
+
+1. Introduction
+
+13
+
+2012: Infrastructures and Tools for Multiagent Systems, Valencia, Spain. 2012. ISBN: 978-84-8363-850-7 https://riunet.upv.es/bitstream/handle/10251/16889/ITMAS%202012%20.pdf – R. L. Fogue´s, J.M. Alberola, J.M. Such, A. Espinosa and A. Garc´ıa-Fornes. Towards dynamic agent interaction support in open multiagent systems. Artiﬁcial Intelligence Research and Development: Proceedings of the 13th International Conference of the Catalan Association for Artiﬁcial Intelligence Vol. 220 N. 5 pp. 89-97. (2010) DOI: 10.3233/978-1-60750-643-0-89 http://dl.acm.org/citation.cfm?id=1893268.1893282
+The publications selected to be included in the Part II of this document are the most relevant and closely related to this research work, regarding the objectives set in Section 1.1. The contributions of the author of this thesis in each paper are speciﬁed employing the CRediT taxonomy of author contributions [15].
+Chapter 2 (previously published in [42]) presents a review of related work on the ﬁeld of privacy on SNS. This paper starts introducing a list of privacy threats that can affect SNS user and what requirements privacy mechanisms should fulﬁll to prevent this threats. Then, it reviews current approaches and analyze to what extent they cover the requirements. Finally, it presents a number of challenges that future research work should address in order to enable SNS users manage their privacy easily and efﬁciently. The contributions of the author in this paper are: conceptualization, investigation, visualization, and writing.
+Chapter 3 (previously published in [41]) introduces BFF that automatically classiﬁes the friends of a user in communities and assigns a value to the strength of the relationship ties to each one. To provide predictions, BFF exploits different data available on SNSs. Such data includes elements as shared items between two users, and number of common friends. To test BFF, the chapter presents an evaluation with thirty-eight human subjects. The results point out that BFF is able of providing accurate predictions employing a rather low number of variables. The contributions
+
+14
+
+1.4. Publication List
+
+in this paper are: conceptualization, data curation, formal analysis, investigation, methodology, software, visualization, and writing.
+Chapter 4 (previously published in [43]) studies the viability of tie strength and tags as attributes for access controls on SNSs. To this aim, the chapter deﬁnes three metrics that enable researchers to evaluate the ease of use and complexity of access controls. Then, employing the data collected in a study with human subjects, ﬁfteen access controls, each one with a different combination of attributes, are evaluated. The contributions in this paper are: conceptualization, data curation, formal analysis, investigation, methodology, software, visualization, and writing.
+Chapter 5 (submission currently under review at Plos One) describes an experiment with forty-eight participants using access controls that include tie strength and tags (separately and simultaneously) together with groups and individuals. The results of the study are analyzed employing a number quantitative metrics. Additionally, a qualitative analysis is also performed on the collected data. The results show that, users prefer access controls that employ tags and tie strength. Moreover, users employ these two attributes extensively when they are available in the access control. However, the results also indicate that users make more mistakes in terms of sharing policy correctness when tie strength or tags are employed. This points out that users need assistance when employing these two new attributes. The contributions are: conceptualization, data curation, formal analysis, investigation, methodology, software, visualization, and writing.
+Chapter 6 (previously published in [44]) presents a formal model for representing and reasoning about multiuser scenarios, employing three types of features: contextual factors, user preferences, and user arguments. The Chapter also reports on a study that involved a survey of 988 Amazon MTurk users about a variety of multiuser scenarios and the optimal sharing policy for each scenario. The evaluation of the participants’ responses reveals that contextual factors, user preferences, and arguments inﬂuence the optimal sharing policy in a multiuser scenario. Finally, the responses obtained in the study are employed to develop and evaluate an inference
+
+1. Introduction
+
+15
+
+model that predicts the optimal sharing policy for a multiuser scenario. The contributions are: conceptualization, data curation, formal analysis, investigation, methodology, software, visualization, and writing.
+Chapter 7 (published in [45]) introduces Muppet, a sharing policy recommender tool for muiltiuser scenarios. Muppet recommends a sharing policy considering the (1) contextual features deﬁning the scenario, (2) characteristics of the users involved, (3) their preferences, and (4) group characteristics. Muppet works incrementally and asks for users’ input only when required. The Chapter also addresses the typical problem of recommenders known as cold start, i.e., the issue that a system cannot draw inferences when it has not gathered sufﬁcient information. To this aim, a bootstrapping technique employing crowdsourced training data is presented. The contributions are: conceptualization, data curation, formal analysis, investigation, methodology, software, visualization, and writing.
+
+1.5 Research Projects
+The research work presented in this PhD thesis was carried out in the context of the following research projects:
+• Privacidad en entornos sociales educativos durante la infancia y la adolescencia – Funder: Ministerio de Ciencia e Innovacio´n TIN2014-55206R – Lead Applicant: Ana Mar´ıa Garc´ıa-Fornes – Years: 2015 - 2017
+• Interaccio´n multiagente para planiﬁcacio´n – Funder: Ministerio de econom´ıa, industria y competitividad TIN2008-04446/TIN
+
+16
+
+1.5. Research Projects
+
+– Lead Applicant: Eva Onaindia De La Rivaherrera – Years: 2012 - 2013 • Advances on agreement technologies for computational entities – Funder: Generalitat Valenciana Prometeo/2008/051 – Lead Applicant: Vicente Juan Botti Navarro – Years: 2010 - 2012 • MAGENTIX II: Una Plataforma para Sistemas Multiagente Abiertos – Funder: Ministerio de Ciencia e Innovacio´n TIN2008-04446/TIN – Lead Applicant: Ana Mar´ıa Garc´ıa-Fornes – Years: 2009 - 2011
+
+Part II
+Selected Papers
+17
+
+CHAPTER
+Open Challenges in Relationship-Based 2
+Privacy Mechanisms for Social Network Services
+2.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . 21 2.2 Relationship-based Access Control Models . . . . 29 2.3 Content Type Management . . . . . . . . . . . . . . . 34 2.4 Co-privacy . . . . . . . . . . . . . . . . . . . . . . . . . . . 36 2.5 Modeling Human Relationships on Social
+Network Services . . . . . . . . . . . . . . . . . . . . . . 41 2.6 Recommender Systems . . . . . . . . . . . . . . . . . . 47 2.7 Improving Privacy Settings Understanding . . . . 56 2.8 Open Challenges . . . . . . . . . . . . . . . . . . . . . . . 60 2.9 Conclusions . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+AUTHORS: RICARD L. FOGUES , JOSE M. SUCH†, AGUSTIN ESPINOSA AND ANA
+GARCIA-FORNES {rilopez,aespinosa,agarcia}@dsic.upv.es, jose.such@kcl.ac.uk DEPARTAMENTO DE SISTEMAS INFORMA´ TICOS Y COMPUTACIO´ N
+UNIVERSIDAD POLITE´ CNICA DE VALENCIA, SPAIN †KING’S COLLEGE DEPARTMENT OF INFORMATICS LONDON, UK
+19
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+21
+
+Abstract
+
+Social networking services (SNSs) such as Facebook or Twitter have experienced an explosive growth during the few past years. Millions of users have created their proﬁles on these services because they experience great beneﬁts in terms of friendship. SNSs can help people to maintain their friendships, organize their social lives, start new friendships, or meet others that share their hobbies and interests. However, all these beneﬁts can be eclipsed by the privacy hazards that affect people in SNSs. People expose intimate information of their lives on SNSs, and this information affects the way others think about them. It is crucial that users be able to control how their information is distributed through the SNSs and decide who can access it. This paper presents a list of privacy threats that can affect SNS users, and what requirements privacy mechanisms should fulﬁll to prevent this threats. Then, we review current approaches and analyze to what extent they cover the requirements.
+
+2.1 Introduction
+
+The advent of the Web 2.0 has supposed a revolution in how users interact with Web technologies. Social network services (SNS) are some of the most successful applications of this revolution [26]. Facebook with more than 900 million active users1, Twitter with more than 500 million registered members2, and Qzone with more than 51 millions of users are some of the biggest SNSs. The impact of these services on society, especially on young people, is unquestionable.
+
+Privacy problems associated with digital communication and network technologies have been a major concern among Internet users over the past decade [162]. The emergence of social networks has even increased these concerns. People register to these SNSs and share images, videos, and thoughts because they perceive a great
+
+1Facebook statistics http://newsroom.fb.com/ 2Twitter To Surpass 500 Million Registered Users On Wednesday.
+mediabistro.com/alltwitter/500-million-registered-users
+
+http://www.
+
+22
+
+2.1. Introduction
+
+payoff in terms of friendship, jobs, and other opportunities [38]. The popularity of SNSs attracts not only faithful users but third parties with adverse interest [3]. If we consider the huge amount of private information uploaded to those SNSs and the persistence of it in the social networks, the privacy of SNS users can be threatened [58]. Recent cases show that on-line thieves, stalkers, and bullies take advantage of the information available on SNSs and use it for purposes that were not the initially intended ones [65].
+There are several deﬁnitions of privacy in the related literature. In the context of this survey, we use the deﬁnition of Alan Westin, who deﬁned privacy as ”the claim of individuals, groups, or institutions to determine for themselves when, how, and to what extent information about them is communicated“ [155]. This deﬁnition implies that SNSs have to offer their users mechanisms that allow them to decide how their information is disclosed. Current SNSs have taken steps towards this objective, but there still exist several problems that make users feel they have lost control of their information and how it is shared among the SNS [68, 139]. Users demand better privacy mechanisms, with richer and ﬁner-grained privacy policies that take into account the way SNS users share information and interact with others. Moreover, privacy controls for these new access controls have to be easy to use, offering automatic suggestions and learning from the behavior of the users.
+This article reviews studies that advance the state of the art on interpersonal privacy management in social networks, as well as studies that improve the usability of such mechanisms. Understanding how humans share and manage their friendships on SNSs is crucial so that researchers can adapt their models and methods to cope with the users’ needs and expectations. Studies are classiﬁed according to the type of privacy requirement they address. Each study is impartially presented and reviewed, showing the strengths and weaknesses of the proposals made in the study. SNS became a global phenomenon around 2006-07 and immediately attracted the attention of researchers [12]. We consider that the ﬁrst meaningful research works on interpersonal privacy appeared shortly after, thus, we only survey papers published
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+23
+
+from 2008 onwards. The ﬁnal objective of this paper is to survey research in the ﬁeld of interpersonal privacy in social networks as well as to promote and encourage future research and advances that overcome the current challenges that exist in this ﬁeld.
+
+2.1.1 Privacy and Social Networks
+As pointed out more than a century ago by Warren and Brandeis [152], disclosure of private information and the misuse of it can damage people’s feelings and cause considerable damage in people’s lives. In SNS where intimate information of the users is managed, privacy is of paramount importance. A research of Gross and Acquisti [58] in the early days of Facebook showed that the majority of users were unconcerned about privacy risks. They tended to use default privacy conﬁgurations and personal data were generously provided. More recent studies, like the one from Boyd and Hargittai [13], show that the privacy awareness of SNS users has increased lately. The widespread media attention on SNS and on situations where the leakage of personal information of SNS users affected their lives has positively inﬂuenced the way SNS users manage their privacy [116]. Moreover, as people get used to employ SNS, they can control more effectively how their information is disclosed [127]. Nevertheless, the high number of privacy risks that affect SNS users leaves room for improvement in this ﬁeld of study.
+The most important SNS users’ privacy concerns are: identity theft [7],unauthorized access [116], misuse of personal information and stalking [58, 14, 124], and proﬁling [62]. Many of these threats affect affect levels of SNS privacy mechanisms that are not affected by human factors. Identity theft and unauthorized access are related to access control enforcement. For example, unauthorized access can occur if the authentication mechanisms of the SNS are not good enough or if the communication between the user and the SNS is not properly encrypted. Proﬁling is a threat when the party which owns the information on the SNS is not trustworthy. A typical case of proﬁling occurs when the party that manages the SNS sells incorrectly anonymized
+
+24
+
+2.1. Introduction
+
+information to third parties that use it for marketing purposes. A number of surveys that present works that deal with these threats has been recently published [78, 167].
+In this study we focus on the threat that is related to interpersonal privacy: the misuse of personal information. This threat refers to the possibility of a malicious dissemination of previously collected information. For instance, users may face blackmailing situations when embarrassing data is collected from a SNS by a third party. In the context of SNSs, misuse of personal information usually occurs when users disclose inappropriate information due to a negligence during the conﬁguration of their privacy settings or ignorance about how privacy is managed on the SNS. Many times inappropriate information is leaked to people inside the user’s social network. Johnson [76] classiﬁed this threat as the insider threat and found out that this is one of the most worrisome threats for SNS users. Such privacy leak can occur because SNS privacy controls are not usable enough or because interpersonal relationships are not well represented on the SNS.
+It has been acknowledged that in order to properly minimize misuse of personal information, a new privacy mechanism is needed [51, 166]. In the next section, we detail the requirements for such a new privacy mechanism.
+
+2.1.2 Requirements for a Social Network Service Privacy Mechanism
+Any privacy mechanism has at its base an access control. Access controls dictate how permissions are given, what elements can be private, how access rules are deﬁned, and so on. Access control models of current SNSs tend to be very simplistic. Nonetheless, recent improvements in facebook-like SNSs have enhanced the access control models. For example, now it is possible to deﬁne policies to deny access to groups of users, instead of individuals. Some SNSs allow the possibility to express a social distance of contacts that have access to the resource, for example, friends of friends (two hops), friends of friends of friends (three hops), and so on. Another
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+25
+
+addition that only a few SNSs have added is the possibility to choose the amount of information from a friend that we want to receive (Facebook). However, these models still lack key elements. One of the most important is the lack of diversity in the type of relationships. Most SNSs only employ ”friend” as the only type of possible relationship. This lack of classiﬁcation of contacts leads to privacy leaks to other members inside the social network. Gates [51] identiﬁes the following requirements that an access control model for a SNS must fulﬁll:
+• Relationship-based: People base their decision of sharing information on their relationship with others. Moreover, the properties of the relationship also affect the way people disclose their personal information. In social psychology, it is generally accepted that one discloses more of his/her personal information to someone in a strong relationship [36]. Hence, a control access model that tries to reﬂect the way people disclose and share in real life should be based on relationships.
+• Fine-grained: The access control has to allow users to deﬁne access policies for single items. If the access control is available in a ﬁne-grained format the privacy policies can be more ﬂexible and they can express the user’s preferences exactly. For example, a user should be able to deﬁne privacy policies for speciﬁc photos, individual blog entries, or even some words or phrases of a comment. In other words, users should be able to decide exactly to what extent others can access their information.
+• Interoperability: Many SNSs have a speciﬁc objective; while Facebook aims to facilitate users contacting their friends, LinkedIn helps users to maintain their professional networks. Facebook and Linkedin have clearly different purposes. Because of this variety of purposes, users may have several multiple accounts in different SNSs, each one for a different social objective. In this scenario, it is highly desirable for access controls to be interoperable and follow the users, so it is not necessary to deﬁne an entire new access control for each SNS.
+
+26
+
+2.1. Introduction
+
+• Sticky policies: Besides being interoperable, privacy policies should also follow the data to which they apply. For example, many SNS allow third party applications to access users’ data. The privacy preferences assigned to that data should be respected by these third parties and in whatever context it might travel to. This idea was introduced by Karjoth et al. [82].
+In the related literature, we have also identiﬁed additional requirements that play a crucial role in developing successful access control models for SNSs:
+• Content Type Management: SNS enable users to share a variety of different pieces of information: photos, videos, comments, events, hobbies, and so on. Besides the miscellany in the format of the information, its content also matters when deciding who has access and who has not [61]. Flickr3 employs tags so users can classify their pictures according to their type. A similar approach could be used so users could deﬁne permissions based on the type of the content.
+• Co-privacy: SNS users like to upload items to their proﬁles, such as photographs and videos, where other users are depicted. Specially, SNSs that focus on helping users to maintain their friend relationships encourage users to upload publications of this kind. Items of this type can raise several privacy concerns. While the owner of the item is in charge of assigning a privacy policy to it, the other users related to the item can be affected if the privacy policy is not appropriate for their interests. It is possible to infer a great amount of information about an individual from information leaks that occur due to shared items and privacy preference conﬂicts [147]. Current access models do not consider these situations; thus, users are forced to use strategies like untagging, asking the owner to remove the photo or, in the most extreme situations, removing friendship links. Access controls should consider co-privacy management and offer mechanisms that allow every user involved in a single item to express their privacy preference so that the resulting privacy policy applied to that item maximizes the utility for everyone.
+3www.flickr.com
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+27
+
+An access control acts as the base for a privacy mechanism, however, they require other elements to be functional. It is not realistic to assume that SNS users can understand access control models and use them intuitively. Powerful privacy models are useless if they lack usability and are not understood by the people that will use them [27]. Moreover, as pointed out by Brandtzæg et al. [16], in order for SNSs to be successful their users have to be able to easily control the disclosure of their information. If users have privacy concerns, they share less content, thus, losing social opportunities that SNSs offer. Users need tools that guide them through the process of setting their privacy preferences. Users also require mechanisms that help them to understand their current privacy preferences and how their information is disseminated among other SNS users. According to related literature, a privacy mechanism for SNSs should fulﬁll these requirements:
+• Automatic relationship inferring: If the access control has to be based on social relationships, these have to be accurately deﬁned. SNS users tend to have a high number of friends. For example, according to the Facebook statistics, the average number of friends in that social network is 130. Hence, classifying every contact in a social network can represent a burden on the user. Privacy mechanisms should have the capacity to automatically infer the type of a relationship and make the whole process of friend classiﬁcation easy and fast.
+• Privacy setting recommendation: While privacy is paramount on SNSs, users are focused on enjoying the functionality that these offer. For many users privacy settings represent a burden, for others privacy settings are difﬁcult to manage and understand. Recommender tools can help users to set properly their privacy settings. While recommenders can help reduce the user’s burden, they are rarely perfectly accurate. Thus, it is important for the user to be able to view, understand, and modify the recommended policy before it is applied
+• Privacy understandability: Access controls can be complex and daunting for SNS users. Average SNS users do not have expertise on security, thus, it is difﬁcult for them to accurately evaluate how their information is disclosed through the SNS
+
+28
+
+2.1. Introduction
+
+[103]. Users require proper interfaces that show them how their privacy policies dictate their self-disclosure.
+• Self-presentation management: In the beginning, social media was focused on establishing or maintaining friendship relationships through a digital channel. However, social media have increased the number of services offered and now users expect more beneﬁts than friendship alone [38]. Some examples of social media use are to obtain fame4, or for commercial brands to publicize their products, acquire recognition, and maintain contact with their customers5. In a nutshell, and as pointed out by Kairam et al. [81], social media users utilize the product to successfully tailor self-presentations for various parts of their network through selective information sharing. Self presentation is achieved by carefully tailoring self-disclosure. Privacy controls should help users to maintain their chosen self presentation on SNSs.
+
+In the following sections of this paper, we will review studies that aim to totally or partially cover the requirements previously listed. First, Section 2.2 starts reviewing formal relationship-based access control models. Section 2.3 presents some prototypes of access controls that take into account the content type of the information being shared. Section 2.4 is centered on papers that deal with co-privacy. Section 2.5 presents papers that aim to accurately model and infer human relationships on SNSs. Section 2.6 presents works that propose privacy policy recommenders. Section 2.7 reviews papers that present methods to enhance the understandability of privacy settings. The remaining requirements (interoperability, sticky policies, and self-presentation management) are treated as open challenges and are covered further in section 2.8. Figure 2.1 shows a conceptual map that presents the Sections that cover each requirement.
+4http://www.wltx.com/news/tech/article/233056/378/ Survey-Social-Media-Draws-Young-Fame-Seekers
+5http://www.usatoday.com/story/money/personalfinance/2013/04/16/ small-business--social-media-facebook/2075123/
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+29
+
+Figure 2.1: Conceptual map of requirements for a privacy mechanism for SNSs
+2.2 Relationship-based Access Control Models
+This section reviews Relationship-based Access Control (ReBAC) models proposed for SNSs. The ReBAC paradigm provides users with better mechanisms for disclosure control, and they represent more naturally how humans decide what to share and with whom. All models studied in this section fulﬁll the two ﬁrst requirements of access controls for SNSs. Speciﬁcally, all of them are based on relationships and their privacy policies are ﬁne grained. However, the models differ in other features, table 2.1 shows a comparison of them. In the table, the features of the reviewed models have been divided into two subgroups.
+The ﬁrst group contains the properties that the models consider for the relationships. Multiple relationship type refers to the possibility that the model manages different kinds of relationship; for example, a model could allow the differentiation between a friend and a family relationship. Another concept used to differentiate
+
+30
+
+2.2. Relationship-based Access Control Models
+
+relationships, which is further explained in section 2.5, is tie strength. Some models allow the possibility of specifying a numerical value for the strength of the relationship. Directional relationship alludes to the possibility of deﬁning asymmetric relationship; for example, user A can be related to user B but that does not imply that the opposite relationship exists. Finally, the last two features, user-to-user relationship and user-to-resource relationship, describe whether the models consider relationships among users and among users and items. For example, a user can somehow be related to a movie, which is not a user but a resource.
+The second group of features includes those that affect the policy speciﬁcation language of each model. As explained in the previous section, ReBAC models have to be ﬁne-grained; the policy individualization refers to this characteristic. The following two features, regular expression language and based on ontology, specify whether the policy language uses any of these techniques. When specifying a privacy policy, a common resource is to deﬁne a maximum social distance, which is the number of hops between the owner of the resource and the accessor. Arbitrary social distance identiﬁes what models allow this possibility. Besides the social distance, social path speciﬁcation deﬁnes the type of the hops of that distance; for example, the family members of my friends represent a social distance of two, where the ﬁrst hop is friends and the second family members.
+Fong et al. [47] proposed a formal algebraic model for facebook-style social networks. The authors created this algebraic model to reﬂect how facebook-style SNSs model their access control. Even though this model cannot be classiﬁed as a true ReBAC, we considered this paper in this review since it formally shows the limitations of current SNS access control models. The model divides the authorization of access to a resource into two stages. Stage 1 is to reach the proﬁle of the resource’s owner and Stage 2 is to access the resource. The model allows the deﬁnition of authorization policies for each stage independently. Since policy language considers the network topology properties, the model allows complex policies that are beyond what facebook-like SNSs offer (friends, friends of friends, no
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+31
+
+Relationship features Multiple relationship types Tie-strength Directional relationship User-to-user relationship User-to-resource relationship Policy language features Policy individualization Regular expression language Based on ontology Arbitrary social distance Social path speciﬁcation
+
+[47] [46], [22], [23] [25] [18] [21]
+
+Table 2.1: Comparison of ReBAC models.
+
+one, and public). Topology-based policies include: degree of separation, k common friends, k clique, trusted referral, and stranger. Since this work aims to model the access control of facebook-like SNSs, it also has the same limitations. Moreover, since users’ proﬁles and resources are not treated the same, the authorization process is divided into two steps. This division can lead to unnecessary complexity of access policies.
+Fong [46] proposes an access model for social networks based on relationships. In contrast to [47], this work uses social contexts and allows a generalization of relationships types (e.g. parent-child, employer-employee, etc). Social context is another dimension of relationships; some relationships have a different meaning depending on the context or they only exist in a given context. For example, a physician who is my treating physician in one medical case may very well be a consulting expert in a different medical case of mine. As a result, the physician may enjoy a different level of access in each case. This access model considers that, for each relationship, the social network deﬁnes its inverse. For example, if
+
+32
+
+2.2. Relationship-based Access Control Models
+
+a social network has the relationships parent and employer, it must also contain the relationships child and employee, which are the inverse of parent and employer respectively. When a resource is being accessed, the evaluation of the authorization of access for that accessor is done based on an active context. This concept captures how people are willing to disclose different information depending on the context. The policy language deﬁned by Fong allows the speciﬁcation of unlimited sequences of relationships. For example, it is possible to express a policy that allows access to the father of a friend of a friend. This feature is an improvement with respect to [47] where the chain of relationship was restricted to friend and friend of a friend.
+Bruns et al. [18] improved the previous work of Fong [46] adding Hybrid Logic to the model. The policies are divided into two sub-policies; one sub-policy is deﬁned from the point of view of the owner of the resource and the other one from the point of view of the accessor. The improved model allows more ﬂexible policies; for example, it is possible to grant access to the last four friends, or grant access if at least n friends of the owner fulﬁll a certain requirement.
+These three works [47, 46, 18] share the same limitation. They do not consider the strength or intensity of the relationships (i.e., they only consider relationships as a boolean: either a relationship exist or not).
+Carminati et al. [22, 21] propose a model that allows the speciﬁcation of access rules that consider the type of the relationship, its depth, and its intensity. The proposal of Carminati et al. considers a distributed SNS; therefore, principals are in charge of specifying their access rules. The work also proposes a semidecentralized access control enforcement. When a principal wants to access a resource, she has to prove that she fulﬁlls the requirements speciﬁed by the owner of the resource. A central and trusted server is responsible for storing all the relationships of the social network users. Thus, whenever the requester needs to prove to the resource owner the existence and the attributes of a given relationship, she requests this trusted server for this information. The policy language proposed by Carminati et al. allows the deﬁnition of policies that specify a type of relationship, a maximum depth, and
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+33
+
+a minimum strength. Policies can have several requirements, all of them have to be satisﬁed in order to obtain access. Several policies can be deﬁned for a single resource. In this situation, only one of these policies have to be fulﬁlled in order to obtain access to the resource. One limitation of the policy language is that policies cannot refer to a chain of relationships with different types of relationships. For example, it is not possible to specify a policy that grants access to the parents of the owner’s friends.
+Carminati et al. [23] propose an access control model based on semantic web technologies. This paper is an extension of the previous paper [22]; the main differences between the two proposals is that this model considers the user-to-resource relationship and it uses semantic technologies for the policy language. The model proposed by Carminati et al. considers the following ﬁve important elements of an online social network: (i) proﬁles, (ii) types of relationships among users (e.g. Bob and Alice are colleagues), (iii) resources, (iv) relationships between users and resources (e.g. Bob appears in a photo owned by Alice), and (v) actions. The use of semantic web technologies allows the model to infer about the relationships among users and resources. For example, it is possible to infer that a close friend is also a friend and anything that is accessible by friend could also be accessible by a close friend. The authors focus their article on the addition of semantic technologies to their previous access control model [22]. However, the authors did not evaluate how the addition of semantic technologies improved their previous work.
+Cheng et al. [25] developed a ReBAC model using regular expression notation. Their model deﬁnes resources and users as the target of an action. The model permits a high generality of relationship paths in its policy speciﬁcation, since the notation of the model is regular expression. The paths can be deﬁned as patterns; for example, it is possible to deﬁne a policy that grants access to users that are connected to the resource owner by a path that contains at least one friend and a maximum of two coworkers. Since the users can be considered as targets of an action, it is possible
+
+34
+
+2.3. Content Type Management
+
+to specify polices that hide the proﬁle of the users and do not show them in searches performed by others that do not satisfy the speciﬁcations of the policy. Even when the model considers different types of relationships, it does not contemplate a value for the trust or strength of the relationships. This limitation restricts the power of expressiveness of the model because it is not feasible to deﬁne a type of relationship for each possible level of tie strength.
+The models reviewed in this section are based on human relationships and depend on them to express privacy policies and deﬁne how the different elements can be accessed and by whom. These models assume that the social network provides a rich social model that is capable of representing different types of human relationships. Unfortunately, this is not true in current SNSs, as they usually only consider friend as the only type of possible relationship. Section 2.5 reviews studies that model human relationships and propose theoretical models and actual software tools to accurately predict and represent the type of a relationship and its intensity.
+
+2.3 Content Type Management
+None of the access control models reviewed above consider the type of the shared information. In other words, users cannot specify privacy policies for different types of content. For example, a user could not deﬁne a privacy policy that affects their family photos. A number of studies [61, 83, 163] show that content matters during privacy policies deﬁnition. Moreover, mechanisms to classify content, such as tags, improve the usability of privacy mechanisms.
+Yeung et al. [163] prototyped the management of privacy for photos that considers content type. To classify the photos, the authors proposed the use of tags, which is the act of assigning descriptive keywords to resources. This is the same method that Flickr, the popular social network for photo sharing, employs so that users can classify their pictures according to their type. Yeung’s system is based on OpenID as authentication protocol and the AIR policy language [79] which is based on RDF. The
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+35
+
+authors only proposed a prototype of the system and did not provide any evaluation.
+Hart et al. [61] proposed a mechanism to manage privacy for blogs based on tags. The authors proposed a privacy language called Plog. This language is based on groups and post type. Users can deﬁne groups of users manually or group potential viewers by attributes that they all share (e.g., workplace or same school). The main focus of their study is to compare basic privacy policy mechanisms for blogs with a tag-based approach. To this aim, they developed a WordPress plugin and recruited twenty eight participants to evaluate their proposal. The authors did not use real data from the participants, instead, they created artiﬁcial data for imaginary users and asked the participants to manage that data as if it was theirs. Thus, they did not examine users’ actual preferences. Their results showed that an approach that uses tags is more usable than one that does not.
+Klemperer et al. [83] evaluated the usability of an access control based exclusively on category tags. The authors aimed at evaluating whether tags can be used to organize photos and deﬁne their privacy at the same time. Besides, they also studied if tags can decrease the number of privacy conﬂict. This is, privacy policies that are contradictory. Usually, this happens because users have problems building mental models of their privacy. For their study the authors developed an application that allowed participants to tag their pictures and assign privacy policies for their contacts. The authors asked the participants to use personal photos that were not necessarily uploaded to any SNS. Their results showed that the use of tags reduces the number of required privacy policies and also the number of privacy conﬂicts.
+Paradesi et al. [111] propose a framework for information share based entirely on content. When users employ this framework, they assign keywords to their information. Then, they create privacy policies using these keywords. For example, a user can specify a policy that hides his diabetes when an accessor is looking for his medical information. When users are specifying keywords, the framework takes advantage of a semantic enhancement mechanism that automatically search for related terms. The aim of the framework is to protect private information from agents
+
+36
+
+2.4. Co-privacy
+
+that are external to the SNS. Therefore, it does not employ any relationship concept to deﬁne disclosure preferences. Future research should investigate whether a similar approach could be combined with social concepts, such as tie strength, to control the ﬂow of information inside the SNS.
+
+2.4 Co-privacy
+As explained before, one of the requirements for ReBAC models is the management of co-privacy or, in other words, the management of the privacy settings of items shared among users of the social network that affect the intimacy of several individuals. An example of a common issue with items of this kind is a photograph with many users tagged in it. The user who took the photo uploads it to her SNS proﬁle and tags every other user that appears in the photo. At this moment, SNSs leave the responsibility of setting a proper privacy setting for the shared item on the hands of the owner. This decision may suppose a threat to the privacy of the other involved users. The proposals reviewed in this section are focused on ﬁnding a proper privacy setting for items that involve several users.
+Figure 2.2 depicts a conceptual map for all of the reviewed approaches that propose a co-privacy management mechanism for SNSs. As shown in the conceptual map, there are three different approaches for co-privacy management. Condition preference sensitivity refers to the possibility of the users involved to express how willing they are to allow violations of their preferences. The Suggestions approach is based on the idea that the owner of the item is the sole person responsible for the privacy management of that item; thus, other users are only allowed to suggest privacy conﬁgurations. Finally, the approaches that guarantee the preferences of everybody allow every user involved in the item to express their privacy preferences. Then a privacy policy is generated from the combination of every privacy preference.
+Squicciarini et al. [133] propose collective privacy management based on the Clarke-Tax algorithm and incentives for users. Incentives are credits that are given
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+37
+
+Figure 2.2: Co-privacy Conceptual Map
+to users to encourage them to assign co-owners of updated items. When the owner and co-owners specify their privacy preferences for a shared item, each one speciﬁes their privacy preferences assigning a value of credits they are willing to spend in order to apply that policy. The Clarke-Tax algorithm ensures that the privacy policy that maximizes the utility is chosen. The authors created a proof-of-concept application and tested its performance in terms of computing time. The authors propose a novel method that encourages users to participate in the collective managing of privacy by giving them rewards and ﬁnds the privacy conﬁguration that has the highest utility according to the co-owners preferences. However, in the study, the privacy policies are very simple and owners only can specify if they prefer the item to remain private (only co-owners have access to it), if it is accessible to co-owners’ friends, or if it is designated as public. These simpliﬁed privacy preferences avoid privacy conﬂicts, but they do not represent real privacy policies well.
+Thomas et al. [147] study the risks of multi-party privacy in social networks. As a part of their research and as a way to show the dangers of unsuitable co-privacy management, the authors try to infer the information of Facebook users from two sources: links between friends and conversations with friends. The authors achieved an accuracy above 60% inferring information such as gender, political views or favorite TV shows. The authors propose a privacy framework to avoid these privacy
+
+38
+
+2.4. Co-privacy
+
+conﬂicts. The framework is based on exposure policies instead of privacy policies. Each user referred to by a piece of information posted on any page of the SNS (e.g. Facebook wall) can deﬁne an exposure policy. For example, Alice posts on her Facebook wall a comment where Bob is referred to. Alice speciﬁes a privacy policy because she is the owner of the information and Bob can deﬁne an exposure policy to limit the users that can access that comment where he appears. The exposure policies are deﬁned in terms of the type of information and the page where it is posted. The authors prototyped their solution as a Facebook application that guarantees that every exposure policy is respected. The authors did not test their prototype, so experimental evaluation is lacking. Moreover, one of the main concerns of this proposal (also expressed by Thomas et al.) is that if several users are involved in the privacy management of an item, the group of users permitted to access that item tends towards the empty set.
+Wishart et al. 2010 [158] propose a collaborative creation of privacy policies for shared items. The authors detect two roles, the owner of the item and the co-owners, which are designated by the owner and are individuals that are affected by the item. The main idea of the proposal is that owner and co-owners reﬁne the privacy policy iteratively, and, hopefully, at the end, the preferences of everybody will be considered in the resulting policy. The authors deﬁne a model for privacy policies that contemplates the speciﬁcation of strong and weak conditions. Weak conditions are overridden by strong conditions. In other words, weak and strong conditions establish a preference order, where strong conditions are those that a user considers an accessor must fulﬁll and weak conditions are those that can be overridden by strong conditions speciﬁed by another co-owner. As a proof of concept, the authors developed a tool. The tool has not been tested or evaluated with real users. The concept of strong and weak condition introduces preferences when deﬁning privacy policies. However, the proposal does not consider other problems that come from co-authoring. As the owner and co-owners reﬁne the privacy policy, many condition conﬂicts can arise, for example, two strong conditions that contradict each other. Moreover, the process of reﬁning can be virtually inﬁnite; it is possible that at the
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+39
+
+end only the preferences of the most persistent user are considered, since there is no method to prevent an endless modiﬁcation of the privacy policy.
+Besmer and Lipford [6] propose a method where the owner of a photograph that involves several individuals is in charge of managing its privacy and the other involved users can only suggest privacy preferences. The authors performed an experiment to collect information about privacy concerns of SNS users about photographs and what strategies they use to control the leak of private information. According to their study, SNS users consider that the owner of a photo (the individual who uploaded the image to the SNS) is the one in charge of assigning a privacy policy. Therefore, the other users who appear in the photo may only suggest privacy policies relying on the responsibility of the photo owner. The authors developed a Facebook application that allows a user to send privacy suggestions to the owner of a photo where that user appears. The authors also performed an experimental evaluation of their approach and their application. According to their ﬁndings, the participants were comfortable using this approach. The main issue with this approach is that the owner of the photo may not responsible enough or cannot deal with the petitions of other users and the possible preference conﬂicts that can arise from these petitions. As a future improvement of the software proposed by the authors, it should help owners to decide which policy to apply in the case of interest conﬂicts.
+Hu and Ahn [69] propose a multiparty authorization framework that enables collaborative management of shared data. The authors divide the users into three groups: owner, the user that uploaded the item to the SNS; accessors, the users that want to access the item; and stakeholders, the users that are affected by the item somehow, for example, being tagged in a photograph. The users in any of these groups have to specify their privacy preferences and assign a sensitivity score to the item being shared. As several preference conﬂicts can arise, the owner of the photo is in charge of specifying a conﬂict resolution strategy. The authors propose several conﬂict resolution strategies (for example: owner-overrides, full-consensus-permit, strong-majority-permit, and many more). Since the owner decides the conﬂict
+
+40
+
+2.4. Co-privacy
+
+resolution strategy, she has greater control over the resulting privacy policy associated to the item. For example, if the owner considers that the item is very sensitive regarding her privacy, then she will assign a restrictive conﬂict resolution strategy like strong-majority-permit. The authors developed a prototype as a proof of concept and tested the policy evaluation performance of the prototype. They conclude that the prototype is fast evaluating policies. However, they did not test their proposal with users and did not evaluate the satisfaction of the users with their approach.
+
+Hu et al. [72] propose a multi party privacy management mechanism based on game theory. They use some of the concepts introduced in their previous work [69]. The mechanism is based on sensitivity and sharing loss. Every user connected to a piece of data speciﬁes their perceived sensitivity and the allowed accessors. If there are conﬂicts in the allowed accessors (some users allow some accessors while others block those accessors), privacy loss and sharing loss are calculated. If privacy loss is higher than sharing loss, the access is denied, and vice versa. The more sensitive a picture is, the more potential privacy loss. The more potential accessors are blocked, the more sharing loss. This way of resolving conﬂicts can lead to problems when not every involved party is well-behaved. For example, a malicious party can increase the sensitivity of a photo to make the privacy-sharing tradeoff close to her expectations. To address this problem, the authors created two algorithms to ensure convergence to the Nash equilibrium. The authors evaluated their approach with a user study. The results show that the majority of participants prefer to cooperate and respect others’ privacy preferences. However, the authors also detected that the participants did not adopt the best strategies when making decisions. This indicates that there is a gap between game theoretical approaches and real human behaviors.
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+41
+
+2.5 Modeling Human Relationships on Social Network Services
+
+Current SNS make little effort to differentiate between users. Users are either friends or strangers, with nothing in between. This approximation does not represent human relationships well. As introduced in the paper by Granovetter [56], the concept of tie strength deﬁnes the relationship between two individuals. In his work, Granovetter speaks about two different types of ties: strong and weak. On the one hand, strong ties usually include relations such as family and close friends. On the other hand, weak ties may refer, for example, to coworkers or less trusted friends.
+As described in the previous sections, a rich relationship model can play a key role in privacy protection. SNSs aim at creating virtual versions of the real social networks of their users. An accurate representation of the real social graph of the users can help users to manage their privacy [68]. Moreover, ReBAC models need relationships to be modeled truthfully. Wiese et al. [156] studied the correlation between information sharing willingness and tie strength. Their research proved that, in certain situations, the strength of ties can be even more signiﬁcant than grouping (the current approach of most SNSs) for predicting sharing. Based on their results, they suggest that a mixture of grouping and tie strength could allow richer and more usable sharing policies. For example, users could specify in a privacy policy for a given photo that only friends and close contacts (i.e., high tie strength) have access. Several approaches to create a social model that is based on the concept of the tie strength have been proposed. Most of the works on this matter try to infer a value for the strength of the relationships.
+Figure 2.3 depicts a conceptual map that sums up all of the reviewed approaches that propose models for human relationships on social networks. As seen in the ﬁgure, the models are based on two different concepts: homophily and intensity of communication. On the one hand, homophily states thats that the more two person have in common (job, friends, hobbies) the more likely it is that these two persons
+
+42
+
+2.5. Modeling Human Relationships on Social Network Services
+
+Figure 2.3: Concept Map of Human Relationship Models
+have a strong relationship. On the other hand, the idea of communication intensity is that if two persons interact frequently, then their relationship should be strong. The majority of models use both concepts and combine them.
+Gilbert and Karahalios [53] proposed a model that predicts tie strength among users of Facebook. The authors selected a group of variables available at Facebook. These variables covered different tie-strength dimensions; for instance, the number of links shared correspond to the “services given“ dimension. They evaluated their model with the participation of Facebook real users. The researchers asked the participants to assign a value of tie strength to their contacts. Besides, the researchers collected the values for the selected variables. Using the group of over 70 variables Gilbert and Karahalios achieved an accuracy of 84%. One of the limitations of this model is the huge amount of information it requires to predict tie strength. This high volume of information has to be processed and can become a bottleneck in the performance of the model.
+Gilbert [52] expands his previous work [53] and proposes a model to infer the tie strength of relationships in a different SNS, Twitter. Gilbert selects a set of variables that are similar to the variables chosen in [53]. Some variables that were selected in Facebook do not exist in Twitter. In this situation, the author chose analog variables;
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+43
+
+for example, the number of friends were replaced with the number of followers. In order to evaluate the new model, Gilbert developed a tool called We Meddle that predicted tie strength. Users were asked to try We Meddle and evaluate its predictions. This work showed that the model proposed in [53] can somehow be generalized and adapted to different SNSs.
+In their work Kahanda and Neville [80] propose using transactional information to predict tie strength in social networks. The model is constructed using 50 variables. The variables are classiﬁed in 4 groups: (i) attribute-based Features, (ii) topological features, (iii) transactional features, and (iv) network-transactional features. The ﬁrst three groups of variables are considered in other works [53, 161]; however, the fourth group, network-transactional features, represents a novel approach for tie strength prediction. The variables in this group capture the transaction information between nodes, but they represent it within the context of the larger network structure. For example, one of the variables in this group is the interaction among all the nodes in the network, not only between two pairs. According to the results of the Kahanda and Neville study, the most predictive variables are those in the fourth group. The study lacks an evaluation with humans; therefore, the accuracy of the results may have been affected as the tie strength is a purely human-dependent concept.
+Xiang et al. [161] proposed a model to infer relationship strength based on proﬁle similarity, with the goal of automatically distinguishing strong relationships from weak ones. The model proposed by Xiang et al. uses the concept of homophily to infer the tie strength between two individuals. Xiang et al. test their model with proprietary data of the SNS LinkedIn and data from students of Purdue University on Facebook. With the LinkedIn data they tested their tie strength prediction against other heuristics. The authors considered the number of times a user checked another user’s proﬁle page as the indicator of the tie strength between them. For the evaluation in Facebook, they calculated the ground truth tie strength between two users as a combination of the number of common networks, common groups, and common friends for those two users. The results of the evaluation show accurate results.
+
+44
+
+2.5. Modeling Human Relationships on Social Network Services
+
+However, the evaluation was synthetic; the ground truth tie strength values were calculated using heuristics and were not speciﬁed by the users themselves. Therefore, it lacked the corroboration of the results from the participants. The main difﬁculty of this model to work accurately is that it relies on proﬁle information, which tends to be incomplete or of low quality. Few users specify their address, job, college, or other variables needed by the model to work [39].
+Rana et al. [119] propose a theoretical framework for calculating social strength and a ranking of contacts sorted by their social strength. The algorithm proposed copes with the complexity of users using a wide variety of communication services. For example, a user can contact her friends using Twitter, Facebook, and SMS. Moreover, the algorithm also considers different ways of communication inside the same communication service. For example, in Facebook, a user can contact another sending a private message or through a comment anout a photo. These two ways of establishing contact are considered to be different communication tools. The algorithm counts the number of interactions on each communication service and assigns a level of importance to the communications established on that service according to its ratio of usage. Finally, a value of tie strength for each contact is obtained adding the number of interactions with that contact and weighting the interactions according to the service and tool used. The main limitation of this algorithm is that it only considers the frequency of interaction between the user and each contact. However, as shown by other studies [85], a high number of interactions does not necessarily imply a strong tie.
+Bischoff [9] analyzes online friendship in the Lastfm musical social network. Lastfm offers social features like friendship links, message exchange, and a personal proﬁle. Moreover, Lastfm allows users to specify their musical tastes, favorite artists, and music event attendance. The author collected public information about 48,527 Lastfm users. The information collected contained variables such as: friend links, messages sent, tags assigned to artists, music recently heard, preferred albums, preferred artists, events attended, and demographic data (gender and country). The
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+45
+
+author used the gathered data to classify each pair of users as: no link between them, weak relationship, or strong relationship. The number of events coattended by both persons determines the strength of the relationship in the training set. For example, if two persons attended 2 events together, then they have a weak link; however, if they attended 11 or more, then they have a strong link. The author also used the data to create a friendship recommender system. In both experiments the results were promising. The most predictive variables in Bischoff’s study were those related to homophily, such as coincidences in the preferred artists or same country. This study shows that, depending on the objective of the social network, different variables have to be considered for the task of inferring the tie strength.
+Fogues et al. [41] introduce a tool called Best Friend Forever (BFF) that automatically groups and assigns a tie strength value for the contacts of a user. In order to infer tie strength values, BFF follows an approach similar to [53] and [80]. However, BFF uses a much smaller set variables, only 11. The reduction in the number of variables makes the variable collection task faster and less costly, thus increasing the utility of the tool. For automatic group creation, Fogus et al. used the algorithm proposed by [126]. This hierarchical diffusion algorithm is founded on the triadic closure principle, which suggests that, in a social network, there is an increased likelihood that two people will become friends if they have friends in common. The authors made an experimental evaluation of the tool and compared the results obtained by their tool with the preferences of 17 participants. Despite the reduction of variables for tie strength prediction, the tool performed accurately. On the matter of groups, the tool also worked with precision. Fogu’es et al. present a relationship model that focuses on a speciﬁc SNS, Facebook. However, although several relationship deﬁning variables used for Facebook can also be found in other SNSs, a more general model that works in different social networks is needed. Moreover, the authors mention a correlation between tie strength and community creation, but they did not study this fact.
+As explained in the previous section, some ReBAC models allow the speciﬁcation of
+
+46
+
+2.5. Modeling Human Relationships on Social Network Services
+
+multiple types of relationships. Wu et al. [160] deal with the task of differentiating between personal and professional closeness. The authors performed a survey with users of a professional SNS called Beehive. This SNS was deployed at the IBM company in 2007. The authors asked the participants to assign a value of tie strength to their contacts in the social network from a professional and a friendship point of view. The results and the most predictive variables identiﬁed by the authors are close to the ones obtained by Gilbert and Karahalios [53]. To differentiate a professional relationship from a personal one, the authors identiﬁed a set of variables that worked as strong predictors of a professional relationship. This research shows that different types of relationships may need speciﬁc predictors, making the relationship classiﬁcation a complex problem.
+Steurer and Trattner [137] study what topological variables can be used to differentiate between acquaintances and partners. Since collecting topological data from facebook-like social networks is nearly impossible, the authors employed the virtual world of Second Life. Second Life has virtual locations and every time a user visits one of these locations the information is stored and can be collected. After crawling data from Second Life, the authors created two social graphs: one based on topological information, and the other based on homophily information. Users on Second Life can get married, the authors employed this information to train a number of classiﬁers to differentiate between acquaintances and partners using the collected data. Their results show that topological information can be used to infer the type of the relationship with a high accuracy. With the ubiquitousness of mobile devices that can sense the location of their users, topological information is more available. Thus, future research should be able to use topological data obtained from real world.
+This section reviewed studies that aim to deal with an essential ReBAC requisite, the modeling and deﬁnition of relationships. In Section 2.8, we identify future research paths that can improve the way relationships are modeled and classiﬁed. For example, considering how one person discloses information with another can help to deﬁne the type of relationship that exists between them.
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+47
+
+A ReBAC model cannot exist without a suitable social model. However, a model that truthfully represents human relationships is still useless if its users cannot manipulate and understand it with ease. As explained in Section 2.1.2, another requirement for a ReBAC is usability. Sections 2.6 and 2.7 show studies that aim to increase the usability of privacy mechanisms for SNSs. The studies reviewed propose tools that help users to conﬁgure, adapt, and understand their privacy preferences in SNSs.
+
+2.6 Recommender Systems
+A ﬁrst troublesome task that SNS users must face when dealing with their privacy preference conﬁguration is the deﬁnition of privacy policies. As shown in section 2.2, a ReBAC model can consider a large number of variables and use a complex privacy policy deﬁnition language (e.g. a language based on regular expressions or ontologies). It is not realistic to assume that an average SNS user is familiar with these concepts and can effectively use them. A common approach to help users in this task is to suggest privacy policies to them or guide them during the process. Users should have the last call on what can be disclosed and what is private. While recommenders can help reduce the user’s burden, they are rarely perfectly accurate. Thus, it is important for the user to be able to view, understand, and modify the recommended policy before it is applied; it is also important for the user to be able to maintain the policy over time.
+Figure 2.4 depicts a conceptual map for all of the studied approaches that propose a privacy recommender system for SNSs. The following subsections review the studies according to the classiﬁcation shown in the conceptual map.
+2.6.1 Based on What Others Do
+A ﬁrst approach for privacy policy recommenders is based on how other users set their privacy policies. For example, if every friend of a user decides to hide their
+
+48
+
+2.6. Recommender Systems
+
+Figure 2.4: Conceptual Map of Privacy Recommender Systems
+address information, then it is likely that a good recommendation for the user is to also hide her address information. In this section, we review studies that use this approach.
+Bonneau et al. [11] propose a tool that suggests privacy policies based on expert users’ conﬁguration. Users can specify their privacy policies and then share them over the SNS. Any user can apply the privacy policies shared by another user, rate them, and recommend them to her friends. It can be expected that the best privacy policies and the experts who created them will have high rates and will be used by a high number of users. Moreover, users can subscribe to their favorite privacy expert. In this way, users’ privacy policies will automatically update when their preferred expert updates her policies. This approximation only allows the automation of privacies with low granularity as only general policies can be shared by experts.
+Squicciarini et al. [135] present a privacy manager named PriMa that suggests privacy policies taking into account the sensitivity of content according to what users tend to do on the SNS and tie strength. To use PriMa, ﬁrst, the user expresses her concerns
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+49
+
+about disclosing each of the attributes in her proﬁle. If an attribute is left without a sensitivity value, PriMa infers this value from the values assigned to that trait by the contacts of the user. Once each trait has a sensitivity value, they are grouped in clusters depending on their sensitivity. In order to recommend policies, PriMa computes a user access score, which is a representation of the adequacy of a given target user to access a given cluster of attributes of the main user’s proﬁle. The score is based on the type of the relationship between the target user and the main user. The type of the relationship has an associated tie strength value that is predeﬁned by the SNS provider. Finally, if the user access score is higher than a threshold, then that user has access to that attribute. The paper lacks an experimental evaluation also, the assumption of predeﬁned types of relationships and tie strength values can lead to policy generation errors. For example, it is not possible to assume that every user agrees that a family relationship tie has a strength of 0.8 and a friend tie has a strength of 0.5.
+
+Munemasa and Iwaihara [104] follow the line of Bonneau and Liu research [11]. These authors propose software that tells the user if her privacy settings are introvert or extrovert by computing a privacy score and comparing it with other SNS users’ scores. The software created by the authors collects privacy settings of several SNS users and rates them. The rating of a privacy setting is based on the volume of information disclosed and how likely it is that others disclose the same information. The authors base the calculus of the privacy rating on the work of [98]. When a users conﬁgures her privacy settings, the software rates her conﬁguration and compares it to the settings previously collected. From this information the software can determine whether the user’s privacy setting discloses more or less information than the average user of the SNS. The authors performed an evaluation of their tool with 15 Facebook users. The evaluation participants only answered a questionnaire about the suitability of the tool. The article lacks experimentation that evaluates how accurate the recommendations made by the tool are (e.g. comparing them to the actual preferences of privacy concerned participants).
+
+50
+
+2.6. Recommender Systems
+
+Pergament et al. [115] present a system named FORPS that helps user to decide what can be accessed by a friend depending on the behavior of that friend on the SNS. FORPS calculates a privacy score for a target user for different themes. For example, a user can be very discreet with regard to religion and very indiscreet regarding political views. To calculate the score for each different theme, FORPS analyzes whether the target user discloses information on that matter with main the user’s friends, her number of commentaries about that theme, and the sentiments on those commentaries. The system also analyzes the behavior of the friends of the main user in regard to the target user. Finally, FORPS recommends to the principal user a level of privacy for each theme towards the target user. The proposal lacks an experimental evaluation. Therefore, the utility of the system is not evaluated. Additionally, the system only recommends a numeric level of privacy for each theme. It is difﬁcult to map a numeric value for what things is recommended to disclose and what are not. For example, on a 0 - 1 scale, what does a 0.3 degree of disclosure in politics mean? Should I disclose my preferred political party or not?
+
+2.6.2 Based on Automatic Learning
+Another approximation for recommenders is based on learning. Proposals in this section observe how the users interact with others and learn from their preferences. Once the recommender has learned enough, it is capable of automatically recommending privacy preferences. This section reviews studies that use the concept of automatic learning.
+Jones and O’Neill [77] investigate what criteria humans use when they divide their social network in groups so they can share different information and avoid embarrassing situations with each group. The authors recruited 15 participants and asked them what factors they consider when creating groups in Facebook. According to their ﬁndings, the factors that affect grouping sorted from more important to less are: cliques (densely connected groups), tie strength, geographical location, organizational boundaries, temporal episodes, and functional roles. The authors
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+51
+
+also tested the clustering algorithm SCAN and compared its output with the groups manually created by the participants and they achieved 44.8% of similarity. In order to improve the accuracy of the algorithm the authors used some information from their interviews and added some information about tie strength to the algorithm. They could not add tie strength information for all participant data. With tie strength, the algorithm achieved an average similarity of 67%. This study shows that several factors are taken into account by users when creating groups. However, the authors did not collect enough data from participants’ proﬁles and could not improve the clustering algorithm by modifying it, so it considers all the discovered factors.
+Fang and LeFevre [39] propose a wizard software that suggests users privacy policies for different items on their proﬁles, like birthday, address, or telephone number. Since the proposal of Fang et al. uses supervised learning, participation of the user is needed. First, users’ contacts are hierarchically grouped. To form the groups, the wizard considers community, proﬁle, and activity features. For example, mutual friends is a community feature, while hobbies or fan pages that a user likes are considered to be activity features. Once the groups are created, the wizard asks the user to assign access grants to some of their contacts. The main idea of this process is that the user assigns access grants to the more representative users of the groups previously created. In this way, the user only needs to assign a low number of grants, and the process is much faster. According to the results of the proposal’s evaluation, the wizard behaves better when only community features are considered. This can happen because many users do not specify their hobbies or demographic information. The privacy wizard is designed to protect only user’s traits, like birth date, address, and telephone number. Other elements like images or videos are not considered by the wizard. Moreover, to manage items like photos or videos, the wizard would need to be enhanced to consider speciﬁc features of the item, for example, tags on a photo.
+Shehab et al. [125] introduce a privacy policy recommender system that is based on supervised learning. Their system works in 5 steps. In steps 1 and 2, the attributes of the main user’s contacts are collected. Then, they are clustered according to their
+
+52
+
+2.6. Recommender Systems
+
+attribute similarity and a representative user is selected for each cluster. In step 3, the main user assigns access rights to the representative users. These labeled users are utilized by the classiﬁer as the training set. In step 4, the rest of the contacts that are not labeled are classiﬁed and labeled accordingly. Finally, in the step 5, the main user’s classiﬁer look at the classiﬁers of the main user’s neighbors and fuses itself with those that have similar clusters of users. One threat to privacy of using this recommender system is that it needs to access the privacy preferences of other users and these preferences should be also private.
+Squicciarini et al. [134] propose a system called A3P that predicts a privacy policy for images in the context of social networks. A3P takes into account two variables when recommending a privacy policy for an image: social contexts and image content. A3P analyzes the content of the images and assigns a category to them. For the context, the authors predeﬁne a set of social contexts (e.g. family, coworkers) and assign an intimacy value to each one of these contexts. Since A3P is based on supervised learning, it needs the user to specify some privacy policies before starting to predict policies. The policies can specify what contexts are allowed to access the image and what privileges each context has. Once A3P has learned enough from the user, it starts predicting policies using a policy mining algorithm. The policy mining algorithm considers the tendency in policy strictness of the user. Therefore, if the user tends to disclose more information, the suggested policies will be more extrovert and vice versa. Squicciarini et al. evaluated their proposal with humans; however, the photographs provided during the experimental evaluation were previously selected by the authors and do not correspond to real photos of the participants. An evaluation of how A3P performs with photographs taken by the experimental evaluation participants should be an extension of this paper.
+Li et al. [90] present a privacy policy recommender based on semantics. Their approach is similar to the wizard presented in [39]. The main difference between the two approaches is that the one from Li uses semantics to ﬁnd similarities among users. For example, a user can specify that he likes basketball and another that she
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+53
+
+likes NBA. Both hobbies are similar, but an approach without semantic knowledge will overlook this similarity. The authors present a k-Nearest Neighbors algorithm that uses semantic knowledge to compute the distance between two persons. When the user wants to specify access permissions for a new friend, the recommender suggests a policy that is already deﬁned for the semantically closest k friends. The paper presents an experimental evaluation with 76 Facebook users and compares the performance of this approach against others. An interesting future improvement of this work would be the study how the use of techniques like uncertainty sampling can reduce the number of contacts to label so the recommender can accurately suggest privacy policies, thus reducing the effort required from the user.
+
+Cheek and Shehab [24] introduce a privacy policy recommender that uses the similarity among friends to ease the process. Their approach is based on a graphical interface and offers two functionalities: an assistant to create groups of friends and same-as policy management. The group assistant guides users in the burdensome task of labeling their friends. The assistant presents a set of ten predeﬁned social groups: Family, Close Friends, Graduate School, Under Graduate School, High School, Work, I do not know, Friends of Friend, Community, and Other. Each contact is presented to the user and the user is asked to select a group for that contact. In order to speed up the process of labeling every friend, the assistant uses the Clasuet Newman Moore clustering algorithm to recommend groups for contacts that have not been labeled yet. Once every contact is labeled and belongs to a group, the same-as policy management asks the user to select a representative contact of each group and assign a privacy policy for that contact. The rest of the contacts on each group will be assigned the same privacy policy that was assigned to the representative contact of their group. The authors performed an extensive experimental evaluation where the users were asked to specify privacy policies for predeﬁned groups of items: every album, demographic data, and educational data. The lack of granularity in privacy policies and the use of predeﬁned groups of personal data limit the validity of the evaluation.
+
+54
+
+2.6. Recommender Systems
+
+Amershi et al. [2] present a machine learning system called ReGroup that creates on-demand groups in social networks. The main difference between this proposal and others is that groups are not created once and used many times; instead, a new group is built for each item that is going to be shared. ReGroup uses a Na¨ıve Bayes classiﬁer to ﬁnd similarities between users and make recommendations. When the user uploads an item to the SNS, ReGroup asks her to choose a contact to grant access to that item. After the ﬁrst contact is chosen, the other contacts are sorted by similarity to the ﬁrst one. Each time a similar contact is not selected, ReGroup adds a penalty to the similarity of that contact. In this way, this contact will appear in a later position the next time. The authors tested ReGroup and the standard application of Facebook, where users are sorted alphabetically in terms of group creation time and happiness of the user with the group created. The results obtained and the opinions of the participants highlight that each option works better depending on the size of the group. Alphabetical order is better for small groups, and ReGroup is better for large groups. This proposal alleviates the process of assigning a privacy policy for items; however, the user still has to select each user that is allowed to access the item separately. A future expansion of the article could be to compare what option is faster and easier for the user: correct a privacy policy suggestion or create a privacy policy from suggestions.
+Yildiz and Kruegel [164] introduce a new algorithm that creates groups considering the users referenced by the item being shared and their social connections. The idea is that the groups created can help users to decide the privacy policy for the uploaded item. When a new item is uploaded, the algorithm creates a list of participants, who is the owner of the item, every user involved in the item (for example, users tagged in a photo), and a list of candidates, who are the friends of the participants. In each iteration of the algorithm, a candidate is inserted to the list of participants (users that are allowed to view the item). The inserted candidate is the one who maximizes a heuristic function. This function returns a high value when the analyzed candidate has many common friends with the users in the list of participants. Besides, the algorithm considers the tightness of the list of participants. If the participants
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+55
+
+are tightly connected, added candidates also have to be tightly connected to the participants; otherwise, the algorithm will look for loosely connected candidates. The algorithm keeps adding candidates until it cannot ﬁnd an appropriate one. The authors performed an evaluation comparing the results of their algorithm with other local community ﬁnding algorithms. The authors considered for the best result for an algorithm to recover the entire group of the participants of the item while keeping to the minimum the number of members that do not belong to the participant group. In other words, they considered that the social cliques were entirely deﬁned by the participants of the items. One problem with this assumption is that the privacy policies will probably tend to be very restrictive. Moreover, the article lacks an evaluation of the quality of the proposed groups made by human participants.
+
+In Section 2.8, we have identiﬁed future lines of research for privacy policy recommenders. A crucial challenge is to combine privacy recommender tools with ReBAC models. As ReBAC models are key to the suitable management of information disclosure on SNSs, privacy policy recommenders should create policies according to the policy language deﬁned by the access model.
+
+The papers analyzed in this section focus on making privacy policies easy to conﬁgure. However, privacy policies should not only be manageable, they also have to be easy to maintain over time so that the users can adapt them as new relationships are established and previous ones change. Moreover, as the users set and reﬁne their privacy policies, the global view of how their information is accessed by others grows in complexity. Ideally, users have to be perfectly aware of who has access to their private information and to what speciﬁc parts of that information. Section 2.7 expands the concept of usability by introducing the notion of privacy setting understanding and also reviews proposals that help users to create better mental models of their privacy settings in SNSs.
+
+56
+
+2.7. Improving Privacy Settings Understanding
+
+2.7 Improving Privacy Settings Understanding
+
+A great obstacle that users ﬁnd when dealing with privacy on SNSs is the difﬁculty of ﬁguring out how and what personal information is disclosed over the SNS. SNSs have improved their user interfaces; for example, Google+ offers the Social Circles graphical tool that facilitates the laborious task of grouping contacts. These new interfaces facilitate the process of managing privacy settings and ﬁguring out what others can see from our proﬁle. However, there is still room for improvement, and if in the long term SNS developers aim to implement more complex access control models, they have to accompany them with easy-to-understand and easy-to-use interfaces. Currently, we ﬁnd three different approaches to make privacy policies more understandable: graphical interfaces, privacy policy simpliﬁcation, and privacy setting misconﬁguration detection. Graphical interfaces use visual tools to enhance the understanding of the privacy policies. Privacy policy simpliﬁcation tries to remove unnecessary complexity of privacy policies and make them more legible for the user. Finally, privacy setting misconﬁguration detection tries to infer when users make a mistake while conﬁguring their privacy settings to warn them and encourage them to correct the misconﬁguration.
+Figure 2.5 depicts a conceptual map for all of the reviewed approaches that propose tools or mechanisms that help users to understand their privacy settings in SNSs. The following subsections explain the approaches according to the order shown in the conceptual map.
+
+2.7.1 Graphical Visualization
+Lipford et al. [94] propose a new privacy management interface for Facebook called AudienceView. This new interface offers users the possibility to observe how their proﬁles are seen from different points of view. Each different point of view corresponds to one of the possible audiences: search, network, an individual friend, and friend group. To evaluate their proposal the authors recruited 16 participants and
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+57
+
+Figure 2.5: Conceptual Map for Improving Privacy Setting Understanding
+measured their performance in different tasks using the standard Facebook interface and the proposed new one. The results showed that users felt more comfortable with the new interface and it helped them to understand better the actual consequences of their privacy settings. Currently, the prototype is limited as it only shows how the proﬁle data (name, hometown, hobbies...) is seen from different audience points of view. It would be very useful to expand the prototype so proﬁle publications like photos or comments could be inspected by AudienceView. This improvement would probably require a new interface and a clever graphic design to make it usable and understandable for the user.
+Lipford et al. [95] compare their previous proposal [94] with another kind of privacy policy representation, Expandable Grids. Expandable Grids show precisely what a policy allows or does not allow in a matrix using hierarchical axes that can be expanded or contracted to show more or less policy detail. Expandable Grids were initially proposed for access control policies in ﬁle systems. Therefore, a more extensive review of this representation is out of the scope of this paper. For further information of Expandable Grids, please refer to [120]. The experimental results obtained by Lipford et al. showed that both representations were highly usable,
+
+58
+
+2.7. Improving Privacy Settings Understanding
+
+and they did not ﬁnd clear advantages of one over the other. However, experiment participants did have clear and different preferences; some of them preferred the compact view of Expandable Grids and others the visual feedback of AudienceView.
+Mazzia et al. [103] present PViz, an interface that is focused on helping users understand the visibility of their proﬁles. PViz presents the social structure of user’s contacts in a graphical way. Contacts are automatically grouped in communities using the idea of modularity optimization. This methodology generates a hierarchical structure of groups. The higher levels of the hierarchy have groups of users that are loosely connected and share less attributes, the lower levels of the structure represent groups of users that share many common friends, tastes, and demographic data. This approach for automatically creating communities is also used in [39]. Moreover, PViz automatically labels each group, selecting the most common attribute of the contacts that conform the group. For example, if the majority of contacts in a group are from Washington, that group will be labeled as Washington. The graphical interface allows the user to select an attribute and see what communities are allowed to view that attribute. Communities are colored; the darker the color is, the larger the number of members of the community that can view that attribute. As the communities are hierarchically organized, the graphical interface allows users to zoom in or out of a group to see more or less detail of that group. The authors empirically evaluated PViz comparing it with AudienceView [94] and the Facebook standard interface. Their results showed that participants preferred PViz over the other two options; some participants even suggested that a combination of AudienceView and PViz could create a better solution.
+
+2.7.2 Privacy Policy Simpliﬁcation
+Bejugam and LeFevre [5] present a policy simpliﬁcation utility. Current privacy policy speciﬁcation tools are based on rules that allow the user to specify positive rules (”Show this to”) and negative rules (”Hide this to”). These speciﬁcations can lead to long and complex policies, and even include redundancy, making
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+59
+
+them difﬁcult to understand and adapt when new contacts or groups are created. The approach of Bejugam and LeFevre is based on two functionalities: automatic community creation and a policy consolidator. The automatic community creation algorithm is the same algorithm used in [103] and [39]. The policy consolidator transforms a privacy policy speciﬁcation and produces the smallest equivalent privacy policy. The authors performed an experimental evaluation with nine subjects. Their test proved the utility of their approach and the hypothesis, which states that users will comprehend, remember, and maintain simpliﬁed policies easier than their verbose counterparts.
+
+2.7.3 Privacy Setting Misconﬁguration Detection
+Javed and Shehab [75] introduce a utility that helps users avoid employing incorrect privacy policies. The utility is divided in two elements. The ﬁrst is a policy composition tool that employs tag clouds. The tags are the name of the groups that the users have in their networks (e.g., friends, colleagues, and so on). The size of a tag depends on the number of times it has been used in other privacy policies and the privacy risk it represents. For example, if a user tends to share his photos only with his friends, the tag friends will be much bigger than the tag public. The second element of the utility is a misconﬁguration scanner. The authors deﬁned a set of seven misconﬁguration patterns. For example, there are common friends in the groups allowed to access a photo, which might have been the intended audience. Once the user speciﬁes his privacy policies, they are scanned. If any of the patterns is found, the user is warned. The authors evaluated their approach with a study. Their results show that the misconﬁguration scanner helped users to notice that certain policies allowed access to an audience that was not their intended one. However, the decrease in the number of misconﬁgurations using the composition tool was not signiﬁcant.
+Wang et al. [151] propose a paternalist approach to help SNS users make better information disclosure decisions. The authors designed three privacy nudges for Facebook: picture, timer, and sentiment. The privacy nudges are limited to status
+
+60
+
+2.8. Open Challenges
+
+updates. Picture nudge is similar to the surveyed graphical visualization approaches. When the user is going to update his status, this nudge shows him a random selected subset of the people that will be able to see that content with the current privacy conﬁguration. Timer nudge encourages users to reﬂect on status update they are about post and on its privacy conﬁguration. The nudge gives 10 seconds to the user before the status update is actually posted. During these 10 seconds users can modify the status or cancel it altogether. Finally, the sentiment nudge is based on a sentiment-analysis module that analyzes each new post. Each post gets a sentiment score and the user is warned about how other people may perceive it. For example, a status update that says “I am angry” will get the sentiment nudge “People may perceive your post as Negative”. The authors evaluated the nudges through a study and subsequent interviews. The majority of participants found that picture and timer nudges were useful and could change positively sharing behavior. On the other hand, the majority of participants disliked the sentiment nudge and did not ﬁnd it useful.
+
+2.8 Open Challenges
+Although the proposals shown in this survey cover some of the requisites that an access control for SNS should fulﬁll, we have identiﬁed many possible lines for future research. In this section, we outline some of the most challenging possible future directions in the research ﬁeld of access control models for social networks and their usability. These possible paths of research are open challenges that were identiﬁed during the realization of this survey. The accomplishment of these open challenges will have a great impact in determining SNSs to be useful, entertaining, and privacy safe services available at the Web 2.0. On the one hand, SNS users will feel safer in the context of SNSs and will feel more inclined to register and use these services. On the other hand, we believe that the utility of SNSs will increase since users will upload and share much more information in their proﬁles.
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+61
+
+2.8.1 ReBAC and Content Type
+A number of works show that users take into account the type of the content when they are deﬁning how that content will be disclosed [61, 83, 163]. However, current access control do not consider content type. On the one hand, including a content type as a new attribute of access control can improve the ﬂexibility and expressiveness of privacy policies. On the other hand, more attributes can increase the complexity of access controls and privacy policies. Therefore, future research should evaluate the effect that the inclusion of the attribute content type can have over access controls. Speciﬁcally, new research should evaluate the complexity of the privacy policies created with the new access control, the required number of privacy policies that users need to express their privacy policies, the number of privacy conﬂicts generated by the policies, and the understandability of these policies.
+
+2.8.2 Inferring Tie Strength from Different Sources
+The studies about tie strength in SNSs use information available on the SNS; for instance, they consider the number of messages exchanged between users, the number of photographs shared or the number of common friends. A common pitfall of these works is that relationships that mainly occur outside the SNS are not well evaluated [53]. A possible solution for this problem is to search for information outside the SNS. Recent research [102, 34] infer tie strength values from data available on the Internet or from real life. Mixing data from the SNS and from other sources would create approaches that infer tie strength more accurately. However, the use of external data can create some privacy concerns since it directly relates to re-identiﬁcation and proﬁling privacy breaches (these breaches are deﬁned in section 2.1.1).
+The proposal of Murukannaiah and Singh [105] is a ﬁrst attempt to use real world information to infer the social data of the user. The authors present a tool called Platys Social that runs on a mobile device. This software learns a user’s social circles
+
+62
+
+2.8. Open Challenges
+
+and the priority of the user’s social connections from daily interactions. The software infers the interactions from information that is available on mobile devices, such as wi-ﬁ networks, bluetooth connections, phone calls, and text messages. Combining all sources of information (real world through a mobile device, Internet, and social network) could positively improve the tie strength inference and classiﬁcation of relationships.
+
+2.8.3 Adaptive Relationship Models
+In human relationships, the disclosure of private information represents an important part of these relationships [57]. One of the main reasons why people exchange private information is because they perceive that in the future this information disclosure may become a gain in social capital. The way users share with others change the perception of both parts about the way they should interact in the future. For example, if user A constantly discloses information to user B, but user B only reveals a small portion of his information to user A, it can be assumed that in the mid/long term user A will reduce the amount of information disclosed to B, or even stop communication at all.
+Such et al. [145] propose a self-disclosure decision-making mechanism for multiagent systems. The proposal is based on psychological ﬁndings regarding how humans disclose personal information in the building of their relationships. The implementation of this mechanism (or a similar one) to a relationship model would increase the accuracy of that model, especially over time. The decision of specifying a privacy policy would consider not only the current situation of the user’s relationships, but also how the new speciﬁed policy itself would affect the relationships and the gain or loss of tie strength for those relationships.
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+63
+
+2.8.4 Tie Strength Utility
+The studies reviewed in section 2.5 infer the tie between two individuals in only one dimension, the strength. However, humans behave differently with their contacts depending not only on the strength of the relationship but also on its utility. Ties can be viewed not only for their strength but also how useful a tie is depending on the situation or the need. Imlawi et al. [74] studied how instructors can increase the engagement of students on course-based online social networks. Their research showed that students feel more engaged when the instructors make humorous posts. However, this increase in engagement is not seen when the instructor posts private information unrelated to the course.
+A ﬁrst attempt in this direction is the paper by Rosen and Chu [122]. The authors claim that the strong-weak tie dichotomy is conceptually misleading, and propose a multi-dimensional taxonomy of social network ties. The authors propose that a tie should not be evaluated by its strength but by its utility. In this sense, the authors study the possible social dimensions that matter during speciﬁc contexts. Future research should address to what degree each dimension affects the tie utility as well as how to identify the context an interaction belongs to.
+
+2.8.5 Self-presentation Management
+Kairam et al. [81] detected that the most common motivation to use SNS and share information is to create a self-presentation. Users care about what image they project on others and how they affect others. Klout6, which is a tool that helps users to see how they inﬂuence others in popular social networks, is a ﬁrst step towards a self-presentation management system.
+The studies reviewed in 2.7 aid SNS users to understand what other users can see in their proﬁles according to their privacy preferences. A similar approximation could
+6http://klout.com/home
+
+64
+
+2.8. Open Challenges
+
+be used so users could express their privacy policies based on facets. Users would ﬁnd it more natural to specify which facet of their life they are willing to show to each contact, instead of a sequence of rules that specify who can see what and who cannot. For example, a user could choose to show a funny facet to her family members or friends, allowing them to see comical photos or posts, while showing a professional facet to colleagues or potential employers.
+
+2.8.6 ReBAC: Usability and Visibility
+A change in the access controls of SNSs will represent a change in their privacy controls as well. ReBAC models, such as the ones proposed by [23] or [25] use technologies like semantic web or regular expressions. Suitable privacy controls for SNSs should hide the complexity of such technologies and facilitate their use. Moreover, the inclusion of new attributes to the access control (tie strength and content type) also suppose a modiﬁcation of privacy controls. Further studies should address how usable privacy controls can be created for new ReBAC controls for SNSs.
+In the same fashion, privacy visualization tools will have to adapt to ReBAC models. For example, visualization tools should explain to the users in an understandable way how their information is disseminated according to a speciﬁc type of relationship. Moreover, complex models that allow the speciﬁcation of a privacy policy hierarchy, user-to-resource relationship, or social paths will require visualization tools with clever designs. Google+ and the friend circles application is a good example of how privacy visualization tools can be designed to be usable and engaging for users.
+
+2.8.7 ReBAC and Co-privacy
+As stated in Section 2.4, co-privacy can cause several privacy conﬂicts among the users involved. SNSs should offer integrated solutions for situations where a shared item can cause tension among users. This tension and the complete lack of control
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+65
+
+of these situations can lead to users adopting strategies like un-friending the user who uploaded the controversial item or deleting their proﬁle from the SNS. Hence, it is necessary to add shared item or co-privacy management to the the access control models for SNSs. However, there is no proposal that brings together a formal ReBAC model and shared content privacy management.
+Some of the proposals reviewed in section 2.4 could be merged with a formal ReBAC. Users should be able to specify how strict their privacy preferences are on a shared item. Moreover, the ReBAC should have a privacy conﬂict resolution that guarantees that the resulting privacy policy maximizes the utility for every used involved. For example, a ReBAC policy language could allow users to specify a value that indicates how strong or weak their conditions are for each item or with respect to a certain type of relationship.
+
+2.8.8 Privacy Settings Interoperability
+There are many different SNSs, and they accomplish different objectives; for example, Facebook and Google+ are focused on maintaining friendships; LinkedIn7 is focused on professional life; Meetic8 aims to help users to ﬁnd dates with similar people; and Flickr9 is a social network that is centered on photograph sharing. Besides, the wider use of mobile devices that work together with SNSs also increases the variety and diversity of SNSs and their uses.
+It is a common practice for SNS users to have proﬁles on different SNSs and to use each one for different purposes according to the general objective of the SNS. As pointed out in this paper, setting privacy settings is a burdensome task and users struggle doing it. Therefore, if a user has to conﬁgure her privacy settings separately for each one of the SNS she is using, this task becomes even more tiresome. Users need privacy settings that are interoperable among every SNS that they are members
+7http://www.linkedin.com/ 8http://www.meetic.com 9http://www.ﬂickr.com/
+
+66
+
+2.8. Open Challenges
+
+of. A ﬁrst step in achieving interoperability for privacy settings could be that access control models of SNS use a universal and well-deﬁned privacy ontology for SNSs. This ontology should be able to differentiate among the different contexts that each SNS belongs to. To improve the interoperability of privacy settings, personal privacy agents could be developed. These agents will take care of their principals’ privacy, adapting their behavior to the context their principal is at that moment.
+
+2.8.9 Sticky Policies
+Private information stored in the proﬁle of a SNS user can move or be moved to different contexts. In order to maintain the privacy of that information, it is necessary for the privacy policies associated to the information move along with it. Policies of this kind are known as sticky policies and they enable users to improve control over their personal information as it moves across multiple parties. Sticky policies are orthogonal to ReBAC models, however, they become more necessary as mobile and pervasive systems gain in popularity. Users can share their information using a wide variety of devices and applications. Sticky policies can guarantee self-disclosure consistency among every device and application.
+A common situation (in the context of SNSs) where personal information moves to a different party is the use of applications created by third parties and integrated in the SNSs. In [40] the authors propose a method to keep the maximum amount of personal information hidden to third party applications in Facebook. However, to the best of our knowledge there is no study that proposes how information is managed after the third party acquires it. The study of Pearson and Mont [112] presents a general framework for using sticky policies called EnCoRe. A similar approach could be used for SNSs, where the SNS itself would work as a trusted authority in charge of controlling that the information is disclosed by third party applications according to the owner’s preferences and also of regulating the access to such data.
+
+2. Open Challenges in Relationship-Based Privacy Mechanisms for Social
+
+Network Services
+
+67
+
+2.8.10 Personalization
+As explained above, access controls need a number of attributes to capture correctly social relationships. Moreover, policy languages have to be ﬂexible enough to enable users to express their actual privacy preferences. All this ﬂexibility and diversity in privacy controls is needed. However, it can also increase the complexity of the conﬁguration of privacy setting to a level that is unmanageable for some users. Personalization can alleviate this problem.
+Users should be able to choose what elements from those offered by the access control they want to employ. For example, a given user may decide that tie strength is of no use for him when creating privacy policies. Thus, the interface for creating privacy policies should hide tie strength. To further ease the process of personalization, this could be done through automatic learning.
+
+2.9 Conclusions
+With the constant increase in the use of SNSs, mobile devices that connect us with others at all times, and in general, the spread of pervasive computing, we consider that privacy will be of paramount importance during the next few years. In a connected world, controlling our privacy and what others are able to see about us will be more difﬁcult and complex. Hence, powerful, easy-to-use, and intuitive privacy solutions will be the subject of many research efforts during next years.
+In this paper, we have reviewed approaches that offer partial solutions to the most critical problems of privacy management on SNSs. However, current SNSs have not adopted them and still lack the suitable privacy management tools. Approaches like Google+, where the control of information dissemination has been given great visibility [99], are ﬁrst steps towards SNSs that are more respectful of privacy. In the not-so-distant future we envision a SNS that offers a privacy mechanism that satisﬁes every requisites mentioned in this paper and provides the features that users
+
+68
+
+2.9. Conclusions
+
+demand. In order to develop this ideal SNS, developers and researchers will have to deal with several challenges. The inclusion of ReBAC models in popular SNSs will improve the control of privacy for the users. However, ReBAC models are complex and SNSs will require a thorough design that guarantees the usability of the privacy management. Moreover, sticky policies and privacy settings interoperability will represent a technological challenge. We believe that universal privacy policy languages and access control models will be required to ensure these two requisites. The model and the language proposed would need to be ﬂexible enough to allow different SNSs that focus on different social aspects.
+
+CHAPTER
+BFF: A Tool for Eliciting Tie Strength 3
+and User Communities in Social Networking Services
+3.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . 71 3.2 Best Friend Forever . . . . . . . . . . . . . . . . . . . . 75 3.3 Tie Strength Prediction Module . . . . . . . . . . . . 77 3.4 Community Prediction Module . . . . . . . . . . . . 82 3.5 Experimental Evaluation . . . . . . . . . . . . . . . . . 83 3.6 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . 94 3.7 Conclusions and Future Work . . . . . . . . . . . . . 96
+AUTHORS: RICARD L. FOGUES , JOSE M. SUCH†, AGUSTIN ESPINOSA AND ANA
+GARCIA-FORNES {rilopez,aespinosa,agarcia}@dsic.upv.es, jose.such@kcl.ac.uk DEPARTAMENTO DE SISTEMAS INFORMA´ TICOS Y COMPUTACIO´ N
+UNIVERSIDAD POLITE´ CNICA DE VALENCIA, SPAIN †KING’S COLLEGE DEPARTMENT OF INFORMATICS LONDON, UK
+69
+
+3. BFF: A Tool for Eliciting Tie Strength and User Communities in Social
+
+Networking Services
+
+71
+
+Abstract
+
+The use of social networking services (SNSs) such as Facebook has explosively grown in the last few years. Users see these SNSs as useful tools to ﬁnd friends and interact with them. Moreover, SNSs allow their users to share photos, videos, and express their thoughts and feelings. However, users are usually concerned about their privacy when using SNSs. This is because the public image of a subject can be affected by photos or comments posted on a social network. In this way, recent studies demonstrate that users are demanding better mechanisms to protect their privacy. An appropriate approximation to solve this could be a privacy assistant software agent that automatically suggests a privacy policy for any item to be shared on a SNS. The ﬁrst step for developing such an agent is to be able to elicit meaningful information that can lead to accurate privacy policy predictions. In particular, the information needed is user communities and the strength of users’ relationships, which, as suggested by recent empirical evidence, are the most important factors that drive disclosure in SNSs. Given the number of friends that users can have and the number of communities they may be involved on, it is infeasible that users are able to provide this information without the whole eliciting process becoming confusing and time consuming. In this work, we present a tool called Best Friend Forever (BFF) that automatically classiﬁes the friends of a user in communities and assigns a value to the strength of the relationship ties to each one. We also present an experimental evaluation involving 38 subjects that showed that BFF can signiﬁcantly alleviate the burden of eliciting communities and relationship strength.
+
+3.1 Introduction
+Social networking services (SNSs) are currently the services that are most more demanded by users worldwide. Facebook (with more than 800 million active users1)
+1Facebook statistics http://newsroom.fb.com/
+
+72
+
+3.1. Introduction
+
+and Flickr (with 51 million registered members2) are two of the most successful SNSs. People register to these SNSs and share images, videos, and thoughts because they perceive a great payoff in terms of friendship, jobs, and other opportunities [38]. However, the huge number of items uploaded to these SNSs and the persistence of these items in the social networks have the potential to threaten the privacy of their users[58]. For example, employers are becoming accustomed to checking the proﬁle of the candidates in popular SNSs. If the privacy of the proﬁle of a candidate is not properly set, what an employer sees in that candidate’s proﬁle may affect the employer’s decision. It might even be possible for a stalker to infer the address of a person by looking at that person’s photos posted in a social network.
+Factors like the increase in public attention to privacy matters and the users’ increment of familiarity with SNS technology have increased the privacy concerns in SNSs [13]. To cope with privacy threats users tend to adjust and modify the default privacy preferences set up by the SNSs since they feel that these default settings are not enough to protect them. Nonetheless, the current privacy setting mechanisms offered by SNSs seem difﬁcult or confusing for users [94, 139]. These complications and obstacles lead to privacy policies that do not ﬁt users’ preferences, and, in turn, discourage users to show high engagement in terms of how much they participate in the SNS (e.g., the amount of photos they upload) [136].
+To address this, privacy management mechanisms that are able to automate the process of privacy policy deﬁnition as much as possible are needed [39]. In this way, our long-term aim is to develop intelligent software agents that could act as privacy assistants recommending adequate privacy policies. To this aim, we need to consider the existing empirical evidence on what drives disclosure in SNSs. In particular, it has been proven that the most important factors that users consider to decide whether disclosing information is adequate or not are the strength of the relationships they have to others and the communities in which they are involved [156]. Thus, and intelligent privacy assistant agent should base its predictions on
+2Yahoo advertising solutions http://advertising.yahoo.com/article/flickr. html
+
+3. BFF: A Tool for Eliciting Tie Strength and User Communities in Social
+
+Networking Services
+
+73
+
+this information. The problem is that eliciting this information from the user could become a time consuming process, e.g., it would require that users specify for each of his/her friends how strong their relationship is (average user in Facebook has 130 friends [117]).
+As introduced in the paper of Granovetter[56], the concept of tie strength deﬁnes the relationship between two individuals. In his work, Granovetter describes two different types of ties: strong and weak. On the one hand, strong ties usually include relationships such as family and close friends. On the other hand, weak ties may refer to coworkers or less trusted friends. More recent works have proposed models to predict tie strength in SNSs [53, 80, 161]. These works showed that it is possible to infer tie strength from the available personal data in a SNS. However, these works were not aimed at creating an actual tool. Thus, they only considered the predictive capabilities of the variables collected from the SNS without taking into account other factors that are of crucial importance to create an usable tool that predicts tie strength. In particular, these works did not consider either: (i) the computational cost of collecting the variables from the SNS (e.g., if the tool takes too much to complete the process this could be also seen as a time-consuming and not feasible in practice); or (ii) if all the variables apply to any possible Facebook user (e.g., these works consider language-dependent variables that could limit the applicability of their approach to speakers of other languages).
+Regarding communities, they are usually deﬁned as natural divisions of network nodes into densely connected subgroups [54]. In our context, the nodes are the contacts or friends of a given participant, and the connections between the nodes are friend relationships. Although many SNSs support some notion of community by means of allowing groups of users, they usually require that the user manually assigns each friend to the corresponding group. For example, Facebook offers the possibility of creating groups of friends, and then assigning privacy policies for each of them. However, this again has the problem that users are required to spend a considerable amount of time creating the groups and assigning friends for each of the groups (if
+
+74
+
+3.1. Introduction
+
+we consider that the average number of friends in Facebook is 130, classifying all of them into groups can represent a serious challenge). Thus, the process of friend grouping should be also automatised as much as possible. To this aim, we can use one of the many existing community ﬁnding algorithms [48]. The problem is that, to the best of our knowledge, there is no empirical evidence of how this community ﬁnding algorithms perform when they are applied to real social graphs extracted from a SNS, so choosing the most appropriate one is a challenging problem.
+Our main contributions in this article are:
+1. We present a new tool called Best Friend Forever (BFF) that is able to automatically obtain relationship strength values and user communities from a SNS. Moreover, it allows users to further reﬁne the results if they are not accurate enough. BFF has been implemented as a Facebook application and is publicly available at gti-ia.dsic.upv.es/bff.
+2. We propose a new method to calculate tie strength in SNSs that considers not only the predictive capability of the variables used but also other crucial factors to develop an actual tool: the temporal cost of collecting the variables and that these variables are general enough to be applied for any SNS user. Moreover, this new method has been implemented in the tie strength module of BFF.
+3. We evaluate several community ﬁnding algorithms using real social graphs (from 38 real Facebook users), and select the most appropriate one to be included in the community ﬁnding module of BFF based on their accuracy and their temporal cost.
+4. We empirically demonstrate that by using BFF we are able to elicit users’ relationship strength and communities requiring little intervention from users. In particular, 81.71% of tie strength values were exactly inferred and 67.08% of users’ friends were correctly organized into communities.
+The rest of the paper is organized as follows. Section 3.2 presents an overview of BFF and its different elements. Section 3.3 explains the tie strength prediction module
+
+3. BFF: A Tool for Eliciting Tie Strength and User Communities in Social
+
+Networking Services
+
+75
+
+and how it works. Section 3.4 presents the community prediction module and the community ﬁnding algorithms used by this module. Section 3.5 reports the results of the experimental evaluation and discusses its generalizability and limitations. Section 3.6 discusses some related works. Finally, Section 3.7 concludes the paper and outlines future research directions.
+
+3.2 Best Friend Forever
+This section introduces our tool and gives a complete overview of it. BFF aims to retrieve information from the social network that can be useful to recommend privacy policies. Speciﬁcally, the data needed is tie strength and friend groups. BFF is written in PHP and Javascript and is publicly accessible. Due to our experimentation needs, BFF is currently working as a web page; however, in the future, we plan to distribute BFF as a software program that users can execute in their own computers or on a trusted web server in order to preserve their privacy.
+BFF is composed of two modules: (i) community prediction, and (ii) tie strength prediction. The community prediction module is in charge of creating chunks of users from the participant’s contacts. The tie strength prediction module establishes a value of tie strength to each one of the participant’s friends. In a nutshell, the input of BFF is the proﬁle of the participant in the social network, and the output is a set of user groups and a value of tie strength for each one of the participant’s contacts.
+Figure 3.1 shows an overview of BFF and how it works. The interface between BFF and the user is a web page. As the ﬁgure shows, BFF collects information from the user’s Facebook account. We chose Facebook as the ﬁrst SNS for experimentation and for our ﬁrst development of BFF due to the success of this SNS and its popularity. Nevertheless, BFF can be easily adapted to other social networks and even to social networks with a distributed architecture, like for example Friendica 3. Therefore, before users can use BFF, they have to log in Facebook and give permission to BFF
+3http://friendica.com/
+
+76
+
+3.2. Best Friend Forever
+
+Figure 3.1: BFF Overview
+to access their Facebook information. Once the permission is given, BFF requests information from the Facebook server. When all the necessary information has been collected, the information is passed to the community prediction module and to the tie strength prediction module. These modules predict a set of groups and tie strength values for the friends of the user. The predictions are shown to the user as a suggestion using again the web interface. The dotted line represents the possibility for the user to reﬁne the suggestions created by the two modules. These modiﬁcations are stored in the database for future reference.
+Figure 3.2 shows the screen where the results of BFF are presented to the user. In this example, the ﬁgure only depicts one of the communities automatically created by BFF. Part of the name of the members of the community has been hidden to preserve their privacy. As shown in Figure 3.2, the members of the community are sorted by their tie strength value. Users can reﬁne the results by changing the name of the community, removing/adding members from/to the community, or changing the tie
+
+3. BFF: A Tool for Eliciting Tie Strength and User Communities in Social
+
+Networking Services
+
+77
+
+Figure 3.2: Result Sample
+strength value for any member in that community. The following sections 3.3 and 3.4 explain with more details how the tie strength prediction module and the community prediction module work.
+3.3 Tie Strength Prediction Module
+As stated in the introduction, BFF predicts the tie strength of the relationships of the user with each person that is socially connected to her. We model tie strength as a linear combination of predictive variables. This variables are information collected from the proﬁle user. During the creation of BFF the usability of our tool was a key factor. BFF has to be capable of predicting the tie strength accurately in a reasonable amount of time, and every user should be able to get an accurate prediction. The selected predictive variables for BFF are based on the variables proposed in [53]. In their work, Gilbert and Karahalios propose a set of 74 predictive variables. The authors did not consider the cost of collecting the variables and their generalization, they only considered the predictive capabilities of the variables.
+
+78
+
+3.3. Tie Strength Prediction Module
+
+Before the experiment with the participants, we tested the average temporal cost of collecting the entire set of variables4 proposed in [53]. For this test we used the proﬁles of 10 members of our research department. The average time of collection (without considering the cost of processing the collected information) was 1,210.73 seconds (σ = 435.55); with a maximum of more than 30 minutes for a very active proﬁle (more than 800 friends and daily updates). We detected that the most relevant factor for the temporal cost was the number of friends. Therefore, in order to reduce the time needed for data collection, we removed variables that are collected from the proﬁles of the user’s friends. For example, we did not collect the publications made by the participant on the walls of her friends. Instead, we only collected the publications of the participant’s friends on her wall. We also removed proﬁle dependent variables, such as home city or current job. This type of variables are usually left in blank by SNS users. This can lead to incomplete information and prediction errors [39]. We also took the decision of considering only variables that could be easily processed. More speciﬁcally, we limited the variables to those that can be simply counted. This decision provides us two advantages: the variables can be easily generalized and we largely reduce the cost of processing the collected information. For example, taking into account variables that depend on the content of a message require a natural language analyze process. Moreover, this type of variables can limit the different users that are be able to use BFF (e.g., only English speakers). Instead, counting the number of messages takes less effort and can be obtained from any user proﬁle.
+BFF collects the information from Facebook using Facebook Query Language (FQL). This language enables developers to use a SQL-style interface to query the data stored in Facebook databases. FQL queries are sent through HTTP requests. The results of FQL are paginated, thus, retrieving the entire set of elements of a speciﬁc table (e.g., photos, messages, etc.) can require several queries. Active Facebook
+4Gilbert and Karahalios state in their paper that they consider 74 variables; however, in the paper they only show and explain 32 of these variables. In the end, we tested the information collection time considering these 32 variables.
+
+3. BFF: A Tool for Eliciting Tie Strength and User Communities in Social
+
+Networking Services
+
+79
+
+users tend to have hundreds of friends, pictures, and hundred of posts on their walls. Therefore, collecting all the available information of the user on Facebook can take several minutes (each HTTP query takes a few seconds). We did not know the amount of information that the participants of the experiment would have on their proﬁles. Therefore, to avoid an excessive data collection cost, we limited the number of queries to a maximum of 20 pages per item.
+Applying the restrictions explained above, we had 12 variables left. These 12 variables were not enough to cover the seven tie strength dimensions deﬁned by Granovetter and related literature [19, 154, 93]. Speciﬁcally, two dimensions were not covered: social distance and emotional support. To cover social distance we included the variable educational difference. We included this variable since in the study of Gilbert [53] this variable appeared the most predictive variable in its dimension. However, as explained in section 3.5.3.1, in the end, this variable can be removed from our model since it has a very low prediction value. To cover emotional support we chose the variable “likes” which is not considered in [53]. Since we only counted the likes given from participants’ contacts to the items collected for the other variables, this variable did not have an extra collection cost. Table 3.1 shows and explains the 14 selected predictive variables. Table 3.2 shows the tie strength dimensions and the predictive variables that belong to each dimension.
+We tested the collection time for these 14 variables using the same 10 proﬁles of members of our research group. The average collection time was 210,48 seconds (σ = 65.94). On average, collecting this set of 14 variables was 5.77 (σ = 1.28) times faster than collecting the 32 variables proposed by Gilbert and Karahalios.
+The equation below represents the tie strength si of the ith friend. Ri stands for the vector of fourteen predictive variables of the ith friend. µM is the mean strength of mutual friends between the user and the ith friend. Finally, β is the vector of weights applied to the predictive variables and γ is the weight applied to the mean strength of mutual friends. In order to set the weight of each variable we used the ﬁndings of [53] as we wanted to avoid the use of a model that completely lacked information on
+
+80
+
+3.3. Tie Strength Prediction Module
+
+Variable Last communication First communication Wall messages Photos together Links shared
+Initiated wall posts
+“Likes” Inbox messages exchanged Inbox thread depth Number of friends Number of common friends Photo comments
+Educational difference
+Mean tie strength of mutual friends
+
+Explanation Measures the recency of the communication. Is an approximation of the duration of the friendship. Counts the number of messages exchanged using the wall. Counts the photos where both persons (participant and friend) are tagged. Counts the number web page links traded between the friend and the participant. Counts the number of publications posted by the friend on the participant’s wall. Counts the number of likes given by the friend to the participant’s publications. Counts the number of private messages traded between both persons. Measures the length of the conversations between both persons. Is the total number of friends of the friend. Counts the number of friends that are common for both persons. Is the number of comments made by the friend to the photos of the principal user. Measures the difference in a numeric scale: none = 0, high school = 1, university = 2, PhD = 3. Taking into account the mean tie strength of the friends that are common for both persons we can capture the idea of how relationships are modiﬁed by the social cliques.
+
+Table 3.1: Predictive variables considered.
+
+3. BFF: A Tool for Eliciting Tie Strength and User Communities in Social
+
+Networking Services
+
+81
+
+Dimension Intimacy
+Intensity
+Duration Social distance Reciprocal services Emotional support Structural dimension
+
+Variables First communication. Number of friends. Photos together. Wall messages. Initiated wall post. Inbox messages exchanged. Inbox thread depth. Photo comments. First communication. Educational difference. Links shared Likes Mean strength of mutual friends. Number of mutual friends.
+
+Table 3.2: Predictive variables and tie strength dimensions
+
+the relative importance of each variable to predict tie strength.
+si = βRi + γµM M = {sj : j and i are mutual friends}
+After collecting the predictive variables for the friends of the user, the variables are normalized. Then, the tie strength is calculated for each user. The results are normalized to a numeric scale 1-5, where 1 represents that both persons are very distant (mere acquaintance) and 5 that they are very close. The results are presented graphically, as shown in Figure 3.2, so that users are sorted by group and by tie strength. It is easier to ﬁgure out the value of the tie strength of a person by comparing it to the values of the tie strength of the relationships with others. As in the grouping step (explained below), the participant can reﬁne the results of the tie strength calculation.
+
+82
+
+3.4. Community Prediction Module
+
+3.4 Community Prediction Module
+
+The community prediction module is in charge of dividing the network of relationships of the user into communities. This module queries Facebook about the friends of the user and the friends of those friends (mutual friends). With this information the module builds a graph where the nodes are the friends of the user, and the connections between the nodes are friend relationships. This graph is used as the input for the community ﬁnding algorithm. The output of the algorithm, a partition of the graph, is shown to the user. The user can modify the communities proposed by the algorithm.
+As in the tie strength prediction algorithm, we wanted to present to the participants of the experimental evaluation a suggestion that they can modify. Creating every community from scratch can be a challenging task and we wanted to avoid participants of getting tired of the experiment. The algorithm proposed by Shen et al. in [126] was chosen as the initial community ﬁnding algorithm for BFF. The algorithm is founded on the triadic closure principle, which suggests that, in a social network, there is an increased likelihood that two people will become friends if they have friends in common. Based on the results obtained by the authors, this algorithm performs accurately on natural created communities which is the type of communities that the community prediction module has to manage.
+According to the results of Shen et al. [126], their algorithm performs better than Infomap [123] and Louvain [10] algorithms. These two community ﬁnding algorithms (Infomap and Louvain) are two of the best ones [88]. On the one hand, Infomap uses the probability ﬂow of random walks on a network as a proxy for information ﬂows in the real system and decompose the network into modules by compressing a description of the probability ﬂow. On the other hand, Louvain algorithm is founded on a heuristic method that is based on modularity optimization. The modularity of a partition is a scalar value between -1 and 1 that measures the density of links inside communities as compared to links between communities [54].
+
+3. BFF: A Tool for Eliciting Tie Strength and User Communities in Social
+
+Networking Services
+
+83
+
+As we did not know if the Shen’s algorithm was going to be accurate with Facebook communities, we also tested Infomap and Louvain algorithms. The results of the test comparing the three algorithms are shown in the evaluation subsection 3.5.3.2.
+
+3.5 Experimental Evaluation
+The goal of our experimental study is to evaluate the accuracy of our BFF tool in terms of community and tie strength prediction. Speciﬁcally, we want to answer the following questions:
+• How accurate is the community module in grouping the contacts of a user? • How accurate are the predictions of the tie strength module? • Do users perceive that BFF is a good tool in general? In other words, do they think
+that BFF is capable of inferring accurate information from their available data on Facebook?
+To answer these questions, we performed an experimental evaluation with Facebook users. In the rest of this section, we ﬁrstly introduce the experimental settings and, after that, we report the main ﬁndings.
+3.5.1 Participants
+Our 38 participants were recruited using a Facebook page as well as posters posted on the Universitat Polite`cnica de Vale`ncia university. We used the viral properties of publications on Facebook to attract participants out of the college environment. Participants were rewarded with a gift voucher for El Corte Ingles (a famous chain of shopping centers in Spain).The participants also entered into one Nexus7 tablet rafﬂe.
+
