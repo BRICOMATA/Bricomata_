@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section6/pri61a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:34 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.10. Using the Fitted Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri61b.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri619.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.html">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.10.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Using the Fitted Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Model Provides Additional Insight
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Although deriving the fitted model was not the primary purpose
+of the study, it does have two benefits in terms of additional
+insight:
+<OL>
+   <li>Global prediction
+   <li>Global determination of best settings
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Global Prediction
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+How does one predict the response at points other than those
+used in the experiment?  The prediction equation yields good
+results at the eight combinations of coded -1 and +1 values for
+the three factors:
+<ol>
+   <li><i>X</i>1 = Number of turns = 90 and 180
+   <li><i>X</i>2 = Winding distance = 0.38 and 1.14
+   <li><i>X</i>3 = Wire gauge = 40 and 48
+</ol>
+What, however, would one expect the detector to yield at target
+settings of, say,
+<ol>
+   <li>Number of turns = 150
+   <li>Winding distance = 0.50
+   <li>Wire gauge = 46
+</ol>
+Based on the fitted equation, we first translate the target values
+into coded target values as follows:
+<ul>
+   coded target = -1 + 2*(target-low)/(high-low)
+</ul>
+Hence the coded target values are
+<ol>
+   <li><i>X</i>1 = -1 + 2*(150-90)/(180-90) = 0.333333
+   <li><i>X</i>2 = -1 + 2*(0.50-0.38)/(1.14-0.38) = -0.684211
+   <li><i>X</i>3 = -1 + 2*(46-40)/(48-40) = 0.5000
+</ol>
+Thus the raw data
+<ul>
+   (Number of turns, Winding distance, Wire gauge) = (150, 0.50, 46)
+</ul>
+translates into the coded
+<ul>
+   (<i>X</i>1, <i>X</i>2, <i>X</i>3) = (0.333333, -0.684211, 0.50000)
+</ul>
+on the -1 to +1 scale.
+<p>
+Inserting these coded values into the fitted equation yields,
+as desired, a predicted value of
+<ul>
+   \( \hat{Y} \)
+   <!-- <img align=absmiddle src="splett3/eqns/yhat.gif" alt="yhat"> -->
+         = 2.65875 + 1.55125(0.333333) - 0.43375(-0.684211)
+         = 3.47261
+</ul>
+The above procedure can be carried out for any values of turns,
+distance, and gauge.  This is subject to the usual cautions that
+equations that are good near the data point vertices may not
+necessarily be good everywhere in the factor space.  Interpolation is a
+bit safer than extrapolation, but it is not guaranteed to provide
+good results, of course.
+One would feel more comfortable about interpolation (as in our
+example) if additional data had been collected at the center
+point and the center point data turned out to be in good agreement
+with predicted values at the center point based on the fitted
+model.  In our case, we had no such data and so the sobering
+truth is that the user of the equation is assuming something in
+which the data set as given is not capable of suggesting one way or
+the other.  Given that assumption, we have demonstrated how one
+may cautiously but insightfully generate predicted values that
+go well beyond our limited original data set of eight points.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<!-- Add marginal notes below -->
+<i>
+Global Determination of Best Settings
+</i>
+</td>
+
+<td WIDTH="85%">
+<!-- Add main text below -->
+In order to determine the best settings for the factors, we can
+use a
+<a href="../section5/pri59a.html">DOE contour plot</a>.
+The DOE contour plot is generated for the two most significant
+factors and shows the value of the response variable at the
+vertices (i.e, the -1 and +1 settings for the factor variables)
+and indicates the direction that maximizes (or minimizes) the
+response variable.  If you have more than
+two significant factors, you can generate a series of DOE
+contour plots with each one using two of the important factors.
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+DOE Contour Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following is the DOE contour plot of the number of turns and the
+winding distance.
+<p>
+<a href="splett3/gifs/dexcon_f.gif">
+<img SRC="pri61a_r01.gif" BORDER=0 height=600 width=600
+     ALT="The DOE contour plot identifies X1=-1 and X2=1 as the optimal
+        settings">
+</a>
+<p>
+The maximum value of the response variable (eddy current) corresponds
+to <i>X</i>1 (number of turns) equal to -1 and <i>X</i>2 (winding
+distance) equal to +1. The lower right corner of the contour plot
+corresponds to the direction that maximizes the response variable.
+This information can be used in planning the next phase of the
+experiment.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri619.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri61b.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section6/pri61a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:35 GMT -->
+</HTML>

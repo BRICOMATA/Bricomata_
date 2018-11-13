@@ -1,0 +1,159 @@
+Dataplot commands and output:
+
+.Set Software Options and Get Started 	
+
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units absolute
+tic mark offset 2 2
+ylabel offset units absolute
+ylabel offset 11
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+
+skip 25
+read pontius.dat Deflection Load
+
+.Fit and Validate Initial Model 	
+
+title Scatter Plot of Deflection vs. Load
+x1label Load
+y1label Deflection
+plot Deflection Load
+
+linear fit Deflection Load
+
+> LEAST SQUARES POLYNOMIAL FIT
+> SAMPLE SIZE N       =       40
+> DEGREE              =        1
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.2147264895D-03
+> REPLICATION DEGREES OF FREEDOM =          20
+> NUMBER OF DISTINCT SUBSETS     =          20
+>
+>
+>       PARAMETER ESTIMATES   (APPROX. ST. DEV.)   T VALUE
+> 1 A0     0.614969E-02          (0.7132E-03)        8.6
+> 2 A1     0.722103E-06          (0.3969E-09)      0.18E+04
+>
+> RESIDUAL    STANDARD DEVIATION =         0.0021712694
+> RESIDUAL    DEGREES OF FREEDOM =          38
+> REPLICATION STANDARD DEVIATION =         0.0002147265
+> REPLICATION DEGREES OF FREEDOM =          20
+> LACK OF FIT F RATIO = 214.7464 = THE 100.0000% POINT OF
+> THE F DISTRIBUTION WITH 18 AND  20 DEGREES OF FREEDOM
+
+title Data & Predicted Values from Straight Line Fit vs. Load
+x1label Load
+y1label Deflection
+plot Deflection pred vs Load
+
+title Residuals vs. Load
+x1label Load
+y1label Residuals
+plot res Load
+
+title Residuals vs. Predicted Values from Straight Line Fit
+x1label Predicted Values
+y1label Residuals
+plot res pred
+
+labels
+title automatic
+4plot res
+
+.Fit and Validate Refined Model 	
+
+title Residuals vs. Load
+x1label Load
+y1label Residuals
+plot res Load
+
+quadratic fit Deflection Load
+
+> LEAST SQUARES POLYNOMIAL FIT
+> SAMPLE SIZE N       =       40
+> DEGREE              =        2
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.2147264895D-03
+> REPLICATION DEGREES OF FREEDOM =          20
+> NUMBER OF DISTINCT SUBSETS     =          20
+>
+>
+>        PARAMETER ESTIMATES  (APPROX. ST. DEV.)  T VALUE
+> 1  A0     0.673618E-03         (0.1079E-03)       6.2
+> 2  A1     0.732059E-06         (0.1578E-09)     0.46E+04
+> 3  A2    -0.316081E-14         (0.4867E-16)       -65.
+>
+> RESIDUAL    STANDARD DEVIATION =         0.0002051768
+> RESIDUAL    DEGREES OF FREEDOM =          37
+> REPLICATION STANDARD DEVIATION =         0.0002147265
+> REPLICATION DEGREES OF FREEDOM =          20
+> LACK OF FIT F RATIO = 0.8107 = THE 33.3818% POINT OF
+> THE F DISTRIBUTION WITH 17 AND 20 DEGREES OF FREEDOM
+
+title Data & Predicted Values from Quadratic Fit vs. Load
+x1label Load
+y1label Deflection
+plot Deflection pred vs Load
+
+title Residuals vs. Load
+x1label Load
+y1label Residuals
+plot res Load
+
+title Residuals vs. Predicted Values from Quadratic Fit
+x1label Predicted Values
+y1label Residuals
+plot res pred
+
+labels
+title automatic
+4plot res
+
+.Use the Model to Make a Calibrated Measurement 	
+
+let nd = normal random numbers for i = 1 1 1
+let nd = nd*0.0002051768 + 1.239600
+set write decimals  6
+print nd
+
+let ndp = nd(1)
+let lb = 1500000
+let ub = 2000000
+let function f = a0 + a1*load + a2*load**2 - ndp
+let nl = roots f wrt load for load = lb to ub
+set write decimals 0
+print nl
+
+skip 0
+read DPST4F.DAT junk1 junk2
+let b11 = junk2(1)
+let b21 = junk2(2)
+let b31 = junk2(3)
+let b12 = junk2(4)
+let b22 = junk2(5)
+let b32 = junk2(6)
+let b13 = junk2(7)
+let b23 = junk2(8)
+let b33 = junk2(9)
+let function f0 = b11
+let function f1 = (b12 + b21)*load
+let function f2 = (b13 + b22 + b31)*load**2
+let function f3 = (b23 + b32)*load**3
+let function f4 = b33*load**4
+let function fall = f0 + f1 + f2 + f3 + f4
+let n = size load
+let df = n - 3
+let tval = tppf(0.975,df)
+let function flb = f + tval*ressd*sqrt(1 + fall) 
+let nllb = roots flb wrt load for load = lb to ub
+let function fub = f - tval*ressd*sqrt(1 + fall) 
+let nlub = roots fub wrt load for load = lb to ub
+set write decimals 0
+print nllb nl nlub

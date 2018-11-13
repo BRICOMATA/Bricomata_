@@ -1,0 +1,763 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5313.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:20 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.3.1.3. Single response: Choosing the step length</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5314.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri5312.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri53.html">How do you optimize a process?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.3.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri531.html">Single response case</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.3.1.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Single response: Choosing the step length</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>A procedure for choosing how far along the direction of steepest
+ascent to go for the next trial run</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Once the search direction is determined, the second decision needed
+in Phase I relates to how far in that direction the process should be
+"moved".  The most common procedure for selecting a step length is
+based on choosing a step size in one factor and then computing step
+lengths in the other factors proportional to their parameter estimates.
+This provides a point on the direction of maximum improvement.  The
+procedure is given below. A similar approach is obtained by choosing
+increasing values of \( \rho \)
+<!-- <img SRC="gifs/img67.gif" ALT="rho" align=CENTER> -->
+in
+<ul>
+\( x_{i}^{*} = \rho \frac{b_{i}}{\sqrt{\sum_{j=1}^{k}{b_{j}^{2}}}} 
+\hspace{.3in} i = 1, 2, \ldots , k \)
+<!--
+<img SRC="gifs/img33.gif" height=48 width=231 align=CENTER ALT=
+"x(i)* = rho*b(i)/SQRT[SUM[j=1 to k][b(j)^2]]   i = 1, 2, ..., k">.
+-->
+</ul>
+However, the procedure below considers the original units of
+measurement which are easier to deal with than the coded "distance"
+\( \rho \).
+<!-- <img SRC="gifs/img69.gif" ALT="rho" align=CENTER>. -->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Procedure: selection of step length</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Procedure for selecting the step length
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The following is the procedure for selecting the step length.
+<ol>
+   <li>Choose a step length \( \Delta X_{j} \)
+       <!-- <img SRC="eqns/delta.gif" ALT="delta"
+       align=absmiddle><b><i>X<sub>j</sub></i></b> -->
+       (in natural units of measurement) for some factor <i>j</i>.
+       Usually, factor <i>j</i> is chosen to be the one engineers feel
+       more comfortable varying, or the one with the largest
+       <b>|<i>b<sub>j</sub></i>|</b>.  The value of \( \Delta X_{j} \)
+       <!-- <img SRC="eqns/delta.gif" ALT="delta"
+       align=absmiddle><b><i>X<sub>j</sub></i></b> -->
+       can be based on the width of the confidence cone around the
+       steepest ascent/descent direction.  Very wide cones indicate that
+       the estimated steepest ascent/descent direction is not reliable,
+       and thus \( \Delta X_{j} \)
+       <!-- <img SRC="eqns/delta.gif" ALT="delta"
+       align=absmiddle><b><i>X<sub>j</sub></i></b> -->
+       should be small.  This usually occurs when the <i>R</i><sup>2</sup>
+       value is low.  In such a case, additional experiments can be
+       conducted in the current experimental region to obtain a better
+       model fit and a better search direction.</li>
+       <p>
+   <li>Transform to coded units:
+       <p>
+       <ul>
+          \( \Delta x_{j} = \frac{\Delta X_{j}}{s_{j}} \)
+          <!-- <img SRC="eqns/deltaxj.gif" align=CENTER ALT=
+          "delta x(j) = delta x(j)/s(j)"> -->
+       </ul>
+       <p>
+       with <b><i>s<sub>j</sub></i></b> denoting the scale
+       factor used for factor <b><i>j</i></b> (e.g.,
+       <b><i>s<sub>j</sub></i> = range<sub><i>j</i></sub>/2</b>).</li>
+       <p>
+   <li>Set \( \Delta x_{i} = \frac{b_{i}}{b_{j}} \Delta x_{j} \)
+       <!-- <img SRC="eqns/bibj.gif" align=absmiddle ALT=
+       "delta x(i) = (b(i)/b(j))*delta x(j)"> -->
+       for all other factors <b><i>i</i></b>.</li>
+       <p>
+   <li>Transform all the \( \Delta x_{i} \)'s
+       <!-- <img align=absmiddle SRC="eqns/delta.gif"
+       ALT="delta"><b><i>x<sub>i</sub></i></b>'s  -->
+       to natural units:<br>
+       \( \Delta X_{i} = (\Delta x_{i})(s_{i}) \).
+       <!-- <img align=absmiddle SRC="eqns/delta.gif"
+       ALT="delta"><b><i>X<sub>i</sub></i> =
+       (<img align=absmiddle SRC="eqns/delta.gif"
+       ALT="delta"><i>x<sub>i</sub></i>)(<i>s<sub>i</sub></i>)</b>. -->
+       </li>
+</ol>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Example: Step Length Selection.</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>An example of step length selection</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The following is an example of the step length selection procedure.
+<ul>
+   <li>For the chemical process experiment described <a href=
+       "pri5311.html#Example. Optimization of a Chemical">previously</a>,
+       the process engineer selected
+       <!-- <img SRC="eqns/delta.gif" ALT="delta" align=absmiddle> -->
+       \( \Delta X_{2} = 50 \)
+       minutes. This was based on process engineering considerations.
+       It was also felt that \( \Delta X_{2} = 50 \)
+       <!-- <img SRC="eqns/delta.gif" ALT="delta"
+       align=absmiddle><b><i>X</i><sub>2</sub> = 50</b> -->
+       does not move the process too far away from the current region
+       of experimentation.  This was desired since the
+       <i>R</i><sup>2</sup> value of 0.6580 for the fitted model is quite
+       low, providing a not very reliable steepest ascent direction (and a
+       wide confidence cone, see
+       <a href="pri5312.html#Technical Appendix">Technical
+       Appendix 5B</a>).</li>
+       <p>
+   <li>\( \Delta x_{2} = \frac{50}{50} = 1.0 \)
+       <!-- <img SRC="eqns/img86.gif" align=CENTER
+       ALT="delta x(2) = 50/50 = 1.0">. -->
+       </li> 
+       <p>
+   <li>\( \Delta x_{1} = \frac{-1.2925}{11.14} = -0.1160 \)
+       <!-- <img SRC="gifs/img87.gif" align=CENTER
+       ALT="delta x(1) = -1.2925/11.14 = -0.1160">. -->
+       </li>
+       <p>
+   <li>\( \Delta X_{2} = (-0.1160)(30) = -3.48^{\circ}C \)
+       <!-- <img align=absmiddle SRC="eqns/delta.gif"
+       ALT="delta"><b><i>X</i><sub>2</sub> = (-0.1160)(30) =
+       -3.48<sup>o</sup>C.</b> -->
+       </li>
+</ul>
+Thus the step size is \( \Delta X \)'
+<!-- <img align=absmiddle SRC="eqns/delta.gif" ALT="delta"><b><i>X</i>' -->
+<b>= (-3.48<sup>o</sup>C, 50 minutes)</b>.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Procedure: Conducting Experiments Along the Direction of Maximum
+Improvement</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Procedure for conducting experiments along the direction of
+maximum improvement
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The following is the procedure for conducting experiments along the
+direction of maximum improvement.
+<ol>
+   <li>Given current operating conditions
+       \( X_{0}^{'} = (X_{1}, X_{2}, \dots , X_{k}) \)
+       <!-- <img align=absmiddle SRC="eqns/x0p.gif" ALT="X(0)'">
+       <b>= (<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, ...,
+       <i>X<sub>k</sub></i>)</b> -->
+       and a step size
+       \( \Delta X' = (\Delta X_{1}, \Delta X_{2}, \dots ,
+       \Delta X_{k}) \),
+       <!-- <img align=absmiddle SRC="eqns/delta.gif"
+       ALT="delta"><b><i>X</i>' =
+       (<img align=top SRC="eqns/delta.gif"
+       ALT="delta"><i>X</i><sub>1</sub>,
+       <img align=top SRC="eqns/delta.gif"
+       ALT="delta"><i>X</i><sub>2</sub>, ...,
+       <img align=top SRC="eqns/delta.gif"
+       ALT="delta"><i>X<sub>k</sub></i>)</b>, -->
+       perform experiments at factor levels
+       \( X_{0} + \Delta X, X_{0} + 2 \Delta X, X_{0} + 3 \Delta X,
+       \dots \)
+       <!-- <b><i>X</i><sub>0</sub> +
+       <img align=top SRC="eqns/delta.gif"
+       ALT="delta"><i>X</i>,
+       <i>X</i><sub>0</sub> +
+       2<img align=top SRC="eqns/delta.gif"
+       ALT="delta"><i>X</i>,
+       <i>X</i><sub>0</sub> +
+       3<img align=top SRC="eqns/delta.gif"
+       ALT="delta"><i>X</i>,</b> ... -->
+       as long as improvement in the response <b><i>Y</i></b>
+       (decrease or increase, as desired) is observed.</li>
+       <p>
+   <li>Once a point has been reached where there is no further
+       improvement, a new first-order experiment (e.g., a
+       <b>2<sup><i>k</i>-<i>p</i></sup></b> fractional factorial)
+       should be performed with repeated center runs to assess lack
+       of fit. If there is no significant evidence of lack of fit,
+       the new first-order model will provide a new search direction,
+       and another iteration is performed as indicated in Figure 5.3.
+       Otherwise (there is evidence of lack of fit), the experimental
+       design is augmented and a second-order model should be fitted.
+       That is, the experimenter should proceed to "Phase II".</li>
+</ol>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Example: Experimenting Along the Direction of Maximum
+Improvement</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Step 1: increase factor levels by \( \delta \)
+<!-- <img align=absmiddle src="eqns/delta.gif"> -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Step 1:</b>
+<p>
+Given <b><i>X</i><sub>0</sub></b> = (200<sup>o</sup>C, 200 minutes) and
+\( \Delta X \)
+<!-- <img align=absmiddle SRC="eqns/delta.gif" ALT="delta">
+<b><i>X</i></b> -->
+= (-3.48<sup>o</sup>C, 50 minutes), the next experiments were
+performed as follows (the step size in temperature was rounded to
+-3.5<sup>o</sup>C for practical reasons):
+<ul>
+<table border width=450>
+<tr>
+   <th valign=top align=center>
+      &nbsp;
+   </th>
+   <th valign=top align=center>
+      <i>X</i><sub>1</sub>
+   </th>
+   <th valign=top align=center>
+      <i>X</i><sub>2</sub>
+   </th>
+   <th valign=top align=center>
+      <i>x</i><sub>1</sub>
+   </th>
+   <th valign=top align=center>
+      <i>x</i><sub>2</sub>
+   </th>
+   <th valign=top align=center>
+      <i>Y</i> (= yield)
+   </th>
+</tr>
+<tr>
+   <th valign=top align=left>
+      <i>X</i><sub>0</sub>
+   </th>
+   <td valign=top align=center>
+      200
+   </td>
+   <td valign=top align=center>
+      200
+   </td>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      &nbsp;
+   </td>
+</tr>
+<tr>
+   <th valign=top align=left>
+      <i>X</i><sub>0</sub> +  \( \Delta X \)
+      <!-- <img align=top src="eqns/delta.gif" alt="delta"><i>X</i> -->
+   </th>
+   <td valign=top align=center>
+      196.5
+   </td>
+   <td valign=top align=center>
+      250
+   </td>
+   <td valign=top align=center>
+      -0.1160
+   </td>
+   <td valign=top align=center>
+      1
+   </td>
+   <td valign=top align=center>
+      56.2
+   </td>
+</tr>
+<tr>
+   <th valign=top align=left>
+      <i>X</i><sub>0</sub> +  \( 2 \Delta X \)
+   </th>
+   <td valign=top align=center>
+      193.0
+   </td>
+   <td valign=top align=center>
+      300
+   </td>
+   <td valign=top align=center>
+      -0.2320
+   </td>
+   <td valign=top align=center>
+      2
+   </td>
+   <td valign=top align=center>
+      71.49
+   </td>
+</tr>
+<tr>
+   <th valign=top align=left>
+      <i>X</i><sub>0</sub> +  \( 3 \Delta X \)
+   </th>
+   <td valign=top align=center>
+      189.5
+   </td>
+   <td valign=top align=center>
+      350
+   </td>
+   <td valign=top align=center>
+      -0.3480
+   </td>
+   <td valign=top align=center>
+      3
+   </td>
+   <td valign=top align=center>
+      75.63
+   </td>
+</tr>
+<tr>
+   <th valign=top align=left>
+      <i>X</i><sub>0</sub> +  \( 4 \Delta X \)
+   </th>
+   <td valign=top align=center>
+      186.0
+   </td>
+   <td valign=top align=center>
+      400
+   </td>
+   <td valign=top align=center>
+      -0.4640
+   </td>
+   <td valign=top align=center>
+      4
+   </td>
+   <td valign=top align=center>
+      72.31
+   </td>
+</tr>
+<tr>
+   <th valign=top align=left>
+      <i>X</i><sub>0</sub> +  \( 5 \Delta X \)
+   </th>
+   <td valign=top align=center>
+      182.5
+   </td>
+   <td valign=top align=center>
+      450
+   </td>
+   <td valign=top align=center>
+      -0.5800
+   </td>
+   <td valign=top align=center>
+      5
+   </td>
+   <td valign=top align=center>
+      72.10
+   </td>
+</tr>
+</table>
+</ul>
+<!-- <img SRC="gifs/img106.gif" ALT=""  align=BOTTOM> -->
+Since the goal is to maximize <b><i>Y</i></b>, the point of maximum
+observed response is
+<b><i>X</i><sub>1</sub></b> = 189.5<sup>o</sup>C,
+<b><i>X</i><sub>2</sub></b> = 350 minutes.  Notice that the search was
+stopped after 2 consecutive drops in response, to assure that
+we have passed by the "peak" of the "hill".
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<I>
+Step 2: new factorial experiment
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<b>Step 2:</b>
+<p>
+A new <b>2<sup>2</sup></b> factorial experiment is performed with
+<b><i>X</i>' = (189.5, 350)</b> as the origin.  Using the same scaling
+factors as before, the new scaled controllable factors are:
+<ul>
+\( x_{1} = \frac{X_{1} - 189.5} {30} \hspace{.5in} \)
+and
+\( \hspace{.5in} x_{2} = \frac{X_{2} - 350} {50} \)
+<!--
+<img SRC="eqns/img112.gif" 
+     ALT="x1 = (X1 - 189.5)/30    and     x2 = (X2 - 350)/50">
+-->
+</ul>
+<a NAME="Five center"></a>
+Five center runs (at <b><i>X</i><sub>1</sub> = 189.5,
+<i>X</i><sub>2</sub> = 350</b>)
+were repeated to assess lack of fit. The experimental results were:
+<ul>
+<table border width=300>
+<tr>
+   <th valign=top align=center>
+      <i>x</i><sub>1</sub>
+   </th>
+   <th valign=top align=center>
+      <i>x</i><sub>2</sub>
+   </th>
+   <th valign=top align=center>
+      <i>X</i><sub>1</sub>
+   </th>
+   <th valign=top align=center>
+      <i>X</i><sub>2</sub>
+   </th>
+   <th valign=top align=center>
+      <i>Y</i> (= yield)
+   </th>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      159.5
+   </td>
+   <td valign=top align=center>
+      300
+   </td>
+   <td valign=top align=center>
+      64.33
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      219.5
+   </td>
+   <td valign=top align=center>
+      300
+   </td>
+   <td valign=top align=center>
+      51.78
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      159.5
+   </td>
+   <td valign=top align=center>
+      400
+   </td>
+   <td valign=top align=center>
+      77.30
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      219.5
+   </td>
+   <td valign=top align=center>
+      400
+   </td>
+   <td valign=top align=center>
+      45.37
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      189.5
+   </td>
+   <td valign=top align=center>
+      350
+   </td>
+   <td valign=top align=center>
+      62.08
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      189.5
+   </td>
+   <td valign=top align=center>
+      350
+   </td>
+   <td valign=top align=center>
+      79.36
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      189.5
+   </td>
+   <td valign=top align=center>
+      350
+   </td>
+   <td valign=top align=center>
+      75.29
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      189.5
+   </td>
+   <td valign=top align=center>
+      350
+   </td>
+   <td valign=top align=center>
+      73.81
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      0
+   </td>
+   <td valign=top align=center>
+      189.5
+   </td>
+   <td valign=top align=center>
+      350
+   </td>
+   <td valign=top align=center>
+      69.45
+   </td>
+</tr>
+</table>
+</ul>
+<!-- <img SRC="gifs/img114.gif" ALT=""  align=BOTTOM> -->
+<p>
+The corresponding ANOVA table for a linear model is
+<pre>
+                SUM OF            MEAN     F
+<u>SOURCE</u>         <u>SQUARES</u>    <u>DF</u>     <u>SQUARE</u>  <u>VALUE</u>  <u>PROB > F
+
+</u>MODEL          505.376     2    252.688  4.731   0.0703
+CURVATURE      336.364     1    336.364  6.297   0.0539
+RESIDUAL       267.075     5     53.415
+  LACK OF FIT   93.896     1     93.896  2.168   0.2149
+  PURE ERROR   173.179     4     43.295
+
+COR TOTAL     1108.815     8
+</pre>
+From the table, the linear effects (model) are significant and there is
+no evidence of lack of fit. However, there is a significant curvature
+effect (at the 5.4 % significance level), which implies that the
+optimization should proceed with Phase II; that is, the fit and
+optimization of a second-order model.
+</td>
+</tr>
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri5312.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5314.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5313.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:20 GMT -->
+</HTML>

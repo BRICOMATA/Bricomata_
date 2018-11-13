@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda354.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:59 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.4. One-Factor ANOVA</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda355.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda3531.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>One-Factor ANOVA</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Test for Equal Means Across Groups
+      </I>
+   </td>
+   <td width=85% valign=top>
+      One factor analysis of variance
+      (<a href="../section4/eda43.html#Snedecor">Snedecor and Cochran,
+      1989</a>) is a special case of 
+      <a href="../../prc/section4/prc42.html">analysis of variance
+      (ANOVA)</a>, for one
+      factor of interest, and a generalization of the 
+      <a href="eda353.html">two-sample <i>t</i>-test</a>.  The two-sample
+      <i>t</i>-test is used to decide whether two groups (levels) of a
+      factor have the same mean.  One-way analysis of variance
+      generalizes this to levels where <i>k</i>, the number of levels,
+      is greater than or equal to 2.
+      <p>
+      For example, data collected on, say, five instruments have one
+      factor (instruments) at five levels.  The ANOVA tests whether
+      instruments have a significant effect on the results.
+
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The <a href="../../prc/prc.html">Product and Process
+      Comparisons</a> chapter (chapter 7) contains
+      a more extensive discussion of
+      <a href="../../prc/section4/prc42.html">one-factor ANOVA</a>,
+      including the details for the mathematical computations of
+      one-way analysis of variance.
+      <p>
+      The model for the analysis of variance can be stated
+      in two mathematically equivalent ways.  In the
+      following discussion, each level of each factor is called a
+      cell.  For the one-way case, a cell and a level are equivalent
+      since there is only one factor.  In the following, the
+      subscript <b><i>i</i></b> refers to the level and the
+      subscript <b><i>j</i></b> refers to the observation within
+      a level.  For example, <b><i>Y<sub>23</sub></i></b> refers
+      to the third observation in the second level.
+      <p>
+      The first model is
+      <UL>
+         <!--
+         <img src="eqns/anova11.gif"
+              alt="Y(ij) = u(ij) + E(ij)">
+         -->
+         \[ Y_{ij} = \mu_{i} + E_{ij} \]
+      </UL>
+      This model decomposes the response into a mean for each cell
+      and an error term.  The analysis of variance provides estimates
+      for each cell mean.  These estimated cell
+      means are the predicted values of the model and the
+      differences between the response variable and the estimated
+      cell means are the residuals.  That is
+      <UL>
+         <!--
+         <img src="eqns/anova13.gif"
+              alt="YHAT(ij) = uhat(i)">
+         -->
+         \( \hat{Y_{ij}} = \hat{\mu}_{i} \)
+         <p>
+         <!--
+         <img src="eqns/anova14.gif"
+              alt="R(ij) = Y(ij) - uhat(i)">
+         -->
+         \( R_{ij} = Y_{ij} - \hat{\mu}_{i} \)
+      </UL>
+      <p>
+      The second model is
+      <UL>
+         <!--
+         <img src="eqns/anova12.gif"
+              alt="Y(ij) = u + alpha(i) + E(ij)">
+         -->
+         \( Y_{ij} = \mu + \alpha_{i} + E_{ij} \)
+      </UL>
+      This model decomposes the response into an overall (grand) mean,
+      the effect of the <i>i</i>th factor level, and an error term.
+      The analysis of variance provides estimates of the grand mean and
+      the effect of the <i>i</i>th factor level.  The predicted
+      values and the residuals of the model are
+      <UL>
+         <!--
+         <img src="eqns/anova15.gif"
+              alt="YHAT(ij) = muhat + alphahat(i)">
+         -->
+         \( \hat{Y}_{ij} = \hat{\mu} + \hat{\alpha}_{i} \)
+         <p>
+         <!--
+         <img src="eqns/anova16.gif"
+              alt="R(ij) = Y(ij) - uhat - alphahat(i)">
+         -->
+         \( R_{ij} = Y_{ij} - \hat{\mu} - \hat{\alpha}_{i} \)
+      </UL>
+      <p>
+      The distinction between these models is that the second
+      model divides the cell mean into an overall mean and the effect
+      of the <i>i</i>-th factor level.  This second model makes the
+      factor effect more explicit, so we will emphasize this approach.
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Model Validation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Note that the ANOVA model assumes that the error term,
+<b><i>E<sub>ij</sub></i></b>, should follow the
+<a href="../section2/eda21.html">assumptions</a> for a
+univariate measurement process.  That is, after performing
+an analysis of variance, the model should be validated
+by <a href="../../pmd/section4/pmd44.html">analyzing the residuals</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+</TABLE>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<!-----begin section: sample output -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>One-Way ANOVA Example</I>
+   </td>
+<td width=85% valign=top>
+A one-way analysis of variance was generated for the 
+<a href="eda3581.html">GEAR.DAT</a> data set.  The data set 
+contains 10 measurements of gear diameter for ten 
+different batches for a total of 100 measurements. 
+<PRE>
+
+                   DEGREES OF     SUM OF      MEAN
+SOURCE              FREEDOM      SQUARES     SQUARE    <i>F</i> STATISTIC 
+----------------   ----------   --------    --------   -----------
+BATCH                   9       0.000729    0.000081      2.2969   
+RESIDUAL               90       0.003174    0.000035
+TOTAL (CORRECTED)      99       0.003903    0.000039
+  
+RESIDUAL STANDARD DEVIATION = 0.00594
+
+  
+BATCH     N      MEAN    SD(MEAN)
+---------------------------------
+  1      10    0.99800    0.00188
+  2      10    0.99910    0.00188
+  3      10    0.99540    0.00188
+  4      10    0.99820    0.00188
+  5      10    0.99190    0.00188
+  6      10    0.99880    0.00188
+  7      10    1.00150    0.00188
+  8      10    1.00040    0.00188
+  9      10    0.99830    0.00188
+ 10      10    0.99480    0.00188
+
+</PRE>
+The ANOVA table decomposes the variance into the following
+component <a href="../../prc/section4/prc421.html">sum of squares</a>:
+       <ul>
+          <li>Total sum of squares.  The degrees of freedom for
+              this entry is the number of observations minus one.
+          <li>Sum of squares for the factor.  The degrees of freedom
+              for this entry is the number of levels minus one.
+              The mean square is the sum of squares divided
+              by the number of degrees of freedom.
+          <li>Residual sum of squares.  The degrees of freedom is
+              the total degrees of freedom minus the factor degrees
+              of freedom.  The mean square is the sum of
+              squares divided by the number of degrees of freedom.
+       </ul>
+The sums of squares summarize how much of the variance in the
+data (total sum of squares) is accounted for by the factor effect 
+(batch sum of squares) and how much is random error (residual 
+sum of squares).  Ideally, we would like most of the variance 
+to be explained by the factor effect.  
+<P>
+The ANOVA table provides a formal <I>F</I> test for the factor effect.
+For our example, we are testing the following hypothesis.
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; H<SUB>0</SUB>:  All individual batch means are equal. <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; H<SUB>a</SUB>:  At least one batch mean is not equal to the others.
+<P> 
+The <I>F</I> statistic is the batch mean square divided by 
+the residual mean square.  This statistic follows an 
+<a href="eda365.html"><I>F</I> distribution</a>
+with (<i>k</i>-1) and (<i>N</i>-<i>k</i>) degrees of freedom.
+For our example, the critical <I>F</I> value (upper tail) for 
+<i>&alpha;</i> = 0.05, (<i>k</i>-1) = 9, and (<i>N</i>-<i>k</i>) = 90 
+is 1.9856.  Since the <I>F</I> statistic, 2.2969, is greater 
+than the critical value, we conclude that there is a significant 
+batch effect at the 0.05 level of significance.
+<P>  
+Once we have determined that there is a significant batch effect,
+we might be interested in comparing individual batch means.  
+The batch means and the standard errors of the batch means 
+provide some information about the individual batches.  However,
+we may want to employ multiple comparison methods for a
+more formal analysis.  (See 
+<a href="../section4/eda43.html#BHH">Box, Hunter, and Hunter</a>
+for more information.)
+<P>
+In addition to the quantitative ANOVA output, it is recommended
+that any analysis of variance be complemented with
+<a href="../../pmd/section4/pmd44.html">model validation</a>.
+At a minimum, this should include:
+<OL>
+   <LI>a <a href="runseqpl.html">run sequence plot</a> of the
+       residuals,
+   <LI>a <a href="normprpl.html">normal probability plot</a> of the
+       residuals, and
+   <LI>a <a href="scatterp.html">scatter plot</a> of the predicted
+       values against the residuals.
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Question
+      </I>
+   </td>
+   <td width=85% valign=top>
+     The analysis of variance can be used to answer the following
+     question
+     <UL>
+       <LI>Are means the same across groups in the data?
+     </OL> 
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Importance
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The analysis of uncertainty depends on whether the factor
+significantly affects the outcome.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="eda353.html">Two-sample <i>t</i>-test</a><br>
+      <a href="eda355.html">Multi-factor analysis of variance</a><br>
+      <a href="../../pmd/section1/pmd141.html">Regression</a><br>
+      <a href="boxplot.html">Box plot</a><br>
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Most general purpose statistical software programs can
+generate an analysis of variance.  Both 
+<a href="eda354.dp">Dataplot code</a> and 
+<a href="eda354.r">R code</a> can be used to generate the
+analyses in this section.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda3531.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda355.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda354.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:01 GMT -->
+</HTML>

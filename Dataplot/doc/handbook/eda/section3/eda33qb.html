@@ -1,0 +1,309 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33qb.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:36 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.26.11. Scatterplot Matrix</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33qc.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33qa.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.26.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33q.html">Scatter Plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.26.11.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Scatterplot Matrix</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!----- begin section: purpose -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Purpose: <br>
+Check Pairwise Relationships Between Variables
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Given a set of variables <b><i>X<sub>1</sub>, X<sub>2</sub>, ... ,
+X<sub>k</sub></i></b>, the scatterplot matrix contains all
+the pairwise scatter plots of the variables on a single page
+in a matrix format.  That is, if there are <i>k</i> variables, the
+scatterplot matrix will have <i>k</i> rows and <i>k</i> columns and
+the <i>i</i>th row and <i>j</i>th column of this matrix is a plot of
+<b><i>X<sub>i</sub></i></b> versus <b><i>X<sub>j</sub></i></b>.
+<P>
+Although the basic concept of the scatterplot matrix is simple,
+there are numerous alternatives in the details of the plots.
+<OL>
+   <LI>The diagonal plot is simply a 45-degree line since we
+       are plotting <b><i>X<sub>i</sub></i></b> versus
+       <b><i>X<sub>i</sub></i></b>.  Although this has some
+       usefulness in terms of showing the univariate distribution
+       of the variable, other alternatives are common.  Some
+       users prefer to use the diagonal to print the variable label.
+       Another alternative is to plot the univariate histogram on
+       the diagonal.  Alternatively, we could simply leave the
+       diagonal blank.
+       <P>
+   <LI>Since <b><i>X<sub>i</sub></i></b> versus
+       <b><i>X<sub>j</sub></i></b> is equivalent to
+       <b><i>X<sub>j</sub></i></b> versus
+       <b><i>X<sub>i</sub></i></b> with the axes reversed, some
+       prefer to omit the plots below the diagonal.
+       <P>
+   <LI>It can be helpful to overlay some type of fitted curve
+       on the scatter plot.  Although a linear or quadratic fit
+       can be used, the most common alternative is to overlay
+       a <a href="../../pmd/section1/pmd144.html">lowess</a>
+       curve.
+       <P>
+   <LI>Due to the potentially large number of plots, it can be
+       somewhat tricky to provide the axes labels in a way that is
+       both informative and visually pleasing.  One alternative that
+       seems to work well is to provide axis labels on alternating
+       rows and columns.  That is, row one will have tic marks
+       and axis labels on the left vertical axis for the first
+       plot only while row two will have the tic marks and axis
+       labels for the right vertical axis for the last plot in the
+       row only.  This alternating pattern continues for the
+       remaining rows.  A similar pattern is used for the columns
+       and the horizontal axes labels.  Another alternative is to
+       put the minimum and maximum scale value in the diagonal plot
+       with the variable name.
+       <P>
+   <LI>Some analysts prefer to connect the scatter plots.  Others
+       prefer to leave a little gap between each plot.
+       <P>
+   <LI>Although this plot type is most commonly used for scatter
+       plots, the basic concept is both simple and powerful and
+       extends easily to other plot formats that involve pairwise
+       plots such as the
+       <a href="qqplot.html">quantile-quantile plot</a> and the
+       <a href="bihistog.html">bihistogram</a>.
+</OL>
+
+</TD>
+</TR>
+
+<!----- begin section: Sample -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Plot
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<IMG SRC="gif/spmatr2.gif"
+     alt="sample scatterplot matrix">
+<P>
+This sample plot was generated from pollution data collected by
+NIST chemist Lloyd Currie.
+<P>
+There are a number of ways to view this plot.  If we are primarily
+interested in a particular variable, we can scan the row and column
+for that variable.  If we are interested in finding the strongest
+relationship, we can scan all the plots and then determine which
+variables are related.
+
+</TD>
+</TR>
+
+<!----- begin section: definition -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Definition
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Given <i>k</i> variables, scatter plot matrices are formed by creating
+<i>k</i> rows and <i>k</i> columns.  Each row and column defines a
+single scatter plot 
+<P>
+The individual plot for row <i>i</i> and column <i>j</i> is defined as
+<UL>
+   <li>Vertical axis: Variable <b><i>X<sub>i</sub></i></b>
+   <li>Horizontal axis: Variable <b><i>X<sub>j</sub></i></b>
+</UL>
+
+</TD>
+</TR>
+
+<!----- begin section: questions -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Questions</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The scatterplot matrix can provide answers to the following
+questions:
+<OL>
+   <LI>Are there pairwise relationships between the variables?
+   <LI>If there are relationships, what is the nature of these
+       relationships?
+   <LI>Are there outliers in the data?
+   <LI>Is there clustering by groups in the data?
+</OL>
+
+</TD>
+</TR>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Linking and Brushing
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The scatterplot matrix serves as the foundation for the
+concepts of linking and brushing.
+<P>
+By linking, we mean showing how a point, or set of points, behaves
+in each of the plots.  This is accomplished by highlighting these
+points in some fashion.  For example, the highlighted points could
+be drawn as a filled circle while the remaining points could be drawn
+as unfilled circles.  A typical application of this would be to
+show how an outlier shows up in each of the individual pairwise
+plots.  Brushing extends this concept a bit further.  In brushing,
+the points to be highlighted are interactively selected by a
+mouse and the scatterplot matrix is dynamically updated (ideally
+in real time).  That is, we can select a rectangular region of
+points in one plot and see how those points are reflected in the
+other plots.  Brushing is discussed in detail by Becker, Cleveland,
+and Wilks in the paper <I>"Dynamic Graphics for Data Analysis"</I>
+(<a href="../section4/eda43.html#Cleveland3">Cleveland and McGill,
+1988</a>).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+<!----- begin section: related techniques -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Related Techniques </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<a href="starplot.html">Star plot</a><br>
+<a href="scatterp.html">Scatter plot</a><br>
+<a href="condplot.html">Conditioning plot</a><br>
+<a href="../../pmd/section1/pmd144.html">Locally weighted least
+        squares</a><br>
+</TD>
+</TR>
+
+<!----- begin section: dataplot command -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Scatterplot matrices are becoming increasingly common in
+general purpose statistical software programs.  If
+a software program does not generate scatterplot matrices, but it
+does provide multiple plots per page and scatter plots, it should
+be possible to write a macro to generate a scatterplot matrix.
+Brushing is available in a few of the general purpose statistical
+software programs that emphasize graphical approaches.
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33qa.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33qc.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33qb.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:37 GMT -->
+</HTML>

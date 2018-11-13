@@ -1,0 +1,556 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5997.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:02 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.9.7. Motivation: How do we use the Model to Generate
+Predicted Values?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5998.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri5996.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri599.html">Cumulative residual standard deviation plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.9.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Motivation: How do we use the Model to Generate
+Predicted Values?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="designtable">
+<I>
+Design matrix with response for two factors
+</I>
+</A>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+To illustrate the details as to how a model may be used for prediction,
+let us consider a simple case and generalize from it.  Consider the
+simple Yates-order 2<sup>2</sup> full factorial design in <i>X</i><sub>1</sub>
+and <i>X</i><sub>2</sub>, augmented with a response vector <i>Y</i>:
+<UL>
+<TABLE WIDTH=150 NOBORDER>
+<tr>
+   <th valign=top align=center>
+      <i>X</i><sub>1</sub>
+   </th>
+   <th valign=top align=center>
+      <i>X</i><sub>2</sub>
+   </th>
+   <th valign=top align=center>
+      <i>Y</i>
+   </th>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      2
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      4
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      6
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      8
+   </td>
+</tr>
+</TABLE>
+</UL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Geometric representation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This can be represented geometrically
+<ul>
+   <img src="dpmacros/2x2des.gif"
+        alt="diagram of design with response points">
+</ul>
+<!--
+<pre>
+       +1 --------------
+          |6          8|
+          |            |
+          |            |
+     X2   |            |
+          |            |
+          |            |
+          |2          4|
+       -1 --------------
+          -1          +1
+                X1
+</pre>
+-->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Determining the prediction equation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+For this case, we might consider the model
+<ul>
+\( Y = c + B_{1}X_{1} + B_{2}X_{2} + B_{12}X_{1}X_{2} + \epsilon \)
+<!--
+<font size = "5"><pre><i>Y</i> = c + 
+<i>B</i><sub>1</sub>*<i>X</i><sub>1</sub> + 
+<i>B</i><sub>2</sub>*<i>X</i><sub>2</sub> + 
+<i>B</i><sub>12</sub>*<i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> + 
+&epsilon;
+</pre><font size = "3">
+-->
+</ul>
+From the above diagram, we may deduce that the estimated factor
+effects are:
+<ul>
+<table noborder>
+<tr>
+   <td valign=top align=center>
+      <i>c</i>
+   </td>
+   <td valign=top align=center>
+      =
+      <br>
+      =
+   </td>
+   <td valign=top align=left>
+      the average response = \( \bar{Y} \)
+      <!-- <img align=bottom src="eqns/ybar.gif" alt="Ybar"> -->
+      <br>
+      (2 + 4 + 6 + 8) / 4 = 5
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      <i>E</i><sub>1</sub>
+   </td>
+   <td valign=top align=center>
+      =
+      <br><br>
+      =
+   </td>
+   <td valign=top align=left>
+      average change in <i>Y</i> as <i>X</i><sub>1</sub> goes from -1 to +1
+      <br>
+      ((4-2) + (8-6)) / 2 = (2 + 2) / 2 = 2
+      <p>
+      Note: the (4-2) is the change in <i>Y</i> (due to
+      <i>X</i><sub>1</sub>) on the lower axis; the (8-6) is the change in
+      <i>Y</i> (due to <i>X</i><sub>1</sub>) on the upper axis.
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      <i>E</i><sub>2</sub>
+   </td>
+   <td valign=top align=center>
+      =
+      <br><br>
+      =
+   </td>
+   <td valign=top align=left>
+      average change in <i>Y</i> as <i>X</i><sub>2</sub> goes from -1 to +1
+      <br>
+      ((6-2) + (8-4)) / 2 = (4 + 4) / 2 = 4
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      <i>E</i><sub>12</sub>
+   </td>
+   <td valign=top align=center>
+      =
+      <br><br><br>
+      =
+   </td>
+   <td valign=top align=left>
+      interaction = (the less obvious) average change in <i>Y</i> as
+      <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> goes from -1 to +1
+      <br>
+      ((2-4) + (8-6)) / 2 = (-2 + 2) / 2 = 0
+   </td>
+</tr>
+</table>
+</ul>
+For factors coded using +1 and -1, the least-squares estimate of a
+coefficient is one half of the effect estimate (<i>B<sub>i</sub></i> =
+<i>E<sub>i</sub></i> / 2), so the fitted model (that is, the prediction
+equation) is
+<ul>
+\( \hat{Y} = 5 + 1 X_{1} + 2 X_{2} + 0 X_{1} X_{2} \)
+<!--
+ <img align=bottom src="eqns/yhat.gif" alt="Yhat"> = <font size = "4">
+5 + 1*<i>X</i><sub>1</sub> + 2*<i>X</i><sub>2</sub> + 
+0*<i>X</i><sub>1</sub>*<i>X</i><sub>2</sub><font size = "3">
+-->
+</ul>
+or with the terms rearranged in descending order of importance
+<ul>
+   <ul>
+      \( \hat{Y} = 5 + 2 X_{2} + X_{1} \)
+      <!--
+      <img align=bottom src="eqns/yhat.gif" alt="Yhat"> = <font size = "4">
+      5 + 2*<i>X</i><sub>2</sub> + <i>X</i><sub>1</sub>
+      <font size = "3">
+      -->
+  </ul>
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Table of fitted values
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Substituting the values for the four design points into this
+equation yields the following fitted values
+<UL>
+<TABLE WIDTH=150 NOBORDER>
+<tr>
+   <th valign=bottom align=center>
+      <i>X</i><sub>1</sub>
+   </th>
+   <th valign=bottom align=center>
+      <i>X</i><sub>2</sub>
+   </th>
+   <th valign=top align=center>
+      <i>Y</i>
+   </th>
+   <th valign=top align=center>
+      \( \scriptsize \hat{Y} \)
+      <!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat"> -->
+   </th>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      2
+   </td>
+   <td valign=top align=center>
+      2
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      4
+   </td>
+   <td valign=top align=center>
+      4
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      6
+   </td>
+   <td valign=top align=center>
+      6
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      8
+   </td>
+   <td valign=top align=center>
+      8
+   </td>
+</tr>
+</TABLE>
+</UL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Perfect fit
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This is a perfect-fit model.  Such perfect-fit models will result
+anytime (in this orthogonal 2-level design family) we include all main
+effects and all interactions.  Remarkably, this is true not only for
+<i>k</i> = 2 factors, but for general <i>k</i>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Residuals
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+For a given model (any model), the difference between the
+response value <i>Y</i> and the predicted value \( \hat{Y} \)
+<!-- <img align=bottom src="eqns/yhat.gif" alt="yhat"> -->
+is referred to as the "residual":
+<ul>
+   residual = Y - \( \small \hat{Y} \)
+   <!-- <img align=bottom src="eqns/yhat.gif" alt="yhat"> -->
+</ul>
+The perfect-fit full-blown (all main factors and all interactions of all
+orders) models will have all residuals identically zero.
+<p>
+The perfect fit is a mathematical property that comes if we choose to
+use the linear model with all possible terms.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Price for perfect fit
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+What price is paid for this perfect fit? One price is that the variance
+of \( \scriptsize \hat{Y} \)
+<!-- <img align=bottom src="eqns/yhat.gif" alt="yhat"> -->
+is increased unnecessarily.  In addition,  we have a non-parsimonious
+model.  We must compute and carry the average and the coefficients of
+all main effects and all interactions.  Including the average, there
+will in general be 2<sup><i>k</i></sup> coefficients
+to fully describe the fitting of the <i>n</i> = 2<sup><i>k</i></sup>
+points.  This is very much akin to the <i>Y</i> = <i>f</i>(<i>X</i>)
+polynomial fitting of <i>n</i> distinct points.  It is well known that
+this may be done "perfectly" by fitting a polynomial of degree
+<i>n</i>-1.  It is comforting to know that such perfection is
+mathematically attainable, but in practice do we want to do this all
+the time or even anytime? The answer is generally "no" for two reasons:
+<ol>
+   <li>Noise: It is very common that the response data <i>Y</i> has
+       noise (= error) in it.  Do we want to go out of our way to fit
+       such noise?  Or do we want our model to filter out the noise and
+       just fit the "signal"?  For the latter, fewer coefficients may
+       be in order, in the same spirit that we may forego a
+       perfect-fitting (but jagged) 11-th degree polynomial to 12 data
+       points, and opt out instead for an imperfect (but smoother) 3rd
+       degree polynomial fit to the 12 points.
+       <p>
+   <li>Parsimony: For full factorial designs, to fit the <i>n</i> =
+       2<sup><i>k</i></sup> points we would need to compute
+       2<sup><i>k</i></sup> coefficients.  We gain information by noting
+       the magnitude and sign of such coefficients, but numerically we
+       have <i>n</i> data values <i>Y</i> as input and <i>n</i>
+       coefficients <i>B</i> as output, and so no numerical reduction
+       has been achieved.  We have simply used one set of <i>n</i>
+       numbers (the data) to obtain another set of <i>n</i> numbers (the
+       coefficients).  Not all of these coefficients will be equally
+       important.  At times that importance becomes clouded by the sheer
+       volume of the <i>n</i> = 2<sup><i>k</i></sup> coefficients.
+       Parsimony suggests that our result should be simpler and
+       more focused than our <i>n</i> starting points.  Hence fewer
+       retained coefficients are called for.
+</ol>
+The net result is that in practice we almost always give up the
+perfect, but unwieldy, model for an imperfect, but parsimonious,
+model.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Imperfect fit
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The above calculations illustrated the computation of predicted values
+for the full model.  On the other hand, as discussed above, it will
+generally be convenient for signal or parsimony purposes to deliberately
+omit some unimportant factors.  When the analyst chooses such a model,
+we note that the methodology for computing predicted values
+\( \scriptsize \hat{Y} \)
+<!-- <img align=bottom src="eqns/yhat.gif" alt="yhat"> -->
+is precisely the same.  In such a case, however, the resulting predicted
+values will in general <b>not</b> be identical to the original response
+values <i>Y</i>; that is, we no longer obtain a perfect fit.  Thus, linear
+models that omit some terms will have virtually all non-zero residuals.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri5996.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5998.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5997.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:04 GMT -->
+</HTML>

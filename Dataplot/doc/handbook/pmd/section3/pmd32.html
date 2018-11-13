@@ -1,0 +1,421 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section3/pmd32.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.3.2. Why is experimental design important for process modeling?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd33.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd31.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd3.html">Data Collection for Process Modeling</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Why is experimental design important for process modeling?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Output from Process Model is Fitted Mathematical Function
+</I>
+</TD>
+<TD WIDTH=85%>
+The output from process modeling is a fitted mathematical function
+with estimated coefficients.  For example, in modeling resistivity,
+\(y\),
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">, -->
+as a function of dopant density, \(x\), 
+<!-- <IMG ALT="x" SRC="eqns/x.gif">, -->
+an analyst may suggest the function
+
+$$ y = \beta_{0} + \beta_{1}x + \beta_{11}x^{2} + \varepsilon $$
+
+<!-- <P><CENTER><IMG ALT=" 
+y = \beta_{0} + \beta_{1}x + \beta_{11}x^{2} + \epsilon
+" SRC="pmd32_eq1.gif"></center><P> -->
+
+in which the coefficients to be estimated are \(\beta_0\),
+<!-- <IMG ALT="\beta_0" ALIGN=middle SRC="eqns/beta0.gif">, -->
+\(\beta_1\), 
+<!-- <IMG ALT="\beta_1" ALIGN=middle SRC="eqns/beta1.gif">, -->
+and \(\beta_{11}\).
+<!-- <IMG ALT="\beta_{11}" ALIGN=middle SRC="eqns/beta11.gif">. -->
+Even for a given functional form, there is an infinite number of
+potential coefficient values that potentially may be used.  Each of
+these coefficient values will in turn yield predicted values.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+What are Good Coefficient Values?
+</I>
+</TD>
+<TD WIDTH=85%>
+Poor values of the coefficients are those for which the resulting
+predicted values are considerably different from the observed raw
+data \(y\).
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">. -->
+Good values of the coefficients are those
+for which the resulting predicted values are close to the observed
+raw data \(y\).
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">. -->
+The best values of the coefficients are those
+for which the resulting predicted values are close to the observed raw
+data \(y\),
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">, -->
+and the statistical uncertainty connected with each coefficient is small.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85%>
+There are two considerations that are useful for the generation
+of "best" coefficients:
+<OL>
+   <LI>Least squares criterion
+   <LI>Design of experiment principles
+</OL>
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Least Squares Criterion
+</I>
+</TD>
+<TD WIDTH=85%>
+For a given data set (e.g., 10 \((x,y)\) pairs),
+<!-- <IMG ALT="x" SRC="eqns/x.gif">,<IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">)pairs), -->
+the most common procedure for obtaining the coefficients for 
+
+$$ y = f(x;\vec{\beta} + \varepsilon) $$
+
+<!-- <p><center>
+<IMG ALT="y = f(x;\vec{\beta} + \epsilon)" 
+     align=absmiddle SRC="pmd32_eq3.gif"> 
+</center><p> -->
+
+is the <a href="../section4/pmd431.html">least squares estimation
+criterion</a>.  This criterion yields coefficients with
+predicted values that are closest to the raw data \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+in the sense that the sum of the squared differences between the
+raw data and the predicted values is as small as possible.
+<P>
+The overwhelming majority of regression programs today use
+the least squares criterion for estimating the
+model coefficients.  Least squares estimates are popular
+because
+<OL>
+   <LI>the estimators are statistically optimal
+       (BLUEs: Best Linear Unbiased Estimators);
+   <LI>the estimation algorithm is mathematically
+       tractable, in closed form, and therefore
+       easily programmable.
+</OL>
+How then can this be improved?  For a given set of \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values it cannot be; but frequently the choice of the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values is under our control.  If we can select the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values, the coefficients will have less variability than if the 
+\(x\) 
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+are not controlled.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Design of Experiment Principles
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+As to what values should be used for the \(x\)'s,
+<!-- <IMG ALT="x" SRC="eqns/x.gif">'s, -->
+we look to established experimental design principles for guidance.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Principle 1: Minimize Coefficient Estimation Variation
+</I>
+</TD>
+<TD WIDTH=85%>
+The first principle of experimental design is to 
+control the values within the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+vector such that after the \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+data are collected, the subsequent model
+coefficients are as good, in the sense of having the smallest
+variation, as possible.
+<P>
+The key underlying point with respect to design of
+experiments and process modeling is that even though (for
+simple \( (x,y) \)
+<!-- (<IMG ALT="x" SRC="eqns/x.gif">,<IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">) -->
+fitting, for example) the
+least squares criterion may yield optimal (minimal variation)
+estimators for a given distribution of \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values, some distributions of data in the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+vector may yield better (smaller variation) coefficient estimates 
+than other \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+vectors.  If the analyst can specify the values in the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+vector, then he or she may be able to drastically change and reduce the
+noisiness of the subsequent least squares coefficient estimates.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Five Designs
+</I>
+</TD>
+<TD WIDTH=85%>
+To see the effect of experimental design on process modeling,
+consider the following simplest case of fitting a line:
+
+$$ y = \beta_{0} + \beta_{1}x + \varepsilon $$
+
+<!-- <P><CENTER><IMG ALT=" 
+y = \beta_{0} + \beta_{1}x + \epsilon
+" SRC="pmd32_eq2.gif"></center><P> -->
+
+Suppose the analyst can afford 10 observations (that is, 10
+\( (x,y) \)
+<!-- (<IMG ALT="x" SRC="eqns/x.gif">,<IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">) -->
+pairs) for the purpose of
+determining optimal (that is, minimal variation) estimators of
+\( \beta_0\)
+<!-- <IMG ALT="\beta_0" ALIGN=middle SRC="eqns/beta0.gif"> -->
+and \(\beta_1\).
+<!-- <IMG ALT="\beta_1" ALIGN=middle SRC="eqns/beta1.gif">. -->
+What 10 \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values should be used for the purpose of
+collecting the corresponding 10 \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+values?  Colloquially, where should the 10 \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values be sprinkled along the horizontal axis so as to 
+minimize the variation of the least squares estimated coefficients for
+\(\beta_0\)
+<!-- <IMG ALT="\beta_0" ALIGN=middle SRC="eqns/beta0.gif"> -->
+and \(\beta_1\)?
+<!-- <IMG ALT="\beta_1" ALIGN=middle SRC="eqns/beta1.gif">? -->
+Should the 10 \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif">  -->
+values be:
+<OL>
+   <LI>ten equi-spaced values across the range of interest?
+   <LI>five replicated equi-spaced values across the range of
+       interest?
+   <LI>five values at the minimum of the \(x\)
+       <!-- <IMG ALT="x" SRC="eqns/x.gif"> --> 
+       range and five values at the maximum of the \(x\)
+       <!-- <IMG ALT="x" SRC="eqns/x.gif"> --> 
+       range?
+   <LI>one value at the minimum, eight values at the mid-range, and
+       one value at the maximum?
+   <LI>four values at the minimum, two values at mid-range, and
+       four values at the maximum?
+</OL>
+or (in terms of "quality" of the resulting estimates for
+\(\beta_0\)
+<!-- <IMG ALT="\beta_0" ALIGN=middle SRC="eqns/beta0.gif"> -->
+and \(\beta_1\))
+<!-- <IMG ALT="\beta_1" ALIGN=middle SRC="eqns/beta1.gif">) -->
+perhaps it doesn't make any difference?
+<P>
+For each of the above five experimental designs, there will of course be
+\(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+data collected, followed by the generation of least 
+squares estimates for \(\beta_0\)
+<!-- <IMG ALT="\beta_0" ALIGN=middle SRC="eqns/beta0.gif"> -->
+and \(\beta_1\),
+<!-- <IMG ALT="\beta_1" ALIGN=middle SRC="eqns/beta1.gif">, -->
+and so each design will in turn yield a fitted line.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Are the Fitted Lines Better for Some Designs?
+</I>
+</TD>
+<TD WIDTH=85%>
+But are the fitted lines, i.e., the fitted process models, better
+for some designs than for others?  Are the coefficient estimator
+variances smaller for some designs than for others?  For given
+estimates, are the resulting predicted values better (that is,
+closer to the observed \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+values) 
+than for other designs?  The
+answer to all of the above is YES.  It DOES make a difference.
+<P>
+The most popular answer to the above question about which
+design to use for linear modeling is design #1 with ten
+equi-spaced points. It can be shown, however, that the
+variance of the estimated slope parameter depends on the
+design according to the relationship
+
+$$ \mbox{Var}(\hat{\beta}_1) \propto \frac{1}{\sum_{i=1}^{n}(x_i-\bar{x})} $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\mbox{Var}(\hat{\beta}_1) \propto \frac{1}{\sum_{i=1}^{n}(x_i-\bar{x})}
+" SRC="eqns/ssx.gif">.</CENTER><BR> -->
+
+Therefore to obtain minimum variance estimators, one 
+maximizes the denominator on the right.  To maximize the
+denominator, it is (for an arbitrarily fixed \(\bar{x}\)),
+<!-- <IMG ALT="\bar{x}" valign=absmiddle SRC="eqns/xbar.gif">), -->
+best to position the \(x\)'s
+<!-- <IMG ALT="x" SRC="eqns/x.gif">'s -->
+as far away from \(\bar{x}\)
+<!-- <IMG ALT="\bar{x}" valign=absmiddle SRC="eqns/xbar.gif"> -->
+as possible.  This is done by positioning half of the \(x\)'s
+<!-- <IMG ALT="x" SRC="eqns/x.gif">'s -->
+at the lower extreme and the other half at the upper extreme.
+This is design #3 above, and this "dumbbell" design (half low and
+half high) is in fact the best possible design for fitting a line.
+Upon reflection, this is intuitively arrived at by the adage that
+"2 points define a line", and so it makes the most sense to determine
+those 2 points as far apart as possible (at the extremes) and as
+well as possible (having half the data at each extreme).
+Hence the design of experiment solution to model processing
+when the model is a line is the "dumbbell" design--half the
+\(x\)'s at each extreme.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+What is the Worst Design?
+</I>
+</TD>
+<TD WIDTH=85%>
+What is the worst design in the above case?  Of the five
+designs, the worst design is the one that has maximum
+variation.  In the mathematical expression above, it is
+the one that minimizes the denominator, and so this is
+design #4 above, for which almost all of the data are
+located at the mid-range.  Clearly the estimated line in
+this case is going to chase the solitary point at each end
+and so the resulting linear fit is intuitively inferior.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Designs 1, 2, and 5
+</I>
+</TD>
+<TD WIDTH=85%>
+What about the other 3 designs?  Designs 1, 2, and 5 are
+useful only for the case when we think the model may be
+linear, but we are not sure, and so we allow additional
+points that permit fitting a line if appropriate, but build
+into the design the "capacity" to fit beyond a line (e.g.,
+quadratic, cubic, etc.) if necessary.  In this regard, the
+ordering of the designs would be
+<UL>
+   <LI>design 5 (if our worst-case model is quadratic),
+   <LI>design 2 (if our worst-case model is quartic)
+   <LI>design 1 (if our worst-case model is quintic and beyond)
+</UL>
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd31.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd33.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section3/pmd32.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:13 GMT -->
+</HTML>

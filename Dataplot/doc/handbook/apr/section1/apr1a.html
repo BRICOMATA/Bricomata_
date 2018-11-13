@@ -1,0 +1,375 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr1a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.10. How can Bayesian methodology be used for reliability evaluation?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section2/apr2.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr193.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.10.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can Bayesian methodology be used for reliability evaluation?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Several
+Bayesian Methods overview topics are covered in this section</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->This section gives an overview
+of the application of Bayesian techniques in reliability investigations.
+The following topics are covered:
+<ul>
+<li>
+<a href="#What is Bayesian Methodology and why is it">What is Bayesian
+Methodology ?</a></li>
+
+<li>
+<a href="#Bayes Formula and Prior and Posterior Distribution">Bayes Formula,
+Prior and Posterior Distribution Models, and Conjugate Priors</a></li>
+
+<li>
+<a href="#How Bayes Methodology is used in System">How Bayesian Methodology
+is used in System Reliability Evaluation</a></li>
+
+<li>
+<a href="#Advantages and Disadvantages of using Bayes">Advantages and Disadvantages
+of using Bayes Methodology</a></li>
+</ul>
+<a NAME="What is Bayesian Methodology and why is it"></a><b>What is Bayesian
+Methodology?</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Bayesian analysis considers population parameters
+to be random, not fixed&nbsp;</i>
+<p><i>Old information, or subjective judgment, is used to determine a prior
+distribution for these population parameters</i></td>
+
+<td VALIGN=TOP WIDTH="85%">It makes a great deal of practical sense to
+use all the information available, old and/or new, objective or subjective,
+when making decisions under uncertainty. This is especially true when the
+consequences of the decisions can have a significant impact, financial
+or otherwise. Most of us make everyday personal decisions this way, using
+an intuitive process based on our experience and subjective judgments.&nbsp;
+<p>Mainstream statistical analysis, however, seeks objectivity by generally
+restricting the information used in an analysis to that obtained from a
+current set of clearly relevant data. Prior knowledge is not used except
+to suggest the choice of a particular population model to "fit" to the
+data, and this choice is later checked against the data for reasonableness.&nbsp;
+<p>Lifetime or repair models, as we saw earlier when we looked at <a href="apr17.html">repairable</a>
+and <a href="apr16.html">non repairable</a> reliability population models,
+have one or more unknown parameters. The <b>classical</b> statistical approach
+considers these parameters as fixed but unknown constants to be estimated
+(i.e., "guessed at") using sample data taken randomly from the population
+of interest. A confidence interval for an unknown parameter is really a
+frequency statement about the likelihood that numbers calculated from a
+sample capture the true parameter. Strictly speaking, one cannot make probability
+statements about the true parameter since it is fixed, not random.&nbsp;
+<p>The <b>Bayesian</b> approach, on the other hand, treats these population
+model parameters as random, not fixed, quantities. Before looking at the
+current data, we use old information, or even subjective judgments, to
+construct a <b>prior distribution model</b> for these parameters. This
+model expresses our starting assessment about how likely various values
+of the unknown parameters are. We then make use of the current data (via
+<b>Baye's
+formula</b>) to revise this starting assessment, deriving what is called
+the <b>posterior distribution model</b> for the population model parameters.
+Parameter estimates, along with confidence intervals (known as <b>credibility
+intervals</b>), are calculated directly from the posterior distribution.
+<b>Credibility</b>
+intervals are legitimate probability statements about the unknown parameters,
+since these parameters now are considered random, not fixed.&nbsp;
+<p>It is unlikely in most applications that data will ever exist to validate
+a chosen prior distribution model. Parametric Bayesian prior models are
+chosen because of their flexibility and mathematical convenience. In particular,
+<b>conjugate priors</b> (defined below) are a natural and popular choice
+of Bayesian prior distribution models.&nbsp;
+<p><a NAME="Bayes Formula and Prior and Posterior Distribution"></a><b>Bayes
+Formula, Prior and Posterior Distribution Models, and Conjugate Priors</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Bayes formula provides the mathematical tool
+that combines prior knowledge with current data to produce a posterior
+distribution</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Bayes formula is a useful equation from probability
+theory that expresses the conditional probability of an event A occurring,
+given that the event \(B\)
+<!-- <i>B</i> -->
+has occurred (written P\((A|B)\)),
+<!-- P(A|B)), -->
+in terms of
+unconditional probabilities and the probability the event \(B\)
+<!-- <i>B</i> -->
+has occurred, given that \(A\)
+<!-- <i>A</i> -->
+has occurred. In other words, Bayes formula
+inverts which of the events is the conditioning event. The formula is
+
+$$ \mbox{P}(A|B) = \frac{\mbox{P}(A,B)}{\mbox{P}(B)} = \frac{\mbox{P}(A) \cdot \mbox{P}(B|A)}{\mbox{P}(B)} \, , $$
+
+<!--
+<center>
+<p><img SRC="gifs/bayes.gif" ALT="P(A/B) = P(A,B)/P(B) = P(A)*P(B/A)/P(B)" ></center>
+-->
+
+and P(\(B\))
+<!-- <i>P(B</i>) -->
+in the denominator is further expanded by using the so-called
+"Law of Total Probability" to write
+
+$$ \mbox{P}(B) = \sum_{i=1}^n \mbox{P}(B|A_i) \mbox{ P}(A_i) \, , $$
+
+<!--
+<center><img SRC="eqns/totprob.gif" ALT="P(B) = SUM[i=1 to n]{P(B|Ai)*P(Ai)" ></center>
+<p>
+-->
+
+with the events \(A_i\)
+<!-- <i>A<sub>i</sub></i> -->
+being mutually exclusive and exhausting
+all possibilities and including the event \(A\)
+<!-- <i>A</i> -->
+as one of the \(A_i\).
+<!-- <i>A<sub>i</sub>.</i> -->
+<p>
+The same formula, written in terms of probability density function models,
+takes the form:
+
+$$ g(\lambda | x) = \frac{f(x | \lambda) g(\lambda)}{\int_0^\infty f(x | \lambda) g(\lambda) d \lambda} \, , $$
+
+<!--
+<center>
+<p><img SRC="eqns/bayesden.gif" ALT="g(lambda/x) = f(x|lambda)*g(lambda)/{INTEGRAL[0 to inf]f(x|lambda)*g(lambda)dlambda" >
+</center>
+<p>
+-->
+
+where \(f(x | \lambda)\)
+<!-- <i>f</i>(<i>x</i>|<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>) -->
+is the probability model, or likelihood function, for the observed data \(x\)
+<!-- <i>x</i> -->
+given the unknown parameter (or parameters) \(\lambda\), \(g(\lambda)\)
+<!-- <img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>,
+g(<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>) -->
+is the
+<b>prior distribution</b> model for \(\lambda\),
+<!-- <img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+and \(g(\lambda | x)\)
+<!-- <i>g</i>(<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>|<i>x</i>) -->
+is the <b>posterior distribution</b> model for \(\lambda\)
+<!-- <img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+given that the data \(x\)
+<!-- <i>x</i> -->
+have been observed.
+<p>
+When \(g(\lambda | x)\)
+<!-- <i>g</i>(<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>|<i>x</i>) -->
+and \(g(\lambda)\)
+<!-- <i>g</i>(<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>) -->
+both belong to the same distribution family, \(g(\lambda)\)
+<!-- <i>g</i>(<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>) -->
+and \(f(x | \lambda)\)
+<!-- <br><i>f</i>(<i>x</i>|<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>) -->
+are called
+<b>conjugate distributions</b> and \(g(\lambda)\)
+<!-- <i>g</i>(<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>) -->
+is the <b>conjugate prior</b> for \(f(x | \lambda)\).
+<!-- <i>f</i>(<i>x</i>|<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>). -->
+For example, the Beta distribution model is a conjugate prior for the proportion
+of successes \(p\) 
+<!-- <i>p</i> -->
+when samples have a binomial distribution. And the
+Gamma model is a conjugate prior for the failure rate \(\lambda\)
+<!-- &nbsp;<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+when sampling failure times or repair times from an exponentially distributed
+population. This latter conjugate pair (gamma, exponential) is used extensively
+in Bayesian system reliability applications.
+<p>
+<a NAME="How Bayes Methodology is used in System"></a>
+<b>How Bayes Methodology is used in System Reliability Evaluation</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Bayesian system reliability evaluation assumes
+the system MTBF is a random quantity "chosen" according to a prior distribution
+model</i></td>
+
+<td VALIGN=TOP WIDTH="85%">Models and assumptions for using Bayes methodology
+will be described in a <a href="../section2/apr25.html">later section</a>.
+Here we compare the classical paradigm versus the Bayesian paradigm when
+system reliability follows the <a href="apr171.html">HPP or exponential
+model</a> (i.e., the flat portion of the <a href="apr124.html">Bathtub Curve</a>).
+<p><b>Classical Paradigm For System Reliability Evaluation:</b>
+<ul>
+<li>
+The MTBF is one fixed unknown value - there is no “probability” associated
+with it</li>
+
+<li>
+Failure data from a test or observation period allows you to make inferences
+about the value of the true unknown MTBF</li>
+
+<li>
+No other data are used and no “judgment” - the procedure is objective and
+based solely on the test data and the assumed HPP model</li>
+</ul>
+<b>Bayesian Paradigm For System Reliability Evaluation:</b>
+<ul>
+<li>
+The MTBF is a random quantity with a probability distribution</li>
+
+<li>
+The particular piece of equipment or system you are testing “chooses” an
+MTBF from this distribution and you observe failure data that follow an
+HPP model with that MTBF</li>
+
+<li>
+Prior to running the test, you already have some idea of what the MTBF
+probability distribution looks like based on prior test data or an consensus
+engineering judgment&nbsp;</li>
+</ul>
+
+<p><br><a NAME="Advantages and Disadvantages of using Bayes"></a><b>Advantages
+and Disadvantages of using Bayes Methodology</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Pro's and con's for using Bayesian methods</i></td>
+
+<td VALIGN=TOP WIDTH="85%">While the primary motivation to use Bayesian
+reliability methods is typically a desire to save on test time and materials
+cost, there are other factors that should also be taken into account. The
+table below summarizes some of these "good news" and "bad news" considerations.&nbsp;
+<center>
+<h3>
+Bayesian Paradigm: Advantages and Disadvantages</h3></center>
+
+<table WIDTH="520" >
+<tr ALIGN=CENTER>
+<td><b>Pro's</b></td>
+
+<td><b>Con's</b></td>
+</tr>
+
+<tr>
+<td COLSPAN="2">
+<hr></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP>
+<ul>
+<li>
+Uses prior information - this "makes sense"</li>
+
+<li>
+If the prior information is encouraging, less new testing may be needed
+to confirm a desired MTBF at a given confidence</li>
+
+<li>
+Confidence intervals are really intervals for the (random) MTBF - sometimes
+called "credibility intervals"</li>
+</ul>
+</td>
+
+<td VALIGN=TOP>
+<ul>
+<li>
+Prior information may not be accurate - generating misleading conclusions</li>
+
+<li>
+Way of inputting prior information (choice of prior) may not be correct</li>
+
+<li>
+Customers may not accept validity of prior data or engineering judgements</li>
+
+<li>
+There is no one "correct way" of inputting prior information and different
+approaches can give different results</li>
+
+<li>
+Results aren't objective and don't stand by themselves</li>
+</ul>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr193.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section2/apr2.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr1a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+</HTML>

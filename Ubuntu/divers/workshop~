@@ -1,0 +1,29 @@
+#!/bin/sh
+
+windowid_list="`wmctrl -l | grep -o "$HOSTNAME.*" | sed "s/$HOSTNAME //g"`"
+if [ -n "${windowid_list}" ]; then      for windowid in ${windowid_list};      do          wmctrl -r "${windowid}" -e 0,0,0,-1,-1 ;      done; fi
+
+wmctrl -r firefox         -e 0,0,0,-1,-1
+wmctrl -r Zotero          -e 0,1980,0,-1,-1
+wmctrl -r Rstudio      -e 0,3774,0,-1,-1
+#wmctrl -r these.pdf      -e 0,5661,0,-1,-1
+
+wmctrl -r these.tex     -e 0,0   ,1056,-1,-1
+wmctrl -r these.pdf -e 0,1980,1056,-1,-1
+wmctrl -r these_slide.tex       -e 0,3774,1056,-1,-1
+wmctrl -r these_slide.pdf       -e 0,5661,1056,-1,-1
+
+wmctrl -r paper.tex     -e 0,0,2112,-1,-1
+wmctrl -r paper.pdf         -e 0,1887,2112,-1,-1
+wmctrl -r paper_slide.tex -e 0,3774,2112,-1,-1
+wmctrl -r paper_slide.pdf -e 0,5661,2112,-1,-1
+
+wmctrl -r survey.tex        -e 0,0,3168,-1,-1
+wmctrl -r survey.pdf         -e 0,1887,3168,-1,-1
+wmctrl -r survey_slide.tex       -e 0,3774,3168,-1,-1
+wmctrl -r survey_slide.pdf       -e 0,5661,3168,-1,-1
+
+#wmctrl -r Calendar        -e 0,0   ,4224,-1,-1
+#wmctrl -r thunderbird         -e 0,1887,4224,-1,-1
+#wmctrl -r "aghiles@dell: ~/Aghiles/Latex/res/storage" -e 0,3774,4224,-1,-1
+#wmctrl -r these_slide.pdf -e 0,5661,4224,-1,-1

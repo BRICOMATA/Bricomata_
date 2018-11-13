@@ -1,0 +1,243 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd133.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:19 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.1.3.3. Calibration</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd134.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd132.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd1.html">Introduction to Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd13.html">What are process models used for?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.1.3.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Calibration</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>More on Calibration</I>
+</TD>
+<TD WIDTH=85%>
+As mentioned in the <A HREF="pmd13.html">page introducing the different uses of
+process models</A>,
+the goal of calibration is to quantitatively convert measurements made on
+one of two measurement scales to the other measurement scale.  The
+two scales are generally not of equal importance, so the conversion occurs in only one
+direction.  The primary measurement scale is usually the scientifically 
+relevant scale and measurements made directly on this scale are often the
+more precise (relatively) than measurements made on the secondary scale.
+A process model describing the relationship between the two measurement
+scales provides the means for conversion.  A process model that is constructed
+primarily for the purpose of calibration is often referred to as a
+"calibration curve".  A graphical depiction of the calibration process is
+shown in the plot below, using the example described next.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="tc.r1">Example</A></I>
+</TD>
+<TD WIDTH=85%>
+Thermocouples are a common type of temperature measurement device that is
+often more practical than a thermometer for temperature assessment.
+Thermocouples measure temperature in terms of voltage, however, rather than
+directly on a temperature scale.  In addition, the response of a particular
+thermocouple depends on the exact formulation of the metals used to construct
+it, meaning two thermocouples will respond somewhat differently under identical
+measurement conditions.  As a result, thermocouples need to be calibrated to
+produce interpretable measurement information.  The calibration curve for a 
+thermocouple is often constructed by comparing thermocouple output to
+relatively precise thermometer data.  Then, when a new temperature is
+measured with the thermocouple, the voltage is converted to temperature
+terms by plugging the observed voltage into the regression equation and
+solving for temperature.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The plot below shows a calibration curve for a thermocouple fit with a
+locally quadratic model using a method called <A HREF="pmd144.html">LOESS</A>.
+Traditionally,
+complicated, high-degree polynomial models have been used for thermocouple
+calibration, but locally linear or quadratic models offer better
+computational stability and more flexibility.  With the locally quadratic
+model the solution of the regression equation for temperature is done
+numerically rather than analytically, but the concept of calibration is
+identical regardless of which type of model is used.  It is important to note
+that the thermocouple measurements, made on the secondary measurement scale,
+are treated as the response variable and the more precise thermometer results,
+on the primary scale, are treated as the predictor variable because this best
+satisfies the <A HREF="../section2/pmd216.html">underlying assumptions</A> of
+the analysis.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="tc.ms.plt">Thermocouple Calibration</A></I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/clb1.gif"><IMG SRC="plots/clb1.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="a calibration curve for a thermocouple fit"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Just as in estimation or prediction, if the calibration experiment were repeated, the
+results would vary slighly due to the randomness in the data and the need
+to sample a limited amount of data from the process.  This means that an
+uncertainty statement that quantifies how much the results of a particular
+calibration could vary due to randomness is necessary.  The plot below shows
+what would happen if the thermocouple calibration were repeated under
+conditions identical to the first experiment.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Calibration Result from Repeated Experiment</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/clb2.gif"><IMG SRC="plots/clb2.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="a calibration curve for a thermocouple fit in a repeated experiment"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Calibration Uncertainty</I>
+</TD>
+<TD WIDTH=85%>
+Again, as with prediction, the data used to fit the process model can also
+be used to determine the uncertainty in the calibration.  Both the variation
+in the estimated model parameters and in the new voltage observation need to
+be accounted for.  This is similar to uncertainty for the prediction  of a new
+measurement.  In fact, calibration intervals are computed by solving for the
+predictor variable value in the formulas for a prediction interval end points. 
+The plot below shows a 99 % calibration interval for the original calibration
+data used in the first plot on this page.  The area of interest in the plot has
+been magnified so the endpoints of the interval can be visually differentiated.
+The calibration interval is 387.3748 &plusmn; <!-- +/- --> 0.307 degrees Celsius.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/clb3.gif"><IMG SRC="plots/clb3.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="plot showing a 99% calibration interval for the original calibration data"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+In almost all calibration applications the ultimate
+quantity of  interest is the true value of the primary-scale measurement
+method associated with a measurement made on the secondary scale.  As a result,
+there are no analogs of the prediction interval or tolerance interval in
+calibration.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>More Info</I>
+</TD>
+<TD WIDTH=85%>
+More information on the construction and interpretation of calibration
+intervals can be found in <A HREF="../section5/pmd52.html">Section 5.2</A>
+of this chapter.  There is also more information on calibration, especially
+"one-point" calibrations and other special cases, in
+<A HREF="../../mpc/section3/mpc3.html">Section 3</A> of
+<A HREF="http://www.nist.gov/itl/">Chapter 2: Measurement Process Characterization</A>.
+</TD>
+</TR>
+
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd132.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd134.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd133.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:28 GMT -->
+</HTML>

@@ -1,0 +1,205 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc36.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:38 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.6. Instrument calibration over a regime</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc361.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc3522.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Instrument calibration over a regime</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Topics</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+This section discusses the creation of a calibration curve for
+calibrating instruments (gauges) whose responses cover a large range.
+Topics are:
+<UL>
+   <LI><A HREF="mpc361.html">Models for instrument calibration</A>
+   <LI><A HREF="mpc362.html">Data collection</A>
+   <LI><A HREF="mpc363.html">Assumptions</A>
+   <LI><A HREF="mpc364.html">Conditions that can invalidate the
+       calibration procedure</A>
+   <LI><A HREF="mpc365.html">Data analysis and model validation</A>
+   <LI><A HREF="mpc366.html">Calibration of future measurements</A>
+   <LI><A HREF="mpc367.html">Uncertainties of calibrated values</A>
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Purpose of instrument calibration</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+Instrument calibration is intended to eliminate or reduce
+<A HREF="../section1/mpc113.html">bias</A> in an instrument's readings
+over a range for all continuous values. For this purpose,
+<A HREF="../section1/mpc112.html">reference standards </A>with known 
+values for selected points covering the range of interest are measured
+with the instrument in question. Then a functional relationship is
+established between the values of the standards and the corresponding
+measurements.  There are two basic situations.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Instruments which require correction for bias</I>
+</TD>
+<TD>
+<UL>
+   <LI>The instrument reads in the same units as the reference
+       standards. The purpose of the calibration is to identify and
+       eliminate any bias in the instrument relative to the defined
+       unit of measurement. For example, optical imaging systems that
+       measure the width of lines on semiconductors read in micrometers,
+       the unit of interest.  Nonetheless, these instruments must be
+       calibrated to values of reference standards if line width
+       measurements across the industry are to agree with each other.
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Instruments whose measurements act as surrogates for other
+measurements</I>
+</TD>
+<TD>
+<UL>
+   <LI>The instrument reads in different units than the reference
+       standards. The purpose of the calibration is to convert the
+       instrument readings to the units of interest.  An example is
+       densitometer measurements that act as surrogates for
+       measurements of radiation dosage. For this purpose, reference
+       standards are irradiated at several dosage levels and then
+       measured by radiometry.  The same reference standards are
+       measured by densitometer.  The calibrated results of future
+       densitometer readings on medical devices are the basis for
+       deciding if the devices have been sterilized at the proper
+       radiation level.
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Basic steps for correcting the instrument for bias</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The calibration method is the same for both situations and requires
+the following basic steps:
+<UL>
+   <LI>Selection of reference standards with known values to cover
+       the range of interest.
+   <LI>Measurements on the reference standards with the instrument to
+       be calibrated.
+   <LI>Functional relationship between the measured and known values
+       of the reference standards (usually a least-squares fit to the
+       data) called a <B>calibration curve</B>.
+   <LI>Correction of all measurements by the inverse of the
+       calibration curve.
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Schematic example of a calibration curve and resulting value</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="plot">A schematic explanation is provided by the figure below 
+for load cell calibration.  The <A HREF="mpc3651.html">loadcell
+measurements</A> (shown as *) are plotted on the <i>y</i>-axis against
+the corresponding values of known load shown on the <i>x</i>-axis.
+<P>
+A <A HREF="mpc365.html">quadratic fit to the loadcell data</A> produces
+the calibration curve that is shown as the solid line.  For a future
+measurement with the load cell, <I>Y'</I> = 1.344 on the <i>y</i>-axis,
+a dotted line is drawn through <I>Y'</I> parallel to the <i>x</i>-axis.
+At the point where it intersects the calibration curve, another
+dotted line is drawn parallel to the y-axis. Its point of
+intersection with the <i>x</i>-axis at <I>X'</I> = 13.417 is the
+calibrated value.
+<IMG SRC="mpc36.gif"
+     alt="Quadratic calibration curve for loadcell">
+</TD>
+</TR>
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc3522.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc361.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc36.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:39 GMT -->
+</HTML>

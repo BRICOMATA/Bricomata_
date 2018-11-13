@@ -1,0 +1,522 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section5/pmc53.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.5.3. Elements of Matrix Algebra</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc531.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc52.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc5.html">Tutorials</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.5.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Elements of Matrix Algebra</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Elementary Matrix Algebra</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Basic definitions and operations of matrix algebra - needed
+for multivariate analysis</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Vectors and matrices are arrays of numbers. The algebra for symbolic
+operations on them is different from the algebra for operations on
+scalars, or single numbers.  For example there is no division in
+matrix algebra, although there is an operation called "multiplying
+by an inverse".  It is possible to express the exact equivalent of
+matrix algebra equations in terms of scalar algebra expressions, but
+the results look rather messy.
+<p>
+It can be said that the matrix algebra notation is shorthand for the
+corresponding scalar longhand.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Vectors
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+A <i>vector</i> is a column of numbers.
+
+$$ {\bf a} = \left[ \begin{array}{c} a_1 \\ a_2 \\ \vdots \\ a_p \end{array} \right] $$
+
+<center>
+<!-- <img SRC="eqns/mat2.gif" height=145 width=62 -->
+<!--
+<img SRC="eqns/mat2new.gif"
+     ALT="a = [a1 a2 ... ap]">
+-->
+</center>
+<p>
+The scalars \(a_i\)
+<!-- <i>a<sub>i</sub></i><sub> </sub> -->
+are the elements of vector \({\bf a}\).
+<!-- <b>a</b>. -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Transpose
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The <i>transpose</i> of \({\bf a}\),
+<!-- <b>a,</b> -->
+denoted by \({\bf a}'\),
+<!-- <b>a'</b>, -->
+is the row arrangement of the elements of \({\bf a}\).
+<!-- <b>a</b>. -->
+
+$$ {\bf a}' = \left[ a_1 \,\,\, a_2 \,\,\, \cdots \,\,\, a_p \right] $$
+
+<!--
+<center>
+<img SRC="eqns/mat3.gif" height=76 width=154
+     ALT="a' = [a1 a2 ... ap]">
+</center>
+-->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Sum of two vectors
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The <b>sum of two vectors</b> (say, \({\bf a}\) and \({\bf b}\))
+<!-- <i>a</i> and <i>b</i>) -->
+is the vector of sums of corresponding elements.
+
+$$ {\bf a} + {\bf b} = \left[ \begin{array}{c} a_1 + b_1 \\ a_2 + b_2 \\ \vdots \\ a_p + b_p \end{array} \right] $$
+
+<!--
+<center>
+<img SRC="eqns/mat4.gif" height=145 width=117
+     ALT="a + b = [a1+b1   a2+b2   ....   ap+bp">
+</center>
+-->
+The difference of two vectors is the vector of differences of
+corresponding elements.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Product of \({\bf a}'{\bf b}\)
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The <b>product</b> \({\bf a}'{\bf b}\) is a scalar formed by
+
+$$ {\bf a}'{\bf b} = \left[ a_1 b_1 + a_2 b_2 + \cdots + a_p b_p \right] $$
+
+<!--
+<center>
+<img SRC="eqns/mat5.gif" height=76 width=238
+     ALT="a'b = [a1*b1 + a2*b2 + ... + ap*bp]">
+</center>
+-->
+which may be written in shortcut notation as
+
+$$ c = \sum_{i=1}^p a_i b_i \, , $$
+
+<!--
+<center>
+<img SRC="eqns/mat1.gif" height=92 width=68
+     ALT="c = SUM[i=1 to p][a(i)*b(i)]">
+</center>
+-->
+where \(a_i\) and \(b_i\)
+<!-- <i>a<sub>i</sub></i> and <i>b<sub>i</sub></i> -->
+are the \(i\)th
+<!-- <i>i</i>th -->
+elements of vectors \({\bf a}\) and \({\bf b}\),
+<!-- <b>a</b> and <b>b</b>, -->
+respectively.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Product of \({\bf ab}'\)
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The <b>product</b> \({\bf ab}'\) is a <i>square matrix</i>
+
+$$ {\bf ab}' = \left[ \begin{array}{cccc} 
+    a_1 b_1 & a_1 b_2 & \cdots & a_1 b_p \\ 
+    a_2 b_1 & a_2 b_2 & \cdots & a_2 b_p \\ 
+    \vdots  & \vdots  &       & \vdots  \\
+    a_p b_1 & a_p b_2 & \cdots & a_p b_p 
+   \end{array} \right]
+$$
+
+<!--
+<center>
+<img SRC="eqns/mat6.gif" height=145 width=208 ALT="ab' =
+ [a1*b1   a1*b2   ...   a1*bp;
+  a2*b1   a2*b2   ...  a2*bp;
+              ....          ;
+  ap*b1   ap*b2   ...  ap*bp]">
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Product of scalar times a vector
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The product of a scalar (\(k\))
+<!-- <i> k</i>, -->
+times a vector (\({\bf a}\)) 
+<!-- <b> a</b> -->
+is \(k\)
+<!-- <i>k</i> -->
+times each element of \({\bf a}\).
+<!-- <b>a</b> -->
+
+$$ k{\bf a}  = {\bf a}k = \left[ \begin{array}{c} k a_1 \\ k a_2 \\ \vdots \\ k a_p \end{array} \right] $$
+
+<!--
+<center>
+<img SRC="eqns/mat7.gif" height=145 width=110
+     ALT="k*a = a*k = [k*a1   k*a2   ...   k*ap]">
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+A matrix is a rectangular table of numbers
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+A matrix is a rectangular table of numbers, with \(p\)
+<!-- <i>p</i> -->
+rows and \(n\)
+<!-- <i>n</i>  -->
+columns.  It is also referred to as an array of \(n\)
+<!-- <i>n</i> -->
+column vectors of length \(p\).
+<!-- <i>p.</i> -->
+Thus
+
+$$ {\bf A} = \left[ \begin{array}{cccc} 
+    a_{11} & a_{12} & \cdots & a_{1n} \\ 
+    a_{21} & a_{22} & \cdots & a_{2n} \\ 
+    \vdots  & \vdots  &       & \vdots  \\
+    a_{p1} & a_{p2} & \cdots & a_{pn} 
+   \end{array} \right]
+$$
+
+<!--
+<center>
+<img SRC="eqns/mat8.gif" height=145 width=174 ALT="A =
+ [a11   a12   ...   a1n;
+  a21   a22   ...   a2n;
+          ....         ;
+  ap1   ap2   ...   apn]">
+</center>
+-->
+
+is a \(p\) by \(n\)
+<!-- <i>p</i> by <i>n</i> -->
+matrix.  The typical element of \({\bf A}\) is \(a_{ij}\),
+<!-- <b>A</b> is <i>a<sub>ij</sub></i>, -->
+denoting the element of row \(i\) and column \(j\).
+<!-- <i>i</i> and column <i>j</i>. -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Matrix addition and subtraction
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Matrices are <b>added and subtracted </b>on an element-by-element
+basis.  Thus
+
+$$ {\bf A}+{\bf B} = \left[ \begin{array}{cccc} 
+    a_{11} + b_{11} & a_{12} + b_{12} & \cdots & a_{1n} + b_{1n} \\ 
+    a_{21} + b_{21} & a_{22} + b_{22} & \cdots & a_{2n} + b_{2n} \\ 
+    \vdots  & \vdots  &       & \vdots  \\
+    a_{p1} + b_{p1} & a_{p2} + b_{p2} & \cdots & a_{pn} + b_{pn} 
+   \end{array} \right]
+$$
+
+<!--
+<center>
+<img SRC="eqns/mat9.gif" height=145 width=309  ALT="A + B =
+ [a11+b11   a12+b12   ...   a1n+b1n;
+  a21+b21   a22+b22   ...   a2n+b2n;
+                  ....             ;
+  ap1+bp1   ap2+bp2   ...   apn+bpn]">
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Matrix multiplication
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Matrix<b> multiplication</b> involves the computation of the sum
+of the products of elements from a row of the first matrix (the
+premultiplier on the left) and a column of the second matrix (the
+postmultiplier on the right).  This sum of products is computed for
+every combination of rows and columns.  For example, if \({\bf A}\)
+<!-- <b>A</b> -->
+is a \(2 \times 3\)
+<!-- 2 x 3 -->
+matrix and \({\bf B}\)
+<!-- <b>B</b> -->
+is a \(3 \times 2\)
+<!-- 3 x 2 -->
+matrix, the product \({\bf AB}\)
+<!-- <b>AB</b> -->
+is
+
+$$ {\bf AB} = \left[ \begin{array}{cc} 
+ a_{11} b_{11} + a_{12} b_{21} + a_{13} b_{31} &  a_{11} b_{12} + a_{12} b_{22} + a_{13} b_{32} \\
+ a_{21} b_{11} + a_{22} b_{21} + a_{23} b_{31} &  a_{21} b_{12} + a_{22} b_{22} + a_{23} b_{32} \, .
+\end{array} \right]
+$$
+
+<!--
+<center>
+<img SRC="eqns/mat10.gif" height=94 width=364 ALT="A*B =
+[a11*b11+a12*b21+a13*b31   a11*b12+a12*b22+a13*b32;
+ a21*b11+a22*b21+a23*b31   a21*b12+a22*b22+a23*b32]">
+</center>
+-->
+Thus, the product is a \(2 \times 2\) matrix.  This came about as follows:
+The <u>number of columns</u> of \({\bf A}\)
+<!-- <b>A</b> -->
+must be equal to the <u>number of rows</u> of \({\bf B}\).
+<!-- <b> B.</b></u> --> 
+In this case this is 3.  If they
+are not equal, multiplication is impossible.  If they are equal, then
+the number of rows of the product \({\bf AB}\)
+<!-- <b>AB</b> -->
+is equal to the number of rows of \({\bf A}\)
+<!-- <b>A</b> -->
+and the number of columns is equal to the number of columns of \({\bf B}\).
+<!-- <b>B</b>. ->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Example of \(3 \times 2\) matrix multiplied by a \(2 \times 3\)
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+It follows that the result of the product \({\bf BA}\)
+<!-- <b>BA</b> -->
+is a \(3 \times 3\) matrix.
+
+$$ {\bf BA} = \left[ \begin{array}{ccc} 
+ b_{11} a_{11} + b_{12} a_{21} & b_{11} a_{12} + b_{12} a_{22} & b_{11} a_{13} + b_{12} a_{23} \\
+ b_{21} a_{11} + b_{22} a_{21} & b_{21} a_{12} + b_{22} a_{22} & b_{21} a_{13} + b_{22} a_{23} \\
+ b_{31} a_{11} + b_{32} a_{21} & b_{31} a_{12} + b_{32} a_{22} & b_{31} a_{13} + b_{32} a_{23} 
+\end{array} \right]
+$$
+
+<!--
+<p>
+<img SRC="eqns/mat11.gif" height=118 width=362 ALT="B*A =
+[b11*a11+b12*a21   b11*a12+b12*a22   b11*a13+b12*a23;
+ b21*a11+b22*a21   b21*a12+b22*a22   b21*a13+b22*a23;
+ b31*a11+b32*a21   b31*a12+b32*a22   b31*a13+b32*a23]">
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<I>
+General case for matrix multiplication
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+In general, if \({\bf A}\) is a \(k \times p\)
+<!-- <b>A</b> is a <i>k x p</i> -->
+matrix and \({\bf B}\) is a \(p \times n\)
+<!-- <b>B</b> is a <i>p</i> x <i>n</i> -->
+matrix, the product \({\bf AB}\) is a \(k \times n\)
+<!-- <b>AB</b> is a <i>k x n</i> -->
+matrix.  If \(k = n\),
+<!-- <i>k = n</i>, -->
+then the product \({\bf BA}\)
+<!-- <b>BA</b> -->
+can also be formed.  We say that matrices conform for the operations
+of addition, subtraction or multiplication when their respective
+orders (numbers of row and columns) are such as to permit the
+operations.  Matrices that do not conform for addition or
+subtraction cannot be added or subtracted.  Matrices that do not
+conform for multiplication cannot be multiplied.
+</td>
+</tr>
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc52.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc531.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section5/pmc53.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:11 GMT -->
+</HTML>

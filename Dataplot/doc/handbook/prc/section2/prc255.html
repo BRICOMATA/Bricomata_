@@ -1,0 +1,240 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc255.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:34:59 GMT -->
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.5.5. Tolerance intervals based on the largest and smallest observations</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section3/prc3.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc254.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.html">Comparisons based on data from one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc25.html">What intervals contain a fixed percentage of the population values?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.5.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Tolerance intervals based on the largest and smallest observations</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+</tr>
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Tolerance intervals can be constructed for a distribution of any form</i>
+</td>
+<td VALIGN=TOP WIDTH="85%">
+The methods on the previous pages for computing tolerance limits are based
+on the assumption that the measurements come from a normal distribution.
+If the distribution is not normal, tolerance intervals based on this
+assumption will not provide coverage for the intended proportion
+<i>p</i> of the population.   However, there are methods for achieving the
+intended coverage if the form of the distribution is not known, but these
+methods may produce substantially wider tolerance intervals.
+</TD>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Risks associated with making assumptions about the distribution</i>
+</td>
+<td VALIGN=TOP WIDTH="85%">
+There are situations where it would be particularly dangerous to make
+unwarranted assumptions about the exact shape of the distribution, for
+example, when testing the strength of glass for airplane windshields where
+it is imperative that a very large proportion of the population fall within
+acceptable limits.
+</TD>
+</TR>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Tolerance intervals based on largest and smallest observations</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+One obvious choice for a two-sided tolerance interval for an unknown
+distribution is the interval between the smallest and largest observations
+from a sample of <i>Y</i><sub>1</sub>, ..., <i>Y<sub>N</sub></i>
+measurements.  This choice does not allow us to choose the confidence and
+coverage levels that are desired, but it does permit calculation of'
+combinations of confidence and  coverage that match this choice.
+</TD>
+</TR>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Dataplot calculations for distribution-free tolerance intervals</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The Dataplot commands for calculating confidence and coverage levels
+corresponding to a tolerance interval defined as the interval between the
+smallest and largest observations are given below.  The commands that are
+invoked for twenty-five
+<a href="../../mpc/section6/mpc6211.html">measurements of resistivity from a
+quality control study</A> are the same as for producing
+<a href="prc253.html#normaltol">tolerance intervals for a normal
+distribution</a>; namely,
+<FONT COLOR="#D60081">
+<pre>
+read 100ohm.dat cr wafer mo day h min ...
+     op hum probe temp y sw df
+tolerance y
+</font></pre>
+Automatic output for combinations of confidence and coverage is shown
+below:
+<FONT COLOR="#D60081">
+<pre>
+ 2-SIDED DISTRIBUTION-FREE TOLERANCE LIMITS: 
+
+ INVOLVING XMIN = 97.01400  AND  XMAX = 97.11400
+     CONFIDENCE (%)       COVERAGE (%)
+           100.0       0.5000000E+02
+            99.3       0.7500000E+02
+            72.9       0.9000000E+02
+            35.8       0.9500000E+02
+            12.9       0.9750000E+02
+             2.6       0.9900000E+02
+             0.7       0.9950000E+02
+             0.0       0.9990000E+02
+             0.0       0.9995000E+02
+             0.0       0.9999000E+02
+</font></pre>                                        
+Note that if 99% confidence is required, the interval that covers the
+entire sample data set is guaranteed to achieve a coverage of only 75%
+of the population values.
+</TD>
+</TR>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>What is the optimal sample size?</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Another question of interest is, "How large should a sample be so that
+one can be assured with probability
+<img align=abscenter src="gifs/gamma.gif" alt="gamma"> that the tolerance
+interval will contain at least a proportion  <i>p</i> of the population?"
+</TD>
+</TR>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Approximation for N</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A rather good approximation for the required sample size is given by
+<P>
+<center>
+<img SRC="gifs/Napp.gif" ALT=
+     "N is approximately (1/4)*[(1+p)/(1-p)]*Chi-Square(1-gamma,4) + 0.5">
+</center>
+<P>
+where <img align=absmiddle src="gifs/chig4.gif" alt="Chi-Square(1-gamma,4)">
+is the critical value of the chi-square distribution with 4 degrees of
+freedom that is exceeded with probability 1 -
+<img align=abscenter src="gifs/gamma.gif" alt="gamma">. 
+</TD>
+</TR>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Example of the effect of p on the sample size</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Suppose we want to know how many measurements to make in order to guarantee
+that the interval between the smallest and largest observations covers a
+proportion <i>p</i> of the population with probability
+<img align=abscenter src="gifs/gamma.gif" alt="gamma">=0.95.  From the
+table for the <a href="../../eda/section3/eda3674.html">upper critical value
+of the chi-square distribution</A>, look under the column labeled 0.05 in
+the row for 4 degrees of freedom.  The value is found to be
+<img align=absmiddle src = "gifs/chig4ex.gif" alt="Chi-Square(.05,4)"> and
+calculations are shown below for <i>p</i> equal to 0.90 and 0.99.
+<P>
+<center>
+<img SRC="gifs/Nappex.gif" alt=
+"p = .90, gamma = .95 => N is approximately
+ (1/4)*((1+.90)/(1-.90))*Chi-Square(.05,4) + 0.5 = .25*19*9.488 + 0.5 =
+ 45.57 = 46
+ p = .99, gamma = .95 => N is approximately
+ (1/4)*((1+.99)/(1-.99))*Chi-Square(.05,4) + 0.5 = .25*199*9.488 + 0.5 =
+ 472.5 = 473">
+</CENTER>
+<P>
+These calculations demonstrate that requiring the tolerance interval to
+cover a very large proportion of the population may lead to an unacceptably
+large sample size.
+
+</td>
+</tr>
+
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc254.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section3/prc3.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc255.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:35:07 GMT -->
+</HTML>

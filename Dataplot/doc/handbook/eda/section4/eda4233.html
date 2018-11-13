@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4233.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:54:23 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.3.3. Develop A  Better Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4234.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4232.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda423.html">Random Walk</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.3.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Develop A  Better Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Lag Plot Suggests Better Model
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Since the underlying assumptions did not hold, we need to develop
+a better model.
+<P>
+The lag plot showed a distinct linear pattern.  Given the definition of
+the lag plot, <b><i>Y<sub>i</sub></i></b> versus
+<b><i>Y<sub>i-1</sub></i></b>, a good candidate model is a model of the
+form
+<UL>
+    <!--
+    <img src="eqns/armodel.gif" alt="Y(i) = A0 + A1*Y*i-1) + E(i)">
+    -->
+    \( Y_{i} = A_0 + A_1*Y_{i-1} + E_{i} \)
+</UL>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Fit Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The results of a <a href="../../pmd/section1/pmd141.html">linear fit</a> 
+of this model generated the following results.
+<PRE>
+      Coefficient    Estimate     Stan. Error   <I>t</I>-Value
+          A<sub>0</sub>         0.050165      0.024171       2.075
+          A<sub>1</sub>         0.987087      0.006313     156.350 
+ 
+      Residual Standard Deviation = 0.2931
+      Residual Degrees of Freedom = 497 
+</PRE>
+<P>
+The slope parameter, <I>A</I><SUB>1</SUB>, has a
+<a href="../../pmd/section4/pmd43.html">t value</a> of 156.350
+which is statistically significant.  Also, the residual standard
+deviation is 0.2931.  This can be compared to the standard deviation
+<a href="eda4232.html#SUMMARY">shown in the summary table</a>, which
+is 2.078675.  That is, the fit to the autoregressive model has reduced
+the variability by a factor of 7.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Time Series Model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+This model is an example of a time series model.  More extensive
+discussion of time series is given in the
+<a href="../../pmc/section4/pmc4.html">Process Monitoring</a>
+chapter.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4232.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4234.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4233.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:54:23 GMT -->
+</HTML>

@@ -1,0 +1,404 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda333.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:25 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.3. Block Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda334.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda332.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Block Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!----- begin section: purpose -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Purpose: <br>
+Check to determine
+if a factor of interest
+has an effect robust
+over all other factors
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The block plot (<a href="../section4/eda43.html#Filliben">Filliben
+1993</a>) is an EDA tool for assessing whether the factor of interest
+(the primary factor) has a statistically significant effect on the
+response, and whether that conclusion about the primary factor effect
+is valid robustly over all other nuisance or secondary factors in
+the experiment.
+<P>
+It replaces the <a href="../../prc/section4/prc42.html">analysis of
+variance test</a> with a less assumption-dependent binomial test
+and should be routinely used whenever we are trying to robustly
+decide whether a primary factor has an effect.
+
+</TD>
+</TR>
+
+<!----- begin section: Sample plot -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Plot:<br>
+Weld method 2 is lower (better) than weld method 1 in 10 of 12 cases
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<IMG SRC="../gif/blockplo.gif"
+alt="block plot revealing that weld method 2 is
+ better than weld method 1 in 10 of 12 cases"
+
+>
+<P>
+This block plot reveals that in 10 of the 12 cases (bars), weld
+method 2 is lower (better) than weld method 1.  From a binomial
+point of view, weld method is statistically significant.
+
+</td>
+</tr>
+
+<!----- begin section: definition -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Definition
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Block Plots are formed as follows:
+<UL>
+<li> Vertical axis: Response variable Y
+<li> Horizontal axis: All combinations of all levels
+     of all nuisance (secondary) factors X1, X2, ...
+<li> Plot Character: Levels of the primary factor XP
+</UL>
+
+</TD>
+</TR>
+
+<!----- begin section: Discussion -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Discussion:<br>
+Primary factor is denoted by plot character: within-bar plot character.
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Average number of defective lead wires per hour from a study with
+four factors,
+<ol>
+   <li> weld strength (2 levels)
+   <li> plant (2 levels)
+   <li> speed (2 levels)
+   <li> shift (3 levels)
+</ol>
+are shown in the plot above.  Weld strength is the primary factor and
+the other three factors are nuisance factors.  The 12 distinct
+positions along the horizontal axis correspond to all possible
+combinations of the three nuisance factors, i.e.,  12 = 2 plants x 
+2 speeds x 3 shifts.  These 12 conditions provide the framework for
+assessing whether any conclusions about the 2 levels of the primary
+factor (weld method) can truly be called "general conclusions".  If
+we find that one weld method setting does better (smaller average
+defects per hour) than the other weld method setting for all or most
+of these 12 nuisance factor combinations, then the
+conclusion is in fact general and robust.
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Ordering along the horizontal axis
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In the above chart, the ordering along the horizontal axis is as
+follows:
+<ul>
+   <li>The left 6 bars are from plant 1 and the right 6
+       bars are from plant 2.
+   <li>The first 3 bars are from speed 1, the next 3 bars are from
+       speed 2, the next 3 bars are from speed 1, and the last 3 bars
+       are from speed 2.
+   <li>Bars 1, 4, 7, and 10 are from the first shift,
+       bars 2, 5, 8, and 11 are from the second shift, and
+       bars 3, 6, 9, and 12 are from the third shift.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Setting 2 is better than setting 1 in 10 out of 12 cases
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In the block plot for the first bar (plant 1, speed 1, shift 1),
+weld method 1 yields about 28 defects per hour while weld method 2
+yields about 22 defects per hour--hence the difference for this
+combination is about 6 defects per hour and weld method 2
+is seen to be better (smaller number of defects per hour).
+<p>
+Is "weld method 2 is better than weld method 1" a general
+conclusion?
+<p>
+For the second bar (plant 1, speed 1, shift 2), weld method 1 is 
+about 37 while weld method 2 is only about 18.  Thus weld method 2 is
+again seen to be better than weld method 1.  Similarly for bar 3
+(plant 1, speed 1, shift 3), we see weld method 2 is smaller than weld
+method 1.  Scanning over all of the 12 bars, we see that
+weld method 2 is smaller than weld method 1 in 10 of the 12 cases,
+which is highly suggestive of a robust weld method effect.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+An event with chance probability of only 2%
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+What is the chance of 10 out of 12 happening by chance? This is
+probabilistically equivalent to testing whether a coin is fair by
+flipping it and getting 10 heads in 12 tosses.  The chance 
+(<a href="eda366i.html">from the binomial distribution</a>) of getting
+10 (or more extreme: 11, 12) heads in 12 flips of a fair coin is
+about 2%.  Such low-probability events are usually rejected as
+untenable and in practice we would conclude that there is a difference
+in weld methods.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!----- begin section: advantage -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Advantage:<br>
+Graphical and binomial
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The advantages of the block plot are as follows:
+<ul>
+   <li>A quantitative procedure (analysis of variance) is replaced
+       by a graphical procedure.
+   <li>An F-test (analysis of variance) is replaced with a binomial
+       test, which requires fewer assumptions.
+</UL>
+
+</TD>
+</TR>
+
+<!----- begin section: questions -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Questions</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The block plot can provide answers to the following questions:
+<OL>
+   <li> Is the factor of interest significant?
+   <li> Does the factor of interest have an effect?
+   <li> Does the location change between levels of the
+        primary factor?
+   <li> Has the process improved?
+   <li> What is the best setting (= level) of the primary factor?
+   <li> How much of an average improvement can we expect
+        with this best setting of the primary factor?
+   <li> Is there an interaction between the primary factor
+        and one or more nuisance factors?
+   <li> Does the effect of the primary factor change
+        depending on the setting of some nuisance factor?
+   <li> Are there any outliers?
+</OL>
+</TD>
+</TR>
+
+<!----- begin section: importance -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Importance: <br>
+Robustly checks the significance of the factor of interest
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The block plot is a graphical technique that pointedly focuses on
+whether or not the primary factor conclusions are in fact robustly
+general.  This question is fundamentally different from the generic
+multi-factor experiment question where the analyst asks, "What factors
+are important and what factors are not" (a screening problem)?  Global
+data analysis techniques, such as analysis of variance, can
+potentially be improved by local, focused data analysis techniques
+that take advantage of this difference.
+
+</TD>
+</TR>
+
+<!----- begin section: related techniques -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Related Techniques </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<a href="eda353.html">t test</a> (for shift in location for exactly 2
+       levels) <br>
+<a href="eda355.html">ANOVA</a> (for shift in location for 2 or more
+       levels) <br>
+<a href="bihistog.html">Bihistogram</a> (for shift in location,
+       variation, and distribution for exactly 2 levels).
+</TD>
+</TR>
+
+<!-----begin section: do worked example -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>Case Study </i>
+</TD>
+
+<TD WIDTH=85% valign=top>
+   The block plot is demonstrated in the
+   <a href="../section4/eda42a.html">ceramic strength</a> data
+   case study.
+
+</TD>
+</TR>
+
+<!----- begin section: dataplot command -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Block plots are not currently available in most general
+purpose statistical software programs.  However they can be 
+generated using Dataplot and, with some programming, R software. 
+
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda332.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda334.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda333.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:25 GMT -->
+</HTML>

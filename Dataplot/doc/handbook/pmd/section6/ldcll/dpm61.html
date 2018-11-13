@@ -1,0 +1,197 @@
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/ldcll/dpm61.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:29:18 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<TITLE>Dataplot Commands for Load Cell Calibration Case Study</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+<IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../pmd61b.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="../pmd61b.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../../index-3.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Load Cell Calibration Study</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Set Software Options and Get Started</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units absolute
+tic mark offset 2 2
+ylabel offset units absolute
+ylabel offset 11
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+
+skip 25
+read pontius.dat Deflection Load
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fit and Validate Initial Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+title Scatter Plot of Deflection vs. Load
+x1label Load
+y1label Deflection
+plot Deflection Load
+
+linear fit Deflection Load
+
+title Data & Predicted Values from Straight Line Fit vs. Load
+x1label Load
+y1label Deflection
+plot Deflection pred vs Load
+
+title Residuals vs. Load
+x1label Load
+y1label Residuals
+plot res Load
+
+title Residuals vs. Predicted Values from Straight Line Fit
+x1label Predicted Values
+y1label Residuals
+plot res pred
+
+labels
+title automatic
+4plot res
+
+linear fit Deflection Load
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fit and Validate Refined Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+title Residuals vs. Load
+x1label Load
+y1label Residuals
+plot res Load
+
+quadratic fit Deflection Load
+
+title Data & Predicted Values from Quadratic Fit vs. Load
+x1label Load
+y1label Deflection
+plot Deflection pred vs Load
+
+title Residuals vs. Load
+x1label Load
+y1label Residuals
+plot res Load
+
+title Residuals vs. Predicted Values from Quadratic Fit
+x1label Predicted Values
+y1label Residuals
+plot res pred
+
+labels
+title automatic
+4plot res
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Use the Model to Make a Calibrated Measurement</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+let nd = normal random numbers for i = 1 1 1
+let nd = nd*0.0002051768 + 1.239600
+set write decimals  6
+print nd
+
+let ndp = nd(1)
+let lb = 1500000
+let ub = 2000000
+let function f = a0 + a1*load + a2*load**2 - ndp
+let nl = roots f wrt load for load = lb to ub
+set write decimals 0
+print nl
+
+skip 0
+read DPST4F.DAT junk1 junk2
+let b11 = junk2(1)
+let b21 = junk2(2)
+let b31 = junk2(3)
+let b12 = junk2(4)
+let b22 = junk2(5)
+let b32 = junk2(6)
+let b13 = junk2(7)
+let b23 = junk2(8)
+let b33 = junk2(9)
+let function f0 = b11
+let function f1 = (b12 + b21)*load
+let function f2 = (b13 + b22 + b31)*load**2
+let function f3 = (b23 + b32)*load**3
+let function f4 = b33*load**4
+let function fall = f0 + f1 + f2 + f3 + f4
+let n = size load
+let df = n - 3
+let tval = tppf(0.975,df)
+let function flb = f + tval*ressd*sqrt(1 + fall) 
+let nllb = roots flb wrt load for load = lb to ub
+let function fub = f - tval*ressd*sqrt(1 + fall) 
+let nlub = roots fub wrt load for load = lb to ub
+set write decimals 0
+print nllb nl nlub
+</PRE>
+</TD>
+</TR>
+
+</TABLE>
+
+<IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../../index-3.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="../pmd61b.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../pmd61b.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/ldcll/dpm61.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:29:18 GMT -->
+</HTML>

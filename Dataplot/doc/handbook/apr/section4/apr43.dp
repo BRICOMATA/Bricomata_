@@ -1,0 +1,31 @@
+Dataplot commands and output:
+
+. Evaluate a lognormal CDF at time T.
+
+LET T = 100000
+LET T50 = 507383
+LET sigma = 0.74
+LET Y = LGNCDF((T/T50), sigma)
+
+> THE COMPUTED VALUE OF THE CONSTANT Y        =   0.1409164E-01
+  
+
+. Evaluate a use CDF or failure rate for a T-hour stress test 
+. for a lognormal distribution.
+. T = length of test
+. p = proportion of failures
+. sigma = shape parameter
+. A = acceleration factor
+
+LET T50STRESS = T*LGNPPF(p, sigma)
+
+LET CDF = LGNCDF((100000/(A*T50STRESS)), sigma)
+
+
+. Evaluate a use CDF or failure rate for a T-hour stress test
+. for a Weibull distribution. 
+. gamma = shape parameter
+
+LET ASTRESS = T*WEIPPF(p, gamma)
+
+LET CDF = WEICDF((100000/(A*ASTRESS)), gamma)

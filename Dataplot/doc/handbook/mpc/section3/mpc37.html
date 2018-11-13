@@ -1,0 +1,285 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc37.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:39 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.7. Instrument control for linear calibration</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc371.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc3673.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Instrument control for linear calibration</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Purpose</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The purpose of the control program is to guarantee that the
+calibration of an instrument does not degrade over time.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Approach</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+This is accomplished by exercising quality control on the instrument's
+output in much the same way that quality control is exercised on
+components in a process using a modification of the Shewhart control
+chart.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Check standards needed for the control program </I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+For linear calibration, it is sufficient to control the end-points
+and the middle of the calibration interval to ensure that the
+instrument does not drift out of calibration.  Therefore, check
+standards are required at three points; namely, 
+<UL>
+   <LI>at the lower-end of the regime
+   <LI>at the mid-range of the regime
+   <LI>at the upper-end of the regime
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Data collection </I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+One measurement is needed on each check standard for each checking
+period.  It is advisable to start by making control measurements at
+the start of each day or as often as experience dictates.  The time
+between checks can be lengthened if the instrument continues to stay
+in control.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Definition of control value</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="controlvalues">To conform to the notation in the section on
+instrument corrections, \(X^*\) <!-- </A><I>X*</I> --> 
+denotes the known value of a standard, and 
+\(X\) <!-- <I>X</I> -->denotes the measurement on the standard.
+<P>
+A control value is defined as the difference
+$$ W = X^* - X $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc37a.gif" ALT="W = X* - X">
+</CENTER>
+<P>
+-->
+If the calibration is perfect, control values will be randomly
+distributed about zero and fall within appropriate upper and lower
+limits on a control chart.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Calculation of control limits </I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="limits">The upper and lower control limits
+(<A HREF=../section7/mpc7.html#CroarkinVarner>Croarkin and Varner)</A>)
+are, respectively,
+<UL>
+
+$$ l_{upper} = +\frac{s}{\hat{b}}t_{\alpha/2}^{*}(\nu) $$
+
+$$ l_{lower} = -\frac{s}{\hat{b}}t_{\alpha/2}^{*}(\nu) $$
+
+<!-- <IMG SRC="mpc37b.gif" -->
+<!--
+<IMG SRC="lupper.gif"
+     ALT="t(upper) = +(s/bhat)*t*(alpha/2,nu)">
+<P>
+<IMG SRC="llower.gif"
+     ALT="t(lower) = - (s/bhat)*t*(alpha/2,nu)">
+-->
+</UL>
+<P>
+where \( {\large s} \)
+<!-- <I><FONT SIZE=4>s</FONT></I> --> is the residual standard deviation
+of the fit from the calibration experiment, and \( \hat{b} \)
+<!-- <IMG SRC="mpc37c.gif" alt="bhat"> -->
+<!-- <IMG ALIGN=ABSMIDDLE SRC="bhat.gif" alt="bhat"> -->
+is the estimated slope of the linear calibration curve.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Values t*</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="tstar">The critical value, 
+\( t_{\alpha/2}^{*} \),
+<!-- <IMG ALIGN = absmiddle SRC="mpc37d.gif" alt="t*(alpha/2,nu)">, -->
+<!-- <IMG ALIGN = absmiddle SRC="tstar.gif" alt="t*(alpha/2,nu)">, -->
+can be found in the 
+</A><A HREF="../../eda/section3/eda3675.html"><i>t</i>*table</a>; 
+\( \nu \) <!-- <FONT SIZE=4><I>v</FONT SIZE></I> -->
+is the degrees of freedom for the residual standard deviation; and
+\( \alpha \) <!-- <img align=absmiddle src="alpha.gif" alt="alpha"> -->
+is equal to 0.05.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Determining t*</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+For the case where \( \alpha = 0.05 \)
+<!-- <img align=absmiddle src="alpha.gif" alt="alpha"> = 0.05 -->
+and \( \nu = 38 \), <!-- <FONT SIZE=4><I>v</I></FONT SIZE> = 38, --> 
+the critical value of the \( t^* \) <!-- <i>t</i>* --> statistic is 2.497575.
+<P>
+<A HREF="mpc37.r">R code</A> and <A HREF="mpc37.dp">Dataplot code</A> 
+can be used to determine \( t^* \) <!-- <i>t</i>* --> 
+critical values using a standard <!-- <I>t</I> -->
+\(t\)-table for the 
+\( \zeta \) <!-- <img align=absmiddle src="mpc37f.gif" alt="zeta"> -->
+quantile and \( \nu \) <!-- <FONT SIZE=4><I>v</I></FONT SIZE> -->
+degrees of freedom where \( \zeta \)
+<!-- <img align=absmiddle src="mpc37f.gif" alt="zeta"> --> 
+is computed as 
+$$ \zeta = \frac{1}{2} \left[ 1 - e^{\frac{\ln (1-\alpha)}{m}} \right] $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc37g.gif" ALT="zeta = .5*(1 - exp(ln(1-alpha)/m))">
+</CENTER>
+-->
+where <i>m</i> is the number of check standards.
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Sensitivity to departure from linearity</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+If
+$$ l_{lower} \le W \le l_{upper} $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc37e.gif" ALT="t(lower) <= W <= t(upper)">
+</CENTER>
+<P>
+-->
+the instrument is in statistical control.  Statistical control in this
+context implies not only that measurements are repeatable within
+certain limits but also that instrument response remains linear.  The
+test is sensitive to departures from linearity.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A HREF="mpc371.html#controlchart"><I>Control chart </I></A><I>for a
+system corrected by a linear calibration curve</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+An example of <A HREF="mpc371.html">measurements of line widths 
+on photomask standards,</A> made with an optical imaging system and
+corrected by a linear calibration curve, are shown as an example. The
+three control measurements were made on reference standards with values
+at the lower, mid-point, and upper end of the calibration interval.
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc3673.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc371.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc37.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:41 GMT -->
+</HTML>

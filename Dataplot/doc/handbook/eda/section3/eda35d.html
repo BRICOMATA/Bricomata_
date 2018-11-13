@@ -1,0 +1,352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35d.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:14 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.13. Runs Test for Detecting Non-randomness</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35e.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35c.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.13.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Runs Test for Detecting Non-randomness</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Detect Non-Randomness
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The runs test 
+      (<a href="../section4/eda43.html#Bradley">Bradley, 1968</a>)
+      can be used to decide if a data set is from a random process.
+      <p>
+      A run is defined as a series of increasing values or a series
+      of decreasing values.  The number of increasing, or decreasing,
+      values is the length of the run.  In a random data set, the
+      probability that the (<I>I</I>+1)th value is larger or smaller 
+      than the <I>I</I>th value follows a <a href="eda366i.html">binomial
+      distribution</a>, which forms the basis of the runs test.
+   </td>
+</tr>
+
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Typical Analysis and Test Statistics
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The first step in the runs test is to count the number of runs 
+      in the data sequence.  There are several ways to define runs
+      in the literature, however, in all cases the formulation must 
+      produce a dichotomous sequence of values.  For example, a 
+      series of 20 coin tosses might produce the following sequence 
+      of heads (H) and tails (T).
+      <ol>
+          H H T T H T H H H H T H H T T T T T H H
+      </ol> 
+      The number of runs for this series is nine.  There are 11 heads and
+      9 tails in the sequence.
+</tr>
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition</I>
+   </td>
+   <td width=85% valign=top>
+      We will code values above the median as positive and values below
+      the median as negative.  A run is defined as a series of consecutive
+      positive (or negative) values.  The runs test is defined as:
+      <P>
+      <table>
+      <tr>
+         <td>
+            H<sub>0</sub>:
+         </td>
+         <td>
+            the sequence was produced in a random manner 
+         </td>
+      </tr>
+      <tr>
+         <td>
+            H<sub>a</sub>:
+         </td>
+         <td>
+            the sequence was not produced in a random manner
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td align=top>
+            The test statistic is 
+            <ul>
+               <!--
+               <img src="eqns/eda35d_test_statistic.gif" alt=
+                    "Z = (R - Rbar)/sR">
+               -->
+               \[ Z = \frac{R - \bar{R}}{s_R} \]
+            </ul>
+            where <I>R</I> is the observed number of runs, \(\bar{R}\), is
+            the expected number of runs, and \(s_{R}\) is the standard
+            deviation of the number of runs.  The values of \(\bar{R}\)
+            and \(s_{R}\) are computed as follows:
+            <ul>
+               <!--
+               <img src="eqns/eda35d_rbar.gif" alt="Rbar">
+               -->
+               \[ \bar{R} = \frac{2 n_1 n_2}{n_1 + n_2} + 1 \]
+               <P>
+               <!--
+               <img src="eqns/eda35d_sigmar.gif" alt="sR">
+               -->
+               \[ s_{R}^2 = \frac{2 n_1 n_2(2 n_1 n_2 - n_1 - n_2)}
+               {(n_1 + n_2)^2 (n_1 + n_2 - 1)} \]
+            </ul>
+            with <I>n<SUB>1</SUB/></I> and <I>n<SUB>2</SUB/></I> denoting
+            the number of positive and negative values in the series.
+         </td>
+      </tr>
+
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=top>
+            <big><i>&alpha;</i></big>
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Critical Region:
+         </td>
+         <td>
+            The runs test rejects the null hypothesis if
+            <ul>
+               |<B><I>Z</I></B>| > 
+               <B><I>Z</I></B><sub>1-<i>&alpha;</i>/2</sub>
+            </ul>
+            For a large-sample runs test (where <I>n<SUB>1</SUB/></I> > 10
+            and <I>n<SUB>2</SUB/></I> > 10), the test statistic is
+            compared to a <a href="eda3671.html">standard normal table</a>.
+            That is, at the 5 % significance level, a test statistic with
+            an absolute value greater than 1.96 indicates non-randomness.
+            For a small-sample runs test, there are tables to determine
+            critical values that depend on values of <I>n<SUB>1</SUB/></I>
+            and <I>n<SUB>2</SUB/></I>
+            (<a href="../section4/eda43.html#Mendenhall">Mendenhall,
+            1982</a>).
+         </td>
+      </tr>
+      </table>
+</td>
+</tr>
+
+<!-----begin section: sample output -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Runs Test Example<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+   A runs test was performed for 200 measurements of beam deflection
+   contained in the <a href="../section4/eda425.html">LEW.DAT</a> data set.
+<PRE> 
+H<SUB>0</SUB>:  the sequence was produced in a random manner
+H<SUB>a</SUB>:  the sequence was not produced in a random manner  
+<P>
+Test statistic:  <I>Z</I> = 2.6938
+Significance level:  <i>&alpha;</i> = 0.05
+Critical value (upper tail):  <I>Z</I><sub>1-<i>&alpha;</i>/2</sub> = 1.96 
+Critical region: Reject H<SUB>0</SUB> if |<I>Z</I>| > 1.96 
+</PRE>
+Since the test statistic is greater than the critical value, we
+conclude that the data are not random at the 0.05 significance level.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Question
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The runs test can be used to answer the following question:
+      <UL>
+         <LI>Were these sample data generated from a random
+             process?</LI>
+      </UL>
+   </td>
+</tr>
+
+<!-----begin section: importance -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Randomness is one of the key
+      <a href="../section2/eda2.html">assumptions</a> in determining
+      if a univariate statistical process is in control.  If
+      the assumptions of constant location and scale, randomness,
+      and fixed distribution are reasonable, then the univariate
+      process can be modeled as:
+      <ul>
+         <!--
+         <img src="eqns/conmodel.gif" alt="y(i) = A0 + E(i)">
+         -->
+         \[ Y_{i} = A_0 + E_{i} \]
+      </ul>
+      where <b><i>E<sub>i</sub></i></b> is an error term.
+      <p>
+      If the randomness assumption is not valid, then a
+      different model needs to be used.  This will typically
+      be either a 
+      <a href="../../pmc/section4/pmc4.html">times series model</a>
+      or a <a href="../../pmd/section1/pmd142.html">non-linear
+      model</a> (with time as the independent variable).
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="eda35c.html">Autocorrelation</a><br>
+      <a href="runseqpl.html">Run Sequence Plot</a><br>
+      <a href="lagplot.html">Lag Plot</a><br>
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="../section4/eda428.html">Heat flow meter</a> data
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Most general purpose statistical software programs support a runs test.
+Both <a href="eda35d.dp">Dataplot code</a> and 
+<a href="eda35d.r">R code</a> can be used to generate the
+analyses in this section.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35c.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35e.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35d.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:16 GMT -->
+</HTML>

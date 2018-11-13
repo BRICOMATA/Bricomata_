@@ -1,0 +1,319 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section5/ppc523.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:06:48 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>3.5.2.3. Analysis of Variance</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="ppc524.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="ppc522.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">3.</FONT>
+<FONT COLOR="#00105A"><A HREF="../ppc.html">Production
+Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc5.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.5.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc52.html">Machine Screw Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">3.5.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Analysis of Variance</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="anova">
+<I>
+Analysis of Variance Using All Factors
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+We can confirm our interpretation of the box plots by running
+an analysis of variance when all four factors are included.
+
+
+
+<!-- end paragraph -->
+
+<PRE>
+ Source            DF    Sum of       Mean   F Statistic   Prob > F
+                        Squares     Square                   
+ ------------------------------------------------------------------
+ Machine            2  0.000111   0.000055       29.3159    1.3e-11
+ Day                2  0.000004   0.000002        0.9884       0.37
+ Time               1  0.000002   0.000002        1.2478       0.27
+ Sample             9  0.000009   0.000001        0.5205       0.86
+ Residual         165  0.000312   0.000002
+ ------------------------------------------------------------------
+ Corrected Total  179  0.000437   0.000002
+</PRE>
+</TR>
+</TD>
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation of ANOVA Output
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+We fit the model
+<ul>
+    <!--
+    <img src="Machine/gifs/anova1.gif"
+         alt="Y(ijklm) = mu + a(i) + b(j) + tau(k) + phi(l) + E)ijklm)">
+    -->
+\( Y_{ijklm} = \mu + \alpha_i + \beta_j + \tau_k + \phi_l + \epsilon_{ijklm} \)
+</ul>
+which has an overall mean, as opposed to the model
+<ul>
+    <!--
+    <img src="Machine/gifs/anova2.gif"
+         alt="Y(ijklm) = a(i) + b(j) + tau(k) + phi(l) + E)ijklm)">
+    -->
+\( Y_{ijklm} = A_i + B_j + C_k + D_l + \epsilon_{ijklm} \)
+</ul>
+These models are mathematically equivalent.  The effect estimates in
+the first model are relative to the overall mean.  The effect
+estimates for the second model can be obtained by simply adding
+the overall mean to effect estimates from the first model.
+<P>
+Only the machine factor is statistically significant.  This confirms 
+what the box plots in the previous section had indicated graphically.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="anova1">
+<I>
+Analysis of Variance Using Only Machine
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+The previous analysis of variance indicated that only the
+machine factor was statistically significant.  The following
+table displays the ANOVA results using only the machine factor.
+<PRE>
+ Source            DF    Sum of       Mean   F Statistic   Prob > F
+                        Squares     Square                   
+ ------------------------------------------------------------------
+ Machine            2  0.000111   0.000055       30.0094    6.0E-12
+ Residual         177  0.000327   0.000002
+ ------------------------------------------------------------------
+ Corrected Total  179  0.000437   0.000002
+</PRE>
+</TD>
+</TR>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation of ANOVA Output
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+At this stage, we are interested in the level means for the
+machine variable.  These can be summarized in the following
+table.
+<p>
+<table border>
+<caption>
+<b>Machine Means for One-way ANOVA</b>
+</caption>
+   <tr>
+      <td valign=top align=center>
+         <b>Level</b>
+      </td>
+      <td valign=top align=center>
+         <b>Number</b>
+      </td>
+      <td valign=top align=center>
+         <b>Mean</b>
+      </td>
+      <td valign=top align=center>
+         <b>Standard Error</b>
+      </td>
+      <td valign=top align=center>
+         <b>Lower 95% CI</b>
+      </td>
+      <td valign=top align=center>
+         <b>Upper 95% CI</b>
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         1
+      </td>
+      <td valign=top align=center>
+         60
+      </td>
+      <td valign=top align=center>
+         0.124887
+      </td>
+      <td valign=top align=center>
+         0.00018
+      </td>
+      <td valign=top align=center>
+         0.12454
+      </td>
+      <td valign=top align=center>
+         0.12523
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         2
+      </td>
+      <td valign=top align=center>
+         60
+      </td>
+      <td valign=top align=center>
+         0.122968
+      </td>
+      <td valign=top align=center>
+         0.00018
+      </td>
+      <td valign=top align=center>
+         0.12262
+      </td>
+      <td valign=top align=center>
+         0.12331
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         3
+      </td>
+      <td valign=top align=center>
+         60
+      </td>
+      <td valign=top align=center>
+         0.124022
+      </td>
+      <td valign=top align=center>
+         0.00018
+      </td>
+      <td valign=top align=center>
+         0.12368
+      </td>
+      <td valign=top align=center>
+         0.12437
+      </td>
+   </tr>
+</table>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="modelvalidation">
+<I>
+Model Validation
+</I>
+</A>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+As a final step, we <a href="../../pmd/section4/pmd44.html">validate
+the model</a> by generating a
+<a href="../../eda/section3/4plot.html">4-plot</a> of the residuals.
+<p>
+<A HREF="Machine/gifs/modval_f.gif">
+   <IMG SRC="Machine/gifs/modval_r.gif"
+        HEIGHT=425 WIDTH=550 BORDER=0
+        alt="4-plot of the residuals does not indicate any sigfnificant problems">
+</A>
+<P>
+The 4-plot does not indicate any significant problems with the
+ANOVA model.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="ppc522.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="ppc524.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section5/ppc523.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:06:52 GMT -->
+</HTML>

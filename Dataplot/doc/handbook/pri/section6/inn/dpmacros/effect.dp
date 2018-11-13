@@ -1,0 +1,111 @@
+.
+. Starting Step 6.1
+.
+call yatesgen.dp
+.
+title displacement 7
+tic offset units screen
+tic offset 5 5
+title Sonoluminescent Light Intensity cr()|Effects| Plot
+y1label |Effects|
+x1label Factor
+ygrid
+xtics off
+xtic label off
+y1tic offset 10
+char circle
+char hw 1 1
+char fill on
+lines blank
+spike on
+let s = sd y
+let coef2 = abs(coef)
+plot coef2 index2
+.
+hw 2 1
+if n > 20; hw 1.5 .75; end if
+just cece
+loop for j = 1 1 numeffec
+   let x0 = xplot(j)
+   let evenodd = mod(j,2)
+   let y0 = 23
+   if evenodd = 0; let y0 = 27; end if
+   if n < 10; let y0 = 27; end if
+   moveds x0 y0
+   let tagj = tag(j)
+   let string ch = ^con^tagj
+.  text ^tagj
+   text ^ch
+end loop
+.
+let x0 = 57
+let y0 = 86-2*numeffec-2
+box fill on
+box fill pattern solid
+box fill color g80
+box x0 y0 85 90
+box fill off
+lines dotted
+draw x0 87 85 87
+.
+hw 2 1
+just left
+let y0 = 88
+let x0 = 60
+move x0 y0
+text Factor
+let x0 = 70
+move x0 y0
+text Effect
+let y0 = 86
+loop for j = 1 1 numeffec
+   let x0 = 60
+   let y0 = y0-2
+   move x0 y0
+   let tagj = tag(j)
+   let string ch = ^cop^tagj
+   text ^ch
+   let x0 = 74
+   move x0 y0
+   let coefj = coef(j)
+   text : ^coefj
+end loop
+.
+let x0 = 35
+let y0 = 87
+box 15 90 x0 y0
+let y0 = 88
+let x0 = 17
+move x0 y0
+let ybar = average y
+text Average = ^ybar
+.
+let numyplot = number yplot
+just lece
+loop for j = 1 1 numyplot
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let tagj = tag(j)
+   let string ch = ^con^tagj:
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagj
+   text ^ch
+end loop
+move 86 90
+text Factor: Confound
+.
+grid off
+y1tic offset 5
+x1tics on
+x1tic label on
+char blank all
+char hw 2 1
+lines solid all
+spike off
+just left
+title
+y1label
+x1label
+tic offset 5 5
+. Finished Step 6.1: Page Back for Output

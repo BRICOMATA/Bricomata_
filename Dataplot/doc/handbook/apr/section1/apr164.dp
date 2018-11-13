@@ -1,0 +1,45 @@
+Dataplot commands and output:
+
+. Define constants.
+
+LET T = 5000
+LET sigma = 0.5
+LET T50 = 20000
+
+
+. Find PDF values.
+LET PDF = LGNPDF(T, sigma, 0, T50 )
+
+> THE COMPUTED VALUE OF THE CONSTANT PDF      =   0.3417475E-05
+
+
+. Find CDF values.
+LET CDF = LGNCDF(T, sigma, 0, T50 )
+
+> THE COMPUTED VALUE OF THE CONSTANT CDF      =   0.2780676E-02
+
+
+. Find failure rate.
+LET HAZ = LGNHAZ(T, sigma, 0, T50 )
+
+> THE COMPUTED VALUE OF THE CONSTANT HAZ      =   0.3427004E-05
+
+
+. Generate 100 lognormal random numbers for probability plot.
+LET SIGMA = 0.5
+LET SAMPLE = LOGNORMAL RANDOM NUMBERS FOR I = 1 1 100
+LET SAMPLE = 20000*SAMPLE
+
+
+. Generate lognormal probability plot.
+X1LABEL EXPECTED (NORMALIZED) VALUES
+Y1LABEL TIME
+LOGNORMAL PROBABILITY PLOT SAMPLE
+
+
+. Generate lognormal probability plot when sigma is estimated from data.
+LET LOGSAMP = LOG(SAMPLE)
+LET SIGMA = STANDARD DEVIATION LOGSAMP
+X1LABEL EXPECTED (NORMALIZED) VALUES
+Y1LABEL TIME
+LOGNORMAL PROBABILITY PLOT SAMPLE

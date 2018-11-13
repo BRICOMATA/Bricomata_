@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35c.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:12 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.12. Autocorrelation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35d.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35b.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.12.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Autocorrelation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Detect Non-Randomness, Time Series Modeling
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The autocorrelation (
+      <a href="../section4/eda43.html#Box">Box and Jenkins, 1976</a>)
+      function can be used for the following two purposes:
+      <ol>
+         <li>To detect non-randomness in data.
+         <li>To identify an appropriate time series model if the data
+             are not random.
+      </ol>
+
+   </td>
+</tr>
+
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Given measurements, <i>Y</i><sub>1</sub>, <i>Y</i><sub>2</sub>,
+      ..., <i>Y<sub>N</sub></i> at time <i>X</i><sub>1</sub>,
+      <i>X</i><sub>2</sub>, ..., <i>X<sub>N</sub></i>, the lag
+      <i>k</i> autocorrelation function is defined as
+      <ul>
+         <!--
+         <img src="eqns/ac.gif" alt=
+         "r(k) = SUM[i=1 to N][(Y(i) - YBAR)*(Y(i+k) - YBAR)/SUM(Y(i) - YBAR)**2]">
+         -->
+         \[ r_{k} = \frac{\sum_{i=1}^{N-k}(Y_{i} - \bar{Y})(Y_{i+k} - 
+         \bar{Y})} {\sum_{i=1}^{N}(Y_{i} - \bar{Y})^{2} } \]
+      </ul> 
+      <P>
+      Although the time variable, <i>X</i>, is not used in the formula
+      for autocorrelation, the assumption is that the observations are
+      equi-spaced.
+      <p>
+      Autocorrelation is a correlation coefficient.  However, instead
+      of correlation between two different variables, the correlation
+      is between two values of the same variable at times
+      <b><i>X<sub>i</sub></i></b> and <b><i>X<sub>i+k</sub></i></b>.
+      <p>
+      When the autocorrelation is used to detect non-randomness,
+      it is usually only the first (lag 1) autocorrelation that is
+      of interest.  When the autocorrelation is used to identify
+      an appropriate time series model, the autocorrelations are
+      usually <a href="autocopl.html">plotted</a> for many lags.
+   </td>
+</tr>
+
+<!-----begin section: sample output -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Autocorrelation Example</I>
+   </td>
+   <td width=85% valign=top>
+   Lag-one autocorrelations were computed for the
+   the <a href="../section4/eda425.html">LEW.DAT</a> data set.
+
+   <FONT SIZE=-1>
+   <PRE> 
+ lag     autocorrelation
+  0.      1.00
+  1.     -0.31
+  2.     -0.74
+  3.      0.77
+  4.      0.21
+  5.     -0.90
+  6.      0.38
+  7.      0.63
+  8.     -0.77
+  9.     -0.12
+ 10.      0.82
+ 11.     -0.40
+ 12.     -0.55
+ 13.      0.73
+ 14.      0.07
+ 15.     -0.76
+ 16.      0.40
+ 17.      0.48
+ 18.     -0.70
+ 19.     -0.03
+ 20.      0.70
+ 21.     -0.41
+ 22.     -0.43
+ 23.      0.67
+ 24.      0.00
+ 25.     -0.66
+ 26.      0.42
+ 27.      0.39
+ 28.     -0.65
+ 29.      0.03
+ 30.      0.63
+ 31.     -0.42
+ 32.     -0.36
+ 33.      0.64
+ 34.     -0.05
+ 35.     -0.60
+ 36.      0.43
+ 37.      0.32
+ 38.     -0.64
+ 39.      0.08
+ 40.      0.58
+ 41.     -0.45
+ 42.     -0.28
+ 43.      0.62
+ 44.     -0.10
+ 45.     -0.55
+ 46.      0.45
+ 47.      0.25
+ 48.     -0.61
+ 49.      0.14
+
+   </PRE>
+   <FONT SIZE=+0>
+
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The autocorrelation function can be used to answer the
+      following questions.
+      <OL>
+         <LI>Was this sample data set generated from a random
+             process?</LI>
+         <LI>Would a non-linear or time series model be a more
+             appropriate model for these data than a simple
+             constant plus error model?</LI>
+      </OL>
+   </td>
+</tr>
+
+<!-----begin section: importance -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Randomness is one of the key
+      <a href="../section2/eda2.html">assumptions</a> in determining
+      if a univariate statistical process is in control.  If
+      the assumptions of constant location and scale, randomness,
+      and fixed distribution are reasonable, then the univariate
+      process can be modeled as:
+      <ul>
+         <!--
+         <img src="eqns/conmodel.gif" alt="Y(i) = A0 + E(i)">
+         -->
+         \[ Y_{i} = A_0 + E_{i} \]
+      </ul>
+      where <b><i>E<sub>i</i></b></sub> is an error term.
+      <p>
+      If the randomness assumption is not valid, then a
+      different model needs to be used.  This will typically
+      be either a <a href="../../pmc/section4/pmc4.html">time series
+      model</a> or a
+      <a href="../../pmd/section1/pmd142.html">non-linear model</a>
+      (with time as the independent variable).
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="autocopl.html">Autocorrelation Plot</a><br>
+      <a href="runseqpl.html">Run Sequence Plot</a><br>
+      <a href="lagplot.html">Lag Plot</a><br>
+      <a href="eda35d.html">Runs Test</a><br>
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The <a href="../section4/eda428.html">heat flow meter</a> data
+      demonstrate the use of autocorrelation in determining if
+      the data are from a random process.
+   </td>
+</tr>
+
+<!-----begin section: Software -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      The autocorrelation capability is available in most
+      general purpose statistical software programs.  Both 
+      <a href="eda35c.dp">Dataplot code</a> and 
+      <a href="eda35c.r">R code</a> can be used to generate the
+      analyses in this section.
+   </td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35b.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35d.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35c.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:14 GMT -->
+</HTML>

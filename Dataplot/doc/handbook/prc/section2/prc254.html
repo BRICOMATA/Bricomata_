@@ -1,0 +1,251 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc254.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:31:07 GMT -->
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.5.4. Two-sided tolerance intervals using EXCEL</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc255.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc253.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.html">Comparisons based on data from one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc25.html">What intervals contain a fixed percentage of the population values?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.5.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Two-sided tolerance intervals using EXCEL</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN="TOP">
+<i>Two-sided tolerance intervals using EXCEL<i>
+</TD>
+
+<td VALIGN=TOP WIDTH="85%">
+<A NAME="k2">One method for computing factors for two-sided
+tolerance intervals using EXCEL makes use of the definition
+<P>
+<center>
+<img src="gifs/tol2.gif" alt="k(2) = r*SQRT((N-1)/Chi-Square(gamma,N-1))">
+</center>
+<P>
+where <i>r</i> is defined by:
+<p>
+<center>
+<img SRC="gifs/tol3.gif" ALT=
+"p = (1/SQRT(2*PI))*INTEGRAL[(1/SQRT(N))-r to (1/SQRT(N))+r]
+[EXP(-t**2/2)]dt">
+</center><P>
+and
+<img align=absmiddle src="gifs/chigamma.gif" alt="Chi-Square(gamma,N-1)">
+is the <A HREF="../../eda/section3/eda3674.html">critical value of the
+chi-square distribution</A> with <i>N - 1</I> degrees of freedom that is
+exceeded with probability, 
+<img align=abscenter src="gifs/gamma.gif" alt="gamma">.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN="TOP">
+<i>Interative method<i>
+</TD>
+
+<td VALIGN=TOP WIDTH="85%">
+Unfortunately, <i>r</i> can only be found by iteration from the integral
+above which defines limits within which <i>p</i> percent of the
+<A HREF="http://www.nist.gov/itl/">normal distribution</A> lies.
+An EXCEL calculation is <A HREF="prc253.html#EXCEL">illustrated below</A>
+for the same problem as on the <A HREF="prc253.html#example">previous
+page</A> except where <i>N</i>= 220 measurements are made of thickness.
+We wish to find tolerance intervals that contain a proportion
+<i>p</i> = 0.90 of the wafers with probability
+<img SRC="gifs/gamma.gif" align=ABSCENTER alt="gamma"> = 0.99.
+<p>
+The EXCEL commands for this calculation are shown below.  The calculations
+are approximate and depend on the starting value for <i>r</i>, which is
+taken to be zero in this example.  Calculations should be correct to three
+signficant digits.
+</TD>
+</TR>
+
+<TR><TD WIDTH=15% VALIGN="TOP">
+<i>Basic definition of <font size =4>r</font> in EXCEL<i>
+</TD>
+
+<td WIDTH="85%" VALIGN=TOP>
+<ul>
+   <li>Enter 0 in cell A1</li>
+   <li>Enter 220 (the sample size) in cell B1</li>
+   <li>Enter in cell C1 the formula:</li>
+       <center>
+       =NORMDIST((1/SQRT(B1)+A1),0,1,T)-NORMDIST((1/SQRT(B1)-A1),0,1,T)
+      </center>
+</ul>
+The screen at this point is:
+<p>
+<center>
+<img SRC="gifs/eisen1b.gif" height=59 width=398
+     ALT="EXCEL spreadsheet showing the data input">
+</center>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN="TOP">
+<i>Iteration step in EXCEL<i>
+</TD>
+
+<td  VALIGN=TOP WIDTH="85%">
+Click on the green V (not shown here) or press the Enter key.  Click
+on TOOLS and then on GOALSEEK.  A drop down menu appears.  Then,
+<ul>
+   <li>Enter C1 (if it is not already there) in the cell in the row
+       labeled: "Set cell:"</li>
+   <li>Enter 0.9 (which is <i>p</i>) in the cell at the row labelled:
+       "To value:"</li>
+   <li>Enter A1 in the cell at the row labeled: "By changing cell:"</li>
+</ul>
+The screen at this point is:
+<p>
+<center>
+<img SRC="gifs/eisen2.gif" height=146 width=227
+     ALT="EXCEL screen Goal Seek input menu">
+</center>
+<p>
+Click OK. The screen below will be displayed:
+<p>
+<center>
+<img SRC="gifs/eisen3.gif" height=151 width=312
+     ALT="EXCEL screen showing Goal Seek status">
+</center>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN="TOP">
+<i>Calculation in EXCEL of <i>k</i> factor</i>
+</TD>
+
+<td VALIGN=TOP WIDTH="85%">
+Now calculate the <i>k</i> factor from the <A HREF="prc254.html#k2">equation
+above.</A>
+<ul>
+   <li>The value <i>r</i> = 1.6484 appears in cell A1</li>
+   <li>The value <i>N</i> = 220 is in cell B1</li>
+   <li>Enter <img align=abscenter src="gifs/gamma.gif" alt="gamma"> which
+       is 0.99 in cell C1</li>
+   <li>Enter the formula =A1*SQRT((B1-1)/CHIINV(C1,(B1-1))) in cell D1</li>
+   <li>Press Enter</li>
+</ul>
+The screen is:
+<center>
+<p>
+<img SRC="gifs/eisen5.gif" height=108 width=505
+     ALT="EXCEL spreadsheet showing the calculation of k">
+</center>
+<p>
+The resulting value <i>k</i><sub>2</sub></i>= 1.853 appears in cell D1.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Calculation in Dataplot
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+You can also perform this calculation using the following Dataplot macro.
+<PRE>
+.  Initialize
+let r = 0
+let n = 220
+let c1 = 1/sqrt(n)
+.  Compute R
+let function f = norcdf(c+r) - norcdf(c-r) - 0.9
+let z = roots f wrt r  for r = -4  4
+let r = z(1)
+.  Compute K2
+let c2 = (n-1)
+let k2 = r*sqrt(c2/chsppf(0.01,c2))
+. Print results
+print "R    = ^r"
+print "K2   = ^k2"
+</PRE>
+Dataplot generates the following output.
+<PRE>
+ R    = 1.644854
+ K2   = 1.849208
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc253.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc255.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc254.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:31:15 GMT -->
+</HTML>

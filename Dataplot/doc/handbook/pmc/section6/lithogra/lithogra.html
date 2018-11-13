@@ -1,0 +1,670 @@
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/lithogra/lithogra.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:29:29 GMT -->
+<HEAD>
+  <TITLE>Dataplot Commands for Lithographic Process
+  Case Study</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+        <IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+           <area shape="rect" alt="Next Page" href="../pmc615.html" coords="463,27,504,45">
+           <area shape="rect" alt="Previous Page" href="../pmc615.html" coords="417,28,459,45">
+           <area shape="rect" alt="Home" href="../../../index-3.html" coords="52,0,100,43">
+           <area shape="rect" alt="Tools & Aids" href="../../../main.html" coords="165,27,264,46">
+           <area shape="rect" alt="Search Handbook" href="../../../search.html" coords="307,28,366,44">
+           <area shape="default" nohref>
+   </map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Lithographic Process Data</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Invoke Dataplot, set defaults, read data<I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Lithographic Process Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+SKIP 25
+read LITHOGRA.DAT cassette wafer site width runseq
+skip 0
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Summary</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.
+. Starting Step 2.1 - Summary of Response Variable
+.
+summary width
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.2 - Generate a 4-plot
+.
+4-plot width
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Sequence Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.3 - Generate a run sequence plot
+.
+y1label width
+x1label sequence
+run sequence plot width
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Scatter Plot (Width vs Cassette)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.1 - Generate a scatter plot of response versus
+.                     cassette
+.
+y1label width
+x1label cassette
+line blank all
+character x all
+xlimits 0 30
+xtic offset 0 1
+plot width cassette cassette
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Box Plot (Width vs Cassette)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.2 - Generate a box plot of response versus
+.                     cassette
+.
+y1label width
+x1label cassette
+line box plot
+character box plot
+xlimits 0 30
+xtic offset 0 1
+fences on
+box plot width cassette
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Scatter Plot (Width vs Wafer)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.3 - Generate a scatter plot of response versus
+.                     wafer
+.
+y1label width
+x1label wafer
+line blank all
+character x all
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+plot width wafer wafer
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Box Plot (Width vs Wafer)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.4 - Generate a box plot of response versus
+.                     wafer
+.
+y1label width
+x1label wafer
+line box plot
+character box plot
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+fences on
+box plot width wafer
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Scatter Plot (Width vs Site)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.5 - Generate a scatter plot of response versus
+.                     site
+.
+y1label width
+x1label site
+line blank all
+character x all
+xlimits 1 5
+xtic offset 1 1
+major xtic mark number 5
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content top left center right bottom
+plot width site site
+line solid all
+character blank all
+xlimits 
+xtic offset
+minor xtic mark number
+xtic mark label format 
+xtic mark label content
+. Finished Step 3.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Box Plot (Width vs Site)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.6 - Generate a box plot of response versus
+.                     site
+.
+y1label width
+x1label site
+line box plot
+character box plot
+xlimits 1 5
+xtic offset 1 1
+major xtic mark number 5
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content top left center right bottom
+fences on
+box plot width site
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.6: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Dex Mean Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.7 - Generate a dex mean plot of response versus
+.                     all 3 factors
+.
+y1label width
+x1label factors
+line blank solid
+character x BLANK
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content cassette wafer site
+dex mean plot width cassette wafer site 
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.7: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Dex SD Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.8 - Generate a dex sd plot of response versus
+.                     all 3 factors
+.
+y1label width
+x1label factors
+line blank solid
+character x BLANK
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content cassette wafer site
+dex sd plot width cassette wafer site 
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.8: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>ANOVA</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.1 - ANOVA
+.
+anova width cassette wafer site
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Moving Mean Control Chart</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.2 - Moving mean control chart
+.
+y1label mean of line width
+x1label
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 450
+xtic offset 4 5
+moving mean control chart width
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 10
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Moving Range Control Chart</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.3 - Moving range control chart
+.
+y1label range of line width
+x1label 
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 450
+xtic offset 4 5
+ytic offset 0.2 0.2
+moving range control chart width 
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 10
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+ytic offset
+. Finished Step 4.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Mean Control Chart (Wafer)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.4 - Mean control chart for wafer
+.
+y1label mean of line width
+x1label wafer
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 90
+xtic offset 4 5
+let xwafer = sequence 1 5 1 90
+mean control chart width xwafer
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 7
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>SD Control Chart (Wafer)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.5 - SD control chart for wafer
+.
+y1label sd of line width
+x1label wafer
+line solid all
+line solid solid solid blank
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 90
+xtic offset 4 5
+ytic offset 0.05 0.05
+let xwafer = sequence 1 5 1 90
+s control chart width xwafer
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 7
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+. movedata a1 a4
+. text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Mean Control Chart (Cassette)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.6 - Mean control chart for cassette
+.
+y1label mean of line width
+x1label cassette
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+mean control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 4
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.6: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>SD Control Chart (Cassette)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.7 - SD control chart for cassette
+.
+y1label sd of line width
+x1label wafer
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+s control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 4
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.7: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Mean Control Chart using Lot-to-Lot Variation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+.
+. Starting Step 4.8 - Mean control chart for cassette,
+.                     but use cassette-cassette variation
+.                     for control limits.
+.
+y1label mean of line width
+x1label cassette
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+device 1 off
+device 2 off
+mean plot width cassette
+device 1 on
+device 2 on
+let ytemp = yplot
+retain ytemp  subset tagplot = 1
+let a = standard deviation ytemp
+let target = mean width
+let usl = target + 3*a
+let lsl = target - 3*a
+mean control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 4
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+let a6 = maximum yplot subset tagplot = 6
+let a7 = maximum yplot subset tagplot = 7
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+movedata a1 a6
+text UCL:<cr>lot-to-lot
+movedata a1 a7
+text LCL:<cr>lot-to-lot
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.8: Page Back for Output
+<PRE>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+</TABLE>
+
+<A HREF="http://www.nist.gov/">
+   <IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+   </MAP>
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../../index-3.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../../main.html" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../../search.html" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="../pmc615.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../pmc615.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/lithogra/lithogra.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:29:29 GMT -->
+</HTML>

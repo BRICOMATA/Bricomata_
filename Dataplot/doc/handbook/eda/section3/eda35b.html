@@ -1,0 +1,445 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.11. Measures of Skewness and Kurtosis</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35c.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35a.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.11.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Measures of Skewness and Kurtosis</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Skewness and Kurtosis
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A fundamental task in many statistical analyses is to characterize
+the <a href="eda351.html"><I>location</I></A> and
+<a href="eda356.html"><I>variability</I></A> of a data set.
+A further characterization of the data includes skewness and kurtosis.
+<p>
+Skewness is a measure of symmetry, or more precisely, the lack of
+symmetry.  A distribution, or data set, is symmetric if it looks the
+same to the left and right of the center point.
+<p>
+<!-- 2016/02: Re-word following section based on suggestion
+     from Peter Westfall
+Kurtosis is a measure of whether the data are peaked or flat relative
+to a normal distribution.  That is, data sets with high kurtosis
+tend to have a distinct peak near the mean, decline rather rapidly,
+and have heavy tails.  Data sets with low kurtosis tend to have
+a flat top near the mean rather than a sharp peak.  A uniform
+distribution would be the extreme case.
+-->
+Kurtosis is a measure of whether the data are heavy-tailed or
+light-tailed relative to a normal distribution. That is, data sets
+with high kurtosis tend to have heavy tails, or outliers. Data sets
+with low kurtosis tend to have light tails, or lack of outliers. A
+uniform distribution would be the extreme case.
+<p>
+The <a href="histogra.html">histogram</a> is an effective graphical
+technique for showing both the skewness and kurtosis of data set.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition of Skewness
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+For univariate data <i>Y</i><sub>1</sub>, <i>Y</i><sub>2</sub>, ...,
+<i>Y<sub>N</sub></i>, the formula for skewness is:
+<ul>
+   <!--
+   <img src="eqns/skewness.gif" alt=
+        "skewness = SUM[i=1 to n][(Y(i) - YBAR)**3/(N-1)*s**3]">
+   -->
+   \[ g_{1} = \frac{\sum_{i=1}^{N}(Y_{i} - \bar{Y})^{3}/N} {s^{3}} \]
+</ul>
+where <!-- <img src="eqns/ybar.gif" alt="ybar"> --> \(\bar{Y}\) is the
+mean, <b><i>s</i></b> <!-- <img src="eqns/s.gif" alt="s"> --> is the
+standard deviation, and <i>N</i> is the number of data points.  Note that
+in computing the skewness, the <i>s</i> is computed with <i>N</i> in the
+denominator rather than <i>N</i> - 1.
+<p>
+The above formula for skewness is referred to as the Fisher-Pearson
+coefficient of skewness. Many software programs actually compute the
+adjusted Fisher-Pearson coefficient of skewness
+<ul>
+   \[ G_{1} = \frac{\sqrt{N(N-1)}}{N-1}
+              \frac{\sum_{i=1}^{N}(Y_{i} - \bar{Y})^{3}/N} {s^{3}} \]
+</ul>
+This is an adjustment for sample size.  The adjustment approaches
+1 as <i>N</i> gets large.  For reference, the adjustment factor is
+1.49 for <i>N</i> = 5, 1.19 for <i>N</i> = 10, 1.08 for <i>N</i> = 20,
+1.05 for <i>N</i> = 30, and 1.02 for <i>N</i> = 100.
+<p>
+The skewness for a <a href="eda3661.html">normal distribution</a> is zero,
+and any symmetric data should have a skewness near zero.  Negative values
+for the skewness indicate data that are skewed left and positive values for
+the skewness indicate data that are skewed right.  By skewed left, we
+mean that the left tail is long relative to the right tail.  Similarly,
+skewed right means that the right tail is long relative to the left tail.
+If the data are multi-modal, then this may affect the sign of the
+skewness.
+<p>
+Some measurements have a lower bound and are skewed right.  For
+example, in reliability studies, failure times cannot be negative.
+<p>
+It should be noted that there are alternative definitions of skewness in
+the literature.  For example, the Galton skewness (also known as
+Bowley's skewness) is defined as
+<ul>
+   \[ \mbox{Galton skewness} =
+              \frac{Q_{1} + Q_{3} -2 Q_{2}}{Q_{3} - Q_{1}} \]
+</ul>
+where <i>Q</i><sub>1</sub> is the lower quartile, <i>Q</i><sub>3</sub>
+is the upper quartile, and <i>Q</i><sub>2</sub> is the median.
+<p>
+The Pearson 2 skewness coefficient is defined as
+<ul>
+   \[ S_{k_2} = 3 \frac{(\bar{Y} - \tilde{Y})}{s} \]
+</ul>
+where \( \tilde{Y} \) is the sample median.
+<p>
+There are many other definitions for skewness that will not be
+discussed here.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition of Kurtosis
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+For univariate data <i>Y</i><sub>1</sub>, <i>Y</i><sub>2</sub>, ...,
+<i>Y<sub>N</sub></i>, the formula for kurtosis is:
+<ul>
+   <!--
+   <img src="eqns/kurtosis.gif"
+        alt="kurtosis = SUM[i=1 to N][(Y(i) - YBAR)**4/(N-1)*s**4]">
+   -->
+   \[ \mbox{kurtosis} = \frac{\sum_{i=1}^{N}(Y_{i} - \bar{Y})^{4}/N}
+      {s^{4}} \]
+</ul>
+where <!-- <img src="eqns/ybar.gif" alt="ybar"> --> \(\bar{Y}\) is the
+mean, <b><i>s</i></b> is the standard deviation, and <i>N</i> is the
+number of data points.  Note that in computing the kurtosis, the
+standard deviation is computed using <i>N</i> in the denominator
+rather than <i>N</i> - 1.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Alternative Definition of Kurtosis
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The kurtosis for a <a href="eda3661.html">standard normal
+distribution</a> is three.  For this reason, some sources
+use the following definition of kurtosis (often referred to as
+"excess kurtosis"):
+<ul>
+   <!--
+   <img src="eqns/kurtosi2.gif" alt=
+        "kurtosis = SUM[i=1 to N][(Y(i) - YBAR)**4]/((N-1)*s**4) - 3">
+   -->
+   \[ \mbox{kurtosis} = \frac{\sum_{i=1}^{N}(Y_{i} - \bar{Y})^{4}/N}
+      {s^{4}}  - 3 \]
+</ul>
+This definition is used so that the standard normal distribution
+has a kurtosis of zero.  In addition, with the second definition
+positive kurtosis indicates a "heavy-tailed" distribution and negative
+kurtosis indicates a "light tailed" distribution.
+<p>
+Which definition of kurtosis is used is a matter of convention
+(this handbook uses the original definition).  When using software to
+compute the sample kurtosis, you need to be aware of which convention
+is being followed.  Many sources use the term kurtosis when they are
+actually computing "excess kurtosis", so it may not always be clear.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Examples
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following example shows histograms for 10,000 random numbers
+generated from a normal, a double exponential, a Cauchy, and a Weibull
+distribution.
+<p>
+<IMG SRC="gif/skewness.gif"
+alt="plots showing histograms for 10,000 random numbers generated from
+ a normal, double exponential, Cauchy, and Weibull distribution"
+>
+<p>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Normal Distribution
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first histogram is a sample from a
+<a href="eda3661.html">normal distribution</a>.  The normal
+distribution is a symmetric distribution with well-behaved tails.
+This is indicated by the skewness of 0.03.  The kurtosis of 2.96 is
+near the expected value of 3.  The histogram verifies the symmetry.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Double Exponential Distribution
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The second histogram is a sample from a
+<a href="eda366c.html">double exponential distribution</a>.  The
+double exponential is a symmetric distribution.
+Compared to the normal, it has a stronger peak, more rapid decay,
+and heavier tails.  That is, we would expect a skewness near zero
+and a kurtosis higher than 3.  The skewness is 0.06 and the kurtosis
+is 5.9.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Cauchy Distribution
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The third histogram is a sample from a
+<a href="eda3663.html">Cauchy distribution</a>.
+<P>
+For better visual comparison with the other data sets, we restricted
+the histogram of the Cauchy distribution to values between -10 and
+10.  The full data set for the Cauchy data in fact has a minimum of
+approximately -29,000 and a maximum of approximately 89,000.
+<p>
+The Cauchy distribution is a symmetric distribution with heavy
+tails and a single peak at the center of the distribution.
+Since it is symmetric, we would expect a skewness near zero.
+Due to the heavier tails, we might expect the kurtosis to be 
+larger than for a normal distribution.
+In fact the skewness is 69.99 and the kurtosis is 6,693.
+These extremely high values can be explained by the heavy tails.
+Just as the mean and standard deviation can be distorted by
+extreme values in the tails, so too can the skewness and kurtosis
+measures.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Weibull Distribution
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The fourth histogram is a sample from a
+<a href="eda3668.html">Weibull distribution</a> with
+shape parameter 1.5.  The Weibull distribution is a skewed distribution
+with the amount of skewness depending on the value of the shape
+parameter.  The degree of decay as we move away from the center also
+depends on the value of the shape parameter.
+For this data set, the skewness is 1.08 and the kurtosis
+is 4.46, which indicates moderate skewness and kurtosis.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Dealing with Skewness and Kurtosis
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Many classical statistical tests and intervals
+depend on normality assumptions.  Significant skewness and
+kurtosis clearly indicate that data are not normal.
+If a data set exhibits significant skewness or kurtosis (as
+indicated by a histogram or the numerical measures), what can
+we do about it?
+<p>
+One approach is to apply some type of transformation to try
+to make the data normal, or more nearly normal.  The 
+<a href="boxcoxno.html">Box-Cox transformation</a> is a useful
+technique for trying to normalize a data set.  In particular, taking
+the log or square root of a data set is often useful for data that
+exhibit moderate right skewness.
+<p>
+Another approach is to use techniques based on distributions
+other than the normal.  For example, in reliability studies, the
+exponential, Weibull, and lognormal distributions are typically
+used as a basis for modeling rather than using the normal distribution.
+The <a href="ppccplot.html">probability plot correlation coefficient
+plot</a> and the <a href="probplot.html">probability plot</a> are
+useful tools for determining a good distributional model for the
+data.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: Software -->
+
+<tr>
+<td width=15% valign=top>
+   <I>Software</I>
+</td>
+<td width=85% valign=top>
+The skewness and kurtosis coefficients are available in most
+general purpose statistical software programs.
+
+</td>
+</tr>
+
+<!-- end paragraph -->
+
+
+
+
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35a.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35c.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:12 GMT -->
+</HTML>

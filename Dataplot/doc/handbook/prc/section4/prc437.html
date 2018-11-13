@@ -1,0 +1,349 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section4/prc437.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:25 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.4.3.7. The two-way ANOVA</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc438.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc436.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc4.html">Comparisons based on data from more than two processes</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc43.html">Are the means equal?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.4.3.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>The two-way ANOVA</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Definition of a factorial experiment</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The two-way ANOVA is probably the most popular layout in the
+<a href="../../pri/pri.html">Design of Experiments</a>. To begin with,
+let us define a <i>factorial experiment</i>:
+<p><b><i>An experiment that utilizes every combination of factor levels
+as treatments is called a factorial experiment.</i></b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Model for the two-way factorial experiment</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+In a factorial experiment with factor \(A\) at \(a\)
+<!-- <i>a</i> -->
+levels and factor \(B\) at \(b\)
+<!-- <i>b</i> --> 
+levels, the model for the
+<a href="prc438.html">general layout</a> can be written as
+
+$$ Y_{ij}  =  \mu + \tau_i + \beta_j + \gamma_{ij} + \epsilon_{ijk}  \, , $$
+
+$$ \begin{eqnarray}
+\mbox{for } i & = & 1, \, 2, \, \ldots, \, a, \\ 
+j & = & 1, \, 2, \, \ldots, \, b, \\ 
+k & = & 1, \, 2, \, \ldots, \, r,
+\end{eqnarray} $$
+
+<!--
+<center>
+<p>
+<img SRC="eqns/mod2way.gif" height=41 width=209 ALT=
+"Y(ij) = mu + tau(i) + beta(j) + gamma(ij) + epsilon)ijk)
+   for i = 1, 2, ..., a; j = 1, 2, ..., b; k = 1, 2, ..., r">
+</center>
+<p>
+-->
+
+where \(\mu\)
+<!-- <img SRC="eqns/mu.gif" ALT="mu" align=ABSCENTER> -->
+is the overall mean response, \(\tau_i\)
+<!-- <img SRC="eqns/tau.gif" ALT="tau" align=ABSCENTER><i><sub>i</sub></i> -->
+is the effect due to the \(i\)-th
+<!-- <i>i</i>-th -->
+level of factor \(A\), \(\beta_j\)
+<!-- <img SRC="eqns/beta.gif" ALT="beta" align=ABSCENTER><i><sub>j</sub></i> -->
+is the effect due to the \(j\)-th
+<!-- <i>j</i>-th -->
+level of factor \(B\) and \(\gamma_{ij}\)
+<!-- <img SRC="eqns/gamma.gif" ALT="gamma" align=ABSCENTER><i><sub>ij</sub></i> -->
+is the effect due to any interaction between the \(i\)-th
+<!-- <i>i</i>-th -->
+level of \(A\)
+and the \(j\)-th
+<!-- <i>j-</i>th -->
+level of \(B\).
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Fixed factors and fixed effects models</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+At this point, consider the levels of factor \(A\) and of factor \(B\) chosen
+for the experiment to be the only levels of interest to the experimenter
+such as predetermined levels for temperature settings or the length of
+time for process step. The factors \(A\) and \(B\) are said to be 
+<i>fixed factors</i> and the model is a <i>fixed-effects model</i>. Random 
+actors will be discussed <a href="prc44.html">later</a>.
+<p>
+When an \(a \times b\)
+<!-- <i>a</i> x <i>b</i> -->
+factorial experiment is conducted with an
+equal number of observations per treatment combination, the total
+(corrected) sum of squares is partitioned as:
+
+$$ SS(total) = SS(A) + SS(B) + SS(AB) + SSE \, , $$
+
+<!--
+<ul>
+   <b>SS(total) = SS(A) + SS(B) + SS(AB) + SSE</b>
+</ul>
+-->
+
+where \(AB\) represents the interaction between \(A\) and \(B\).
+<p>
+For reference, the formulas for the sums of squares are:
+
+$$ \begin{eqnarray}
+SS(A)     & = & rb \sum_{i=1}^a (\bar{y}_{i \huge{\cdot \cdot}} - \bar{y}_{\huge{\cdot \cdot \cdot}})^2 \\
+          &   &    \\
+SS(B)     & = & ra \sum_{j=1}^b (\bar{y}_{\huge{\cdot} \normalsize{j} \huge{\cdot}} - \bar{y}_{\huge{\cdot \cdot \cdot}})^2 \\
+          &   &    \\
+SS(AB)    & = & r  \sum_{j=1}^b \sum_{i=1}^a (\bar{y}_{ij \huge{\cdot}} - \bar{y}_{i \huge{\cdot \cdot}} 
+                 - \bar{y}_{\huge{\cdot} \normalsize{j} \huge{\cdot}} + \bar{y}_{\huge{\cdot \cdot \cdot}})^2 \\
+          &   &    \\
+SSE       & = &    \sum_{k=1}^r \sum_{j=1}^b \sum_{i=1}^a (y_{ijk} - \bar{y}_{ij \huge{\cdot}})^2 \\
+          &   &    \\
+SS(Total) & = &    \sum_{k=1}^r \sum_{j=1}^b \sum_{i=1}^a (y_{ijk} - \bar{y}_{\huge{\cdot \cdot \cdot}} )^2
+\end{eqnarray} $$
+
+<!--
+<center>
+<img SRC="eqns/twoss.gif" height=225 width=270 ALT=
+"SS(A) = r*b*SUM[i=1 to a][(ybar(i.) - ybar(..))^2;
+ SS(B) = r*a*SUM[j=1 to b][(Ybar(j.) - ybar(..))^2;
+ SS(AB) = r*SUM[j=1 to b][SUM[i=1 to a]
+[(ybar(ij) - ybar(i) - ybar(j) + ybar(..))^2]];
+ SSE = SUM[k=1 to r][SUM[j=1 to b][SUM[i=1 to a][(y(ijk) - ybar(ij.))^2;
+ SS(Total) = SUM[k=1 to r][SUM[j=1 to b][SUM[i=1 to a]
+[(y(ijk) - ybar(...))^2">
+</center>
+-->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>The breakdown of the total (corrected for the mean) sums
+of squares</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The resulting ANOVA table for an \(a \times b\)
+<!-- <i>a</i> x <i>b</i>  -->
+factorial experiment is
+<table>
+<tr>
+<td COLSPAN="6">
+<hr noshade></td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP>Source&nbsp;</td>
+
+<td ALIGN=CENTER VALIGN=TOP><i>SS</i></td>
+
+<td ALIGN=CENTER VALIGN=TOP><i>df</i></td>
+
+<td ALIGN=CENTER VALIGN=TOP><i>Mean Square</i></td>
+</tr>
+
+<tr>
+<td COLSPAN="6">
+<hr noshade></td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP>Factor \(A\)&nbsp;</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(SS(A)\)
+<!-- <i>SS</i>(A)&nbsp; -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\((a-1)\)
+<!-- (<i>a</i> - 1)&nbsp; -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(SS(A) / (a-1)\)
+<!-- <i>MS</i>(A) = <i>SS</i>(A)/(<i>a</i>-1)&nbsp; -->
+</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP>Factor \(B\)&nbsp;</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(SS(B)\)
+<!-- <i>SS</i>(B)&nbsp; -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\((b-1)\)
+<!-- (<i>b</i> - 1)&nbsp; -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(SS(B) / (b-1)\)
+<!-- <i>MS</i>(B) = <i>SS</i>(B)/(<i>b</i>-1)&nbsp; -->
+</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP>Interaction &nbsp;</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(SS(AB)\)
+<!-- <i>SS</i>(AB)&nbsp; -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\((a-1)(b-1)\)
+<!-- (<i>a</i>-1)(<i>b</i>-1)&nbsp; -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(\,\,\,\,\, SS(AB) / ((a-1)(b-1)) \,\,\,\,\,\)
+<!-- <i>MS</i>(AB)=
+<br><i>SS</i>(AB)/(<i>a</i>-1)(<i>b</i>-1)&nbsp;-->
+</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP>Error&nbsp;</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(SSE\)
+<!-- <i>SSE</i> -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\((N-ab)\)
+<!-- (<i>N</i> - <i>ab</i>)&nbsp; -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(SSE / (N-ab)\)
+<!-- <i>SSE</i>/(<i>N</i> - <i>ab</i>)&nbsp; -->
+</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP>Total (Corrected)&nbsp;</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\(SS(Total)\)
+<!-- &nbsp;SS(Total) -->
+</td>
+
+<td ALIGN=CENTER VALIGN=TOP>\((N-1)\)
+<!-- (<i>N</i> - 1)&nbsp;</td> -->
+
+<td ALIGN=CENTER VALIGN=TOP>&nbsp;
+</td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr noshade></td>
+</tr>
+</table>
+<!-- <img SRC="eqns/anova19.gif" BORDER=0 height=205 width=508> --></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>The ANOVA
+table can be used to test
+<a href="prc43.html#Hypotheses">hypotheses</a>
+about the effects and interactions</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->The various hypotheses
+that can be tested using this ANOVA table concern whether the different
+levels of Factor \(A\), or Factor \(B\), really make a difference in the response,
+and whether the \(AB\) interaction is significant (see previous discussion
+of
+<a href="prc43.html#Hypotheses">ANOVA hypotheses</a>).&nbsp;</td>
+</tr>
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc436.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc438.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section4/prc437.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:25 GMT -->
+</HTML>

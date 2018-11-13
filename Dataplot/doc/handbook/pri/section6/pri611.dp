@@ -1,0 +1,540 @@
+Dataplot commands and output:
+
+.
+. Starting Eddy Current Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units data
+xtic offset 0.5 0.5
+legend case asis
+label case asis
+title case asis
+title displacement 2
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read splett3.dat y x1 x2 x3 runseq
+variable label y Sensitivity
+variable label x1 Numbersp()ofcr()Turns
+variable label x2 Windingcr()Distance
+variable label x3 Wirecr()Gauge
+.  Following lines for confounding structure
+let k = 3
+let string project = Eddy Current Data
+.
+let kp1 = k+1
+let kp2 = k+2
+let n = number y
+let index = sequence 1 1 n
+.
+call confound.dp
+. Finished Step 1.1
+
+
+.Ordered Data Plot 	
+.
+.
+. Starting Step 2.1
+tic offset 5 5
+tic offset units screen
+box shadow hw 0 0
+title Ordered Data Plot for Eddy Current Data
+device 1 off
+ytic offset 0 0
+plot y
+probe fy1min; let mintic = probeval
+probe fy1max; let maxtic = probeval
+let rangetic = maxtic-mintic
+ytic offset 5 5
+device 1 on
+.
+loop for j = 1 1 k
+   let z^j = x^j
+end loop
+let y2 = sortc y z1 z2 z3
+char x
+lines blank
+y1label Sensitivity
+x1label Settings
+x1tics off
+x1tic labels off
+xmin -1
+let yoffset = 2*k + 4
+y1tic offset yoffset 5
+plot y2 index
+.
+probe fy1min; let ybottom = probeval
+probe fy1max; let ytop = probeval
+let ybase = 20+yoffset-2
+let yinc = 2
+just center
+loop for j = 1 1 k
+   let ypos = ybase-j*yinc
+   loop for l = 1 1 n
+      let xpos = xplot(l)
+      let zjl = z^j(l)
+      let string ch = -
+      if zjl = 1; let string ch = +; end if
+      moveds xpos ypos
+      text ^ch
+   end loop
+   move 20 ypos
+   text X^j:
+end loop
+.
+call dexkn.dp
+.
+x1tics on
+x1tic labels on
+limits
+y1tic offset 5 5
+title
+y1label
+x1label
+just left
+xtic offset units data
+xtic offset 0.5 0.5
+ytic offset 0 0
+. erase
+. Finished Step 2.1
+
+
+.Dex Scatter Plot 	
+.
+.
+. Starting Step 2.2
+title DEX Scatter Plot for Eddy Current Data
+xlimits 1 3
+major x1tic mark number 3
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3
+y1label ^y
+line solid all
+line blank
+char blank all
+char x
+dex scatter plot y x1 x2 x3
+limits freeze
+pre-erase off
+char bl all
+lines solid all
+let k2 = 2*k
+plot yplot xplot xplot subset tagplot 1 to k2
+pre-erase on
+limits
+.
+let dxplot = distinct xplot
+let dxplot = sort dxplot
+let ndxplot = number dxplot
+let b = 18
+just cece
+loop for j = 1 1 ndxplot
+   let a = dxplot(j)
+   moveds a b
+   let evenodd = mod(j,2)
+   if evenodd = 1; text -; end if
+   if evenodd = 0; text +; end if
+end loop
+.
+line blank
+title
+y1label
+xlimits
+x1tic mark label format real
+major x1tic mark number
+minor x1tic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.2
+
+
+.Dex Mean Plot 	
+.
+.
+. Starting Step 2.3
+title DEX Mean Plot for Eddy Current Data
+xlimits 1 3
+major x1tic mark number 3
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3
+y1label ^y
+char blank
+ylimits 1 5
+line solid
+dex mean plot y x1 x2 x3
+char x
+line blank
+title
+y1label
+xlimits
+xtic mark label format real
+major xtic mark number
+minor xtic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.3
+
+
+.Dex Mean Interaction Effects Plot 	
+.
+.
+. Starting Step 3.1
+variable label x1 Turns
+variable label x2 Windingsp()Distance
+variable label x3 Wiresp()Gauge
+xlimits -1 1
+major xtic mark number 2
+minor xtic mark number 0
+xtic offset 0.5 0.5
+xtic mark label format real
+y1label ^y
+ylabel displacement 12
+char circle blank
+char fill on blank
+line solid solid
+ylimits 1 5
+line solid
+set matrix plot x2label effect
+set matrix plot lower diagonal off
+x2label displacement 16
+multiplot 3 3
+dex mean interaction effects plot y x1 x2 x3
+multiplot 3 3
+justification center
+move 50 96
+text DEX Interaction Effects Plot for Eddy Current Data
+variable label x1 Numbersp()ofcr()Turns
+variable label x2 Windingcr()Distance
+variable label x3 Wirecr()Gauge
+label displacement
+char x
+line blank
+char fill off
+limits
+y1label
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.1
+
+
+.Block Plots 	
+.
+.
+. Starting Step 3.2
+x1tic mark labels off
+char 1 2
+lines blank blank
+multiplot 2 2
+title Primary Factor - Turns
+block plot y x2 x3 x1
+title Primary Factor - Winding Distance
+block plot y x1 x3 x2
+title Primary Factor - Wire Gauge
+block plot y x1 x2 x3
+multiplot off
+x1tic mark labels on
+char x blank
+line blank solid
+title
+. Finished Step 3.2
+
+
+.Yates Analysis 	
+.
+.
+. Starting Step 4.1
+yates y
+. Finished Step 4.1
+
+> (NOTE--DATA MUST BE IN STANDARD ORDER)
+> NUMBER OF OBSERVATIONS           =        8
+> NUMBER OF FACTORS                =        3
+> NO REPLICATION CASE
+>  
+> PSEUDO-REPLICATION STAND. DEV.   =    0.20152531564E+00
+> PSEUDO-DEGREES OF FREEDOM        =        1
+> (THE PSEUDO-REP. STAND. DEV. ASSUMES ALL
+> 3, 4, 5, ...-TERM INTERACTIONS ARE NOT REAL,
+> BUT MANIFESTATIONS OF RANDOM ERROR)
+>  
+> STANDARD DEVIATION OF A COEF.    =    0.14249992371E+00
+> (BASED ON PSEUDO-REP. ST. DEV.)
+>  
+> GRAND MEAN                       =    0.26587500572E+01
+> GRAND STANDARD DEVIATION         =    0.17410624027E+01
+>   
+> 99% CONFIDENCE LIMITS (+-)       =    0.90710897446E+01
+> 95% CONFIDENCE LIMITS (+-)       =    0.18106349707E+01
+> 99.5% POINT OF T DISTRIBUTION    =    0.63656803131E+02
+> 97.5% POINT OF T DISTRIBUTION    =    0.12706216812E+02
+>   
+> IDENTIFIER    EFFECT        T VALUE      RESSD:     RESSD:
+>                                          MEAN +     MEAN +
+>                                          TERM    CUM TERMS
+> ----------------------------------------------------------
+>    MEAN       2.65875                   1.74106    1.74106
+>       1       3.10250         21.8*     0.57272    0.57272
+>       2      -0.86750         -6.1      1.81264    0.30429
+>      23       0.29750          2.1      1.87270    0.26737
+>      13       0.24750          1.7      1.87513    0.23341
+>       3       0.21250          1.5      1.87656    0.19121
+>     123       0.14250          1.0      1.87876    0.18031
+>      12       0.12750          0.9      1.87912    0.00000
+
+
+.Probability Plots of Effects 	
+.
+.
+. Starting Step 5.1
+tic offset units screen
+tic offset 5 5
+label size 4
+tic label size 4
+yates y
+skip 0
+read dpst1f.dat tag coef
+.
+let coef2 = abs(coef)
+char x
+lines bl
+title displacement 6
+title Eddy Current Data cr() Half-normal Probability Plot of Effects
+y1label Ordered |Effects|
+x1label Half-normal Distribution Order Statistic Medians
+limits
+halfnormal probability plot coef2
+.
+let numyplot = number yplot
+just lece
+loop for j = 1 1 numyplot
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let jrev = numyplot-j+1
+   let tagjrev = tag(jrev)
+   let string ch = ^con^tagjrev:
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagjrev
+   text ^ch
+end loop
+move 86 90
+text Factor: Conf.
+.
+call dexkn.dp
+.
+just left
+title
+title displacement 2
+label
+tic offset units data
+xtic offet 0.5 0.5
+ytic offset 0 0
+. Finished Step 5.1
+
+
+.Youden Plot of Effects 	
+.
+.
+. Starting Step 5.2
+tic offset units screen
+tic offset 5 5
+yates y
+skip 0
+read dpst1f.dat tag coef
+.
+device 1 off
+dex mean plot y x1 to x^k
+device 1 on
+.
+let numtag = number tag
+loop for j = 1 1 numtag
+   let posint = tag(j)
+   call digit.dp
+   let prod = ^sdigit
+   let ymeanp(j) = mean y subset prod +1
+   let ymeanm(j) = mean y subset prod -1
+end loop
+let effect = ymeanp - ymeanm
+char blank all
+char automatic tag
+lines blank all
+probe fy1min
+let ybottom = probeval
+probe fy1max
+let ytop = probeval
+let ydel = ytop-ybottom
+let a = ybottom + (1/14)*ydel
+. 1/14 is correct for offset 5 5
+let b = ytop - (1/14)*ydel
+ylimits a b
+xlimits a b
+title displacement 6
+title ^project cr() Youden Plot
+y1label Average Response for  +  Setting
+x1label Average Response for  -  Setting
+let numeffec = number tag
+let index2 = sequence 1 1 numeffec
+plot ymeanp ymeanm index2
+lines solid
+let ybar = mean y
+draw data ybar a ybar b
+draw data a ybar b ybar
+.
+let numyplot = number yplot
+just lece
+loop for j = 1 1 numyplot
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let tagj = tag(j)
+   let string ch = ^con^tagj:
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagj
+   text ^ch
+end loop
+move 86 90
+text Factor: Confound
+.
+limits
+title
+label
+.
+loop for j = 1 1 numeffec
+   let xpos = ymeanm(j)
+   let ypos = ymeanp(j)
+   let tagj = tag(j)
+   let string ch = ^con^tagj
+   movedata xpos ypos
+   just cece
+   text ^ch
+end loop
+.
+call dexkn.dp
+.
+line solid all
+character x
+line blank
+title displacement 2
+limits
+title
+label
+tic offset units data
+xtic offset 0.5 0.5
+ytic offset 0 0
+. Finished Step 5.2
+
+
+.Fitting for Partial Model 	
+.
+.
+. Starting Step 6.1
+yates y
+skip 0
+read dpst1f.dat tag coef t ressd1 ressd2
+.
+let mu = mean y
+let b1 = coef(1)
+let b2 = coef(2)
+let ressd = ressd2(2)
+.
+let function f = mu + 0.5*(b1*x1 + b2*x2)
+let pred = f
+let res = y - pred
+.
+. Finished Step 6.1
+
+
+.Residual Plots for Model Validation 	
+.
+.
+. Starting Step 6.2
+line blank
+character x
+multiplot 3 3
+y1label displacement 15
+major ytic mark number 6
+title normal prob plot
+normal probability plot res
+justification left
+move 20 80
+let a = round(ppcc,3)
+text CORR = ^a
+title run sequence
+y1label res
+line solid
+character blank
+plot res runseq
+line blank
+character x
+title x1
+xlimits -1 1
+major xtic mark number 2
+minor xtic mark number 0
+plot res vs x1
+title x2
+plot res vs x2
+title x3
+plot res vs x3
+title x1*x2
+interaction plot res x1 x2
+title x1*x3
+interaction plot res x1 x3
+title x2*x3
+interaction plot res x2 x3
+title x1*x2*x3
+interaction plot res x1 x2 x3
+multiplot off
+character x
+character size
+title
+title
+y1label
+y1label displacement
+major tic mark number
+minor tic mark number
+.
+.  justification center
+.  move 50 8
+.  text Model: Y = ^mu + 0.5*(^b1*x1 + ^b2*x2)
+.  move 50 4
+.  text ressd = ^ressd
+. Finished Step 6.2
+
+
+.Dex Contour Plot of Factors 1 and 2 	
+.
+.
+. Starting Step 7.1
+title DEX Contour Plot
+y1label Number of Turns
+x1label Winding Distance
+limits -2 2
+major tic mark number 5
+let levels = sequence 0 0.5 6
+line thickness 0.1 0.1 0.3
+char blank all
+char blank circle
+char fill off on
+dex contour plot y x1 x2 levels
+char x blank
+line solid all
+line blank
+line thickness 0.1 all
+title
+y1label
+limits
+major tic mark number
+. Finished Step 7.1
+

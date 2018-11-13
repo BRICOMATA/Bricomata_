@@ -1,0 +1,274 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr43.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:14 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.3. How do you project reliability at use conditions?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr44.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr423.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How do you project reliability at use conditions?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>When projecting
+from high stress to use conditions, having a correct acceleration model
+and life distribution model is critical</i></td>
+
+<td WIDTH="85%"><!-- Add main text below --><b>General Considerations</b>
+<p>Reliability projections based on failure data from high stress tests
+are based on assuming we know the correct acceleration model for the failure
+mechanism under investigation and we are also using the correct life distribution
+model. This is because we are extrapolating "backwards" - trying to describe
+failure behavior in the early tail of the life distribution, where we have
+little or no actual data.&nbsp;
+<p>For example, with an acceleration factor of 5000 (and some are much
+larger than this), the first 100,000 hours of use life is "over" by 20
+hours into the test. Most, or all, of the test failures typically come
+later in time and are used to fit a life distribution model with only the
+first 20 hours or less being of practical use.&nbsp; Many distributions
+may be flexible enough to adequately fit the data at the percentiles where
+the points are, and yet differ from the data by orders of magnitude in
+the very early percentiles (sometimes referred to as the early "tail" of
+the distribution).&nbsp;
+<p>However, it is frequently necessary to test at high stress (to obtain
+any failures at all!) and project backwards to use. When doing this bear
+in mind two important points:</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Project for each failure mechanism separately</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<ul>
+<li>
+Distribution models, and especially acceleration models, should be applied
+only to a single failure mechanism at a time. <a href="../section1/apr131.html#Separating out Failure">Separate
+out failure mechanisms</a> when doing the data analysis and use the <a href="../section1/apr181.html">competing
+risk model </a>to build up to a total component failure rate</li>
+
+<li>
+Try to find theoretical justification for the chosen models, or at least
+a successful history of their use for the same or very similar mechanisms.
+(Choosing models solely based on empirical fit is like extrapolating from
+quicksand to a mirage.)&nbsp;</li>
+</ul>
+<b>How to Project from High Stress to Use Stress</b>
+<p>Two types of use-condition reliability projections are common:
+<ol>
+<li>
+Projection to use conditions after completing a multiple stress cell experiment
+and successfully fitting both a life distribution model and an acceleration
+model</li>
+
+<li>
+Projection to use conditions after a single cell at high stress is run
+as a line reliability monitor.</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Arrhenius model projection example</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The Arrhenius example from the 
+<a href="apr421.html#Graphical Estimation: Arrhenius Model">graphical estimation</a> 
+and the
+<a href="apr422.html#An Example Comparing Graphical Estimates and MLE">MLE estimation</a> 
+sections ended by comparing use projections of the CDF
+at 100,000 hours. This is a projection of the first type. We know from
+the Arrhenius model assumption that the \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+at 25 &deg;C is just
+
+$$ A \cdot \mbox{exp} \left( \frac{\Delta H}{k(25+273.16)} \right) \, . $$
+
+<!--
+<p>
+<center>
+<img SRC="eqns/arr50.gif" ALT="A*EXP{deltaH/[k*(25+273.16)]}" >
+</center>
+<p>
+-->
+
+Using the graphical model estimates for \(\mbox{ln } A\) and \(\Delta H\)
+<!-- ln <i>A</i> and we have -->
+we have,
+
+$$ \begin{eqnarray} 
+T_{50} \mbox{ at use } & = & e^{-18.312} \cdot e^{0.808 (11605)/298.16} \\
+                       &   &  \\
+                       & = & e^{13.137} = 507383 \, ,
+\end{eqnarray} $$
+
+<!-- 
+<p>
+<i>T<sub>50</sub></i> at use = <i>e<sup>-18.312 &times;</sup></i> e<i><sup>0.808
+&times; 11605/298.16</sup> 
+<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= e<sup>13.137</sup> = </i>507383
+<p>
+-->
+
+and combining this \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+with the estimate of the common
+sigma of 0.74 allows us to easily estimate the CDF or failure rate after
+any number of hours of operation at use conditions.  
+<p>
+In particular, the CDF value of a lognormal at \(T/T_{50}\)
+<!-- </<i>T<sub>50</sub></i> -->
+(where time \(T\) = 100,000 
+<!-- <i>T<sub>50</sub></i> \(T_{50}\) -->
+= 507383, and sigma = 0.74) is 0.014, which matches the answer given in the 
+<a href="apr422.html#An Example Comparing Graphical Estimates and MLE">
+MLE estimation section</a> as the graphical projection of the CDF at 100,000
+hours at a use temperature of 25 &deg;C.
+<p>
+If the life distribution model had been Weibull, the same type of analysis
+would be performed by letting the characteristic life parameter \(\alpha\)
+<!-- <i>&alpha;</i> -->
+vary with stress according to the acceleration model, while the shape parameter \(\gamma\)
+<!-- <i>&gamma;</i> -->
+is constant for all stress conditions.
+<p>
+The second type of use projection was used in the section on 
+<a href="../section3/apr312.html#Planning Tests to Estimate Both Weibull or">
+lognormal and Weibull tests,</a> in which we judged new lots of product by looking
+at the proportion of failures in a sample tested at high stress. The assumptions
+we made were:
+<ul>
+<li>
+we knew the acceleration factor between use and high stress</li>
+
+<li>
+the shape parameter (sigma for the lognormal, gamma for the Weibull) is
+also known and does not change significantly from lot to lot.</li>
+</ul>
+
+With these assumptions, we can take any proportion of failures we see from
+a high stress test and project a use CDF or failure rate. For a \(T\)-hour
+high stress test and an acceleration factor of \(A\)
+<!-- <i>A</i> -->
+from high stress to use stress, an observed proportion \(p\)
+<!-- <i>p</i> -->
+is converted to a use CDF at 100,000 hours for a lognormal model using:
+
+$$ T_{50Stress} = T \cdot G^{-1} (p, \, 0, \, \sigma) $$
+
+$$ \mbox{CDF } = G\left( 100000/(AT_{50Stress}), \, 0, \, \sigma \right) \, , $$
+
+<!--
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>T<sub>50Stress</sub></i> = T&times;<i>G</i><sup> -1</sup>(<i>p</i>,&thinsp;0,&thinsp;<i>&sigma;</i>) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CDF = <i>G</i>((100000/(<i>A</i>&times;<i>T<sub>50Stress</sub></i>)),&thinsp;0,&thinsp;<i>&sigma;</i>).
+<p>
+-->
+
+where \(G(q, \, \mu, \, \sigma)\)
+<!-- <i>G</i>(<i>q</i>,&thinsp;<i>&mu;</i>,&thinsp;<i>&sigma;</i>)  -->
+is the lognormal distribution function with mean \(\mu\)
+<!-- <i>&mu;</i> -->
+and standard deviation \(\sigma\).
+<!-- <i>&sigma;</i>. -->
+<p>
+If the model is Weibull, we can find the use CDF or failure rate with:
+
+$$ A_{Stress} = T \cdot W^{-1} (p, \, \gamma, \, 1) $$
+
+$$ \mbox{CDF } = W\left( 100000/(A \cdot A_{Stress}), \, \gamma, \, 1 \right) \, , $$
+
+<!--
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>A<sub>Stress</sub></i> = T&times;<i>W</i><sup> -1</sup>(<i>p</i>,&thinsp;<i>&gamma;</i>,&thinsp;1) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CDF = <i>W</i>((100000/(<i>A</i>&times<i>A<sub>Stress</sub></i>)),&thinsp;<i>&gamma;</i>,&thinsp;1).
+<p>
+-->
+
+where \(W(q, \, \gamma, \, \alpha)\)
+<!-- <i>W</i>(<i>q</i>,&thinsp;<i>&gamma;</i>,&thinsp;<i>&alpha;</i>) -->
+is the Weibull distribution function with shape parameter \(\gamma\)
+<!-- <i>&gamma;</i> -->
+and scale parameter \(\alpha\).
+<!-- <i>&alpha;</i>. -->
+<p>
+The analyses in this section can can be implemented using both
+<a href="apr43.dp">Dataplot code</a> and <a href="apr43.r">R code</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr423.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr44.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr43.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:16 GMT -->
+</HTML>

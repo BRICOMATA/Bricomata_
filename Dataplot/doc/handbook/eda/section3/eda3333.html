@@ -1,0 +1,309 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3333.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:52 GMT -->
+<HEAD>
+<script language="JavaScript" id="_fed_an_js_tag" src=
+"http://www.itl.nist.gov/js/federated-analytics.all.min.js?agency=NIST&amp;subagency=itl&amp;pua=UA-37115410-50&amp;yt=true">
+</script>
+<script type="text/javascript" src=
+"https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.33. 6-Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda34.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda3332.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.33.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>6-Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Graphical Model Validation
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The 6-plot is a collection of 6 specific graphical techniques
+      whose purpose is to assess the validity of a Y versus X fit.
+      The fit can be a linear fit, a non-linear fit, a LOWESS
+      (locally weighted least squares) fit, a spline fit, or any
+      other fit utilizing a single independent variable.
+      <p>
+      The 6 plots are:
+      <ol>
+         <li><a href="scatterp.html">Scatter plot of the response
+             and predicted values versus the independent
+             variable</a>;
+         <li><a href="scatterp.html">Scatter plot of the residuals
+             versus the independent variable;</a>
+         <li><a href="scatterp.html">Scatter plot of the residuals
+             versus the predicted values</a>;
+         <li><a href="lagplot.html">Lag plot of the residuals;</a>
+         <li><a href="histogra.html">Histogram of the residuals;</a>
+         <li><a href="normprpl.html">Normal probability plot of the
+             residuals.</a>
+      </ol>
+
+   </td>
+</tr>
+
+
+<!-----begin section: Sample Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot
+      </I>
+   </td>
+   <td width=85% valign=top>
+
+      <img src = "../gif/6plot.gif">
+      <p>
+      This 6-plot, which followed a linear fit, shows that the
+      linear model is not adequate.  It suggests that a quadratic
+      model would be a better model.
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition:<br>
+         6 Component Plots
+      </I>
+   </td>
+   <td width=85% valign=top>
+       The 6-plot consists of the following:
+       <ol>
+          <li>Response and predicted values
+             <ul>
+                <li>Vertical axis: Response variable, predicted values
+                <li>Horizontal axis: Independent variable
+             </ul>
+          <li>Residuals versus independent variable
+             <ul>
+                <li>Vertical axis: Residuals
+                <li>Horizontal axis: Independent variable
+             </ul>
+          <li>Residuals versus predicted values
+             <ul>
+                <li>Vertical axis: Residuals
+                <li>Horizontal axis: Predicted values
+             </ul>
+          <li>Lag plot of residuals
+             <ul>
+                <li>Vertical axis: RES(I)
+                <li>Horizontal axis: RES(I-1)
+             </ul>
+          <li>Histogram of residuals
+             <ul>
+                <li>Vertical axis: Counts
+                <li>Horizontal axis: Residual values
+             </ul>
+          <li>Normal probability plot of residuals
+             <ul>
+                <li>Vertical axis: Ordered residuals
+                <li>Horizontal axis: Theoretical values from a
+                    normal N(0,1) distribution for ordered residuals
+             </ul>
+       </ol>
+
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The 6-plot can be used to answer the following questions:
+      <ol>
+         <li>Are the residuals approximately normally distributed
+             with a fixed location and scale?
+         <li>Are there outliers?
+         <li>Is the fit adequate?
+         <li>Do the residuals suggest a better fit?
+      </ol>
+
+   </td>
+</tr>
+
+<!-----begin section: Importance -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Importance:<br>
+         Validating Model
+      </I>
+   </td>
+   <td width=85% valign=top>
+      A model involving a response variable and a single independent
+      variable has the form:
+      <ul>
+         <!--
+         <img src="eqns/f1model.gif"
+              alt="Y(i) = f(X(i) + E(i)">
+         -->
+         \[ Y_{i} = f(X_{i}) + E_{i} \]
+      </ul>
+      where <i>Y</i> is the response variable, <i>X</i> is the independent
+      variable, <i>f</i> is the linear or non-linear fit function, and
+      <i>E</i> is the random component.  For a good model, the
+      error component should behave like:
+      <ol>
+         <li>random drawings (i.e., independent);
+         <li>from a fixed distribution;
+         <li>with fixed location; and
+         <li>with fixed variation.
+      </ol>
+      In addition, for fitting models it is usually further assumed
+      that the fixed distribution is normal and the fixed location
+      is zero.  For a good model the fixed variation
+      should be as small as possible.  A necessary component
+      of fitting models is to verify these assumptions for the
+      error component and to assess whether the variation for
+      the error component is sufficiently small.  The histogram,
+      lag plot, and normal probability plot are used to
+      verify the fixed distribution, location, and variation
+      assumptions on the error component.  The plot
+      of the response variable and the predicted values versus
+      the independent variable is used to assess whether the
+      variation is sufficiently small.  The plots of the
+      residuals versus the independent variable and the predicted
+      values is used to assess the independence assumption.
+      <p>
+      Assessing the validity and quality of the fit in terms of
+      the above assumptions is an absolutely vital part of
+      the model-fitting process.  No fit should be considered
+      complete without an adequate model validation step.
+
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="../../pmd/section1/pmd141.html">Linear Least
+          Squares</a><br>
+      <a href="../../pmd/section1/pmd142.html">Non-Linear Least
+          Squares</a><br>
+      <a href="scatterp.html">Scatter Plot</a><br>
+      <a href="runseqpl.html">Run Sequence Plot</a><br>
+      <a href="lagplot.html">Lag Plot</a><br>
+      <a href="normprpl.html">Normal Probability Plot</a><br>
+      <a href="histogra.html">Histogram</a><br>
+
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The 6-plot is used in the
+      <a href="../../pmd/section6/pmd62.html">Alaska pipeline</a>
+      data case study.
+   </td>
+</tr>
+
+<!-----begin section: software -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software </I>
+</TD>
+
+<TD WIDTH=85%>
+It should be feasible to write a macro for the 6-plot in any
+general purpose statistical software program that supports
+the capability for multiple plots per page and supports the
+underlying plot techniques.
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+
+
+  
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda3332.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda34.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3333.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:53 GMT -->
+</HTML>

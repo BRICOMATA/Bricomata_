@@ -1,0 +1,385 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc24.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:30 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>3.2.4. Discrete Models</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section3/ppc3.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="ppc2331.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">3.</FONT>
+<FONT COLOR="#00105A"><A HREF="../ppc.html">Production
+Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc2.html">Assumptions / Prerequisites</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">3.2.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Discrete Models</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+   
+
+   
+
+   
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Description</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+There are many instances when we are faced with the analysis of
+discrete data rather than continuous data. Examples
+of this are yield (good/bad), speed bins (slow/fast/faster/fastest), survey
+results (favor/oppose), etc. We then try to explain the discrete outcomes
+with some combination of discrete and/or continuous explanatory variables. In this situation
+the modeling techniques we have learned so far (CLM and ANOVA) are no longer
+appropriate.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Contingency table analysis and log-linear model</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+There are two primary methods available for the analysis of discrete
+response data. The first one applies to situations in which
+we have discrete explanatory variables and discrete responses and is known
+as Contingency Table Analysis. The model for this is covered in detail in this
+section. The second model applies when we have both discrete
+and continuous explanatory variables and is referred to as a Log-Linear
+Model. That model is beyond the scope of this Handbook, but interested readers
+should refer to the <a href="http://www.nist.gov/itl/">reference section</a> of
+this chapter for a list of useful books on the topic.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Model</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+Suppose we have <i>n</i> individuals that we classify according
+to two criteria, A and B. Suppose there are<i> r</i> levels of criterion
+A and <i>s</i> levels of criterion B. These responses can be displayed
+in an <i>r</i> <b>x</b> <i>s</i> table. For example, suppose we have a box of manufactured
+parts that we classify as good or bad and whether they
+came from supplier 1, 2 or 3.
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%"></td>
+
+<td valign=top width="85%">
+Now, each cell of this table will have a count of the individuals who
+fall into its particular combination of classification levels. Let's call
+this count N<sub><font size=-1>ij</font></sub>. The sum of all of
+these counts will be equal to the total number of individuals, N. Also,
+each row of the table will sum to N<sub><font size=-1>i.</font></sub> and
+each column will sum to N<sub><font size=-1>.j</font></sub> .
+</td>
+
+</tr>
+
+<tr>
+<td valign=top width="15%">
+</td>
+
+<td valign=top width="85%">
+Under the assumption that there is no interaction between the two classifying
+variables (like the number of good or bad parts does not depend on which
+supplier they came from), we can calculate the counts we would expect to
+see in each cell. Let's call the expected count for any cell E<sub><font size=-1>ij</font></sub>
+. Then the expected value for a cell is E<sub><font size=-1>ij</font></sub>
+= N<sub><font size=-1>i.</font></sub> * N<sub><font size=-1>.j</font></sub>
+/N . All we need to do then is to compare the expected counts to the observed
+counts. If there is a consderable difference between the observed
+counts and the expected values, then the two variables interact
+in some way.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Estimation</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+The estimation is very simple. All we
+do is make a table of the observed counts and then calculate the expected
+counts as described above.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Testing</i></td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+The test is performed using a Chi-Square goodness-of-fit
+test according to the following formula:
+<p>
+<center>
+<!--
+<img SRC="eqns/chisqr.gif"
+        alt="chi-square = SUM[SUM[(observed - expected)**2/expected]]">
+-->
+\( \chi^2 = \sum{\sum{\frac{(\mbox{observed} - \mbox{expected})^2}
+{\mbox{expected}}}} \)
+</center>
+
+<p>where the summation is across all of the cells in the table.
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%">
+</td>
+
+<td valign=top width="85%">
+Given the assumptions stated below, this statistic has
+ pproximately a chi-square distribution and is therefore
+compared against a chi-square table with (<i>r</i>-1)(<i>s</i>-1)
+degrees of freedom, with <i>r</i> and <i>s</i> as previously defined.
+If the value of the test statistic is less than the chi-square
+value for a given level of confidence, then the classifying variables are
+declared independent, otherwise they are judged to be dependent.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Assumptions</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+The estimation and testing results above hold regardless of
+whether the sample model is Poisson, multinomial, or
+product-multinomial. The chi-square results start to break down if the
+counts in any cell are small, say &lt; 5.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Uses</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+The contingency table method is really just a test of interaction
+between discrete explanatory variables for discrete
+responses. The example given below is for two factors. The methods are
+equally applicable to more factors, but as with any interaction, as you
+add more factors the interpretation of the results becomes more
+difficult.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Example</i></td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+Suppose we are comparing the yield from two manufacturing
+processes.  We want want to know if one process has a higher yield.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Make table of counts</i></td>
+
+<td valign=top width="85%">
+<center>
+<table BORDER COLS=4 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td NOWRAP NOSAVE></td>
+
+<th VALIGN=CENTER NOSAVE>Good</th>
+
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Bad</th>
+
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Totals</th>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Process A</th>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>86</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>14</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>100</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Process B</th>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>80</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>20</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>100</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Totals</th>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>166</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>34</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>200</td>
+</tr>
+
+<caption ALIGN=BOTTOM>Table 1. Yields for two production processes</caption>
+</table>
+</center>
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%">
+</td>
+
+<td valign=top width="85%">
+We obtain the expected values by the formula given above.&nbsp; This
+gives the table below.</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Calculate expected counts</i></td>
+
+<td valign=top width="85%">
+<center><table BORDER COLS=4 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td NOWRAP NOSAVE></td>
+
+<th VALIGN=CENTER NOSAVE>Good</th>
+
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Bad</th>
+
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Totals</th>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Process A</th>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>83</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>17</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>100</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Process B</th>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>83</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>17</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>100</td>
+</tr>
+
+<tr NOSAVE>
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE>Totals</th>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>166</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>34</td>
+
+<td ALIGN=CENTER VALIGN=CENTER NOSAVE>200</td>
+</tr>
+
+<caption ALIGN=BOTTOM>Table 2. Expected values for two production processes</caption>
+</table></center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Calculate chi-square statistic and compare to
+table value</i>
+</td>
+
+<td valign=top width="85%">
+The chi-square statistic is 1.276. This is
+below the chi-square value for 1 degree of freedom and 90% confidence of
+2.71 . Therefore, we conclude that there is not a (significant)
+difference in process yield.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Conclusion</i></td>
+
+<td valign=top width="85%">
+Therefore, we conclude that there is no statistically significant
+difference between the two processes.
+</td>
+</tr>
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="ppc2331.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section3/ppc3.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc24.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:32 GMT -->
+</HTML>

@@ -1,0 +1,25 @@
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+retain run wafer probe y sr subset probe 2362
+sd plot y wafer subset run 1
+let s21 = yplot
+let wafer1 = xplot
+sd plot y wafer subset run 2
+let s22 = yplot
+retain s21 s22 wafer1 subset tagplot = 1
+let nwaf = size wafer1
+let df21 = 5 for i = 1 1 nwaf
+let df22 = 5 for i = 1 1 nwaf
+let s2a = (s21**2)/5 + (s22**2)/5
+let s2 = sum s2a
+let s2 = sqrt(s2/2) 
+let df2a = df21 + df22
+let df2 = sum df2a
+. pooled level-2 standard deviation and df across wafers and runs
+print s2 df2
+. end of calculations

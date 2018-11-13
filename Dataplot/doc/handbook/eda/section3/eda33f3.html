@@ -1,0 +1,229 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33f3.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:58 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.15.3. Lag Plot: Strong Autocorrelation and Autoregressive Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33f4.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33f2.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.15.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33f.html">Lag Plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.15.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Lag Plot: Strong Autocorrelation and Autoregressive Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----graphic----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Lag Plot
+</I>
+</td>
+
+<td width=85%>
+<img src = "../gif/lagplot3.gif" alt=
+     "lag plot with no outliers and strong positive autocorrelation"
+>
+</td>
+</tr>
+
+<!-----conclusions----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Conclusions
+</I>
+</td>
+
+<td width=85%>
+We can make the following conclusions based on the above plot.
+<ol>
+   <li>The data come from an underlying autoregressive model with
+       strong positive autocorrelation
+   <li>The data contain no outliers.
+</ol>
+
+</td>
+</tr>
+
+<!-----discussion----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Discussion
+</I>
+</td>
+
+<td width=85%>
+Note the tight clustering of points along the diagonal.  This is the
+lag plot signature of a process with strong positive autocorrelation.
+Such processes are highly non-random--there is strong association
+between an observation and a succeeding observation.  In short, if you
+know <b><i>Y<sub>i-1</sub></i></b> you can make a strong guess as to
+what <b><i>Y<sub>i</sub></i></b> will be.
+<p>
+If the above process were <a href="lagplot1.html">completely random</a>,
+the plot would have a shotgun pattern, and knowledge of a current
+observation (say <b><i>Y<sub>i-1</sub></i></b> = 3) would yield
+virtually no knowledge about the next observation
+<b><i>Y<sub>i</sub></i></b> (it could here be anywhere from -2 to +8).
+On the other hand, if the process had strong autocorrelation, as
+seen above, and if <b><i>Y<sub>i-1</sub></i></b> = 3, then
+the range of possible values for <b><i>Y<sub>i</sub></i></b> is seen
+to be restricted to a smaller range (2 to 4)--still wide, but an
+improvement nonetheless (relative to -2 to +8) in predictive power.
+
+</td>
+</tr>
+
+<!-----recommended next step----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Recommended Next Step
+</I>
+</td>
+
+<td width=85%>
+When the lag plot shows a strongly autoregressive pattern and only
+successive observations appear to be correlated, the
+next steps are to:
+<ol>
+   <li>Extimate the parameters for the autoregressive model:
+       <p>
+       <ul>
+         <!--
+         <img src="eqns/armodel.gif"
+              alt="Y(i) = A0 + A1*Y(i-1) + E(i)">
+         -->
+         \[ Y_{i} = A_0 + A_1*Y_{i-1} + E_{i} \]
+       </ul>
+       <p>
+       Since <b><i>Y<sub>i</sub></i></b> and
+       <b><i>Y<sub>i-1</sub></i></b> are precisely the axes of the
+       lag plot, such estimation is a
+       <a href="../../pmd/section1/pmd141.html">linear regression</a>
+       straight from the lag plot.
+       <p>
+       The residual standard deviation for this autoregressive
+       model will be much smaller than the residual standard
+       deviation for the default model
+       <p>
+       <ul>
+         <!--
+         <img src="eqns/conmodel.gif"
+              alt="Y(i) = A0 + E(i)">
+         -->
+         \[ Y_{i} = A_0 + E_{i} \]
+       </ul>
+       <p>
+   <li>Reexamine the system to arrive at an explanation for the
+       strong autocorrelation.  Is it due to the
+       <p>
+       <ol>
+          <li>phenomenon under study; or
+          <li>drifting in the environment; or
+          <li>contamination from the data acquisition system?
+       </ol>
+       <p>
+      Sometimes the source of the problem is contamination and
+      carry-over from the data acquisition system where the system
+      does not have time to electronically recover before collecting
+      the next data point.  If this is the case, then consider
+      slowing down the sampling rate to achieve randomness.
+</ol>
+
+</td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33f2.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33f4.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33f3.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:00 GMT -->
+</HTML>

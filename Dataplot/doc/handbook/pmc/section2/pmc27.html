@@ -1,0 +1,264 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section2/pmc27.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:07 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.2.7. What is Skip Lot Sampling?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section3/pmc3.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc26.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc2.html">Test Product for Acceptability: Lot Acceptance
+Sampling</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.2.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>What is Skip Lot Sampling?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Skip Lot Sampling
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Skip Lot sampling means that only a fraction of the submitted
+lots are inspected. This mode of sampling is of the cost-saving
+variety in terms of time and effort.  However skip-lot sampling
+should only be used when it has been demonstrated that the quality
+of the submitted product is very good.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>
+Implementation of skip-lot sampling plan
+</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+ A skip-lot sampling plan is implemented as follows:
+<ol>
+  <li><a href="pmc23.html">Design a single sampling plan</a> by
+      specifying the alpha and beta risks and the
+      consumer/producer's risks.  This plan is called
+      "the reference sampling plan".
+      <p>
+  <li>Start with normal lot-by-lot inspection, using the reference
+      plan.
+      <p>
+  <li>When a pre-specified number, \(i\)
+      <!-- <i>i</i>, -->
+      of consecutive lots
+      are accepted, switch to inspecting only a fraction \(f\)
+      <!-- <i>f</i> -->
+      of the lots.  The selection of the members of that fraction
+      is done at random.
+      <p>
+  <li>When a lot is rejected return to normal inspection.
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>The \(f\) and \(i\) parameters</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The parameters \(f\) and \(i\)
+<!-- <i> f</i> and<i> i </i> -->
+are essential to calculating
+the probability of acceptance for a skip-lot sampling plan.
+In this scheme, \(i\),
+<!-- <i>i</i>,  -->
+called the <i>clearance number,</i> is
+a positive integer and the sampling fraction \(f\)
+<!-- <i>f</i> -->
+is such that \(0 < f < 1\).
+<!-- 0 &lt; <i>f</i> &lt; 1. -->
+Hence, when \(f=1\)
+<!-- <i>f</i> = 1 -->
+there is no longer skip-lot sampling.  The calculation of the 
+acceptance probability for the skip-lot sampling plan is performed 
+via the following formula
+
+$$ P_a(f,i) = \frac{fP + (1-f)P^i}{f + (1-f)P^i} \, ,$$
+<!--
+<p>
+<center>
+<img SRC="eqns/skiplot1.gif" height=60 width=203
+     ALT="P(a)(f,i) = [f*P + (1 - f)*P**i]/[f + (1 - f)*P**i]">
+</center>
+<p>
+-->
+where \(P\)
+<!-- <i>P</i> -->
+is the probability of accepting a lot with a given
+proportion of incoming defectives \(p\),
+<!-- <i>p</i>, -->
+from the
+<a href="pmc22.html#Operating Characteristic (OC)">OC curve</a> 
+of the single sampling plan.
+<p>
+The following relationships hold:
+<blockquote>
+    for a given \(i\),
+    <!-- <i>i</i>, -->
+    the smaller is \(f\)
+    <!-- <i>f,</i> -->
+    the greater is \(P_a\),
+    <!-- <i>P<sub>a</sub></i> -->
+    <br>
+    for a given \(f\),
+    <!-- <i>f</i>, -->
+    the smaller is \(i\),
+    <!-- <i> i</i>, -->
+    the greater is \(P_a\).
+    <!-- <i>P<sub>a</sub></i> -->
+</blockquote>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Illustration of a skip lot sampling plan</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+An illustration of a a skip-lot sampling plan is given below.
+<center>
+<img SRC="gifs/skiplot.gif" height=300 width=449
+     ALT="Plot illustrating a skip-lot sampling plan for f=0.25 and
+ I=5">
+</center>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+ASN of skip-lot sampling plan
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+An important property of skip-lot sampling plans is the average
+sample number 
+(<a href="pmc22.html#Average Sample Number">ASN</a>).  
+The ASN
+<!-- <i>ASN</i>  -->
+of a skip-lot sampling plan is
+
+$$ \mbox{ASN}_{skip-lot} = (F)(\mbox{ASN}_{reference}) \, , $$
+<!-- 
+<ul>
+    <i>ASN<sub>skip-lot</sub> = (F)(ASN<sub>reference</sub>)</i>
+</ul>
+-->
+where \(F\)
+<!-- <i>F</i> -->
+is defined by
+
+$$ F = \frac{f}{(1-f)P_i + f} \, .$$
+<!-- 
+<ul>
+   <img src="eqns/fskip.gif"
+        alt="F = f/[(1-f)*P**i + f]">
+</ul>
+-->
+<!-- <img SRC="eqns/skiplot2.gif" height=141 width=293> -->
+<p>
+Therefore, since \(0 < F < 1\),
+<!-- 0 &lt; <i>F</i> &lt; 1, -->
+it follows that the ASN
+<!-- <i>ASN</i> -->
+of skip-lot sampling is smaller than the ASN
+<!-- <i>ASN</i> -->
+of the reference sampling plan.
+<p>
+In summary, skip-lot sampling is preferred when the quality of the
+submitted lots is excellent and the supplier can demonstrate a
+proven track record.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc26.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section3/pmc3.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section2/pmc27.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:08 GMT -->
+</HTML>

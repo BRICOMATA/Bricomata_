@@ -1,0 +1,18 @@
+.
+. Starting Step 4.2
+capture tpanova.out
+anova ytemp xtemp
+end of capture
+.
+delete level ni levmean ucl lcl nim1
+skip 0
+read dpst2f.dat junk1 level ni levmean
+let stderr = ressd/sqrt(ni)
+let ucl = levmean + stderr*tppf(0.975,resdf)
+let lcl = levmean + stderr*tppf(0.025,resdf)
+set write format f6.0,f8.0,f10.3,f10.3,f10.3,f10.3
+print "Level  Number      Mean Std Error Lower 95% Upper 95%"
+print level ni levmean stderr lcl ucl
+set write format
+.
+. Finished Step 4.2: Page Back for Output

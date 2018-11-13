@@ -1,0 +1,576 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc2311.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:28 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>3.2.3.1.1. One-Way Value-Splitting</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="ppc232.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="ppc231.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">3.</FONT>
+<FONT COLOR="#00105A"><A HREF="../ppc.html">Production
+Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc2.html">Assumptions / Prerequisites</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc23.html">Analysis of Variance Models (ANOVA)</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.3.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc231.html">One-Way ANOVA</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">3.2.3.1.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>One-Way Value-Splitting</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Example</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+Let's use the data from the machining example to illustrate
+how to use the techniques of value-splitting to break each data value into
+its component parts. Once we have the component parts, it is then a trivial
+matter to calculate the sums of squares and form the F-value for the test.&nbsp;
+<br>&nbsp;
+<center><table BORDER COLS=5 WIDTH="50%" NOSAVE >
+<tr NOSAVE>
+<th COLSPAN="5" NOSAVE><b>Machine</b></th>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER NOSAVE><u>1</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>2</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>3</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>4</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>5</u></td>
+</tr>
+
+<tr>
+<td>.125</td>
+
+<td>.118</td>
+
+<td>.123</td>
+
+<td>.126</td>
+
+<td>.118</td>
+</tr>
+
+<tr>
+<td>.127</td>
+
+<td>.122</td>
+
+<td>.125</td>
+
+<td>.128</td>
+
+<td>.129</td>
+</tr>
+
+<tr>
+<td>.125</td>
+
+<td>.120</td>
+
+<td>.125</td>
+
+<td>.126</td>
+
+<td>.127</td>
+</tr>
+
+<tr>
+<td>.126</td>
+
+<td>.124</td>
+
+<td>.124</td>
+
+<td>.127</td>
+
+<td>.120</td>
+</tr>
+
+<tr>
+<td>.128</td>
+
+<td>.119</td>
+
+<td>.126</td>
+
+<td>.129</td>
+
+<td>.121</td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Calculate level-means</i></td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+Remember from our model,&nbsp;
+<!--
+<img SRC="eqns/anova1.gif" alt="y(ij) = m + a(i) + e(ij)"
+     height=24 width=115 align=ABSMIDDLE>,
+-->
+\(y_{ij} = m + a_{i} + \epsilon_{ij}\),
+we say each observation is the sum of a common value, a level effect
+and a residual value. Value-splitting just breaks each observation
+into its component parts. The first step in value-splitting is to calculate
+the mean values (rounding to the nearest thousandth) within each machine
+to get the level means.&nbsp;</td>
+</tr>
+
+<tr>
+<td WIDTH="15%"></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center><table BORDER COLS=5 WIDTH="50%" NOSAVE >
+<tr NOSAVE>
+<th COLSPAN="5" NOSAVE><b>Machine</b></th>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER NOSAVE><u>1</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>2</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>3</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>4</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>5</u></td>
+</tr>
+
+<tr>
+<td>.1262</td>
+
+<td>.1206</td>
+
+<td>.1246</td>
+
+<td>.1272</td>
+
+<td>.123</td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Sweep level means</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+We can then <i>sweep</i> (subtract the level mean from each
+associated data value) the means through the original data table to
+get the residuals:
+</td>
+</tr>
+
+<tr>
+<td WIDTH="15%"></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center><table BORDER COLS=5 WIDTH="50%" NOSAVE >
+<tr NOSAVE>
+<th COLSPAN="5" NOSAVE><b>Machine</b></th>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER NOSAVE><u>1</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>2</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>3</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>4</u></td>
+
+<td ALIGN=CENTER NOSAVE><u>5</u></td>
+</tr>
+
+<tr>
+<td>
+<div align=right>-.0012</div>
+</td>
+
+<td>
+<div align=right>-.0026</div>
+</td>
+
+<td>
+<div align=right>-.0016</div>
+</td>
+
+<td>
+<div align=right>-.0012</div>
+</td>
+
+<td>
+<div align=right>-.005</div>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=RIGHT NOSAVE>
+<div align=right>.0008</div>
+</td>
+
+<td ALIGN=RIGHT NOSAVE>
+<div align=right>.0014</div>
+</td>
+
+<td ALIGN=RIGHT NOSAVE>
+<div align=right>.0004</div>
+</td>
+
+<td>
+<div align=right>.0008</div>
+</td>
+
+<td>
+<div align=right>.006</div>
+</td>
+</tr>
+
+<tr>
+<td>
+<div align=right>-.0012</div>
+</td>
+
+<td>
+<div align=right>-.0006</div>
+</td>
+
+<td>
+<div align=right>.0004</div>
+</td>
+
+<td>
+<div align=right>-.0012</div>
+</td>
+
+<td>
+<div align=right>.004</div>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=RIGHT NOSAVE>
+<div align=right>-.0002</div>
+</td>
+
+<td ALIGN=RIGHT NOSAVE>
+<div align=right>.0034</div>
+</td>
+
+<td>
+<div align=right>-.0006</div>
+</td>
+
+<td>
+<div align=right>-.0002</div>
+</td>
+
+<td>
+<div align=right>-.003</div>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=RIGHT NOSAVE>
+<div align=right>.0018</div>
+</td>
+
+<td>
+<div align=right>-.0016</div>
+</td>
+
+<td>
+<div align=right>.0014</div>
+</td>
+
+<td>
+<div align=right>.0018</div>
+</td>
+
+<td>
+<div align=right>-.002</div>
+</td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Calculate the grand mean</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+The next step is to calculate the grand mean from
+the individual machine means as:
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center>
+<table BORDER COLS=1 WIDTH="10%" NOSAVE >
+<tr NOSAVE>
+<td NOSAVE>
+<center><b>Grand Mean</b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>.12432</center>
+</td>
+</tr>
+</table>
+</center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Sweep the grand mean through the level
+means</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Finally, we can sweep the grand mean through the individual
+level means to obtain the level effects:
+</td>
+</tr>
+
+<tr>
+<td WIDTH="15%"></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center><table BORDER COLS=5 WIDTH="50%" NOSAVE >
+<tr NOSAVE>
+<td COLSPAN="5" NOSAVE>
+<center><b>Machine</b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><u>1</u></center>
+</td>
+
+<td>
+<center><u>2</u></center>
+</td>
+
+<td>
+<center><u>3</u></center>
+</td>
+
+<td>
+<center><u>4</u></center>
+</td>
+
+<td>
+<center><u>5</u></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<div align=right>.00188</div>
+</td>
+
+<td>-.00372</td>
+
+<td>
+<div align=right>.00028</div>
+</td>
+
+<td>
+<div align=right>.00288</div>
+</td>
+
+<td>
+<div align=right>-.00132</div>
+</td>
+</tr>
+</table>
+</center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+It is easy to verify that the original data table can be constructed
+by adding the overall mean, the machine effect and the appropriate
+residual.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Calculate ANOVA values</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+Now that we have the data values split and the overlays
+created, the next step is to calculate the various values in the
+<a href="ppc231.html#anova">One-Way
+ANOVA</a> table. We have three values to calculate for each overlay. They
+are the sums of squares, the degrees of freedom, and the mean squares.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Total sum of squares</i></td>
+
+<td valign=top width="85%">
+The total sum of squares is calculated by summing the squares of all
+the data values and subtracting from this number the square of the grand
+mean times the total number of data values. We usually don't calculate
+the mean square for the total sum of squares because we don't use this
+value in any statistical test.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Residual sum of squares, degrees of freedom and mean square</i>
+</td>
+
+<td valign=top width="85%">
+The residual sum of squares is calculated by summing the squares
+of the residual values. This is equal to .000132. The degrees of
+freedom is the number of unconstrained values. Since the residuals for
+each level of the factor must sum to zero, once we know four of them, the
+last one is determined. This means we have four unconstrained values for
+each level, or 20 degrees of freedom. This gives a mean square of
+.000007.</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Level sum of squares, degrees of freedom and mean square</i>
+</td>
+
+<td valign=top width="85%">
+Finally, to obtain the sum of squares for the levels, we sum the squares
+of each value in the level effect overlay and multiply the sum by the number
+of observations for each level (in this case 5) to obtain a value of
+.000137. Since
+the deviations from the level means must sum to zero, we have only four
+unconstrained values so the degrees of freedom for level effects is 4.
+This produces a mean square of .000034.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Calculate F-value</i></td>
+
+<td valign=top width="85%">
+The last step is to calculate the F-value and perform the test of equal
+level means. The F- value is just the level mean square divided by the
+residual mean square. In this case the F-value=4.86. If we look 
+in an F-table for 4 and 20 degrees of freedom at 95% confidence, we see
+that the critical value is 2.87, which means that we have a significant
+result and that there is thus evidence of a strong machine effect. By
+looking at the level-effect overlay we see that this is driven by
+machines 2 and 4.
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="ppc231.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="ppc232.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc2311.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:28 GMT -->
+</HTML>

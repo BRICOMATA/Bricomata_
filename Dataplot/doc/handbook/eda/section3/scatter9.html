@@ -1,0 +1,204 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/scatter9.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.26.9. Scatter Plot:
+       Variation of Y Does Depend on X (heteroscedastic)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33qa.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33q8.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.26.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33q.html">Scatter Plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.26.9.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Scatter Plot:
+       Variation of Y Does Depend on X (heteroscedastic)</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----paragraph 1----->
+
+<tr>
+   <td width=15% valign=top>
+      <I>
+      Scatter Plot Showing Heteroscedastic Variability
+      </I>
+   </td>
+
+   <td width=85%>
+      <img src = "gif/scatplo9.gif"
+           alt="scatter plot showing heteroscedastic variability">
+   </td>
+</tr>
+
+<!-----paragraph 2----->
+
+<tr>
+   <td width=15% valign=top>
+      <I>
+      Discussion
+      </I>
+   </td>
+
+   <td width=85%>
+      This scatter plot reveals an approximate linear relationship
+      between <i>X</i> and <i>Y</i>, but more importantly, it reveals
+      a statistical condition referred to as heteroscedasticity (that
+      is, nonconstant variation in <i>Y</i> over the values of
+      <i>X</i>).  For a heteroscedastic data set, the variation in
+      <i>Y</i> differs depending on the value of <i>X</i>.  In
+      this example, small values of <i>X</i> yield small scatter in
+      <i>Y</i> while large values of <i>X</i> result in large scatter
+      in <i>Y</i>.
+      <p>
+      Heteroscedasticity complicates the analysis somewhat, but its
+      effects can be overcome by:
+      <ol>
+         <li>proper weighting of the data with noisier data being
+             weighted less, or by
+             <P>
+          <li>performing a <i>Y</i> variable transformation to achieve
+             homoscedasticity.  The <a href="boxcoxno.html">Box-Cox
+             normality plot</a> can help determine a suitable
+             transformation.
+      </ol>
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Impact of Ignoring Unequal Variability in the Data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Fortunately, unweighted regression analyses on heteroscedastic data
+produce estimates of the coefficients that are unbiased.  However,
+the coefficients will not be as precise as they would be with proper
+weighting.
+<p>
+Note further that if heteroscedasticity does exist, it is frequently
+useful to plot and model the local variation
+<!--
+<img align=absmiddle src="eqns/varyixi.gif" alt="var(y(i) | x(i))">
+-->
+\( \mbox{var}(Y_i | X_i) \)
+as a function of <i>X</i>, as in
+<!--
+<img align=absmiddle src="eqns/varyigx.gif" alt=
+     "var(y(i) | x(i)) = g(x(i)">.
+-->
+\( \mbox{var}(Y_i | X_i) = g(X_i) \)
+This modeling has two advantages:
+<ol>
+   <li>it provides additional insight and understanding as to how
+       the response <i>Y</i> relates to <i>X</i>; and
+       <p>
+   <li>it provides a convenient means of forming weights for a
+       weighted regression by simply using
+       <p>
+       <ul>
+          <!--
+          <img align=absmiddle src="eqns/wyixi.gif" alt=
+               "w(i) = w(y(i) | x(i)) = 1/VAR(y(i)|x(i)) = 1/g(x(i))">
+          -->
+          \[ w_i = W(Y_i | X_i) = \frac{1} {\mbox{Var}(Y_i | X_i)} =
+          \frac{1} {g(X_i)} \]
+       </ul>
+</ol>
+The topic of <a href="../../pmd/section4/pmd452.html">non-constant
+variation</a> is discussed in some detail in the process modeling
+chapter.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33q8.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33qa.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/scatter9.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+</HTML>

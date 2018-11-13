@@ -1,0 +1,672 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc233.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:30 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>3.2.3.3. Two-Way Nested ANOVA</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="ppc2331.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="ppc2321.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">3.</FONT>
+<FONT COLOR="#00105A"><A HREF="../ppc.html">Production
+Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc2.html">Assumptions / Prerequisites</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc23.html">Analysis of Variance Models (ANOVA)</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">3.2.3.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Two-Way Nested ANOVA</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Description</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+Sometimes, constraints prevent us from crossing every level of one
+factor with every level of the other factor. In these cases we are forced
+into what is known as a <i>nested</i> layout. We say we have a nested layout
+when fewer than all levels of one factor occur within each level of the other
+factor. An example of this might be if we want to study the effects of
+different machines and different operators on some output characteristic,
+but we can't have the operators change the machines they run. In this case,
+each operator is not crossed with each machine but rather only runs one
+machine.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Model</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+If Factor B is nested within Factor A, then a level of
+Factor B can only occur within one level of Factor A and there can be no
+interaction. This gives the following model:
+<p>
+<center>
+<!--
+<img SRC="eqns/anova2n.gif" alt=
+     "y(ijk) = m + a(i) + b(j(i)) + e(ijk)">
+-->
+\( y_{ijk} = m + a_{i} + b_{j(i)} + \epsilon_{ijk} \)
+</center>
+<p>
+This equation indicates that each data value is the sum of a common
+value (grand mean), the level effect for Factor A, the level effect
+of Factor B nested within Factor A, and the residual.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Estimation</i></td>
+
+<td valign=top width="85%">
+For a nested design we typically use variance components methods to perform
+the analysis.&nbsp; We can sweep out the common value, the Factor A effects,
+the Factor B within A effects and the residuals using&nbsp;
+<a href="ppc2331.html">value-splitting</a> techniques. Sums of squares can be
+calculated and summarized in an ANOVA table as shown below.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i><a href="ppc2331.html">Click here
+for nested value-<br>splitting example</a></i>
+</td>
+
+<td valign=top width="85%">
+It is important to note that with this type of layout, since each level
+of one factor is only present with one level of the other factor, we can't
+estimate interaction between the two.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<a NAME="anova"><i>ANOVA table for nested case</i></a>
+</td>
+
+<td>
+<CENTER>
+<!-- <IMG SRC="ppc233table1.gif" ALT="ANOVA Table"> -->
+<TABLE BORDER WIDTH=600>
+   <TR>
+      <TH ALIGN=MIDDLE>
+         Source
+      </TH>
+      <TH ALIGN=MIDDLE>
+         Sum of Squares
+      </TH>
+      <TH ALIGN=MIDDLE>
+         DoF
+      </TH>
+      <TH ALIGN=MIDDLE>
+         Mean Square
+      </TH>
+      <TH ALIGN=MIDDLE>
+         F<sub>0</sub>
+      </TH>
+   </TR>
+   <TR>
+      <TH ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         A
+         </FONT>
+      </TH>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         \( SSA = JK\sum{(\bar{y}_{i..} - \bar{y}_{...})^2} \)
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         I - 1
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         MSA = SSA/(I - 1)
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         MSA/MSB
+         </FONT>
+      </TD>
+   </TR>
+   <TR>
+      <TH ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         B within A
+         </FONT>
+      </TH>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         \( SSB = K\sum\sum{(\bar{y}_{ij.} - \bar{y}_{i..})^2} \)
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         I(J - 1)
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         MSB = SSB/(I(J - 1))
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         MSB/MSE
+         </FONT>
+      </TD>
+   </TR>
+   <TR>
+      <TH ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         Residuals
+         </FONT>
+      </TH>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         \( SSE = \sum\sum\sum{(y_{ijk} - \bar{y}_{ij.})^2} \)
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         IJ(K - 1)
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         MSE = SSE/(IJ(K - 1))
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         &nbsp;
+         </FONT>
+      </TD>
+   </TR>
+   <TR>
+      <TH ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         Corr. Total
+         </FONT>
+      </TH>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         \( SST = \sum\sum\sum{(y_{ijk} - \bar{y}_{...})^2} \)
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         IJK - 1
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         &nbsp;
+         </FONT>
+      </TD>
+      <TD ALIGN=MIDDLE>
+         <FONT SIZE = -1>
+         &nbsp;
+         </FONT>
+      </TD>
+   </TR>
+</TABLE>
+<P>
+<!-- <IMG SRC="ppc233table_eq1.gif" ALT="Row Means"> -->
+\( \bar{y}_{i..} = \frac{1}{JK} \sum_{j=1}^{J}{\sum_{k=1}^{K}{y_{ijk}}} \)
+<P>
+<!-- <IMG SRC="ppc233table_eq2.gif" ALT="Column Means"> -->
+\( \bar{y}_{ij.} = \frac{1}{K} \sum_{k=1}^{K}{y_{ijk}} \)
+<P>
+<!-- <IMG SRC="ppc233table_eq3.gif" ALT="Grand Mean"> -->
+\( \bar{y}_{...} = \frac{1}{IJK}
+\sum_{i=1}^{I}{\sum_{j=1}^{J}{\sum_{k=1}^{K}{y_{ijk}}}} \)
+</CENTER>
+The row labeled, "Corr. Total", in the ANOVA table contains the 
+corrected total sum of squares and the associated degrees of freedom (DoF).
+</td>
+
+<tr>
+<td valign=top width="15%">
+</td>
+
+<td valign=top width="85%">
+As with the crossed layout, we can also use <a href="ppc22.html">CLM</a>
+techniques. We still have the problem that the model is saturated
+and no unique solution exists. We overcome this problem by applying
+to the model the constraints that the two main effects sum to zero.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%" NOSAVE><i>Testing</i></td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+We are testing that two main effects are zero. Again
+we just form a ratio (<i>F</i><sub>0</sub>) of each main effect mean square to the appropriate mean-squared error term.  (Note that the error term for Factor A is not <i>MSE</i>, but is <i>MSB</i>.) If the assumptions stated below are true then those ratios follow an <i>F</i> distribution and the test is performed by comparing the 
+<i>F</i><sub>0</sub> ratios to values in an <i>F</i> table with the appropriate degrees of freedom and confidence level.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Assumptions</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+For estimation purposes, we assume the data can be adequately
+modeled by the model above and that there is more 
+than one variance component. It is assumed that the random 
+component can be modeled with a Gaussian distribution with
+fixed location and spread.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Uses</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+The two-way nested ANOVA is useful when
+we are constrained from combining all the levels of one factor with all
+of the levels of the other factor. These designs are most useful when we have
+what is called a random effects situation. When the levels of a factor
+are chosen at random rather than selected intentionally, we say we have
+a random effects model. An example of this is when we select lots from
+a production run, then select units from the lot. Here the units
+are nested within lots and the effect of each factor is random.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Example</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+Let's change the <a href="ppc232.html#example">two-way machining
+example</a> slightly by assuming that we have five different machines making
+the same part and each machine has two operators, one for the day shift and
+one for the night shift. We take five samples from each machine for each operator
+to obtain the following data:
+<p>
+<center>
+<table BORDER COLS=6 WIDTH="50%" NOSAVE >
+<tr NOSAVE>
+<th NOSAVE></th>
+
+<td COLSPAN="5">
+<center><b>Machine</b></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER ROWSPAN="6" NOSAVE><b>Operator</b>
+<br><b>Day</b></td>
+
+<td>
+<center><b><u>1</u></b></center>
+</td>
+
+<td ALIGN=CENTER NOSAVE><b><u>2</u></b></td>
+
+<td ALIGN=CENTER NOSAVE><b><u>3</u></b></td>
+
+<td ALIGN=CENTER NOSAVE><b><u>4</u></b></td>
+
+<td ALIGN=CENTER NOSAVE><b><u>5</u></b></td>
+</tr>
+
+<tr>
+<td>0.125</td>
+
+<td>0.118</td>
+
+<td>0.123</td>
+
+<td>0.126</td>
+
+<td>0.118</td>
+</tr>
+
+<tr>
+<td>0.127</td>
+
+<td>0.122</td>
+
+<td>0.125</td>
+
+<td>0.128</td>
+
+<td>0.129</td>
+</tr>
+
+<tr>
+<td>0.125</td>
+
+<td>0.120</td>
+
+<td>0.125</td>
+
+<td>0.126</td>
+
+<td>0.127</td>
+</tr>
+
+<tr>
+<td>0.126</td>
+
+<td>0.124</td>
+
+<td>0.124</td>
+
+<td>0.127</td>
+
+<td>0.120</td>
+</tr>
+
+<tr>
+<td>0.128</td>
+
+<td>0.119</td>
+
+<td>0.126</td>
+
+<td>0.129</td>
+
+<td>0.121</td>
+</tr>
+
+<tr>
+<td ROWSPAN="5">
+<center><b>Operator</b>
+<br><b>Night</b></center>
+</td>
+
+<td>0.124</td>
+
+<td>0.116</td>
+
+<td>0.122</td>
+
+<td>0.126</td>
+
+<td>0.125</td>
+</tr>
+
+<tr>
+<td>0.128</td>
+
+<td>0.125</td>
+
+<td>0.121</td>
+
+<td>0.129</td>
+
+<td>0.123</td>
+</tr>
+
+<tr>
+<td>0.127</td>
+
+<td>0.119</td>
+
+<td>0.124</td>
+
+<td>0.125</td>
+
+<td>0.114</td>
+</tr>
+
+<tr>
+<td>0.126</td>
+
+<td>0.125</td>
+
+<td>0.126</td>
+
+<td>0.130</td>
+
+<td>0.124</td>
+</tr>
+
+<tr>
+<td>0.129</td>
+
+<td>0.120</td>
+
+<td>0.125</td>
+
+<td>0.124</td>
+
+<td>0.117</td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Analyze</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+For analysis details see the <a href="ppc2331.html">nested
+two-way value splitting example.</a>  We can summarize the analysis
+results in an ANOVA table as follows:&nbsp;</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+<center><table BORDER COLS=5 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td>
+<center><b>Source</b></center>
+</td>
+
+<td>
+<center><b>Sum of Squares</b></center>
+</td>
+
+<td>
+<center><b>Deg. of Freedom</b></center>
+</td>
+
+<td>
+<center><b>Mean Square</b></center>
+</td>
+
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE><i>F</i><sub>0</sub></th>
+</tr>
+
+<tr>
+<td>
+<center>Machine</center>
+</td>
+
+<td>
+<center>3.03e-4</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>7.58e-5</center>
+</td>
+
+<td>
+<center>20.38</center>
+</td>
+</tr>
+
+<tr>
+<td>Operator(Machine)</td>
+
+<td>
+<center>1.86e-5</center>
+</td>
+
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>3.72e-6</center>
+</td>
+
+<td>
+<center>0.428</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>Residuals</center>
+</td>
+
+<td>
+<center>3.46e-4</center>
+</td>
+
+<td>
+<center>40</center>
+</td>
+
+<td>
+<center>8.70e-6</center>
+</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td>
+<center>Corrected Total</center>
+</td>
+
+<td>
+<center>6.68e-4</center>
+</td>
+
+<td>
+<center>49</center>
+</td>
+
+<td>&nbsp;</td>
+
+<td>&nbsp;</td>
+
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Test</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+By dividing the mean square for Machine by the mean square for Operator within Machine, or Operator(Machine), we obtain an <i>F</i><sub>0</sub> value of 20.38 which is greater 
+than the critical value of 5.19 for 4 and 5 degrees of freedom at 
+the 0.05 significance level.  The <i>F</i><sub>0</sub> value for Operator(Machine),
+obtained by dividing its mean square by the residual mean square,
+is less than the critical value of 2.45 for 5 and 40 degrees of 
+freedom at the 0.05 significance level.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP NOSAVE><i>Conclusion</i></td>
+
+<td valign=top width="85%">
+From the ANOVA table we can conclude that the Machine is the most important
+factor and is statistically significant. The effect of Operator nested
+within Machine is not statistically significant. Again, any improvement
+activities should be focused on the tools.
+</td>
+</tr>
+   
+   
+   
+   
+   
+
+   
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="ppc2321.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="ppc2331.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc233.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:30 GMT -->
+</HTML>

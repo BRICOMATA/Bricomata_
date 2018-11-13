@@ -1,0 +1,402 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:50 GMT -->
+<HEAD>
+<script language="JavaScript" id="_fed_an_js_tag" src=
+"http://www.itl.nist.gov/js/federated-analytics.all.min.js?agency=NIST&amp;subagency=itl&amp;pua=UA-37115410-50&amp;yt=true">
+</script>
+<script type="text/javascript" src=
+"https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.32. 4-Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda3333.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33311.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.32.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>4-Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Purpose:<br>
+Check Underlying Statistical Assumptions
+</I>
+</TD>
+
+<td width=85%>
+The 4-plot is a collection of 4 specific EDA graphical techniques
+whose purpose is to test the assumptions that underlie most
+measurement processes.  A 4-plot consists of a
+<ol>
+   <li><a href="runseqpl.html">run sequence plot</a>;
+   <li><a href="lagplot.html">lag plot</a>;
+   <li><a href="histogra.html">histogram</a>;
+   <li><a href="normprpl.html">normal probability plot</a>.
+</ol>
+If the <a href="../section2/eda21.html">4 underlying assumptions</a>
+of a typical measurement process hold, then the above 4 plots will
+have a characteristic appearance (see the
+normal random numbers case study below); if any of the underlying
+assumptions fail to hold, then it will be revealed by an anomalous
+appearance in one or more of the plots.  Several commonly encountered
+situations are demonstrated in the case studies below.
+<p>
+Although the 4-plot has an obvious use for univariate and time series
+data, its usefulness extends far beyond that.  Many statistical
+<a href="../../pmd/pmd.html">models</a> of the form
+<ul>
+   <!--
+   <img src="eqns/funmodel.gif"
+        alt="Y(i) = f(X1, ..., Xk) + E(i)">
+   -->
+   \[ Y_{i} = f(X_{1}, ... , X_{k}) + E_{i} \]
+</ul>
+have the same underlying assumptions for the error term.  That is,
+no matter how complicated the functional fit, the assumptions on
+the underlying error term are still the same.  The 4-plot can and
+should be routinely applied to the residuals when fitting models
+regardless of whether the model is simple or complicated.
+
+</td>
+</tr>
+
+<!-----begin section: sample plot -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Plot:<br>
+Process Has Fixed Location, Fixed Variation, Non-Random
+(Oscillatory), Non-Normal U-Shaped Distribution, and Has
+3 Outliers.
+</I>
+</TD>
+
+<td width=85%>
+<img src = "../gif/4-plot.gif"
+     alt="Sample 4-plot for showing violation of randomess assumption">
+<p>
+This 4-plot reveals the following:
+<ol>
+   <li>the fixed location assumption is justified as shown by the
+       run sequence plot in the upper left corner.
+   <li>the fixed variation assumption is justified as shown by the
+       run sequence plot in the upper left corner.
+   <li>the randomness assumption is violated as shown by the
+       non-random (oscillatory) lag plot in the upper right corner.
+   <li>the assumption of a common, normal distribution is violated
+       as shown by the histogram in the lower left corner and the
+       normal probability plot in the lower right corner.  The
+       distribution is non-normal and is a U-shaped distribution.
+   <li>there are several outliers apparent in the lag plot in the
+       upper right corner.
+
+</td>
+</tr>
+
+<!-----begin section: definition -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Definition:
+<br>
+  1. Run Sequence Plot;<br>
+  2. Lag Plot;<br>
+  3. Histogram;<br>
+  4. Normal Probability Plot
+</I>
+</TD>
+
+<TD WIDTH=85%>
+The 4-plot consists of the following:
+<ol>
+  <li>Run sequence plot to test fixed location and variation.
+    <ul>
+      <li>Vertically: <i>Y<sub>i</sub></i>
+      <li>Horizontally: <i>i</i>
+    </ul>
+  <li>Lag Plot to test randomness.
+    <ul>
+      <li>Vertically: <i>Y<sub>i</sub></i>
+      <li>Horizontally: <i>Y</i><sub><i>i</i>-1</sub>
+    </ul>
+  <li>Histogram to test (normal) distribution.
+    <ul>
+      <li>Vertically: Counts
+      <li>Horizontally: <i>Y</i>
+    </ul>
+  <li>Normal probability plot to test normal distribution.
+    <ul>
+      <li>Vertically: Ordered <i>Y<sub>i</sub></i>
+      <li>Horizontally: Theoretical values from a normal N(0,1)
+          distribution for ordered <i>Y<sub>i</sub></i>
+    </ul>
+</ol>
+
+</TD>
+</TR>
+
+<!-----begin section: questions -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Questions</I>
+</TD>
+
+<td width=85%>
+4-plots can provide answers to many questions:
+<OL>
+   <li>Is the process in-control, stable, and predictable?
+   <li>Is the process drifting with respect to location?
+   <li>Is the process drifting with respect to variation?
+   <li>Are the data random?
+   <li>Is an observation related to an adjacent observation?
+   <li>If the data are a time series, is is white noise?
+   <li>If the data are a time series and not white noise, is it
+       sinusoidal, autoregressive, etc.?
+   <li>If the data are non-random, what is a better model?
+   <li>Does the process follow a normal distribution?
+   <li>If non-normal, what distribution does the process follow?
+   <li>Is the model
+       <p>
+       <ul>
+           <!--
+           <img src="eqns/conmodel.gif" alt="Y(i) = A0 + E(i)">
+           -->
+           \[ Y_{i} = A_0 + E_{i} \]
+       </ul>
+       <p>
+       valid and sufficient?
+   <li>If the default model is insufficient, what is a better model?
+   <li>Is the formula
+       <!--
+       <img align=absmiddle src="eqns/sdivsqrtn.gif" alt="s/SQRT(N)">
+       -->
+       \( s_{\bar{Y}} = s/\sqrt{N} \)valid?
+   <li>Is the sample mean a good estimator of the process location?
+   <li>If not, what would be a better estimator?
+   <li>Are there any outliers?
+</OL>
+
+</td>
+</tr>
+
+<!-----begin section: importance -->
+
+<TR>
+
+<TD WIDTH=15% VALIGN=top>
+<I>
+Importance:<br>
+Testing Underlying Assumptions Helps Ensure the Validity
+of the Final Scientific and Engineering Conclusions
+</I>
+</TD>
+
+<TD WIDTH=85%>
+There are 4 assumptions that typically underlie all measurement
+processes; namely, that the data from the process at hand
+"behave like":
+<ol>
+   <li>random drawings;
+   <li>from a fixed distribution;
+   <li>with that distribution having a fixed location; and
+   <li>with that distribution having fixed variation.
+</ol>
+Predictability is an all-important goal in science and engineering.
+If the above 4 assumptions hold, then we have achieved probabilistic
+predictability--the ability to make probability statements not only
+about the process in the past, but also about the process in the
+future.  In short, such processes are said to be "statistically in
+control".  If the 4 assumptions do not hold, then we have a process
+that is drifting (with respect to location, variation, or
+distribution), is unpredictable, and is out of control.  A simple
+characterization of such processes by a location estimate, a variation
+estimate, or a distribution "estimate" inevitably leads to optimistic
+and grossly invalid engineering conclusions.
+<p>
+Inasmuch as the validity of the final scientific and engineering
+conclusions is inextricably linked to the validity of these same 4
+underlying assumptions, it naturally follows that there is a real
+necessity for all 4 assumptions to be routinely tested.  The 4-plot
+(run sequence plot, lag plot, histogram, and normal probability plot)
+is seen as a simple, efficient, and powerful way of carrying out this
+routine checking.
+
+</td>
+</tr>
+
+<!-----begin section: interpretation -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Interpretation:<br>
+Flat, Equi-Banded, Random, Bell-Shaped, and Linear
+</I>
+</TD>
+
+<td width=85%>
+Of the 4 underlying assumptions:
+<ol>
+   <li>If the fixed location assumption holds, then the run sequence
+       plot will be flat and non-drifting.
+   <li>If the fixed variation assumption holds, then the vertical
+       spread in the run sequence plot will be approximately the
+       same over the entire horizontal axis.
+   <li>If the randomness assumption holds, then the lag plot will be
+       structureless and random.
+   <li>If the fixed distribution assumption holds (in particular, if
+       the fixed normal distribution assumption holds), then the
+       histogram will be bell-shaped and the normal probability plot
+       will be approximatelylinear.
+</ol>
+If all 4 of the assumptions hold, then the process is "statistically
+in control".  In practice, many processes fall short of achieving this
+ideal.
+
+</td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Related Techniques </I>
+</TD>
+
+<TD WIDTH=85%>
+<a href="runseqpl.html">Run Sequence Plot</a> <br>
+<a href="lagplot.html">Lag Plot</a> <br>
+<a href="histogra.html">Histogram</a> <br>
+<a href="normprpl.html">Normal Probability Plot</a> <br> <br>
+<a href="autocopl.html">Autocorrelation Plot</a> <br>
+<a href="spectrum.html">Spectral Plot</a> <br>
+<a href="ppccplot.html">PPCC Plot</a> <br>
+
+</TD>
+</TR>
+
+<!-----begin section: do worked example -->
+
+<a name = "casestud"> </a>
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>
+Case Studies
+</i>
+</TD>
+
+<TD WIDTH=85%>
+The 4-plot is used in most of the case studies in this chapter:
+<ol>
+   <li><a href = "../section4/eda421.html">Normal random numbers (the
+       ideal)</a>
+   <li><a href = "../section4/eda422.html">Uniform random numbers </a>
+   <li><a href = "../section4/eda423.html">Random walk </a>
+   <li><a href = "../section4/eda424.html">Josephson junction
+       cryothermometry</a>
+   <li><a href = "../section4/eda425.html">Beam deflections</a>
+   <li><a href = "../section4/eda426.html">Filter transmittance</a>
+   <li><a href = "../section4/eda427.html">Standard resistor</a>
+   <li><a href = "../section4/eda428.html">Heat flow meter 1</a>
+</ol>
+
+</TD>
+</TR>
+
+<!-----begin section: software -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software </I>
+</TD>
+
+<TD WIDTH=85%>
+It should be feasible to write a macro for the 4-plot in any
+general purpose statistical software program that supports
+the capability for multiple plots per page and supports the
+underlying plot techniques.  
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+
+
+  
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33311.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda3333.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:52 GMT -->
+</HTML>

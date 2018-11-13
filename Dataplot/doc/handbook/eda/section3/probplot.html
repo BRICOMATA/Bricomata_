@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/probplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:26:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.22. Probability Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33n.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33l4.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.22.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Probability Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Check If Data Follow a Given Distribution
+      </I>
+   </td>
+   <td width=85% valign=top>
+         The probability plot
+         (<a href="../section4/eda43.html#Chambers">Chambers et al.,
+         1983</a>) is a graphical technique for assessing
+         whether or not a data set follows a given distribution
+         such as the normal or Weibull.
+         <p>
+         The data are plotted against a theoretical distribution in
+         such a way that the points should form approximately a
+         straight line.  Departures from this straight line indicate
+         departures from the specified distribution.
+         <p>
+         The correlation coefficient associated with the linear fit
+         to the data in the probability plot is a measure of the
+         goodness of the fit.  Estimates of the
+         <a href="eda364.html">location and scale parameters</a>
+         of the distribution are given by the intercept and slope.
+         Probability plots can be generated for several competing
+         distributions to see which provides the best fit, and the
+         probability plot generating the highest correlation
+         coefficient is the best choice since it generates the
+         straightest probability plot.
+         <p>
+         For distributions with
+         <a href="eda363.html">shape parameters</a>
+         (not counting location and scale parameters),
+         the shape parameters must be known in order to generate
+         the probability plot.  For distributions with a single
+         shape parameter, the <a href="ppccplot.html">probability plot
+         correlation coefficient</a> (PPCC) plot provides an excellent
+         method for estimating the shape parameter.
+         <p>
+         We cover the special case of the
+         <a href="normprpl.html">normal probability plot</a> separately
+         due to its importance in many statistical applications.
+
+   </td>
+</tr>
+
+
+<!-----begin section: Sample Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot
+      </I>
+   </td> <td width=85% valign=top>
+
+      <img src = "gif/probplot.gif"
+           alt="sample Weibull Probability Plot">
+      <p>
+      This data is a set of 500 <a href="eda3668.html">Weibull</a>
+      random numbers with a shape parameter = 2, location
+      parameter = 0, and scale parameter = 1.  The Weibull
+      probability plot indicates that
+      the Weibull distribution does in fact fit these data well.
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition:<br>
+         Ordered Response Values Versus Order Statistic Medians for
+         the Given Distribution
+      </I>
+   </td>
+   <td width=85% valign=top>
+         The probability plot is formed by:
+         <ul>
+            <li>Vertical axis: Ordered response values
+            <li>Horizontal axis: Order statistic medians for the
+                given distribution
+         </ul>
+         <p>
+         The order statistic medians (see <a href=
+         "../section4/eda43.html#PPCC"> Filliben 1975)</a>
+         can be approximated by:
+         <ul>
+              <i>N<sub>i</sub></i> = <i>G</i>(<i>U<sub>i</sub></i>)
+         </ul>
+         where <i>U</i><sub>i</sub></i> are the uniform order statistic medians
+         (defined below) and <i>G</i> is the <a href="eda362.html#PPF">percent
+         point function</a> for the desired distribution.  The percent
+         point function is the inverse of the
+         <a href="eda362.html#CDF">cumulative distribution function</a>
+         (probability that <i>x</i> is less than or equal to some
+         value).  That is, given a probability, we want the
+         corresponding <i>x</i> of the cumulative distribution
+         function.
+         <P>
+         <A NAME="UNIFORMOPRDERSTATISTICS">
+         The uniform order statistic medians are defined as:
+         <ul>
+             <i>m<sub>i</sub></i> = 1 - <i>m<sub>n</sub></i>
+                &nbsp;&nbsp; for <i>i</i> = 1<br>
+             <i>m<sub>i</sub></i> = (<i>i</i> - 0.3175)/(<i>n</i> + 0.365)
+                &nbsp;&nbsp; for <i>i</i> = 2, 3, ..., <i>n</i>-1 <br>
+             <i>m<sub>i</sub></i> = 0.5<sup>(1/<i>n</i>)</sup>
+                &nbsp;&nbsp; for <i>i</i> = <i>n</i><br>
+         </ul>
+         </A>
+         <p>
+         In addition, a straight line can be fit to the points
+         and added as a reference line.  The further the points
+         vary from this line, the greater the indication of a
+         departure from the specified distribution.
+         <p>
+         This definition implies that a probability plot can be
+         easily generated for any distribution for which the 
+         percent point function can be computed.
+         <p>
+         One advantage of this method of computing proability plots
+         is that the intercept and slope estimates of the fitted
+         line are in fact estimates for the location and scale
+         parameters of the distribution.  Although this is not
+         too important for the normal distribution (the location
+         and scale are estimated by the mean and standard deviation,
+         respectively), it can be useful for many other distributions.
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The probability plot is used to answer the
+      following questions:
+      <ul>
+         <li>Does a given distribution, such as the Weibull, 
+             provide a good fit to my data?
+         <li>What distribution best fits my data?
+         <li>What are good estimates for the location and scale
+             parameters of the chosen distribution?
+      </ul> 
+
+   </td>
+</tr>
+
+<!-----begin section: Importance -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance:<br>
+         Check distributional assumption
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The discussion for the <a href="normprpl.html#importance">normal
+      probability plot</a> covers the use of probability plots
+      for checking the fixed distribution assumption.
+      <p>
+      Some statistical models assume data have come from a
+      population with a specific type of distribution.  For example,
+      in reliability applications, the Weibull, lognormal, and
+      exponential are commonly used distributional models.
+      Probability plots can be useful for checking this distributional
+      assumption.
+
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+   <ul>
+      <a href="histogra.html">Histogram</a><br>
+      <a href="ppccplot.html">Probability Plot Correlation
+          Coefficient (PPCC) Plot</a><br>
+      <a href="../../apr/section2/apr222.html">Hazard Plot</A><br>
+      <a href="qqplot.html">Quantile-Quantile Plot</a><br>
+      <a href="eda35e.html">Anderson-Darling Goodness of Fit</a><br>
+      <a href="eda35f.html">Chi-Square Goodness of Fit</a><br>
+      <a href="eda35g.html">Kolmogorov-Smirnov Goodness of Fit</a><br>
+   </ul>
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The probability plot is demonstrated in the
+      <a href="../section4/eda422.html">uniform random numbers</a>
+      case study.
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Most general purpose statistical software programs support
+probability plots for at least a few common distributions.
+
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33l4.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33n.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/probplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:26:50 GMT -->
+</HTML>

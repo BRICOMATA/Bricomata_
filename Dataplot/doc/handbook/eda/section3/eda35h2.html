@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35h2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:27:05 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.17.2. Tietjen-Moore Test for Outliers</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35h3.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35h1.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.17.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35h.html">Detection of Outliers</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.17.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Tietjen-Moore Test for Outliers</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Detection of Outliers
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Tietjen-Moore test
+      (<a href="../section4/eda43.html#Tietjen">Tietjen-Moore 1972</a>)
+      is used to detect multiple <a href="eda35h.html">outliers</a> in a
+      univariate data set that follows an
+      <a href="eda35h.html#Normality">approximately normal</a>
+      distribution.
+      <p>
+      The Tietjen-Moore test is a generalization of the
+      <a href="eda35h.html">Grubbs' test</a> to the case of multiple
+      outliers.  If testing for a single outlier, the
+      Tietjen-Moore test is equivalent to the Grubbs' test.
+      <p>
+      It is important to note that the Tietjen-Moore test requires that
+      the suspected number of outliers be specified exactly.  If this
+      is not known, it is recommended that the
+      <a href="eda35h3.html">generalized extreme studentized deviate
+      test</a> be used instead (this test only requires an upper bound
+      on the number of suspected outliers).
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Tietjen-Moore test is defined for the hypothesis:
+      <table>
+
+      <tr>
+         <td>
+            H<sub>0</sub>:
+         </td>
+         <td>
+            There are no outliers in the data set
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            H<sub>a</sub>:
+         </td>
+         <td>
+            There are exactly <i>k</i> outliers in the data set
+         </td>
+      </tr>
+      <p>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td>
+            Sort the <i>n</i> data points from smallest to the largest
+            so that <i>y<sub>i</sub></i> denotes the <i>i</i>th largest
+            data value.
+            <p>
+            The test statistic for the <i>k</i> largest points is
+            <p>
+            <ul>
+               <!--
+               <img src="eqns/tmmax.gif" alt=
+"L(k) = SUM[i=1 to n-k][(y(i)-ybar(k))^2]/SUM[i=1 to n][(y(i)-ybar)^2]">
+               -->
+               \( L_{k} = \frac{\sum_{i=1}^{n-k}{(y_{i} -
+               \bar{y}_{k})^{2}}}
+               {\sum_{i=1}^{n}{(y_{i} - \bar{y})^{2}}} \)
+            </ul>
+            <p>
+            with
+            <!-- <img align=absmiddle src="eqns/ybar2.gif" alt="ybar"> -->
+            \(\bar{y}\) denoting the sample mean for the full sample and
+            <!-- <img align=absmiddle src="eqns/ybar2k.gif"
+                      alt="ybar(k)"> -->
+            \(\bar{y}_{k}\) denoting the sample mean with the largest
+            <i>k</i> points removed.
+            <p>
+            The test statistic for the <i>k</i> smallest points is
+            <p>
+            <ul>
+               <!--
+               <img src="eqns/tmmin.gif" alt=
+"L(k) = SUM[i=k+1 to n][(y(i)-ybar(k))^2]/SUM[i=1 to n][(y(i)-ybar)^2]">
+               -->
+               \( L_{k} = \frac{\sum_{i=k+1}^{n}{(y_{i} -
+               \bar{y}_{k})^{2}}}
+               {\sum_{i=1}^{n}{(y_{i} - \bar{y})^{2}}} \)
+            </ul>
+            <p>
+            with
+            <!-- <img align=absmiddle src="eqns/ybar2.gif" alt="ybar"> -->
+            \(\bar{y}\) denoting the sample mean for the full sample and
+            <!-- <img align=absmiddle src="eqns/ybar2k.gif"
+                      alt="ybar(k)"> -->
+            \(\bar{y}_{k}\) denoting the sample mean with the smallest
+            <i>k</i> points removed.
+            <p>
+            To test for outliers in both tails, compute the absolute
+            residuals
+            <p>
+            <ul>
+               <!--
+               <img src="eqns/ri.gif" alt="r(i) = ABS(y(i) - ybar)">
+               -->
+               \( r_{i} = |y_{i} - \bar{y}| \)
+            </ul>
+            <p>
+            and then let <i>z<sub>i</sub></i> denote the 
+            <i>y<sub>i</sub></i> values sorted by their absolute residuals
+            in ascending order.  The test statistic for this case is
+            <p>
+            <ul>
+               <!--
+               <img src="eda35h2_ek.gif" alt=
+"E(k) = SUM[i=1 to n-k][(z(i)-zbar(k))^2]/SUM[i=1 to n][(z(i)-zbar)^2]">
+               -->
+              \( E_{k} = \frac{\sum_{i=1}^{n-k}{(z_{i} -
+              \bar{z}_{k})^{2}}}
+              {\sum_{i=1}^{n}{(z_{i} - \bar{z})^{2}}} \)
+            </ul>
+            <p>
+            with
+            <!-- <img align=absmiddle src="eqns/zbar2.gif" alt="zbar"> -->
+            \(\bar{z}\) denoting the sample mean for the full data set and
+            <!-- <img align=absmiddle src="eqns/zbar2k.gif"
+                      alt="zbar(k)"> -->
+            \(\bar{z}_{k}\) denoting the sample mean with the largest
+            <i>k</i> points removed.
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=top>
+            <!-- <img src="eqns/alpha.gif" alt="alpha">. -->
+            <big><i>&alpha;</i></big>
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Critical Region:
+         </td>
+         <td>
+            The critical region for the Tietjen-Moore test is determined
+            by simulation.  The simulation is performed by generating
+            a standard normal random sample of size <i>n</i> and
+            computing the Tietjen-Moore test statistic.  Typically,
+            10,000 random samples are used.  The value of the
+            Tietjen-Moore statistic obtained from the data is compared
+            to this reference distribution.  
+            <p>
+            The value of the test statistic
+            is between zero and one.  If there are no outliers in the
+            data, the test statistic is close to 1.  If there are outliers in
+            the data, the test statistic will be closer to zero.  Thus, the 
+            test is always a lower, one-tailed test regardless of which 
+            test statisic is used, <i>L<sub>k</sub></i> or <i>E<sub>k</sub></i>.
+         </td>
+       </tr>
+
+     </table>
+    
+    
+   </td>
+</tr>
+
+<!-----begin section: sample output -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Output</I>
+   </td>
+   <td width=85% valign=top>
+      The Tietjen-Moore paper gives the following 15 observations of
+      vertical semi-diameters of the planet Venus (this example originally appeared
+      in <a href="../section4/eda43.html#Grubbs1950">Grubbs' 1950</a>
+      paper):
+      <ul>
+         -1.40 -0.44 -0.30 -0.24 -0.22 -0.13 -0.05 0.06 0.10
+          0.18  0.20  0.39  0.48  0.63  1.01
+      </ul>
+      As a first step, a normal probability plot was generated.
+      <p>
+      <ul>
+         <img src="gif/tm.gif" alt="Normal Probability Plot of Data">
+      </ul>
+      <p>
+      This plot indicates that the normality assumption is reasonable.
+      The minimum value appears to be an outlier.  To a lesser extent,
+      the maximum value may also be an outlier.  The 
+      Tietjen-Moore test of the two most extreme points (-1.40 and 
+      1.01) is shown below.
+<PRE> 
+      H<sub>0</sub>:  there are no outliers in the data
+      H<sub>a</sub>:  the two most extreme points are outliers
+
+      Test statistic:  <I>E<sub>k</sub></I> = 0.292
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical value for lower tail:  0.317
+      Critical region:  Reject H<sub>0</sub> if <I>E<sub>k</sub></I> < 0.317
+
+</PRE>
+       The Tietjen-Moore test is a lower, one-tailed test, so we reject
+       the null hypothesis that there are no outliers when the value of the
+       test statistic is less than the critical value.  For our example,
+       the null hypothesis is rejected at the 0.05 level of significance
+       and we conclude that the two most extreme points are outliers.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Tietjen-Moore test can be used to answer the following question:
+      <OL>
+         <LI>Does the data set contain <i>k</i> outliers?</LI>
+      </OL>
+   </td>
+</tr>
+
+<!-----begin section: importance -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Many statistical techniques are sensitive to the presence
+      of outliers.  For example, simple calculations of the mean
+      and standard deviation may be distorted by a single grossly
+      inaccurate data point.
+      <p>
+      Checking for outliers should be a routine part of any data
+      analysis.  Potential outliers should be examined to see if
+      they are possibly erroneous.  If the data point is in error,
+      it should be corrected if possible and deleted if it is not
+      possible.  If there is no reason to believe that the outlying
+      point is in error, it should not be deleted without careful
+      consideration.  However, the use of more robust techniques
+      may be warranted.  Robust techniques will often downweight
+      the effect of outlying points without deleting them.     
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      Several graphical techniques can, and should, be used to help
+      detect outliers.  A simple normal probability plot, run sequence
+      plot, a box plot, or a histogram should show any obviously outlying
+      points.  In addition to showing potential outliers, several of these
+      graphics also help assess whether the data follow an approximately
+      normal distribution.
+      <UL>
+         <a href="normprpl.html">Normal Probability Plot</a><br>
+         <a href="runseqpl.html">Run Sequence Plot</a><br>
+         <a href="histogra.html">Histogram</a><br>
+         <a href="boxplot.html">Box Plot</a><br>
+         <a href="lagplot.html">Lag Plot</a><br>
+      </UL>
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Some general purpose statistical software programs support the
+Tietjen-Moore test.
+Both <a href="eda35h2.dp">Dataplot code</a> and 
+<a href="eda35h2.r">R code</a> can be used to generate the
+analyses in this section.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35h1.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35h3.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35h2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:27:08 GMT -->
+</HTML>

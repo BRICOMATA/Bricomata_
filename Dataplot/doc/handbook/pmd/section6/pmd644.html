@@ -1,0 +1,250 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd644.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:13:02 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.6.4.4. Quadratic/Quadratic Rational Function Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd645.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd643.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd6.html">Case Studies in Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd64.html">Thermal Expansion of Copper Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.6.4.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Quadratic/Quadratic Rational Function Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="QQEXACT">
+      <I>
+        Q/Q Rational Function Model Starting Values
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+Based on the procedure described in 
+<a href="pmd642.html#StartingValues">4.6.4.2</a>,
+we fit the model:
+
+$$ y = A_0 + A_1 x + A_2 x^2 - B_1 x - B_2 x^2 + \varepsilon \, ,$$
+
+<!--
+<UL>
+<IMG ALT="y = A0 + A1*x + A2*x^2 - B1*x - B2*x^2 + e" SRC="pmd64_eq4.gif">
+</UL>
+-->
+
+using the following five representative points to generate the
+starting values for the Q/Q rational function.
+<UL>
+<PRE>
+Temp        THERMEXP
+----        --------
+ 10             0
+ 50             5
+120            12
+200            15
+800            20
+</PRE>
+</UL>
+The coefficients from the preliminary linear fit of the five points are:
+<UL>
+<PRE>
+A0 = -3.005450  
+A1 =  0.368829 
+A2 = -0.006828 
+B1 = -0.011234 
+B2 = -0.000306 
+</PRE>
+</UL>
+</TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="FITOUT">
+      <I>
+        Nonlinear Fit Results
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+       The results for the nonlinear fit are shown below.
+<PRE>
+Parameter        Estimate    Stan. Dev      <I>t</I> Value
+A0             -8.028e+00    3.988e-01       -20.13   
+A1              5.083e-01    1.930e-02        26.33   
+A2             -7.307e-03    2.463e-04       -29.67   
+B1             -7.040e-03    5.235e-04       -13.45   
+B2             -3.288e-04    1.242e-05       -26.47   
+
+Residual standard deviation = 0.5501
+Residual degrees of freedom = 231
+</PRE>
+       The regression yields the following estimated
+       model.
+
+$$ \hat{y} = \frac{-8.028 + 0.508x - 0.007307x^{2}} {1 - 0.00704x - 0.0003288x^{2}} $$
+
+<!--
+       <UL>
+          <IMG ALT=" 
+\hat{y} = \frac{-8.028 + 0.508x - 0.007307x^{2}} {1 - 0.00704x - 0.0003288x^{2}}
+" SRC="pmd64_eq5.gif">
+       </UL>
+-->
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="PLOTFIT">
+      <I>
+        Plot of Q/Q Rational Function Fit
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      We generate a plot of the fitted rational
+      function model with the raw data.
+      <P>
+      <A HREF="copper/plots/qqfit_f.gif">
+      <IMG SRC="copper/plots/qqfit_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of Q/Q model appears to be a good fit">
+      </A>
+      <P>
+      Looking at the fitted function with the raw data
+      appears to show a reasonable fit.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="6PLOT">
+      <I>
+        6-Plot for Model Validation
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      Although the plot of the fitted function with the raw
+      data appears to show a reasonable fit, we need to
+      validate the
+      <a href="../section2/pmd21.html">model assumptions</a>.
+      The <a href="../../eda/section3/6plot.html">6-plot</a>
+      is an effective tool for this purpose.
+      <P>
+      <A HREF="copper/plots/qq6plo_f.gif">
+      <IMG SRC="copper/plots/qq6plo_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="6-plot of Q/Q model shows distinctive pattern in the residuals">
+      </A>
+      <P>
+      The plot of the residuals versus the predictor
+      variable temperature (row 1, column 2) and of the
+      residuals versus the predicted values (row 1, column 3)
+      indicate a distinct pattern in the residuals.  This
+      suggests that the assumption of random errors
+      is badly violated.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="RESPLOT">
+      <I>
+        Residual Plot
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      We generate a full-sized residual plot in order to
+      show more detail.
+      <P>
+      <A HREF="copper/plots/qqres1_f.gif">
+      <IMG SRC="copper/plots/qqres1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="full-sized residual plot shows the pattern in the residuals more clearly">
+      </A>
+      <P>
+      The full-sized residual plot clearly shows the distinct
+      pattern in the residuals.  When residuals exhibit
+      a clear pattern, the corresponding errors are probably not random.
+
+   </TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd643.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd645.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd644.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:13:11 GMT -->
+</HTML>

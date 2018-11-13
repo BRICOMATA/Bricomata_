@@ -1,0 +1,268 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda339.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:31 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.9. Complex Demodulation Phase Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33a.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda338.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.9.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Complex Demodulation Phase Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-----begin section: purpose -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Improve the estimate of frequency in sinusoidal time series
+         models
+      </I>
+   </td>
+   <td width=85% valign=top>
+      As stated previously, in the frequency analysis of time series
+      models, a common model is the sinusoidal model:
+      <ul>
+         <!--
+         <img src="eqns/sinmodel.gif"
+              alt="Y(i) = C + alpha*SIN(2*PI*omega*t(i) + phi) + E(i)">
+         -->
+         \[ Y_{i} = C + \alpha\sin{(2\pi\omega t_{i} + \phi)} + E_{i} \]
+      </ul>
+      In this equation, &alpha; is the amplitude, &phi; is the phase shift,
+      and &omega; is the dominant frequency.  In the above model, &alpha;
+      and &phi; are constant, that is they do not vary with time
+      <b><i>t<sub>i</sub></i></b>.
+      <p>
+      The complex demodulation phase plot
+      (<a href="../section4/eda43.html#Granger">Granger, 1964</a>)
+      is used to improve the estimate of the frequency (i.e., 
+      &omega;) in this model.
+      <p>
+      If the complex demodulation phase plot shows lines
+      sloping from left to right, then the estimate of the
+      frequency should be increased.  If it shows lines sloping
+      right to left, then the frequency should be decreased.
+      If there is essentially zero slope, then the frequency
+      estimate does not need to be modified.
+   </td>
+</tr>
+
+
+<!-----begin section: Sample Plot -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot:<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+
+      <img src = "../gif/cdphasep.gif"
+           alt="sample phase demodulation phase plot"
+>
+      <p>
+      This complex demodulation phase plot shows that:
+      <ul>
+        <li>the specified demodulation frequency is incorrect;
+        <li>the demodulation frequency should be increased.
+      </ul>
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+       The complex demodulation phase plot is formed by:
+       <ul>
+          <li>Vertical axis: Phase
+          <li>Horizontal axis: Time
+       </ul>
+       The mathematical computations for the phase plot are beyond the
+       scope of the Handbook.  Consult Granger
+       (<a href="../section4/eda43.html#Granger">Granger, 1964</a>)
+       for details.
+
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The complex demodulation phase plot answers the following
+      question:
+      <ul>
+         Is the specified demodulation frequency correct?
+      </ul> 
+   </td>
+</tr>
+
+<!-----begin section: Importance -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Importance of a Good Initial Estimate for the Frequency
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The non-linear fitting for the sinusoidal model:
+      <ul>
+         <!--
+         <img src="eqns/sinmodel.gif"
+              alt="Y(i) = C + alpha*SIN(2*PI*omega*t(i) + phi) + E(i)">
+         -->
+         \[ Y_{i} = C + \alpha\sin{(2\pi\omega t_{i} + \phi)} + E_{i} \]
+      </ul>
+      is usually quite sensitive to the choice of good starting values.
+      The initial estimate of the frequency, &omega;, is obtained from
+      a <a href="spectrum.html">spectral plot</a>.  The complex
+      demodulation phase plot is used to assess whether this
+      estimate is adequate, and if it is not, whether it should be
+      increased or decreased.  Using the complex demodulation phase
+      plot with the spectral plot can significantly improve the
+      quality of the non-linear fits obtained.
+
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="spectrum.html">Spectral Plot</a><br>
+      <a href="compdeph.html">Complex Demodulation Phase Plot</a><br>
+      <a href="../../pmd/section1/pmd142.html">Non-Linear
+         Fitting</a><br>
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The complex demodulation amplitude plot is demonstrated in the
+      <a href="../section4/eda425.html">beam deflection data</a>
+      case study.
+
+   </td>
+</tr>
+
+<!-----begin section: dataplot command -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      Complex demodulation phase plots are available in some,
+      but not most, general purpose statistical software programs.
+
+   </td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda338.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33a.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda339.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:32 GMT -->
+</HTML>

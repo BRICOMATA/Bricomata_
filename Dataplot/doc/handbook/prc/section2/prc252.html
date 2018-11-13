@@ -1,0 +1,226 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc252.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:26:50 GMT -->
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.5.2. Percentiles</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc253.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc251.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.html">Comparisons based on data from one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc25.html">What intervals contain a fixed percentage of the population values?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.5.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Percentiles</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Definitions of order statistics and ranks</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+For a series of measurements <i>Y</i><sub>1</sub>, ...,
+<i>Y<sub>N</sub></i>, denote the data ordered in increasing order
+of magnitude by <i>Y</i><sub>[1]</sub>, ...,
+<i>Y<sub>[N]</sub></i>. These ordered data are called order
+statistics. If <i>Y<sub>[j]</sub></i> is the order statistic that
+corresponds to the measurement <i>Y<sub>i</sub></i>,
+then the rank for <i>Y<sub>i</sub></i> is
+<i>j</i>; i.e.,
+<p>
+<center>
+<img SRC="gifs/rank.gif" height=28 width=143 align=ABSCENTER
+     ALT="Y[j] ~ Y(i) => r(i) = j">
+</center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Definition of percentiles</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Order statistics provide a way of estimating proportions of the
+data that should fall above and below a given value, called a
+<i>percentile</i>.  The <i>p</i>th percentile is a value,
+<i>Y<sub>(p)</sub></i>, such that at most (100<i>p</i>)% of the
+measurements are less than this value and at most 100(1- <i>p</i>)% are
+greater.  The 50th percentile is called the <i>median</i>.
+<p>
+Percentiles split a set of ordered data into hundredths. (Deciles
+split ordered data into tenths).  For example, 70% of the data
+should fall below the 70th percentile.
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Estimation of percentiles</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Percentiles can be estimated from <i>N</i> measurements as follows:
+for the <i>p</i>th percentile, set <i>p</i>(<i>N</i>+1) equal to
+<i>k + d</i> for <i>k</i> an integer, and <i>d</i>, a fraction
+greater than or equal to 0 and less than 1.
+<ol>
+   <li>For <i>0 < k < N</i>,&nbsp;
+       <img SRC="gifs/ykplus.gif" height=38 width=193 align=ABSCENTER
+       alt="Y(p) = Y[k] + d(Y[k+1] - Y[k])">
+       <p>
+   <li>For <i>k = 0</i>,&nbsp;
+       <i>Y</i>(<i>p</i>) = <i>Y</i><sub>[1]</sub>
+       <!-- <img SRC="gifs/y1.gif" height=28 width=76 align=CENTER
+       alt="Y(p) = Y[1]"> -->
+       <p>
+   <li>For <i>k = N</i>,&nbsp;
+       <i>Y</i>(<i>p</i>) = <i>Y</i><sub>[<i>N</i>]</sub>
+       <!-- <img SRC="gifs/yn.gif" height=28 width=83 align=CENTER
+       alt="Y(p) = Y[N]"> -->
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Example and interpretation</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+For the purpose of illustration, twelve measurements from a
+<a href="../../mpc/section6/mpc6111.html">gage study</a> are shown
+below.  The measurements are resistivities of silicon wafers
+measured in ohm<sup>.</sup>cm.
+<pre>
+       i  Measurements  Order stats   Ranks
+
+       1     95.1772     95.0610       9
+       2     95.1567     95.0925       6
+       3     95.1937     95.1065       10
+       4     95.1959     95.1195       11
+       5     95.1442     95.1442        5
+       6     95.0610     95.1567        1
+       7     95.1591     95.1591        7
+       8     95.1195     95.1682        4
+       9     95.1065     95.1772        3
+      10     95.0925     95.1937        2
+      11     95.1990     95.1959       12
+      12     95.1682     95.1990        8
+</pre>
+To find the 90% percentile, <i>p</i>(<i>N</i>+1) = 0.9(13) =11.7;
+<i>k</i> = 11, and <i>d</i> = 0.7. From condition (1) above,
+<i><font size=+1>Y(0.90)</font></i> is estimated to be 95.1981
+ohm<sup>.</sup>cm.  This percentile, although it is an estimate
+from a small sample of resistivities measurements, gives an
+indication of the percentile for a population of resistivity
+measurements.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Note that there are other ways of calculating percentiles in
+common use</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Some software packages (EXCEL, for example) set
+1+<i>p</i>(<i>N-</i>1) equal to <i>k</i> + <i>d</i>, then proceed
+as above.  The two methods give fairly similar results.
+<p>
+A third way of calculating percentiles (given in some elementary
+textbooks) starts by calculating <i>p</i>N.  If that is not an
+integer, round up to the next highest integer <i>k</i> and use
+Y<sub>[<i>k</i>]</sub> as the percentile estimate.  If <i>p</i>N is
+an integer k, use
+.5(Y<sub>[<i>k</i>]</sub> +Y<sub>[<i>k</i>+1]</sub>).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Definition of Tolerance Interval</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+An interval covering population percentiles can be interpreted
+as "covering a proportion <i>p</i> of the population with a level
+of confidence, say, 90%." This is known as a
+<a href="prc253.html">tolerance interval.</a>
+</td>
+</tr>
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc251.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc253.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc252.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:26:59 GMT -->
+</HTML>

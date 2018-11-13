@@ -1,0 +1,64 @@
+.
+. Starting Step 2.1
+tic offset 5 5
+tic offset units screen
+box shadow hw 0 0
+title Ordered Data Plot for Eddy Current Data
+device 1 off
+ytic offset 0 0
+plot y
+probe fy1min; let mintic = probeval
+probe fy1max; let maxtic = probeval
+let rangetic = maxtic-mintic
+ytic offset 5 5
+device 1 on
+.
+loop for j = 1 1 k
+   let z^j = x^j
+end loop
+let y2 = sortc y z1 z2 z3
+char x
+lines blank
+y1label Sensitivity
+x1label Settings
+x1tics off
+x1tic labels off
+xmin -1
+let yoffset = 2*k + 4
+y1tic offset yoffset 5
+plot y2 index
+.
+probe fy1min; let ybottom = probeval
+probe fy1max; let ytop = probeval
+let ybase = 20+yoffset-2
+let yinc = 2
+just center
+loop for j = 1 1 k
+   let ypos = ybase-j*yinc
+   loop for l = 1 1 n
+      let xpos = xplot(l)
+      let zjl = z^j(l)
+      let string ch = -
+      if zjl = 1; let string ch = +; end if
+      moveds xpos ypos
+      text ^ch
+   end loop
+   move 20 ypos
+   text X^j:
+end loop
+.
+call dexkn.dp
+.
+x1tics on
+x1tic labels on
+limits
+y1tic offset 5 5
+title
+y1label
+x1label
+just left
+xtic offset units data
+xtic offset 0.5 0.5
+ytic offset 0 0
+. erase
+. Finished Step 2.1: Page Back for Output

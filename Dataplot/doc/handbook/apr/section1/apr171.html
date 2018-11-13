@@ -1,0 +1,166 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr171.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.7.1. Homogeneous Poisson Process (HPP)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr172.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr17.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.7.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr17.html">What are some basic repair rate models used for repairable systems?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.7.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Homogeneous Poisson Process (HPP)</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Repair rate (ROCOF) models and formulas</i></td>
+
+<td WIDTH="85%">
+The simplest useful model for \(M(t)\) is \(M(t) = \lambda t\)
+<!-- <i>M(t)</i> is <i>M(t) = &lambda; t</i> -->
+and the <a href="apr125.html">repair rate (or ROCOF)</a> is the constant \(m(t) = \lambda\).
+<!-- <i>m(t)</i> = <i>&lambda;</i>. -->
+This model comes about when the interarrival times between failures 
+are independent and identically distributed according to the 
+<a href="apr161.html">exponential distribution</a>, with parameter \(\lambda\).
+<!-- <i>&lambda;</i>. -->
+This basic model is also known as a 
+<b>Homogeneous Poisson Process (HPP)</b>.  The following formulas apply.
+
+$$ \begin{array}{rcl}
+F(t) = 1 - e^{-\lambda t} & =  & \mbox{CDF of the waiting time to the next failure} \\
+                          &    & \mbox{(or interarrival time between failures)} \\
+     & & \\
+N(T) & = & \mbox{cumulative number of failures from time } 0 \mbox{ to time } T \\
+     & & \\
+P\{N(t)=k\} & = & \frac{(\lambda T)^k e^{-\lambda T}}{k!}  \\
+     & & \\
+M(t) = \lambda T & = & \mbox{expected number of failures by time } T \\
+     & & \\                 
+M'(t) = m(t) & = & \lambda = \mbox{repair rate or ROCOF} \\
+     & & \\
+\frac{1}{\lambda} & = & \mbox{Mean Time Between Failures (MTBF)}
+\end{array} $$
+
+<!--
+<p>
+<center>
+<img SRC="apr171_e1.gif" ALT="F(t) = 1 - EXP(lambda*t) = the CDF of the waiting time to the next failure 
+(or interarrival time between failures);   N(t) = the cumulative number of failures from time 0 to time T;   
+P{N(t) = k} = (lambda*T)**k*EXP(-lambda*T)/k!;   M(T) = lambda*T = the expected number of failures by time T;   
+M'(t) = m(t) = lambda = the repair rate or ROCOF;   1/lambda = the Mean Time Between Failures (MTBF)" >
+</center>
+-->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>HPP model fits flat portion of "bathtub"
+curve</i></td>
+
+<td WIDTH="85%">Despite the simplicity of this model, it is widely used
+for repairable equipment and systems throughout industry. Justification
+for this comes, in part, from the shape of the empirical 
+<a href="apr124.html">Bathtub Curve</a>. Most systems (or complex tools or equipment) 
+spend most of their "lifetimes" operating in the long flat constant repair rate portion of
+the Bathtub Curve. The HPP is the only model that applies to that portion
+of the curve, so it is the most popular model for system reliability evaluation
+and reliability test planning.
+<p>
+<a href="../section3/apr311.html">Planning reliability assessment tests
+(under the HPP assumption)</a> is covered in a later section, as is <a href="../section4/apr451.html">estimating
+the MTBF</a> from system failure data and calculating upper and lower confidence
+limits.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Poisson relationship</i></td>
+
+<td WIDTH="85%">
+In the HPP model, the probability of having exactly \(k\)
+<!-- <i>k</i> -->
+failures by time \(T\)
+<!-- <i>T</i> -->
+is given by the Poisson distribution with mean \(\lambda T\)
+<!-- <i>&lambda; T</i> -->
+(see formula for \(P\{N(t) = k\}\)
+<!-- <i>P{N(T) = k}</i> -->
+above). 
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr17.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr172.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr171.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+</HTML>

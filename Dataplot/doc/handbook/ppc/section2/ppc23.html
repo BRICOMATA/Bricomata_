@@ -1,0 +1,222 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc23.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:28 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>3.2.3. Analysis of Variance Models (ANOVA)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="ppc231.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="ppc22.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">3.</FONT>
+<FONT COLOR="#00105A"><A HREF="../ppc.html">Production
+Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc2.html">Assumptions / Prerequisites</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">3.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Analysis of Variance Models (ANOVA)</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>ANOVA allows us to compare the effects
+of multiple levels of multiple factors</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+One of the most common analysis activities in PPC is comparison.
+We often compare the performance of similar tools or processes.
+We also compare the effect of different treatments such as recipe settings.
+When we compare two things, such as two tools running the same operation,
+we use&nbsp; <a href="../../prc/prc.html">comparison techniques.</a>  When we
+want to compare multiple things, like multiple tools running the same operation
+or multiple tools with multiple operators running the same operation, we
+turn to ANOVA techniques to perform the analysis.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td WIDTH="15%" NOSAVE>
+<i>ANOVA splits the data into components</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+The easiest way to understand ANOVA is through a concept known as
+value splitting.  ANOVA splits the observed data values
+into components that are attributable to the different levels of the
+factors.  Value splitting is best explained by example.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<a NAME="example"></a><i>Example: Turned Pins</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The simplest example of value splitting is when we just
+have one level of one factor. Suppose we have a turning operation in a
+machine shop where we are turning pins to a diameter of .125 +/- .005 inches.&nbsp;
+Throughout the course of a day we take five samples of pins and obtain
+the following measurements: .125, .127, .124, .126, .128.
+</td>
+</tr>
+
+<tr>
+<td>
+</td>
+
+<td>
+We can split these data values into a common value (mean) and residuals
+(what's left over) as follows:
+<p>
+<center><table BORDER COLS=5 WIDTH="50%" NOSAVE >
+<tr>
+<td>.125</td>
+
+<td>.127</td>
+
+<td>.124</td>
+
+<td>.126</td>
+
+<td>.128</td>
+</tr>
+</table>
+</center>
+
+<blockquote>
+<center>=</center>
+</blockquote>
+
+<center><table BORDER COLS=5 WIDTH="50%" >
+<tr NOSAVE>
+<td NOSAVE>.126</td>
+
+<td>.126</td>
+
+<td>.126</td>
+
+<td>.126</td>
+
+<td>.126</td>
+</tr>
+</table></center>
+
+<center>
+<p>+</center>
+
+<center><table BORDER COLS=5 WIDTH="50%" >
+<tr NOSAVE>
+<td NOSAVE>-.001</td>
+
+<td>.001</td>
+
+<td>-.002</td>
+
+<td>.000</td>
+
+<td>.002</td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+From these tables, also called overlays,
+we can easily calculate the location and spread of the data as follows:
+<center>
+<p>mean = .126
+<p>std. deviation = .0016.
+</center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Other layouts</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+While the above example is a trivial
+structural layout, it illustrates how we can split data values into its
+components. In the next sections, we will look at more complicated structural
+layouts for the data. In particular we will look at multiple levels of
+one factor (<a href="ppc231.html">One-Way ANOVA</a>) and multiple levels
+of two factors (Two-Way ANOVA) where the factors are <a href="ppc232.html">crossed</a>
+and&nbsp; <a href="ppc233.html">nested</a>.
+</td>
+</tr>
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="ppc22.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="ppc231.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc23.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:28 GMT -->
+</HTML>

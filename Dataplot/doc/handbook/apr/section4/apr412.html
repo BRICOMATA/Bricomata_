@@ -1,0 +1,253 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr412.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.1.2. Maximum likelihood estimation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr413.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr411.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr41.html">How do you estimate life distribution parameters from censored data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.1.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Maximum likelihood estimation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>There is
+nothing visual about the maximum likelihood method - but it is a powerful
+method and, at least for large samples, very precise</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Maximum likelihood estimation
+begins with writing a mathematical expression known as the <b><i>Likelihood
+Function</i></b> of the sample data. Loosely speaking, the likelihood of
+a set of data is the probability of obtaining that particular set of data,
+given the chosen probability distribution model. This expression contains
+the unknown model parameters. The values of these parameters that maximize
+the sample likelihood are known as the
+<i> <b>Maximum Likelihood Estimates</b></i> or <b>MLE's</b>.
+ 
+<p>Maximum likelihood estimation is a totally analytic maximization procedure.
+It applies to every form of censored or multicensored data, and it is even
+possible to use the technique across several stress cells and estimate
+acceleration model parameters at the same time as life distribution parameters.
+Moreover, MLE's and Likelihood Functions generally have very desirable
+large sample properties: 
+<ul>
+<li>
+they become unbiased minimum variance estimators as the sample size increases</li>
+
+<li>
+they have approximate normal distributions and approximate sample variances
+that can be calculated and used to generate confidence bounds</li>
+
+<li>
+likelihood functions can be used to test hypotheses about models and parameters </li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>With small samples, MLE's may not be very
+precise and may even generate a line that lies above or below the data
+points</i></td>
+
+<td VALIGN=TOP WIDTH="85%">There are only two drawbacks to MLE's, but they
+are important ones: 
+<ul>
+<li>
+With small numbers of failures (less than 5, and sometimes less than 10
+is small), MLE's can be heavily biased and the large sample optimality
+properties do not apply</li>
+
+<li>
+Calculating MLE's often requires specialized software for solving complex
+non-linear equations. This is less of a problem as time goes by, as more
+statistical packages are upgrading to contain MLE analysis capability every
+year.</li>
+</ul>
+Additional information about maximum likelihood estimatation can be found
+in <a href="../../eda/section3/eda3652.html">Chapter 1</a>.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Likelihood equation for censored data </i></td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="Likelihood Function Examples for Reliability Data:"></a>
+<b>Likelihood Function Examples for Reliability Data:</b>
+<p>
+Let \(f(t)\)
+<!-- <i>f</i>(<i>t</i>)  -->
+be the PDF and \(F(t)\)
+<!-- <i>F</i>(<i>t</i>) -->
+the CDF for the chosen life distribution model. Note that these are functions of \(t\)
+<!-- <i>t</i>  -->
+and the unknown parameters of the model. The likelihood function
+for <a href="../section1/apr131.html#Censored Type I">Type I Censored data</a>
+is: 
+
+$$ L = C \left( \prod_{i=1}^r f(t_i) \right) [1-F(T)]^{n - r} \, , $$
+
+<!--
+<center><img SRC="eqns/lik1.gif" ALT="L = C*(PRODUCT[i=1 to r]f(t(i)))*(1 - F(T))**(n-r)" ></center>
+-->
+
+with \(C\)
+<!-- <i>C</i> -->
+denoting a constant that plays no role when solving for the
+MLE's. Note that with no censoring, the likelihood reduces to just the
+product of the densities, each evaluated at a failure time. For 
+<a href="../section1/apr131.html#Censored Type I">Type II Censored Data</a>, just replace \(T\)
+<!-- <i>T</i> -->
+above by the random end of test time \(t_r\).
+<!-- <i>t<sub>r</sub></i>. -->
+<p>
+The likelihood function for <a href="../section1/apr131.html#Readout or Interval">readout data</a> is:
+
+$$ L = C \left( \prod_{i=1}^k \left[ F(T_i) - F(T_{i-1}) \right]^{r_i} \right) [1-F(T)]^{n - \sum_{i=1}^k r_i} \, , $$
+
+<!--
+<center>
+<img SRC="eqns/likro.gif" ALT="L = C*{PRODUCT[i=1 to k](F(T(i)-F(T(i-1)))**r(i))}* (1 - F(T))**(n-SUM[i=1 to k]r(i))" >
+</center>
+-->
+
+with \(F(T_0)\)
+<!-- <i>F</i>(<i>T<sub>0</sub></i>)  -->
+defined to be 0. 
+<p>
+In general, any <a href="../section1/apr131.html#Multicensored">multicensored data</a> 
+set likelihood will be a constant times a product of terms, one
+for each unit in the sample, that look like either \(f(t_i)\), \([F(T_i) - F(T_{i-1})]\), or \([1-F(t_i)]\),
+<!-- <i> f</i>(<i>t<sub>i</sub></i>)<i>,
+</i>[<i>F</i>(<i>T<sub>i</sub></i>)<i>-F</i>(<i>T<sub>i-1</sub></i>)],
+or [<i>1-F</i>(<i>t<sub>i</sub></i>)], -->
+depending on whether the unit was
+an exact time failure at time \(t_i\),
+<!-- <i> t<sub>i</sub></i>, -->
+failed between two readouts \(T_{i-1}\) and \(T_i\),
+<!-- <i> T<sub>i-1</sub></i> and <i>T<sub>i</sub></i>, -->
+or survived to time \(t_i\)
+<!-- <i> t<sub>i</sub></i>  -->
+and was not observed any longer. 
+<p>
+The general mathematical technique for solving for MLE's involves setting
+partial derivatives of \(\mbox{ln } L\)
+<!-- ln <i>L</i>  -->
+(the derivatives are taken with respect
+to the unknown parameters) equal to zero and solving the resulting (usually
+non-linear) equations. The equation for the exponential model can easily
+be solved, however. 
+<br> 
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>MLE for the exponential model parameter \(\lambda\)
+<!-- <img SRC="gifs/lambda.gif" ALT="lambda" height=18 width=14 align=TEXTTOP> -->
+turns out to be just (total # of failures) divided by (total unit test time)</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<a NAME="MLE's for the Exponential Model (Type I"></a>
+<b>MLE's for the Exponential Model (Type I Censoring):</b>
+<p>
+
+$$ L = C \lambda^r \mbox{ exp } \left( -\lambda \sum_{i=1}^r t_i \right) \left( e^{-\lambda(n-r)T} \right) $$
+
+$$ \mbox{ln } L = \mbox{ln }C + r \mbox{ ln } \lambda - \lambda \sum_{i=1}^r t_i - \lambda(n-r)T $$
+
+$$ \frac{\partial \mbox{ ln } L}{\partial \lambda} = \frac{r}{\lambda} - \sum_{i=1}^r t_i - (n-r)T = 0 $$
+
+$$ \hat{\lambda} = \frac{r}{\sum_{i=1}^r t_i + (n-r)T} $$
+
+<!--
+<img SRC="eqns/mleexp.gif" ALT="L = C*lambda**r*EXP[-lambda*SUM[i=1 to r]t(i)]*{EXP(-LAMBDA*(N-r)*T};    
+LN(L) = LN(C) + r*LN(lambda) - lambda*SUM[i=1 to r](t(i)) - lambda*(n-r)*T;    
+partial derivative LN(L) with respect to lambda = (r/lambda) - SUM[i=1 to r](t(i)) - (N-r)*T = 0;    
+lambdahat = r/{SUM[i=1 to r](t(i)) + (n-r)*T}" height=220 width=280>
+-->
+<p>
+<b>Note:</b> The MLE of the failure rate (or repair rate) in the exponential
+case turns out to be the total number of failures observed divided by the
+total unit test time. For the MLE of the MTBF, take the reciprocal of this
+or use the total unit test hours divided by the total observed failures. 
+<p>
+There are examples of <a href="apr413.html#Weibull">Weibull</a> and 
+<a href="apr422.html#Fit Reliability">lognormal</a>
+MLE analysis later in this section.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr411.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr413.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr412.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+</HTML>

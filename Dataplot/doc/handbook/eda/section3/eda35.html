@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:22 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5. Quantitative Techniques</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda351.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda34.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Quantitative Techniques</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Confirmatory Statistics
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The techniques discussed in this section are classical statistical
+methods as opposed to EDA techniques.  EDA and classical techniques
+are not mutually exclusive and can be used in a complementary
+fashion.  For example, the analysis can start with some simple
+graphical techniques such as the 4-plot followed by the classical
+confirmatory methods discussed herein to provide more rigorous statements
+about the conclusions.  If the classical methods yield different
+conclusions than the graphical analysis, then some effort should be
+invested to explain why.  Often this is an indication that some of the
+assumptions of the classical techniques are violated.
+<p>
+Many of the quantitative techniques fall into two broad categories:
+<ol>
+   <li>Interval estimation</li>
+   <li>Hypothesis tests</li>
+</ol>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="INTERVAL">
+<I>
+Interval Estimates
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+It is common in statistics to estimate a parameter
+from a sample of data.  The value of the parameter using all of the
+possible data, not just the sample data, is called the population
+parameter or true value of the parameter.  An estimate of the
+true parameter value is made using the sample data.  This
+is called a point estimate or a sample estimate.
+<p>
+For example, the most commonly used measure of location is the
+mean.  The population, or true, mean is the sum of all the 
+members of the given population divided by the number of members
+in the population.  As it is typically impractical to measure
+every member of the population, a random sample is drawn from
+the population.  The sample mean is calculated by
+summing the values in the sample and dividing by the number
+of values in the sample.  This sample mean is then used as the point
+estimate of the population mean.
+<p>
+Interval estimates expand on point estimates by incorporating
+the uncertainty of the point estimate.
+In the example for the mean above, different samples from the
+same population will generate different values for the sample
+mean.  An interval estimate quantifies this uncertainty
+in the sample estimate by computing lower and upper values
+of an interval which will, with a given level of confidence
+(i.e., probability), contain the population parameter.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="TESTS">
+Hypothesis Tests
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Hypothesis tests also address the uncertainty of the sample
+estimate.  However, instead of providing an interval, a
+hypothesis test attempts to refute a specific claim about a
+population parameter based on the sample data.  For example,
+the hypothesis might be one of the following:
+<ul>
+   <li>the population mean is equal to 10</li>
+   <li>the population standard deviation is equal to 5</li>
+   <li>the means from two populations are equal</li>
+   <li>the standard deviations from 5 populations are equal</li>
+</ul>
+<p>
+To reject a hypothesis is to conclude that it is
+false.  However, to accept a hypothesis does not mean that
+it is true, only that we do not have evidence to
+believe otherwise.  Thus hypothesis tests are usually stated in
+terms of both a condition that is doubted (null hypothesis)
+and a condition that is believed (alternative hypothesis).
+<p>
+A common format for a hypothesis test is:
+<table>
+   <tr>
+      <td valign=top>
+         H<sub>0</sub>:
+      </td>
+      <td valign=top>
+         A statement of the null hypothesis, e.g., two population
+         means are equal.
+      </td>
+   </tr>
+   <tr>
+      <td valign=top>
+         H<sub>a</sub>: 
+      </td>
+      <td valign=top>
+         A statement of the alternative hypothesis, e.g., two
+         population means are not equal.
+      </td>
+   </tr>
+   <p>
+   <tr>
+      <td valign=top>
+         Test Statistic: 
+      </td>
+      <td valign=top>
+         The test statistic is based on the specific hypothesis test.
+      </td>
+   </tr>
+   <tr>
+      <A NAME="POWER">
+      <td valign=top>
+         Significance Level: 
+      </td>
+      </A>
+      <td valign=top>
+         The significance level, &alpha;,
+         <!--<img src="eqns/alpha.gif" alt="alpha">, -->
+         defines the sensitivity of the test.  A value of
+         <!-- <img src="eqns/alpha.gif" alt="alpha"> --> &alpha;
+         = 0.05 means that we inadvertently reject the null hypothesis
+         5% of the time when it is in fact true.  This is also called
+         the type I error.  The choice of
+         <!-- <img src="eqns/alpha.gif" alt="alpha"> --> &alpha;
+         is somewhat arbitrary, although in practice values of 0.1,
+         0.05, and 0.01 are commonly used.
+         <p>
+         The probability of rejecting the null hypothesis when it is
+         in fact false is called the power of the test and is
+         denoted by 1 -
+         <!-- <img align=absmiddle src="eqns/beta.gif" alt="beta"> -->
+         &beta;.  Its complement, the probability of accepting
+         the null hypothesis when the alternative hypothesis is, in
+         fact, true (type II error), is called
+         <!-- <img align=absmiddle src="eqns/beta.gif" alt="beta"> -->
+         &beta; and can only be computed for a specific alternative
+         hypothesis.
+      </td>
+   </tr>
+   <tr>
+      <td valign=top>
+         Critical Region: 
+      </td>
+      <td valign=top>
+         The critical region encompasses those values of the test
+         statistic that lead to a rejection of the null hypothesis.
+         Based on the distribution of the test statistic and
+         the significance level, a cut-off value for the test
+         statistic is computed.  Values either above or below or
+         both (depending on the direction of the test) this
+         cut-off define the critical region.
+      </td>
+   </tr>
+
+</table>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Practical Versus Statistical Significance
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+It is important to distinguish between statistical significance and
+practical significance.  Statistical significance simply means
+that we reject the null hypothesis.  The ability of the test to
+detect differences that lead to rejection of the null hypothesis
+depends on the sample size.  For example, for a particularly large
+sample, the test may reject the null hypothesis that two process means
+are equivalent.  However, in practice the difference between the two
+means may be relatively small to the point of having no real
+engineering significance.  Similarly, if the sample size is small, a
+difference that is large in engineering terms may not lead to
+rejection of the null hypothesis.  The analyst should not just
+blindly apply the tests, but should combine engineering judgement with
+statistical analysis.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Bootstrap Uncertainty Estimates
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In some cases, it is possible to mathematically derive appropriate
+uncertainty intervals.  This is particularly true for intervals based
+on the assumption of a normal distribution.  However, there are many
+cases in which it is not possible to mathematically derive the
+uncertainty.  In these cases, the <a href="bootplot.html">bootstrap</a>
+provides a method for empirically determining an appropriate interval.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Table of Contents
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Some of the more common classical quantitative techniques are listed
+below.  This list of quantitative techniques is by no means meant
+to be exhaustive.  Additional discussions of classical statistical
+techniques are contained in the
+<a href="../../prc/prc.html">product comparisons</a> chapter.
+<UL>
+   <LI>Location</LI>
+      <OL>
+         <LI><a href="eda351.html">Measures of Location</a></LI>
+         <LI><a href="eda352.html">Confidence Limits for the
+             Mean and One Sample t-Test</a></LI>
+         <LI><a href="eda353.html">Two Sample t-Test for Equal
+             Means</a></LI>
+         <LI><a href="eda354.html">One Factor Analysis of
+             Variance</a></LI>
+         <LI><a href="eda355.html">Multi-Factor Analysis of
+             Variance</a></LI>
+      </OL>
+   <LI>Scale (or variability or spread)</LI>
+      <OL>
+         <LI><a href="eda356.html">Measures of Scale</a></LI>
+         <LI><a href="eda357.html">Bartlett's Test</a></LI>
+         <LI><a href="eda358.html">Chi-Square Test</a></LI>
+         <LI><a href="eda359.html">F-Test</a></LI>
+         <LI><a href="eda35a.html">Levene Test</a></LI>
+      </OL>
+   <LI>Skewness and Kurtosis</LI>
+      <OL>
+         <LI><a href="eda35b.html">Measures of Skewness and 
+             Kurtosis</a></LI>
+      </OL>
+   <LI>Randomness</LI>
+      <OL>
+         <LI><a href="eda35c.html">Autocorrelation</a></LI>
+         <LI><a href="eda35d.html">Runs Test</a></LI>
+      </OL>
+   <LI>Distributional Measures</LI>
+      <OL>
+         <LI><a href="eda35e.html">Anderson-Darling Test</a></LI>
+         <LI><a href="eda35f.html">Chi-Square Goodness-of-Fit
+             Test</a></LI>
+         <LI><a href="eda35g.html">Kolmogorov-Smirnov Test</a></LI>
+      </OL>
+   <LI>Outliers</LI>
+      <OL>
+         <LI><a href="eda35h.html">Detection of Outliers</a></LI>
+         <LI><a href="eda35h1.html">Grubbs Test</a></LI>
+         <LI><a href="eda35h2.html">Tietjen-Moore Test</a></LI>
+         <LI><a href="eda35h3.html">Generalized Extreme Deviate
+             Test</a></LI>
+      </OL>
+   <LI>2-Level Factorial Designs</LI>
+      <OL>
+         <LI><a href="eda35i.html">Yates Algorithm</a></LI>
+      </OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda34.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda351.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:24 GMT -->
+</HTML>

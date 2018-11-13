@@ -1,0 +1,25 @@
+curl -iv smtps://djaghiles:AghilesD35JG@smtp.gmail.com:465 --ssl-reqd \
+  --mail-from djaghiles@gmail.com --mail-rcpt djaghiles@gmail.com \
+  --upload-file mail.txt --user djaghiles@gmail.com:AghilesD35JG --insecure
+  
+curl -iv smtps://djaghiles:AghilesD35JG@smtp.gmail.com:465 \
+	--ssl-reqd \
+	--mail-from djaghiles@gmail.com \
+	--mail-rcpt djaghiles@gmail.com \
+	--upload-file aghiles.txt
+  
+
+curl imaps://djaghiles:AghilesD35JG@imap.gmail.com -X 'LIST "" "*"'
+curl "imaps://djaghiles:AghilesD35JG@imap.gmail.com/INBOX;UID=21"
+
+curl "imaps://djaghiles:AghilesD35JG@imap.gmail.com/INBOX" -T mail.txt
+
+
+curl pop3s://djaghiles:AghilesD35JG@pop.gmail.com
+
+curl -F '=(;type=multipart/alternative' \
+	-F '=plain text message' \
+	-F '= <body>HTML message</body>;type=text/html' \
+	-F '=)' -F '=@mail.txt' smtps://smtp.gmail.com:465 --ssl-reqd \
+  --mail-from djaghiles@gmail.com --mail-rcpt djaghiles@gmail.com \
+  --upload-file mail.txt --user djaghiles@gmail.com:AghilesD35JG

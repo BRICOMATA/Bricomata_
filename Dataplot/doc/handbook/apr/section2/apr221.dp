@@ -1,0 +1,22 @@
+Dataplot commands and output:
+
+. Input data and generate probability plot.
+LET X = DATA 54 187 216 240 244 335 361 373 375 386 
+LET Y = DATA .035 .087 .142 .2 .262 .328 .398 .474 .556 .645
+XLOG ON
+YLOG ON
+XLABEL LOG TIME
+YLABEL LOG LN (1/(1-F))
+PLOT Y X 
+
+LET YY = LOG10(Y)
+LET XX = LOG10(X)
+FIT YY XX 
+
+. Generate probability plot using built-in functions.
+XLOG OFF
+YLOG OFF
+SET MINMAX = 1
+WEIBULL PPCC PLOT X
+LET GAMMA = SHAPE
+WEIBULL PLOT X

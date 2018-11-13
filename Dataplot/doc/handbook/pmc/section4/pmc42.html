@@ -1,0 +1,845 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc42.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:09 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.2. What are Moving Average or Smoothing Techniques?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc421.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc41.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>What are Moving Average or Smoothing Techniques?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Smoothing data removes random variation and shows trends
+and cyclic components</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Inherent in the collection of data taken over time is some form
+of random variation.  There exist methods for reducing of canceling
+the effect due to random variation.  An often-used technique in
+industry is "smoothing".  This technique, when properly applied,
+reveals more clearly the underlying trend, seasonal and cyclic
+components.
+<p>
+There are two distinct groups of smoothing methods&nbsp;
+<ul>
+   <li>Averaging Methods</li>
+   <li>Exponential Smoothing Methods</li>
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Taking averages is the simplest way to smooth data</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+We will first investigate some averaging methods, such as the
+"simple" average of all past data.
+<p>
+A manager of a warehouse wants to know how much a typical supplier
+delivers in 1000 dollar units.  He/she takes a sample of
+<a NAME="12"></a>12 suppliers, at random, obtaining the following
+results:
+<p>
+<center>
+<table width=300>
+<tr>
+   <th valign=top align=center width=50>
+      Supplier
+   </th>
+   <th valign=top align=center width=50>
+      Amount
+   </th>
+   <th valign=top align=center width=50>
+      Supplier
+   </th>
+   <th valign=top align=center width=50>
+      Amount
+   </th>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      7
+   </td>
+   <td valign=top align=center width=50>
+      11
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      2
+   </td>
+   <td valign=top align=center width=50>
+      8
+   </td>
+   <td valign=top align=center width=50>
+      8
+   </td>
+   <td valign=top align=center width=50>
+      7
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      3
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      13
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      4
+   </td>
+   <td valign=top align=center width=50>
+      12
+   </td>
+   <td valign=top align=center width=50>
+      10
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      5
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      11
+   </td>
+   <td valign=top align=center width=50>
+      11
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      6
+   </td>
+   <td valign=top align=center width=50>
+      12
+   </td>
+   <td valign=top align=center width=50>
+      12
+   </td>
+   <td valign=top align=center width=50>
+      10
+   </td>
+</tr>
+</table>
+<!-- <img SRC="eqns/ts1.gif" height=212 width=284> -->
+</center>
+The computed mean or average of the data = 10. The manager decides
+to use this as the estimate for <i>expenditure of a typical
+supplier.</i>
+<p>
+Is this a good or bad estimate?&nbsp;
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Mean squared error is a way to judge how good a model is</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+We shall compute the <i>"mean squared error"</i>:
+<ul>
+   <li>The "error" = true amount spent minus the estimated amount.
+   <li>The "error squared" is the error above, squared.
+   <li>The "SSE" is the sum of the squared errors.
+   <li>The "MSE" is the mean of the squared errors.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+MSE results for example
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The results are:
+<center>
+<b><font size=+1>Error and Squared Errors</font></b>
+<p>
+<b><font size=+1>The estimate = 10</font></b>
+<p>
+<table>
+<tr>
+   <th valign=bottom align=center width=50>
+      Supplier
+   </th>
+   <th valign=bottom align=center width=50>
+      $
+   </th>
+   <th valign=bottom align=center width=50>
+      Error
+   </th>
+   <th valign=bottom align=center width=50>
+      Error Squared
+   </th>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      -1
+   </td>
+   <td valign=top align=center width=50>
+      1
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      2
+   </td>
+   <td valign=top align=center width=50>
+      8
+   </td>
+   <td valign=top align=center width=50>
+      -2
+   </td>
+   <td valign=top align=center width=50>
+      4
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      3
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      -1
+   </td>
+   <td valign=top align=center width=50>
+      1
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      4
+   </td>
+   <td valign=top align=center width=50>
+      12
+   </td>
+   <td valign=top align=center width=50>
+      2
+   </td>
+   <td valign=top align=center width=50>
+      4
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      5
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      -1
+   </td>
+   <td valign=top align=center width=50>
+      1
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      6
+   </td>
+   <td valign=top align=center width=50>
+      12
+   </td>
+   <td valign=top align=center width=50>
+      2
+   </td>
+   <td valign=top align=center width=50>
+      4
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      7
+   </td>
+   <td valign=top align=center width=50>
+      11
+   </td>
+   <td valign=top align=center width=50>
+      1
+   </td>
+   <td valign=top align=center width=50>
+      1
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      8
+   </td>
+   <td valign=top align=center width=50>
+      7
+   </td>
+   <td valign=top align=center width=50>
+      -3
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      13
+   </td>
+   <td valign=top align=center width=50>
+      3
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      10
+   </td>
+   <td valign=top align=center width=50>
+      9
+   </td>
+   <td valign=top align=center width=50>
+      -1
+   </td>
+   <td valign=top align=center width=50>
+      1
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      11
+   </td>
+   <td valign=top align=center width=50>
+      11
+   </td>
+   <td valign=top align=center width=50>
+      1
+   </td>
+   <td valign=top align=center width=50>
+      1
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      12
+   </td>
+   <td valign=top align=center width=50>
+      10
+   </td>
+   <td valign=top align=center width=50>
+      0
+   </td>
+   <td valign=top align=center width=50>
+      0
+   </td>
+</tr>
+</table>
+<p>
+<!-- <img SRC="eqns/ts2.gif" height=356 width=240> -->
+</center>
+The SSE = 36 and the MSE = 36/12 = 3.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Table of MSE results for example using different estimates
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+So how good was the estimator for the amount spent for each supplier?
+Let us compare the estimate (10) with the following estimates: 7,
+9, and 12. That is, we estimate that each supplier will spend $7,
+or $9 or $12.
+<p>
+Performing the same calculations we arrive at:
+<p>
+<center>
+<table>
+<tr>
+   <th valign=top align=center width=50>
+      Estimator
+   </th>
+   <th valign=top align=center width=50>
+      7
+   </th>
+   <th valign=top align=center width=50>
+      9
+   </th>
+   <th valign=top align=center width=50>
+      10
+   </th>
+   <th valign=top align=center width=50>
+      12
+   </th>
+</tr>
+<tr>
+   <td colspan=5>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <th valign=top align=center width=50>
+      SSE
+   </th>
+   <td valign=top align=center width=50>
+      144
+   </td>
+   <td valign=top align=center width=50>
+      48
+   </td>
+   <td valign=top align=center width=50>
+      36
+   </td>
+   <td valign=top align=center width=50>
+      84
+   </td>
+</tr>
+<tr>
+   <th valign=top align=center width=50>
+      MSE
+   </th>
+   <td valign=top align=center width=50>
+      12
+   </td>
+   <td valign=top align=center width=50>
+      4
+   </td>
+   <td valign=top align=center width=50>
+      3
+   </td>
+   <td valign=top align=center width=50>
+      7
+   </td>
+</tr>
+</table>
+</center>
+<p>
+<!-- <img SRC="eqns/ts3.gif" height=114 width=194> -->
+The estimator with the smallest MSE is the best.  It can be shown
+mathematically that the estimator that minimizes the MSE for a set
+of random data is the mean.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Table showing squared error for the mean for sample data
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Next we will examine the mean to see how well it predicts net income
+over time.
+<p>
+The next table gives the income before taxes of a PC manufacturer
+between 1985 and 1994.
+<p>
+<center>
+<table width=400>
+<tr>
+   <th valign=bottom align=center width=50>
+      Year
+   </th>
+   <th valign=bottom align=center width=50>
+      $ (millions)
+   </th>
+   <th valign=bottom align=center width=50>
+      Mean
+   </th>
+   <th valign=bottom align=center width=50>
+      Error
+   </th>
+   <th valign=bottom align=center width=50>
+      Squared Error
+   </th>
+</tr>
+<tr>
+   <td colspan=5>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1985
+   </td>
+   <td valign=top align=center width=50>
+      46.163
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      -2.513
+   </td>
+   <td valign=top align=center width=50>
+      6.313
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1986
+   </td>
+   <td valign=top align=center width=50>
+      46.998
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      -1.678
+   </td>
+   <td valign=top align=center width=50>
+      2.814
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1987
+   </td>
+   <td valign=top align=center width=50>
+      47.816
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      -0.860
+   </td>
+   <td valign=top align=center width=50>
+      0.739
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1988
+   </td>
+   <td valign=top align=center width=50>
+      48.311
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      -0.365
+   </td>
+   <td valign=top align=center width=50>
+      0.133
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1989
+   </td>
+   <td valign=top align=center width=50>
+      48.758
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+       0.082
+   </td>
+   <td valign=top align=center width=50>
+      0.007
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1990
+   </td>
+   <td valign=top align=center width=50>
+      49.164
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      0.488
+   </td>
+   <td valign=top align=center width=50>
+      0.239
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1991
+   </td>
+   <td valign=top align=center width=50>
+      49.548
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      0.872
+   </td>
+   <td valign=top align=center width=50>
+      0.761
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1992
+   </td>
+   <td valign=top align=center width=50>
+      48.915
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      0.239
+   </td>
+   <td valign=top align=center width=50>
+      0.057
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1993
+   </td>
+   <td valign=top align=center width=50>
+      50.315
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      1.639
+   </td>
+   <td valign=top align=center width=50>
+      2.688
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center width=50>
+      1994
+   </td>
+   <td valign=top align=center width=50>
+      50.768
+   </td>
+   <td valign=top align=center width=50>
+      48.676
+   </td>
+   <td valign=top align=center width=50>
+      2.092
+   </td>
+   <td valign=top align=center width=50>
+      4.378
+   </td>
+</tr>
+</table>
+</center>
+<!-- <img SRC="eqns/ts4.gif" height=302 width=301> -->
+<p>
+The MSE = 1.8129.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>The mean is not a good estimator when there are trends</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The question arises: <i>can we use the mean to forecast income
+if we suspect a trend?</i>  A look at the graph below shows clearly
+that we should not do this.
+<p>
+<img SRC="gifs/tseries1.gif" height=266 width=400
+     ALT="Plot demonstrating the mean is not a good estimator
+ in thr prescence of trend">
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Average weighs all past observations equally
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+In summary, we state that
+<ol>
+   <li>The "simple" average or mean of all past observations is only
+       a useful estimate for forecasting when there are no trends.
+       If there are trends, use different estimates that take the
+       trend into account.
+       <p>
+   <li>The average "weighs" all past observations equally.  For
+       example, the average of the values 3, 4, 5 is 4.  We know,
+       of course, that an average is computed by adding all the
+       values and dividing the sum by the number of values.
+       Another way of computing the average is by adding each value
+       divided by the number of values, or
+       <p>
+       <ul>
+          3/3 + 4/3 + 5/3 = 1 + 1.3333 + 1.6667 = 4.
+       </ul>
+       <p>
+       The multiplier 1/3 is called the <i>weight</i>.  In general:
+       <p>
+         <!--
+         <img SRC="eqns/xwmean.gif" ALT=
+"xbar = (1/n)*SUM[i=1 to n]x(i) = (1/n)*x1 + (1/n)*x2 + ... + (1/n)*Xn">
+        -->
+        $$ \bar{x} = \frac{1} {n} \sum_{i=1}^{n}{x_i} =
+        \left ( \frac{1} {n} \right ) x_1 + \left ( \frac{1} {n} \right )
+        x_2 \, + \, ... \, + \, \left ( \frac{1} {n} \right ) x_n \, . $$
+       <p>
+       The <!-- <img align=absmiddle SRC="eqns/1overn.gif" ALT="(1/n)"> -->
+       \( \left ( \frac{1} {n} \right ) \)
+       are the weights and, of course, they sum to 1.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc41.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc421.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc42.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:10 GMT -->
+</HTML>

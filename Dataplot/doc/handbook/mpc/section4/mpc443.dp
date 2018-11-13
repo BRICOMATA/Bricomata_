@@ -1,0 +1,23 @@
+Dataplot commands and output:
+
+reset data
+reset i/o
+reset plot control
+dimension 500 30
+read mpc441.dat run wafer probe mo day op temp y s df
+dimension 500 30
+read mpc441.dat run wafer probe mo day op temp y s df
+let y1 = average y subset run 1
+let y2 = average y subset run 2
+let ybar = (y1 + y2)/2
+let ss = (y1-ybar)**2 + (y2-ybar)**2
+let v3 = 1
+let s3 = (ss/v3)**.5
+print s3 v3
+
+> PARAMETERS AND CONSTANTS--
+>
+>     S3      --  0.2885137E-01
+>     V3      --  0.1000000E+01
+
+

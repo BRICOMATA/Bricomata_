@@ -1,0 +1,233 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc449.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:53 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.4.9. Example of Univariate Box-Jenkins Analysis</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc44a.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc4481.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc44.html">Univariate Time Series Models</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.4.9.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Example of Univariate Box-Jenkins Analysis</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Series F</i>
+</td>
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+We analyze the series F data set in 
+<a href="../section7/pmc7.html#Box, G.E.P.; G.M.">
+Box, Jenkins, and Reinsel, 1994</a>.  A plot of the 70 raw
+data points is shown below.
+
+<center>
+<img SRC="pmc449_r01.gif" height=400 width=400
+     ALT="Plot of Series F Data">
+</center>
+
+The data do not appear to have a seasonal component or a
+noticeable trend.  (The stationarity of the series was verified by
+fitting a straight line to the data versus time period.  The slope
+was not found to be significantly different from zero 
+(\(p\)-value = 0.2).)
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Model Identification</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+We compute the 
+<a href="../../eda/section3/eda331.html">autocorrelation function </a>
+(ACF) of the data for the first 35 lags to determine the
+type of model to fit to the data.  We list the numeric results and
+plot the ACF (along with 95 % confidence limits) versus the lag number.
+<pre>
+ Lag          ACF
+   0  1.000000000
+   1 -0.389878319
+   2  0.304394082
+   3 -0.165554717
+   4  0.070719321
+   5 -0.097039288
+   6 -0.047057692
+   7  0.035373112
+   8 -0.043458199
+   9 -0.004796162
+  10  0.014393137
+  11  0.109917200
+  12 -0.068778492
+  13  0.148034489
+  14  0.035768581
+  15 -0.006677806
+  16  0.173004275
+  17 -0.111342583
+  18  0.019970791
+  19 -0.047349722
+  20  0.016136806
+  21  0.022279561
+  22 -0.078710582
+  23 -0.009577413
+  24 -0.073114034
+  25 -0.019503289
+  26  0.041465024
+  27 -0.022134370
+  28  0.088887299
+  29  0.016247148
+  30  0.003946351
+  31  0.004584069
+  32 -0.024782198
+  33 -0.025905040
+  34 -0.062879966
+  35  0.026101117
+</pre>
+
+<center>
+<img SRC="pmc449_r02.gif" height=400 width=400
+     ALT="Autocorrelation showing first 35 lags">
+</center>
+The ACF values alternate in sign and decay quickly after lag 2, indicating 
+that an AR(2) model is appropriate for the data.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Model Fitting</i>
+</td>
+<td WIDTH="85%"><!-- Add main text below -->
+We fit an AR(2) model to the data. 
+
+$$ X_t = \delta + \phi_1 X_{t-1} + \phi_2 X_{t-2} + A_t $$
+
+<!--
+<p>
+<center>
+<img SRC="pmc449_eqn.gif" ALT="AR(2) Model">
+</center>
+<p>
+-->
+
+The model fitting results are shown below.
+<pre>
+Source  Estimate  Standard Error
+------  --------  --------------
+<i>&phi;</i><sub>1</sub>       -0.3198      0.1202
+<i>&phi;</i><sub>2</sub>        0.1797      0.1202
+
+<i>&delta;</i> = 51.1286 
+Residual standard deviation = 10.9599
+
+Test randomness of residuals:
+Standardized Runs Statistic Z = 0.4887, <i>p</i>-value = 0.625
+</pre>
+
+</td>
+</tr>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Forecasting</i>
+</td>
+<td WIDTH="85%"><!-- Add main text below -->
+Using our AR(2) model, we forcast values six time periods into the future.  
+<pre>
+Period  Prediction   Standard Error
+  71      60.6405       10.9479
+  72      43.0317       11.4941
+  73      55.4274       11.9015
+  74      48.2987       12.0108
+  75      52.8061       12.0585
+  76      50.0835       12.0751
+</pre>
+The "historical" data and forecasted values (with 90 % confidence limits) 
+are shown in the graph below.
+<center>
+<img SRC="pmc449_r03.gif" height=400 width=400
+     ALT="Plot of forecasted values">
+</center>
+
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc4481.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc44a.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc449.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:55 GMT -->
+</HTML>

@@ -1,0 +1,212 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc3672.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:32 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.6.7.2. Uncertainty for linear calibration using check standards</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc3673.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc3671.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc36.html">Instrument calibration over a regime</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.6.7.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc367.html">Uncertainties of calibrated values</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.6.7.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Uncertainty for linear calibration using check standards</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Check standards provide a mechanism for calculating uncertainties</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The easiest method for calculating type A uncertainties for calibrated
+values from a calibration curve requires periodic measurements on check
+standards.  The check standards, in this case, are artifacts at the
+lower, mid-point and upper ends of the calibration curve.  The
+measurements on the check standard are made in a way that randomly
+samples the output of the calibration procedure.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Calculation of check standard values</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The check standard values are the raw measurements on the artifacts
+corrected by the calibration curve.  The standard deviation of these
+values should estimate the uncertainty associated with calibrated
+values.  The success of this method of estimating the uncertainties
+depends on adequate sampling of the measurement process. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A HREF="mpc371.html#controlchart"><I>Measurements corrected by a
+linear calibration curve</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+As an example, consider <A HREF="mpc371.html">measurements of linewidths 
+on photomask standards,</A> made with an optical imaging system and
+corrected by a linear calibration curve.  The three control
+measurements were made on reference standards with values at the lower,
+mid-point, and upper end of the calibration interval.
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Compute the calibration standard deviation</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+For the linewidth data, the regression equation from the calibration 
+experiment is
+$$ Y = a + bX + \epsilon $$
+<!--
+<P>
+<CENTER><IMG SRC="mpc3672a.gif"
+     ALT="Y = a + b*X + epsilon,"></CENTER>
+<P>
+-->
+and the estimated regression coefficients are the following.
+$$ \hat{a} = 0.2357 $$ 
+$$ \hat{b} = 0.9870 $$
+<!--
+<P>
+<CENTER><IMG SRC="mpc3672b.gif"
+     ALT="ahat = 0.2357, bhat = 0.9870."></CENTER>
+<P>
+-->
+Next, we calculate the difference between the "predicted" 
+\(X\) <!-- <I>X</I> -->
+from the regression fit and the observed \(X\). <!-- <I>X</I>. -->
+$$ W_i = \frac{(Y_i - \hat{a})}{\hat{b}} - X_i $$
+<!--
+<P>
+<CENTER><IMG SRC="mpc3672_c.gif"
+     ALT="Wi = ((Yi - ahat)/bhat) - Xi."></CENTER>
+<P>
+-->
+Finally, we find the calibration standard deviation by 
+calculating the standard deviation of the computed differences.
+
+$$ S = \sqrt{\frac{\sum \left( W_i - \overline{W} \right)^2}{n-1}} $$
+<!--
+<P>
+<CENTER><IMG SRC="mpc3672d.gif"
+     ALT="S = sum((Wi - Wbar)^2)/(n-1)"></CENTER>
+<P>
+-->
+The calibration standard deviation for the linewidth data is 0.119 µm.
+<P>
+The calculations in this section can be completed using
+<A HREF="http://www.nist.gov/itl/">Dataplot code</A> and 
+<A HREF="http://www.nist.gov/itl/">R code</a>.
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Comparison with propagation of error</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The standard deviation, 0.119 µm, can be compared with a
+<A HREF="mpc3673.html"> propagation of error analysis.</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Other sources of uncertainty</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+In addition to the type A uncertainty, there may be other contributors
+to the uncertainty such as the uncertainties of the values of the
+reference materials from which the calibration curve was derived.
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc3671.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc3673.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc3672.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:35 GMT -->
+</HTML>

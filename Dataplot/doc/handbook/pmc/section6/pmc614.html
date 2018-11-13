@@ -1,0 +1,186 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/pmc614.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:22:33 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.1.4. Shewhart Control Chart</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc615.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc613.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.html">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc61.html">Lithography Process</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.1.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Shewhart Control Chart</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Choosing the right control charts to monitor the process</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The largest source of variation in this data is the lot-to-lot
+variation.  So, using classical Shewhart methods, if we specify our
+subgroup to be anything other than lot, we will be ignoring the
+known lot-to-lot variation and could get out-of-control points that
+already have a known, assignable cause - the data comes from
+different lots.  However, in the lithography processing area the
+measurements of most interest are the site level measurements, not
+the lot means.  How can we get around this seeming contradiction?
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Chart sources of variation separately</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+One solution is to chart the important sources of variation
+separately.  We would then be able to monitor the variation of
+our process and truly understand where the variation is coming
+from and if it changes.  For this dataset, this approach would
+require having two sets of control charts, one for the individual
+site measurements and the other for the lot means.  This would
+double the number of charts necessary for this process (we would
+have 4 charts for line width instead of 2).
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Chart only most important source of variation</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Another solution would be to have one chart on the largest source
+of variation.  This would mean we would have one set of charts that
+monitor the lot-to-lot variation.  From a manufacturing standpoint,
+this would be unacceptable.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Use boxplot type chart</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+We could create a non-standard chart that would plot all the
+individual data values and group them together in a
+<a href="../../eda/section3/boxplot.html">boxplot</a> type format by
+lot.  The control limits could be generated to monitor the
+individual data values while the lot-to-lot variation would be
+monitored by the patterns of the groupings.  This would take
+special programming and management intervention to implement
+non-standard charts in most floor shop control systems.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Alternate form for mean control chart</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+A commonly applied solution is the first option; have multiple
+charts on this process.  When creating the control limits for the
+lot means, care must be taken to use the lot-to-lot variation
+instead of the within lot variation.  The resulting control charts
+are: the standard individuals/moving range charts (as seen
+previously), and a control chart on the lot means that is
+different from the previous lot means chart.  This new chart uses
+the lot-to-lot variation to calculate control limits instead of
+the average within-lot standard deviation.  The accompanying
+standard deviation chart is the same as seen previously.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="LOTTOTLOT"></a><i>Mean control chart using lot-to-lot
+variation</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<center>
+<img SRC="lithogra/gif/cass2mea.gif"
+     ALT="Mean control chart using lot-to-lot variation">
+</center>
+<p>
+The control limits labeled with "UCL" and "LCL" are the 
+standard control limits.  The control limits labeled with
+"UCL: LL" and "LCL: LL" are based on the lot-to-lot variation.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc613.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc615.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/pmc614.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:22:36 GMT -->
+</HTML>

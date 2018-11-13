@@ -1,0 +1,351 @@
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/mavro/mavro.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+  <TITLE>Dataplot Commands for Filter Transmittance Case Study</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+        <IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+           <area shape="rect" alt="Next Page" href="../eda4264.html" coords="463,27,504,45">
+           <area shape="rect" alt="Previous Page" href="../eda4264.html" coords="417,28,459,45">
+           <area shape="rect" alt="Home" href="../../index.html" coords="52,0,100,43">
+           <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="165,27,264,46">
+           <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="307,28,366,44">
+           <area shape="default" nohref>
+   </map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Filter Transmittance Case Study</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Invoke Dataplot, set defautls, read data<I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Filter Transmittance Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+tic offset units screen
+tic offset 5 5
+title displacement 2
+case asis
+title case asis
+label case asis
+tic label case asis
+character case asis all
+legend case asis
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+skip 25
+read mavro.dat y
+skip 0
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.1
+. Generate 4-plot
+.
+frame corner coordinates 20 20 90 90
+y1label displacement 15
+major tic mark number 5
+label size 6
+tic label size 6
+character size 4
+x3label displacement 11
+x3label automatic
+multiplot 2 2
+multiplot corner coordinates 0 0 100 95
+. Use MULTIPLOT rather than 4-PLOT to get cleaner labeling
+. 4-plot Y
+major tic mark number 3
+RUN SEQUENCE PLOT Y
+LAG PLOT Y
+major tic mark number 4
+HISTOGRAM Y
+major xtic mark number
+major ytic mark number 3
+NORMAL PROBABILITY PLOT Y
+major xtic mark number
+major ytic mark number
+x3label
+frame corner coordinates
+y1label displacement
+major tic mark number
+end of multiplot
+justification center
+height 4
+move 50 96
+text Filter Transmittance Data:  4-Plot
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Sequence Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.1
+.
+y1label y
+x1label index
+major ytic mark number 5
+y1tic mark decimals 4
+plot y
+y1label
+x1label
+major ytic mark number
+y1tic mark decimals
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Lag Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.2
+.
+y1label y( i )
+x1label y(i-1)
+major tic mark number 5
+tic mark label decimals 4
+line blank
+char x
+lag plot y
+y1label
+x1label
+line solid
+char blank
+major tic mark number
+tic mark label decimals
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Summary Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.1
+.
+summary y
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Location Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.2
+.
+let n = size y
+let ymean = mean y
+let ysdm = standard deviation of mean y
+let idf = n - 1
+.
+let lclm = ymean - tppf(0.975,idf)*ysdm
+let uclm = ymean + tppf(0.975,idf)*ysdm
+.
+let x = sequence 1 1 n
+capture fit.out
+fit y x
+end of capture
+let idf2 = n - 2
+read dpst1f.dat coef coefsd
+let bsd = coefsd(2)
+let lclb = bsd - tppf(0.975,idf2)*bsd
+let uclb = bsd + tppf(0.975,idf2)*bsd
+let string idrift = NO
+let atemp = lclb*uclb
+if atemp < 0
+  let string idrift = YES
+end of if
+.
+. Finished Step 4.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Variation Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.3
+.
+let n = size y
+let ysd = standard deviation y
+let idf = n - 1
+.
+let ucls = idf*ysd*ysd/chsppf(0.025,idf)
+let ucls = sqrt(ucls)
+let lcls = idf*ysd*ysd/chsppf(0.975,idf)
+let lcls = sqrt(lcls)
+.
+let x = sequence 1 1 n
+let x = code4 x
+capture levene.out
+levene test y x
+end of capture
+.
+. Finished Step 4.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Randomness</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.4
+.
+runs y
+.
+y1label autocorrelation
+x1label lag
+xlimits 0 15
+y1tic mark decimals 1
+x1tic mark decimals 0
+line solid
+char blank
+autocorrelation plot y
+let yauto = yplot(2)
+let string irand = YES
+let amin = maximum yplot subset tagplot = 4
+let amax = maximum yplot subset tagplot = 3
+if yauto < amin
+  let string irand = NO
+end of if
+if yauto > amax
+  let string irand = NO
+end of if
+.
+. Finished Step 4.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Print Report</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.5
+.
+capture report.tex
+print " "
+print " "
+print "Analysis for filter transmittance data"
+print " "
+print "1: Sample Size                           = ^n"
+print " "
+print "2: Location"
+print "   Mean                                  = ^ymean"
+print "   Standard Deviation of Mean            = ^ysdm"
+print "   95% Confidence Interval for Mean      = (^lclm,^uclm)"
+print "   Drift with respect to location?       = ^idrift"
+print " "
+print "3: Variation"
+print "   Standard Deviation                    = ^ysd"
+print "   95% Confidence Interval for SD        = (^lcls,^ucls)"
+print "   Change in variation?"
+print "   (based on Levene's test on quarters"
+print "   of the data)                          = NO"
+print " "
+print "4: Distribution"
+print "   Distributional tests omitted due to"
+print "   non-randomness of the data"
+print " "
+print "5: Randomness"
+print "   Lag One Autocorrelation               = ^yauto"
+print "   Data are Random?"
+print "     (as measured by autocorrelation)    = ^irand"
+print " "
+print "6: Statistical Control"
+print "   (i.e., no drift in location or scale,"
+print "   data are random, distribution is "
+print "   fixed, here we are testing only for"
+print "   normal)"
+print "   Data Set is in Statistical Control?   = NO"
+print " "
+print "7: Outliers?"
+print "   (Grubbs' test omitted)                = NO"
+print " "
+end of capture
+list report.tex
+. Finished Step 4.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+</TABLE>
+
+<A HREF="http://www.nist.gov/">
+   <IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+   </MAP>
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="../eda4264.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../eda4264.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/mavro/mavro.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+</HTML>
+

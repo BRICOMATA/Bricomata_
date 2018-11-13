@@ -1,0 +1,403 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc3321.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:57:58 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.3.2.1. General matrix solutions to calibration designs</TITLE>
+
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc333.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc332.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc33.html">Calibration designs</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.3.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc332.html">General solutions to calibration designs</a></FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.3.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>General matrix solutions to calibration designs</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Requirements</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+Solutions for all designs that are cataloged in this Handbook are
+included with the designs.  Solutions for other designs can be
+computed from the instructions below given some familiarity with
+matrices.  The matrix manipulations that are required for the
+calculations are:
+<UL>
+   <LI>transposition (indicated by ')
+   <LI>multiplication
+   <LI>inversion
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%><!-- Add marginal notes below -->
+<I>Notation</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+<UL>
+   <LI><i>n</i> = number of difference measurements
+   <LI><i>m</i> = number of artifacts
+   <LI>(<i>n</i> - <i>m</i> + 1) = degrees of freedom
+   <LI><FONT SIZE=4><I>X</I></FONT>= (<i>n</i>x<i>m</i>) design matrix
+   <LI><FONT SIZE=4><i>r</i>'</FONT>= (<i>m</i>x1) vector identifying
+        the restraint
+   <LI><img align=absmiddle src="vip.gif" alt="v(i)'">
+       = (<i>m</i>x1) vector identifying <i>i</i>th item
+       of interest consisting of a 1 in the <i>i</i>th position
+       and zeros elsewhere
+   <LI><FONT SIZE=4><I>R</I>*</FONT>= value of the reference standard
+   <LI><FONT SIZE=4><I>Y</I></FONT>= (<i>m</i>x1) vector of observed
+       difference measurements
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%><!-- Add marginal notes below -->
+<I>Convention for showing the measurement sequence</I>
+</TD>
+<TD WIDTH=85%>
+The convention for showing the measurement sequence is illustrated with
+the three measurements that make up a <A HREF="mpc3411.html">1,1,1</A>
+design for 1 reference standard, 1 check standard, and 1 test item.
+Nominal values are underlined in the first line . 
+<PRE>
+<FONT SIZE=4>                 <U>1     1     1
+</U>          Y(1) = +     -
+
+          Y(2) = +           -
+
+          Y(3) =       +     -</FONT><FONT SIZE=2 FACE="Courier">
+
+</FONT>
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%><!-- Add marginal notes below -->
+<I>Matrix algebra for solving a design</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+The (<i>m</i>x<i>n</i>) design matrix <I><FONT SIZE=4>X</FONT></I> is
+constructed by replacing the pluses (+), minues (-) and blanks with
+the entries 1, -1, and 0 respectively.
+<P>
+The (<i>m</i>x<i>m</i>) matrix of normal equations,
+<I><FONT SIZE=4>X'X</FONT></I>, is formed and augmented by the
+restraint vector to form an (<i>m</i>+1)x(<i>m</i>+1)
+matrix, <I><FONT SIZE=4>A</FONT></I>:
+<UL>
+   <img src="amat.gif" alt=" A = [X'X  r'; r 0]">
+</UL>
+
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Inverse of design matrix</I>
+</TD>
+<TD WIDTH=85%>
+The <I><FONT SIZE=4>A</FONT></I> matrix is inverted and shown in the
+form:
+<UL>
+   <img src="amatinv.gif" alt=" A = [Q  h'; h 0]">
+</UL>
+where <FONT SIZE=4><I>Q</I></FONT> is an <i>m</i>x<i>m</i> matrix
+that, when multiplied by <i>s<sup>2</sup></i>, yields the usual
+variance-covariance matrix.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Estimates of values of individual artifacts</I>
+</TD>
+<TD WIDTH=85%>
+The least-squares estimates for the values of the individual artifacts
+are contained in the (<i>m</i>x1) matrix,
+<I><FONT SIZE=4>B</FONT></I>, where
+<P>
+<CENTER>
+<IMG SRC="mpc3321a.gif" alt="B = QX'Y + h'R*">
+</CENTER>
+<P>
+where <font size=4><i>Q</i></font> is the upper left element of the
+<I><FONT SIZE=4>A</FONT></I><sup>-1</sup>
+matrix shown above.  The structure of the individual estimates is
+contained in the
+<FONT SIZE=4><i>QX</i>'</FONT> matrix; i.e. the estimate for the
+<FONT SIZE=4><i>i</i>th</FONT> item can be computed from
+<FONT SIZE=4><i>XQ</i></FONT> and
+<FONT SIZE=4><i>Y</i></FONT SIZE> by
+<UL>
+   <LI>Cross multiplying the <i>i</i>th column of
+       <FONT SIZE=4><i>XQ</i></FONT> with
+       <FONT SIZE=4><I>Y</I></FONT>
+   <LI>And adding
+      <FONT SIZE=4><i>R*(nominal test)/(nominal restraint)</i></FONT>
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Clarify with an example</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+We will clarify the above discussion with an example from the mass
+calibration process at NIST.  In this example, two NIST kilograms are
+compared with a customer's unknown kilogram.
+<p>
+The design matrix, <i>X</i>, is
+<UL>
+   <img src="xmat.gif"
+        alt="X = [1  -1 0; 1  0  -1; 0  1  -1]">
+</UL>
+The first two columns represent the two NIST kilograms while the third
+column represents the customers kilogram (i.e., the kilogram being
+calibrated). 
+<P>
+The measurements obtained, i.e., the <i>Y</i> matrix, are
+<UL>
+   <img src="ymat.gif"
+        alt="Y = [-0.3800  -1.59 -1.2150]">
+</UL>
+The measurements are the differences between two measurements, as
+specified by the design matrix, measured in grams.  That is,
+<i>Y</i>(1) is the difference in measurement between NIST kilogram
+one and NIST kilogram two, <i>Y</i>(2) is the difference in
+measurement between NIST kilogram one and the customer kilogram,
+and <i>Y</i>(3) is the difference in measurement between NIST
+kilogram two and the customer kilogram.
+<P>
+The value of the reference standard,
+<font size=4><i>R</i><sup>*</sup></font>, is
+0.82329.
+<P>
+Then
+<UL>
+   <img src="xpxmat.gif"
+        alt="X'X = [2  -1 -1; -1  2  -1; -1  -1  2]">
+</UL>
+If there are three weights with known values for weights one and
+two, then
+<UL>
+   <FONT SIZE=4>
+   <I>r</I> = [ 1 &nbsp;&nbsp; 1 &nbsp;&nbsp; 0 ]
+   </FONT>
+</UL>
+Thus
+<UL>
+   <img src="amat2.gif" alt=
+        "A = [2  -1  -1 1; -1  2  -1  1; -1  -1  2  0; 1  1  0  0]">
+</UL>
+and so
+<UL>
+   <img src="amatinv2.gif" alt= "A^(-1) =
+(1/6)*[1  -1  0  3; -1  1  0  3;
+ 0  0  3  3; 3  3  3  0]">
+</UL>
+From <font size=4><i>A</i></font><sup>-1</sup>, we have
+<UL>
+   <img src="qmat.gif" alt=
+        "Q = (1/6)*[1  -1  0; -1  1  0; 0  0  3]">
+</UL>
+We then compute <font size=4><i>QX'</i></font>
+<UL>
+   <img src="xqmat.gif" alt=
+"QX' = (1/6)*[
+ 2 1 -1;
+ -2 -1 1;
+ 0 -3 -3]">
+</UL>
+We then compute
+<font size=4><i>B</i> = <i>QX'Y</i> + <i>h'R</i><sup>*</sup></font>
+<P>
+   <img src="bmat1.gif" alt=
+"B = (1/6)*
+[1  -1  0; 1  1  0; 0  0  3]*
+[1  1  0; -1  0  1;0  -1  -1]*
+[-0.3800  -1.5900  -1.2150] +
+0.82329*[0.5  0.5  0.5]">
+<P>
+This yields the following least-squares coefficient estimates:
+<UL>
+   <img src="bmat2.gif"
+        alt="B = [0.2225  0.6008  1.8141]">
+</UL>
+
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Standard deviations of estimates</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The <A NAME="stddsev">standard deviation for the
+<FONT SIZE=4><i>i</i>th</FONT> item is:
+<P>
+<CENTER>
+<!-- <IMG SRC="mpc3321b.gif" -->
+<IMG SRC="sitemi.gif"
+     alt="s(itemi) = SQRT(vi'*Q*vi*s1**2 + vi'*D*vi*s(days)**2)">
+</CENTER>
+<P>
+where
+<P>
+<CENTER>
+<IMG SRC="mpc3321c.gif" alt="D = (Q*X'*X)*(Q*X'*X)'">
+</CENTER>
+<P>
+The process standard deviation, which is a measure of the overall
+precision of the (NIST) mass calibrarion process, 
+<P>
+<CENTER>
+<IMG SRC="mpc3321d.gif"
+     ALT="S1 = SQRT((1/(n-m+1))*Y'(I - X*Q*X')*Y)">
+</CENTER>
+<P>
+is the residual standard deviation from the design, and
+<i><FONT SIZE=4>s<sub>days</sub></FONT></i> is the standard deviation
+for days, which can only be estimated from
+<A HREF="mpc3332.html">check standard measurements</A>.
+
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Example</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+We continue the example started above.  Since <i>n</i> = 3 and
+<i>m</i> = 3, the formula reduces to:
+<UL>
+<IMG SRC="s1a.gif"
+     ALT="s(1) = SQRT(Y'(I - X*Q*X')*Y)">
+</UL>
+Substituting the values shown above for <font size=4><i>X</i></font>,
+<font size=4><i>Y</i></font>, and
+<font size=4><i>Q</i></font> results in
+<UL>
+   <img src="s1a2.gif" alt=
+"(I - XQX') = [0.3333  -0.3333  0.3333; -0.3333  0.3333  -0.3333;
+ 0.3333  -0.3333  0.3333]">
+</UL>
+and
+<UL>
+   <font size=4><i>Y</i>'(<i>I</i> - <i>XQX</i>')<i>Y</i> =
+   0.0000083333</font>
+</UL>
+Finally, taking the square root gives
+<UL>
+   <font size=4><i>s</i><sub>1</sub> = 0.002887</font>
+</UL>
+The next step is to compute the standard deviation of item 3
+(the customers kilogram), that is <i>s<sub>item<sub>3</sub></sub></i>.
+We start by substitituting the values for <font size=4><i>X</i></font>
+and <font size=4><i>Q</i></font> and
+computing <font size=4><i>D</i></font>
+<UL>
+   <img src="dmat.gif" alt=
+"D = (QX'X)(QX'X)' = [0.5  -0.5  0.0; -0.5  0.5  0.0;
+ 0.0  0.0  1.5]">
+</UL>
+Next, we substitute
+<img align=absmiddle src="vip.gif" alt="v'(i)"> = [0 0 1] and
+<img align=absmiddle src="s1days.gif" alt="s(days)^2"> =
+0.02111<sup>2</sup> (this value is taken from a check standard
+and not computed from the values given in this example).
+<p>
+We obtain the following computations
+<UL>
+   <img src="viqvit.gif" alt=
+"v(i)Qv(i)' = [0 0 1] * (1/6)*[1  -1  0; -1  1  0; 0  0  3] * [0 0 1]'
+ = 0.5">
+</UL>
+and
+<UL>
+   <img src="vidvit.gif" alt=
+"v(i)Dv(i)' = [0 0 1] * [0.5  -0.5  0; -0.5  0.5  0.0;
+ 0  0  1.5] * [0 0 1]' = 1.5">
+</UL>
+and
+<UL>
+   <img src="sitemi.gif" alt=
+     "s(item(i)) = SQRT(vi'*Q*vi*s1**2 + vi'*D*vi*s(days)**2)">
+   <P>
+   <img src="sitem3.gif" alt=
+     "s(item(i)) = SQRT(0.5*(0.002887)^2 + 1.5*(0.0211)^2) = 0.02593">
+</UL>
+
+</TD>
+</TR>
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc332.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc333.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc3321.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:58:38 GMT -->
+</HTML>
+

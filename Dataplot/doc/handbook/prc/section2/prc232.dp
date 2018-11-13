@@ -1,0 +1,65 @@
+Dataplot commands and output:
+
+. Input constants.
+let d = 55
+let var = 100
+let r = 1 + d/var
+
+. Define cnu function to find the root.
+let function cnu=chscdf(chsppf(.95,nu)/r,nu) - 0.01
+  
+. Find the root.
+let a = roots cnu wrt nu for nu = 1 200
+  
+> ROOTS OF AN EQUATION
+>       FUNCTION--(CHSCDF(CHSPPF(.95,NU)/R,NU)-0.01)
+>       ROOT VARIABLE                     = NU
+>       SPECIFIED LOWER LIMIT OF INTERVAL =         1.0000000000
+>       SPECIFIED UPPER LIMIT OF INTERVAL =       200.0000000000
+>  
+>       NUMBER OF ROOTS FOUND IN INTERVAL =        1
+>  
+> ROOT     1 =   0.1695001E+03
+>  
+>  
+> THE NUMBER OF VALUES GENERATED FOR THE VARIABLE A        =        1
+>  
+> THE FIRST          COMPUTED VALUE OF A        =   0.1695001E+03 (ROW     1)
+> NOTE--THE ABOVE VALUE WAS THE ONLY VALUE COMPUTED FOR THIS VARIABLE.
+>  
+> THE CURRENT COLUMN FOR THE VARIABLE A         =        1
+> THE CURRENT LENGTH OF  THE VARIABLE A         =        1
+>  
+>  
+> THE COMPUTED VALUE OF THE CONSTANT   NROOTS   =   0.1000000E+01
+  
+
+. Generate a table. 
+let d=55
+let var = 100
+let r = 1 + d/(var)
+let nu = sequence 1 1 200
+let bnu = chsppf(.95,nu)
+let bnu=bnu/r
+let cnu=chscdf(bnu,nu)
+print nu bnu cnu 
+
+. Here is an edited portion of the output.
+
+> VARIABLES--
+>       NU                BNU              CNU
+>   0.1650000E+03    0.1264344E+03     0.1136620E-01
+>   0.1660000E+03    0.1271380E+03     0.1103569E-01
+>   0.1670000E+03    0.1278414E+03     0.1071452E-01
+>   0.1680000E+03    0.1285446E+03     0.1040244E-01
+>   0.1690000E+03    0.1292477E+03     0.1009921E-01
+>   0.1700000E+03    0.1299506E+03     0.9804589E-02
+>   0.1710000E+03    0.1306533E+03     0.9518339E-02
+>   0.1720000E+03    0.1313558E+03     0.9240230E-02
+>   0.1730000E+03    0.1320582E+03     0.8970034E-02
+>   0.1740000E+03    0.1327604E+03     0.8707534E-02
+>   0.1750000E+03    0.1334624E+03     0.8452513E-02
+
+
+
+

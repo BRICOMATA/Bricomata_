@@ -1,0 +1,423 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section5/pmd521.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:49 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.5.2.1. Single-Use Calibration Intervals</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd53.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd52.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd5.html">Use and Interpretation of Process Models</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.5.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd52.html">How can I use my process model for calibration?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.5.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Single-Use Calibration Intervals</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Calibration</I>
+</TD>
+<TD WIDTH=85%>
+As mentioned in <A HREF="../section1/pmd13.html">Section 1.3</A>, the goal of calibration 
+(also called inverse prediction by some authors) is to quantitatively convert
+measurements made on one of two measurement scales to the other measurement scale.  Typically 
+the two scales are not of equal importance, so the conversion occurs in only one direction.
+The model fit to the data that relates the two measurement scales and a new measurement made
+on the secondary scale provide the means for the conversion. The results from the fit of the
+model also allow for computation of the associated uncertainty in the estimate of the true value
+on the primary measurement scale. Just as for prediction, estimates of both the value on the 
+primary scale and its uncertainty are needed in order to make sound engineering or scientific 
+decisions or conclusions. Approximate confidence intervals for the true value on the primary 
+measurement scale are typically used to summarize the results probabilistically. An example, which 
+will help make the calibration process more concrete, is given in 
+<A HREF="../section1/pmd132.html">Section 4.1.3.2.</A> using 
+<A HREF="../section1/pmd132.html#tc.r1">thermocouple calibration data</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Calibration Estimates</I>
+</TD>
+<TD WIDTH=85%>
+Like prediction estimates, calibration estimates can be computed relatively easily using the
+regression equation. They are computed by setting a newly observed value of the response variable,
+\(y^*\),
+<!-- <IMG ALT="y^*" SRC="eqns/ystar.gif">, -->
+which does not have  an accompanying value of the predictor variable,
+equal to the estimated regression function and solving for the unknown value of the predictor
+variable.  Depending on the complexity of the regression function, this may be done analytically,
+but sometimes numerical methods are required. Fortunatel, the numerical methods needed are not 
+complicated, and once implemented are often easier to use than analytical methods, even for simple
+regression functions.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Pressure / Temperature Example</I>
+</TD>
+<TD WIDTH=85%>
+In the <A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature example</A>, pressure 
+measurements could be used to measure the temperature of the system by observing a new pressure
+value, setting it equal to the estimated regression function, 
+
+$$ f(x;\hat{\vec{\beta}}) = 7.74899 + 3.93014 \cdot x $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+f(x;\hat{\vec{\beta}}) = 7.74899 + 3.93014*x
+" SRC="eqns/erfpte2.gif"></CENTER><BR> -->
+
+and solving for the temperature. If a pressure of 178 were measured, the associated 
+temperature would be estimated to be about 43. 
+
+$$ \begin{eqnarray}
+178 & = & 7.74899 + 3.93014 \cdot x \\
+    &   & \\
+    & \Downarrow & \\
+    &   & \\
+  x & = & (178-7.74899)/3.93014 \\
+    &   & \\
+    & = & 43.319245
+\end{eqnarray} $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+178 = 7.74899 + 3.93014*x
+" SRC="eqns/et178a.gif"></CENTER><BR>
+<CENTER><IMG ALT=" 
+\Downarrow
+" SRC="eqns/da.gif"></CENTER><BR>
+<CENTER><IMG ALT=" 
+\begin{array}{ccl}
+\mbox{{\em x}} & = & (178-7.74899)/3.93014
+&   & \\
+& = & 43.319245
+\end{array}
+" SRC="eqns/et178b.gif"></CENTER><BR> -->
+
+Although this is a simple process for the straight-line model, note that even for this simple
+regression function the estimate of the temperature is not linear in the parameters of the model.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Numerical Approach</I>
+</TD>
+<TD WIDTH=85%>
+To set this up to be solved numerically, the equation simply has to be set up in the form
+
+$$ 178 - (7.74899 + 3.93014 \cdot x) = 0 $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+178 - (7.74899 + 3.93014*x) = 0
+" SRC="eqns/net178.gif"></CENTER><BR> -->
+
+and then the function of temperature (\(x\))
+<!-- (<IMG ALT="x" SRC="eqns/x.gif">) -->
+defined by the left-hand side
+of the equation can be used as the argument in an arbitrary root-finding function. It is 
+typically necessary to provide the root-finding software with endpoints on opposite sides
+of the root. These can be obtained from a plot of the calibration data and usually do not 
+need to be very precise. In fact, it is often adequate to simply set the endpoints
+equal to the range of the calibration data, since calibration functions tend to be increasing
+or decreasing functions without local minima or maxima in the range of the data. For the
+pressure/temperature data, the endpoints used in the root-finding software could even be set
+to values like -5 and 100, broader than the range of the data.  This choice of end points 
+would even allow for extrapolation if new pressure values outside the range of the original
+calibration data were observed.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Thermocouple Calibration Example</I>
+</TD>
+<TD WIDTH=85%>
+For the more realistic <A HREF="../section1/pmd132.html#tc.r1">thermocouple calibration example</A>,
+which is well fit by a <A HREF="../section1/pmd144.html">LOESS</A> model that does not require an
+explicit functional form, the numerical approach must be used to  obtain calibration estimates. The
+LOESS model is set up identically to the straight-line model for the numerical solution, using the 
+estimated regression function from the software used to fit the model.
+
+$$ y^* - f(x;\hat{\vec{\beta}}) = 0 $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+y^* - f(x;\hat{\vec{\beta}}) = 0
+" SRC="eqns/neloess.gif"></CENTER><BR> -->
+
+Again the function of temperature (\(x\))
+<!-- (<IMG ALT="x" SRC="eqns/x.gif">) -->
+on the left-hand side of the equation
+would be used as the main argument in an arbitrary root-finding function. 
+If for some reason \(f(x;\hat{\vec{\beta}})\)
+<!-- <IMG ALT="f(x;\hat{\vec{\beta}})" ALIGN=absmiddle SRC="eqns/fxb.gif"> -->
+were not available in the software used to fit the model,
+it could always be created manually since LOESS can ultimately be reduced to a series of weighted
+least squares fits.  Based on the plot of the <A HREF="../section1/pmd132.html#tc.r1">thermocouple data</A>, 
+endpoints of 100 and 600 would probably work well for all calibration estimates. Wider
+values for the endpoints are not useful here since extrapolations do not make much sense for 
+this type of local model.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software</I>
+</TD>
+<TD WIDTH=85%>
+Since the verbal descriptions of these numerical techniques can be hard to follow, 
+these ideas may become clearer by looking at the actual computer code
+for a quadratic calibration, which can be found in the 
+<A HREF="../section6/pmd6.html">Load Cell Calibration case study</A>.
+The case study contains both
+<A HREF="../section6/pmd611.dp">Dataplot code</A> and
+<A HREF="../section6/pmd611.r">R code</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Calibration Uncertainties</I>
+</TD>
+<TD WIDTH=85%>
+As in prediction, the data used to fit the process model can also
+be used to determine the uncertainty of the calibration.  Both the variation
+in the average response and in the new observation of the response value need to
+be accounted for.  This is similar to the uncertainty for the prediction  of a new
+measurement.  In fact, approximate calibration confidence intervals are actually
+computed by solving for the predictor variable value in the formulas for prediction
+interval end points <A HREF="../section7/pmd7.html#Graybill F.A. (1976)">[Graybill (1976)]</A>. 
+Because \(\hat{\sigma}_p\),
+<!-- <IMG ALT="\hat{\sigma}_p" ALIGN=middle SRC="eqns/sigmahatp.gif">, -->
+the standard deviation of the prediction
+of a measured response, is a function of the predictor variable, like the regression 
+function itself, the inversion of the prediction interval endpoints is usually messy. However,
+like the inversion of the regression function to obtain estimates of the predictor variable,
+it can be easily solved numerically.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The equations to be solved to obtain approximate lower and upper calibration confidence limits, 
+are, respectively,
+
+$$ y^* - f(x;\hat{\vec{\beta}}) + t_{1-\alpha/2,\nu} \cdot \hat{\sigma}_p(x) = 0 $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+y^* - f(x;\hat{\vec{\beta}}) + t_{1-\alpha/2,\nu}\hat{\sigma}_p(x) = 0
+" SRC="eqns/lccb.gif">,</CENTER><BR> -->
+
+and
+
+$$ y^* - f(x;\hat{\vec{\beta}}) - t_{1-\alpha/2,\nu} \cdot \hat{\sigma}_p(x) = 0 $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+y^* - f(x;\hat{\vec{\beta}}) - t_{1-\alpha/2,\nu}\hat{\sigma}_p(x) = 0
+" SRC="eqns/uccb.gif">,</CENTER><BR> -->
+
+with \(\hat{\sigma}_p\)
+<!-- <IMG ALT="\hat{\sigma}_p" ALIGN=middle SRC="eqns/sigmahatp.gif"> -->
+denoting the estimated standard deviation of the
+prediction of a new measurement. \(f(x;\hat{\vec{\beta}})\)
+<!-- <IMG ALT="f(x;\hat{\vec{\beta}})" ALIGN=absmiddle SRC="eqns/fxb.gif"> -->
+and \(\hat{\sigma}_p\)
+<!-- <IMG ALT="\hat{\sigma}_p" ALIGN=middle SRC="eqns/sigmahatp.gif"> -->
+are both denoted as functions of the predictor variable, \(x\),
+<!-- <IMG ALT="x" SRC="eqns/x.gif">, -->
+here to make it clear that those terms must be written as functions of the unknown value of the
+predictor variable. The left-hand sides of the two equations above are used as arguments in the 
+root-finding software, just as the expression \(y^* - f(x;\hat{\vec{\beta}})\)
+<!-- <IMG ALT="y^* - f(x;\hat{\vec{\beta}})" SRC="eqns/ystar-fxb.gif"> -->
+is used when computing the estimate of the predictor variable.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Confidence Intervals for the Example Applications</I>
+</TD>
+<TD WIDTH=85%>
+Confidence intervals for the true predictor variable values associated with the observed values
+of pressure (178) and voltage (1522) are given in the table below for the Pressure/Temperature
+example and the Thermocouple Calibration example, respectively. The approximate confidence 
+limits and estimated values of the predictor variables were obtained numerically
+in both cases.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+<TABLE CELLSPACING=8>
+<TR>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Example
+</FONT>
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(y^*\)
+<!-- <IMG ALT="y^*" SRC="eqns/ystar.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Lower 95%<BR>Confidence<BR>Bound
+</FONT>
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Estimated<BR>Predictor<BR>Variable<BR>Value
+</FONT>
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Upper 95%<BR>Confidence<BR>Bound
+</FONT>
+</TD>
+<TR><TD COLSPAN=5><HR></TD></TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>Pressure/Temperature</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>178</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>41.07564</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>43.31925</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>45.56146</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>Thermocouple&nbsp;Calibration</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>1522</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>553.0026</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>553.0187</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>553.0349</FONT></TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Interpretation of Calibration Intervals</I>
+</TD>
+<TD WIDTH=85%>
+Although calibration confidence intervals have some unique features, viewed as confidence 
+intervals, their interpretation is essentially analogous to that of confidence intervals
+for the true average response. Namely, in repeated calibration experiments, when one calibration
+is made for each  set of data used to fit a calibration function and each single new observation
+of the response, then approximately \(100(1-\alpha) \, \%\)
+<!-- <IMG ALT="100(1-\alpha)\%" SRC="eqns/clp.gif"> -->
+of the intervals computed as described above will capture the true value of the predictor 
+variable, which is a measurement on the primary measurement scale.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The plot below shows 95 % confidence intervals computed using 50 independently generated data sets
+that follow the same model as the data in the Thermocouple calibration example. Random errors from
+a normal distribution with a mean of zero and a known standard deviation are added to each set of
+true temperatures and true voltages that follow a model that can be well-approximated using LOESS
+to produce the simulated data. Then each data set and a newly observed
+voltage measurement are used to compute a confidence interval for the true temperature that
+produced the observed voltage. The dashed reference line marks the true temperature under which
+the thermocouple measurements were made. It is easy to see that most of the intervals do contain 
+the true value.  In 47 out of 50 data sets, or approximately 95 %, the 
+confidence intervals covered the true temperature. When the number of data sets was increased to
+5000, the confidence intervals computed for 4657, or 93.14 %, of the data sets covered the true
+temperature.  Finally, when the number of data sets was increased to 10000, 93.53 % of the
+confidence intervals computed covered the true temperature. While these intervals do not exactly
+attain their stated coverage, as the confidence intervals for the average response do, the 
+coverage is reasonably close to the specified level and is probably adequate from a practical 
+point of view.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Confidence Intervals Computed from 50 Sets of Simulated Data</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mutc1_f.gif">
+<IMG SRC="plots/mutc1_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="confidence intervals computed from 50 sets of simulated data">
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd52.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd53.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section5/pmd521.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:53 GMT -->
+</HTML>

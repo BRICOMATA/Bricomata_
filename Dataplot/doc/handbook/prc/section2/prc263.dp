@@ -1,0 +1,67 @@
+Dataplot commands and output:
+
+
+. Calculate the k factor for a two-sided tolerance interval.
+
+let n = 43
+let nu = n - 1
+let p = .90
+let g = .99
+let g1=1-g
+let p1=(1+p)/2
+let cg=chsppf(g1,nu)
+let np=norppf(p1)
+let k = nu*(1+1/n)*np**2
+let k2 = (k/cg)**.5
+
+> THE COMPUTED VALUE OF THE CONSTANT K2 = 0.2217316E+01
+
+
+. "Direct" calculation of a tolerance interval.
+
+read 100ohm.dat cr wafer mo day h min op hum probe temp y sw df
+tolerance y
+
+>  2-SIDED NORMAL TOLERANCE LIMITS: XBAR +- K*S
+>
+>      NUMBER OF OBSERVATIONS    =     25
+>      SAMPLE MEAN               = 97.069832
+>      SAMPLE STANDARD DEVIATION = 0.26798090E-01
+>
+> CONFIDENCE =    99.%
+>   COVERAGE (%)       LOWER LIMIT         UPPER LIMIT
+>           50.0        97.04242            97.09724
+>           75.0        97.02308            97.11658
+>           90.0        97.00299            97.13667
+>           95.0        96.99020            97.14946
+>           99.0        96.96522            97.17445
+>           99.9        96.93625            97.20341
+
+
+. Calculate the k factor for a one-sided tolerance interval.
+
+let n = 43
+let p = .90
+let g = .99
+let nu = n-1
+let zp = norppf(p)
+let zg=norppf(g)
+let a = 1 - ((zg**2)/(2*nu))
+let b = zp**2 - (zg**2)/n
+let k1 = (zp + (zp**2 - a*b)**.5)/a
+
+> THE COMPUTED VALUE OF THE CONSTANT A  =  0.9355727E+00
+> THE COMPUTED VALUE OF THE CONSTANT B  =  0.1516516E+01
+> THE COMPUTED VALUE OF THE CONSTANT K1 =  0.1875189E+01
+
+
+. Tolerance factor based on the non-central t distribution.
+
+let n = 43
+let p = .90
+let g = .99
+let f = n - 1
+let delta = norppf(P)*sqrt(n)
+let k = nctppf(g,f,delta)/sqrt(n)
+
+>THE COMPUTED VALUE OF THE CONSTANT K1       =   0.1873962E+01

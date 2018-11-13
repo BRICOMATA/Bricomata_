@@ -1,0 +1,388 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda42a3.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:57:03 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.10.3. Analysis of the Batch Effect</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda42a4.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda42a2.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.10.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42a.html">Ceramic Strength</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.10.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Analysis of the Batch Effect</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Batch is a Nuisance Factor
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The two nuisance factors in this experiment are the batch number
+and the lab.  There are two batches and eight labs.  Ideally, these
+factors will have minimal effect on the response variable.
+<P>
+We will investigate the batch factor first.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="BIHIST">
+Bihistogram
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="jahanmi2/gif/bihistog.gif" alt="Bihistogram">
+<p>
+This <a href="../section3/bihistog.html">bihistogram</a> shows the
+following.
+<ol>
+   <li>There does appear to be a batch effect.
+       <p>
+   <li>The batch 1 responses are centered at 700 while the
+       batch 2 responses are centered at 625.  That is, the
+       batch effect is approximately 75 units.
+       <p>
+   <li>The variability is comparable for the 2 batches.
+       <p>
+   <li>Batch 1 has some skewness in the lower tail.  Batch 2 has 
+       some skewness in the center of the distribution, but not
+       as much in the tails compared to batch 1.
+       <p>
+   <li>Both batches have a few low-lying points.
+</ol>
+<p>
+Although we could stop with the bihistogram, we will show a few
+other commonly used two-sample graphical techniques for comparison.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="QQPLOT">
+Quantile-Quantile Plot
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="jahanmi2/gif/qqplot.gif" alt="Quantile-Quantile Plot">
+<p>
+This <a href="../section3/qqplot.html">q-q plot</a> shows the
+following.
+<ol>
+   <li>Except for a few points in the right tail, the batch 1 values
+       have higher quantiles than the batch 2 values.  This implies
+       that batch 1 has a greater location value than batch 2.
+       <p>
+   <li>The q-q plot is not linear.  This implies that the difference
+       between the batches is not explained simply by a shift in
+       location.  That is, the variation and/or skewness varies as
+       well.  From the bihistogram, it appears that the skewness in
+       batch 2 is the most likely explanation for the non-linearity
+       in the q-q plot.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<a NAME="BOXPLOT">
+Box Plot
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="jahanmi2/gif/boxplot.gif" alt="Box Plot">
+<p>
+This <a href="../section3/boxplot.html">box plot</a> shows the
+following.
+<ol>
+   <li>The median for batch 1 is approximately 700 while the median
+       for batch 2 is approximately 600.
+       <p>
+   <li>The spread is reasonably similar for both batches, maybe
+       slightly larger for batch 1.
+       <p>
+   <li>Both batches have a number of outliers on the low side.
+       Batch 2 also has a few outliers on the high side.  Box plots
+       are a particularly effective method for identifying the
+       presence of outliers.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="BLOCKPLO">
+Block Plots
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A block plot is generated for each of the eight labs, with "1" and
+"2" denoting the batch numbers.  In the first
+plot, we do not include any of the primary factors.  The next 3
+block plots include one of the primary factors.  Note that each of
+the 3 primary factors (table speed = X1, down feed rate = X2,
+wheel grit size = X3) has 2 levels.  With 8 labs and 2 levels for
+the primary factor, we would expect 16 separate blocks on these
+plots.  The fact that some of these blocks are missing indicates
+that some of the combinations of lab and primary factor are empty.
+<p>
+<img src="jahanmi2/gif/blockpl1.gif" alt="Block Plots">
+<p>
+These <a href="../section3/blockplo.html">block plots</a> show the
+following.
+<ol>
+   <li>The mean for batch 1 is greater than the mean for batch 2
+       in <b>all</b> of the cases above.  This is strong evidence
+       that the batch effect is real and consistent across labs
+       and primary factors.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Quantitative Techniques</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can confirm some of the conclusions drawn from the above
+graphics by using quantitative techniques.  The
+<a href="../section3/eda359.html"><i>F</i>-test</a> can be used to test
+whether or not the variances from the two batches are equal and the
+<a href="../section3/eda353.html">two sample <i>t</i>-test</a> can be used
+to test whether or not the means from the two batches are equal.
+Summary statistics for each batch are shown below.
+<P>
+<PRE>
+Batch 1:
+    NUMBER OF OBSERVATIONS =  240
+    MEAN                   =  688.9987
+    STANDARD DEVIATION     =   65.5491
+    VARIANCE               = 4296.6845 
+ 
+Batch 2:
+    NUMBER OF OBSERVATIONS =  240
+    MEAN                   =  611.1559
+    STANDARD DEVIATION     =   61.8543
+    VARIANCE               = 3825.9544
+</PRE>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I><A NAME="FTEST"><i>F</i>-Test</A></I></TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The two-sided <i>F</i>-test indicates that the variances for the two 
+batches are not significantly different at the 5 % level.
+<p>
+<PRE>
+H<SUB>0</SUB>:  &sigma;<SUB>1</SUB><SUP>2</SUP> = &sigma;<SUB>2</SUB><SUP>2</SUP> 
+H<SUB>a</SUB>:  &sigma;<SUB>1</SUB><SUP>2</SUP> &ne; &sigma;<SUB>2</SUB><SUP>2</SUP>
+
+Test statistic:  <I>F</I> = 1.123 
+Numerator degrees of freedom:  <i>&nu;</i><SUB>1</SUB> = 239
+Denominator degrees of freedom:  <i>&nu;</i><SUB>2</SUB> = 239
+Significance level:  <i>&alpha;</i> = 0.05
+Critical values:  <I>F</I><sub>1-<i>&alpha;</i>/2,<i>&nu;</i><SUB>1</SUB>,<i>&nu;</i><SUB>2</SUB></sub> = 0.845
+                  <I>F</I><sub><i>&alpha;</i>/2,<i>&nu;</i><SUB>1</SUB>,<i>&nu;</i><SUB>2</SUB></sub> = 1.289
+Critical region:  Reject H<SUB>0</SUB> if <I>F</I> < 0.845 or <I>F</I> > 1.289
+</PRE>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I><A NAME="TTEST">Two Sample t-Test</A></I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Since the <i>F</i>-test indicates that the two batch variances are equal, 
+we can pool the variances for the two-sided, two-sample 
+<i>t</i>-test to compare batch means.
+<P>
+<PRE>
+H<SUB>0</SUB>:  &mu;<SUB>1</SUB> = &mu;<SUB>2</SUB>
+H<SUB>a</SUB>:  &mu;<SUB>1</SUB> &ne; &mu;<SUB>2</SUB>
+
+Test statistic:  <I>T</I> = 13.3806 
+Pooled standard deviation:  <I>s<SUB>p</SUB></I> = 63.7285
+Degrees of freedom:  <i>&nu;</i> = 478
+Significance level:  <i>&alpha;</i> = 0.05
+Critical value:  <big><I>t</I></big><sub>1-<i>&alpha;</i>/2,<i>&nu;</i></sub> = 1.965
+Critical region: Reject H<SUB>0</SUB> if |<I>T</I>| > 1.965
+</PRE>
+The <i>t</i>-test indicates that the mean for batch 1 is larger than 
+the mean for batch 2 at the 5 % significance level.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="CONCL">
+Conclusions
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can draw the following conclusions from the above analysis.
+<ol>
+   <li>There is in fact a significant batch effect.  This batch
+       effect is consistent across labs and primary factors.
+       <p>
+   <li>The magnitude of the difference is on the order of 75 to 100
+       (with batch 2 being smaller than batch 1).  The standard
+       deviations do not appear to be significantly different.
+       <p>
+   <li>There is some skewness in the batches.
+</ol>
+<p>
+This batch effect was completely unexpected by the scientific
+investigators in this study.
+<p>
+Note that although the quantitative techniques support the
+conclusions of unequal means and equal standard deviations, they
+do not show the more subtle features of the data such as the
+presence of outliers and the skewness of the batch 2 data.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+  
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda42a2.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda42a4.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda42a3.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:57:07 GMT -->
+</HTML>

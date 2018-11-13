@@ -1,0 +1,220 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd421.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:43 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.2.1. Incorporating Scientific Knowledge into Function Selection</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd422.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd42.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd42.html">How do I select a function to describe my process?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Incorporating Scientific Knowledge into Function Selection</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Choose Functions Whose Properties Match the Process</I>
+</TD>
+<TD WIDTH=85%>
+Incorporating scientific knowledge into selection of the function used
+in a process model is clearly critical to the success of the model.  
+When a scientific theory describing the mechanics of a physical system
+can provide a complete functional form for the process, then that type
+of function makes an ideal starting point for model development. There
+are many cases, however, for which there is incomplete scientific 
+information available.  In these cases it is considerably less clear
+how to specify a functional form to initiate the modeling process. A
+practical approach is to choose the simplest possible functions 
+that have properties ascribed to the process.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Example: Concrete Strength Versus Curing Time</I>
+</TD>
+<TD WIDTH=85%>
+For example, if you are modeling concrete strength as a function of curing
+time, scientific knowledge of the process indicates that the strength will
+increase rapidly at first, but then level off as the hydration reaction 
+progresses and the reactants are converted to their new physical form.  
+The leveling off of the strength occurs because the speed of the reaction
+slows down as the reactants are converted and unreacted materials are less 
+likely to be in proximity all of the time. In theory, the 
+reaction will actually stop altogether when the reactants are
+fully hydrated and are completely consumed.  However, a full stop of the 
+reaction is unlikely in reality because there is always some unreacted 
+material remaining that reacts increasingly slowly. As a result, the 
+process will approach an asymptote at its final strength.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Polynomial Models for Concrete Strength Deficient</I>
+</TD>
+<TD WIDTH=85%>
+Considering this general scientific information, modeling this process using 
+a straight line would not reflect the physical aspects of this process very well.  
+For example, using the straight-line  model, the concrete strength would be 
+predicted to continue increasing at the same rate over its entire lifetime, 
+though we know that is not how it behaves. The fact that the response variable
+in a straight-line model is unbounded as the predictor 
+variable becomes extreme is another indication that the straight-line model 
+is not realistic for concrete strength.  In fact, this relationship between 
+the response and predictor as the predictor becomes extreme is common to all 
+polynomial models, so even a higher-degree polynomial would probably not make a
+good model for describing concrete strength.  A higher-degree polynomial might 
+be able to curve toward the data as the strength leveled off, but it would 
+eventually have to diverge from the data because of its mathematical properties.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Rational Function Accommodates Scientific Knowledge about Concrete Strength</I>
+</TD>
+<TD WIDTH=85%>
+A more reasonable function for modeling this process might be a rational 
+function. A rational function, which is a ratio of two polynomials of the
+same predictor variable, approaches an asymptote if the degrees of the
+polynomials in the numerator and denominator are the same.  It is still a
+very simple model, although it is <A HREF="../section1/pmd142.html">nonlinear
+in the unknown parameters</A>.  Even if a rational function  does not 
+ultimately prove to fit the data well, it makes a good starting point for the
+modeling process because it incorporates the general scientific knowledge
+we have of the process, without being overly complicated. Within the family of
+rational functions, the simplest model is the 
+
+<A HREF="../section8/pmd815.html">"linear over linear" rational function</A>
+
+$$ y = \frac{\beta_0 + \beta_1 x}{1 + \beta_2 x} + \varepsilon $$
+
+<!-- <BR><BR><CENTER>
+<IMG ALT="y = \frac{\beta_0 + \beta_1x}{1 + \beta_2x} + \epsilon" 
+     ALIGN=BOTTOM SRC="pmd421_eq.gif">
+</CENTER><BR> -->
+so this would probably be the best model with which to start. If the 
+linear-over-linear model is not adequate, then the initial fit can be followed up using 
+a higher-degree rational function, or some other type of model that also has
+a horizontal asymptote.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Focus on the Region of Interest</I>
+</TD>
+<TD WIDTH=85%>
+Although the concrete strength example makes a good case for incorporating 
+scientific knowledge into the model, it is not necessarily a good idea to 
+force a process model to follow all of the physical properties that the 
+process must follow. At first glance it seems like incorporating physical 
+properties into a process model could only improve it; however, incorporating 
+properties that occur outside the region of interest for a particular 
+application can actually sacrifice the accuracy of the model "where it counts"
+for increased accuracy where it isn't important.  As a result, physical properties 
+should only be incorporated into process models when they directly affect the
+process in the range of the data used to fit the model or in the region in 
+which the model will be used.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Information on Function Shapes</I>
+</TD>
+<TD WIDTH=85%>
+In order to translate general process properties into mathematical functions
+whose forms may be useful for model development, it is necessary to know the
+different shapes that various mathematical functions can assume. Unfortunately
+there is no easy, systematic way to obtain this information. Families of
+mathematical functions, like polynomials or rational functions, can
+assume quite different shapes that depend on the parameter values that
+distinguish one member of the family from another. Because of the wide range of
+potential shapes these functions may have, even determining and listing the
+general properties of relatively simple families of functions can be 
+complicated.  <A HREF="../section8/pmd8.html">Section 8</A> of this chapter 
+gives some of the properties of a short list of simple functions that are often
+useful for process modeling. Another reference that may be useful is the 
+<I>Handbook of Mathematical Functions</I> by 
+<A HREF="../section7/pmd7.html#Handbook of Mathematical Functions with Formulas, Graphs and Mathmatica
+l Tables (1964)">Abramowitz and Stegun [1964]</A>. The 
+<A HREF="http://dlmf.nist.gov/"><I>Digital Library of Mathematical Functions</I></A>,
+an electronic successor to the <I>Handbook of Mathematical Functions</I> that is under 
+development at NIST, may also be helpful.
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd42.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd422.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd421.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:45 GMT -->
+</HTML>

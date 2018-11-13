@@ -1,0 +1,223 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr185.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:12 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.8.5. Standby model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr186.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr184.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.8.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr18.html">How can you evaluate reliability from the "bottom-up" (component failure mode to system failure rate)?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.8.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Standby model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>The Standby Model evaluates improved reliability when backup 
+replacements are switched on when failures occur</i>.
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+A <b>Standby Model</b> refers
+to the case in which a key component (or assembly) has an identical backup
+component in an "off" state until needed. When the original component fails,
+a switch turns on the "standby" backup component and the system continues
+to operate.
+<p>
+In the simple case, assume the non-standby part of the system has CDF \(F(t)\)
+<!-- <i>F(t)</i> -->
+and there are (\(n - 1\))
+<!-- (<i>n-1</i>) -->
+identical backup units that will operate in
+sequence until the last one fails. At that point, the system finally fails.
+<p>
+The total system lifetime is the sum of \(n\)
+<!-- <i>n</i> -->
+identically distributed random lifetimes, each having CDF \(F(t)\).
+<!-- <i>F(t)</i>.&nbsp; -->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Identical backup Standby model leads to convolution formulas</i>
+</td>
+
+<td WIDTH="85%">
+In other words, \(T_n = t_1 + t_2 + \cdots + t_n\),
+<!-- <i>T<sub>n</sub> = t<sub>1</sub> + t<sub>2</sub>+... + t<sub>n</sub></i>, -->
+where each \(t_i\)
+<!-- <i>t<sub>i</sub> </i> -->
+has CDF \(F(t)\)
+<!-- <i>F(t)</i> -->
+and \(T_n\)
+<!-- <i>T<sub>n</sub></i> -->
+has a CDF we denote by \(F_n(t)\).
+<!-- <i>F<sub>n</sub>(t)</i>. -->
+This can be evaluated using <b>convolution</b> formulas:
+
+$$ \begin{eqnarray}
+F_2(t) & = & \int_0^t F(u) f(t-u) du \\
+       &   & \\
+F_n(t) & = & \int_0^t F_{n-1}(u) f(t-u) du 
+\end{eqnarray} $$
+
+where \(f(t)\) is the PDF \(F'(t)\).
+
+<!-- 
+<center>
+<img SRC="eqns/convol.gif" ALT="F2(t) = INTEGRAL[0 to t]{F(u)*f(t-u)du};     
+Fn(t) = INTEGRAL[0 to t]{F(n-1)(u)f(t-u)du};     
+where f(t) is the PDF F'(t)" height=173 width=231>
+</center>
+<p>
+-->
+
+In general, convolutions are solved numerically. However, for the special
+case when \(F(t)\)
+<!-- <i>F(t)</i> -->
+is the exponential model, the above integrations can be solved in closed form.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Exponential standby systems lead to a gamma lifetime model</i>
+</td>
+
+<td WIDTH="85%">
+<b>Special Case</b>: The Exponential (or Gamma) Standby Model
+<p>
+If \(F(t)\)
+<!-- <i>F(t)</i> -->
+has the <a href="apr161.html">exponential</a> CDF (i.e., \(F(t) = 1 - e^{-lt}\)),
+<!-- <i>F(t) = 1 - e<sup>-lt</sup></i><sup> </sup>), -->
+then
+
+$$ \begin{eqnarray}
+F_2(t) & = & 1 - \lambda t e^{-\lambda t} - e^{-\lambda t} \\
+       &   & \\
+f_2(t) & = & \lambda^2 t e^{-\lambda t} \,\, , \mbox{ and} \\
+       &   & \\
+f_n(t) & = & \frac{\lambda^n t^{n-1} e^{-\lambda t}}{(n-1)!}
+\end{eqnarray} $$
+
+<!-- 
+<center>
+<p>
+<img SRC="eqns/standby.gif" ALT="F2(t> = 1 - lambda*t*EXP(-lambda*t) - EXP(-lambda*t);     
+f2(t) = lambda**2*t*EXP(-lambda*t), and;        
+fn(t) = lambda**n*t**(n-1)*EXP(-lambda*t)/(n-1)!" height=120 width=186>
+</center>
+<p>
+-->
+
+and the PDF \(f_n(t)\)
+<!-- <i>f<sub>n</sub>(t) </i> -->
+is the well-known <a href="apr165.html">gamma </a>distribution.
+<p>
+<b>Example:</b> An unmanned space probe sent out to explore the solar
+system has an onboard computer with reliability characterized by the 
+<a href="apr161.html#Formula's and Plots">exponential distribution</a> 
+with a <b>Mean Time To Failure</b> (MTTF) of \(1/\lambda\) = 30
+<!-- 1/<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> = 30 -->
+months (a constant failure rate of 1/30 = 0.033 fails per month). The
+probability of surviving a two year mission is only \(\mbox{exp}(-24/30)\) = 0.45.
+<!-- <i>e</i><sup>-24/30</sup>= .45.-->
+If, however, a second computer is included in the probe in a standby
+mode, the reliability at 24 months (using the above formula for \(F_2\))
+<!-- <i>F<sub>2</sub></i>) -->
+becomes 0.8 \(\times\) 0.449 + 0.449 = 0.81.
+<!-- .8 &times; .449 + .449 = .81. -->
+The failure rate at 24 months (\(f_2/(1-F_2)\))
+<!-- (<i>f<sub>2</sub>/[1-F<sub>2</sub>]</i>) -->
+reduces to [(24/900) \(\times\) 0.449]/0.81 = 0.015
+<!-- [(24/900) &times;.449]/.81 = .015 -->
+fails per month. At 12 months
+the failure rate is only 0.0095 fails per month, which is less than 1/3
+of the failure rate calculated for the non-standby case.
+<p>
+Standby units (as the example shows) are an effective way of increasing
+reliability and reducing failure rates, especially during the early stages
+of product life. Their improvement effect is similar to, but greater than,
+that of <a href="apr183.html">parallel redundancy</a> . The drawback, from
+a practical standpoint, is the expense of extra components that are not
+needed for functionality.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr184.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr186.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr185.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:12 GMT -->
+</HTML>

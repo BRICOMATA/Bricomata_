@@ -1,0 +1,624 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section6/mpc64.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:46 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.6.4. Evaluation of type B uncertainty and propagation of error</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section7/mpc7.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc634.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc6.html">Case studies</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.6.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Evaluation of type B uncertainty and propagation of error</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Focus of this case study</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The purpose of this case study is to demonstrate uncertainty
+analysis using statistical techniques coupled with type B analyses
+and propagation of error.  It is a continuation of the 
+case study of <A HREF="mpc63.html">type A uncertainties</A>. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Background - description of measurements and constraints</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The measurements in question are volume resistivities (ohm.cm)
+of silicon wafers which have the following definition:
+<UL>
+<IMG ALIGN=ABSMIDDLE SRC="rho.gif" ALT="rho"><FONT SIZE=4> =
+<i>Xo</i><sup>.</sup><i>K<sub>a</sub></i><sup>.</sup><i>F<sub>t</sub></i>
+<sup>.</sup><i>t</i><sup>.</sup><i>F<sub>t/s</sub></i>
+</FONT>
+<!-- <IMG SRC="mpc64a.gif"
+     ALT="rho = X*K(a)*F(t)*t*F(t/s)"> -->
+</UL>
+with explanations of the quantities and their nominal values
+shown below:
+<UL>
+   <IMG ALIGN=ABSMIDDLE SRC="rho.gif" ALT="rho"><FONT SIZE=4> =
+   <i>resistivity</i> = 0.00128 <i>ohm.cm</i>
+   <br>
+   <i>X</i> = <i>voltage/current</i> (<i>ohm</i>)
+   <br>
+   <i>t</i> = <i>thickness<sub>wafer</sub>(cm</i>) = 0.628 <i>cm</i>
+   <br>
+   <i>K<sub>a</sub></i> = <i>factor<sub>electrical</sub></i> =
+   4.50 <i>ohm.cm</i>
+   <br>
+   <i>F<sub>F</sub></i> = <i>correction<sub>temp</sub>
+   <IMG ALIGN=ABSMIDDLE SRC="approx1c.gif"
+      alt="approximately 1 degree Celcius">
+   <br>
+   <i>F<sub>t/s</sub></i> = <i>factor<sub>thickness/separation</i>
+   <IMG ALIGN=ABSMIDDLE SRC="approx.gif"
+      alt="approximately"> 1.0
+   </FONT>
+<!-- <IMG SRC="mpc64b.gif" ALT=
+"rho = resistivity = 0.00128 ohm*cm;
+   X = voltage/current(ohm);
+   t = thjickness(wafer)(cm) = 0.628 cm;
+   K(a) = factor(electrical) = 4.50 ohm*cm;
+   F(t) = correction(temp) approximately 1 degree Celcius;
+   F(t/s) = factor(thickness/separation) approximately 1.0"> -->
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Type A evaluations</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The resistivity measurements, discussed in the <A HREF="mpc63.html">case
+study of type A evaluations</A>, were replicated to cover the following
+sources of uncertainty in the measurement process, and the associated
+uncertainties are reported in units of resistivity (ohm.cm).
+<UL>
+   <LI><A HREF="mpc632.html#level1">Repeatability of measurements at the
+       center of the wafer</A>
+   <LI><A HREF="mpc632.html#day">Day-to-day effects</A>
+   <LI><A HREF="mpc632.html#run">Run-to-run effects</A>
+   <LI><A HREF="mpc632.html#probebias">Bias due to probe #2362</A>
+   <LI><A HREF="mpc632.html#configbias">Bias due to wiring
+       configuration</A>
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Need for propagation of error</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="formula">Not all factors could be replicated during the gauge
+experiment.  Wafer thickness and measurements required for the scale
+corrections were measured off-line.  Thus, the type B evaluation of
+uncertainty is computed using propagation of error.  The
+<A HREF="../section5/mpc553.html">propagation of error formula</A> in 
+units of resistivity is as follows:
+<UL>
+<!-- <IMG SRC="mpc64c.gif" -->
+<IMG SRC="srho.gif"
+ALT="s(rho) = rho*SQRT{s(y)**2/X**2 + s(t)**2/t**2 + s(K(a))**2/K(a)**2
+ + s(F(T))**2/F(T) + s(F(t/s))**2/F(t/s)}">
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Standard deviations for type B evaluations</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Standard deviations for the type B components are summarized 
+here.  For a complete explanation, see the publication 
+<A HREF="../section7/mpc7.html#Ehrstein">(Ehrstein and Croarkin)</A>. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Electrical measurements</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+There are two basic sources of uncertainty for the electrical
+measurements.  The first is the least-count of the digital volt meter
+in the measurement of <I>X</I> with a maximum bound of 
+<UL>
+<I><FONT SIZE=4> a = 0.0000534 ohm</I></FONT>
+</UL>
+<P>
+which is assumed to be the half-width of a uniform distribution.  The
+second is the uncertainty of the electrical scale factor.  This has two
+sources of uncertainty: 
+<OL>
+   <LI>error in the solution of the transcendental equation for
+       determining the factor
+   <LI>errors in measured voltages
+</OL>  
+<P>
+The maximum bounds to these errors are assumed to be  half-widths of 
+<UL>
+<I><FONT SIZE=4> a = 0.0001 ohm.cm</I></FONT> and 
+<I><FONT SIZE=4> a = 0.00038 ohm.cm</I></FONT>
+</UL>
+respectively, from <HREF="http://www.nist.gov/itl/#uniform">uniform distributions.</A>
+The corresponding standard deviations are shown below. 
+<UL>
+<!-- <IMG SRC="mpc64d.gif" ALT= -->
+<FONT SIZE=4><i>s<sub>x</sub></i> =
+0.0000534/<img align=absmiddle src="sqrt3.gif" alt="SQRT(3)"> =
+0.0000308 <i>ohm</i></FONT>
+<p>
+   <img align=absmiddle src="sks.gif" alt=
+   "s(K(a)) = SQRT((0.0001**2/3) + (0.00038**2/3)) = 0.000227 ohm*cm">
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Thickness</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The standard deviation for thickness, <I><FONT SIZE=4>t</FONT></I>,
+accounts for two sources of uncertainty: 
+<OL>
+   <LI>calibration of the thickness measuring tool with precision
+       gauge blocks
+   <LI>variation in thicknesses of the silicon wafers
+</OL>
+The maximum bounds to these errors are assumed to be half-widths of 
+<UL>
+<I><FONT SIZE=4> a = 0.000015 cm</FONT></I> and 
+<I><FONT SIZE=4> a = 0.000001 cm</FONT></I>
+</UL>
+respectively, from <A HREF="../section5/mpc541.html#uniform">uniform
+distributions.</A>  Thus, the standard deviation for thickness is
+<UL>
+<IMG SRC="mpc64e.gif" ALT=
+     "s(t) = SQRT{0.000015**2/3 + 0.000001**2/3} = 0.00000868 ohm*cm">
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Temperature correction</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The standard deviation for the temperature correction is calculated from
+its defining equation as shown below.  Thus, the standard deviation for
+the correction is the standard deviation associated with the measurement
+of temperature multiplied by the temperature coefficient, 
+<I><FONT SIZE=4>C(t) = 0.0083.</FONT></I>  The maximum bound to the
+error of the temperature measurement is assumed to be the half-width 
+<UL>
+<I><FONT SIZE=4>a = 0.13 °C</I></FONT>
+</UL>
+of a  <A HREF="../section5/mpc541.html#triangular">triangular
+distribution.</A>  Thus the standard deviation of the correction for
+<UL>
+<!-- <IMG SRC="mpc64f.gif" ALT= -->
+<IMG SRC="ft.gif" ALT=
+     "F(T) = 1 - C(T)*(T - 23 degres Celcius)">
+</UL>
+is
+<UL>
+<IMG SRC="sft.gif" ALT=
+"s(F(T)) = C(T)*s(T) = 0.0083*SQRT{0.13**2/6}=0.000441 degrees Celcius">
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Thickness scale factor</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85% VALIGN=TOP>
+The standard deviation for the thickness scale factor is negligible.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Associated sensitivity coefficients</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85% VALIGN=TOP>
+Sensitivity coefficients for translating the standard deviations for
+the type B components into units of resistivity (ohm.cm) from the
+propagation of error equation are listed  below and in the error budget.
+The sensitivity coefficient for a source is the multiplicative factor
+associated with the standard deviation in the
+<A HREF="mpc64.html#formula">formula</A> above; i.e., the partial
+derivative with respect to that variable from the
+<A HREF="../section5/mpc55.html#formula"> propagation of error
+equation.</A>
+<UL>
+<!-- <IMG SRC="mpc64g.gif" ALT= -->
+   <FONT SIZE=4>
+   <i>a</i><sub>6</sub> =
+   (<img align=absmiddle src="rho.gif" alt="rho">/<i>X</i>) =
+   100/0.111 = 900.901
+   <br>
+   <i>a</i><sub>7</sub> =
+   (<img align=absmiddle src="rho.gif" alt="rho">/<i>K<sub>a</sub></i>)
+   = 100/4.50 = 22.222
+   <br>
+   <i>a</i><sub>8</sub> =
+   (<img align=absmiddle src="rho.gif" alt="rho">/<i>t</i>) =
+   100/0.628 = 159.24
+   <br>
+   <i>a</i><sub>9</sub> =
+   (<img align=absmiddle src="rho.gif" alt="rho">/<i>F<sub>T</sub></i>)
+   = 100
+   <br>
+   <i>a</i><sub>10</sub> =
+   (<img align=absmiddle src="rho.gif" alt="rho">/<i>F<sub>t/S</sub></i>)
+   = 100
+   </FONT>
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Sensitivity coefficients and degrees of freedom</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP><!-- Add main text below -->
+Sensitivity coefficients for the type A components are shown
+in the <A HREF="mpc632.html#errorbudget">case study of type A
+uncertainty analysis</A> and repeated below.  Degrees of freedom for 
+type B uncertainties based on assumed distributions, according to the 
+<A HREF="../section5/mpc54.html#df">convention</A>, are assumed to be
+infinite. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Error budget showing sensitivity coefficients, standard deviations
+and degrees of freedom</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="errorbudget">The error budget showing sensitivity 
+coefficients for computing the relative standard uncertainty of volume 
+resistivity (ohm.cm) with degrees of freedom is outlined below. 
+<P>
+<TABLE NOBORDER WIDTH=425>
+
+<CAPTION ALIGN=CENTER>
+<B>Error budget for volume resistivity (ohm.cm)</B>
+</CAPTION>
+
+   <TR>
+      <TH ALIGN=LEFT VALIGN=BOTTOM>
+         Source
+      </TH>
+      <TH ALIGN=CENTER VALIGN=BOTTOM>
+         Type
+      </TH>
+      <TH ALIGN=LEFT VALIGN=BOTTOM>
+         Sensitivity
+      </TH>
+      <TH ALIGN=LEFT VALIGN=BOTTOM>
+         Standard<br>
+         Deviation
+      </TH>
+      <TH ALIGN=RIGHT VALIGN=BOTTOM>
+         DF
+      </TH>
+   </TR>
+
+   <TR>
+      <TD COLSPAN=5>
+         <HR>
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Repeatability
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         A
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>1</sub> = 0
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0.0729
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         300
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Reproducibility
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         A
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>2</sub> =
+         <img align=absmiddle src="sqrt56.gif" alt="SQRT(5/6)">
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0.0362
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         50
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Run-to-run
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         A
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>3</sub> = 1
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0.0197
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         5
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Probe #2362
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         A
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>4</sub> =
+         <img align=absmiddle src="sqrt110.gif" alt="SQRT(1/10)">
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0.0162
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         5
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Wiring<br>
+         Configuration A
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         A
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>5</sub> = 1
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         --
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Resistance<br>
+         ratio
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         B
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>6</sub> = 900.901
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0.0000308
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         <img align=absmiddle src="inf.gif" alt="Infinity">
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Electrical<br>
+         scale
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         B
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>7</sub> = 22.222
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0.000227
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         <img align=absmiddle src="inf.gif" alt="Infinity">
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Thickness
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         B
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>8</sub> = 159.20
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0.00000868
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         <img align=absmiddle src="inf.gif" alt="Infinity">
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Temperature<br>
+         correction
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         B
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>9</sub> = 100
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0.000441
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         <img align=absmiddle src="inf.gif" alt="Infinity">
+      </TD>
+   </TR>
+
+   <TR>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         Thickness<br>
+         scale
+      </TD>
+      <TD ALIGN=CENTER VALIGN=TOP>
+         B
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         <i>a</i><sub>10</sub> = 100
+      </TD>
+      <TD ALIGN=LEFT VALIGN=TOP>
+         0
+      </TD>
+      <TD ALIGN=RIGHT VALIGN=TOP>
+         --
+      </TD>
+   </TR>
+
+</TABLE>
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Standard uncertainty</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The standard uncertainty is computed as:
+<UL>
+<!-- <IMG SRC="mpc64h.gif" -->
+<IMG SRC="u.gif"
+     ALT="u = SQRT{SUM[i=1 to 10][[a(i)**2*s(i)**2]} = 0.065 ohm*cm">
+</UL>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Approximate degrees of freedom and expanded uncertainty</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The degrees of freedom associated with <I>u</I> are 
+approximated by the Welch-Satterthwaite formula as:
+<UL>
+<IMG SRC="mpc63f.gif"
+     ALT="nu = u**4/{SUM[i=1 to 5][a(i)**4*s(i)**4/nu(i)]} = 42"><BR>
+
+</UL>
+This calculation is not affected by components with infinite degrees of
+freedom, and therefore, the degrees of freedom for the standard
+uncertainty is the same as the degrees of freedom for the type A
+uncertainty.  The critical value at the 0.05 significance level with 
+42 degrees of freedom, from the 
+<A HREF="../../eda/section3/eda3672.html">
+t-table</A>,  is 2.018 so the expanded uncertainty is
+<UL>
+<I><FONT SIZE = 4>U = 2.018 u = 0.13 ohm.cm</FONT></I>
+</UL>
+
+</TD>
+</TR>
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc634.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section7/mpc7.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section6/mpc64.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:58 GMT -->
+</HTML>

@@ -1,0 +1,280 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc451.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:22:05 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.5.1. Example of Multivariate Time Series Analysis</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section5/pmc5.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc45.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc45.html">Multivariate Time Series Models</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.5.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Example of Multivariate Time Series Analysis</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Bivariate Gas Furance Example</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The gas furnace data from 
+<a href="../section7/pmc7.html#Box, G.E.P.; G.M.">
+Box, Jenkins, and Reinsel, 1994</a> is used to illustrate the
+analysis of a bivariate time series.  Inside the gas furnace, 
+air and methane were combined in order to obtain a mixture 
+of gases containing CO\(_2\)
+<!-- <sub>2</sub> -->
+(carbon dioxide). 
+The input series \(x_t\) is the methane gas feedrate and
+the CO\(_2\) concentration is the output series \(y_t\).
+
+<!--
+The input series is the methane gas feedrate described by
+<ul>
+   Methane Gas Input Feed \(= 0.60 - 0.04 X(t)\)
+   = 0.60 - 0.04 <i>X</i>(<i>t</i>)
+</ul>
+the CO\(_2\)
+<sub>2</sub> 
+concentration was the output series, \(Y(t)\).
+<i>Y</i>(<i>t</i>).
+-->
+<p>
+In this experiment 296 successive pairs of observations \((x_t, \, y_t)\)
+<!-- (<i>X<sub>t,</sub> Y<sub>t</sub></i>) -->
+were collected from 
+continuous records at 9-second intervals.  For the analysis
+described here, only the first 60 pairs were used.  We fit 
+an ARV(2) model as described in 
+<a href="pmc45.html">6.4.5</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Plots of input and output series</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The plots of the input and output series are displayed below.&nbsp;
+<ul>
+<img SRC="pmc451_r01.gif" height=400 width=400
+     ALT="Plot of input gas rate">
+</ul>
+<ul>
+<img SRC="pmc451_r02.gif" height=400 width=400
+     ALT="Plot of output outlet gas">
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Model Fitting</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+
+The scalar form of the ARV(2) model is the following.
+
+$$ \begin{eqnarray}
+x_t & = & \phi_{1.11}x_{t-1} + \phi_{2.11}x_{t-2} + 
+          \phi_{1.12}y_{t-1} + \phi_{2.12}y_{t-2} + a_{1t} \\
+    &   &  \\
+y_t & = & \phi_{1.22}y_{t-1} + \phi_{2.22}y_{t-2} +
+          \phi_{1.21}x_{t-1} + \phi_{2.21}x_{t-2} + a_{2t} 
+\end{eqnarray} $$
+
+<!--
+<ul>
+<img SRC="pmc451_eq1.gif" ALT="Scalar form of concentration model">
+<p>
+<img SRC="pmc451_eq2.gif" ALT="Scalar form of gas rate model">
+</ul>
+-->
+
+The equation for \(x_t\)
+<!-- <b><i>x<sub>t</sub></i></b> -->
+corresponds to gas rate while the equation for \(y_t\)
+<!-- <b><i>y<sub>t</sub></i></b> -->
+corresponds to CO\(_2\)
+<!-- <sub>2</sub> -->
+concentration.
+<p>
+The parameter estimates for the equation associated with 
+gas rate are the following.
+<p>
+<pre>
+         Estimate  Std. Err.  <i>t</i> value   Pr(>|<i>t</i>|)  
+<i>a</i><sub>1<i>t </i></sub>      0.003063   0.035769    0.086      0.932    
+<i>&phi;</i><sub>1.11</sub>     1.683225   0.123128   13.671    < 2e-16
+<i>&phi;</i><sub>2.11</sub>    -0.860205   0.165886   -5.186   3.44e-06
+<i>&phi;</i><sub>1.12</sub>    -0.076224   0.096947   -0.786      0.435    
+<i>&phi;</i><sub>2.12</sub>     0.044774   0.082285    0.544      0.589    
+
+Residual standard error:  0.2654 based on 53 degrees of freedom
+Multiple R-Squared:  0.9387
+Adjusted R-squared:  0.9341 
+F-statistic:  203.1 based on 4 and 53 degrees of freedom  
+<i>p</i>-value:  < 2.2e-16 
+</pre>
+<p>
+The parameter estimates for the equation associated with 
+CO\(_2\)
+<!-- <sub>2</sub>  -->
+concentration are the following.
+<p>
+<pre>
+  </i>      Estimate  Std. Err.  <i>t</i> value   Pr(>|<i>t</i>|) 
+<i>a</i><sub>2<i>t </i></sub>     -0.03372    0.01615   -2.088   0.041641   
+<i>&phi;</i><sub>1.22</sub>     1.22630    0.04378   28.013    < 2e-16
+<i>&phi;</i><sub>2.22</sub>    -0.40927    0.03716  -11.015   2.57e-15
+<i>&phi;</i><sub>1.21</sub>     0.22898    0.05560    4.118   0.000134
+<i>&phi;</i><sub>2.21</sub>    -0.80532    0.07491  -10.751   6.29e-15
+
+Residual standard error:  0.1198 based on 53 degrees of freedom
+Multiple R-Squared:  0.9985     
+Adjusted R-squared:  0.9984 
+F-statistic:  8978 based on 4 and 53 degrees of freedom
+<i>p</i>-value:  < 2.2e-16 
+</pre>
+<p>
+Box-Ljung tests performed for each series to test
+the randomness of the first 24 residuals were not
+significant.  The \(p\)-values
+<!-- <i>p</i>-values  -->
+for the tests using CO\(_2\)
+<!-- <sub>2</sub>  -->
+concentration residuals and gas rate residuals 
+were 0.4 and 0.6, respectively.
+
+</td>
+</tr>
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Forecasting</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+
+<p>
+The forecasting method is an extension of the model and follows 
+the theory outlined in the previous section.  The forecasted 
+values of the next six observations (61-66) and the
+associated 90 % confidence limits are shown below
+for each series.
+<pre>
+
+             90% Lower   Concentration   90% Upper
+Observation    Limit       Forecast        Limit
+-----------  ---------     --------      ---------
+    61          51.0         51.2           51.4
+    62          51.0         51.3           51.6
+    63          50.6         51.0           51.4
+    64          49.8         50.5           51.1
+    65          48.7         50.0           51.3
+    66          47.6         49.7           51.8
+
+
+             90% Lower     Rate     90% Upper
+Observation    Limit     Forecast     Limit
+-----------  ---------   --------   ---------
+    61         0.795       1.231      1.668
+    62         0.439       1.295      2.150
+    63         0.032       1.242      2.452
+    64        -0.332       1.128      2.588
+    65        -0.605       1.005      2.614
+    66        -0.776       0.908      2.593
+</pre>
+</td>
+</tr>
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc45.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section5/pmc5.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc451.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:22:06 GMT -->
+</HTML>

@@ -1,0 +1,428 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda41.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:24 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.1. Case Studies Introduction</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda42.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Case Studies Introduction</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The purpose of the first eight case studies is to show how EDA graphics
+and quantitative measures and tests are applied to data from scientific
+processes and to critique those data with regard to the following
+assumptions that typically underlie a measurement process; namely,
+that the data behave like:
+<UL>
+   <LI>random drawings</LI>  
+   <LI>from a fixed distribution</LI>  
+   <LI>with a fixed location</LI>  
+   <LI>with a fixed standard deviation</LI>  
+</UL>
+Case studies 9 and 10 show the use of EDA techniques in distributional
+modeling and the analysis of a designed experiment, respectively.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Y<sub>i</sub> = C + E<sub>i</sub>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+If the above assumptions are satisfied, the process is said to be
+statistically "in control" with the core characteristic of having
+"predictability".  That is, probability statements can be made about
+the process, not only in the past, but also in the future.
+<p>
+ An appropriate model for an "in control" process is
+<UL>
+   <b><i>Y<sub>i</sub></i> = <i>C</i> + <i>E<sub>i</sub></i></b>
+</UL>
+where <b><i>C</i></b> is a constant (the "deterministic" or
+"structural" component), and where <b><i>E<sub>i</sub></i></b> is the
+error term (or "random" component).
+<p>
+The constant <b><i>C</i></b> is the average value of the process--it
+is the primary summary number which shows up on any report.  Although
+<b><i>C</i></b> is (assumed) fixed, it is unknown, and so a primary
+analysis objective of the engineer is to arrive at an estimate of
+<b><i>C</i></b>.
+<P>
+This goal partitions into 4 sub-goals:
+<OL>
+   <LI>Is the most common estimator of <b><i>C</i></b>, 
+       <!-- <img src="eqns/ybar.gif" align=bottom alt="YBAR">, -->
+       \(\bar{Y}\), the best estimator for <b><i>C</i></b>?  What does
+       "best" mean?
+       <P>
+   </LI>
+   <LI>If <!-- <img src="eqns/ybar.gif" align=bottom alt="YBAR"> -->
+       \(\bar{Y}\) is best, what is the uncertainty
+       <!-- <img src="eqns/sdybar.gif" align=bottom alt="s(YBAR)"> -->
+       \(s_{\bar{Y}}\) for
+       <!--  <img src="eqns/ybar.gif" align=bottom alt="YBAR">. -->
+       \(\bar{Y}\).  In particular, is the usual formula for the
+       uncertainty of \(\bar{Y}\):
+       <!-- <img src="eqns/ybar.gif" align=bottom alt="YBAR">: -->
+       <P>
+       <UL>
+           <!--
+           <img src="eqns/sdivsqrtn.gif" align=bottom
+                alt="s(YBAR) = s/SQRT(N)">
+           -->
+           \( s_{\bar{Y}} = s/\sqrt{N} \)
+       </UL>
+       <P>
+       valid?  Here, <I><B>s</B></I> is the standard deviation of
+       the data and <b><i>N</i></b> is the sample size.
+       <P>
+   </LI>
+   <LI>If <!-- <img src="eqns/ybar.gif" align=bottom alt="YBAR"> -->
+       \(\bar{Y}\) is <b>not</b> the best estimator for <b><i>C</i></b>,
+       what is a better estimator for <b><i>C</i></b> (for example,
+       median, midrange, midmean)?
+       <P>
+   </LI>
+   <LI>If there is a better estimator,
+       <!-- <img src="eqns/chat.gif" align=bottom alt="CHAT">, -->
+       \(\hat{C}\), what is its uncertainty?  That is, what is 
+       <!--<img src="eqns/sdchat.gif" align=middle alt="s(CHAT)">? -->
+       \(s_{\hat{C}}\)?
+   </LI>
+</OL>
+EDA and the routine checking of underlying assumptions
+provides insight into all of the above.
+<OL>
+   <LI><a href="../section3/eda351.html">Location</a> and
+       <a href="../section3/eda356.html">variation</a> checks provide
+       information as to whether <b><i>C</i></b> is really constant.
+       <P>
+   </LI>
+   <LI>Distributional checks indicate whether
+       <!-- <img src="eqns/ybar.gif" align=bottom alt="YBAR"> -->
+       \(\bar{Y}\) is the best estimator.  Techniques for
+       distributional checking include
+       <a href="../section3/histogra.html">histograms</a>,
+       <a href="../section3/normprpl.html">normal probability plots</a>,
+       and <a href="../section3/ppccplot.html">probability
+       plot correlation coefficient plots</a>.
+       <P>
+   </LI>
+   <LI>Randomness checks ascertain whether the usual
+       <p>
+       <ul>
+          <!--
+          <img src="eqns/sdivsqrtn.gif" align=bottom
+               alt="s(YBAR) = s/SQRT(N)">
+          -->
+           \( s_{\bar{Y}} = s/\sqrt{N} \)
+       </ul>
+       <p>
+       is valid.
+       <P>
+   </LI>
+   <LI>Distributional tests assist in determining a better estimator,
+       if needed.
+       <P>
+    </LI>
+    <LI>Simulator tools (namely 
+        <a href="../section3/bootplot.html">bootstrapping</a>) provide
+        values for the uncertainty of alternative estimators.
+    </LI>
+</OL>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Assumptions not satisfied
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+If one or more of the above assumptions is not satisfied, then
+we use EDA techniques, or some mix of EDA and classical techniques,
+to find a more appropriate model for the data.  That is,
+<UL>
+    <b><i>Y<sub>i</sub></i> = <i>D</i> + <i>E<sub>i</sub></i></b>
+</UL>
+where <b><i>D</i></b> is the deterministic part and <b><i>E</i></b>
+is an error component.
+<p>
+If the data are not random, then we may investigate fitting
+some simple time series models to the data.  If the constant location
+and scale assumptions are violated, we may need to investigate the
+measurement process to see if there is an explanation.
+<p>
+The assumptions on the error term are still quite relevant in the
+sense that for an appropriate model the error component should follow
+the assumptions.  The criterion for validating the model, or
+comparing competing models, is framed in terms of these assumptions.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Multivariable data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Although the case studies in this chapter utilize univariate data,
+the assumptions above are relevant for multivariable data as well.
+<p>
+If the data are not univariate, then we are trying to find a model
+<UL>
+    <b><i>Y<sub>i</sub></i> = <i>F</i>(<i>X</i><sub>1</sub>, ...,
+    <i>X<sub>k</sub></i>) + <i>E<sub>i</sub></i></b>
+</UL>
+where <b><i>F</i></b> is some function based on one or more variables.
+The error component, which is a univariate data set, of a good model
+should satisfy the assumptions given above.  The criterion for
+validating and comparing models is based on how well the error
+component follows these assumptions.
+<p>
+The <a href="../../pmd/section6/pmd61.html">load cell calibration</a>
+case study in the process modeling chapter shows an example of this
+in the regression context.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+First three case studies utilize data with known characteristics
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The first three case studies utilize data that are randomly
+generated from the following distributions:
+<UL>
+    <LI>normal distribution with mean 0 and standard deviation 1
+        <P>
+    <LI>uniform distribution with mean 0 and standard deviation
+        <!-- <img align=absmiddle src="eqns/sqrt12.gif" align=bottom
+        alt="SQRT(1/12)"> -->
+        \(\sqrt{1/12}\) (uniform over the interval (0,1))
+        <P>
+    <LI>random walk
+</UL>
+The other univariate case studies utilize data from scientific
+processes.  The goal is to determine if 
+<UL>
+    <b><i>Y<sub>i</sub></i> = <i>C</i> + <i>E<sub>i</sub></i></b>
+</UL>
+is a reasonable model.  This is done by testing the underlying
+assumptions.  If the assumptions are satisfied, then an estimate of
+<b><i>C</i></b> and an estimate of the uncertainty of <b><i>C</i></b>
+are computed.  If the assumptions are not satisfied, we attempt to
+find a model where the error component does satisfy the underlying
+assumptions.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Graphical methods that are applied to the data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To test the underlying assumptions, each data set is analyzed using
+four graphical methods that are particularly suited for this purpose:
+<OL>
+    <LI><a href="../section3/runseqpl.html">run sequence plot</a>
+        which is useful for detecting shifts of location or scale
+        <P>
+    <li><a href="../section3/lagplot.html">lag plot</a>
+        which is useful for detecting non-randomness in the data
+        <P>
+    <li><a href="../section3/histogra.html">histogram</a> which is
+        useful for trying to determine the underlying distribution
+        <P>
+    <li><a href="../section3/normprpl.html">normal probability plot</a>
+        for deciding whether the data follow the normal distribution
+</OL>
+There are a number of other techniques for addressing the underlying
+assumptions.  However, the four plots listed above provide an
+excellent opportunity for addressing all of the assumptions on a single
+page of graphics.
+<p>
+Additional graphical techniques are used in certain case studies
+to develop models that do have error components that satisfy the
+underlying assumptions.
+</TD>
+</TR>
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Quantitative methods that are applied to the data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The normal and uniform random number data sets are also analyzed with
+the following quantitative techniques, which are explained in more
+detail in an earlier section:
+<OL>
+   <LI>Summary statistics which include:
+       <UL>
+          <LI><a href="../section3/eda351.html">mean</a>
+          <LI><a href="../section3/eda356.html">standard deviation</a>
+          <LI><a href="../section3/eda35c.html">autocorrelation
+              coefficient</a> to test for randomness
+          <LI><a href="../section3/ppccplot.html">normal and uniform
+              probability plot correlation coefficients</a>
+             (ppcc) to test for a normal or uniform
+              distribution, respectively
+          <LI>Wilk-Shapiro test for a normal distribution
+       </UL> 
+       <P>
+   <LI>Linear fit of the data as a function of time to assess
+       drift (test for fixed location)
+       <P>
+   <LI><a href="../section3/eda357.html">Bartlett test</a>
+       for fixed variance
+       <P>
+   <LI><a href="../section3/autocopl.html">Autocorrelation plot</a>
+       and coefficient to test for randomness
+       <P>
+   <LI><a href="../section3/eda35d.html">Runs test</a>
+       to test for lack of randomness
+       <P>
+   <LI><a href="../section3/eda35e.html">Anderson-Darling test</a>
+       for a normal distribution
+       <P>
+   <LI><a href="../section3/eda35h.html">Grubbs test</a>
+       for outliers
+       <P>
+   <LI>Summary report
+</OL>
+<P>
+Although the graphical methods applied to the normal and uniform
+random numbers are sufficient to assess the validity of the
+underlying assumptions, the quantitative techniques are
+used to show the different flavor of the graphical and
+quantitative approaches.
+<P>
+The remaining case studies intermix one or more of these
+quantitative techniques into the analysis where appropriate.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda42.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda41.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:24 GMT -->
+</HTML>

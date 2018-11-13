@@ -1,0 +1,285 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/pmc622.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:23:27 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.2.2. Model Identification</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc623.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc621.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.html">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc62.html">Aerosol Particle Size</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.2.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Model Identification</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Check for Stationarity, Outliers, Seasonality</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The first step in the analysis is to generate a
+<a href="../../eda/section3/runseqpl.html">run sequence
+plot</a> of the response variable. A run sequence plot can indicate
+<a href="../section4/pmc442.html">stationarity</a>
+(i.e., constant location and scale), the presence of outliers, and
+seasonal patterns.
+<p>
+Non-stationarity can often be removed by differencing the data or
+fitting some type of trend curve.  We would then attempt to fit a
+Box-Jenkins model to the differenced data or to the residuals after
+fitting a trend curve.
+<p>
+Although Box-Jenkins models can estimate seasonal components, the
+analyst needs to specify the seasonal period (for example, 12 for
+monthly data).  Seasonal components are common for economic time series.
+They are less common for engineering and scientific data.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="RUNSEQPL"></a>
+<i>Run Sequence Plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<img SRC="negiz4/gif/runseqpl.gif"
+     ALT="Run sequenc plot of particle size">
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Interpretation of the Run Sequence Plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+We can make the following conclusions from the run sequence plot.
+<ol>
+   <li>The data show strong and positive autocorrelation.</li>
+       <p>
+   <li>There does not seem to be a significant trend or any obvious
+       seasonal pattern in the data.</li>
+</ol>
+The next step is to examine the sample autocorrelations using the
+<a href="../../eda/section3/autocopl.html">autocorrelation plot</a>.
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="AUTOCOPL"></a>
+<i>Autocorrelation Plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<img SRC="negiz4/gif/autocopl.gif"
+     ALT="Autocorelation plot of the particel size data">
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Interpretation of the Autocorrelation Plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The autocorrelation plot has a
+<a href="../../eda/section3/autocopl.html">95% confidence band</a>,
+which is constructed based on the assumption that the process is a
+moving average process.  The autocorrelation plot shows that the sample
+autocorrelations are very strong and positive and decay very slowly.
+<p>
+The autocorrelation plot indicates that the process is non-stationary
+and suggests an ARIMA model.  The next step is to difference the data.
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="RUNSEQP2"></a>
+<i>Run Sequence Plot of Differenced Data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<img SRC="negiz4/gif/runseqp2.gif"
+     ALT="Run sequence plot of particle size after differencing">
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Interpretation of the Run Sequence Plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The run sequence plot of the differenced data shows that the mean
+of the differenced data is around zero, with the differenced data
+less autocorrelated than the original data.
+<p>
+The next step is to examine the sample autocorrelations of the
+differenced data.
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="AUTOCOP2"></a>
+<i>Autocorrelation Plot of the Differenced Data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<img SRC="negiz4/gif/autocop2.gif"
+     ALT="Autocorelation plot of the particle size data after differencing">
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Interpretation of the Autocorrelation Plot of the Differenced Data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The autocorrelation plot of the differenced data with a 95% confidence
+band shows that only the autocorrelation at lag 1 is significant.
+The autocorrelation plot together with run sequence of the differenced
+data suggest that the differenced data are stationary.  Based on the
+autocorrelation plot, an MA(1) model is suggested for the differenced
+data.
+<p>
+To examine other possible models, we produce the partial autocorrelation
+plot of the differenced data.
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="PARTAUPL">
+<i>Partial Autocorrelation Plot of the Differenced Data</i>
+</a>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<img SRC="negiz4/gif/partaupl.gif" ALT=
+"Partial autocorrelation plot of the particle size data after differencing">
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Interpretation of the Partial Autocorrelation Plot of the
+Differenced Data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The partial autocorrelation plot of the differenced data with
+95% confidence bands shows that only the partial autocorrelations of the
+first and second lag are significant.  This suggests an AR(2) model
+for the differenced data.
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Akaike Information Criterion (AIC and AICC)
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Information-based criteria, such as the AIC or AICC (see
+<a href="../section7/pmc7.html#Brockwell2">Brockwell and Davis (2002),
+pp. 171-174</a>), can be used to automate the choice of an appropriate
+model.  Many software programs for time series analysis will 
+generate the AIC or AICC for a broad range of models.  
+<p>
+Whatever method is used for model identification,
+model diagnostics should be performed on the selected model.
+Based on the plots in this section, we will examine the 
+ARIMA(2,1,0) and ARIMA(0,1,1) models in detail.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc621.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc623.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/pmc622.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:23:34 GMT -->
+</HTML>

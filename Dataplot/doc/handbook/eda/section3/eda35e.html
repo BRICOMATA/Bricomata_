@@ -1,0 +1,379 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35e.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:16 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.14. Anderson-Darling Test</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35f.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35d.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.14.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Anderson-Darling Test</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Test for Distributional Adequacy
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Anderson-Darling test
+      (<a href="../section4/eda43.html#Stephens">Stephens, 1974</a>)
+      is used to test if a sample of data came from a population
+      with a specific distribution.  It is a modification of the
+      <a href="eda35g.html">Kolmogorov-Smirnov (K-S) test</a> and
+      gives more weight to the tails than does the K-S test.  The K-S
+      test is distribution free in the sense that the critical values
+      do not depend on the specific distribution being tested (note that
+      this is true only for a fully specified distribution, i.e. the
+      parameters are known).  The Anderson-Darling test makes use of the
+      specific distribution in calculating critical values.  This has the
+      advantage of allowing a more sensitive test and the disadvantage
+      that critical values must be calculated for each distribution.
+      Currently, tables of critical values are available for the
+      <a href="eda3661.html">normal</a>,
+      <a href="eda3662.html">uniform</a>,
+      <a href="eda3669.html">lognormal</a>,
+      <a href="eda3667.html">exponential</a>,
+      <a href="eda3668.html">Weibull</a>,
+      <a href="eda366g.html">extreme value type I</a>, generalized Pareto,
+      and logistic distributions.  We do not provide the tables of
+      critical values in this Handbook (see
+      <a href="../section4/eda43.html#Stephens">Stephens 1974,
+      1976, 1977, and 1979</a>) since this test is usually
+      applied with a statistical software program that will print
+      the relevant critical values. 
+      <p>
+      The Anderson-Darling test is an alternative to the
+      <a href="eda35f.html">chi-square</a> and
+      <a href="eda35g.html">Kolmogorov-Smirnov</a>
+      goodness-of-fit tests.
+
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Anderson-Darling test is defined as:
+      <table>
+
+      <tr>
+         <td valign=top>
+            H<sub>0</sub>:
+         </td>
+         <td valign=top>
+            The data follow a specified distribution.
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            H<sub>a</sub>:
+         </td>
+         <td valign=top>
+            The data do not follow the specified distribution
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td align=top>
+            The Anderson-Darling test statistic is defined as
+            <ul>
+               <!--
+               <img src="eqns/adstat1.gif" alt="A**2 = -N - S">
+               -->
+               \[ A^{2} = -N - S \]
+            </ul>
+            where
+            <p>
+              <!--
+              <img src="eqns/adstat2.gif" alt=
+     "S=SUM(i=1 to N)((2*i - 1)/N)*[LN(F(Y(i)) + LN(1 - F(Y(N+1-i))]">
+              -->
+              \[ S = \sum_{i=1}^{N}\frac{(2i - 1)}{N}[\ln{F(Y_{i})} +
+              \ln{(1 - F(Y_{N+1-i}))}] \]
+            <p>
+            <b><i>F</i></b> is the <a href="eda362.html#CDF">cumulative
+            distribution function</a> of the specified distribution.
+            Note that the <i>Y<sub>i</sub></i> are the <i>ordered</i>
+            data.
+          </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=top>
+            <!-- <img src="eqns/alpha.gif" alt="alpha"> -->
+            <big<i>&alpha;</i></big>
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Critical Region:
+         </td>
+         <td align=top>
+            The critical values for the Anderson-Darling test
+            are dependent on the specific distribution that is
+            being tested.  Tabulated values and formulas have
+            been published
+            (<a href="../section4/eda43.html#Stephens">Stephens, 1974,
+            1976, 1977, 1979</a>)
+            for a few specific distributions (normal, lognormal,
+            exponential, Weibull, logistic, extreme value type 1).
+            The test is a one-sided test and the hypothesis that
+            the distribution is of a specific form is rejected if the
+            test statistic, A, is greater than the critical value.
+            <p>
+            Note that for a given distribution, the Anderson-Darling
+            statistic may be multiplied by a constant (which
+            usually depends on the sample size, <i>n</i>).  These
+            constants are given in the various papers by Stephens.
+            In the sample output below, the test statistic values
+            are adjusted.  Also, be aware that
+            different constants (and therefore critical values) have
+            been published.  You just need to be aware of what
+            constant was used for a given set of critical values
+            (the needed constant is typically given with the
+            critical values).
+         </td>
+      </tr>
+
+     </table>
+    
+   </td>
+</tr>
+
+<!-----begin section: sample output -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Output<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+      We generated 1,000 random numbers for normal, 
+      double exponential, Cauchy, and lognormal distributions. 
+      In all four cases, the Anderson-Darling
+      test was applied to test for a normal distribution.
+      <P>
+      The normal random numbers were stored in the variable Y1,
+      the double exponential random numbers were stored in the
+      variable Y2, the Cauchy random numbers were stored in the
+      variable Y3, and the lognormal random numbers were stored
+      in the variable Y4.
+
+      <PRE>
+
+      Distribution                 Mean       Standard Deviation
+      ------------               --------     ------------------
+      Normal (Y1)                0.004360          1.001816
+      Double Exponential (Y2)    0.020349          1.321627
+      Cauchy (Y3)                1.503854         35.130590
+      Lognormal (Y4)             1.518372          1.719969
+      
+      H<sub>0</sub>:  the data are normally distributed
+      H<sub>a</sub>:  the data are not normally distributed
+
+      Y1 adjusted test statistic:  <I>A</I><SUP>2</SUP> =   0.2576
+      Y2 adjusted test statistic:  <I>A</I><SUP>2</SUP> =   5.8492
+      Y3 adjusted test statistic:  <I>A</I><SUP>2</SUP> = 288.7863
+      Y4 adjusted test statistic:  <I>A</I><SUP>2</SUP> =  83.3935
+
+      Significance level:  &alpha; = 0.05
+      Critical value:  0.752   
+      Critical region:  Reject H<sub>0</sub> if <I>A</I><SUP>2</SUP> > 0.752
+      </PRE>
+      When the data were generated using a normal distribution, the
+      test statistic was small and the hypothesis of normality was not
+      rejected.  When the data were generated using the double exponential,
+      Cauchy, and lognormal distributions, the test statistics were
+      large, and the hypothesis of an underlying normal
+      distribution was rejected at the 0.05 significance level.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Anderson-Darling test can be used to answer the following
+      questions:
+      <ul>
+         <li>Are the data from a normal distribution?
+         <li>Are the data from a log-normal distribution?
+         <li>Are the data from a Weibull distribution?
+         <li>Are the data from an exponential distribution?
+         <li>Are the data from a logistic distribution?
+      </ul>
+
+   </td>
+</tr>
+
+<!-----begin section: importance -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Importance
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Many statistical tests and procedures are based on specific
+      distributional assumptions.  The assumption of normality
+      is particularly common in classical statistical tests.
+      Much reliability modeling is based on the assumption
+      that the data follow a Weibull distribution.
+      <p>
+      There are many non-parametric and robust techniques that
+      do not make strong distributional assumptions.  However,
+      techniques based on specific distributional assumptions
+      are in general more powerful than non-parametric and
+      robust techniques.  Therefore, if the distributional assumptions
+      can be validated, they are generally preferred.
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="eda35f.html">Chi-Square goodness-of-fit Test</a><br>
+      <a href="eda35g.html">Kolmogorov-Smirnov Test</a><br> 
+      <a href="../../prc/section2/prc213.html">Shapiro-Wilk
+            Normality Test</a><br>
+      <a href="probplot.html">Probability Plot</a><br> 
+      <a href="ppccplot.html">Probability Plot Correlation Coefficient
+         Plot</a><br> 
+
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="../section4/eda424.html">Josephson junction cryothermometry</a>
+         case study.
+   </td>
+</tr>
+
+<!-----begin section: Software -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      The Anderson-Darling goodness-of-fit test is available in some
+      general purpose statistical software programs.
+      Both <a href="eda35e.dp">Dataplot code</a> and 
+      <a href="eda35e.r">R code</a> can be used to generate the
+      analyses in this section.
+   </td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35d.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35f.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35e.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:18 GMT -->
+</HTML>

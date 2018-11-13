@@ -1,0 +1,315 @@
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/randwalk/randwalk.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+  <TITLE>Dataplot Commands for Random Walk Case Study</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+        <IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+           <area shape="rect" alt="Next Page" href="../eda4235.html" coords="463,27,504,45">
+           <area shape="rect" alt="Previous Page" href="../eda4235.html" coords="417,28,459,45">
+           <area shape="rect" alt="Home" href="../../index.html" coords="52,0,100,43">
+           <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="165,27,264,46">
+           <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="307,28,366,44">
+           <area shape="default" nohref>
+   </map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Random Walk Case Study</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Invoke Dataplot, set defautls, read data<I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Random Walk Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+tic offset units screen
+tic offset 5 5
+title displacement 2
+case asis
+title case asis
+label case asis
+tic label case asis
+character case asis all
+legend case asis
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+skip 25
+read randwalk.dat y
+skip 0
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>4-Plot</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+. Starting Step 2.1: Generate 4-plot
+.
+label size 6
+tic label size 6
+character size 4
+x3label displacement 11
+x3label automatic
+4-plot Y
+x3label
+.
+justification center
+height 4
+move 50 96
+text Random Walk:  4-Plot
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Summary</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+. Starting Step 2.2
+.
+summary y
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Location</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+. Starting Step 2.3
+.
+let n = size y
+let x = sequence 1 1 n
+fit y x
+let idf2 = n - 2
+read dpst1f.dat coef coefsd
+let bsd = coefsd(2)
+let lclb = bsd - tppf(0.975,idf2)*bsd
+let uclb = bsd + tppf(0.975,idf2)*bsd
+let string idrift = NO
+let atemp = lclb*uclb
+if atemp < 0
+  let string idrift = YES
+end of if
+. Finished Step 2.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Variation</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+. Starting Step 2.4
+.
+let n = size y
+let ysd = standard deviation y
+.
+let x = sequence 1 1 n
+let x = code4 x
+levene test y x
+. Finished Step 2.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Randomness</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+. Starting Step 2.5
+.
+runs y
+. Finished Step 2.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Autocorrelation Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.1
+.
+label case asis
+line solid
+character BLANK
+y1label Correlation
+x1label Lag
+let nlag = 100
+xlimits 0 100
+autocorrelation plot y
+xlimits
+y1label
+x1label
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Spectral Plot</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+. Starting Step 3.2
+.
+label case asis
+y1label Spectrum
+x1label Frequency
+spectral plot y
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fit</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.1
+.
+let n = size y
+let nm1 = n - 1
+let yi = y
+let yim1 = y
+retain yi for i = 2 1 n
+retain yim1 for i = 1 1 nm1
+fit yi yim1
+.
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Validate Fit</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.3
+.
+char BLANK
+LINE SOLID
+label size 6
+tic label size 6
+character size 4
+x3label displacement 13
+x3label automatic
+4-plot RES
+x3label
+.
+justification center
+height 4
+move 50 96
+text Residuals:  4-Plot
+. Finished Step 4.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Uniform Probability Plot of Residuals</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<PRE>
+. Starting Step 4.4
+x3label automatic
+line solid
+character BLANK
+y1label Dlc()ata
+x1label Tlc()heoretical
+uniform probability plot res
+y1label
+x1label
+x3label
+label size
+tic label size
+. Finished Step 4.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+</TABLE>
+
+<A HREF="http://www.nist.gov/">
+   <IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+   </MAP>
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="../eda4235.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../eda4235.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/randwalk/randwalk.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+</HTML>
+

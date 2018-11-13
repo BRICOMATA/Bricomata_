@@ -1,0 +1,509 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr422.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:40 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.2.2. Maximum likelihood</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr423.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr421.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr42.html">How do you fit an acceleration model?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.2.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Maximum likelihood</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>The maximum likelihood method can be used to estimate distribution 
+and acceleration model parameters at the same time</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The likelihood equation for a multi-cell acceleration
+model utilizes the <a href="apr412.html">likelihood function</a> 
+for each cell, as described in section 8.4.1.2. Each cell will 
+have unknown life distribution parameters that, in general, are different. 
+For example, if a lognormal model is used, each cell might have its own \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+and sigma.
+<p>
+Under an acceleration assumption, however, all the cells contain samples
+from populations that have the same value of sigma (the slope does not 
+change for different stress cells). Also, the \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+values are related to one another by the acceleration model; they all can be 
+written using the acceleration model equation that includes the proper cell 
+stresses.
+<p>
+To form the likelihood equation under the acceleration model assumption,
+simply rewrite each cell likelihood by replacing each cell \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+with its acceleration model equation equivalent and replacing each cell sigma
+with the same overall sigma. Then, multiply all these modified cell likelihoods 
+together to obtain the overall likelihood equation.
+<p>
+Once the overall likelihood equation has been created, the maximum likelihood
+estimates (MLE) of sigma and the acceleration model parameters are the values
+that maximize this likelihood. In most cases, these values are obtained
+by setting partial derivatives of the log likelihood to zero and solving
+the resulting (non-linear) set of equations.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>The method is complicated and requires specialized software</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+As you can see, the procedure is complicated, computationally intensive, 
+and is only practical if appropriate software is available. MLE does have 
+many desirable features.
+<ul>
+<li>
+The method can, in theory at least, be used for any distribution model
+and acceleration model and type of censored data.
+</li>
+<li>
+Estimates have "optimal" statistical properties as sample sizes (i.e.,
+numbers of failures) become large.
+</li>
+<li>
+Approximate confidence bounds can be calculated.
+</li>
+<li>
+Statistical tests of key assumptions can be made using the 
+<a href="../section2/apr233.html">likelihood ratio test.</a> Some common tests are:
+</li>
+
+<ul>
+<li>
+the life distribution model versus another simpler model with fewer parameters
+(i.e., a 3-parameter Weibull versus a 2-parameter Weibull, or a 2-parameter
+Weibull versus an exponential),
+</li>
+<li>
+the constant slope from cell to cell requirement of typical acceleration
+models, and
+</li>
+<li>
+the fit of a particular acceleration model.
+</li>
+</ul>
+</ul>
+In general, the <a href="apr41.html">recommendations</a> made when comparing
+methods of estimating life distribution model parameters also apply here.
+Software incorporating acceleration model analysis capability, while rare
+just a few years ago, is now readily available and many companies and universities
+have developed their own proprietary versions.
+<p>
+<a NAME="Fit Reliability"></a><b>Steps For Fitting The Arrhenius Model</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Use MLE to fit an Arrhenius model
+to example data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Data from the 
+<a href="apr421.html#Graphical Estimation: Arrhenius Model">Arrhenius example</a> 
+given in section 8.4.2.1 were analyzed using MLE.  The analyses in this 
+section can can be implemented using <a href="apr422.r">R code</a>.
+<p>
+1. We generate survival curves for each cell.  All plots and estimates
+are based on individual cell data, without the Arrhenius model assumption.
+<center>
+<img SRC="apr422_r01.gif" ALT="Survival Curves">
+</center>
+<p>
+2. The results of lognormal survival regression modeling for
+the three data cells are shown below.
+<p>
+<pre>
+<b>Cell 1 - 85 &deg;C</b>
+  Parameter   Estimate   Stan. Dev     <i>z</i> Value
+  ---------   --------   ---------     -------
+  Intercept     8.891      0.890        9.991    
+  ln(scale)     0.192      0.406        0.473    
+ 
+  sigma = exp(ln(scale)) = 1.21 
+  ln likelihood = -53.4  
+ 
+</pre>
+
+<pre>
+<b>Cell 2 - 105 &deg;C</b>
+  Parameter   Estimate   Stan. Dev     <i>z</i> Value
+  ---------   --------   ---------     -------
+  Intercept     6.470      0.108        60.14      
+  ln(scale)    -0.336      0.129        -2.60      
+ 
+  sigma = exp(ln(scale)) = 0.715 
+  ln likelihood = -265.2 
+  
+</pre>
+
+<pre>
+<b>Cell 3 - 125 &deg;C</b>
+  Parameter   Estimate   Stan. Dev     <i>z</i> Value
+  ---------   --------   ---------     -------
+  Intercept      5.33      0.163        32.82     
+  ln(scale)     -0.21      0.146        -1.44     
+ 
+  sigma = exp(ln(scale)) = 0.81 
+  ln likelihood = -156.5  
+ 
+</pre>
+<p>
+The cell ln likelihood values are -53.4, -265.2 and -156.5, 
+respectively. Adding them together yields a total ln likelihood of -475.1 
+for all the data fit with separate lognormal parameters for each cell (no
+Arrhenius model assumption).
+<p>
+3.  Fit the Arrhenius model to all data using MLE. 
+<pre>
+  Parameter   Estimate   Stan. Dev     <i>z</i> Value
+  ---------   --------   ---------     -------
+  Intercept   -19.906      2.3204       -8.58 
+  l/kT          0.863      0.0761       11.34 
+  ln(scale)    -0.259      0.0928       -2.79 
+ 
+  sigma = exp(ln(scale))Scale = 0.772 
+  ln likelihood = -476.7  
+</pre>
+<p>
+4. The <a href="../section2/apr233.html">likelihood ratio test</a> statistic
+for the Arrhenius model fit (which also incorporates the single sigma acceleration
+assumption) is \(-2 \mbox{ ln } \lambda\), where \(\lambda\)
+<!-- -2ln&thinsp;<i>&lambda;</i>, where <i>&lambda;</i> -->
+denotes the ratio of the likelihood values with 
+(\(L_0\)) and without (\(L_1\))
+<!-- (<i>L</i><sub>0</sub>), and without (<i>L</i><sub>1</sub>) -->
+the Arrhenius model assumption so that
+
+$$ -2 \mbox{ ln } \lambda = -2 \mbox{ ln } (L_0 / L_1) = -2(\mbox{ln } L_0 - \mbox{ln } L_1) \, . $$
+
+<!--
+<p>
+<center>
+-2ln&thinsp;<i>&lambda;</i> = 
+-2ln&thinsp;(<i>L</i><sub>0</sub>/<i>L</i><sub>1</sub>) =
+-2(ln&thinsp;<i>L</i><sub>0</sub> - ln&thinsp;<i>L</i><sub>1</sub>).
+</center>
+<p>
+-->
+
+Using the results from steps 2 and 3, we have 
+
+$$ -2 \mbox{ ln } \lambda = -2[-476.7 - (-475.1)] = 3.2 \, . $$
+
+<!-- -2ln&thinsp;<i>&lambda;</i> = -2(-476.7 - (-475.1)) = 3.2. -->
+The degrees of freedom 
+for the Chi-Square test statistic is 6 - 3 = 3, since six parameters were reduced
+to three under the acceleration model assumption. The chance of obtaining
+a value 3.2 or higher is 36.3 % for a Chi-Square distribution with 3 
+degrees of freedom, which indicates an acceptable model (no significant lack of fit).
+<p>
+This completes the Arrhenius model analysis of the three cells
+of data.  If different cells of data have different voltages, then a
+new variable "\(\mbox{ln } V\)"
+<!-- "ln <i>V</i>" -->
+could be added as an effect to fit the Inverse
+Power Law voltage model. In fact, several effects can be included at once
+if more than one stress varies across cells. Cross product stress terms
+could also be included by adding these columns to the spreadsheet and adding
+them in the model as additional "effects".
+<p>
+<a NAME="An Example Comparing Graphical Estimates and MLE"></a>
+<b>Example Comparing Graphical Estimates and MLE</b>
+</td>
+</tr>
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Arrhenius example comparing graphical and MLE method results</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The results from the three-stress-cell 
+<a href="apr421.html#Graphical Estimation: Arrhenius Model">Arrhenius
+example</a> using graphical and MLE methods
+for estimating parameters are shown in the table below.
+<p>
+<table COLS=5 WIDTH="100%" >
+<tr>
+<td></td>
+
+<td ALIGN=CENTER COLSPAN="2"><b>Graphical Estimates</b></td>
+
+<td ALIGN=CENTER COLSPAN="2"><b>MLE</b></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td>
+<center> \(\mbox{ln } T_{50}\)
+<!-- ln <i>T<sub>50</sub></i> -->
+</center>
+</td>
+
+<td>
+<center>Sigma</center>
+</td>
+
+<td>
+<center>\(\mbox{ln } T_{50}\)
+<!-- ln <i>T<sub>50</sub></i> -->
+</center>
+</td>
+
+<td>
+<center>Sigma</center>
+</td>
+</tr>
+
+<tr>
+<td COLSPAN="5">
+<hr></td>
+</tr>
+
+<tr>
+<td>
+<center>Cell 1</center>
+</td>
+
+<td>
+<center>8.17</center>
+</td>
+
+<td>
+<center>0.91</center>
+</td>
+
+<td>
+<center>8.89</center>
+</td>
+
+<td>
+<center>1.21</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>Cell 2</center>
+</td>
+
+<td>
+<center>6.42</center>
+</td>
+
+<td>
+<center>0.66</center>
+</td>
+
+<td>
+<center>6.47</center>
+</td>
+
+<td>
+<center>0.71</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>Cell 3</center>
+</td>
+
+<td>
+<center>5.32</center>
+</td>
+
+<td>
+<center>0.81</center>
+</td>
+
+<td>
+<center>5.33</center>
+</td>
+
+<td>
+<center>0.81</center>
+</td>
+</tr>
+
+</table>
+<br>
+<br>
+<table WIDTH="100%" >
+<caption><b>Acceleration Model Overall Estimates</b></caption>
+
+<tr>
+<td></td>
+
+<td>
+<center>\(\Delta H\)
+<!-- <img SRC="gifs/delta.gif" ALT="delta"  align=ABSBOTTOM>H -->
+</center>
+</td>
+
+<td>
+<center>Sigma</center>
+</td>
+
+<td>
+<center>\(\mbox{ln } A\)
+<!-- ln <i>A</i></center> -->
+</td>
+</tr>
+
+<tr>
+<td COLSPAN="5">
+<hr></td>
+</tr>
+
+<tr>
+<td>
+<center>Graphical</center>
+</td>
+
+<td>
+<center>0.808</center>
+</td>
+
+<td>
+<center>0.74</center>
+</td>
+
+<td>
+<center>-18.312</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>MLE</center>
+</td>
+
+<td>
+<center>0.863</center>
+</td>
+
+<td>
+<center>0.77</center>
+</td>
+
+<td>
+<center>-19.91</center>
+</td>
+</tr>
+</table>
+
+<p>
+Note that when there are a lot of failures and little censoring, the
+two methods are in fairly close agreement. Both methods are also in close
+agreement on the Arrhenius model results. However, even small differences
+can be important when projecting reliability numbers at use conditions.
+In this example, the CDF at 25 &deg;C and 100,000 hours projects to 0.014
+using the graphical estimates and only 0.003 using the MLE.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>MLE method tests models and gives confidence intervals</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The maximum likelihood method allows us to test whether
+parallel lines (a single sigma) are reasonable and whether 
+the Arrhenius model is acceptable. The 
+<a href="../section2/apr233.html">likelihood ratio tests</a> for the
+three example data cells indicated that a single sigma and the
+Arrhenius model are appropriate.  In addition, we can compute 
+confidence intervals for all estimated parameters
+based on the MLE results.
+</td>
+</tr>
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr421.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr423.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr422.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:41 GMT -->
+</HTML>

@@ -1,0 +1,355 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/ppccplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:26:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.23. Probability Plot Correlation Coefficient Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33o.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33m.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.23.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Probability Plot Correlation Coefficient Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Graphical Technique for Finding the Shape Parameter of
+         a Distributional Family that Best Fits a Data Set
+      </I>
+   </td>
+   <td width=85% valign=top>
+     The probability plot correlation coefficient (PPCC) plot
+     (<a href="../section4/eda43.html#PPCC">Filliben 1975</a>)
+     is a graphical technique for identifying the
+     <a href="eda363.html">shape parameter</a> for a
+     distributional family that best describes the data set.
+     This technique is appropriate for families, such as the
+     Weibull, that are defined by a single shape parameter
+     and <a href="eda364.html">location and scale parameters</a>,
+     and it is not appropriate for distributions, such as the
+     normal, that are defined only by location and scale
+     parameters.
+     <p>
+     The PPCC plot is generated as follows.  For a series of values
+     for the shape parameter, the correlation coefficient is
+     computed for the <a href="probplot.html">probability
+     plot</a> associated with a given value of the shape parameter.
+     These correlation coefficients  are plotted against their
+     corresponding shape parameters.
+     The maximum correlation coefficient corresponds to the optimal
+     value of the shape parameter.  For better precision, two
+     iterations of the PPCC plot can be generated; the first is for
+     finding the right neighborhood and the second is for fine
+     tuning the estimate.
+     <p>
+     The PPCC plot is used first to find a good value of the
+     shape parameter.  The
+     <a href="probplot.html">probability plot</a> is then generated
+     to find estimates of the location and scale parameters and in
+     addition to provide a graphical assessment of the adequacy of
+     the distributional fit.
+
+   </td>
+</tr>
+
+<!-----begin section: xxx -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>
+      Compare Distributions
+      </I>
+   </td>
+   <td width=85% valign=top>
+     In addition to finding a good choice for estimating the shape
+     parameter of a given distribution, the PPCC plot can be useful
+     in deciding which distributional family is most
+     appropriate.  For example, given a set of reliabilty data,
+     you might generate PPCC plots for a Weibull, lognormal,
+     gamma, and inverse Gaussian distributions, and possibly others,
+     on a single
+     page.  This one page would show the best value for the
+     shape parameter for several distributions and would
+     additionally indicate which of these distributional
+     families provides the best fit (as measured by the
+     maximum probability plot correlation coefficient).  That
+     is, if the maximum PPCC value for the Weibull is 0.99 and
+     only 0.94 for the lognormal, then we could reasonably
+     conclude that the Weibull family is the better choice.
+
+   </td>
+</tr>
+
+<!-----begin section: xxx -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>
+      Tukey-Lambda PPCC Plot for Symmetric Distributions
+      </I>
+   </td>
+   <td width=85% valign=top>
+     The <a href="eda366f.html">Tukey Lambda</a> PPCC plot, with shape
+     parameter <i>&lambda;</i>, is particularly useful for symmetric
+     distributions.  It indicates whether a distribution is short or long
+     tailed and it can further indicate several common distributions.
+     Specifically, 
+     <ol>
+         <li><i>&lambda;</i> = -1: distribution is approximately Cauchy
+         <li><i>&lambda;</i> =  0: distribution is exactly logistic
+         <li><i>&lambda;</i> = 0.14: distribution is approximately normal
+         <li><i>&lambda;</i> = 0.5: distribution is U-shaped
+         <li><i>&lambda;</i> = 1: distribution is exactly uniform
+     </ol>
+     If the Tukey Lambda PPCC plot gives a maximum value near
+     0.14, we can reasonably conclude that the normal distribution
+     is a good model for the data.  If the maximum value is
+     less than 0.14, a  long-tailed distribution such as the double
+     exponential or logistic would be a better choice.
+     If the maximum value is near -1, this implies the selection of
+     very long-tailed distribution, such as the Cauchy.  If the
+     maximum value is greater than 0.14, this implies a
+     short-tailed distribution such as the Beta or uniform.
+     <p>
+     The Tukey-Lambda PPCC plot is used to suggest an
+     appropriate distribution.  You should follow-up with
+     PPCC and probability plots of the appropriate alternatives.
+
+   </td>
+</tr>
+
+<!-----begin section: xxx -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>
+      Use Judgement When Selecting An Appropriate Distributional
+      Family
+      </I>
+   </td>
+   <td width=85% valign=top>
+     When comparing distributional models, do not simply choose
+     the one with the maximum PPCC value.  In many cases, several
+     distributional fits provide comparable PPCC values.  For
+     example, a lognormal and Weibull may both fit a given set
+     of reliability data quite well.  Typically, we would
+     consider the complexity of the distribution.   That is, a 
+     simpler distribution with a marginally smaller PPCC value
+     may be preferred over a more complex distribution.  Likewise,
+     there may be theoretical justification in terms of the
+     underlying scientific model for preferring a distribution
+     with a marginally smaller PPCC value in some cases.
+     In other cases, we may not need to know if the distributional
+     model is optimal, only that it is adequate for our purposes.
+     That is, we may be able to use techniques designed for
+     normally distributed data even if other distributions fit
+     the data somewhat better.
+
+   </td>
+</tr>
+
+
+<!-----begin section: Sample Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The following is a PPCC plot of 100 normal random numbers.
+      The maximum value of the correlation coefficient = 0.997
+      at <i>&lambda;</i> = 0.099.
+      <p> 
+      <img src = "../gif/ppccplot.gif"
+           alt="sample PPCC plot of normal random numbers">
+      <p>
+      This PPCC plot shows that:
+      <ol>
+         <li>the best-fit symmetric distribution is nearly normal;
+         <li>the data are not long tailed;
+         <li>the sample mean would be an appropriate estimator of
+             location.
+      </ol>
+      We can follow-up this PPCC plot with a normal probability
+      plot to verify the normality model for the data.
+   </td>
+</tr>
+
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition:<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+       The PPCC plot is formed by:
+       <ul>
+          <li>Vertical axis: Probability plot correlation coefficient;
+          <li>Horizontal axis: Value of shape parameter.
+       </ul>
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The PPCC plot answers the following questions:
+      <ol>
+         <li>What is the best-fit member within a distributional
+             family?
+         <li>Does the best-fit member provide a good fit (in terms
+             of generating a probability plot with a high correlation
+             coefficient)?
+         <li>Does this distributional family provide a good fit
+             compared to other distributions?
+         <li>How sensitive is the choice of the shape parameter?
+      </ol>
+   </td>
+</tr>
+
+<!-----begin section: Importance -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Importance<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Many statistical analyses are based on distributional assumptions
+      about the population from which the data have been obtained.
+      However, distributional families can have
+      radically different shapes depending on the value of the shape
+      parameter.  Therefore, finding a reasonable choice for the shape
+      parameter is a necessary step in the analysis.  In many analyses,
+      finding a good distributional model for the data is the primary
+      focus of the analysis.  In both of these cases, the PPCC plot
+      is a valuable tool.
+
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="probplot.html">Probability Plot</a><br>
+      <a href="eda3652.html">Maximum Likelihood Estimation</a><br>
+      <a href="eda3653.html">Least Squares Estimation</a><br>
+      <a href="eda3651.html">Method of Moments Estimation</a><br>
+   </td>
+</tr>
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+PPCC plots are currently not available in most common general purpose
+statistical software programs.  However, the underlying technique
+is based on probability plots and correlation coefficients, so
+it should be possible to write macros for PPCC plots in statistical
+programs that support these capabilities.
+Dataplot supports PPCC plots.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33m.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33o.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/ppccplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:26:50 GMT -->
+</HTML>

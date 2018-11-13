@@ -1,0 +1,174 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr182.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.8.2. Series model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr183.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr181.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.8.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr18.html">How can you evaluate reliability from the "bottom-up" (component failure mode to system failure rate)?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.8.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Series model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>The series model is used to go from individual components to the entire system, 
+assuming the system fails when the first component fails and all components fail
+or survive independently of one another</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The <b>Series Model</b> is used to build up from components to sub-assemblies 
+and systems. It only applies to non replaceable populations (or first failures 
+of populations of systems). The assumptions and formulas for the Series Model 
+are identical to those for the Competing Risk Model, with the \(k\)
+<!-- <i>k</i> -->
+failure modes within a component replaced by the \(n\)
+<!-- <i>n</i> -->
+components within a system.
+<p>
+The following three assumptions are needed.
+<ol>
+<li>
+Each component operates or fails independently of every other one, at least
+until the first component failure occurs.</li>
+
+<li>
+The system fails when the first component failure occurs.</li>
+
+<li>
+Each of the \(n\)
+<!-- <i>n</i> -->
+(possibly different) components in the system has
+a known life distribution model \(F_i(t)\).
+<!-- <i>F<sub>i</sub>(t)</i>. -->
+</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Add failure rates and multiply reliabilities in the Series Model</i>
+</td>
+
+<td WIDTH="85%">
+When the Series Model assumptions hold we have:
+
+$$ \begin{eqnarray}
+R_S(t) & = & \prod_{i=1}^n R_i(t) \\
+ & & \\
+F_S(t) & = & 1 - \prod_{i-1}^n \left[ 1 - F_i(t) \right] \\
+ & & \\
+h_S(t) & = & \sum_{i=1}^n h_i(t) 
+\end{eqnarray} $$
+
+<!-- 
+<center>
+<img SRC="eqns/sysr.gif" ALT="Rs(t) = PRODUCT[i=1 to n]Ri(t);     
+Fs(t) = 1 - PRODUCT[i=1 to n]{1 - Fi(t)};     
+hs(t) = SUM[i=1 to n]hi(t)" height=157 width=141>
+</center>
+<p>
+-->
+
+with the subscript \(S\)
+<!-- <i>S</i> -->
+referring to the entire system and the subscript \(i\)
+<!-- <i>i</i> -->
+referring to the \(i\)-th
+<!-- <i>i</i>-th -->
+component.
+<p>
+Note that the above holds for any arbitrary component life distribution
+models, as long as "independence" and "first component failure causes the
+system to fail" both hold.
+<p>
+The analogy to a series circuit is useful. The entire system has \(n\)
+<!-- <i>n</i> -->
+components in series. The system fails when current no longer flows and
+each component operates or fails independently of all the others. The schematic
+below shows a system with 5 components in series "replaced" by an "equivalent"
+(as far as reliability is concerned) system with only one component.
+<p>
+<img SRC="gifs/series3.gif" ALT="Diagram of series system reduced to 
+equivalent one component system" height=357 width=500>
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr181.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr183.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr182.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+</HTML>

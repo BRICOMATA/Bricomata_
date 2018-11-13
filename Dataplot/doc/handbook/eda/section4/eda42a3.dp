@@ -1,0 +1,621 @@
+Dataplot commands and output:
+
+.
+.  Starting Ceramic Strength Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+SKIP 50
+read JAHANMI2.DAT run lab bar set y x1 to x8 batch
+let y1 = y
+let y2 = y
+retain y1 subset batch 1
+retain y2 subset batch 2
+skip 0
+. Finished Step 1.1
+
+
+.
+.Summary 	
+.
+.
+.
+. Starting Step 2.1 - Summary of Response Variable
+.
+summary y
+. Finished Step 2.1
+ 
+>                                SUMMARY
+> 
+>                     NUMBER OF OBSERVATIONS =      480
+> 
+> 
+>***********************************************************************
+>*        LOCATION MEASURES         *       DISPERSION MEASURES        *
+>***********************************************************************
+>*  MIDRANGE     =   0.5834740E+03  *  RANGE        =   0.4763600E+03  *
+>*  MEAN         =   0.6500773E+03  *  STAND. DEV.  =   0.7463826E+02  *
+>*  MIDMEAN      =   0.6426155E+03  *  AV. AB. DEV. =   0.6184948E+02  *
+>*  MEDIAN       =   0.6466275E+03  *  MINIMUM      =   0.3452940E+03  *
+>*               =                  *  LOWER QUART. =   0.5960515E+03  *
+>*               =                  *  LOWER HINGE  =   0.5959740E+03  *
+>*               =                  *  UPPER HINGE  =   0.7084220E+03  *
+>*               =                  *  UPPER QUART. =   0.7083415E+03  *
+>*               =                  *  MAXIMUM      =   0.8216540E+03  *
+>***********************************************************************
+>*       RANDOMNESS MEASURES        *     DISTRIBUTIONAL MEASURES      *
+>***********************************************************************
+>*  AUTOCO COEF  =  -0.2290508E+00  *  ST. 3RD MOM. =  -0.3682922E+00  *
+>*               =   0.0000000E+00  *  ST. 4TH MOM. =   0.3220554E+01  *
+>*               =   0.0000000E+00  *  ST. WILK-SHA =   0.3877698E+01  *
+>*               =                  *  UNIFORM PPCC =   0.9756916E+00  *
+>*               =                  *  NORMAL  PPCC =   0.9906310E+00  *
+>*               =                  *  TUK -.5 PPCC =   0.8357126E+00  *
+>*               =                  *  CAUCHY  PPCC =   0.5063868E+00  *
+>***********************************************************************
+
+
+.
+.4-Plot 	
+.
+.
+. Starting Step 2.2 - Generate a 4-plot
+.
+4-plot y
+. Finished Step 2.2
+
+
+.
+.Bihistogram for Batch 	
+.
+.
+. Starting Step 3.1 - Generate a bihistogram
+.
+legend case asis
+legend 1 Batch 1
+legend 1 coordinates 18 80
+legend 2 Batch 2
+legend 2 coordinates 18 45
+bihistogram y1 y2
+legend 1
+legend 2
+legend case upper
+. Finished Step 3.1
+
+
+.
+.Q-Q Plot for Batch 	
+.
+.
+. Starting Step 3.2 - Generate Q-Q plot
+.
+label case asis
+y1label Batch 1
+x1label Batch 2
+QUANTILE-QUANTILE PLOT Y1 Y2
+x1label
+y1label
+label case upper
+. Finished Step 3.2
+
+
+.
+.Box Plot for Batch 	
+.
+.
+. Starting Step 3.3 - Generate boxplot plot
+.
+fences on
+character box plot
+line box plot
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 2
+major xtic mark number 2
+minor xtic mark number 0
+x1tic mark label case asis
+x1tic mark label format alpha
+x1tic mark label content Batchsp()1 Batchsp()2
+let n1 = size y1
+let xjunk = 1 for i = 1 1 n1
+let xtemp = xjunk
+let n2 = size y2
+delete xjunk
+let xjunk = 2 for i = 1 1 n2
+extend xtemp xjunk
+let ytemp = y1
+extend ytemp y2
+box plot ytemp xtemp
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+. Finished Step 3.3
+
+
+.
+.Block Plots for Batch 	
+.
+.
+. Starting Step 3.4 - Generate block plot
+.
+multiplot 2 2
+multiplot corner coordinates 2 2 98 98
+character BLANK all
+character 1 2
+line solid all
+line blank blank
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 8
+major xtic mark number 8
+minor xtic mark number 0
+x1label Llc()ab
+mean block plot y lab batch
+x1label Llc()ab and uc()X1
+mean block plot y lab x1 batch
+x1label Llc()ab and uc()X2
+mean block plot y lab x2 batch
+x1label Llc()ab and uc()X3
+mean block plot y lab x3 batch
+end of multiplot
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+x1label
+. Finished Step 3.4
+
+
+.
+.T-Test for Batch 	
+.
+.
+. Starting Step 3.5 - 2-Sample t-test
+.
+t-test y1 y2
+. Finished Step 3.5
+
+>                      T-TEST
+>                     (2-SAMPLE)
+> NULL HYPOTHESIS UNDER TEST--POPULATION MEANS MU1 = MU2
+>  
+> SAMPLE 1:
+>    NUMBER OF OBSERVATIONS      =      240
+>    MEAN                        =    688.9987
+>    STANDARD DEVIATION          =    65.54909
+>    STANDARD DEVIATION OF MEAN  =    4.231175
+>  
+> SAMPLE 2:
+>    NUMBER OF OBSERVATIONS      =      240
+>    MEAN                        =    611.1559
+>    STANDARD DEVIATION          =    61.85425
+>    STANDARD DEVIATION OF MEAN  =    3.992675
+>  
+> IF     ASSUME SIGMA1 = SIGMA2:
+>    POOLED STANDARD DEVIATION   =    63.72845
+>    DIFFERENCE (DELTA) IN MEANS =    77.84271
+>    STANDARD DEVIATION OF DELTA =    5.817585
+>    T-TEST STATISTIC VALUE      =    13.38059
+>    DEGREES OF FREEDOM          =    478.0000
+>    T-TEST STATISTIC CDF VALUE  =    1.000000
+>  
+> IF NOT ASSUME SIGMA1 = SIGMA2:
+>    STANDARD DEVIATION SAMPLE 1 =    65.54909
+>    STANDARD DEVIATION SAMPLE 2 =    61.85425
+>    BARTLETT CDF VALUE          =    0.629618
+>    DIFFERENCE (DELTA) IN MEANS =    77.84271
+>    STANDARD DEVIATION OF DELTA =    5.817585
+>    T-TEST STATISTIC VALUE      =    13.38059
+>    EQUIVALENT DEG. OF FREEDOM  =    476.3999
+>    T-TEST STATISTIC CDF VALUE  =    1.000000
+>  
+>                   ALTERNATIVE-         ALTERNATIVE-
+> ALTERNATIVE-      HYPOTHESIS           HYPOTHESIS
+> HYPOTHESIS        ACCEPTANCE INTERVAL  CONCLUSION
+> MU1 <> MU2         (0,0.025) (0.975,1)   ACCEPT
+> MU1 < MU2          (0,0.05)              REJECT
+> MU1 > MU2          (0.95,1)              ACCEPT>
+
+
+.
+.F-Test for Batch 	
+.
+.
+. Starting Step 3.6 - F-test
+.
+f test y1 y2
+. Finished Step 3.6
+
+>                       F-TEST
+> NULL HYPOTHESIS UNDER TEST--SIGMA1 = SIGMA2
+> ALTERNATIVE HYPOTHESIS UNDER TEST--SIGMA1 NOT EQUAL SIGMA2
+>  
+> SAMPLE 1:
+>    NUMBER OF OBSERVATIONS      =      240
+>    MEAN                        =    688.9987
+>    STANDARD DEVIATION          =    65.54909
+>  
+> SAMPLE 2:
+>    NUMBER OF OBSERVATIONS      =      240
+>    MEAN                        =    611.1559
+>    STANDARD DEVIATION          =    61.85425
+>  
+> TEST:
+>    STANDARD DEV. (NUMERATOR)   =    65.54909
+>    STANDARD DEV. (DENOMINATOR) =    61.85425
+>    F-TEST STATISTIC VALUE      =    1.123037
+>    DEG. OF FREEDOM (NUMER.)    =    239.0000
+>    DEG. OF FREEDOM (DENOM.)    =    239.0000
+>    F-TEST STATISTIC CDF VALUE  =    0.814808
+>  
+>   NULL          NULL HYPOTHESIS        NULL HYPOTHESIS
+>   HYPOTHESIS    ACCEPTANCE INTERVAL    CONCLUSION
+> SIGMA1 = SIGMA2    (0.000,0.950)         ACCEPT
+
+
+.
+.Box Plot for Lab (all data) 	
+.
+.
+. Starting Step 4.1 - Generate boxplot for all the data
+.
+fences on
+character box plot
+line box plot
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 8
+major xtic mark number 8
+minor xtic mark number 0
+x1tic mark label case asis
+x1tic mark label format alpha
+x1tic mark label content Labsp()1 Labsp()2 Labsp()3 Labsp()4 Labsp()5 Labsp()6 Labsp()7 Labsp()8
+box plot y lab
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+. Finished Step 4.1
+
+
+.
+.Box Plot for Lab (batch 1) 	
+.
+.
+. Starting Step 4.2 - Generate boxplot for batch 1
+.
+fences on
+character box plot
+line box plot
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 8
+major xtic mark number 8
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Labsp()1 Labsp()2 Labsp()3 Labsp()4 Labsp()5 Labsp()6 Labsp()7 Labsp()8
+box plot y lab subset batch = 1
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+. Finished Step 4.2
+
+
+.
+.Box Plot for Lab (batch 2) 	
+.
+.
+. Starting Step 4.3 - Generate boxplot for batch 2
+.
+fences on
+character box plot
+line box plot
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 8
+major xtic mark number 8
+minor xtic mark number 0
+x1tic mark label case asis
+x1tic mark label format alpha
+x1tic mark label content Labsp()1 Labsp()2 Labsp()3 Labsp()4 Labsp()5 Labsp()6 Labsp()7 Labsp()8
+box plot y lab subset batch = 2
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 4.3
+
+
+.
+.Dex Scatter Plot (batch 1) 	
+.
+.
+. Starting Step 5.1 - Generate Dex Scatter Plot for batch 1
+.
+character x all
+line blank all
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+dex scatter plot y x1 x2 x3 subset batch = 1
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.1
+
+
+.
+.Dex Mean Plot (batch 1) 	
+.
+.
+. Starting Step 5.2 - Generate Dex Mean Plot for batch 1
+.
+character circle BLANK
+character fill on
+line solid solid
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+ylimits 670 710
+dex mean plot y x1 x2 x3 subset batch = 1
+ylimits
+line solid all
+character BLANK all
+character fill off
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.2
+
+
+.
+.Dex SD Plot (batch 1) 	
+.
+.
+. Starting Step 5.3 - Generate Dex SD Plot for batch 1
+.
+character circle BLANK
+character fill on
+line solid solid
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+ylimits 50 80
+dex sd plot y x1 x2 x3 subset batch = 1
+ylimits
+line solid all
+character BLANK all
+character fill off
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.3
+
+
+.
+.Dex Scatter Plot (batch 2) 	
+.
+.
+. Starting Step 5.4 - Generate Dex Scatter Plot for batch 2
+.
+character x all
+line blank all
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+dex scatter plot y x1 x2 x3 subset batch = 2
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.4
+
+
+.
+.Dex Mean Plot (batch 2) 	
+.
+.
+. Starting Step 5.5 - Generate Dex Mean Plot for batch 2
+.
+character circle BLANK
+character fill on
+line solid solid
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+dex mean plot y x1 x2 x3 subset batch = 2
+line solid all
+character BLANK all
+character fill off
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.5
+
+
+.
+.Dex SD Plot (batch 2) 	
+.
+.
+. Starting Step 5.6 - Generate Dex SD Plot for batch 2
+.
+character circle BLANK
+character fill on
+line solid solid
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+ylimits 50 75
+dex sd plot y x1 x2 x3 subset batch = 2
+ylimits
+line solid all
+character BLANK all
+character fill off
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.6
+
+
+.
+.Matrix of Dex Interactiin Effects (batch 1) 	
+.
+.
+. Starting Step 6.1 - Generate Matrix of Dex Interaction Effects
+.
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3.3
+xlimits -1 1
+tic offset units data
+xtic offset 0.3 0.3
+variable label y STRENGTH
+variable label x1 TABLESP()SPEED
+variable label x2 DOWNSP()FEED
+variable label x3 WHEELSP()GRIT
+set write decimals 2
+ylimits 575 725
+ytic offset 0 25
+ylabel displacement 25
+x2label displacement 20
+char circle blank
+char fill on off
+line solid dash
+x3label
+set matrix plot lower diagonal off
+set matrix plot labels yon
+set matrix plot x2label effect
+dex mean interaction plot y x1 x2 x3 subset batch = 1
+ylimits
+char blank all
+char fill off all
+line solid all
+x3label automatic
+tic offset units
+tic offset 0 0
+limits
+major tic mark number
+label displacement
+multiplot scale factor 1
+. Finished Step 6.1
+
+
+.
+.Matrix of Dex Interactiin Effects (batch 1) 	
+.
+.
+. Starting Step 6.2 - Generate Matrix of Dex Interaction Effects
+.
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3.3
+xlimits -1 1
+tic offset units data
+xtic offset 0.3 0.3
+variable label y STRENGTH
+variable label x1 TABLESP()SPEED
+variable label x2 DOWNSP()FEED
+variable label x3 WHEELSP()GRIT
+set write decimals 2
+ylimits 575 725
+ytic offset 0 25
+ylabel displacement 25
+x2label displacement 20
+char circle blank
+char fill on off
+line solid dash
+x3label
+set matrix plot lower diagonal off
+set matrix plot labels yon
+set matrix plot x2label effect
+dex mean interaction plot y x1 x2 x3 subset batch = 2
+ylimits
+char blank all
+char fill off all
+line solid all
+x3label automatic
+tic offset units
+tic offset 0 0
+limits
+major tic mark number
+label displacement
+multiplot scale factor 1
+. Finished Step 6.2
+
+

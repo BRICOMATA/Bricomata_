@@ -1,0 +1,200 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr167.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.6.7. Proportional hazards model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr17.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr166.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr16.html">What are the basic lifetime distribution models used for non-repairable
+populations?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.6.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Proportional hazards model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>The proportional
+hazards model is often used in survival analysis (medical testing) studies.
+It is not used much with engineering data</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+The proportional hazards model,
+proposed by Cox (1972), has been used primarily in medical testing analysis,
+to model the effect of secondary variables on survival. It is more like
+an acceleration model than a specific life distribution model, and its
+strength lies in its ability to model and test many inferences about survival
+without making any specific assumptions about the form of the life distribution
+model.
+<p>
+This section will give only a brief description of the proportional
+hazards model, since it has limited engineering applications.
+<p>
+<b>Proportional Hazards Model Assumption</b>
+<p>
+Let \(z = \{x, \, y, \, \ldots\}\)
+<!-- <i>z = </i>{<i>x, y, ...</i>} -->
+be a vector of one or more <b>explanatory</b> variables
+believed to affect lifetime. These variables may be continuous (like temperature
+in engineering studies, or dosage level of a particular drug in medical
+studies) or they may be indicator variables with the value 1 if a given
+factor or condition is present, and 0 otherwise.
+<p>
+Let the hazard rate for a nominal (or baseline) set
+\(z_0 = \{x_0, \, y_0, \, \ldots\}\)
+<!-- <i>z<sub>0</sub> = (x<sub>0</sub>,y<sub>0</sub>, ...)</i> -->
+of these variables be given by \(h_0(t)\), with \(h_0(t)\)
+<!-- <i>h<sub>0</sub>(t)</i>, with <i>h<sub>0</sub>(t)</i> -->
+denoting a legitimate hazard function (failure
+rate) for some unspecified life distribution model.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>The proportional hazard model assumes changing
+a stress variable (or explanatory variable) has the effect of multiplying
+the hazard rate by a constant.</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+The proportional hazards model assumes we can
+write the changed hazard function for a new value of \(z\)
+<!-- <i>z</i> as&nbsp; -->
+
+$$ h_z(t) = g(z) h_0(t) \,\, .$$
+
+<!--
+<center>
+<p><i>h<sub>z</sub>(t) = g(z)h<sub>0</sub>(t)</i>
+</center>
+-->
+
+<p>
+In other words, changing \(z\),
+<!-- <i>z</i>, -->
+the explanatory variable vector,
+results in a new hazard function that is proportional to the nominal hazard
+function, and the proportionality constant is a function of \(z,\, g(z)\)
+<!-- <i>z, g(z)</i>, -->
+independent of the time variable \(t\).
+<!-- <i>t</i>.&nbsp; -->
+<p>
+A common and useful form for \(f(z)\)
+<!-- <i>f(z)</i> -->
+is the <b>Log Linear Model</b>
+which has the equation:  \(g(x) = e^{\alpha x}\)
+<!-- <i>g(x) = e<sup>ax</sup></i> -->
+for one variable, \(g(x,y) = e^{ax + by}\)
+<!-- <i>g(x,y) = e<sup>ax+by</sup></i> -->
+for two variables, etc.
+<p>
+<b>Properties and Applications of the Proportional Hazards Model</b>
+<ol>
+<li>
+The proportional hazards model is equivalent to the <a href="apr14.html">acceleration
+factor</a> concept if and only if the life distribution model is a Weibull
+(which includes the exponential model, as a special case). For a Weibull
+with shape parameter \(\gamma\),
+<!-- <img SRC="gifs/gamma.gif" ALT="gamma" VSPACE=2 height=17 width=13 align=ABSCENTER>, -->
+and an acceleration factor \(AF\)
+<!-- <i>AF</i> -->
+between nominal use fail time \(t_0\)
+<!-- <i>t<sub>0</sub></i> -->
+and high stress fail time \(t_s\) (with \(t_0 = AF t_s\))
+<!-- <i>t<sub>s</sub></i> (with<i> t<sub>0</sub> = AFt<sub>s</sub></i>) -->
+we have \(g(s) = AF^\gamma\).
+<!-- <i>g(s) = AF<img SRC="gifs/gammasmall.gif" ALT="gamma" ></i>. -->
+In other words, \(h_s(0) = AF^\gamma h_0(t)\).
+<!-- <i>h<sub>s</sub>(t) = AF<img SRC="gifs/gammasmall.gif" ALT="gamma" >h<sub>0</sub>(t)</i>.</li> -->
+
+<li>
+Under a log-linear model assumption for \(g(z)\),
+<!-- <i>g(z)</i>, -->
+without any further
+assumptions about the life distribution model, it is possible to analyze
+experimental data and compute 
+<a href="../section4/apr412.html">maximum likelihood estimates</a> 
+and use <a href="../section2/apr233.html">likelihood ratio tests</a> 
+to determine which explanatory variables are highly significant.
+In order to do this kind of analysis, however, special software is needed.</li>
+</ol>
+More details on the theory and applications of the proportional hazards
+model may be found in <a href="../section4/apr47.html#Cox, D. R., and Oakes, D. (1984), Analysis of">
+Cox and Oakes (1984)</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr166.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr17.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr167.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+</HTML>

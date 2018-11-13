@@ -1,0 +1,199 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc561.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:00:49 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.5.6.1. Sensitivity coefficients for measurements on the test item</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc562.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc56.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc5.html">Uncertainty analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc56.html">Uncertainty budgets and sensitivity coefficients</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.5.6.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Sensitivity coefficients for measurements on the test item</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>From data on the test item itself</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="testitem">If the temporal component is estimated from
+<I>N</I> short-term readings on the test item itself
+
+$$ Y_1, \,\, Y_2, \,\, \ldots , \,\, Y_N $$
+<!--
+<P>
+<CENTER>
+<b><i>Y</i><sub>1</sub>, <i>Y</i><sub>2</sub>, ...,
+<i>Y<sub>N</sub></i></b>
+</CENTER>
+<p>
+-->
+and
+
+$$ s_1 = \frac{1}{\sqrt{N-1}} \sqrt{\sum_{i=1}^N (Y_i - \bar{Y})^2} $$
+<!-- <IMG SRC ="mpc561a.gif" -->
+<!--
+<p>
+<CENTER>
+<IMG SRC ="s1.gif"
+     ALT="s1 = (1/(SQRT(N-1))*SQRT{SUM[i=1 to N](Y(i)-Ybar)**2}">
+</CENTER>
+<P> 
+-->
+and the reported value is the average, the standard deviation of the
+reported value is
+
+$$ s_{reported \, value} = \frac{1}{\sqrt{N}} s_1 $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc561b.gif" ALT="s(reported value) = (1/SQRT(N))*s1">
+</CENTER>
+<P>
+-->
+with degrees of freedom \( \nu_1 = N-1 \).
+<!-- <IMG ALIGN=absmiddle SRC="mpc561f.gif" ALT="nu1 = N - 1">. -->
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Sensitivity coefficients</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The sensitivity coefficient is
+\( a_1 = \sqrt{\frac{1}{N}} \).
+<!-- <IMG ALIGN=absmiddle SRC="mpc561d.gif" alt="a1 = SQRT(1/N)">. -->
+The risk in using this method is that it may seriously 
+underestimate the uncertainty.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>To improve the reliability of the uncertainty calculation</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+If possible, the measurements on the test item should be repeated over
+\(M\) days and averaged to estimate the reported value.  The standard
+deviation for the reported value is computed from the daily averages,
+and the standard deviation for the temporal component is:
+
+$$ s_{reported value} = \frac{1}{\sqrt{M}}
+\sqrt{ \frac{1}{M-1} \sum_{m=1}^M \left( \bar{Y}_{m \small{\bullet}} - \bar{Y}_{\small{\bullet \bullet}} \right)^2
+} $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc561c.gif"
+     ALT="s(reported value) = (1SQRT(M))*SQRT{
+(1/(M-1))*SUM[m=1 to M](Ybar(mdot) - Ybar(..))**2}">
+</CENTER><P>
+<P>
+-->
+with degrees of freedom \( \nu_2 = M-1 \) 
+<!-- <IMG ALIGN=absmiddle SRC="mpc561g.gif" alt="nu2 = M - 1"> -->
+where \( \bar{Y}_{m \small{\bullet}} \)
+<!-- <IMG SRC="mpc56c1.gif" alt="Ybar(mdot)"> -->
+<!-- <IMG ALIGN=ABSMIDDLE SRC="ybarmd.gif" alt="Ybar(mdot)"> --> 
+are the daily averages and \( \bar{Y}_{\small{\bullet \bullet}} \)
+<!-- <IMG SRC="mpc56c2.gif" alt="Ybar(..)"> -->
+<!-- <IMG ALIGN=ABSMIDDLE SRC="ybardd2.gif" alt="Ybar(..)"> -->
+is the grand average.
+<P>
+The sensitivity coefficients are:
+\( a_1 = 0 \); \( a_2 = \sqrt{\frac{1}{M}} \).
+<!-- <i>a</i><sub>1</sub> = 0; <i>a</i><sub>2</sub> = -->
+<!-- <IMG ALIGN = absmiddle SRC="mpc561e.gif" -->
+<!-- <IMG ALIGN = absmiddle SRC="sqrt1m.gif" alt="SQRT(1/M)">. -->
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Note on long-term errors</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+Even if <U>no</U> day-to-day nor run-to-run measurements were made
+in determining the reported value, the sensitivity coefficient is
+non-zero if that standard deviation proved to be significant in
+the analysis of data.
+</TD>
+</TR>
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc56.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc562.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc561.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:00:49 GMT -->
+</HTML>

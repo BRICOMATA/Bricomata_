@@ -1,0 +1,342 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd446.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:05 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.4.6. How can I test whether any significant terms are missing or misspecified in the functional part of the model?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd447.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd445.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd44.html">How can I tell if a model fits my data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.4.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can I test whether any significant terms are missing or misspecified in the functional part of the model?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Statistical Tests Can Augment Ambiguous Residual Plots</I>
+</TD>
+<TD WIDTH=85%>
+Although the residual plots discussed on pages <A HREF="pmd441.html">4.4.4.1</A> and 
+<A HREF="pmd443.html">4.4.4.3</A> will often indicate whether any important variables are missing or 
+misspecified in the functional part of the model, a statistical test of the hypothesis that the model is 
+sufficient may be helpful if the plots leave any doubt. Although it may seem tempting to use this type of 
+statistical test in place of residual plots since it apparently assesses the fit of the model objectively,
+no single test can provide the rich  feedback to the user that a graphical analysis of the residuals can
+provide. Furthermore, while model completeness is one of the most important aspects of model adequacy, this
+type of test does not address other important aspects of model quality. In statistical jargon, this type of
+test for model adequacy is usually called a "lack-of-fit" test.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="strat.r1">General Strategy</A></I>
+</TD>
+<TD WIDTH=85%>
+The most common strategy used to test for model adequacy is to compare the amount of random variation in the
+residuals from the data used to fit the model with an estimate of the random variation in the process using 
+data that are independent of the model. If these two estimates of the random variation are similar, that 
+indicates that no significant terms are likely to be missing from the model. If the model-dependent estimate
+of the random variation is larger than the model-independent estimate, then significant terms probably are 
+missing or misspecified in the functional part of the model.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="rep.r1">Testing Model Adequacy Requires Replicate Measurements</A></I>
+</TD>
+<TD WIDTH=85%>
+The need for a model-independent estimate of the random variation means that replicate measurements made 
+under identical experimental conditions are required to carry out a lack-of-fit test. If no replicate 
+measurements are available, then there will not be any baseline estimate of the random process variation to 
+compare with the results from the model. This is the main reason that the use of replication is emphasized 
+in <A HREF="../section3/pmd33.html#rep.r1">experimental design</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Data Used to Fit Model Can Be Partitioned to Compute Lack-of-Fit Statistic</I>
+</TD>
+<TD WIDTH=85%>
+Although it might seem like two sets of data would be needed to carry out the  lack-of-fit test using the 
+strategy described above, one set of data to fit the model and compute the <A HREF="pmd431.html#rsd.1">residual
+standard deviation</A> and the other to compute the model-independent estimate of the random variation, that
+is usually not necessary.  In most regression applications, the same data used to fit the model can also be
+used to carry out the lack-of-fit test, as long as the necessary replicate measurements are available.
+In these cases, the lack-of-fit statistic is computed by partitioning the residual standard deviation into 
+two independent estimators of the random variation in the process. One estimator depends on the model and the 
+sample means of the replicated sets of data (\(\hat{\sigma}_m\)),
+<!-- (<IMG ALT="\hat{\sigma}_m" SRC="eqns/sigmahatm.gif">), -->
+while the other estimator is a pooled standard deviation based on the variation 
+observed in each set of replicated measurements (\(\hat{\sigma}_r\)).
+<!-- (<IMG ALT="\hat{\sigma}_r" SRC="eqns/sigmahatr.gif">). -->
+The squares of these two estimators of the random variation are often 
+called the "mean square for lack-of-fit" and the "mean square for pure error," respectively, 
+in statistics texts. The notation \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" SRC="eqns/sigmahatm.gif"> -->
+and \(\hat{\sigma}_r\)
+<!-- <IMG ALT="\hat{\sigma}_r" SRC="eqns/sigmahatr.gif"> -->
+is used here instead to emphasize the fact that, if the model fits the data, these quantities 
+should both be good estimators of \(\sigma\).
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif">. -->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Estimating \(\sigma\)
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif"> -->
+Using Replicate Measurements</I>
+</TD>
+<TD WIDTH=85%>
+The model-independent estimator of \(\sigma\)
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif"> -->
+is computed using the formula
+
+$$ \hat{\sigma}_r = \sqrt{\frac{1}{(n-n_u)} \sum_{i=1}^{n_u} \sum_{j=1}^{n_i} \ [y_{ij} - \bar{y}_i]^2} $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\hat{\sigma}_r = \sqrt{\frac{1}{(n-n_u)} \sum_{i=1}^{n_u} \sum_{j=1}^{n_i} \ [y_{ij} - \bar{y}_i]^2}
+" ALIGN=BOTTOM SRC="eqns/sr.gif"></CENTER><BR> -->
+
+with \(n\)
+<!-- <IMG ALT="n" SRC="eqns/n.gif"> -->
+denoting the sample size of the data set used to fit the model, \(n_u\)
+<!-- <IMG ALT="n_u" SRC="eqns/nu.gif"> -->
+is the number of unique combinations of predictor variable levels, \(n_i\)
+<!-- <IMG ALT="n_i" SRC="eqns/ni.gif"> -->
+is the number of replicated observations at the i<sup>th</sup> combination of 
+predictor variable levels, the \(y_{ij}\)
+<!-- <IMG ALT="y_{ij}" ALIGN=middle SRC="eqns/yij.gif"> -->
+are the regression responses indexed by their predictor variable levels and 
+number of replicate measurements, and \(\bar{y}_i\)
+<!-- <IMG ALT="\bar{y}_i" ALIGN=middle SRC="eqns/ybari.gif"> -->
+is the <A HREF="eqns/ybarieq.gif"TARGET="popup" ONCLICK="window.open('eqns/ybarieq.gif', 'popup', 'width=120,height=50'); 
+return false">mean of the responses at the i<sup>th</sup>
+combination of predictor variable levels</A>.  Notice that the formula for \(\hat{\sigma}_r\)
+<!-- <IMG ALT="\hat{\sigma}_r" SRC="eqns/sigmahatr.gif"> -->
+depends only on the data and not on the functional part of the model.  This shows that \(\hat{\sigma}_r\)
+<!-- <IMG ALT="\hat{\sigma}_r" SRC="eqns/sigmahatr.gif"> -->
+will be a good estimator of \(\sigma\),
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif">, -->
+regardless of whether the model is a complete description of the process or not.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Estimating \(\sigma\)
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif"> -->
+Using the Model</I>
+</TD>
+<TD WIDTH=85%>
+Unlike the formula for \(\hat{\sigma}_r\),
+<!-- <IMG ALT="\hat{\sigma}_r" SRC="eqns/sigmahatr.gif">, -->
+the formula for \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" SRC="eqns/sigmahatm.gif"> -->
+
+$$ \hat{\sigma}_m = \sqrt{ \frac{1}{(n_u-p)} \sum_{i=1}^{n_u}  n_i[\bar{y}_i - f(\vec{x}_i;\hat{\vec{\beta}})]^2 } $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\hat{\sigma}_m = \sqrt{\frac{1}{(n_u-p)} \sum_{i=1}^{n_u} \ n_i[\bar{y}_i - f(\vec{x}_i;\vec{\hat{\beta}})]^2}}
+" ALIGN=BOTTOM SRC="eqns/sm1.gif"></CENTER><BR> -->
+
+(with \(p\)
+<!-- <IMG ALT="p" ALIGN=middle SRC="eqns/p.gif"> -->
+denoting the number of unknown parameters in the model) does 
+depend on the functional part of the model. If the model were correct, the value of the function would
+be a good estimate of the mean value of the response for every combination of predictor variable values.
+When the function provides good estimates of the mean response at the i<sup>th</sup> combination, then
+\(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" SRC="eqns/sigmahatm.gif"> -->
+should be close in value to \(\hat{\sigma}_r\)
+<!-- <IMG ALT="\hat{\sigma}_r" SRC="eqns/sigmahatr.gif"> -->
+and should also be a good estimate of \(\sigma\).
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif">. -->
+If, on the other hand, the function is missing any important terms (within the range of the data), 
+or if any terms are misspecified, then the function will provide a poor estimate of the mean response 
+for some combinations of the predictors and \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" SRC="eqns/sigmahatm.gif"> -->
+will tend to be greater than \(\hat{\sigma}_r\).
+<!-- <IMG ALT="\hat{\sigma}_r" SRC="eqns/sigmahatr.gif">. -->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Carrying Out the Test for Lack-of-Fit</I>
+</TD>
+<TD WIDTH=85%>
+Combining the ideas presented in the previous two paragraphs, following the general strategy outlined 
+<A HREF="#strat.r1">above</A>, the adequacy of the functional part of the model
+can be assessed by comparing the values of \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" ALIGN=BOTTOM SRC="eqns/sigmahatm.gif"> -->
+and \(\hat{\sigma}_r\).
+<!-- <IMG ALT="\hat{\sigma}_r" ALIGN=BOTTOM SRC="eqns/sigmahatr.gif">. -->
+If \(\hat{\sigma}_m > \hat{\sigma}_r\),
+<!-- <IMG ALT="\hat{\sigma}_m > \hat{\sigma}_r" ALIGN=BOTTOM SRC="eqns/smgtsr.gif">, -->
+then one or more important terms may be missing or misspecified in the functional 
+part of the model. Because of the random error in the data, however, we know that \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" ALIGN=BOTTOM SRC="eqns/sigmahatm.gif"> -->
+will sometimes be larger than \(\hat{\sigma}_r\)
+<!-- <IMG ALT="\hat{\sigma}_r" ALIGN=BOTTOM SRC="eqns/sigmahatr.gif"> -->
+even when the model is adequate. To make sure that the hypothesis that the model is adequate 
+is not rejected by chance, it is necessary to understand how much greater than \(\hat{\sigma}_r\)
+<!-- <IMG ALT="\hat{\sigma}_r" ALIGN=BOTTOM SRC="eqns/sigmahatr.gif"> -->
+the value of \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" ALIGN=BOTTOM SRC="eqns/sigmahatm.gif"> -->
+might typically be when the model does fit the data. Then the 
+hypothesis can be rejected only when \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" ALIGN=BOTTOM SRC="eqns/sigmahatm.gif"> -->
+is significantly greater than \(\hat{\sigma}_r\).
+<!-- <IMG ALT="\hat{\sigma}_r" ALIGN=BOTTOM SRC="eqns/sigmahatr.gif">. -->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="dist.r1">&nbsp;</A></I>
+</TD>
+<TD WIDTH=85%>
+When the model does fit the data, it turns out that the ratio
+
+$$ L = \frac{\hat{\sigma}_m^2}{\hat{\sigma}_r^2} $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+L = \frac{\hat{\sigma}_m^2}{\hat{\sigma}_r^2}
+" ALIGN=BOTTOM SRC="eqns/Ldef.gif"></CENTER><BR> -->
+
+follows an <A HREF="../../eda/section3/eda3665.html">F distribution</A>. Knowing the probability distribution 
+that describes the behavior of the statistic, \(L\),
+<!-- <IMG ALT="L" SRC="eqns/L.gif">, -->
+we can control the probability of rejecting the hypothesis that the model is adequate in 
+cases when the model actually is adequate. Rejecting 
+the hypothesis that the model is adequate only when \(L\)
+<!-- <IMG ALT="L" SRC="eqns/L.gif"> -->
+is greater than an upper-tail cut-off value from the F distribution with a user-specified 
+probability of wrongly rejecting the hypothesis 
+gives us a precise, objective, probabilistic definition of when \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" ALIGN=BOTTOM SRC="eqns/sigmahatm.gif"> -->
+is significantly greater than \(\hat{\sigma}_r\).
+<!-- <IMG ALT="\hat{\sigma}_r" ALIGN=BOTTOM SRC="eqns/sigmahatr.gif">.  -->
+The user-specified probability used to obtain the cut-off value from the F distribution is 
+called the "significance level" of the test. The
+significance level for most statistical tests is denoted by \(\alpha\).
+<!-- <IMG ALT="\alpha" SRC="eqns/alpha.gif">. -->
+The most commonly used value for the significance level is \(\alpha=0.05\),
+<!-- <IMG ALT="\alpha = 0.05" SRC="eqns/alphaeq05.gif">, -->
+which means that the hypothesis of 
+an adequate model will only be rejected in 5 % of tests for which the model really is adequate. Cut-off values
+can be computed using most statistical software or from <A HREF="../../eda/section3/eda3673.html">tables</A>
+of the F distribution. In addition to needing the significance level to obtain the cut-off value, the F 
+distribution is indexed by the degrees of freedom associated with each of the two estimators of \(\sigma\).
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif">. -->
+\(\hat{\sigma}_m\),
+<!-- <IMG ALT="\hat{\sigma}_m" SRC="eqns/sigmahatm.gif">, -->
+which appears in the numerator of \(L\),
+<!-- <IMG ALT="L" SRC="eqns/L.gif">, -->
+has \(n_u-p\)
+<!-- <IMG ALT="n_u-p" ALIGN=middle SRC="eqns/dfsigmahatm.gif"> -->
+degrees of freedom.  \(\hat{\sigma}_r\),
+<!-- <IMG ALT="\hat{\sigma}_r" SRC="eqns/sigmahatr.gif">, -->
+which appears in the denominator of \(L\),
+<!-- <IMG ALT="L" SRC="eqns/L.gif">, -->
+has \(n-n_u\)
+<!-- <IMG ALT="n-n_u" ALIGN=middle SRC="eqns/dfsigmahatr.gif"> -->
+degrees of freedom.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Alternative Formula for \(\hat{\sigma}_m\)
+<!-- <IMG ALT="\hat{\sigma}_m" SRC="eqns/sigmahatm.gif"> -->
+</I>
+</TD>
+<TD WIDTH=85%>
+Although the formula given above more clearly shows the nature of \(\hat{\sigma}_m\),
+<!-- <IMG ALT="\hat{\sigma}_m" SRC="eqns/sigmahatm.gif">, -->
+the numerically equivalent formula below is easier to use in computations
+
+$$ \hat{\sigma}_m = \sqrt{\frac{(n-p)\hat{\sigma}^2-(n-n_u)\hat{\sigma}^2_r}{n_u-p}} $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\hat{\sigma}_m = \sqrt{\frac{(n-p)\hat{\sigma}^2-(n-n_u)\hat{\sigma}^2_r}{n_u-p}}
+" ALIGN=BOTTOM SRC="eqns/sm2.gif">.</CENTER><BR> -->
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd445.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd447.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd446.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:06 GMT -->
+</HTML>

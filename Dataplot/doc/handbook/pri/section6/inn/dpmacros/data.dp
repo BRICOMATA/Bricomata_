@@ -1,0 +1,43 @@
+.
+. Starting Light Intensity Case Study
+.
+. Setting Dataplot Defaults
+
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units data
+xtic offset 0.5 0.5
+legend case asis
+label case asis
+title case asis
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read inn.dat y x1 x2 x3 x4 x5 x6 x7
+variable label y Sonoluminescent Light Intensity
+variable label x1 sp()cr()Molarity
+variable label x2 Solutecr()Type
+variable label x3 ph
+variable label x4 Gascr()Type
+variable label x5 Watercr()Depth
+variable label x6 Horncr()Depth
+variable label x7 Flaskcr()Clamp
+.  Following lines for confounding structure
+let k = 7
+let string project = Sonoluminescent Light Intensity
+.
+let kp1 = k+1
+let kp2 = k+2
+let n = number y
+let index = sequence 1 1 n
+.
+call confound.dp
+. Finished Step 1.1: Page Back for Output

@@ -1,0 +1,231 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc4431.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:44 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.4.3.1. Seasonal Subseries Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc444.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc443.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc44.html">Univariate Time Series Models</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc443.html">Seasonality</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.4.3.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Seasonal Subseries Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Purpose</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Seasonal subseries plots
+(<a href="../../eda/section4/eda43.html#Cleveland2">Cleveland
+1993</a>) are a tool for detecting seasonality in a time series.
+<p>
+This plot is only useful if the period of the seasonality is already
+known.  In many cases, this will in fact be known.  For example,
+monthly data typically has a period of 12.
+<p>
+If the period is not known, an
+<a href="../../eda/section3/autocopl.html">autocorrelation plot</a> or
+<a href="../../eda/section3/spectrum.html">spectral plot</a>
+can be used to determine it.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Sample Plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<img SRC="gifs/co2seas.gif"
+     ALT="Sample seasonal subseries plot">
+<p>
+This seasonal subseries plot containing monthly data of CO<sub>2</sub>
+concentrations reveals a strong seasonality pattern.  The CO<sub>2</sub>
+concentrations peak in May, steadily decrease through September,
+and then begin rising again until the May peak.
+<p>
+This plot allows you to detect both between group and within group
+patterns.
+<p>
+If there is a large number of observations, then a
+<a href="../../eda/section3/boxplot.html">box plot</a> may be
+preferable.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Definition</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Seasonal subseries plots are formed by
+<ul>
+   <table>
+      <tr>
+         <td VALIGN=TOP>
+            Vertical axis:
+         </td>
+         <td VALIGN=TOP>
+            Response variable
+         </td>
+      </tr>
+      <tr>
+         <td VALIGN=TOP>
+            Horizontal axis:
+         </td>
+         <td VALIGN=TOP>
+            Time ordered by season.  For example, with monthly data,
+            all the January values are plotted (in chronological
+            order), then all the February values, and so on.
+         </td>
+      </tr>
+   </table>
+</ul>
+In addition, a reference line is drawn at the group means.
+<p>
+The user must specify the length of the seasonal pattern before
+generating this plot.  In most cases, the analyst will know this
+from the context of the problem and data collection.  Sometimes 
+the series will need to be detrended before generating the plot, 
+as was the case for the CO<sub>2</sub> data.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Questions</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The seasonal subseries plot can provide answers
+to the following questions:
+<ol>
+   <li>Do the data exhibit a seasonal pattern?</li>
+   <li> What is the nature of the seasonality?</li>
+   <li>Is there a within-group pattern (e.g., do January and
+       July exhibit similar patterns)?</li>
+   <li>Are there any outliers once seasonality has been accounted
+       for?</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Importance</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+It is important to know when analyzing a time series if there is a
+significant seasonality effect.  The seasonal subseries plot is an
+excellent tool for determining if there is a seasonal pattern.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Related Techniques</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<a href="../../eda/section3/boxplot.html">Box Plot</a>
+<br>
+<a href="../../eda/section3/runseqpl.html">Run Sequence Plot</a>
+<br>
+<a href="../../eda/section3/autocopl.html">Autocorrelation Plot</a>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Software</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Seasonal subseries plots are available in a few general purpose
+statistical software programs.  It may possible to write macros to 
+generate this plot in most statistical software programs that do 
+not provide it directly.  Seasonal subseries plots can be generated 
+using both <a href="pmc4431.dp">Dataplot code</a> and 
+<a href="pmc4431.r">R code</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc443.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc444.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc4431.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:45 GMT -->
+</HTML>

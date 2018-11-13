@@ -1,0 +1,164 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section3/apr313.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.3.1.3. Reliability growth (Duane model)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr314.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr312.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr3.html">Reliability Data Collection</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.3.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr31.html">How do you plan a reliability assessment test?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.3.1.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Reliability growth (Duane model)</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Guidelines
+for planning how long to run a reliability growth test</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->A reliability improvement test
+usually takes a large resource commitment, so it is important to have a
+way of estimating how long a test will be required. The following procedure
+gives a starting point for determining a test time:
+<ol>
+<li>
+Guess a starting value for \(\beta\),
+<!-- &nbsp;<img SRC="gifs/beta.gif" ALT="beta" height=21 width=16 align=ABSCENTER>, -->
+the growth slope. Some <a href="../section1/apr192.html#reliability improvement slope">guidelines</a>
+were previously discussed. Pick something close to 0.3 for a conservative
+estimate (perhaps a new cross-functional team will be working on the improvement
+test or the system to be improved has many new parts with possibly unknown
+failure mechanisms), or close to 0.5 for a more optimistic estimate.</li>
+
+<li>
+Use current data and engineering estimates to arrive at a consensus for
+what the starting MTBF for the system is. Call this \(M_1\).
+<!-- <i>M<sub>1</sub></i>.&nbsp; -->
+</li>
+
+<li>
+Let \(M_T\)
+<!-- <i>M<sub>T</sub></i> -->
+be the target MTBF (the customer requirement).
+Then the improvement needed on the test is given by
+
+$$ IM = \frac{M_T}{M_1} \, .$$
+
+</li>
+
+<!-- <br><i>IM = M<sub>T</sub>/M<sub>1</sub></i> -->
+
+<li>
+A first pass estimate of the test time needed is
+
+$$ T = IM^{1/\beta} \, . $$
+
+</li>
+
+<!-- <center><img SRC="eqns/firstpass.gif" ALT="T = IM**(1/beta)" ></center> -->
+
+</ol>
+This estimate comes from using the starting MTBF of \(M_1\)
+<!-- <i>M<sub>1</sub></i> -->
+as the MTBF after 1 hour on test and using the fact that the improvement
+from 1 hour to \(T\)
+<!-- <i>T</i> -->
+hours is just \(T^\beta\).
+<!-- <img SRC="gifs/tbeta.gif" ALT="t**beta" height=22 width=24 align=ABSBOTTOM>.</td> -->
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Make sure test time makes engineering sense</i></td>
+
+<td VALIGN=TOP WIDTH="85%">The reason the above is just a first pass estimate
+is it will give unrealistic (too short) test times when a high \(\beta\)
+<!-- &nbsp;<img SRC="gifs/beta.gif" ALT="beta" height=21 width=16 align=ABSBOTTOM> -->
+is assumed. A very short reliability improvement test makes little sense
+because a minimal number of failures must be observed before the improvement
+team can determine design and parts changes that will "grow" reliability.
+And it takes time to implement these changes and observe an improved repair
+rate.&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Iterative simulation is an aid for test planning</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><a href="../section1/apr191.html#Simulating NHPP Power Law Data">Simulation
+methods</a> can also be used to see if a planned test is likely to generate
+data that will demonstrate an assumed growth rate.</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr312.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr314.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section3/apr313.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+</HTML>

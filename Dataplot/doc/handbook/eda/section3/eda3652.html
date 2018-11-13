@@ -1,0 +1,272 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3652.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:33 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.6.5.2. Maximum Likelihood</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda3653.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda3651.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda36.html">Probability Distributions</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda365.html">Estimating the Parameters of a Distribution</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.6.5.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Maximum Likelihood</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="MLE">
+Maximum Likelihood
+</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Maximum likelihood estimation begins with the mathematical
+expression known as a likelihood function of the sample data.
+Loosely speaking, the likelihood of a set of data is the probability
+of obtaining that particular set of data given the chosen probability
+model.  This expression contains the unknown parameters.  Those
+values of the parameter that maximize the sample likelihood are known
+as the maximum likelihood estimates.
+<p>
+The <a href="../../apr/section4/apr412.html">reliability chapter</a>
+contains some examples of the likelihood functions for a few of the
+commonly used distributions in reliability analysis.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Advantages
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The advantages of this method are:
+<ul>
+   <li>Maximum likelihood provides a consistent approach to
+       parameter estimation problems.  This means that maximum
+       likelihood estimates can be developed for a large variety
+       of estimation situations.  For example, they can be applied
+       in reliability analysis to censored data under various
+       censoring models.
+       <p>
+   <li>Maximum likelihood methods have desirable mathematical
+       and optimality properties.  Specifically,
+       <ol>
+          <li>They become minimum variance unbiased estimators as
+              the sample size increases.  By unbiased, we mean
+              that if we take (a very large number of) random samples
+              with replacement from a population, the average value of
+              the parameter estimates will be theoretically exactly
+              equal to the population value.  By minimum variance, we
+              mean that the estimator has the smallest variance, and
+              thus the narrowest confidence interval, of all estimators
+              of that type.
+          <li>They have approximate normal distributions and
+              approximate sample variances that can be used to
+              generate confidence bounds and hypothesis tests
+              for the parameters.
+       </ol>
+       <p>
+   <li>Several popular statistical software packages provide
+       excellent algorithms for maximum likelihood estimates
+       for many of the commonly used distributions.  This helps
+       mitigate the computational complexity of maximum likelihood
+       estimation.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Disadvantages
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The disadvantages of this method are:
+<ul>
+   <li>The likelihood equations need to be specifically worked
+       out for a given distribution and estimation problem.  The
+       mathematics is often non-trivial, particularly if confidence
+       intervals for the parameters are desired.
+       <p>
+   <li>The numerical estimation is usually non-trivial.  Except for
+       a few cases where the maximum likelihood formulas are
+       in fact simple, it is generally best to rely on
+       high quality statistical software to obtain maximum likelihood
+       estimates.  Fortunately, high quality maximum likelihood
+       software is becoming increasingly common.
+       <p>
+   <li>Maximum likelihood estimates can be heavily biased for small
+       samples.  The optimality properties may not apply for small
+       samples.
+       <p>
+   <li>Maximum likelihood can be sensitive to the choice of starting
+       values.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Most general purpose statistical software programs support
+maximum likelihood estimation (MLE) in some form.  MLE
+estimation can be supported in two ways.
+<ol>
+   <li>A software program may provide a generic function
+       minimization (or equivalently, maximization) capability.
+       This is also referred to as function optimization.
+       Maximum likelihood estimation is essentially a function
+       optimization problem.
+       <p>
+       This type of capability is particularly common in mathematical
+       software programs.
+       <p>
+   <li>A software program may provide MLE computations for a
+       specific problem.  For example, it may generate ML estimates
+       for the parameters of a Weibull distribution.
+       <p>
+       Statistical software programs will often provide ML estimates
+       for many specific problems even when they do not support
+       general function optimization.
+
+</ol>
+The advantage of function minimization software is that it can be
+applied to many different MLE problems.  The drawback is that
+you have to specify the maximum likelihood equations to the
+software.  As the functions can be non-trivial, there is potential
+for error in entering the equations.
+<p>
+The advantage of the specific MLE procedures is that greater
+efficiency and better numerical stability can often be obtained
+by taking advantage of the properties of the specific estimation
+problem.  The specific methods often return explicit confidence
+intervals.  In addition, you do not have to know or specify the
+likelihood equations to the software.  The disadvantage is that each
+MLE problem must be specifically coded.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+
+
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda3651.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda3653.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3652.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:33 GMT -->
+</HTML>

@@ -1,0 +1,230 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4291.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:56:51 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.9.1. Background and Data</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4292.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda429.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda429.html">Fatigue Life of Aluminum Alloy Specimens</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.9.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Background and Data</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Generation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This data set comprises measurements of fatigue life (thousands of 
+cycles until rupture) of rectangular strips of 6061-T6 aluminum 
+sheeting, subjected to periodic loading with maximum stress of 
+21,000 psi (pounds per square inch), as reported by 
+<a href="eda43.html#Birnbaum">Birnbaum and Saunders (1958)</a>.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Purpose of Analysis</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The goal of this case study is to select a probabilistic model, 
+from among several reasonable alternatives, to describe the 
+dispersion of the resulting measured values of life-length.
+<P>
+The original study, in the field of statistical reliability
+analysis, was concerned with the prediction of failure times of a
+material subjected to a load varying in time. It was well-known
+that a structure designed to withstand a particular static load
+may fail sooner than expected under a dynamic load.
+<P>
+If a realistic model for the probability distribution of lifetime
+can be found, then it can be used to estimate the time by which a
+part or structure needs to be replaced to guarantee that the
+probability of failure does not exceed some maximum acceptable
+value, for example 0.1 %, while it is in service.
+<P>
+The chapter of this eHandbook that is concerned with the
+<a href="../../apr/apr.html">assessment of product reliability</a>
+contains additional material on statistical methods used in 
+reliability analysis. This case study is meant to complement that 
+chapter by showing the use of graphical and other techniques in 
+the model selection stage of such analysis.
+<P>
+When there is no cogent reason to adopt a particular model, or
+when none of the models under consideration seems adequate for
+the purpose, one may opt for a non-parametric statistical method,
+for example to produce tolerance bounds or confidence
+intervals.
+<P>
+A non-parametric method does not rely on the assumption that the
+data are like a sample from a particular probability distribution
+that is fully specified up to the values of some adjustable
+parameters. For example, the Gaussian probability distribution is
+a parametric model with two adjustable parameters.
+<P>
+The price to be paid when using non-parametric methods is loss of
+efficiency, meaning that they may require more data for statistical
+inference than a parametric counterpart would, if applicable. 
+For example, non-parametric confidence intervals for model parameters
+may be considerably wider
+than what a confidence interval would need to be if the
+underlying distribution could be identified correctly. Such
+identification is what we will attempt in this case study.
+<P>
+It should be noted --- a point that we will stress later in the
+development of this case study --- that the very exercise of
+selecting a model often contributes substantially to the
+uncertainty of the conclusions derived after the selection has
+been made.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The analyses used in this case study can be generated using
+<a href="eda4292.r">R code</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following data are used for this case study.
+<p>
+<pre>
+  370 1016 1235 1419 1567 1820
+  706 1018 1238 1420 1578 1868
+  716 1020 1252 1420 1594 1881
+  746 1055 1258 1450 1602 1890
+  785 1085 1262 1452 1604 1893
+  797 1102 1269 1475 1608 1895
+  844 1102 1270 1478 1630 1910
+  855 1108 1290 1481 1642 1923
+  858 1115 1293 1485 1674 1940
+  886 1120 1300 1502 1730 1945
+  886 1134 1310 1505 1750 2023
+  930 1140 1313 1513 1750 2100
+  960 1199 1315 1522 1763 2130
+  988 1200 1330 1522 1768 2215
+  990 1200 1355 1530 1781 2268
+ 1000 1203 1390 1540 1782 2440
+ 1010 1222 1416 1560 1792
+</pre>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda429.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4292.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4291.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:56:53 GMT -->
+</HTML>

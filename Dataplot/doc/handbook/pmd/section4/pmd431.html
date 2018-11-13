@@ -1,0 +1,301 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:10 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.3.1. Least Squares</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd432.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd43.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd43.html">How are estimates of the unknown parameters obtained?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.3.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Least Squares</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>General LS Criterion</I></TD>
+<TD WIDTH=85% VALIGN=top>
+In least squares (LS) estimation, the unknown values of the parameters, 
+\(\beta_0, \, \beta_1, \, \ldots \,\),
+<!-- <IMG ALT="\beta_0, \beta_1, \ldots" ALIGN=absmiddle SRC="eqns/blist.gif">, -->
+in the regression function, \(f(\vec{x};\vec{\beta})\),
+<!-- <IMG ALT="f(\vec{x};\vec{\beta})" ALIGN=absmiddle SRC="eqns/f.gif">, -->
+are estimated by finding numerical
+values for the parameters that minimize the sum of the squared deviations between
+the observed responses and the functional portion of the model.
+Mathematically, the least (sum of) squares criterion that is minimized to 
+obtain the parameter estimates is
+
+$$ Q = \sum_{i=1}^{n} \ [y_i - f(\vec{x}_i;\hat{\vec{\beta}})]^2 $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+Q = \sum_{i=1}^{n} \ [y_i - f(\vec{x}_i;\vec{\hat{\beta}})]^2
+" ALIGN=BOTTOM SRC="eqns/glss.gif"></CENTER><BR> -->
+
+As previously noted, \(\beta_0, \, \beta_1, \, \ldots \,\)
+<!-- <IMG ALT="\beta_0, \beta_1, \ldots" ALIGN=absmiddle SRC="eqns/blist.gif"> -->
+are treated as the variables in the optimization and the predictor variable values, 
+\(x_1, \, x_2, \, \ldots \,\)
+<!-- <IMG ALT="x_1, x_2, \ldots" ALIGN=middle SRC="eqns/xlist.gif"> -->
+are treated as coefficients.  To emphasize the fact that the estimates of the 
+parameter values are not the same as the true values of the parameters, 
+the estimates are denoted by \(\hat{\beta}_0, \, \hat{\beta}_1, \, \ldots \,\).
+<!-- <IMG ALT="\hat{\beta}_0, \hat{\beta}_1, \ldots" ALIGN=middle SRC="eqns/bhlist.gif">. -->
+For linear models, the least squares minimization is usually done analytically using
+calculus.  For nonlinear models, on the other hand, the minimization must almost always
+be done using iterative numerical algorithms. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>LS for Straight Line</I></TD>
+<TD WIDTH=85% VALIGN=top>
+To illustrate, consider  the straight-line model,
+
+$$ y = \beta_0 + \beta_1x + \varepsilon \, .$$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+y = \beta_0 + \beta_1x + \varepsilon
+" ALIGN=BOTTOM SRC="eqns/sl.gif">.</CENTER><BR> -->
+For this model the least squares estimates of the parameters would be
+computed by minimizing 
+
+$$ Q = \sum_{i=1}^{n} \ [y_i - (\hat{\beta}_0 + \hat{\beta}_1x_i)]^2 \, .$$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+Q = \sum_{i=1}^{n} \ [y_i - (\hat{\beta}_0 + \hat{\beta}_1x_i)]^2
+" ALIGN=BOTTOM SRC="eqns/slss.gif"></CENTER><BR> -->
+Doing this by 
+<OL>
+<LI>taking partial derivatives of \(Q\)
+<!-- <IMG ALT="Q" ALIGN=absmiddle SRC="eqns/Q.gif"> -->
+with respect to \(\hat{\beta_0}\)
+<!-- <IMG ALT="\hat{\beta}_0" ALIGN=absmiddle SRC="eqns/b1h.gif"> -->
+and \(\hat{\beta}_1\),
+<!-- <IMG ALT="\hat{\beta}_1" ALIGN=absmiddle SRC="eqns/b2h.gif">, -->
+<LI>setting each partial derivative equal to zero, and
+<LI> solving the resulting system of two equations with two unknowns
+</OL>
+yields the following estimators for the parameters:
+
+$$ \hat{\beta}_1 = \frac{\sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^{n} (x_i-\bar{x})^2} $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\hat{\beta}_1 = \frac{\sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^{n} (x_i-\bar{x})^2}
+" ALIGN=BOTTOM SRC="eqns/b2hf.gif"></CENTER>
+<BR><BR><CENTER> -->
+
+$$ \hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x} $$
+
+<!-- <IMG ALT="\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}" 
+     ALIGN=BOTTOM SRC="eqns/b1hf.gif">.</CENTER> -->
+</TD> 
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I></I></TD>
+<TD WIDTH=85% VALIGN=top>
+These formulas are instructive because they show that the parameter
+estimators are functions of both the predictor and response variables and
+that the  estimators are not independent of each other unless 
+\(\bar{x} = 0\).
+<!-- <IMG ALT="\bar{x} = 0" ALIGN=absmiddle SRC="eqns/xbar0.gif">. -->
+This is clear because the formula
+for the estimator of the intercept depends directly on the value of the estimator
+of the slope, except when the second term in the formula for \(\hat{\beta}_0\)
+<!-- <IMG ALT="\hat{\beta}_0" ALIGN=absmiddle SRC="eqns/beta1hat.gif"> -->
+drops out due to multiplication by zero.  This means 
+that if the estimate of the slope deviates a lot from the true slope, then the 
+estimate of the intercept will tend to deviate a lot from its true value too.  
+This lack of independence of the parameter estimators, or more specifically the
+correlation of the parameter estimators, becomes important when computing the 
+uncertainties of predicted values from the model.  Although the formulas 
+discussed in this paragraph only apply to the straight-line model, the 
+relationship between the parameter estimators is analogous for more
+complicated models, including both statistically linear and statistically
+nonlinear models.
+</TD> 
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Quality of Least Squares Estimates</I></TD>
+<TD WIDTH=85% VALIGN=top>
+From the preceding discussion, which focused on how the least squares estimates
+of the model parameters are computed and on the relationship between the parameter
+estimates, it is  difficult to picture exactly how good the parameter estimates are.
+They are, in fact, often quite good.  The plot below shows the data from the
+<A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature</A> example with
+the fitted regression line and the true regression line, which is known in this
+case because the data were simulated.  It is clear from the plot that the two
+lines, the solid one estimated by least squares and the dashed being the true line
+obtained from the inputs to the simulation, are almost identical over the range of
+the data. Because the least squares line approximates the true line so well in this
+case, the least squares line will serve as a useful description of the deterministic
+portion of the variation in the data, even though it is not a perfect description.
+While this plot is just one example, the relationship between the estimated and
+true regression functions shown here is fairly typical.
+</TD> 
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Comparison of LS Line and True Line</I></TD>
+<TD WIDTH=85% VALIGN=top>
+<A HREF="plots/mfpt1_f.gif">
+<IMG ALIGN=BOTTOM SRC="plots/mfpt1_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="data from the Pressure/Temperature example with fitted and true regression lines">
+</A>
+</TD> 
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="rsd.r1">Quantifying the Quality of the Fit for Real Data</A></I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+From the plot above it is easy to see that the line based on the least squares estimates
+of \(\beta_0\)
+<!-- <IMG ALT="\beta_0" SRC="eqns/beta1.gif" align=absmiddle> -->
+and \(\beta_1\)
+<!-- <IMG ALT="\beta_1" SRC="eqns/beta2.gif" align=middle> -->
+is a good estimate of the true line for these simulated data.  For real data, of course,
+this type of direct comparison is not possible.  Plots comparing the model to the data
+can, however, provide valuable information on the adequacy and usefulness of the model.
+In addition, another measure of the average quality of the fit of a regression
+function to a set of data by least squares can be quantified using the remaining
+parameter in the model, \(\sigma\),
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif">, -->
+the standard deviation of the error term in the model.
+</TD> 
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I></I></TD>
+<TD WIDTH=85% VALIGN=top>
+Like the parameters in the functional part of the model, \(\sigma\)
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif"> -->
+is generally not known, but it can also be estimated from the least squares 
+equations.  The formula for the estimate is
+
+$$\begin{array}{ccl}
+\hat{\sigma} & = & \sqrt{\frac{Q}{n-p}} \\
+             &   & \\
+             & = & \sqrt{\frac{\sum_{i=1}^{n} \ [y_i - f(\vec{x}_i;\hat{\vec{\beta}})]^2}{n-p}}
+\end{array}$$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\begin{array}{ccl}
+\hat{\sigma} & = & \sqrt{\frac{Q}{n-p}} \\
+             &   & \\
+             & = & \sqrt{\frac{\sum_{i=1}^{n} \ [y_i - f(\vec{x}_i;\vec{\hat{\beta}})]^2}{n-p}}
+\end{array}
+" ALIGN=BOTTOM SRC="eqns/sh.gif">,</CENTER><BR> -->
+with \(n\)
+<!-- <IMG ALT="n" SRC="eqns/n.gif"> -->
+denoting the number of observations in the sample and \(p\)
+<!-- <IMG ALT="p" ALIGN=middle SRC="eqns/p.gif"> -->
+is the number of parameters in the functional part of the model.  \(\hat{\sigma}\)
+<!-- <IMG ALT="\hat{\sigma}" ALIGN=BOTTOM SRC="eqns/sigmahat.gif"> -->
+is often referred to as the "residual standard deviation" of the process.
+</TD> 
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I></I></TD>
+<TD WIDTH=85% VALIGN=top>
+Because \(\sigma\)
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif"> -->
+measures how the individual values of the response
+variable vary with respect to their true values under \(f(\vec{x};\vec{\beta})\),
+<!-- <IMG ALT=" f(\vec{x};\vec{\beta})" ALIGN=middle SRC="eqns/f.gif">, -->
+it also contains information about how
+far from the truth quantities derived from the data, such as  the estimated values of
+the parameters, could be.  Knowledge of the approximate value of \(\sigma\)
+<!-- <IMG ALT="\sigma" SRC="eqns/sigma.gif"> -->
+plus the values of the predictor variable values can be
+combined to provide estimates of the average deviation between the different aspects of
+the model and the corresponding true values, quantities that can be related to
+properties of the process generating the data that we would like to know.  
+</TD> 
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I></I></TD>
+<TD WIDTH=85% VALIGN=top>
+More information on the correlation of the parameter estimators and computing uncertainties
+for different functions of the estimated regression parameters can be found in
+<A HREF="../section5/pmd5.html">Section 5</A>.
+</TD> 
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd43.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd432.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd431.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:14 GMT -->
+</HTML>

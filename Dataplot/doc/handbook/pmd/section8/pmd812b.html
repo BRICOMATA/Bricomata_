@@ -1,0 +1,705 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section8/pmd812b.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:17:20 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.8.1.2.11. Determining m and n for Rational Function
+       Models</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../../index-3.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd812a.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.8.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd8.html">Some Useful Functions for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd81.html">Univariate Functions</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.8.1.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd812.html">Rational Functions</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.8.1.2.11.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Determining m and n for Rational Function
+       Models</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+</TABLE>
+
+<TABLE BORDER=0 CELLPADDING=10 WIDTH=550>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      General Question
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      A general question for rational function models is:
+      <UL>
+          I have data to which I wish to fit a rational function.  
+          What degrees \(n\) and \(m\)
+          <!-- <i>n</i> and <i>m</i> -->
+          should I use for the numerator and denominator, respectively?
+      </UL>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Four Questions
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      To answer the above broad question, the following four
+      specific questions need to be answered.
+      <ol>
+         <li>What <i>value</i> should the function have at \(x=\infty\)?
+             <!-- <i>x</i> = <IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">? -->
+             Specifically, is the value zero, a constant, or
+             plus or minus infinity?
+         <li>What <i>slope</i> should the function have at \(x=\infty\)?
+             <!-- <i>x</i> = <IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">? -->
+             Specifically, is the derivative of the function
+             zero, a constant, or plus or minus infinity?
+         <li>How many times should the <i>function</i> equal zero (i.e., \(f(x)=0\))
+              <!-- <i>f</i> (<i>x</i>) = 0) -->
+              for finite \(x\)?
+              <!-- <i>x</i>? -->
+         <li>How many times should the <i>slope</i> equal zero (i.e., \(f'(x)=0\))
+             <!-- <i>f</i> '(<i>x</i>) = 0) -->
+             for finite \(x\)?
+             <!-- <i>x</i>? -->
+      </ol>
+      These questions are answered by the analyst by inspection
+      of the data and by theoretical considerations of the
+      phenomenon under study.
+      <P>
+      Each of these questions is addressed separately below.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Question 1: What Value Should the Function Have at \(x=\infty\)?
+      <!-- x = <IMG ALT="\infty" SRC="eqns/inf2.gif">? -->
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+    Given the rational function,
+    
+    $$ R(x) = \frac{P_n(x)} {P_m(x)} $$
+
+    <!-- <ul>
+       <IMG ALT="R(x) = \frac{P_n(x)} {P_m(x)}" SRC="eqns/rx.gif">
+    </ul> -->
+
+    or
+
+    $$ y = \frac{a_{n}x^{n} + a_{n-1}x^{n-1} + ... + a_{2}x^{2} + a_{1}x + a_{0}} 
+                {b_{m}x^{m} + b_{m-1}x^{m-1} + ... + b_{2}x^{2} + b_{1}x + b_{0}} \, , $$
+
+    <!-- <ul>
+       <IMG ALT=" 
+y = \frac{a_{n}x^{n} + a_{n-1}x^{n-1} + ... + a_{2}x^{2} + a_{1}x + a_{0}} {b_{m}x^{m} + b_{m-1}x^{m-1} + ... + b_{2}x^{2} + b_{1}x + b_{0}}
+" SRC="eqns/ratfunc.gif">
+    </ul> -->
+
+    then asymptotically,
+    $$ R(x) \approx \left(\frac{a_n}{b_m}\right)x^{n-m} \, . $$
+
+    <!-- <ul>
+       <IMG ALT="R(x) \approx (\frac{a_n}{b_m})x^{n-m}" SRC="eqns/ratasymp.gif">
+    </ul> -->
+
+    From this, it follows that:
+    <ul>
+       <li>if \(n \lt m, \, R(\infty)=0\),
+           <!-- <i>n</i> < <i>m</i>, <i>R</i>(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = 0 -->
+           <p>
+       <li>if \(n = m, \, R(\infty) = a_n/b_m\), and
+           <!-- <i>n</i> = <i>m</i>, <i>R</i>(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">)
+                = <i>a<sub>n</sub></i>/<i>b<sub>m</sub></i> -->
+           <p>
+       <li>if \(n \gt m, \, R(\infty) = \pm \infty\).
+           <!-- <i>n</i> > <i>m</i>, <i>R</i>(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = 
+           <IMG ALT="\pm \infty" align=absmiddle SRC="eqns/inf3.gif"> -->
+    </ul>
+    Conversely, if the fitted function, \(f(x)\),
+    <!-- <i>f</i>(<i>x</i>) -->
+    is such that
+    <ul>
+       <li>\(f(\infty) = 0\), this implies \(n \lt m\).
+            <!-- <i>f</i>(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">)
+                 = 0, this implies <i>n</i> < <i>m</i> -->
+           <P>
+       <li>\(f(\infty) = constant\), this implies \(n = m\).
+           <!-- <i>f</i>(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = <i>constant</i>, 
+           this implies <i>n</i> = <i>m</i> -->
+           <P>
+       <li>\(f(\infty) = \pm \infty\), this implies \(n \gt m\).
+           <!-- <i>f</i>(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = 
+                    <IMG ALT="\pm \infty" align=absmiddle SRC="eqns/inf3.gif">, 
+                    this implies <i>n</i> > <i>m</i> -->
+    </ul>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Question 2: What Slope Should the Function Have at \(x=\infty\)?
+      <!-- x = <IMG ALT="\infty" SRC="eqns/inf2.gif">? -->
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+    The slope is determined by the derivative of a function.
+    The derivative of a rational function is
+
+$$ R'(x) = \frac{P_m(x)P'_n(x) - P_n(x)P'_m(x)} {[P_m(x)]^2} \, ,$$
+
+    <!-- <ul>
+      <IMG ALT=" R'(x) = \frac{P_m(x)P'_n(x) - P_n(x)P'_m(x)} {[P_m(x)]^2}" 
+           SRC="eqns/rxprime.gif">
+    </ul> -->
+
+    with
+
+$$ \begin{eqnarray}
+P_n(x) &=& a_0 +a_1x + ... + a_nx^n \\
+ &=& \\
+P'_n(x) &=& a_1 + 2a_2x + ... + na_nx^{n-1} \\
+ &=& \\
+P_m(x) &=& b_0 + b_1x + ... + b_mx^m \\
+ &=& \\
+P'_m(x) &=& b_1 + 2b_2x + ... + mb_mx^{m-1} \, .\\
+\end{eqnarray} $$
+
+    <!-- <ul>
+       <IMG ALT="P_n(x) = a_0 +a_1x + ... + a_nx^n" SRC="eqns/pnx.gif">
+       <p>
+       <IMG ALT="P'_n(x) = a_1 + 2a_2x + ... + na_nx^{n-1}" SRC="eqns/pnxprime.gif">
+       <p>
+       <IMG ALT="P_m(x) = b_0 + b_1x + ... + b_mx^m" SRC="eqns/pmx.gif">
+       <p>
+       <IMG ALT="P'_m(x) = b_1 + 2b_2x + ... + mb_mx^{m-1}" SRC="eqns/pmxprime.gif">
+    </ul> -->
+
+    Asymptotically,
+$$ R'(x) \approx (n - m)\left(\frac{a_n} {b_m}\right)x^{n-m-1} \, .$$
+
+    <!-- <ul>
+      <IMG ALT="R'(x) \approx (n - m)(\frac{a_n} {b_m})x^{n-m-1}" SRC="eqns/rxpasymp.gif">
+    </ul> -->
+
+    From this, it follows that
+    <ul>
+       <li>if \(n < m, \, R'(\infty)=0\),
+           <!-- <i>n</i> < <i>m</i>, <i>R</i>'(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = 0 -->
+           <p>
+       <li>if \(n = m, \, R'(\infty) = 0\),
+           <!-- <i>n</i> = <i>m</i>, <i>R</i>'(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = 0 -->
+           <p>
+       <li>if \(n = m + 1, \, R'(\infty) = a_n/b_n\), and
+           <!-- <i>n</i> = <i>m</i> +1, <i>R</i>'(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = 
+           <i>a<sub>n</sub></i>/<i>b<sub>m</sub></i> -->
+           <p>
+       <li>if \(n > m + 1, \, R'(\infty) = \pm \infty\).
+           <!-- <i>n</i> > <i>m</i> + 1, <i>R</i>'(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) =
+           <IMG ALT="\pm \infty" align=absmiddle SRC="eqns/inf3.gif"> -->
+    </ul>
+    Conversely, if the fitted function, \(f(x)\),
+    <!-- <i>f</i>(<i>x</i>) -->
+    is such that
+    <ul>
+       <li>\(f'(\infty)= 0\), this implies \(n \le m\).
+           <!-- <i>f</i>'(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = 0, 
+           this implies <i>n</i> <IMG ALT="\le" align=absmiddle SRC="eqns/le.gif"> <i>m</i> -->
+           <P>
+       <li>\(f'(\infty) = constant\), this implies \(n = m + 1\).
+           <!-- <i>f</i>'(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = <i>constant</i>, 
+           this implies <i>n</i> = <i>m</i> + 1 -->
+           <P>
+       <li>\(f'(\infty) = \pm \infty\), this implies \( n > m + 1\).
+           <!-- <i>f</i>'(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) = 
+           <IMG ALT="\pm \infty" align=absmiddle SRC="eqns/inf3.gif">,
+           this implies <i>n</i> > <i>m</i> + 1 -->
+    </ul>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Question 3: How Many Times Should the Function Equal
+      Zero for Finite \(x\)?
+      <!-- <IMG ALT="x" SRC="eqns/x.gif">? -->
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      For finite \(x\), \(R(x)=0\) 
+      <!-- <i>x</i>, <i>R</i>(<i>x</i>) = 0 -->
+      only when the
+      numerator polynomial, \(P_n\),
+      <!-- <i>P<sub>n</sub></i>, -->
+      equals zero.
+      <P>
+      The numerator polynomial, and thus \(R(x)\)
+      <!-- <i>R</i>(<i>x</i>) -->
+      as well,
+      can have between zero and \(n\)
+      <!-- <i>n</i> -->
+      real roots.  Thus, for a given \(n\),
+      <!-- <i>n</i>, -->
+      the number of real roots of \(R(x)\)
+      <!-- <i>R</i>(<i>x</i>) -->
+      is less than or equal to \(n\).
+      <!-- <i>n</i>. -->
+      <p>
+      Conversely, if the fitted function \(f(x)\)
+      <!-- <i>f</i>(<i>x</i>) -->
+      is such
+      that, for finite \(x\),
+      <!-- <i>x</i>, -->
+      the number of times \(f(x)=0\)
+      <!-- <i>f</i>(<i>x</i>)= 0 -->
+      is \(k_3\),
+      <!-- <i>k</i><sub>3</sub>, -->
+      then \(n\)
+      <!-- <i>n</i> -->
+      is greater than or equal to \(k_3\).
+      <!-- <i>k</i><sub>3</sub>. -->
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Question 4: How Many Times Should the Slope Equal
+      Zero for Finite \(x\)?
+      <!-- <IMG ALT="x" SRC="eqns/x.gif">? -->
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      The derivative function, \(R'(x)\),
+      <!-- <i>R</i>'(<i>x</i>), -->
+      of the rational function will equal zero when the numerator polynomial 
+      equals zero.  The number of real roots of a polynomial is between
+      zero and the degree of the polynomial.
+      <P>
+      For \(n \ne m\),
+      <!-- <i>n</i> not equal to <i>m</i>, -->
+      the numerator polynomial of \(R'(x)\)
+      <!-- <i>R</i>'(<i>x</i>) -->
+      has order \(n + m - 1\).
+      <!-- <i>n</i>+<i>m</i>-1. -->
+      For \(n = m\),
+      <!-- <i>n</i> equal to <i>m</i>, -->
+      the numerator polynomial of \(R'(x)\)
+      <!-- <i>R</i>'(<i>x</i>) -->
+      has order \(n + m - 2\).
+      <!-- <i>n</i>+<i>m</i>-2. -->
+      <p>
+      From this, it follows that
+      <ul>
+         <li>if \(n \ne m\), 
+             <!-- <i>n</i> <IMG ALT="\ne" align=absmiddle SRC="eqns/ne.gif"> <i>m</i>, -->
+             the number of real roots of \(R'(x), \, k_4, \, \mbox{ is } \le n + m - 1\).
+             <!-- <i>R</i>'(<i>x</i>),  <i>k</i><sub>4</sub>,
+             <IMG ALT="\le" align=absmiddle SRC="eqns/le.gif"> <i>n</i>+<i>m</i>-1. -->
+         <li>if \(n = m\),
+             <!-- <i>n</i> = <i>m</i>, -->
+             the number of real roots of \(R'(x), \, k_4, \, \mbox{ is } \le n + m - 2\).
+             <!-- <i>R</i>'(<i>x</i>), <i>k</i><sub>4</sub>, 
+             is <IMG ALT="\le" align=absmiddle SRC="eqns/le.gif"> <i>n</i>+<i>m</i>-2. -->
+      </ul>
+      Conversely, if the fitted function \(f(x)\)
+      <!-- <i>f</i>(<i>x</i>) -->
+      is such that, for finite \(x\) and \(n \ne m\)
+      <!-- <i>x</i> and <i>n</i> <IMG ALT="\ne" align=absmiddle SRC="eqns/ne.gif"> <i>m</i>, -->
+      the number of times \(f'(x) = 0\) is \(k_4\),
+      <!-- <i>f</i>'(<i>x</i>) = 0 is <i>k</i><sub>4</sub>, -->
+      then \(n + m - 1\) is \(\ge k_4\).
+      <!-- <i>n</i>+<i>m</i>-1 is <IMG ALT="\ge" align=absmiddle SRC="eqns/ge.gif"> <i>k</i><sub>4</sub>. -->
+      Similarly, if the fitted function \(f(x)\)
+      <!-- <i>f</i>(<i>x</i>) -->
+      is such that, for finite \(x\) and \(n = m\),
+      <!-- <i>x</i> and <i>n</i> = <i>m</i>, -->
+      the number of times \(f'(x) = 0\) is \(k_4\),
+      <!-- <i>f</i>'(<i>x</i>) = 0 is <i>k</i><sub>4</sub>, -->
+      then \(n + m - 2 \ge k_4\).
+      <!-- <i>n</i>+<i>m</i>-2 <IMG ALT="\ge" align=absmiddle SRC="eqns/ge.gif"><i>k</i><sub>4</sub>. -->
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Tables for Determining Admissible Combinations of \(m\) and \(n\)
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      In summary, we can determine the admissible combinations of \(n\) and \(m\)
+      <!-- <i>n</i> and <i>m</i> -->
+      by using the following four tables to generate an \(n\) versus \(m\)
+      <!-- <i>n</i> versus <i>m</i> -->
+      graph.  Choose the simplest (\(n, m\))
+      <!-- (<i>n</i>,<i>m</i>) -->
+      combination for the degrees of the intial rational function model.
+      <p>
+      <table border cellpadding=10 width=450>
+         <tr>
+            <td valign=top width=50%>
+               1. Desired value of \(f(\infty)\)
+                  <!-- <i>f</i>(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) -->
+            </td>
+            <td valign=top width=50%>
+               Relation of \(n\) to \(m\)
+               <!-- <i>n</i> to <i>m</i> -->
+            </td>
+         </tr>
+         <tr>
+            <td valign=top>
+               \(0\)    <p>
+               constant <p>
+               \(\infty\) <!-- <IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif"> -->
+            </td>
+            <td valign=top>
+               \(n \lt m\)  <!-- <i>n</i> < <i>m</i> --> <p>
+               \(n = m \)   <!-- <i>n</i> = <i>m</i> --> <p>
+               \(n \gt m \) <!-- <i>n</i> > <i>m</i> -->
+            </td>
+         </tr>
+      </table>
+      <p>
+      <table border cellpadding=10 width=450>
+         <tr>
+            <td valign=top width=50%>
+               2. Desired value of \(f'(\infty)\)
+                  <!-- <i>f</i>'(<IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif">) -->
+            </td>
+            <td valign=top width=50%>
+               Relation of \(n\) to \(m\)
+               <!-- <i>n</i> to <i>m</i> -->
+            </td>
+         </tr>
+         <tr>
+            <td valign=top>
+               \(0\) <p>
+               constant <p>
+               \(\infty\)
+               <!-- <IMG ALT="\infty" align=absmiddle SRC="eqns/inf2.gif"> -->
+            </td>
+            <td valign=top>
+               \(n \lt m + 1\) <!-- <i>n</i> < <i>m</i> + 1 --> <p>
+               \(n = m + 1\)   <!-- <i>n</i> = <i>m</i> + 1 --> <p>
+               \(n \gt m + 1\) <!-- <i>n</i> > <i>m</i> + 1 -->
+            </td>
+         </tr>
+      </table>
+      <p>
+      <table border cellpadding=10 width=450>
+         <tr>
+            <td valign=top width=50%>
+               3. For finite \(x\),
+                  <!-- <i>x</i>, -->
+                  desired number, \(k_3\), 
+                  <!-- <i>k</i><sub>3</sub>, -->
+                  of times \(f(x) = 0\)
+                  <!-- <i>f</i>(<i>x</i>) = 0 -->
+            </td>
+            <td valign=top width=50%>
+               Relation of \(n\) to \(k_3\)
+               <!-- <i>n</i> to <i>k</i><sub>3</sub> -->
+            </td>
+         </tr>
+         <tr>
+            <td valign=top>
+               \(k_3\) 
+               <!-- <i>k</i><sub>3</sub> -->
+            </td>
+            <td valign=top>
+               \(n \ge k_3\)
+               <!-- <i>n</i> <IMG ALT="\ge" align=absmiddle SRC="eqns/ge.gif"> <i>k</i><sub>3</sub> -->
+            </td>
+         </tr>
+      </table>
+      <p>
+      <table border cellpadding=10 width=450>
+         <tr>
+            <td valign=top width=50%>
+               4. For finite \(x\),
+                  <!-- <i>x</i>, -->
+                  desired number, \(k_4\),
+                  <!-- <i>k</i><sub>4</sub>, -->
+                  of times \(f'(x) = 0\)
+                  <!-- <i>f</i>'(<i>x</i>) = 0 -->
+            </td>
+            <td valign=top width=50%>
+               Relation of \(n\) to \(k_4\) and \(m\)
+               <!-- <i>n</i> to <i>k</i><sub>4</sub> and <i>m</i> -->
+            </td>
+         </tr>
+         <tr>
+            <td valign=top>
+               \(k_4 \, (n \ne m)\)
+               <!-- <i>k</i><sub>4</sub> (<i>n</i> <IMG ALT="\ne" align=absmiddle SRC="eqns/ne.gif"> <i>m</i>) --> 
+               <p> 
+               \(k_4 \, (n = m)\)
+               <!-- <i>k</i><sub>4</sub> (<i>n</i> = <i>m</i>) -->
+            </td>
+            <td valign=top>
+               \(n \ge (1 + k_4)- m\)
+               <!-- <i>n</i> <IMG ALT="\ge" align=absmiddle SRC="eqns/ge.gif"> (1 + <i>k</i><sub>4</sub>) - <i>m</i> -->
+               <p>
+               \(n \ge (2 + k_4) - m\)
+               <!-- <i>n</i> <IMG ALT="\ge" align=absmiddle SRC="eqns/ge.gif"> (2 + <i>k</i><sub>4</sub>) - <i>m</i> --> 
+               <br>
+            </td>
+         </tr>
+      </table>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Examples for Determing \(m\) and \(n\)
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      The goal is to go from a sample data set to a specific rational
+      function.  The graphs below summarize some common shapes that
+      rational functions can have and shows the admissible values and
+      the simplest case for \(n\) and \(m\).
+      <!-- <i>n</i> and <i>m</i>. -->
+      We typically start with the simplest case.  If the model validation
+      indicates an inadequate model, we then try other rational
+      functions in the admissible region.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 1
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape1.gif">
+         <IMG SRC="plots/shape1.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 1">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 2
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape2.gif">
+         <IMG SRC="plots/shape2.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 2">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 3
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape3.gif">
+         <IMG SRC="plots/shape3.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 3">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 4
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape4.gif">
+         <IMG SRC="plots/shape4.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 4">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 5
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape5.gif">
+         <IMG SRC="plots/shape5.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 5">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 6
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape6.gif">
+         <IMG SRC="plots/shape6.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 6">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 7
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape7.gif">
+         <IMG SRC="plots/shape7.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 7">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 8
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape8.gif">
+         <IMG SRC="plots/shape8.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 8">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 9
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shape9.gif">
+         <IMG SRC="plots/shape9.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 9">
+      </A>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Shape 10
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="plots/shap10.gif">
+         <IMG SRC="plots/shap10.r.gif" BORDER=0
+         alt="plot showing admissiable n and m for shape 10">
+      </A>
+
+   </TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd812a.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../../index-3.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section8/pmd812b.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:17:51 GMT -->
+</HTML>

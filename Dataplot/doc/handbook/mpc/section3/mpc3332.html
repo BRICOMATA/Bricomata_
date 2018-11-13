@@ -1,0 +1,219 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc3332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:58:38 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.3.3.2. Repeatability and level-2 standard deviations</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc3333.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc3331.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc33.html">What are calibration designs?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc333.html">Uncertainties of calibrated values</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.3.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Repeatability and level-2 standard deviations</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Repeatability standard deviation comes from the data of a single
+design</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+<A NAME="inst">The repeatability standard deviation of the instrument
+can be computed in two ways.  
+<ol>
+   <li>It can be computed as the residual standard deviation from the
+       design and should be available as output from any software
+       package that reduces data from calibration designs.  The matrix
+       equations for this computation are shown in the section on
+       <A HREF="mpc332.html">solutions to calibration designs</A>.  The
+       standard deviation has degrees of freedom
+       $$ \nu = n - m + 1 $$
+       <!--
+       <P>
+       <I><FONT SIZE=4><CENTER>v = n - m + 1</CENTER></FONT></I>
+       <P>
+       -->
+       for <i>n</i> difference measurements and <i>m</i> items.
+       Typically the degrees of freedom are very small.  For two
+       differences measurements on a reference standard and test item,
+       the degrees of freedom is \( \nu = 1 \). 
+       <!-- <I><FONT SIZE=4>v=1</FONT></I>. -->
+</ol>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>A more reliable estimate comes from pooling over historical
+data</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+<ol start=2>
+   <li>A more reliable estimate of the standard deviation can be
+       computed by pooling variances from <I>K</I> calibrations
+       (and then taking its square root) using the same instrument
+       (assuming the instrument is in statistical control).  The
+       formula for the pooled estimate is
+       $$ {\large s}_1 = \sqrt{\frac{1}{\sum_{k} \nu_k}\sum_{k} \nu_k {\large s}_k^2} \,\, . $$
+       <!--
+       <P>
+       <CENTER>
+       <IMG SRC="mpc3332a.gif"
+            ALT="s1 = SQRT((1/SUM[over k][v(k)])*SUM[v(k)*s(k)**2])">
+       </CENTER>
+       -->
+</ol>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I><A HREF="../section4/mpc442.html">Level-2 standard deviation</A> is
+estimated from check standard measurements</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+<A NAME="chkstd">The level-2 standard deviation</A> cannot be estimated
+from the data of the calibration design.  It cannot generally be
+estimated from repeated designs involving the test items.  The best
+mechanism for capturing the day-to-day effects is a
+<A HREF="../section1/mpc12.html">check standard</A>, which is treated as
+a test item and included in each calibration design.  Values of the
+check standard, estimated over time from the calibration design, are
+used to estimate the standard deviation.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Assumptions</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+The check standard value must be stable over time, and the measurements
+must be in statistical control for this procedure to be valid.  For this
+purpose, it is necessary to keep a historical record of values for a
+given check standard, and these values should be kept by instrument and
+by design.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Computation of level-2 standard deviation</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+Given <I>K</I> historical check standard values,
+$$ C_1, \, C_2,  \, \ldots , \, C_K $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc3332c.gif" alt="C1, C2, ..., Ck">
+</CENTER>
+-->
+<P>
+the standard deviation of the check standard values is computed as
+$$ {\large s}_C = {\large s}_2 = \sqrt{\frac{1}{K-1} \sum_{k=1}^{K} \left( C_k - \overline{C}_{\small{\bullet}} \right)^2} $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc3332b.gif"
+ALT="Sc = s2 = SQRT((1/(K-1))*SUM[(Ck - CBAR(.))**2])  where the
+ summation is from k=1 to K">
+</CENTER>
+<P>
+-->
+where
+$$ \overline{C}_{\small{\bullet}} = \frac{1}{K} \sum_{k=1}^{K} C_k $$
+<!--
+<CENTER>
+<IMG SRC="mpc3332d.gif" 
+     ALT="CBAR(.) = (1/K)*SUM[Ck]  where the summation is for k=1 to K">
+</CENTER>
+<P>
+-->
+with degrees of freedom \( \nu = K - 1 \).
+<!-- <I>v = <I>K - 1.</I> -->
+</TD>
+</TR>
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc3331.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc3333.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc3332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:58:38 GMT -->
+</HTML>

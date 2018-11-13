@@ -1,0 +1,310 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33e.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:40 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.14. Histogram</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33e1.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33d.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.14.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Histogram</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-----begin section: purpose -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:
+         Summarize a Univariate Data Set
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The purpose of a histogram
+      (<a href="../section4/eda43.html">Chambers</a>)
+      is to graphically summarize the distribution of a univariate
+      data set.
+      <p>
+      The histogram graphically shows the following:
+      <ol>
+         <li>center (i.e., the location) of the data;
+         <li>spread (i.e., the scale) of the data;
+         <li>skewness of the data;
+         <li>presence of outliers; and
+         <li>presence of multiple modes in the data.
+      </ol>
+      <p>
+      These features provide strong indications of the
+      proper distributional model for the data.  The
+      <a href="probplot.html">probability plot</a> or a
+      <a href="eda35e.html">goodness-of-fit</a> test can be
+      used to verify the distributional model.
+      <p>
+      The <a href = "#examples">examples </a>
+      section shows the appearance of a number of common features
+      revealed by histograms.
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Sample Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img align = left src = "../gif/histogr0.gif"
+     alt="sample histogram">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition</I>
+   </td>
+   <td width=85% valign=top>
+       The most common form of the histogram is obtained by splitting
+       the range of the data into equal-sized bins (called classes).
+       Then for each bin, the number of points from the data set that
+       fall into each bin are counted.  That is
+       <UL>
+           <LI>Vertical axis: Frequency (i.e., counts for each bin)
+           <LI>Horizontal axis: Response variable
+       </UL>
+       The classes can either be defined arbitrarily by the user or
+       via some systematic rule.  A number of theoretically
+       derived rules have been proposed by Scott
+       (<a href="../section4/eda43.html#Scott">Scott 1992</a>).
+       <p>
+       The cumulative histogram is a variation of the histogram
+       in which the vertical axis gives not just the counts for a
+       single bin, but rather gives the counts for that bin plus
+       all bins for smaller values of the response variable.
+       <p>
+       Both the histogram and cumulative histogram have
+       an additional variant whereby the counts are
+       replaced by the normalized counts.  The names for these variants
+       are the relative histogram and the relative cumulative
+       histogram.
+       <p>
+       There are two common ways to normalize the counts.
+       <ol>
+          <li>The normalized count is the count in a class divided by
+              the total number of observations.  In this case
+              the relative counts are normalized to sum to one
+              (or 100 if a percentage scale is used).
+              This is the intuitive case where the height of
+              the histogram bar represents the proportion of the
+              data in each class.
+              <P>
+          <li>The normalized count is the count in the class
+              divided by the number of observations times the
+              class width.  For this normalization, the area
+              (or integral) under the histogram is equal to one.
+              From a probabilistic point of view, this normalization
+              results in a relative histogram that is most akin to
+              the probability density function and a relative
+              cumulative histogram that is most akin to the
+              cumulative distribution function.  If you want to
+              overlay a probability density or cumulative
+              distribution function on top of the histogram, use
+              this normalization.  Although this normalization is
+              less intuitive (relative frequencies greater than 1
+              are quite permissible), it is the appropriate
+              normalization if you are using the histogram to model
+              a probability density function.
+       </ol>
+
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The histogram can be used to answer the following questions:
+      <ol>
+         <li>What kind of population distribution do the data come from?
+         <li>Where are the data located?
+         <li>How spread out are the data?
+         <li>Are the data symmetric or skewed?
+         <li>Are there outliers in the data?
+      </ol>
+   </td>
+</tr>
+
+<!-----begin section: examples -->
+
+<tr>
+   <td width=15% valign=top>
+      <a name = "examples"> </a>
+      <I>Examples</I>
+   </td>
+   <td width=85% valign=top>
+      <ol>
+         <li><a href = "histogr1.html">Normal</a>
+         <li><a href = "histogr2.html">Symmetric, Non-Normal,
+             Short-Tailed</a>
+         <li><a href = "histogr3.html">Symmetric, Non-Normal,
+             Long-Tailed</a>
+         <li><a href = "histogr4.html">Symmetric and Bimodal </a>
+         <li><a href = "histogr5.html">Bimodal Mixture of 2 Normals</a>
+         <li><a href = "histogr6.html">Skewed (Non-Symmetric) Right</a>
+         <li><a href = "histogr7.html">Skewed (Non-Symmetric) Left</a>
+         <li><a href = "histogr8.html">Symmetric with Outlier</a>
+      </ol>
+
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="boxplot.html">Box plot</a><br>
+      <a href="probplot.html">Probability plot</a><br>
+      <p>
+      The techniques below are not discussed in the Handbook.
+      However, they are similar in purpose to the histogram.
+      Additional information on them is contained in the
+      <a href="../section4/eda43.html#Chambers">Chambers</a> and
+      <a href="../section4/eda43.html#Scott">Scott</a> references. 
+      <p>
+      Frequency Plot<br>
+      Stem and Leaf Plot<br>
+      Density Trace<br>
+   </td>
+</tr>
+
+<!-----begin section: worked example -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The histogram is demonstrated in the
+      <a href="../section4/eda428.html">heat flow meter</a>
+      data case study.
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Histograms are available in most general purpose statistical
+software programs.  They are also supported in most general
+purpose charting, spreadsheet, and business graphics programs.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33d.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33e1.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33e.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:46 GMT -->
+</HTML>

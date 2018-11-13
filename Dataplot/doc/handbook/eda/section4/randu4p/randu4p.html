@@ -1,0 +1,563 @@
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/randu4p/randu4p.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:49 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+  <TITLE>Dataplot Commands for Uniform Random Numbers Case Study</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+        <IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+           <area shape="rect" alt="Next Page" href="../eda4224.html" coords="463,27,504,45">
+           <area shape="rect" alt="Previous Page" href="../eda4224.html" coords="417,28,459,45">
+           <area shape="rect" alt="Home" href="../../index.html" coords="52,0,100,43">
+           <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="165,27,264,46">
+           <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="307,28,366,44">
+           <area shape="default" nohref>
+   </map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Uniform Random Numbers Study</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Invoke Dataplot, set defautls, read data<I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Uniform Random Numbers Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+tic offset units screen
+tic offset 5 5
+title displacement 2
+case asis
+title case asis
+label case asis
+tic label case asis
+character case asis all
+legend case asis
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+skip 25
+set read format 5f10.6
+serial read randu.dat y
+skip 0
+set read format
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.1
+. Generate 4-plot
+.
+label size 6
+tic label size 6
+character size 4
+x3label displacement 11
+x3label automatic
+4-plot Y
+x3label
+move 50 96
+justification center
+height 4
+text Uniform Random Numbers: 4-PLot
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Sequence Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.1
+.
+y1label y
+x1label index
+plot y
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Lag Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.2
+.
+y1label y( i )
+x1label y(i-1)
+line blank
+char x
+lag plot y
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Histogram with Overlaid Normal PDF</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.3
+.
+y1label Rlc()elative uc()Flc()requency
+x1label Y
+let s = standard deviation y
+let xmean = mean y
+x2label lc()mean = ^xmean, sd = ^s
+x3label
+let a = 0.3*s
+let xmin = minimum y
+let xmax = maximum y
+class upper xmax
+class lower xmin4
+legend 1 Clc()lass uc()wlc()idth = ^a
+relative histogram y
+limits freeze
+legend 1
+pre-erase off
+line solid
+character blank
+plot norpdf(x,xmean,s) for x = xmin 0.01 xmax
+pre-erase on
+limits
+x2label
+. Finished Step 3.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Histogram with Overlaid Uniform PDF</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.4
+.
+y1label Rlc()elative uc()Flc()requency
+x1label Y
+x2label Ulc()niform uc()PDF: lc()from 0 to 1
+x3label
+let a = 0.3*s
+let xmin = minimum y
+let xmax = maximum y
+class upper xmax
+class lower xmin4
+legend 1 Clc()lass uc()wlc()idth = ^a
+relative histogram y
+limits freeze
+legend 1
+pre-erase off
+line solid
+character blank
+plot unipdf(x) for x = 0 0.1 1
+pre-erase on
+limits
+x2label
+. Finished Step 3.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Normal Probability Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.5
+.
+y1label Dlc()ata
+x1label Tlc()heoretical
+char circle
+char hw 1 0.75
+line blank
+normal probability plot y
+let x1 = -1.7
+let y1 = ppa0 + ppa1*x1
+let xn = 2.5
+let yn = ppa0 + ppa1*xn
+character blank
+line solid
+limits freeze
+pre-erase off
+let xjunk = data x1 xn
+let yjunk = data y1 yn
+plot yjunk xjunk
+limits
+pre-erase on
+justification center
+move 50 4
+text Flc()itted uc()llc()ine: uc()Ilc()ntercept = ^PPA0, uc()Slc()lope = ^ppa1
+delete x1 y1
+. Finished Step 3.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Uniform Probability Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.6
+.
+x3label
+title ulc()niform uc()plc()robability uc()plc()lot
+x3label
+y1label Dlc()ata
+x1label Tlc()heoretical
+char circle
+char hw 1 0.75
+line blank
+uniform probability plot y
+let x1 = xplot(1)
+let y1 = ppa0 + ppa1*x1
+let n = size xplot
+let xn = xplot(n)
+let yn = ppa0 + ppa1*xn
+line solid
+character blank
+drawdata x1 y1 xn yn
+justification center
+move 50 4
+text Flc()itted uc()llc()ine: uc()Ilc()ntercept = ^PPA0, uc()Slc()lope = ^ppa1
+delete x1 y1
+. Finished Step 3.6: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Bootstrap Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.1
+. Generate bootstrap plots
+.
+x3label
+title size 6
+label size 6
+tic label size 6
+x2label size 7
+multiplot 2 3
+multiplot corner coordinates 0 0 100 100
+major xtic mark number 3
+title Bootstrap Mean Plot
+bootstrap mean plot y
+let a1 = b025
+let a1 = round(a1,2)
+let a2 = b975
+let a2 = round(a2,2)
+let y1 = yplot
+title Bootstrap Median Plot
+bootstrap median plot y
+let y2 = yplot
+let b1 = b025
+let b1 = round(b1,2)
+let b2 = b975
+let b2 = round(b2,2)
+title Bootstrap Midrange Plot
+bootstrap midrange plot y
+title
+let y3 = yplot
+let c1 = b025
+let c1 = round(c1,3)
+let c2 = b975
+let c2 = round(c2,3)
+x3label
+xlimits 0.45 0.55
+xtic mark decimal 2
+x2label b025 = ^a1,  b975 = ^a2
+histogram y1
+x2label b025 = ^b1,  b975 = ^b2
+histogram y2
+x2label b025 = ^c1,  b975 = ^c2
+histogram y3
+x2label
+title size
+label size
+tic label size
+end of multiplot
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Summary Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 5.1
+.
+summary y
+. Finished Step 5.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Location Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 5.2
+.
+let n = size y
+let ymean = mean y
+let ysdm = standard deviation of mean y
+let idf = n - 1
+.
+let lclm = ymean - tppf(0.975,idf)*ysdm
+let uclm = ymean + tppf(0.975,idf)*ysdm
+.
+let x = sequence 1 1 n
+fit y x
+let idf2 = n - 2
+read dpst1f.dat coef coefsd
+let bsd = coefsd(2)
+let lclb = bsd - tppf(0.975,idf2)*bsd
+let uclb = bsd + tppf(0.975,idf2)*bsd
+let string idrift = NO
+let atemp = lclb*uclb
+if atemp < 0
+  let string idrift = YES
+end of if
+.
+. Finished Step 5.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Variation Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 5.3
+.
+let n = size y
+let ysd = standard deviation y
+let idf = n - 1
+.
+let ucls = idf*ysd*ysd/chsppf(0.025,idf)
+let ucls = sqrt(ucls)
+let lcls = idf*ysd*ysd/chsppf(0.975,idf)
+let lcls = sqrt(lcls)
+.
+let x = sequence 1 1 n
+let x = code4 x
+levene test y x
+.
+. Finished Step 5.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Randomness</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 5.4
+.
+runs y
+.
+y1label autocorrelation
+x1label lag
+let nlag = 20
+xlimits 0 20
+autocorrelation plot y
+xlimits
+let yauto = yplot(2)
+let string irand = YES
+let amin = maximum yplot subset tagplot = 4
+let amax = maximum yplot subset tagplot = 3
+if yauto < amin
+  let string irand = NO
+end of if
+if yauto > amax
+  let string irand = NO
+end of if
+y1label
+x1label
+.
+. Finished Step 5.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Distributional Analysis</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 5.5
+.
+set anderson darling critical value simulation
+set goodness of fit fully specified off
+.
+let ksloc = mean y
+let ksscale = sd y
+normal anderson-darling goodness of fit test y
+let string inormad = YES
+if statval > cutoff95
+  let string inormad = NO
+end of if
+let adstatn = statval
+.
+uniform mle y
+let a = lowlimit
+let b = upplimit
+uniform anderson-darling goodness of fit test y
+let string iunifad = YES
+if statval > cutoff95
+  let string iunifad = NO
+end of if
+let adstatu= statval
+.
+normal probability plot y
+let NPPCC = PPCC
+if NPPCC < .987
+  let string inorm = NO
+end of if
+let string iunif = YES
+uniform probability plot y
+let UPPCC = PPCC
+if UPPCC < .99
+  let string iunif = NO
+end of if
+.
+. Finished Step 5.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Print Report</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 5.6
+.
+capture report.tex
+print " "
+print " "
+print "Analysis for 500 uniform random numbers"
+print " "
+print "1: Sample Size                           = ^n"
+print " "
+print "2: Location"
+print "   Mean                                  = ^ymean"
+print "   Standard Deviation of Mean            = ^ysdm"
+print "   95% Confidence Interval for Mean      = (^lclm,^uclm)"
+print "   Drift with respect to location?       = ^idrift"
+print " "
+print "3: Variation"
+print "   Standard Deviation                    = ^ysd"
+print "   95% Confidence Interval for SD        = (^lcls,^ucls)"
+print "   Drift with respect to variation?"
+print "   (based on Levene's test on quarters"
+print "   of the data)                          = NO"
+print " "
+print "4: Distribution"
+print "   Normal PPCC                           = ^NPPCC"
+print "   Normal Anderson-Darling               = ^UPPCC"
+print "   Data are Normal?"
+print "     (as tested by Normal PPCC)          = ^inorm"
+print "     (as tested by Anderson-Darling)     = ^inormad"
+print " "
+print "   Uniform PPCC                          = ^UPPCC"
+print "   Uniform Anderson-Darling              = ^iunifad"
+print "   Data are Uniform?"
+print "     (as tested by Uniform PPCC)         = ^iunif"
+print "     (as tested by Anderson-Darling)     = ^iunifad"
+print " "
+print "5: Randomness"
+print "   Autocorrelation                       = ^yauto"
+print "   Data are Random?"
+print "     (as measured by autocorrelation)    = ^irand"
+print " "
+print "6: Statistical Control"
+print "   (i.e., no drift in location or scale,"
+print "   data is random, distribution is "
+print "   fixed, here we are testing only for"
+print "   fixed uniform)"
+print "   Data Set is in Statistical Control?   = YES"
+print " "
+end of capture
+list report.tex
+. Finished Step 5.6: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+</TABLE>
+
+<A HREF="http://www.nist.gov/">
+   <IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+   </MAP>
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="../eda4224.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../eda4224.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/randu4p/randu4p.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+</HTML>
+

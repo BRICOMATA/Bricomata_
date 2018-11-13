@@ -1,0 +1,272 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc443.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:36 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.4.3. Seasonality</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc4431.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc442.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc44.html">Univariate Time Series Models</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.4.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Seasonality</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Seasonality</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+Many time series display seasonality.
+By seasonality, we mean periodic fluctuations.  For example, retail
+sales tend to peak for the Christmas season and then decline after
+the holidays.  So time series of retail sales will typically show
+increasing sales from September through December and declining sales
+in January and February.
+<p>
+Seasonality is quite common in economic time series.  It is less
+common in engineering and scientific data.
+<p>
+If seasonality is present, it must be incorporated into the time
+series model. In this section, we discuss techniques for detecting
+seasonality.  We defer modeling of seasonality until later sections.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Detecting Seasonality</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+he following graphical techniques can be used to detect seasonality.
+<ol>
+   <li>A <a href="../../eda/section3/runseqpl.html">run sequence
+       plot</a> will often show seasonality.</li>
+       <p>
+    <li>A <a href="pmc4431.html">seasonal subseries plot</a> is a
+       specialized technique for showing seasonality.</li>
+       <p>
+   <li>Multiple <a href="../../eda/section3/boxplot.html">box
+       plots</a> can be used as an alternative to the seasonal
+       subseries plot to detect seasonality.</li>
+       <p>
+   <li>The <a href="../../eda/section3/autocopl.html">autocorrelation
+       plot</a> can help identify seasonality.</li>
+</ol>
+Examples of each of these plots will be shown below.
+<p>
+The run sequence plot is a recommended first step for analyzing any
+time series.  Although seasonality can sometimes be indicated with
+this plot, seasonality is shown more clearly by the seasonal
+subseries plot or the box plot.  The seasonal subseries plot does an
+excellent job of showing both the seasonal differences (between
+group patterns) and also the within-group patterns.  The box plot
+shows the seasonal difference (between group patterns) quite well,
+but it does not show within group patterns.  However, for large
+data sets, the box plot is usually easier to read than the seasonal
+subseries plot.
+<p>
+Both the seasonal subseries plot and the box plot assume that the
+seasonal periods are known.  In most cases, the analyst will in fact
+know this.  For example, for monthly data, the period is 12 since
+there are 12 months in a year.  However, if the period is not known,
+the autocorrelation plot can help.  If there is significant
+seasonality, the autocorrelation plot should show spikes at lags
+equal to the period.  For example, for monthly data, if there is a
+seasonality effect, we would expect to see significant peaks
+at lag 12, 24, 36, and so on (although the intensity may decrease
+the further out we go).
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Example without Seasonality</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The following plots are from a
+<a href="pmc4412.html">data set of southern oscillations</a>
+for predicting el nino.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Run Sequence Plot</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<img SRC="gifs/oscrunsq.gif"
+     ALT="Run sequence plot of southern oscillations dat shows
+ no obvious seasonality">
+<p>
+No obvious periodic patterns are apparent in the run sequence plot.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Seasonal Subseries Plot</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<img SRC="gifs/oscseas.gif"
+     ALT="Seasonal subseries plot of southern oscillations data shows
+ no obvious seasonality">
+<p>
+The means for each month are relatively close and show no obvious
+pattern.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Box Plot</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<img SRC="gifs/oscboxpl.gif"
+     ALT="Box plot of southern oscillations data shows no obvious
+ seasonality">
+<p>
+As with the seasonal subseries plot, no obvious seasonal pattern is
+apparent.
+<p>
+Due to the rather large number of observations, the box plot shows
+the difference between months better than the seasonal subseries
+plot.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Example with Seasonality</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The following plots are from a
+<a href="pmc4411.html">data set of monthly CO<sub>2</sub> concentrations</a>.
+A <a href="pmc441.html#EXAMPLE">linear trend</a> has been removed
+from these data.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Run Sequence Plot</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<img SRC="gifs/co2res.gif"
+     ALT="Run sequence plot oc CO2 data">
+<p>
+This plot shows periodic behavior.  However, it is difficult to
+determine the nature of the seasonality from this plot.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Seasonal Subseries Plot</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<img SRC="gifs/co2seas.gif"
+     ALT="Seasonal subseries plot of CO2 data shows distinct
+ seasonal pattern">
+<p>
+The seasonal subseries plot shows the seasonal pattern more clearly.
+In this case, the CO<sub>2</sub> concentrations are at a minimun in
+September and October.  From there, steadily the concentrations
+increase until June and then begin declining until September.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Box Plot</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<img SRC="gifs/co2boxpl.gif"
+     ALT="Box plot of CO2 data also shows distinct seasonal pattern">
+<p>
+As with the seasonal subseries plot, the seasonal pattern is quite
+evident in the box plot.
+</td>
+</tr>
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc442.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc4431.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc443.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:44 GMT -->
+</HTML>

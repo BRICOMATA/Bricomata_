@@ -1,0 +1,249 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd441.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:14 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.4.1. How can I assess the sufficiency of the functional part of the model?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd442.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd44.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd44.html">How can I tell if a model fits my data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.4.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can I assess the sufficiency of the functional part of the model?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Main Tool: Scatter Plots</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="../../eda/section3/scatterp.html">Scatter plots</A> of the residuals 
+versus the predictor variables in the model and versus potential predictors that are not included
+in the model are the primary plots used to assess sufficiency of the functional
+part of the model.  Plots in which the residuals do not exhibit any systematic
+structure indicate that the model fits the data well.  Plots of the residuals
+versus other predictor variables, or potential predictors, that exhibit
+systematic structure indicate that the form of the function can be improved in 
+some way.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Pressure / Temperature Example</I>
+</TD>
+<TD WIDTH=85%>
+The residual scatter plot below, of the residuals from a straight line fit
+to the Pressure/Temperature data introduced in 
+<A HREF="../section1/pmd11.html#pt.r1">Section 4.1.1.</A> and also discussed
+in the <A HREF="pmd44.html#pt.r2">previous section</A>, does not indicate
+any problems with the model.  The reference line at 0 emphasizes that the 
+residuals are split about 50-50 between positive and negative.  There are no
+systematic patterns apparent in this plot.  Of course, just as the <I>R</I><sup>2</sup>
+<!-- <IMG ALT="R^2" SRC="eqns/R2.gif"> -->
+statistic cannot justify a particular model on its own,
+no single residual plot can completely justify the adoption of a particular
+model either.  If a plot of these residuals versus another variable did show
+systematic structure, the form of model with respect to that variable would 
+need to be changed or that variable, if not in the model, would need to be 
+added to the model.  It is important to plot the residuals versus every 
+available variable to ensure that a candidate model is the best model possible.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt1_f.gif">
+<IMG SRC="plots/mvpt1_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residual scatter plot of pressure/temperature data">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Importance of Environmental Variables</I>
+</TD>
+<TD WIDTH=85%>
+One important class of potential predictor variables that is often overlooked is
+environmental variables.  Environmental variables include things like ambient
+temperature in the area where measurements are being made and ambient humidity.
+In most cases environmental variables are not expected to have any noticeable
+effect on the process, but it is always good practice to check for unanticipated
+problems caused by environmental conditions.
+Sometimes the catch-all environmental variables can also be used to assess the
+validity of a model.  For example, if an experiment is run over several days,
+a plot of the residuals versus day can be used to check for differences in the
+experimental conditions at different times.  Any differences observed will not
+necessarily be attributable to a specific cause, but could justify further
+experiments to try to identify factors missing from the model, or other model
+misspecifications.  The two residual plots below show the pressure/temperature
+residuals versus ambient lab temperature and day.  In both cases the plots 
+provide further evidence that the straight line model gives an adequate
+description of the data.  The plot of the residuals versus day does look a
+little suspicious with a slight cyclic pattern between days, but doesn't indicate
+any overwhelming problems.  It is likely that this apparent difference between days
+is just due to the random variation in the data.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Pressure / Temperature Residuals vs Environmental Variables</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt2_f.gif">
+<IMG SRC="plots/mvpt2_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residual plot showing pressure/temperature residuals versus ambient lab temperature">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt3_f.gif">
+<IMG SRC="plots/mvpt3_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residual plot showing pressure/temperature residuals versus day">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residual Scatter Plots Work Well for All Methods</I>
+</TD>
+<TD WIDTH=85%>
+The examples of residual plots given above are for the simplest possible case,
+straight line regression via least squares, but the residual plots are
+used in exactly the same way for almost all of the other statistical methods 
+used for model building.  For example, the residual plot below is for the 
+LOESS model fit to the thermocouple calibration data introduced in 
+<A HREF="../section1/pmd132.html#tc.ex">Section 4.1.3.2</A>.  Like the plots
+above, this plot does not signal any problems with the fit of the LOESS model
+to the data.  The residuals are scattered both above and below the reference  line
+at all temperatures.  Residuals adjacent to one another in the plot do not tend
+to have similar signs.  There are no obvious systematic patterns of any type in
+this plot.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Validation of LOESS Model for Thermocouple Calibration</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvtc1_f.gif">
+<IMG SRC="plots/mvtc1_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residual plot for the LOESS model">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>An Alternative to the LOESS Model</I>
+</TD>
+<TD WIDTH=85%>
+Based on the <A HREF="../section1/pmd132.html#tc.ms.plt">plot</A> of voltage 
+(response) versus the temperature (predictor) for the thermocouple calibration
+data, a quadratic model would have been a reasonable initial model for these data.
+The quadratic model is the simplest possible model that could account for the
+curvature in the data.  The scatter plot of the residuals versus temperature
+for a quadratic model fit to the data clearly indicates that it is a poor fit,
+however.  This residual plot shows strong cyclic structure in the residuals.  If
+the quadratic model did fit the data, then this structure would not be left
+behind in the residuals.  One thing to note in comparing the residual plots for
+the quadratic and LOESS models, besides the amount of structure remaining in the
+data in each case, is the difference in the scales of the two plots.  The 
+residuals from the quadratic model have a range that is approximately fifty times
+the range of the LOESS residuals.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Validation of the Quadratic Model</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvtc2_f.gif">
+<IMG SRC="plots/mvtc2_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residual plot from quadratic model">
+</A>
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd44.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd442.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd441.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:25 GMT -->
+</HTML>

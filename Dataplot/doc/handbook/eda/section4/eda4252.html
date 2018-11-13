@@ -1,0 +1,481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4252.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:55:05 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.5.2. Test Underlying Assumptions</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4253.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4251.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda425.html">Beam Deflections</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.5.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Test Underlying Assumptions</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Goal
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The goal of this analysis is threefold:
+<OL>
+   <LI>Determine if the univariate model:
+       <P>
+       <UL>
+          <!-- <img src="eqns/conmodel.gif" alt="Y(i) = C + E(i)"> -->
+          \( Y_{i} = C + E_{i} \)
+       </UL>
+       <P>
+       is appropriate and valid.
+   </LI>
+   <P>
+   <LI>Determine if the typical underlying assumptions for an
+       "in control" measurement process are valid.  These assumptions
+       are:
+       <ol>
+          <li>random drawings;
+          <li>from a fixed distribution;
+          <li>with the distribution having a fixed location; and
+          <li>the distribution having a fixed scale.
+       </ol>
+   </LI>
+   <P>
+   <LI>Determine if the confidence interval
+       <P>
+       <UL>
+          <!--
+          <img src="eqns/ybarpms.gif" alt="YBAR +/- 2*s/SQRT(N)">
+          -->
+          \( \bar{Y} \pm 2s/\sqrt{N} \)
+       </UL>
+       <P>
+       is appropriate and valid where <I><B>s</B></I> is the
+       standard deviation of the original data.
+   </LI>
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="4-PLOT">
+<I>
+4-Plot of Data
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<IMG SRC="lew/gif/4plot.gif" alt="4-Plot">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The assumptions are addressed by the graphics shown above:
+<ol>
+   <li>The <a href="../section3/runseqpl.html">run sequence plot</a>
+       (upper left) indicates that the data
+       do not have any significant shifts in location or scale over
+       time.
+   <li>The <a href="../section3/lagplot.html">lag plot</a>
+       (upper right) shows that the data are not random.
+       The lag plot further indicates the presence of a few outliers.
+   <li>When the randomness assumption is thus seriously violated,
+       the <a href="../section3/histogra.html">histogram</a>
+       (lower left) and
+       <a href="../section3/normprpl.html">normal probability plot</a>
+       (lower right) are ignored since determining the distribution of
+       the data is only meaningful when the data are random.
+</ol>
+From the above plots we conclude that the underlying randomness
+assumption is not valid.  Therefore, the model 
+<UL>
+   <!-- <img src="eqns/conmodel.gif" alt="Y(i) = C + E(i)"> -->
+   <b><i>Y<sub>i</sub></i> = <i>C</i> + <i>E<sub>i</sub></i></b>
+</UL>
+is not appropriate.
+<p>
+We need to develop a better model.  Non-random data can frequently
+be modeled using
+<a href="../../pmc/section4/pmc4.html">time series</a> mehtodology.
+Specifically, the circular pattern in the lag plot indicates
+that a sinusoidal model might be appropriate.  The sinusoidal model
+will be developed in the next section.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Individual Plots
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The plots can be generated individually for more detail.  In this
+case, only the run sequence plot and the lag plot are drawn since
+the distributional plots are not meaningful.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RUNSEQ">
+<I>
+Run Sequence Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lew/gif/runseq.gif" alt="run sequence plot">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="LAGPLOT">
+<I>
+Lag Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<img src="lew/gif/lagplot.gif" alt="lag plot">
+<p>
+We have drawn some lines and boxes on the plot to better isolate
+the outliers.  The following data points appear to be outliers based
+on the lag plot.
+<PRE>
+INDEX         Y(i-1)           Y(i)   
+
+  158        -506.00         300.00
+  157         300.00         201.00
+    3         -15.00         -35.00
+    5         115.00         141.00
+  
+</PRE>
+That is, the third, fifth, 157th, and 158th points appear to be outliers.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="AUTOCORR">
+<I>
+Autocorrelation Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+When the lag plot indicates significant non-randomness, it can be
+helpful to follow up with a an
+<a href="../section3/autocopl.html">autocorrelation plot</a>.
+<p>
+<img src="lew/gif/autocorr.gif" alt="autocorrelation plot">
+<p>
+This autocorrelation plot shows a distinct cyclic pattern.  As with
+the lag plot, this suggests a sinusoidal model.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="SPECTRUM">
+<I>
+Spectral Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Another useful plot for non-random data is the
+<a href="../section3/spectrum.html">spectral plot.</a>
+<p>
+<img src="lew/gif/spectrum.gif" alt="spectral plot">
+<p>
+This spectral plot shows a single dominant peak at a frequency
+of 0.3.  This frequency of 0.3 will be used in fitting the
+sinusoidal model in the next section.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Quantitative Results
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Although the lag plot, autocorrelation plot, and spectral plot
+clearly show the violation of the randomness assumption, 
+we supplement the graphical output with some quantitative measures.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="SUMMARY">
+<I>
+Summary Statistics
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+As a first step in the analysis, summary statistics are
+computed from the data.  
+<PRE>
+      Sample size  =  200
+      Mean         = -177.4350
+      Median       = -162.0000  
+      Minimum      = -579.0000  
+      Maximum      =  300.0000 
+      Range        =  879.0000
+      Stan. Dev.   =  277.3322
+</PRE>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="LOCATION">
+<I>
+Location
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+One way to quantify a change in location over time is to
+<a href="../../pmd/section1/pmd141.html">fit a straight line</a>
+to the data set using the index variable X = 1, 2, ..., N, with N
+denoting the number of observations.  If there is no significant drift
+in the location, the slope parameter should be zero.  
+<PRE>
+      Coefficient     Estimate     Stan. Error   <I>t</I>-Value
+          A<sub>0</sub>          -178.175         39.47      -4.514
+          A<sub>1</sub>         0.7366E-02         0.34       0.022
+ 
+      Residual Standard Deviation = 278.0313
+      Residual Degrees of Freedom = 198  
+</PRE>
+The slope parameter, A1, has a 
+<a href="../../pmd/section4/pmd43.html"><i>t</i> value</a> of 0.022 which
+is statistically not significant.  This indicates that the slope can
+in fact be considered zero.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="VARIATION">
+<I>
+Variation
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+One simple way to detect a change in variation is with a
+<a href="../section3/eda357.html">Bartlett test</a> after dividing the
+data set into several equal-sized intervals.  However, the Bartlett
+the non-randomness of this data does not allows us to assume normality,
+we use the alternative <a href="../section3/eda358.html">Levene
+test</a>.  In partiuclar, we use the Levene test based on the median
+rather the mean.  The choice of the number of intervals is somewhat
+arbitrary, although values of 4 or 8 are reasonable.  
+<PRE>
+      H<SUB>0</SUB>:  &sigma;<SUB>1</SUB><sup>2</sup> = &sigma;<SUB>2</SUB><sup>2</sup> = &sigma;<SUB>3</SUB><sup>2</sup> = &sigma;<SUB>4</SUB><sup>2</sup> 
+      H<SUB>a</SUB>:  At least one &sigma;<SUB>i</SUB><sup>2</sup> is not equal to the others.
+
+      Test statistic:  <I>W</I> = 0.09378
+      Degrees of freedom:  <I>k</I> - 1 = 3
+      Sample size:  <i>N</i> = 200
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical value:  <I>F</I><sub><i>&alpha;</i>,<I>k</I>-1,<I>N-k</I></sub> = 2.651
+      Critical region:  Reject H<SUB>0</SUB> if <I>W</I> > 2.651
+</PRE>
+In this case, the Levene test indicates that the variances
+are not significantly different in the four intervals
+since the test statistic value, 0.9378, is less than the 
+critical value of 2.651.  
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RANDOM">
+<I>
+Randomness
+</I>
+</A>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+A <a href="../section3/eda35d.html">runs test</a>
+is used to check for randomness
+<PRE>
+      H<SUB>0</SUB>:  the sequence was produced in a random manner
+      H<SUB>a</SUB>:  the sequence was not produced in a random manner  
+
+      Test statistic:  <I>Z</I> = 2.6938
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical value:  <I>Z</I><sub>1-<i>&alpha;</i>/2</sub> = 1.96 
+      Critical region:  Reject H<SUB>0</SUB> if |<I>Z</I>| > 1.96 
+</PRE>
+The absolute value of the test statistic is larger than the critical 
+value at the 5 % significance level, so
+we conclude that the data are not random.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Distributional Assumptions
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Since the quantitative tests show that the assumptions of 
+constant scale and non-randomness are not met, the distributional
+measures will not be meaningful.  Therefore these quantitative tests
+are omitted.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+   
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4251.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4253.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4252.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:55:11 GMT -->
+</HTML>

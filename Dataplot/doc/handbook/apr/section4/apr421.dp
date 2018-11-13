@@ -1,0 +1,44 @@
+Dataplot commands and output:
+
+. Read data from three data files.
+READ DAT1.TXT CELL1
+READ DAT2.TXT CELL2
+READ DAT3.TXT CELL3
+
+. Generate a lognormal probability plot using the procedure from 8.2.2.1.
+LET Y1 = LOG(CELL1)
+LET Y2 = LOG(CELL2)
+LET Y3 = LOG(CELL3)
+LET POS1 = SEQUENCE 1 1 5
+LET POS2 = SEQUENCE 1 1 35
+LET POS3 = SEQUENCE 1 1 24
+LET POS1 = (POS1 -.3)/100.4
+LET POS2 = (POS2 -.3)/50.4
+LET POS3 = (POS3 -.3)/25.4
+LET X1 = NORPPF(POS1)
+LET X2 = NORPPF(POS2)
+LET X3 = NORPPF(POS3)
+TITLE PROBABILITY PLOTS OF THREE TEMPERATURE CELLS 
+PLOT Y1 X1 AND
+PLOT Y2 X2 AND
+PLOT Y3 X3
+
+
+. Each FIT will yield a cell Ao, the ln T50 estimate, 
+. and A1, the cell sigma estimate.
+FIT Y1 X1
+FIT Y2 X2
+FIT Y3 X3
+
+. Generate the Arrhenius plot.
+LET YARRH = DATA 8.168 6.415 5.319
+LET XARRH = DATA 32.4 30.69 29.15
+TITLE = ARRHENIUS PLOT OF CELL T50'S
+
+. Compute model coefficients.
+LET SS = DATA 5 35 24
+WEIGHT = SS
+FIT YARRH XARRH
+
+. Example: fit a model with two stresses.
+FIT Y X1 X2

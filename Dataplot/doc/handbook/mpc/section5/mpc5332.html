@@ -1,0 +1,250 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc5332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:00:22 GMT -->
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.5.3.3.2. Consistent bias</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc5333.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc5331.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc5.html">Uncertainty analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.5.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc53.html">Type A evaluations</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.5.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc533.html">Type A evaluations of bias</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.5.3.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Consistent bias</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Consistent bias</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+Bias that is significant and persists consistently over time for a
+specific instrument, operator, or configuration should be corrected if
+it can be reliably estimated from repeated measurements.  Results with
+the instrument of interest are then corrected to:
+<P>
+<CENTER>
+<FONT SIZE=4>
+<I>Corrected result = Measurement - Estimate of bias</I>
+</FONT>
+</CENTER>
+<P>
+The example below shows how bias can be identified graphically from
+measurements on five artifacts with five instruments and estimated
+from the differences among the instruments.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A HREF="../section6/mpc615.html">Graph showing consistent bias for
+probe #5</A></I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="consistent"> An analysis of bias for five instruments based on
+measurements on five artifacts shows differences from the average for
+each artifact plotted versus artifact with instruments individually
+identified by a special plotting symbol.  The plot is examined to
+determine if some instruments always read high or low relative to the
+other instruments, and if this behavior is consistent across artifacts.
+Notice that on the <A HREF="../section6/mpc615.html">graph for 
+resistivity probes</A>, probe #2362, (#5 on the graph), which is the 
+instrument of interest for this measurement process, consistently reads 
+low relative to the other probes.  This behavior is consistent over 2
+runs that are separated by a two-month time period. 
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Strategy - correct for bias</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+Because there is significant and consistent bias for the instrument of
+interest, the measurements made with that instrument should be
+corrected for its average bias relative to the other instruments.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Computation of bias</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="biases">Given the measurements,
+<P>
+<CENTER>
+<IMG SRC="mpc535a.gif"
+     ALT="Y(qi)(q=1, ..., Q, i=1, ..., I)">
+</CENTER>
+<P>
+on <I>Q</I> artifacts with <I>I</I> instruments, the average bias for
+instrument, <I>I'</I> say, is
+<P><CENTER>
+<IMG SRC="mpc535b.gif"
+     ALT="Bbar(I') = (1/Q)*SUM[q=1 to Q]{(Y(qI') - Ybar(.q))}">
+</CENTER><P>
+where
+<P><CENTER>
+<IMG SRC="mpc535c.gif"
+     ALT="Ybar(q.) = (1/I)*SUM[i=1 to I]{Y(qi)}">
+</CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Computation of correction</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="correct">The correction that should be made to measurements
+made with instrument <I>I'</I> is
+<P><CENTER>
+<IMG SRC="mpc535d.gif"
+     ALT="Y(corrected) = Y(measured) - Bbar(I')">
+</CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Type A uncertainty of the correction</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="stddevbias">The type A uncertainty of the correction is the
+standard deviation of the average bias or 
+<P>
+<CENTER>
+<IMG SRC="mpc535e.gif" ALT=
+"s(correction) = (1/SQRT(Q))*s(bias) = (1/SQRT(Q))*SQRT{(1/(Q-1))*
+SUM[q=1 to Q]{(Y(qI') - Ybar(q.) - Bbar(I'))**2}}">
+</CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Example of consistent bias for probe #2362 used to measure
+resistivity of silicon wafers</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="exprobe">The table below comes from the 
+<A HREF="mpc5312.html#table">table of resistivity measurements</A> 
+from a type A analysis of random effects with the average for each wafer
+subtracted from each measurement.  The differences, as shown, represent
+the biases for each probe with respect to the other probes.  Probe #2362
+has an average bias, over the five wafers, of -0.02724 ohm.cm.  If
+measurements made with this probe are corrected for this bias, the
+standard deviation of the correction is a type A uncertainty.
+
+<PRE>
+
+ Table of biases for probes and silicon wafers (ohm.cm)
+
+                        Wafers
+Probe      138      139       140       141      142
+-------------------------------------------------------
+    1   0.02476  -0.00356   0.04002   0.03938   0.00620
+  181   0.01076   0.03944   0.01871  -0.01072   0.03761
+  182   0.01926   0.00574  -0.02008   0.02458  -0.00439
+ 2062  -0.01754  -0.03226  -0.01258  -0.02802  -0.00110
+ 2362  -0.03725  -0.00936  -0.02608  -0.02522  -0.03830
+
+Average bias for probe #2362 = - 0.02724
+
+Standard deviation of bias = 0.01171 with
+4 degrees of freedom  
+
+Standard deviation of correction =
+0.01171/sqrt(5) = 0.00523
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%>
+<I>Note on different approaches to instrument bias</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The analysis on this page considers the case where only one instrument
+is used to make the certification measurements; namely probe 
+#2362, and the certified values are corrected for bias due to this probe.
+The analysis in the section on <A HREF="mpc5312.html">type A analysis of 
+random effects</A> considers the case where any one of the probes
+could be used to make the certification measurements.
+</TD>
+</TR>
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc5331.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc5333.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc5332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:00:32 GMT -->
+</HTML>

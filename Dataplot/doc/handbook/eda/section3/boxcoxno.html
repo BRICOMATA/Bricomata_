@@ -1,0 +1,272 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/boxcoxno.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.6. Box-Cox Normality Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda337.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda335.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Box-Cox Normality Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!----- begin section: purpose -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Purpose: <br>
+Find transformation to normalize data
+</I>
+</TD>
+<TD WIDTH=85% valign=top>
+Many statistical tests and intervals are based on the assumption of
+normality.  The assumption of normality often leads to tests that are
+simple, mathematically tractable, and powerful compared to tests that
+do not make the normality assumption.  Unfortunately, many real data
+sets are in fact not approximately normal.  However, an appropriate
+transformation of a data set can often yield a data set that does
+follow approximately a normal distribution.  This increases the
+applicability and usefulness of statistical techniques based on the
+normality assumption.
+<p>
+The Box-Cox transformation is a particulary useful family of
+transformations.  It is defined as:
+<ul>
+    <!--
+    <img src="eqns/boxcoxe2.gif"
+         alt="T(Y) = (Y**lambda -1)/lambda">
+    -->
+    \[ T(Y) = (Y^{\lambda} - 1)/\lambda \]
+</ul>
+where <i>Y</i> is the response variable and
+<!-- <img src="eqns/lambda.gif" alt="lambda"> -->
+\( \lambda \) is the transformation parameter.  For
+<!-- <img src="eqns/lambda.gif" alt="lambda"> -->
+\( \lambda \) = 0, the natural log of the data is taken instead of
+using the above formula.
+<p>
+Given a particular transformation such as the Box-Cox transformation
+defined above, it is helpful to define a measure of the normality
+of the resulting transformation.  One measure is to compute the
+correlation coefficient of a <a href="normprpl.html">normal probability
+plot</a>.  The correlation is computed between the vertical and
+horizontal axis variables of the probability plot and is a convenient
+measure of the linearity of the probability plot (the more linear the
+probability plot, the better a normal distribution fits the data).
+<p>
+The Box-Cox normality plot is a plot of these correlation coefficients for
+various values of the
+<!-- <img src="eqns/lambda.gif" alt="lambda"> -->
+\( \lambda \) parameter.  The value of
+<!-- <img src="eqns/lambda.gif" alt="lambda"> -->
+\( \lambda \) corresponding to the maximum correlation on the plot is
+then the optimal choice for
+<!-- <img src="eqns/lambda.gif" alt="lambda"> -->
+\( \lambda \).
+
+</TD>
+</TR>
+
+<!----- begin section: Sample -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Plot
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<IMG SRC="gif/boxcox.gif"
+alt="sample Box-Cox Normality plot"
+>
+<P>
+The histogram in the upper left-hand corner shows a data set that has
+significant right skewness (and so does not follow a normal
+distribution).  The Box-Cox normality plot shows that the maximum
+value of the correlation coefficient is at
+<!-- <img src="eqns/lambda.gif" alt="lambda"> -->
+\( \lambda \) = -0.3.  The histogram of the data after applying the
+Box-Cox transformation with
+<!-- <img src="eqns/lambda.gif" alt="lambda"> -->
+\( \lambda \) = -0.3 shows a data set for which the normality assumption
+is reasonable.  This is verified with a normal probability plot of the
+transformed data.
+
+</TD>
+</TR>
+
+<!----- begin section: definition -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Definition
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Box-Cox normality plots are formed by:
+<UL>
+    <LI>Vertical axis: Correlation coefficient from the normal
+        probability plot after applying Box-Cox transformation
+    <LI>Horizontal axis: Value for
+        <!-- <img src="eqns/lambda.gif" alt="lambda"> -->
+        \( \lambda \)
+</UL>
+
+</TD>
+</TR>
+
+<!----- begin section: questions -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Questions</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The Box-Cox normality plot can provide answers to the following
+questions:
+<OL>
+   <LI>Is there a transformation that will normalize my data?
+   <LI>What is the optimal value of the transformation parameter?
+</OL>
+</TD>
+</TR>
+
+<!----- begin section: importance -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Importance: <br>
+Normalization Improves Validity of Tests
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Normality assumptions are critical for many univariate intervals and
+hypothesis tests.  It is important to test the normality assumption.
+If the data are in fact clearly not normal, the Box-Cox normality plot
+can often be used to find a transformation that will approximately
+normalize the data.
+
+</TD>
+</TR>
+
+<!----- begin section: related techniques -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Related Techniques </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<a href="normprpl.html">Normal Probability Plot</a> <br>
+<a href="boxcoxli.html">Box-Cox Linearity Plot</a><br>
+</TD>
+</TR>
+
+<!----- begin section: dataplot command -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Box-Cox normality plots are not a standard part of most general
+purpose statistical software programs.  However, the underlying
+technique is based on a normal probability plot and computing a
+correlation coefficient.  So if a statistical program supports these
+capabilities, writing a macro for a Box-Cox normality plot should
+be feasible.
+</TD>
+</TR>
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda335.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda337.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/boxcoxno.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+</HTML>

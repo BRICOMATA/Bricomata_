@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35i1.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:23 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.18.1. Defining Models and Prediction Equations</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35i2.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35i.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.18.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35i.html">Yates Algorithm</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.18.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Defining Models and Prediction Equations</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="orthogonal">
+<I>
+For Orthogonal Designs, Parameter Estimates Don't Change 
+as Additional Terms Are Added
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In most cases of least-squares fitting, the model coefficients
+for previously added terms change depending on what was successively 
+added.  For example, the X1 coefficient might change depending on 
+whether or not an X2 term was included in the model.  This is 
+<b>not</b> the case when the design is orthogonal, as is a 
+2<sup>3</sup> full factorial design.  For orthogonal designs, the 
+estimates for the previously included terms do not change as additional 
+terms are added.  This means the ranked list of parameter estimates 
+are the least-squares coefficient estimates for progressively more complicated models.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="yatestable">
+<I>
+Example Prediction Equation
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We use the parameter estimates derived from a least-squares analysis for the 
+<a href="../../pri/section6/pri611.html">eddy current</a>
+data set to create an example prediction equation.
+<PRE>
+     Parameter    Estimate
+     ---------    --------
+     Mean          2.65875    
+     X1            1.55125 
+     X2           -0.43375
+     X1*X2         0.06375  
+     X3            0.10625    
+     X1*X3         0.12375   
+     X2*X3         0.14875
+     X1*X2*X3      0.07125 
+</PRE>
+<p>
+A prediction equation predicts a value of the reponse variable 
+for given values of the factors.  The equation we select can include 
+all the factors shown above, or it can include a subset of the factors.  
+For example, one possible prediction equation using only two
+factors, X1 and X2, is:
+<p>
+<!--
+<img src="eda35i1_eq.gif"
+     alt="YHAT = 2.65875 + 1.55125*X1 - 0.43375*X2">
+-->
+\( \hat{Y} = 2.65875 + 1.55125 \cdot X_1 - 0.43375 \cdot X_2 \)
+<p>
+The least-squares parameter estimates in the prediction equation reflect 
+the change in response for a one-unit change in the factor value.  
+To obtain "full" effect estimates (as computed using the Yates algorithm) 
+for the change in factor levels from -1 to +1, the effect estimates 
+(except for the intercept) would be multiplied by two.
+<p>
+Remember that the Yates algorithm is just a convenient method
+for computing effects, any statistical software package with
+least-squares regression capabilities will produce the same 
+effects as well as many other useful analyses.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Model Selection
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We want to select the most appropriate model for our data while
+balancing the following two goals.
+<ol>
+   <li>We want the model to include all important factors.
+   <li>We want the model to be parsimonious.  That is, the model
+       should be as simple as possible.
+</ol>
+Note that the residual standard deviation alone is insufficient
+for determining the most appropriate model as it will always be
+decreased by adding additional factors.  The next section describes
+a number of approaches for determining which factors (and
+interactions) to include in the model.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35i.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35i2.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35i1.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:23 GMT -->
+</HTML>

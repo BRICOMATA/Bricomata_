@@ -1,0 +1,451 @@
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/lew/lew.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+  <TITLE>Dataplot Commands for Normal Random Numbers Case Study</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+        <IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+           <area shape="rect" alt="Next Page" href="../eda4255.html" coords="463,27,504,45">
+           <area shape="rect" alt="Previous Page" href="../eda4255.html" coords="417,28,459,45">
+           <area shape="rect" alt="Home" href="../../index.html" coords="52,0,100,43">
+           <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="165,27,264,46">
+           <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="307,28,366,44">
+           <area shape="default" nohref>
+   </map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Beam Deflection Data</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Invoke Dataplot, set defautls, read data<I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Beam Deflection Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+tic offset units screen
+tic offset 5 5
+title displacement 2
+case asis
+title case asis
+label case asis
+tic label case asis
+character case asis all
+legend case asis
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+skip 25
+read lew.dat y
+skip 0
+set read format
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Beam Deflection Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+tic offset units screen
+tic offset 5 5
+title displacement 2
+case asis
+title case asis
+label case asis
+tic label case asis
+character case asis all
+legend case asis
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+skip 25
+read lew.dat y
+skip 0
+set read format
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Sequence Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Lag Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.3
+.
+y1label y( i )
+x1label y(i-1)
+line blank
+char x
+lag plot y
+y1label
+x1label
+line dotted
+drawdata -600 250 300 250
+drawdata 250 -600 250 300 
+box data -100 -100 0 0 
+box data 100 100 200 200
+line solid
+let n = size y
+let index = sequence 1 1 n
+set write decimals 2
+print y index xplot yplot subset yplot > 250 
+print y index xplot yplot subset xplot > 250
+print y index xplot yplot subset yplot -100 to 0 subset xplot -100 to 0
+print y index xplot yplot subset yplot 100 to 200 subset xplot 100 to 200
+set write decimals
+. Finished Step 2.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Autocorrelation Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.4
+.
+label case asis
+line solid
+character BLANK
+y1label Correlation
+x1label Lag
+autocorrelation plot y
+. Finished Step 2.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Spectral Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.5
+.
+label case asis
+y1label Spectrum
+x1label Frequency
+spectral plot y
+. Finished Step 2.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Summary Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.6
+.
+summary y
+. Finished Step 2.6: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Location Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.7
+.
+let n = size y
+let ymean = mean y
+let ysdm = standard deviation of mean y
+let idf = n - 1
+.
+let lclm = ymean - tppf(0.975,idf)*ysdm
+let uclm = ymean + tppf(0.975,idf)*ysdm
+.
+let x = sequence 1 1 n
+fit y x
+let idf2 = n - 2
+read dpst1f.dat coef coefsd
+let bsd = coefsd(2)
+let lclb = bsd - tppf(0.975,idf2)*bsd
+let uclb = bsd + tppf(0.975,idf2)*bsd
+let string idrift = NO
+let atemp = lclb*uclb
+if atemp < 0
+  let string idrift = YES
+end of if
+.
+. Finished Step 2.7: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Variation Statistics</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.8
+.
+let n = size y
+let ysd = standard deviation y
+let idf = n - 1
+.
+let ucls = idf*ysd*ysd/chsppf(0.025,idf)
+let ucls = sqrt(ucls)
+let lcls = idf*ysd*ysd/chsppf(0.975,idf)
+let lcls = sqrt(lcls)
+.
+let x = sequence 1 1 n
+let x = code4 x
+levene test y x
+.
+. Finished Step 2.8: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Randomness</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 2.9
+.
+runs y
+.
+y1label autocorrelation
+x1label lag
+autocorrelation plot y
+let yauto = yplot(2)
+let string irand = YES
+let amin = maximum yplot subset tagplot = 4
+let amax = maximum yplot subset tagplot = 3
+if yauto < amin
+  let string irand = NO
+end of if
+if yauto > amax
+  let string irand = NO
+end of if
+.
+. Finished Step 2.9: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Complex Demodulation Phase Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.1
+.
+label case asis
+y1label
+x1label
+x3label
+character x
+line blank
+multiplot corner coordinates 0 0 100 100
+multiplot 4 4
+loop for k = .28 .0025 .3176
+    demodulation frequency k
+    x2label F = ^k
+    complex demodulation phase plot y
+end of loop
+end of multiplot
+character BLANK
+line solid
+x2label
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Complex Demodulation Amplitude Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.2
+.
+y1label
+x1label
+x3label automatic
+demodulation frequency 0.3025
+x2label Demodulation Frequency = 0.3025
+complex demodulation amplitude plot y
+x2label
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Initial Fit</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 3.3
+.
+let n = size y
+let t = sequence 1 1 n
+let c = mean y
+let amp = 390
+let freq = 0.3025
+fit y = c + amp*sin(2*3.14159*freq*t + phase)
+.
+. Finished Step 3.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot of Residuals</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.1
+.
+label size 6
+tic label size 6
+character size 4
+x3label displacement 11
+x3label automatic
+4-plot RES
+x3label
+justification center
+height 4
+move 50 96
+text Beam Deflection Data (Residuals):  4-Plot
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fit With Outliers Removed</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.2
+.
+let tag = 1 for i = 1 1 n
+let tag(3) = 0
+let tag(5) = 0
+let tag(158) = 0
+retain y t subset tag = 1
+fit y = c + amp*sin(2*3.14159*freq*t + phase)
+.
+. Finished Step 4.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot of Residuals</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+. Starting Step 4.3
+.
+label size 6
+tic label size 6
+character size 4
+x3label displacement 11
+x3label automatic
+4-plot RES
+x3label
+x3label displacement
+justification center
+height 4
+move 50 96
+text Beam Deflection Data (Residuals):  4-Plot
+. Finished Step 4.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+</TABLE>
+
+<A HREF="http://www.nist.gov/">
+   <IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+   </MAP>
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="../eda4255.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../eda4255.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/lew/lew.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+</HTML>
+

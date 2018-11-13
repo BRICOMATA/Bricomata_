@@ -1,0 +1,46 @@
+.
+. Starting Step 5.1
+tic offset units screen
+tic offset 5 5
+label size 4
+tic label size 4
+yates y
+skip 0
+read dpst1f.dat tag coef
+.
+let coef2 = abs(coef)
+char x
+lines bl
+title displacement 6
+title Eddy Current Data cr() Half-normal Probability Plot of Effects
+y1label Ordered |Effects|
+x1label Half-normal Distribution Order Statistic Medians
+limits
+halfnormal probability plot coef2
+.
+let numyplot = number yplot
+just lece
+loop for j = 1 1 numyplot
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let jrev = numyplot-j+1
+   let tagjrev = tag(jrev)
+   let string ch = ^con^tagjrev:
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagjrev
+   text ^ch
+end loop
+move 86 90
+text Factor: Conf.
+.
+call dexkn.dp
+.
+just left
+title
+title displacement 2
+label
+tic offset units data
+xtic offet 0.5 0.5
+ytic offset 0 0
+. Finished Step 5.1: Page Back for Output

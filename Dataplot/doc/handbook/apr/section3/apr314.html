@@ -1,0 +1,312 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section3/apr314.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.3.1.4. Accelerated life tests</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr315.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr313.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr3.html">Reliability Data Collection</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.3.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr31.html">How do you plan a reliability assessment test?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.3.1.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Accelerated life tests</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Accelerated
+testing is needed when testing even large sample sizes at use stress would
+yield few or no failures within a reasonable time</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->Accelerated life tests are
+component life tests with components operated at high stresses and failure
+data observed. While high stress testing can be performed for the sole
+purpose of seeing where and how failures occur and using that information
+to improve component designs or make better component selections, we will
+focus in this section on accelerated life testing for the following two
+purposes:&nbsp;
+<ol>
+<li>
+To study how failure is accelerated by stress and fit an acceleration model
+to data from multiple stress cells</li>
+
+<li>
+To obtain enough failure data at high stress to accurately project (extrapolate)
+what the CDF at use will be.</li>
+</ol>
+If we already know the acceleration model (or the acceleration factor to
+typical use conditions from high stress test conditions), then the methods
+described <a href="apr312.html">two pages ago</a> can be used. We assume,
+therefore, that the acceleration model is not known in advance.&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Test planning means picking stress levels
+and sample sizes and test times to produce enough data to fit models and
+make projections</i></td>
+
+<td VALIGN=TOP WIDTH="85%">Test planning and operation for a (multiple)
+stress cell life test experiment consists of the following:&nbsp;
+<ul>
+<li>
+Pick several combinations of the relevant stresses (the stresses that accelerate
+<i>the
+failure mechanism under investigation</i>). Each combination is a "stress
+cell". Note that you are planning for only one mechanism of failure at
+a time. Failures on test due to any other mechanism will be considered
+<a href="../section1/apr131.html#Separating out Failure">censored
+run times.</a></li>
+
+<li>
+Make sure stress levels used are not too high - to the point where new
+failure mechanisms that would never occur at use stress are introduced.
+Picking a maximum allowable stress level requires experience and/or good
+engineering judgment.</li>
+
+<li>
+Put random samples of components in each stress cell and run the components
+in each cell for fixed (but possibly different) lengths of time.</li>
+
+<li>
+Gather the failure data from each cell and use the data to fit an acceleration
+model and a life distribution model and use these models to project reliability
+at use stress conditions.</li>
+</ul>
+Test planning would be similar to topics already covered in the chapters
+that discussed modeling and experimental design except for one important
+point. When you test components in a stress cell for a fixed length test,
+it is typical that some (or possibly many) of the components end the test
+without failing. This is the censoring problem, and it greatly complicates
+experimental design to the point at which it becomes almost as much of
+an art (based on engineering judgment) as a statistical science.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">&nbsp;</td>
+
+<td VALIGN=TOP WIDTH="85%">An example will help illustrate the design issues.
+Assume a metal migration failure mode is believed to follow the 
+<a href="../section1/apr153.html#Two Temperature/Voltage">
+2-stress temperature voltage model</a> given by
+
+$$ t_f = A \, V^\beta \, \mbox{exp } \left( \frac{\Delta H}{kT} \right) \, . $$
+
+<!--
+<center>
+<p><img SRC="eqns/tvmod.gif" ALT="t(f) = A*EXP[deltaH/(k*T)]*V**beta" ></center>
+<p>
+-->
+
+Normal use conditions are 4 volts and 25 degrees Celsius, and the high
+stress levels under consideration are 6, 8,12 volts and 85<sup>o</sup>,
+105<sup>o</sup> and 125<sup>o</sup>. It probably would be a waste of resources
+to test at (6v, 85<sup>o</sup>), or even possibly (8v, 85<sup>o</sup>)
+or (6v,105<sup>o</sup>) since these cells are not likely to have enough
+stress acceleration to yield a reasonable number of failures within typical
+test times.&nbsp;
+<p>If you write all the 9 possible stress cell combinations in a 3x3 matrix
+with voltage increasing by rows and temperature increasing by columns,
+the result would look like the matrix below:&nbsp;
+<center>
+<p><a NAME="Matrix Leading to Backward L"></a><b>Matrix Leading to "Backward
+L Design"</b></center>
+
+<center><table BORDER COLS=3 WIDTH="100%" >
+<tr>
+<td>
+<center>6v, 85<sup>o</sup></center>
+</td>
+
+<td>
+<center>6v, 105<sup>o</sup></center>
+</td>
+
+<td>
+<center><b>6v, 125<sup>o</sup></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>8v, 85<sup>o</sup></center>
+</td>
+
+<td>
+<center>8v,105<sup>o</sup></center>
+</td>
+
+<td>
+<center><b>8v,125<sup>o</sup></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b>12v,85<sup>o</sup></b></center>
+</td>
+
+<td>
+<center><b>12v,105<sup>o</sup></b></center>
+</td>
+
+<td>
+<center><b>12v,125<sup>o</sup></b></center>
+</td>
+</tr>
+</table></center>
+
+<p>&nbsp;</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>"Backwards L" designs are common in accelerated
+life testing. Put more experimental units in lower stress cells.</i></td>
+
+<td VALIGN=TOP WIDTH="85%">The combinations in bold are the most likely
+design choices covering the full range of both stresses, but still hopefully
+having enough acceleration to produce failures. This is the so-called
+<b>"backwards
+L" design</b> commonly used for acceleration modeling experiments.
+<p><b>Note</b>: It is good design practice to put more of your test units
+in the lower stress cells, to make up for the fact that these cells will
+have a smaller proportion of units failing.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Sometimes simulation is the best way to learn
+whether a test plan has a chance of working</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b>Design by Simulation:</b>
+<p>A lengthy, but better way to choose a test matrix is the following:&nbsp;
+<ul>
+<li>
+Pick an <a href="../section2/apr24.html">acceleration model</a> and a <a href="../section2/apr21.html">life
+distribution model</a> (as usual).</li>
+
+<li>
+Guess at the shape parameter value of the life distribution model based
+on literature studies or earlier experiments. <a href="../section1/apr14.html">
+The shape parameter should remain the same</a> for all stress cells. Choose
+a scale parameter value at use so that the use stress CDF exactly meets
+requirements (i.e., for the lognormal, pick a use \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+that gives the desired use reliability - for a Weibull model choice, do
+the same for the characteristic life parameter).</li>
+
+<li>
+Guess at the acceleration model parameters values (\(\Delta H\) and \(\beta\),
+<!-- <img SRC="gifs/delta.gif" ALT="delta" height=17 width=14 align=ABSCENTER>H
+and&nbsp;<img SRC="gifs/beta.gif" ALT="beta" height=21 width=16 align=TEXTTOP>, -->
+for the 2-stress model shown above). Again, use whatever is in the literature
+for similar failure mechanisms or data from earlier experiments).</li>
+
+<li>
+Calculate acceleration factors from any proposed test cells to&nbsp; use
+stress and divide the use scale parameter by these acceleration factors
+to obtain "trial" cell scale parameters.</li>
+
+<li>
+Simulate cell data for each proposed stress cell using the derived cell
+scale parameters and the guessed shape parameter.</li>
+
+<li>
+Check that every proposed cell has sufficient failures to give good estimates.&nbsp;</li>
+
+<li>
+Adjust the choice of stress cells and the sample size allocations until
+you are satisfied that, if everything goes as expected, the experiment
+will yield enough data to provide good estimates of the model parameters.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>After you make advance estimates, it is sometimes
+possible to construct an optimal experimental design - but software for
+this is scarce</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b>Optimal Designs:</b>
+<p>Recent work on designing accelerated life tests has shown it is possible,
+for a given choice of models and assumed values of the unknown parameters,
+to construct an optimal design (one which will have the best chance of
+providing good sample estimates of the model parameters). These optimal
+designs typically select stress levels as far apart as possible and heavily
+weight the allocation of sample units to the lower stress cells. However,
+unless the experimenter can find software that incorporates these optimal
+methods for his or her particular choice of models, the methods described
+above are the most practical way of designing acceleration experiments.&nbsp;</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr313.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr315.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section3/apr314.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+</HTML>

@@ -1,0 +1,47 @@
+.
+. Starting Step 2.3
+title Sonoluminescent Light Intensity cr()Main Effects Plot
+xlimits 1 7
+major xtic mark number 7
+minor xtic mark number 0
+xtic offset 0.6 0.6
+xtic mark label format alpha
+xtic mark label content ^x1 ^x2 ^x3 ^x4 ^x5 ^x6 ^x7
+y1label Average Response of ^y
+ytic offset 5 5
+char circle
+char fill on
+line solid
+dex mean plot y x1 x2 x3 x4 x5 x6 x7
+.
+let dxplot = distinct xplot
+let dxplot = sort dxplot
+let ndxplot = number dxplot
+let b = 18
+just cece
+loop for j = 1 1 ndxplot
+   let a = dxplot(j)
+   moveds a b
+   let evenodd = mod(j,2)
+   if evenodd = 1
+      text -
+   end if
+   if evenodd = 0
+      text +
+   end if
+end loop
+.
+call dexkn.dp
+.
+char x
+char fill off
+line blank
+title
+y1label
+xlimits
+xtic mark label format real
+major xtic mark number default
+minor xtic mark number default
+xtic offset 0.5 0.5
+ytic offset 0 0
+. Finished Step 2.3: Page Back for Output

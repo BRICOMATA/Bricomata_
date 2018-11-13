@@ -1,0 +1,157 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr44.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:16 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.4. How do you compare reliability between two or more populations?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr45.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr43.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How do you compare reliability between two or more populations?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Several
+methods for comparing reliability between populations are described</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<p>Comparing reliability among populations based on samples of failure
+data usually means asking whether the samples came from populations with
+the same reliability function (or CDF). Three techniques already described
+can be used to answer this question for censored reliability data. These
+are:&nbsp;
+<ul>
+<li>
+<a href="#Comparing Sample Proportion Fails">Comparing sample proportion
+failures</a>&nbsp;</li>
+
+<li>
+<a href="#Likelihood Ratio Test">Likelihood ratio test comparisons</a></li>
+
+<li>
+<a href="#Lifetime Regression">Lifetime regression comparisons</a></li>
+</ul>
+<a NAME="Comparing Sample Proportion Fails"></a><b>Comparing Sample Proportion
+Failures</b>
+<p>Assume each sample is a random sample from possibly a different lot,
+vendor or production plant. All the samples are tested under the same conditions.
+Each has an observed proportion of failures on test. Call these sample
+proportions of failures \(p_1, \, p_2, \, p_3, \, \ldots, \, p_n\).
+<!-- <i>p<sub>1</sub>, p<sub>2</sub>, p<sub>3</sub>,...p<sub>n</sub></i>. -->
+Could these all have come from equivalent populations?&nbsp;
+<p>This is a question covered in Chapter 7 <a href="../../prc/section3/prc33.html">for
+two populations,</a> and for <a href="../../prc/section4/prc46.html">more
+than two populations,</a> and the techniques described there apply equally
+well here.&nbsp;
+<p>
+<a NAME="Likelihood Ratio Test"></a><b>Likelihood Ratio Test Comparisons</b>
+<p>
+The <a href="../section2/apr233.html">Likelihood Ratio test</a> was described
+earlier. In this application, the Likelihood ratio \(\lambda\)
+<!-- &nbsp;<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+has as a denominator the product of all the Likelihoods of all the samples
+assuming each population has its own unique set of parameters. The numerator
+is the product of the Likelihoods assuming the parameters are exactly the
+same for each population. The test looks at whether \(-2\mbox{ ln } \lambda\)
+<!-- -2ln<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+is unusually large, in which case it is unlikely the populations have the
+same parameters (or reliability functions).&nbsp;
+<p>This procedure is very effective if, and only if, it is built into the
+analysis software package being used and this software covers the models
+and situations of interest to the analyst.&nbsp;
+<p><a NAME="Lifetime Regression"></a><b>Lifetime Regression Comparisons</b>
+<p>Lifetime regression is similar to <a href="apr422.html">maximum
+likelihood</a> and <a href="../section2/apr233.html">likelihood ratio test
+methods.</a> Each sample is assumed to have come from a population with
+the same shape parameter and a wide range of questions about the scale
+parameter (which is often assumed to be a "measure" of lot-to-lot or vendor-to-vendor
+quality) can be formulated and tested for significance.&nbsp;
+<p>For a complicated, but realistic example, assume a company manufactures
+memory chips and can use chips with some known defects ("partial goods")
+in many applications. However, there is a question of whether the reliability
+of "partial good" chips is equivalent to "all good" chips. There exists
+lots of customer reliability data to answer this question. However the
+data are difficult to analyze because they contain several different vintages
+with known reliability differences as well as chips manufactured at many
+different locations. How can the partial good vs all good question be resolved?&nbsp;
+<p>A lifetime regression model can be constructed with variables included
+that change the scale parameter based on vintage, location, partial versus
+all good, and any other relevant variables. Then, a good lifetime regression
+program will sort out which, if any, of these factors are significant and,
+in particular, whether there is a significant difference between "partial
+good" and "all good".&nbsp;</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr43.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr45.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr44.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:16 GMT -->
+</HTML>

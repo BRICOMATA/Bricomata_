@@ -1,0 +1,335 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc3671.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:27 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.6.7.1. Uncertainty for quadratic calibration using propagation of error</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc3672.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc367.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc36.html">Instrument calibration over a regime</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.6.7.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc367.html">Uncertainties of calibrated values</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.6.7.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Uncertainty for quadratic calibration using propagation of error</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Propagation of error for uncertainty of calibrated
+values of loadcells</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The purpose of this page is to show the propagation of error
+for calibrated values of a loadcell based on a quadratic calibration
+curve where the model for instrument response is
+$$ Y = a + bX + cX^2 + \epsilon $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="quadform_eq.gif"
+     ALT="Y = a + b*X + c*X**2 + epsilon"></CENTER>
+<P>
+-->
+The <A HREF="mpc3651.html">calibration data</A> are instrument responses
+at known loads (psi), and <A HREF="mpc365.html">estimates of the
+quadratic coefficients, </A>  \( a, \,\, b, \,\, c \),
+<!-- <FONT SIZE=4><I>a, b, c</FONT SIZE></I>, -->
+and their associated standard deviations are shown with the analysis.
+<P>
+A graph of the calibration curve showing a measurement \(Y'\)
+<!-- <I>Y'</I>--> corrected to \(X'\),
+<!-- <I>X'</I>, --> the proper load (psi), is shown below.
+
+<CENTER>
+<IMG SRC = "mpc36_r.gif"
+     alt="quadratic calibration curve for loadcell">
+</TD>
+</TR>
+
+</TABLE>
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Uncertainty of the calibrated value X'</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The uncertainty to be evaluated is the uncertainty of the 
+calibrated value, \(X'\), <!-- <I>X'</I>, --> computed for any future measurement,
+\(Y'\), <!-- <I>Y'</I>, --> made with the calibrated instrument where
+
+$$ X' = \frac{-\hat{b} \pm \sqrt{\hat{b}^2 - 4 \hat{c} \left( \hat{a} - Y' \right)}}{2 \hat{c}} $$
+<!--
+<P>
+<CENTER>
+<IMG SRC = "quadform_sol.gif"
+     ALT="X' = -bhat +/- SQRT{bhat**2 - 4*chat*(ahat - Y')}/(2*chat">
+</CENTER>
+-->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Partial derivatives</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The partial derivatives are needed to compute uncertainty.  
+
+$$ \frac{\partial{X'}}{\partial{Y'}} = 
+\frac{1}{\sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}} $$
+
+
+$$ \frac{\partial{X'}}{\partial{\hat{a}}} =
+     \frac{-1}{\sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}} $$
+
+
+$$ \frac{\partial{X'}}{\partial{\hat{b}}} =
+\frac{-1 + \frac{\hat{b}}{\sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}}}{2\hat{c}} $$
+
+
+$$ \frac{\partial{X'}}{\partial{\hat{c}}} =
+\frac{-\hat{a} + Y'}{\hat{c}\sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}} - 
+\frac{-\hat{b} + \sqrt{\hat{b}^{2} - 4\hat{c}(\hat{a}-Y')}}{2\hat{c}^{2}} $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="quadform_der.gif"
+     ALT="partial deriavatives"></CENTER>
+<P>
+-->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>The variance of the calibrated value from propagation of error</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The variance of \(X'\) <!-- <I>X'</I> --> is defined from
+<A HREF="../section5/mpc55.html">propagation of error</A> as follows:
+
+$$ u^{2} = \left( \frac{\partial{X'}}{\partial{Y'}}\right) ^{2} (s_{Y'})^{2} + 
+\left( \frac{\partial{X'}}{\partial{\hat{a}}}\right) ^{2} (s_{\hat{a}})^{2} + 
+\left( \frac{\partial{X'}}{\partial{\hat{b}}}\right) ^{2} (s_{\hat{b}})^{2} +
+\left( \frac{\partial{X'}}{\partial{\hat{c}}}\right )^{2} (s_{\hat{c}})^{2} $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="quadform_unc.gif"
+     ALT="uncertainty"></CENTER>
+<P>
+-->
+The values of the coefficients and their respective standard deviations
+from the quadratic fit to the calibration curve are substituted in the
+equation.  The standard deviation of the measurement, \(Y\), <!-- <I>Y</I>, -->
+may not be the same as the standard deviation from the fit to the calibration
+data if the measurements to be corrected are taken with a different
+system; here we assume that the instrument to be calibrated has a
+standard deviation that is essentially the same as the instrument used
+for collecting the calibration data and the residual standard
+deviation from the quadratic fit is the appropriate estimate.
+<P><PRE>
+a  = -0.183980e-04 
+sa =  0.2450e-04
+b  =  0.100102          
+sb =  0.4838e-05
+c  =  0.703186e-05      
+sc =  0.2013e-06
+sy =  0.0000376353
+</PRE>
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Graph showing the standard deviations of calibrated values
+<I>X'</I> for given instrument responses <I>Y'</I> ignoring covariance
+terms in the propagation of error
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The standard deviation expressed above is not easily interpreted
+but it is easily graphed.  A graph showing standard deviations of
+calibrated values, \(X'\), <!-- <I>X'</I>, --> as a function of 
+instrument response, \(Y'\), <!-- <I>Y'</I>, --> is shown below.
+<P>
+<IMG SRC = "mpc3671b_r.gif"
+     alt="standard deviation of calibrated value of X' for
+ given instrument response Y'">
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Problem with propagation of error</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The propagation of errors shown above is not complete because it ignores
+the covariances among the coefficients, \( a, \,\, b, \,\, c \).
+<!-- <FONT SIZE=4><I>a, b, c</FONT SIZE></I>. -->
+Unfortunately, some statistical software packages
+do not display these covariance terms with the other output from the
+analysis.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Covariance terms for loadcell data</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The variance-covariance terms for the loadcell data set are shown below.
+<P><PRE>
+            a              b              c
+a      6.0049021-10
+b     -1.0759599-10   2.3408589-11
+c      4.0191106-12  -9.5051441-13   4.0538705-14 
+</PRE>
+<P>
+The diagonal elements are the variances of the coefficients, 
+\( a, \,\, b, \,\, c \),
+<!-- <FONT SIZE=4><I>a, b, c</FONT SIZE></I>, --> respectively, and the 
+off-diagonal elements are the covariance terms.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Recomputation of the standard deviation of X'</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+To account for the covariance terms, the variance of \(X'\) <!-- <I>X'</I> --> 
+is redefined by adding the covariance terms.  Appropriate substitutions
+are made; the standard deviations are recomputed and graphed as a
+function of instrument response.
+<P>
+<CENTER>
+<IMG SRC="quadform_cov.gif"
+     ALT="uncertainty"></CENTER>
+
+<P><PRE>
+sab = -1.0759599e-10
+sac =  4.0191106e-12
+sbc = -9.5051441e-13
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The graph below shows the correct estimates for the standard
+deviation of \(X'\) <!-- <I>X'</I> --> and gives a means for assessing the loss of
+accuracy that can be incurred by ignoring covariance terms.  In this
+case, the uncertainty is reduced by including covariance terms, some
+of which are negative.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Graph showing the standard deviations of calibrated values,
+X', for given instrument responses, Y', with covariance
+terms included in the propagation of error
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<IMG SRC = "mpc3671c_r.gif"
+     alt="standard deviation of calibrated value X' for
+ given instrument response Y'">
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Sample code </I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The results in this section can be generated using
+<A HREF="mpc3671.r">R code</A>.
+</TD>
+</TR>
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc367.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc3672.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc3671.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:32 GMT -->
+</HTML>

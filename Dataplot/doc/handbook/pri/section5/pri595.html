@@ -1,0 +1,586 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri595.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:44 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.5. Block plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri596.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri594.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Block plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The block plot answers the following two general questions: 
+<ol>
+   <li>What are the important factors (including interactions)?
+   <li>What are the best settings for these important factors?
+</ol>
+The basic (single) block plot is a multifactor EDA technique to
+determine if a factor is important and to ascertain if that
+importance is unconditional (robust) over all settings of all
+other factors in the system.  In an experimental design context, the
+block plot is actually a sequence of block plots with one plot
+for each of the <i>k</i> factors.
+<p>
+Due to the ability of the block plot to determine whether a
+factor is important over all settings of all other factors,
+the block plot is also referred to as a DOE robustness plot.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The block plot provides specific information on 
+<ol>
+   <li>Important factors (of the <i>k</i> factors and the
+       \( \left(
+               \begin{array}{c}
+                   k \\
+                   2
+               \end{array}
+          \right)
+       \)
+       <!--
+       <img align=absmiddle src="eqns/k2.gif" alt="k-choose-2">
+       -->
+       2-factor interactions); and 
+   <li>Best settings of the important factors.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The block plot is a series of <i>k</i> basic block plots with each
+basic block plot for a main effect.  Each basic block plot asks the
+question as to whether that particular factor is important: 
+<ol>
+   <li>The first block plot asks the question:
+       "Is factor <i>X</i><sub>1</sub> important?
+   <li>The second block plot asks the question:
+       "Is factor <i>X</i><sub>2</sub> important?
+   <li>Continue for the remaining factors.
+</ol>
+The <i>i</i>-th basic block plot, which targets factor <i>i</i> and
+asks whether factor <i>X<sub>i</sub></i> is important, is formed by:
+<ul>
+   <li>Vertical Axis: Response
+       <p>
+   <li>Horizontal Axis: All 2<sup><i>k</i>-1</sup> possible
+       combinations of the (<i>k</i>-1) non-target factors (that
+       is, "robustness" factors).  For example, for the block plot
+       focusing on factor <i>X</i><sub>1</sub> from a 2<sup>3</sup> full factorial
+       experiment, the horizontal axis will consist of all
+       2<sup>3-1</sup> = 4 distinct combinations of factors <i>X</i><sub>2</sub>
+       and <i>X</i><sub>3</sub>.  We create this robustness factors axis because
+       we are interested in determining if <i>X</i><sub>1</sub> is important
+       robustly.  That is, we are interested in whether <i>X</i><sub>1</sub> is
+       important not only in a general/summary kind of way, but also
+       whether the importance of <i>X</i> is universally and
+       consistently valid over each of the 2<sup>3-1</sup> = 4
+       combinations of factors <i>X</i><sub>2</sub> and <i>X</i><sub>3</sub>.  These four
+       combinations are (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, +), (+, -), (-, +),
+       and (-, -).  The robustness factors on the horizontal axis change
+       from one block plot to the next.  For example, for the
+       <i>k</i> = 3 factor case: 
+       <p>
+       <ol>
+          <li>the block plot targeting <i>X</i><sub>1</sub> will have robustness
+              factors <i>X</i><sub>2</sub> and <i>X</i><sub>3</sub>; 
+          <li>the block plot targeting <i>X</i><sub>2</sub> will have robustness
+              factors <i>X</i><sub>1</sub> and <i>X</i><sub>3</sub>;
+          <li>the block plot targeting <i>X</i><sub>3</sub> will have robustness 
+              factors <i>X</i><sub>1</sub> and <i>X</i><sub>2</sub>.
+       </ol>
+       <p>
+   <li>Plot Character: The setting (- or +) for the target factor
+       <i>X<sub>i</sub></i>.  Each point in a block plot has an
+       associated setting for the target factor
+       <i>X<sub>i</sub></i>.  If <i>X<sub>i</sub></i> = "-", the
+       corresponding plot point will be "-"; if
+       <i>X<sub>i</sub></i> = "+", the corresponding plot 
+       point will be "+". 
+</ul>
+For a particular combination of robustness factor settings
+(horizontally), there will be two points plotted above it
+(vertically): 
+<ol>
+   <li>one plot point for <i>X<sub>i</sub></i> = "-"; and 
+   <li>the other plot point for <i>X<sub>i</sub></i> = "+".
+</ol>
+In a block plot, these two plot points are surrounded by a box
+(a block) to focus the eye on the
+internal within-block differences as opposed to the distraction
+of the external block-to-block differences.  Internal block
+differences reflect on the importance of the target factor (as
+desired).  External block-to-block differences reflect on the
+importance of various robustness factors, which is not of primary
+interest.
+<p>
+Large within-block differences (that is, tall blocks) indicate a
+large local effect on the response which, since all robustness
+factors are fixed for a given block, can only be attributed to the
+target factor.  This identifies an "important" target factor.
+Small within-block differences (small blocks) indicate that the
+target factor <i>X<sub>i</sub></i> is unimportant.
+<p>
+For a given block plot, the specific question of interest is thus
+<ul>
+   Is the target factor <i>X<sub>i</sub></i> important?  That is,
+   as we move within a block from the target factor setting of "-" to
+   the target factor setting of "+", does the response variable
+   value change by a large amount?
+</ul>
+The height of the block reflects the "local" (that is, for that
+particular combination of robustness factor settings) effect on
+the response due to a change in the target factor settings.  The
+"localized" estimate for the target factor effect for
+<i>X<sub>i</sub></i> is in fact identical to the difference in the
+response between the target factor <i>X<sub>i</sub></i> at the "+"
+setting and at the "-" setting.  Each block height of a robustness
+plot is thus a localized estimate of the target factor effect.  
+<p>
+In summary, important factors will have both 
+<ol>
+   <li>consistently large block heights; and 
+   <li>consistent +/- sign arrangements
+</ol>
+where the "consistency" is over all settings of robustness factors.
+Less important factors will have only one of these two properties.
+Unimportant factors will have neither property.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot for defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Applying the ordered response plot to the defective springs data set
+yields the following plot.
+<p>
+<A HREF="gifs/blockplt.gif">
+   <IMG SRC="gifs/blockplt.r.gif" BORDER=0
+        alt="Block plots for the defective springs data">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From the block plot, we are looking for the following: 
+<ol>
+   <li>Important factors (including 2-factor interactions); 
+   <li>Best settings for these factors.
+</ol>
+We will discuss each of these in turn.
+<p>
+<b>Important factors (including 2-factor interactions):</b>
+<p>
+Look at each of the <i>k</i> block plots.  Within a given block plot, 
+<ul>
+      Are the corresponding block heights 
+      consistently large as we scan across the 
+      within-plot robustness factor 
+      settings--yes/no; and are the within-block 
+      sign patterns (+ above -, or - above +) 
+      consistent across all robustness factors 
+      settings--yes/no?  
+</ul>
+To facilitate intercomparisons, all block plots have the same
+vertical axis scale.  Across such block plots, 
+<ol>
+   <li>Which plot has the consistently largest block heights,
+       along with consistent arrangement of within-block +'s
+       and -'s?  This defines the "most important factor".
+       <p>
+   <li>Which plot has the consistently next-largest block heights,
+       along with consistent arrangement of within-block 
+       +'s and -'s?   This defines the "second most important
+       factor".
+       <p>
+   <li>Continue for the remaining factors.
+</ol>
+This scanning and comparing of the <i>k</i> block plots easily
+leads to the identification of the most important factors.  This
+identification has the additional virtue over previous steps in
+that it is robust.  For a given important factor, the consistency
+of block heights and sign arrangement across robustness factors
+gives additional credence to the robust importance of that factor.
+The factor is important (the change in the response will be large)
+irrespective of what settings the robustness factors have.  Having
+such information is both important and comforting.
+<p>
+<b>Important Special Case; Large but Inconsistent:</b>
+<p>
+What happens if the block heights are large but <b>not</b> consistent?
+Suppose, for example, a 2<sup>3</sup> factorial experiment is being
+analyzed and the block plot focusing on factor <i>X</i><sub>1</sub> is being
+examined and interpreted so as to address the usual question of
+whether factor <i>X</i><sub>1</sub> is important. 
+<p>
+Let us consider in some detail how such a block plot might
+appear.  This <i>X</i><sub>1</sub> block plot will have 2<sup>3-1</sup> = 4
+combinations of the robustness factors <i>X</i><sub>2</sub> and <i>X</i><sub>3</sub> along
+the horizontal axis in the following order: 
+<ul>
+   (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, +);  (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, -);  
+   (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (-, +);  (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (-, -). 
+</ul>
+If the block heights are consistently large (with "+" above "-" in
+each block) over the four combinations of settings for <i>X</i><sub>2</sub> and
+<i>X</i><sub>3</sub>, as in 
+<p>
+<ul>
+<table border>
+   <tr>
+     <td valign=top align=center>
+        (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>)
+     </td>
+     <td valign=top align=center>
+        block height (= local <i>X</i><sub>1</sub> effect)
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        (+, +)
+     </td>
+     <td valign=top align=center>
+        30
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        (+, -)
+     </td>
+     <td valign=top align=center>
+        29
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        (-, +)
+     </td>
+     <td valign=top align=center>
+        29
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        (-, -)
+     </td>
+     <td valign=top align=center>
+        31
+     </td>
+   </tr>
+</table>
+</ul>
+<p>
+then from binomial considerations there is one chance in
+2<sup>4-1</sup> = 1/8 \( \approx \)
+<!-- <img align=absmiddle src="eqns/approx.gif" alt="approximately"> -->
+12.5 % of the the four local <i>X</i><sub>1</sub> effects having the same
+sign (i.e., all positive or all negative).  The usual statistical
+cutoff of 5 % has not been achieved here, but the 12.5 % is suggestive.
+Further, the consistency of the four <i>X</i><sub>1</sub> effects
+(all near 30) is evidence of a robustness of the <i>X</i> effect
+over the settings of the other two factors.  In summary, the
+above suggests:
+<ol>
+   <li>Factor 1 is probably important (the issue of how large the
+       effect has to be in order to be considered important will
+       be discussed in more detail in a later section); and 
+   <li>The estimated factor 1 effect is about 30 units.
+</ol>
+On the other hand, suppose the 4 block heights for
+factor 1 vary in the following cyclic way:
+<p>
+<ul>
+<table border>
+   <tr>
+     <td valign=top align=center>
+        (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>)
+     </td>
+     <td valign=top align=center>
+        block height (= local <i>X</i><sub>1</sub> effect)
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        (+, +)
+     </td>
+     <td valign=top align=center>
+        30
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        (+, -)
+     </td>
+     <td valign=top align=center>
+        20
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        (-, +)
+     </td>
+     <td valign=top align=center>
+        30
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        (-, -)
+     </td>
+     <td valign=top align=center>
+        20
+     </td>
+   </tr>
+</table>
+</ul>
+<p>
+then how is this to be interpreted?
+<p>
+The key here to such interpretation is that the block plot is
+telling us that the estimated <i>X</i><sub>1</sub> effect is in fact at
+least 20 units, but <b>not</b> consistent.  The effect is
+changing, but it is changing in a structured way.  The "trick" 
+is to scan the <i>X</i><sub>2</sub> and <i>X</i><sub>3</sub> settings and deduce what that
+substructure is.  Doing so from the above table, we see that the
+estimated <i>X</i><sub>1</sub> effect is 30
+<ul>
+   <li>for point 1 (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, +) and
+   <li>for point 3 (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (-, +)
+</ul>
+and then the estimated <i>X</i><sub>1</sub> effect drops 10 units to 20 
+<ul>
+   <li>for point 2 (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, -) and
+   <li>for point 4 (<i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (-, -)
+</ul>
+We thus deduce that the estimated <i>X</i><sub>1</sub> effect is 
+<ol>
+   <li>30 whenever <i>X</i><sub>3</sub> = "+"
+   <li>20 whenever <i>X</i><sub>3</sub> = "-"
+</ol>
+When the factor <i>X</i><sub>1</sub> effect is not consistent,  but in fact changes
+depending on the setting of factor <i>X</i><sub>3</sub>, then definitionally that
+is said to be an "<i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> interaction".  That is precisely
+the case here, and so our conclusions would be: 
+<ol>
+   <li>factor <i>X</i><sub>1</sub> is probably
+       <a href="pri592.html#important">important</a>;
+   <li>the estimated factor <i>X</i><sub>1</sub> effect is 25
+       (the average of 30, 20, 30, and 20); 
+   <li>the <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> interaction is probably important; 
+   <li>the estimated <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> interaction is about 10
+       (the change in the factor <i>X</i><sub>1</sub> effect as <i>X</i><sub>3</sub> 
+       changes = 30 - 20 = 10); 
+   <li>hence the <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> interaction is less 
+       important than the <i>X</i><sub>1</sub> effect.
+</ol>
+Note that we are using the term important in a qualitative sense here.
+More precise determinations of importance in terms of statistical
+or engineering significance are discussed in later sections.
+<p>
+The block plot gives us the structure and the detail to allow
+such conclusions to be drawn and to be understood.  It is a
+valuable adjunct to the previous analysis steps.
+<p>
+<b>Best settings:</b>
+<p>
+After identifying important factors, it is also of use to
+determine the best settings for these factors.  As usual, best
+settings are determined for main effects only (since main
+effects are all that the engineer can control).  Best settings
+for interactions are not done because the engineer has
+no direct way of controlling them.
+<p>
+In the block plot context, this determination of best factor
+settings is done simply by noting which factor setting (+ or -)
+within each block is closest to that which the engineer is
+ultimately trying to achieve.  In the defective springs case,
+since the response variable is percent acceptable springs, we are clearly
+trying to maximize (as opposed to minimize, or hit a target) the
+response and the ideal optimum point is 100 %.  Given this, we would
+look at the block plot of a given important factor and note within
+each block which factor setting (+ or -) yields a data value
+closest to 100 % and then select that setting as the best for that
+factor.
+<!--
+Since an important factor by definition will have
+consistent +/- setting arrangements, then the selected best
+setting will be consistent over all of the blocks as it should be.
+ -->
+<p>
+From the defective springs block plots, we would thus conclude that
+<ol>
+   <li>the best setting for factor 1 is +;
+   <li>the best setting for factor 2 is -;
+   <li>the best setting for factor 3 cannot be easily determined.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In summary, applying the block plot to the defective springs
+data set results in the following conclusions: 
+<ol>
+   <li>Unranked list of important factors (including interactions):
+       <p>
+       <ul>
+          <li><i>X</i><sub>1</sub> is important;
+          <li><i>X</i><sub>2</sub> is important;
+          <li><i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> is important.
+       </ul>
+       <p>
+   <li>Best Settings:
+       <p>
+       <ul>
+          (<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, -, ?) = (+1, -1, ?)
+       </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri594.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri596.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri595.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:48 GMT -->
+</HTML>

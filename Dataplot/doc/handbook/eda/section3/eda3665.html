@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:59 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.6.6.5. F Distribution</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda3666.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda3664.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda36.html">Probability Distributions</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda366.html">Gallery of Distributions</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.6.6.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>F Distribution</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="PDF">
+Probability Density Function
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The F distribution is the ratio of two
+<a href="eda3666.html">chi-square</a> distributions with degrees of freedom
+<i>&nu;</i><sub>1</sub> and <i>&nu;</i><sub>2</sub>, respectively, where
+each chi-square has first been divided by its degrees of freedom.  The
+formula for the <a href="eda362.html#PDF">probability density
+function</a> of the F distribution is
+<ul>
+<!--
+<img src="eqns/fpdf.gif"
+     alt="[GAMMA((nu1+nu2)/2)*(nu1/nu2)**(nu1/2)*x**((nu2/2)-1)]/
+GAMMA(nu1/2)*GAMMA(nu2/2)*(1 + Nu1*x/Nu2)**((nu1+nu2)/2)]">
+-->
+\( f(x) = \frac{\Gamma(\frac{\nu_{1} + \nu_{2}} {2}) (\frac{\nu_{1}} 
+{\nu_{2}})^{\frac{\nu_{1}} {2}} x^{\frac{\nu_{1}} {2} - 1 }} 
+{\Gamma(\frac{\nu_{1}} {2}) \Gamma(\frac{\nu_{2}} {2}) 
+(1 + \frac{\nu_{1}x} {\nu_{2}})^{\frac{\nu_{1} + \nu_{2}} {2}} } \)
+</ul>
+where <i>&nu;</i><sub>1</sub> and <i>&nu;</i><sub>2</sub> are the
+shape parameters and
+<!-- <img src="eqns/ucgamma.gif"> -->
+&Gamma; is the gamma function.  The formula for the gamma function
+is
+<ul>
+<!--
+<img src="eqns/gammfunc.gif"
+     alt="GAMMA(a) = INTEGRAL[t**(a-1)*EXP(-t)dt] where the
+ integration is from 0 to infinity">
+-->
+\( \Gamma(a) = \int_{0}^{\infty} {t^{a-1}e^{-t}dt} \)
+</ul>
+In a testing context, the F distribution is treated as a
+"standardized distribution" (i.e., no location or scale parameters).
+However, in a distributional modeling context (as with other
+probability distributions), the F distribution itself can be
+transformed with a <a href="eda364.html">location parameter</a>,
+<i>&mu;</i>, and a <a href="eda364.html">scale parameter</a>,
+<i>&sigma;</i>.
+<p>
+The following is the plot of the F probability density function for
+4 different values of the shape parameters.
+<p>
+<img src="gif/fpdf4.gif" alt=
+     "plot of the F probability density function for 4 different values
+ of the shape parameters">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="CDF">
+Cumulative Distribution Function
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#PDF">Cumulative distribution
+function</a> of the F distribution is
+<ul>
+<!--
+<img src="eqns/fcdf.gif"
+     alt="F(x) = 1 - I(k)(nu2/2,nu1/2)">
+</ul>
+-->
+\( F(x) = 1 - I_{k}(\frac{\nu_{2}} {2},\frac{\nu_{1}} {2} ) \)
+where <i>k</i> =
+<!--  <img align=absmiddle src="eqns/nu2.gif" alt="nu2">/
+(<img align=absmiddle src="eqns/nu2.gif" alt="nu2"> +
+<img align=absmiddle src="eqns/nu1.gif" alt="nu1">*x) -->
+\( \nu_2/(\nu_2 + \nu_1 \cdot x) \)
+and <b><i>I<sub>k</sub></i></b> is the incomplete beta
+function.  The formula for the incomplete beta function is
+<p>
+<ul>
+<!--
+<img src="eqns/ibetfunc.gif"
+     alt="I(k)(x,alpha,beta) = INTEGRAL[t**(alpha-1)*(1-t)**(beta-1)dt]/
+B(alpha,beta)  where the integration is from 0 to x">
+-->
+\( I_{k}(x,\alpha,\beta) = 
+\frac{\int_{0}^{x} {t^{\alpha-1}(1-t)^{\beta-1}dt}} {B(\alpha,\beta) } \)
+</ul>
+<p>
+where <b><i>B</i></b> is the beta function
+<ul>
+<!--
+<img src="eqns/betafunc.gif"
+     alt="B(alpha,beta) = INTEGRAL[t**(alpha-1)*(1-t)**(beta-1)dt
+  where the integration is from 0 to 1">
+-->
+\( B(\alpha,\beta) = \int_{0}^{1} {t^{\alpha-1}(1-t)^{\beta-1}dt} \)
+</ul>
+<p>
+The following is the plot of the F cumulative distribution function
+with the same values of <i>&nu;</i><sub>1</sub> and
+<i>&nu;</i><sub>2</sub> as the pdf plots above.
+<p>
+<img src="gif/fcdf4.gif"
+alt="plot of the F cumulative distribution function with the same
+ values of nu1 and nu2 as the pdf plots above">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="PPF">
+Percent Point Function
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#PPF">percent point
+function</a> of the F distribution does not exist in
+a simple closed form.  It is computed numerically.
+<p>
+The following is the plot of the F percent point function with the same
+values of <i>&nu;</i><sub>1</sub> and <i>&nu;</i><sub>2</sub> as the pdf
+plots above.
+<p>
+<img src="gif/fppf4.gif"
+alt="plot of the F percent point function with the same values
+ of nu1 and nu2 as the pdf plots above">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="HAZARD">
+Other Probability Functions
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Since the F distribution is typically used to develop hypothesis
+tests and confidence intervals and rarely for modeling applications,
+we omit the formulas and plots for the hazard, cumulative hazard,
+survival, and inverse survival probability functions.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Common Statistics
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formulas below are for the case where the location parameter
+is zero and the scale parameter is one.
+
+<table>
+
+   <tr>
+      <td valign=top width=30%>
+        Mean
+      </td>
+      <td valign=top width=70%>
+         <!-- <img src="eqns/fmean.gif" alt="nu2/(n2-2)  nu2 > 2"> -->
+         \( \frac {\nu_{2}} {(\nu_{2} - 2)} \;\;\;\;\;\;\; \nu_{2} > 2 \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Mode
+      </td>
+      <td valign=top width=70%>
+         <!--
+         <img src="eqns/fmode.gif"
+              alt="nu2*(nu1-2)/(nu1*(nu2+2))  nu1 > 2">
+         -->
+         \( \frac {\nu_{2}(\nu_{1} - 2)} {\nu_{1}(\nu_{2} + 2)}
+         \;\;\;\;\;\;\; \nu_{1} > 2 \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Range
+      </td>
+      <td valign=top width=70%>
+         0 to \(\infty\)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Standard Deviation
+      </td>
+      <td width=70%>
+         <!--
+         <img src="eqns/fsd.gif" alt=
+         "SQRT(2*nu2**2*(nu1+nu2-2)/(nu1*(nu2-2)**2*(nu2-4)))  nu2 > 4">
+         -->
+         \( \sqrt{\frac {2\nu_{2}^{2}(\nu_{1} + \nu_{2} - 2)}
+         {\nu_{1}(\nu_{2} - 2)^{2}(\nu_{2} - 4)}} \;\;\;\;\;\;\;
+         \nu_{2} > 4 \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Coefficient of Variation
+      </td>
+      <td valign=top width=70%>
+         <!--
+         <img src="eqns/fcoefv.gif"
+              alt="SQRT(2*(nu1+nu2-2)/(nu1*(nu2-4)))  nu2 > 4">
+         -->
+         \( \sqrt{\frac{2(\nu_{1} + \nu_{2} - 2)} {\nu_{1}(\nu_{2} - 4)}}
+         \;\;\;\;\;\;\; \nu_{2} > 4 \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Skewness
+      </td>
+      <td valign=top width=70%>
+         <!--
+         <img src="eqns/fskew.gif" alt=
+         "(2*nu1+nu2-2)*SQRT(8*(nu2-4))/(SQRT(nu1)*(nu2-6)*SQRT(nu1+nu2-2))
+  nu2 > 6">
+         -->
+         \( \frac {(2\nu_{1} + \nu_{2} - 2)\sqrt{8(\nu_{2} - 4)}}
+         {\sqrt{\nu_{1}}(\nu_{2} - 6)\sqrt{(\nu_{1} + \nu_{2} - 2)}}
+         \;\;\;\;\;\;\; \nu_{2} > 6 \)
+      </td>
+    </tr>
+
+</table> 
+
+</TD>
+</TR>
+<!-- end paragraph -->
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Parameter Estimation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Since the F distribution is typically used to develop hypothesis
+tests and confidence intervals and rarely for modeling applications,
+we omit any discussion of parameter estimation.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Comments
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The F distribution is used in many cases for the critical regions
+for hypothesis tests and in determining confidence intervals.
+Two common examples are the
+<a href="../../prc/section4/prc42.html">analysis of variance</a>
+and the <a href="eda359.html">F test</a> to determine if the 
+variances of two populations are equal.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Most general purpose statistical software programs support at least
+some of the probability functions for the F distribution.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda3664.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda3666.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:52:02 GMT -->
+</HTML>

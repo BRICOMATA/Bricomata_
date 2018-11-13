@@ -1,0 +1,424 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri597.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.7. |Effects| plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5971.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri596.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>|Effects| plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The |effects| plot answers the question:
+<UL>
+   What are the important factors (including interactions)?
+</UL>
+Quantitatively, the question as to what is the estimated effect of
+a given factor or interaction and what is its rank
+relative to other factors and interactions is answered via the
+<a href="../../eda/section3/eda35i.html">least squares estimation</a>
+criterion (that is, forming effect estimates that minimize the
+sum of the squared differences between the raw data and the
+fitted values from such estimates).  Based on such an estimation
+criterion, one could then construct a tabular list of the factors
+and interactions ordered by the effect magnitude.
+<P>
+The |effects| plot provides a graphical representation of these
+ordered estimates, Pareto-style from largest to smallest.
+<P>
+The |effects| plot, as presented here, yields both of the above: the
+plot itself, and the ranked list table.  Further, the plot also
+presents auxiliary confounding information, which is
+necessary in forming valid conclusions for fractional factorial
+designs.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The output of the |effects| plot is:
+<ol>
+   <li>Primary: A ranked list of important effects (and interactions).
+       For full factorial designs, interactions include the full
+       complement of interactions at all orders; for fractional
+       factorial designs, interactions include only some, and
+       occasionally none, of the actual interactions.
+       <p>
+   <li>Secondary: Grouping of factors (and interactions) into two
+       categories: important and unimportant.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The |effects| plot is formed by:
+<ul>
+   <li>Vertical Axis: Ordered (largest to smallest) absolute value
+       of the estimated effects for the main factors and for (available)
+       interactions.  For <i>n</i> data points (no replication), 
+       typically (<i>n</i>-1) effects will be estimated and the
+       (<i>n</i>-1) |effects| will be plotted.
+       <p>
+   <li>Horizontal Axis  : Factor/interaction identification:
+       <ul>
+          1 indicates factor <i>X</i><sub>1</sub>;<br>
+          2 indicates factor <i>X</i><sub>2</sub>;<br>
+          ...<br>
+          12 indicates the 2-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction<br>
+          123 indicates the 3-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>3</sub>
+          interaction,<br>
+          etc.<br>
+       </ul>
+       <p>
+   <li>Far right margin : Factor/interaction identification (built-in
+       redundancy):
+       <ul>
+          1 indicates factor <i>X</i><sub>1</sub>;<br>
+          2 indicates factor <i>X</i><sub>2</sub>;<br>
+          ...<br>
+          12 indicates the 2-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction<br>
+          123 indicates the 3-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>3</sub>
+          interaction,<br>
+          etc.
+       </ul>
+       If the design is a fractional factorial,the confounding
+       structure is provided for main factors and 2-factor interactions.
+       <p>
+   <li>Upper right table: Ranked (largest to smallest by magnitude)
+       list of the least squares estimates for the main effects and for
+       (available) interactions.
+       <p>
+       As before, if the design is a fractional factorial, the
+       confounding structure is provided for main factors and 2-factor
+       interactions.
+</ul>
+The estimated effects that form the basis for the vertical axis are
+optimal in the least squares sense.  No other estimators exist that
+will yield a smaller sum of squared deviations between the raw
+data and the fitted values based on these estimates.
+<p>
+For both the 2<i><sup>k</sup></i> full factorial designs and
+2<sup><i>k</i>-<i>p</i></sup> fractional factorial designs, the form
+for the least squares estimate of the factor <i>i</i> effect,
+the 2-factor interaction effect, and the multi-factor interaction
+effect has the following simple form:
+<ul>
+   <b>factor <i>i</i> effect =
+   \( \bar{Y} \)(+) - \( \bar{Y} \)(-)</b>
+   <!--
+   <img align=bottom src="eqns/ybar.gif" alt="Ybar">(+) -
+   <img align=bottom src="eqns/ybar.gif" alt="Ybar">(-) -->
+   <br>
+   <b>2-factor interaction effect =
+   \( \bar{Y} \)(+) - \( \bar{Y} \)(-)</b>
+   <!--
+   <img align=bottom src="eqns/ybar.gif" alt="Ybar">(+) -
+   <img align=bottom src="eqns/ybar.gif" alt="Ybar">(-) </b>
+   -->
+   <br>
+   <b>multi-factor interaction effect =
+   \( \bar{Y} \)(+) - \( \bar{Y} \)(-)</b>
+   <!--
+   <img align=bottom src="eqns/ybar.gif" alt="Ybar">(+) -
+   <img align=bottom src="eqns/ybar.gif" alt="Ybar">(-) </b>
+   -->
+</ul>
+with <!-- <img align=bottom src="eqns/ybar.gif" alt="Ybar"> -->
+\( \bar{Y} \) (+) denoting the average of all response values for which
+factor <i>i</i> (or the 2-factor or multi-factor interaction) takes on a
+"+" value, and
+<!-- <img align=bottom src="eqns/ybar.gif" alt="Ybar"> -->
+\( \bar{Y} \)(-) denoting the average of all response values for which
+factor <i>i</i> (or the 2-factor or multi-factor interaction) takes on
+a "-" value.
+<p>
+The essence of the above simplification is that the 2-level full and
+fractional factorial designs are all orthogonal in nature, and so all
+off-diagonal terms in the least squares <i>X'X</i> matrix vanish.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Motivation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Because of the difference-of-means definition of the least squares
+estimates, and because of the fact that all factors (and interactions)
+are standardized by taking on values of -1 and +1 (simplified to
+- and +), the resulting estimates are all on the same scale.
+Therefore, comparing and ranking the estimates based on
+magnitude makes eminently good sense.
+<p>
+Moreover, since the sign of each estimate is completely arbitrary and
+will reverse depending on how the initial assignments were made
+(e.g., we could assign "-" to treatment A and "+" to treatment
+B or just as easily assign "+" to treatment A and "-" to
+treatment B), forming a ranking based on magnitudes (as opposed to
+signed effects) is preferred.
+<p>
+Given that, the ultimate and definitive ranking of factor and
+interaction effects will be made based on the ranked (magnitude) list
+of such least squares estimates.  Such rankings are given graphically,
+Pareto-style, within the plot; the rankings are given quantitatively
+by the tableau in the upper right region of the plot.  For the
+case when we have fractional (versus full) factorial designs, the
+upper right tableau also gives the confounding structure for whatever
+design was used.
+<p>
+If a factor is important, the "+" average will be
+considerably different from the "-" average, and so the absolute value
+of the difference will be large.  Conversely, unimportant
+factors have small differences in the averages, and so the absolute
+value will be small.
+<p>
+We choose to form a Pareto chart of such |effects|.  In the Pareto
+chart, the largest effects (most important factors) will be
+presented first (to the left) and then progress down to the smallest
+effects (least important) factors to the right.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot for defective springs data
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Applying the |effects| plot to the defective springs data yields the
+following plot.
+<p>
+<A HREF="gifs/effects.gif">
+   <IMG SRC="gifs/effects.r.gif" BORDER=0
+        alt="|effects| plot for the defective springs data">
+</A>
+<p>
+<p>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+From the |effects| plot, we look for the following:
+<ol>
+   <li>The ranked list of factors (including interactions)
+       is given by the left-to-right order of the spikes.
+       These spikes should be of decreasing height as we move
+       from left to right.  Note the factor identifier associated
+       with each of these bars.
+       <p>
+   <li>Identify the important factors.  Forming the ranked list of
+       factors is important, but is only half of the analysis.
+       The second part of the analysis is to take the ranking and
+       "draw the (horizontal) line" in the list and on the graph so
+       that factors above the line are deemed "important while factors
+       below the line are deemed unimportant.
+       <p>
+       Since factor effects are frequently a continuum ranging from
+       the very large through the moderate and down to the very
+       small, the separation of all such factors into two groups
+       (important and unimportant) may seem arbitrary and severe.
+       However, in practice, from both a research funding and a
+       modeling point of view, such a bifurcation is both common and
+       necessary.
+       <p>
+       From an engineering research-funding point of view, one must
+       frequently focus on a subset of factors for future research,
+       attention, and money, and thereby necessarily set aside other
+       factors from any further consideration.  From a model-building
+       point of view, a final model either has a term in it or it does
+       not--there is no middle ground.  Parsimonious models require
+       in-or-out decisions.  It goes without saying that as soon
+       as we have identified the important factors, these are the
+       factors that will comprise our (parsimonious) good model, and
+       those that are declared as unimportant will not be in the model.
+       <p>
+       Given that, where does such a bifurcation line go?
+       <p>
+       There are four ways, each discussed in turn, to draw such a
+       line:
+       <p>
+       <ol>
+          <li><a href="pri5971.html">Statistical significance</a>;
+          <li><a href="pri5972.html">Engineering significance</a>;
+          <li><a href="pri5973.html">Numerical significance</a>; and
+          <li><a href="pri5974.html">Pattern significance</a>.
+       </ol>
+</ol>
+The ranked list and segregation of factors derived from the |effects|
+plot are to be compared with the ranked list of factors obtained in
+previous steps.  Invariably, there will be a considerable degree of
+consistency exhibited across all of the techniques.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The application of the |effects| plot to the defective springs data
+set results in the following conclusions:
+<ol>
+   <li>Ranked list of factors (including interactions):
+       <ol>
+          <li><i>X</i><sub>1</sub> (most important)
+          <li><i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> (next most important)
+          <li><i>X</i><sub>2</sub>
+          <li>other factors are of lesser importance
+       </ol>
+       <p>
+   <li>Separation of factors into important/unimportant categories:
+       <ul>
+          <li>Important: <i>X</i><sub>1</sub>, <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub>, and <i>X</i><sub>2</sub>
+          <li>Unimportant: the remainder
+       </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri596.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5971.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri597.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:54 GMT -->
+</HTML>

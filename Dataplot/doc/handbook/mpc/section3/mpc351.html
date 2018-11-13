@@ -1,0 +1,204 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc351.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:09 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.5.1. Control of precision</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc3511.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc35.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc35.html">Control of artifact calibration</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.5.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Control of precision</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<!-- Add marginal notes below -->
+<I>Control parameters from historical data</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+A modified control chart procedure is used for controlling instrument
+precision. The procedure is designed to be implemented in real time 
+after a baseline and control limit for the instrument of interest have
+been established from the database of short-term standard deviations.
+A separate control chart is required for each instrument -- except
+where instruments are of the same type with the same basic precision,
+in which case they can be treated as one. 
+<P>
+The baseline is the process standard deviation that is pooled from
+\( k = 1, \, \ldots, \, K \)
+<!-- <I>k = 1, ..., K</I> -->
+individual repeatability standard deviations,
+\( {\large s}_k \),
+<!-- <IMG ALIGN = absmiddle SRC="mpc351a.gif" alt="s(k)"> -->
+in the database, each having 
+\( \nu_k \)
+<!-- <IMG ALIGN = absmiddle SRC="mpc351b.gif" alt="nu(k)"> -->
+degrees of freedom.  The pooled repeatability standard deviation is
+
+$$ {\large s}_1 = \sqrt{ \frac{1}{\nu} \sum_{k=1}^K \nu_k \, {\large s}_k^2 } $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc351c.gif"
+     ALT="s1 = SQRT((1/nu)*SUM[k=1 to K]{nu(k)*s(k)**2}">
+</CENTER>
+<P>
+-->
+with degrees of freedom
+
+$$ \nu = \sum_{k=1}^K \nu_k \,\, .$$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc351d.gif" alt="nu = SUM[k=1 to K]{nu(k)}">.
+</CENTER>
+-->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Control procedure is invoked in real-time for each calibration run</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The control procedure compares each new repeatability standard deviation
+that is recorded for the instrument with an upper control limit,
+<I>UCL</I>. Usually, only the upper control limit is of interest because
+we are primarily interested in detecting degradation in the instrument's
+precision. A possible complication is that the control limit is
+dependent on the degrees of freedom in the new standard deviation and is
+computed as follows: 
+
+$$ UCL = s_1 \sqrt{F_{\alpha, \, \nu_{new}, \, \nu}} $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc351a1.gif"
+     ALT="UCL = s1*SQRT(F(alpha,nu(new),nu)"> .
+ </CENTER>
+<P>
+-->
+The quantity under the radical is the upper <i>&alpha;</i> 
+percentage point from the 
+<A HREF="../../eda/section3/eda3673.html"><i>F</i> table</A> where
+<i>&alpha;</i> is chosen small to be, say, 0.05.
+The other two terms refer to the degrees of freedom in the new standard
+deviation and the degrees of freedom in the process standard deviation.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Limitation of graphical method</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The graphical method of plotting every new estimate of repeatability on
+a control chart does not work well when the <I>UCL</I> can change with
+each calibration design, depending on the degrees of freedom. The
+algebraic equivalent is to test if the new standard deviation exceeds
+its control limit, in which case the short-term precision is judged 
+to be out of control and the current calibration run is rejected. 
+For more guidance, see
+<A HREF="../section2/mpc234.html" >Remedies and strategies for dealing 
+with out-of-control signals</A>. 
+<P>
+As long as the repeatability standard deviations are in control, 
+there is reason for confidence that the precision of the instrument 
+has not degraded.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A HREF="mpc3511.html"><I>Case study: Mass balance precision</I></A>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+It is recommended that the repeatability standard deviations be plotted
+against time on a regular basis to check for gradual degradation in the
+instrument. Individual failures may not trigger a suspicion that the
+instrument is in need of adjustment or tuning.
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc35.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc3511.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc351.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:09 GMT -->
+</HTML>

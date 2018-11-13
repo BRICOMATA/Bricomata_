@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda355.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:01 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.5. Multi-factor Analysis of Variance</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda356.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda354.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Multi-factor Analysis of Variance</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Detect significant factors
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The analysis of variance (ANOVA) 
+      (<a href="../section4/eda43.html#Neter">Neter, Wasserman,
+      and Kutner, 1990</a>) is used to detect significant
+      factors in a multi-factor model.  In the multi-factor model,
+      there is a response (dependent) variable and one or more
+      factor (independent) variables.  This is a common model
+      in <a href="../../pri/pri.html">designed experiments</a>
+      where the experimenter sets the values for each of the factor
+      variables and then measures the response variable.
+      <p>
+      Each factor can take on a certain number of values.
+      These are referred to as the levels of a factor.  The
+      number of levels can vary betweeen factors.  For designed
+      experiments, the number of levels for a given factor tends
+      to be small.  Each factor and level combination is a cell.
+      Balanced designs are those in which the cells have an equal
+      number of observations and unbalanced designs are
+      those in which the number of observations varies among cells.
+      It is customary to use balanced designs in designed experiments.
+
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The <a href="../../prc/prc.html">Product and Process
+      Comparisons</a> chapter (chapter 7) contains a more extensive
+      discussion of <a href="../../prc/section4/prc427.html">two-factor
+      ANOVA</a>, including the details for the mathematical
+      computations.
+      <p>
+      The model for the analysis of variance can be stated
+      in two mathematically equivalent ways.  We explain the
+      model for a two-way ANOVA (the concepts are the same
+      for additional factors).  In the following discussion, each
+      combination of factors and levels is called a cell.  In the
+      following, the subscript <b><i>i</i></b> refers
+      to the level of factor 1, <b><i>j</i></b> refers to the level
+      of factor 2, and the subscript <b><i>k</i></b> refers to the
+      <i>k</i>th observation within the (<i>i</i>,<i>j</i>)th cell.
+      For example, <b><i>Y<sub>235</sub></i></b> refers to the fifth
+      observation in the second level of factor 1 and the third level
+      of factor 2.
+      <p>
+      The first model is
+      <UL>
+         <!--
+         <img src="eqns/anovam1.gif"
+              alt="Y(ijk) = u(ij) + E(ijk)">
+         -->
+         \( Y_{ijk} = \mu_{ij} + E_{ijk} \)
+      </UL>
+      This model decomposes the response into a mean for each cell
+      and an error term.  The analysis of variance provides estimates
+      for each cell mean.  These cell means are the predicted values of
+      the model and the differences between the response variable and
+      the estimated cell means are the residuals.  That is
+      <UL>
+         <!--
+         <img src="eqns/anovam3.gif" alt="YHAT(ijk) = uhat(ij)">
+         -->
+         \( \hat{Y}_{ijk} = \hat{\mu}_{ij} \)
+         <p>
+         <!--
+         <img src="eqns/anovam4.gif" alt="R(ijk) = Y(ijk) - uhat(ij)">
+         -->
+         \( R_{ijk} = Y_{ijk} - \hat{\mu}_{ij} \)
+      </UL>
+      <p>
+      The second model is
+      <UL>
+         <!--
+         <img src="eqns/anovam2.gif"
+              alt="Y(ijk) = u + alpha(i) + beta(j) + E(ijk)">
+         -->
+         \( Y_{ijk} = \mu + \alpha_{i} + \beta_{j} + E_{ijk} \)
+      </UL>
+      This model decomposes the response into an overall (grand) mean,
+      factor effects
+      <!-- (<img align=absmiddle src="eqns/alphai.gif" alt="alpha(i)"> -->
+      (\( \hat{\alpha}_{i} \) and
+      <!-- <img align=absmiddle src="eqns/betaj.gif" alt="beta(j)"> -->
+      \( \hat{\beta}_{j} \) represent the effects of the
+      <i>i</i>-th level of the first factor and the <i>j</i>-th level
+      of the second factor, respectively), and an error
+      term.  The analysis of variance provides estimates of the grand
+      mean and the factor effects.  The predicted values and the
+      residuals of the model are
+      <UL>
+         <!--
+         <img src="eqns/anovam5.gif"
+              alt="YHAT(ijk) = uhat + alphahat(i) + betahat(j)">
+         -->
+         \( \hat{Y}_{ijk} = \hat{\mu} + \hat{\alpha}_{i} + \hat{\beta}_{j} \)
+         <p>
+         <!--
+         <img src="eqns/anovam6.gif"
+              alt="R(ijk) = Y(ijk) - uhat - alphahat(i) - betahat(j)">
+         -->
+         \( R_{ijk} = Y_{ijk} - \hat{\mu} - \hat{\alpha}_{i} - \hat{\beta}_{j} \)
+      </UL>
+      <p>
+      The distinction between these models is that the second
+      model divides the cell mean into an overall 
+      mean and factor effects.  This second model makes the factor
+      effect more explicit, so we will emphasize this approach.
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Model Validation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Note that the ANOVA model assumes that the error term,
+<b><i>E<sub>ijk</sub></i></b>, should follow the
+<a href="../section2/eda21.html">assumptions</a> for a
+univariate measurement process.  That is, after performing
+an analysis of variance, the model should be validated
+by <a href="../../pmd/section4/pmd44.html">analyzing the
+residuals</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Multi-Factor ANOVA Example</I>
+   </td>
+   <td width=85% valign=top>
+      An analysis of variance was performed for the
+      <a href="../section4/eda42a1.html">JAHANMI2.DAT</a> data set.
+      The data contains four, two-level factors:  table speed, 
+      down feed rate, wheel grit size, and batch.  There 
+      are 30 measurements of ceramic strength for each factor 
+      combination for a total of 480 measurements.
+     
+ <PRE>
+ SOURCE              DF SUM OF SQUARES    MEAN SQUARE   <i>F</i> STATISTIC 
+ ------------------------------------------------------------------
+ TABLE SPEED          1   26672.726562   26672.726562        6.7080
+ DOWN FEED RATE       1   11524.053711   11524.053711        2.8982
+ WHEEL GRIT SIZE      1   14380.633789   14380.633789        3.6166
+ BATCH                1  727143.125000  727143.125000      182.8703
+ RESIDUAL           475 1888731.500000    3976.276855
+ TOTAL (CORRECTED)  479 2668446.000000    5570.868652
+  
+ RESIDUAL STANDARD DEVIATION = 63.05772781
+  
+ FACTOR          LEVEL   N      MEAN     SD(MEAN)
+ ------------------------------------------------
+ TABLE SPEED      -1    240  657.53168    2.87818
+                   1    240  642.62286    2.87818
+ DOWN FEED RATE   -1    240  645.17755    2.87818
+                   1    240  654.97723    2.87818
+ WHEEL GRIT SIZE  -1    240  655.55084    2.87818
+                   1    240  644.60376    2.87818
+ BATCH             1    240  688.99890    2.87818
+                   2    240  611.15594    2.87818
+</PRE>
+The ANOVA decomposes the variance into the following
+component <a href="../../prc/section4/prc427.html">sum of
+squares</a>:
+       <ul>
+          <li>Total sum of squares.  The degrees of freedom for
+              this entry is the number of observations minus one.
+          <li>Sum of squares for each of the factors.  The degrees of
+              freedom for these entries are the number of levels
+              for the factor minus one.
+              The mean square is the sum of squares divided
+              by the number of degrees of freedom.
+          <li>Residual sum of squares.  The degrees of freedom is
+              the total degrees of freedom minus the sum of the
+              factor degrees of freedom.  The mean square is the
+              sum of squares divided by the number of degrees of
+              freedom.
+       </ul>
+The analysis of variance summarizes how much of the variance in 
+the data (total sum of squares) is accounted for by the factor 
+effects (factor sum of squares) and how much is due to random error 
+(residual sum of squares).  Ideally, we would like most of the 
+variance to be explained by the factor effects.  
+
+The ANOVA table provides a formal <I>F</I> test for the factor 
+effects.  To test the overall batch effect in our example we use
+the following hypotheses.
+<P>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; H<SUB>0</SUB>:  All individual batch means are equal. <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; H<SUB>a</SUB>:  At least one batch mean is not equal to the others.
+<P> 
+The <I>F</I> statistic is the mean square for the 
+factor divided by the residual mean square.  This statistic 
+follows an <a href="eda365.html"><i>F</i> distribution</a> with
+(<i>k</i>-1) and (<i>N</i>-<i>k</i>) degrees of freedom where
+<i>k</i> is the number of levels for the given factor.
+Here, we see that the size of the "direction" effect dominates
+the size of the other effects.  For our example, the critical 
+<I>F</I> value (upper tail) for <i>&alpha;</i> = 0.05, (<i>k</i>-1) = 1, 
+and (<i>N</i>-<i>k</i>) = 475 is 3.86111.  Thus, "table speed"
+and "batch" are significant at the 5 % level while 
+"down feed rate" and "wheel grit size" are not significant 
+at the 5 % level.
+<P>
+In addition to the quantitative ANOVA output, it is recommended
+that any analysis of variance be complemented with
+<a href="../../pmd/section4/pmd44.html">model validation</a>.
+At a minimum, this should include
+<OL>
+   <LI>A <a href="runseqpl.html">run sequence plot</a> of the
+       residuals.
+   <LI>A <a href="normprpl.html">normal probability plot</a> of the
+       residuals.
+   <LI>A <a href="scatterp.html">scatter plot</a> of the predicted
+       values against the residuals.
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions
+      </I>
+   </td>
+   <td width=85% valign=top>
+     The analysis of variance can be used to answer the following
+     questions:
+     <OL>
+       <LI>Do any of the factors have a significant effect?
+       <LI>Which is the most important factor?
+       <LI>Can we account for most of the variability in the data?
+     </OL> 
+      
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="eda354.html">One-factor analysis of variance</a><br>
+      <a href="eda353.html">Two-sample <i>t</i>-test</a><br>
+      <a href="boxplot.html">Box plot</a><br>
+      <a href="blockplo.html">Block plot</a><br>
+      <a href="dexmeanp.html">DOE mean plot</a><br>
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Case Study
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The quantitative ANOVA approach can be contrasted with the
+more graphical EDA approach in the
+<a href="../section4/eda42a.html">ceramic strength</a>
+case study.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Most general purpose statistical software programs can 
+perform multi-factor analysis of variance.  Both 
+<a href="eda355.dp">Dataplot code</a> and 
+<a href="eda355.r">R code</a> can be used to generate the
+analyses in this section.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda354.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda356.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda355.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:03 GMT -->
+</HTML>

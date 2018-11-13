@@ -1,0 +1,57 @@
+Dataplot commands and output:
+
+dimension 20 variables
+skip 50
+read jahanmi2.dat run lab bar set y x1 to x8 batch
+let y1 = y
+let y2 = y
+retain y1 subset batch = 1
+retain y2 subset batch = 2
+set write decimals 5
+f  test y1 y2
+
+
+>             Two Sample F-Test for Equal Standard Deviations
+>  
+> First Response Variable:  Y1
+> Second Response Variable: Y2
+>  
+> H0: Sigma1 = Sigma2
+> Ha: Sigma1 not equal Sigma2
+>  
+> Sample One Summary Statistics:
+> Number of Observations:                             240
+> Sample Mean:                                  688.99864
+> Sample Standard Deviation:                     65.54909
+>  
+> Sample Two Summary Statistics:
+> Number of Observations:                             240
+> Sample Mean:                                  611.15597
+> Sample Standard Deviation:                     61.85424
+>  
+> Test:
+> Standard Deviation (Numerator):                65.54909
+> Standard Deviation (Denomerator):              61.85424
+> Degrees of Freedom (Numerator):                     239
+> Degrees of Freedom (Denomerator):                   239
+> Pooled Standard Deviation:                     63.72845
+> F-Test Statistic Value:                         1.12303
+> F-Test CDF Value:                               0.81480
+> F-Test P-Value:                                 0.18519
+>  
+>  
+>             Conclusions (Upper 1-Tailed Test)
+>  
+> H0: sigma1 = sigma2; sigma1 <> sigma2
+> ------------------------------------------------------------
+>                                                         Null
+>    Significance           Test       Critical     Hypothesis
+>           Level      Statistic    Region (>=)     Conclusion
+> ------------------------------------------------------------
+>           50.0%        1.12303        0.99999         REJECT
+>           75.0%        1.12303        1.09129         REJECT
+>           90.0%        1.12303        1.18064         ACCEPT
+>           95.0%        1.12303        1.23765         ACCEPT
+>           97.5%        1.12303        1.28938         ACCEPT
+>           99.0%        1.12303        1.35234         ACCEPT
+>           99.9%        1.12303        1.49411         ACCEPT

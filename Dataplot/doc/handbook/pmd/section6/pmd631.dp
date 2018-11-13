@@ -1,0 +1,637 @@
+Dataplot commands and output:
+
+.
+. Starting Ultrasonic Reference Block Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units absolute
+tic mark offset 5 5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read chwirut1.dat ultrason metal
+variable label ultrason Ultrasonic Response
+variable label metal Metal Distance
+. Finished Step 1.1
+
+.Initial Plot of Data 	
+.
+.
+. Starting Step 2.1
+x1label ^metal
+y1label ^ultrason
+title Ultrasonic Reference Block Data
+plot ultrason metal
+title
+x1label
+y1label
+. Finished Step 2.1
+
+.Pre-Fit to Determine Starting Values 	
+.
+.
+. Starting Step 2.2
+let function f = exp(-b1*metal)/(b2+b3*metal)
+pre-fit ultrason = f ...
+    for b1 = 0.1 0.1 1 for b2 = 0.1 0.1 1 for b3 = 0.1 0.1 1
+.
+. Finished Step 2.2
+
+> LEAST SQUARES NON-LINEAR PRE-FIT
+> SAMPLE SIZE N =      214
+> MODEL--ULTRASON =(EXP(-B1*METAL)/(B2+B3*METAL))
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.3281762600D+01
+> REPLICATION DEGREES OF FREEDOM =         192
+> NUMBER OF DISTINCT SUBSETS     =          22
+>   
+>        NUMBER OF LATTICE POINTS    =        1000
+>   
+>    STEP                  RESIDUAL  *  PARAMETER
+>   NUMBER                 STANDARD  *  ESTIMATES
+>                          DEVIATION *
+>  ----------------------------------*-----------
+>      1--               0.35271E+02 * 0.10000E+00 0.10000E+00 0.10000E+00
+>   
+>         FINAL PARAMETER ESTIMATES
+>         1  B1                  0.100000
+>         2  B2                  0.100000
+>         3  B3                  0.100000
+>   
+>        RESIDUAL    STANDARD DEVIATION =        35.2706031799
+>        RESIDUAL    DEGREES OF FREEDOM =         211
+>        REPLICATION STANDARD DEVIATION =         3.2817625999
+>        REPLICATION DEGREES OF FREEDOM =         192
+
+
+.Fit and Plot Predicted Values with Data 	
+.
+.
+. Starting Step 2.3
+let b1 = 0.1
+let b2 = 0.1
+let b3 = 0.1
+fit ultrason = exp(-b1*metal)/(b2+b3*metal)
+let pred1 = pred
+let r1 = ressd
+.
+title displacement 7
+title size 3
+title Ultrasonic Reference Block Datacr()with Unweighted Nonlinear Fit
+x1label ^metal
+y1label ^ultrason
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+line thickness 0.1 0.15
+plot ultrason pred vs metal
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+line thickness 0.1 0.1
+title displacement 1.5
+.
+. Finished Step 2.3
+
+> LEAST SQUARES NON-LINEAR FIT
+> SAMPLE SIZE N =      214
+> MODEL--ULTRASON =EXP(-B1*METAL)/(B2+B3*METAL)
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.3281762600D+01
+> REPLICATION DEGREES OF FREEDOM =         192
+> NUMBER OF DISTINCT SUBSETS     =          22
+>  
+>  
+>          FINAL PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+>         1  B1                  0.190404       (0.2206E-01)          8.6
+>         2  B2                  0.613300E-02   (0.3493E-03)          18.
+>         3  B3                  0.105266E-01   (0.8027E-03)          13.
+>   
+>        RESIDUAL    STANDARD DEVIATION =         3.3616721630
+>        RESIDUAL    DEGREES OF FREEDOM =         211
+>        REPLICATION STANDARD DEVIATION =         3.2817625999
+>        REPLICATION DEGREES OF FREEDOM =         192
+>        LACK OF FIT F RATIO =       1.5474 = THE  92.6461% POINT OF THE
+>        F DISTRIBUTION WITH     19 AND    192 DEGREES OF FREEDOM
+
+
+.Initial Fit Model Validation 	
+.
+.
+. Starting Step 2.4
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot ultrason metal
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 2.4
+
+.Plot Residuals 	
+.
+.
+. Starting Step 2.5
+title displacement 7
+title size 3
+title Ultrasonic Reference Block Data Residuals - Unweighted Fit
+x1label ^metal
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+ylimits -15 15
+xlimits 0 6
+plot res vs metal
+x1label
+y1label
+character blank all
+line solid all
+char x
+line solid
+character fill off all
+character hw
+title displacement 1.5
+title
+ylimits
+xlimits
+line thickness 0.15
+drawdata 0.7 0 6.3 0
+line thickness 0.1
+.
+. Finished Step 2.5
+
+.Plot Common Transformations of Dependent Variable 	
+.
+.
+. Starting Step 3.1
+multiplot 2 2
+multiplot corner coordinates 5 5 95 95
+multiplot scale factor 2.5
+char x
+line blank
+y1label displacement 15
+x1label displacement 15
+tic offset units data
+xtic offset 0.5 0.5
+xlimits 1 6
+major xtic mark number 6
+minor xtic mark number 0
+ylimits 20 80
+major ytic mark number 4
+minor ytic mark number 1
+ytic offset 15 15
+x1label ^metal
+y1label ^ultrason
+plot ultrason metal
+ylimits 2 8
+ytic offset 0.5 2
+y1label sqrt(^ultrason)
+let ytemp = sqrt(ultrason)
+plot ytemp metal
+y1label log(^ultrason)
+let ytemp = log(ultrason)
+major ytic mark number 5
+ylimits 1.5 4.5
+ytic offset 0.2 0.2
+plot ytemp metal
+y1label 1/(^ultrason)
+let ytemp = 1/(ultrason)
+major ytic mark number 3
+ylimits 0.05 0.25
+ytic offset 0.03 0.01
+plot ytemp metal
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+label
+label displacement
+limits
+major tic mark number
+minor tic mark number
+tic mark offset units absolute
+tic mark offset 5 5
+move 50 97
+justification center
+height 3
+text Transformations of Response Variable
+. Finished Step 3.1
+
+.Plot Common Transformations of Predictor Variable 	
+.
+.
+. Starting Step 3.2
+multiplot 2 2
+multiplot corner coordinates 5 5 95 95
+multiplot scale factor 2.5
+char x
+line blank
+y1label displacement 15
+x1label displacement 15
+ylimits 2 8
+major ytic mark number 4
+minor ytic mark number 1
+ytic offset 0.5 1.5
+xlimits 1 6
+major xtic mark number 6
+minor xtic mark number 0
+xtic offset 1 0.5
+tic offset units data
+x1label ^metal
+y1label sqrt(^ultrason)
+let ytemp = sqrt(ultrason)
+plot ytemp metal
+xlimits 0.5 2.5
+major xtic mark number 5
+xtic offset 0 0.1
+x1label sqrt(^metal)
+let xtemp = sqrt(metal)
+plot ytemp xtemp
+xlimits -0.5 1.5
+major xtic mark number 3
+minor xtic mark number 1
+xtic offset 0.3 0.4
+x1label log(^metal)
+let xtemp = log(metal)
+plot ytemp xtemp
+xlimits 0 2
+major xtic mark number 5
+xtic offset 0 0.2
+x1label 1/(^metal)
+let xtemp = 1/(metal)
+plot ytemp xtemp
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+label
+label displacement
+limits
+major tic mark number
+minor tic mark number
+tic mark offset units absolute
+tic mark offset 5 5
+move 50 97
+justification center
+height 3
+text Transformations of Predictor Variable
+. Finished Step 3.2
+
+.Fit Tranformed Model, Plot Predicted Values with Data 	
+.
+.
+. Starting Step 3.3
+let ytemp = sqrt(ultrason)
+let xtemp = metal
+fit ytemp = exp(-b1*xtemp)/(b2+b3*xtemp)
+let pred2 = pred**2
+let res2 = (ultrason - pred2)
+let r2 = standard deviation res2
+title displacement 7
+title size 3
+title Transformed Data with Fit
+x1label ^metal
+y1label sqrt(^ultrason)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ytemp pred vs xtemp
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 3.3
+
+> LEAST SQUARES NON-LINEAR FIT
+> SAMPLE SIZE N =      214
+> MODEL--YTEMP =EXP(-B1*XTEMP)/(B2+B3*XTEMP)
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.2927381992D+00
+> REPLICATION DEGREES OF FREEDOM =         192
+> NUMBER OF DISTINCT SUBSETS     =          22
+>  
+>          FINAL PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+>         1  B1                 -0.154326E-01   (0.8593E-02)         -1.8
+>         2  B2                  0.806714E-01   (0.1524E-02)          53.
+>         3  B3                  0.638590E-01   (0.2900E-02)          22.
+>   
+> RESIDUAL    STANDARD DEVIATION =         0.2971503735
+> RESIDUAL    DEGREES OF FREEDOM =         211
+> REPLICATION STANDARD DEVIATION =         0.2927381992
+> REPLICATION DEGREES OF FREEDOM =         192
+> LACK OF FIT F RATIO =       1.3373 = THE  83.6085% POINT OF THE
+> F DISTRIBUTION WITH     19 AND    192 DEGREES OF FREEDOM
+
+
+.Model Validation for Transformed Model 	
+.
+.
+. Starting Step 3.4
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot ytemp xtemp
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 3.4
+
+.Residual Plot for Transformed Model 	
+.
+.
+. Starting Step 3.5
+title displacement 7
+title size 3
+title Residuals From Fit to Transformed Data
+x1label ^metal
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+ylimits -0.5 1.0
+major ytic mark number 4
+minor ytic mark number 1
+tic offset units data
+ytic offset 0.2 0.3
+xlimits 1 6
+xtic offset 1 0.5
+major xtic mark number 6
+minor xtic mark number 1
+plot res vs xtemp
+line solid all
+drawdata 0.5 0 6.3 0
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+limits
+tic offset units absolute
+tic offset 5 5
+major tic mark number
+minor tic mark number
+.
+. Finished Step 3.5
+
+.Fit Weight Function 	
+.
+.
+. Starting Step 4.1
+device 1 off
+device 2 off
+let means = distinct metal
+variance plot ultrason metal
+let var = yplot
+retain var subset tagplot=1
+delete ytemp xtemp
+let ytemp = log(var)
+let xtemp = log(means)
+fit ytemp xtemp
+.
+device 1 on
+device 2 on
+title displacement 7
+title size 3
+title Fit for Estimating Weights
+x1label log(^metal)
+y1label log(Replicate Variances)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ytemp pred vs xtemp
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 4.1
+
+> LEAST SQUARES MULTILINEAR FIT
+> SAMPLE SIZE N       =       22
+> NUMBER OF VARIABLES =        1
+>
+>
+> PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+> 1  A0                   2.46872       (0.2186    )          11.
+> 2  A1       XTEMP      -1.02871       (0.1983    )         -5.2
+>
+> RESIDUAL    STANDARD DEVIATION =         0.6945897937
+> RESIDUAL    DEGREES OF FREEDOM =          20
+
+
+.Residuals From Weight Function Fit 	
+.
+.
+. Starting Step 4.2
+title displacement 7
+title size 3
+title Residuals From Weight Estimation Fit
+x1label log(^metal)
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+plot res vs xtemp
+line solid all
+drawdata -1.0 0 2.0 0
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+.
+. Finished Step 4.2
+
+.Weighted Fit 	
+.
+.
+. Starting Step 4.3
+let weights = 1/(metal**(-1.0))
+weights weights
+fit ultrason = exp(-b1*metal)/(b2+b3*metal)
+let pred3 = pred
+let res3 = ultrason - pred
+let r3 = standard deviation res3
+let res = sqrt(weights)*res
+title displacement 7
+title size 3
+title Ultrasonic Data with Weighted FitCR()Weights = 1/(^lab**-1.0)
+x1label ^metal
+y1label ^ultrason
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ultrason pred vs metal
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 4.3
+
+> LEAST SQUARES NON-LINEAR FIT
+> SAMPLE SIZE N =      214
+> MODEL--ULTRASON =EXP(-B1*METAL)/(B2+B3*METAL)
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.3281762600D+01
+> REPLICATION DEGREES OF FREEDOM =         192
+> NUMBER OF DISTINCT SUBSETS     =          22
+>
+> FINAL PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+> 1  B1                  0.147046       (0.1512E-01)          9.7
+> 2  B2                  0.528104E-02   (0.4063E-03)          13.
+> 3  B3                  0.123853E-01   (0.7458E-03)          17.
+>
+> RESIDUAL    STANDARD DEVIATION =         4.1106567383
+> RESIDUAL    DEGREES OF FREEDOM =         211
+> REPLICATION STANDARD DEVIATION =         3.2817625999
+> REPLICATION DEGREES OF FREEDOM =         192
+> LACK OF FIT F RATIO =       7.3183 = THE 100.0000% POINT OF THE
+> F DISTRIBUTION WITH     19 AND    192 DEGREES OF FREEDOM
+
+
+.Model Validation for Weighted Fit 	
+.
+.
+. Starting Step 4.4
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot ultrason metal
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 4.4
+
+.Plot Residuals for Weighted Fit 	
+.
+.
+. Starting Step 4.5
+title displacement 7
+title size 3
+title Residuals From Weighted Fit
+x1label ^metal
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+plot res vs metal
+line solid all
+line thickness 0.15
+drawdata 0.5 0 6.5 0
+line thickness 0.1
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+.
+. Finished Step 4.5
+
+.Compare 3 Fits 	
+.
+.
+. Starting Step 5.1
+.
+title displacement 7
+title size 3
+title Data with Unweighted Line WLS Fit,CR()and Fit Using Transformed Variables
+x1label ^metal
+y1label ^ultrason
+character circle blank blank blank
+character fill on off off off
+character hw 1.0 0.75
+line blank solid dash dot
+legend size 3
+legend case asis
+legend 1 Unweighted Fit
+legend 1 coordinates 48 79
+legend 2 Weighted Fit
+legend 2 coordinates 48 74
+legend 3 Transformed Fit
+legend 3 coordinates 48 69
+box shadow off
+plot ultrason pred1 pred3 pred2 vs metal
+line solid
+draw 40 80 45 80
+line dotted
+draw 40 75 45 75
+line dash
+draw 40 70 45 70
+legend
+legend coordinates
+box coordinates
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+print "RESSD From Unweighted Fit  = ^r1"
+print "RESSD From Transformed Fit = ^r2"
+print "RESSD From Weighted Fit    = ^r3"
+.
+. Finished Step 5.1
+
+> RESSD From Unweighted Fit  = 3.361673
+> RESSD From Transformed Fit = 3.306732
+> RESSD From Weighted Fit    = 3.392797

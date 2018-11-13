@@ -1,0 +1,480 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri598.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:54 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.8. Half-normal probability plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri599.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri5974.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.8.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Half-normal probability plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The half-normal probability plot answers the question:
+<ul>
+   What are the important factors (including interactions)?
+</ul>
+Quantitatively, the estimated effect of a given main effect or
+interaction and its rank relative to other main effects and interactions
+is given via <a href="../../eda/section3/eda35i.html">least squares
+estimation</a> (that is, forming effect estimates that minimize the
+sum of the squared differences between raw data and the fitted values
+from such estimates).  Having such estimates in hand, one could then
+construct a list of the main effects and interactions ordered by the
+effect magnitude.
+<p>
+The half-normal probability plot is a graphical tool that uses these
+ordered estimated effects to help assess which factors are
+important and which are unimportant.
+<p>
+A half-normal distribution is the distribution of the |<i>X</i>| with
+<i>X</i> having a <a href="../../eda/section3/eda3661.html">normal</a>
+distribution.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The outputs from the half-normal probablity plot are
+<ol>
+   <li>Primary: Grouping of factors and interactions into two
+       categories: important and unimportant.  For full factorial
+       designs, interactions include the full complement of
+       interactions of all orders; for fractional factorial
+       designs, interactions include only some, and occasionally
+       none, of the actual interactions (when they aren't estimable).
+       <p>
+   <li>Secondary: Ranked list of factors and interactions from most
+       important down to least important.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A half-normal probability plot is formed by
+<ul>
+   <li>Vertical Axis: Ordered (largest to smallest) absolute value of
+       the estimated effects for the main factors and available
+       interactions.  If <i>n</i> data points (no replication) have
+       been collected, then typically (<i>n</i>-1) effects will be
+       estimated and the (<i>n</i>-1) |effects| will be plotted.
+       <p>
+   <li>Horizontal Axis: (<i>n</i>-1) theoretical order statistic
+       medians from a half-normal distribution.  These (<i>n</i>-1)
+       values are not data-dependent.  They depend only on the
+       half-normal distribution and the number of items plotted
+       (= <i>n</i>-1).  The theoretical medians represent an "ideal"
+       typical ordered data set that would have been obtained from a
+       random drawing of (<i>n</i>-1) samples from a half-normal
+       distribution.
+       <p>
+   <li>Far right margin : Factor/interaction identification:
+       <ul>
+          1 indicates factor <i>X</i><sub>1</sub>;<br>
+          2 indicates factor <i>X</i><sub>2</sub>;<br>
+          ...<br>
+          12 indicates the 2-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction<br>
+          123 indicates the 3-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>3</sub>
+          interaction,<br>
+          etc.<br>
+       </ul>
+       <p>
+       If the design is a fractional factorial, the confounding
+       structure is provided for main effects and 2-factor interactions.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Motivation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To provide a rationale for the half-normal probability plot,
+we first dicuss the motivation for the normal probability
+plot (which also finds frequent use in these 2-level designs).
+<p>
+The basis for the <a href="../../eda/section3/normprpl.html">normal
+probability plot</a> is the mathematical form for each (and all) of
+the estimated effects.  As
+discussed for the <a href="pri597.html">|effects| plot</a>,
+the estimated effects are the optimal least squares estimates.  Because
+of the orthogonality of the 2<sup><i>k</i></sup> full factorial and
+the 2<sup><i>k</i>-<i>p</i></sup> fractional factorial designs, all
+least squares estimators for main effects and interactions
+simplify to the form:
+<ul>
+   estimated effect =
+   <!-- <img align=bottom src="eqns/ybar.gif" alt="ybar"> -->
+   \( \bar{Y} \)(+) -
+   <!-- <img align=bottom src="eqns/ybar.gif" alt="ybar"> -->
+   \( \bar{Y} \)(-)
+</ul>
+with <!-- <img align=bottom src="eqns/ybar.gif" alt="ybar"> -->
+\( \bar{Y} \)(+) the average of all response values for which the factor
+or interaction takes on a "+" value, and where
+<!-- <img align=bottom src="eqns/ybar.gif" alt="ybar"> -->
+\( \bar{Y} \)(-) is the average of all response values for which the
+factor or interaction takes on a "-" value.
+<p>
+Under rather general conditions, the Central Limit Thereom allows
+that the difference-of-sums form for the estimated effects tends
+to follow a normal distribution (for a large enough sample size
+<i>n</i>) a normal distribution.
+<!-- Hence each
+estimated effect tends to have a normal distribution, and the
+collection of such estimated effects tends to behave like a set of
+data from a normal distribution.
+ -->
+<p>
+The question arises as to what normal distribution; that is, a normal
+distribution with what mean and what standard deviation? Since all
+estimators have an identical form (a difference of averages), the
+standard deviations, though unknown, will in fact be the same under
+the assumption of constant <i>&sigma;</i>.  This is good in that it
+simplifies the normality analysis.
+<p>
+As for the means, however, there will be differences from one effect
+to the next, and these differences depend on whether a factor is
+unimportant or important.  <b>Unimportant</b> factors
+are those that have near-zero effects and <b>important</b> factors are
+those whose effects are considerably removed from zero.  Thus,
+<b>unimportant</b> effects tend to have a normal distribution centered
+near zero while <b>important</b> effects tend to have a normal
+distribution centered at their respective true large (but unknown)
+effect values.
+<p>
+In the simplest experimental case, if the experiment were such that no
+factors were important (that is, all effects were near zero), the
+(<i>n</i>-1) estimated effects would behave like random drawings from
+a normal distribution centered at zero.  We can test for such normality
+(and hence test for a null-effect experiment) by using the
+<a href="../../eda/section3/normprpl.html">normal probability plot</a>.
+Normal probability plots are easy to interpret.  In simplest terms:
+<ul>
+   if linear, then normal
+</ul>
+If the normal probability plot of the (<i>n</i>-1) estimated effects
+is linear, this implies that all of the true (unknown) effects
+are zero or near-zero.  That is, no factor is important.
+<p>
+On the other hand, if the truth behind the experiment is that there
+is exactly one factor that was important (that is, significantly
+non-zero), and all remaining factors are unimportant (that is,
+near-zero), then the normal probability plot of all (<i>n</i>-1)
+effects is near-linear for the (<i>n</i>-2) unimportant factors
+and the remaining single important factor would stand well off the line.
+<p>
+Similarly, if the experiment were such that some subset of factors were
+important and all remaining factors were unimportant, then the normal
+probability plot of all (<i>n</i>-1) effects would be near-linear for
+all unimportant factors with the remaining important factors all well
+off the line.
+<p>
+In real life, with the number of important factors unknown, this
+suggests that one could form a normal probability plot of the
+(<i>n</i>-1) estimated effects and draw a line through those
+(unimportant) effects in the vicinity of zero.  This identifies and
+extracts all remaining effects off the line and declares them
+as important.
+<p>
+The above rationale and methodology works well in practice, with the
+net effect that the normal probability plot of the effects is an
+important, commonly used and successfully employed tool for
+identifying important factors in 2-level full and factorial
+experiments.  Following the lead of
+<a href="../section8/pri8.html#Daniel">Cuthbert Daniel (1976)</a>,
+we augment the methodology and arrive at a further improvement.
+Specifically, the sign of each estimate is completely arbitrary and
+will reverse depending on how the initial assignments were made
+(e.g., we could assign "-" to treatment A and "+" to treatment
+B or just as easily assign "+" to treatment A and "-" to
+treatment B).
+<p>
+This arbitrariness is addressed by dealing with the effect magnitudes
+rather than the signed effects.  If the signed effects follow a
+normal distribution, the absolute values of the effects follow
+a half-normal distribution.
+<p>
+In this new context, one tests for important versus unimportant
+factors by generating a half-normal probability plot of the
+absolute value of the effects.  As before, linearity implies
+half-normality, which in turn implies all factors are unimportant.
+More typically, however, the half-normal probability plot will be only
+partially linear.  Unimportant (that is, near-zero) effects manifest
+themselves as being near zero and on a line while important (that is,
+large) effects manifest themselves by being off the line and
+well-displaced from zero.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot for defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The half-normal probability plot of the effects for the defectice
+springs data set is as follows.
+<p>
+<A HREF="gifs/halfnorm.gif">
+   <IMG SRC="gifs/halfnorm.r.gif" BORDER=0 alt=
+        "Half-normal probability plot for the defective springs data">
+</A>
+<p>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From the half-normal probability plot, we look for the following:
+<ol>
+   <li>Identifying Important Factors:
+       <p>
+       Determining the subset of important factors is the most
+       important task of the half-normal probability plot of |effects|.
+       As discussed above, the estimated |effect| of an
+       <b>un</b>important factor will typically be on or close to a
+       near-zero line, while the estimated |effect| of an important
+       factor will typically be displaced well off the line.
+       <p>
+       The separation of factors into important/unimportant categories
+       is thus done by answering the question:
+       <p>
+       <ul>
+          Which points on the half-normal probability plot
+          of |effects| are large and well-off the linear
+          collection of points drawn in the vicinity of
+          the origin?
+       </ul>
+       <p>
+       This line of unimportant factors typically encompasses the
+       majority of the points on the plot.  The procedure consists,
+       therefore, of the following:
+       <p>
+       <ol>
+          <li>identifying this line of near-zero (unimportant) factors;
+              then
+          <li>declaring the remaining off-line factors as important.
+       </ol>
+       <p>
+       Note that the half-normal probability plot of |effects| and
+       the <a href="pri597.html">|effects| plot</a> have the same
+       vertical axis; namely, the ordered |effects|, so the following
+       discussion about right-margin factor identifiers is relevant to
+       both plots.  As a consequence of the natural on-line/off-line
+       segregation of the |effects| in half-normal probability plots,
+       factors off-line tend to have far-right labels that are
+       distinct and isolated while factors near the line tend to have
+       far-right labels that are overstruck and hard to read.
+       The rough rule-of-thumb would then be to declare as important
+       those factors/interactions whose far-right labels are easy to
+       distinguish and to declare as unimportant those
+       factors/interactions whose far-right labels are overwritten and
+       hard to distinguish.
+       <p>
+   <li>Ranked List of Factors (including interactions):
+       <p>
+       This is a minor objective of the half-normal probability plot
+       (it is better done via the <a href="pri597.html">|effects|
+       plot</a>).  To determine the ranked list of factors from a
+       half-normal probability plot, simply scan the
+       vertical axis |effects|
+       <p>
+       <ol>
+          <li>Which |effect| is largest? Note the factor identifier
+              associated with this largest |effect|  (this is the
+             "most important factor").
+             <p>
+          <li>Which |effect| is next in size?  Note the factor
+              identifier associated with this next largest |effect|
+              (this is the "second most important factor").
+             <p>
+          <li>Continue for the remaining factors.  In practice, the
+              bottom end of the ranked list (the unimportant factors)
+              will be hard to extract because of overstriking, but the
+              top end of the ranked list (the important factors) will
+              be easy to determine.
+       </ol>
+</ol>
+In summary, it should be noted that since the signs of the
+estimated effects are arbitrary, we recommend the use of the
+half-normal probability plot of |effects| technique over the normal
+probability plot of the |effects|.  These probability plots are among
+the most commonly-employed EDA procedure for identification of
+important factors in 2-level full and factorial designs.  The
+half-normal probability plot enjoys widespread usage across both
+"classical" and Taguchi camps.  It deservedly plays an important role
+in our recommended 10-step graphical procedure for the analysis of
+2-level designed experiments.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The application of the half-normal probability plot to the
+defective springs data set results in the following conclusions:
+<ol>
+   <li>Ranked list of factors (including interactions):
+       <ol>
+          <li><i>X</i><sub>1</sub> (most important)
+          <li><i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> (next most important)
+          <li><i>X</i><sub>2</sub>
+          <li>other factors are of lesser importance
+       </ol>
+       <p>
+   <li>Separation of factors into important/unimportant categories:
+       <ul>
+          Important: <i>X</i><sub>1</sub>, <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub>, and <i>X</i><sub>2</sub><br>
+          Unimportant: the remainder<br>
+       </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri5974.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri599.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri598.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:58 GMT -->
+</HTML>

@@ -1,0 +1,215 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd623.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:10:38 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.6.2.3. Initial Linear Fit</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd624.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd622.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd6.html">Case Studies in Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd62.html">Alaska Pipeline</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.6.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Initial Linear Fit</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=fit>
+      <I>Linear Fit Results</I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      Based on the initial plot of the data, we first fit a
+      straight-line model to the data.
+      <P>
+<PRE>
+Parameter     Estimate    Stan. Dev    <I>t</I> Value
+B0             4.99368      1.12566       4.44
+B1             0.73111      0.02455      29.78
+  
+Residual standard deviation = 6.08092
+Residual degrees of freedom = 105
+
+Lack-of-fit <i>F</i> statistic              = 0.9857
+Lack-of-fit critical value, <i>F</i><sub>0.05,76,29</sub> = 1.73
+</PRE>
+      The intercept parameter is estimated to be 4.99368 and the
+      slope parameter is estimated to be 0.73111.  Both parameters
+      are statistically significant.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=6plot>
+      <I>
+        6-Plot for Model Validation
+      </I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      When there is a single independent variable, the
+      <a href="../../eda/section3/6plot.html">6-plot</a>
+      provides a convenient method for initial model validation.
+      <p>
+      <A HREF="pipeline/plots/6plot1_f.gif">
+      <IMG SRC="pipeline/plots/6plot1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="6-plot shows 6 different model validation plots">
+      </A>
+      <p>
+      The basic assumptions for regression models are that
+      the errors are random observations from a normal
+      distribution with mean of zero and constant standard
+      deviation (or variance).
+      <p>
+      The plots on the first row show that the residuals have
+      increasing variance as the value of the independent
+      variable (lab) increases in value.  This indicates that
+      the assumption of constant standard deviation, or
+      homogeneity of variances, is violated.
+      <p>
+      In order to see this more clearly, we will generate full-
+      size plots of the predicted values with the data and
+      the residuals against the independent variable.
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=predicted>
+      <I>
+        Plot of Predicted Values with Original Data
+      </I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      <A HREF="pipeline/plots/fit1_f.gif">
+      <IMG SRC="pipeline/plots/fit1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of predicted values with raw data indicates problem with homogeneous variance assumption">
+      </A>
+      <p>
+      This plot shows more clearly that the assumption of
+      homogeneous variances for the errors may be violated.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=residuals>
+      <I>
+        Plot of Residual Values Against Independent Variable
+      </I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      <A HREF="pipeline/plots/res1_f.gif">
+      <IMG SRC="pipeline/plots/res1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of residuals versus independent variable shows non-homogeneous variances more clearly">
+      </A>
+      <p>
+      This plot also shows more clearly that the assumption of
+      homogeneous variances is violated.  This assumption,
+      along with the assumption of constant location, are
+      typically easiest to see on this plot.
+     
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+         Non-Homogeneous Variances
+      </I>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+   Because the last plot shows that the variances may differ more
+   that slightly, we will address this issue by transforming the
+   data or using weighted least squares.
+   </TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd622.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd624.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd623.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:10:46 GMT -->
+</HTML>

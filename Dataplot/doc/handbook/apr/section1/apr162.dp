@@ -1,0 +1,32 @@
+R commands and output:
+
+. Evaluate the PDF a Weibull distribution with 
+. T=1000, gamma=1.5, and alpha=5000.
+T = 10000
+gamma = 1.5
+alpha = 5000
+
+. Whenever using Dataplot for a Weibull analysis, you must start 
+. by setting MINMAX equal to 1.
+SET MINMAX 1
+LET PDF = WEIPDF(T,gamma,0, alpha)
+
+> THE COMPUTED VALUE OF THE CONSTANT A        =   0.000123
+
+. Evaluate the CDF a Weibull distribution with 
+. T=1000, gamma=1.5, and alpha=5000.
+LET CDF = WEICDF(T,gamma,0,alpha)
+
+> THE COMPUTED VALUE OF THE CONSTANT A        =   0.08556
+
+. Generate 100 random numbers from a Weibull with shape parameter
+. gamma=1.5 and characteristic life alpha=5000.
+SET MINMAX 1
+LET GAMMA = 1.5
+LET SAMPLE = WEIBULL RANDOM NUMBERS FOR I = 1 1 100
+LET SAMPLE = 5000*SAMPLE
+
+. Generate a Weibull probability plot for the data generated.
+X1LABEL LOG TIME
+Y1LABEL CUM PROBABILITY
+WEIBULL PLOT SAMPLE

@@ -1,0 +1,577 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+
+<html>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/toolaids/dpbrows.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 23:04:16 GMT -->
+<head>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<TITLE>Configuring Your Web Browser to Run Dataplot From the Handbook</TITLE>
+</head>
+
+<body bgcolor="#FFFFCC">
+
+<img ISMAP SRC="http://www.nist.gov/itl/" BORDER=0 VALIGN="TOP" USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" coords="463,27,504,45" href="index.html" Target="_top">
+<area shape="rect" alt="Previous Page" coords="417,28,459,45" href="index.html" Target="_top">
+<area shape="rect" alt="Home" coords="52,0,100,43" href="index.html" Target="_top">
+<area shape="rect" alt="Tools & Aids" coords="165,27,264,46" href="toolaids.html" Target="_top">
+<area shape="rect" alt="Search Handbook" coords="307,28,366,44" href="search.html" Target="_top">
+<area shape="default" nohref>
+</map>
+
+<BR><BR>
+<table WIDTH=540 CELLSPACING=20>
+
+<tr>
+<td COLSPAN="2">
+<H2>Configuring Your Web Browswer to Run Dataplot From the
+    Handbook</H2>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>
+
+</i>
+</td>
+
+<td WIDTH="85%">
+NOTE: This feature is currently disabled.
+<p>
+Before Dataplot can be run from the Handbook, both the web server
+and the web browser must be configured to run Dataplot.
+We provide the configuration information for several of the
+most common platforms and browsers.  For other platforms and
+browsers, it should be possible to do something similar.
+<ol>
+   <li>Configuring the <a href="dpbrows.html#SERVER">web server</A>
+   <li>Configuring the <a href="dpbrows.html#NETSCAPE4UNIX">Netscape
+       version 4.x browser under Unix</a>
+   <li>Configuring the <a href="dpbrows.html#NETSCAPE3UNIX">Netscape
+       version 3.x browser under Unix</a>
+   <li>Configuring the <a href="dpbrows.html#NETSCAPE4PC">Netscape
+       version 4.x browser under Windows 95/98/NT</a>
+   <li>Configuring the <A href="dpbrows.html#IE5">Internet Explorer
+       version 5.0 browser under Windows 95/98/NT</A>
+   <li>Configuring the <A href="dpbrows.html#2000">Netscape 4.x, 6.x,
+       and 7.x browsers under Windows 2000/XP</A>
+   <li>Configuring the <A href="dpbrows.html#IE2000">Internet Explorer
+       5.0/6.0</A> browser under Windows 2000/XP
+   <li>Configuring the <A href="dpbrows.html#Firefox">Firefox
+       1.0</A> browser under Windows 2000/XP
+</ol>
+The linkage to the Dataplot program is currently working for Unix
+platforms and for Windows 95/98/ME/NT/2000/XP.  The command line
+version is running under Mac OSX (as a Unix/X11 application rather
+than a native mode application).  There are no plans to provide a
+version of Dataplot for the "classic" Mac operating system.
+<P>
+We recommend that you test the Dataplot GUI running independently
+of the handbook before testing it with the handbook.
+<P>
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="SERVER">
+<I>
+Configuring the Web Server
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+If you are accessing the handbook from the NIST server,
+you do not need to do anything to the web server as NIST has already
+done this (you still need to configure your browser).  If you have
+downloaded the handbook and installed it on your local machine, then
+you need to configure your web server to recognize the Dataplot
+application type.
+<P>
+Specifically, you need to define a mime type for "dp" extensions.
+The Dataplot macros in the handbook are activated by accessing files
+that have a "dp" extension.
+<p>
+The specifics of how to do this vary depending on what web server
+software your site runs.  However, the general idea is the same.
+For example, if you have a local machine running the Apache web
+server, go to the directory (the directory name may vary on your
+system):
+<ul>
+   /local/httpd/conf
+</ul>
+and edit the file
+<ul>
+   mime.types
+</ul>
+by adding the line
+<ul>
+  application/x-dataplot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dp
+</ul>
+For other web servers, a similar file will need to have this line
+added.  
+<p>
+This step will typically need to be performed by your local
+system administrator who should be knowledgeable in setting up
+new application types for the server.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="NETSCAPE4UNIX">
+<I>
+Configuring the Netscape version 4.x Browser under Unix
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+For version 4 of the Netscape browser under Unix platforms,
+do the following:
+<ol>
+   <li>Click on the "Edit" menu
+   <li>Click on the "Preferences" menu
+   <li>Click on the arrow head to the left of the "Navigator"
+       menu
+   <li>Click on the "Applications" menu
+   <li>Click on New
+   <li>Add the following: <BR>
+       Description: Dataplot GUI <BR>
+       MIME Type: x-dataplot <BR>
+       Suffixes: dp <BR>
+       <p>
+       Application: /usr/local/bin/xdp -right %s > /dev/null 2>&1 <BR>
+       <p>
+       Then click OK to activate the type.
+</ol>
+The line above assumes you have installed the Dataplot GUI in the
+default directory.  If you have used a different directory,
+then modify "/usr/local/bin" to reflect the correct location.
+The "-right" option brings up the Dataplot windows so they are
+right justified on your screen.  You can change "-right" to either
+"-left" or "-center" to left justify or center justify respectively.
+This is simply a matter of taste.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="NETSCAPE3UNIX">
+<I>
+Configuring the Netscape version 3.x Browser under Unix
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+For version 3 of the Netscape browser under Unix platforms,
+do the following:
+<ol>
+   <li>Click on the "Options" menu
+   <li>Click on the "General Options" menu
+   <li>Click on the "Helpers" menu
+   <li>Click on New
+   <li>Add the following: <BR>
+       Description: Dataplot GUI <BR>
+       MIME Type: x-dataplot <BR>
+       Suffixes: dp <BR>
+       <p>
+       Application: /usr/local/bin/xdp -right %s > /dev/null 2>&1 <BR>
+       <p>
+       Then click OK to activate the type.
+</ol>
+The line above assumes you have installed the Dataplot GUI in the
+default directory.  If you have used a different directory,
+then modify "/usr/local/bin" to reflect the correct location.
+The "-right" option brings up the Dataplot windows so they are
+right justified on your screen.  You can change "-right" to either
+"-left" or "-center" to left justify or center justify respectively.
+This is simply a matter of taste.
+
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="NETSCAPE4PC">
+<I>
+Configuring the Netscape version 4.x Browser under Windows 95/98/NT
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+For version 4 of the Netscape browser under Windows 95/98/NT
+platforms, do the following:
+<ol>
+   <li>Click on the "Edit" menu
+   <li>Click on the "Preferences" menu
+   <li>Click on the arrow head to the left of the "Navigator"
+       menu
+   <li>Click on the "Applications" menu
+   <li>Click on New
+   <li>Add the following: <BR>
+       Description: Dataplot GUI <BR>
+       MIME Type: x-dataplot <BR>
+       Suffixes: dp <BR>
+       <p>
+       Application: C:\DATAPLOT\DP.BAT "%1" <BR>
+       <p>
+       Then click OK to activate the type.
+</ol>
+The line above assumes you have installed the Dataplot GUI in the
+default directories.  If you have used a different directory,
+then modify "C:\DATAPLOT\DP.BAT" to reflect the correct location.
+<P>
+The file DP.BAT is a batch file that comes with Dataplot installation.
+<P>
+Note: For Windows platforms, Dataplot was upgraded 11/2002 to use
+an Install Shield installation.  The default location for Dataplot
+was moved from
+<ul>
+   C:\DATAPLOT
+</ul>
+to
+<ul>
+   C:\Program Files\NIST\DATAPLOT
+</ul>
+If you have the Install Shield installation, replace
+C:\DATAPLOT\DP.BAT with "C:\Program Files\NIST\DATAPLOT\DP.BAT"
+in the above instructions.  Since the new path name contains a
+space, you need to enclose the Dataplot file name in double
+quotes.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="IE5">
+<I>
+Configuring the Internet Explorer version 5.0 Browser under
+Windows 95/98/NT
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+If you run both Netscape and Internet Explorer and have
+configured the Netscape browser to run Dataplot from the Handbook,
+then you need not do anything else to configure the Internet Explorer
+browser.
+<P>
+If you only run the Internet Explorer browser, then for version 5 of
+the Internet Explorer browser under Windows 95/98/NT platforms, do
+the following:
+<ol>
+   <li>Open the Windows Explorer program.  Under the "View" menu,
+       select "Options".  Note that you can also open the "Control
+       Panel" icon and select "View" and then "Options".
+   <li>Under "Options", select "File Types".
+   <li>Click on "New Type".
+   <li>Add the following from this menu: <BR>
+       Description of type: Dataplot GUI <BR>
+       Associated extension: DP <BR>
+       Content Type (MIME): x-dataplot <BR>
+       Default extension for Content Type: .DP <BR>
+       For Action, select "New" <BR>
+       <p>
+       Add the following from the Action Menu: <BR>
+       Actions: <BR>
+       open <BR>
+       Application used to perform action: <BR>
+        C:\DATAPLOT\DP.BAT "%1" <BR>
+       Deselect (i.e., click until no check mark in box) the
+       "Confirm Open After Download" <BR>
+       Select "OK" for the Action menu<BR>
+       <p>
+       Select "OK" for the new type menu <BR>
+</ol>
+The line above assumes you have installed the Dataplot GUI in the
+default directories.  If you have used a different directory,
+then modify "C:\DATAPLOT\DP.BAT" to reflect the correct location.
+<P>
+The file DP.BAT is a batch file that comes with Dataplot installation.
+<P>
+Note: For Windows platforms, Dataplot was upgraded 11/2002 to use
+an Install Shield installation.  The default location for Dataplot
+was moved from
+<ul>
+   C:\DATAPLOT
+</ul>
+to
+<ul>
+   C:\Program Files\NIST\DATAPLOT
+</ul>
+If you have the Install Shield installation, replace
+C:\DATAPLOT\DP.BAT with "C:\Program Files\NIST\DATAPLOT\DP.BAT"
+in the above instructions.  Since the new path name contains a
+space, you need to enclose the Dataplot file name in double
+quotes.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="2000">
+<I>
+Configuring the Internet Explorer version 5.0 Browser or the
+Netscape 4.x, 6.x, 7.x browser under Windows 2000/XP
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A slightly different procedure can be used under Windows 2000
+or Windows XP for Netscape.  For Windows 2000 or Windows XP, you
+can do the following:
+<ol>
+   <li>If you tried to create a definition using the Tools menu
+       of Windows Explorer, delete this first.
+   <li>Go to one of the case studies and select the "Work This
+       Example Yourself" entry.  From there, initiate the
+       first Dataplot macro (i.e., the link in the left-hand
+       column of the table).
+   <li>This should bring up the "File Download" menu.  Do the
+       following with this menu:
+       <ol>
+          <li>Uncheck the "Always ask before opening" option.
+          <li>Click "Open"
+       </ol>
+   <li>This should bring up the "Open With" menu.  Do the following
+       with this menu:
+       <ol>
+          <li>Click on the file browser (i.e., the "...") and go
+              to the directory "C:\Program Files\NIST\DATAPLOT".
+              If you have an older Dataplot installation that
+              installed Dataplot in C:\DATAPLOT, go to that
+              directory instead.  Select the file "DP.BAT" from the
+              Dataplot directory.
+          <li>Check the "Always use this program to open files of
+              this type" button.
+          <li>Click OK.
+       </ol>
+   <li>When you click on the next Dataplot macro, it should run
+       Dataplot without bringing up any Windows menus.  If you
+       do get the "Open With" menu, uncheck the "Always ask before
+       opening" button and then click OK.
+</ol>
+The above assumes you have installed Dataplot in the default
+directory.  If you have used a different directory, then modify
+"C:\Program Files\NIST\DATAPLOT" or "C:\DATAPLOT\DP.BAT" to reflect
+the correct location.
+<P>
+The file DP.BAT is a batch file that comes with the Dataplot
+installation.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="IE2000">
+<I>
+Configuring the Internet Explorer version 5.x/6.x Browser under
+Windows 2000/XP
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Use the following procedure to configure the Internet Explorer
+browser under Windows 2000.  This has been tested for version 6
+of Internet Explorer.  We expect that it should work for
+version 5 as well.  We recommend upgrading your version of
+Internet Explorer if you have an earlier version.
+<P>
+If you would like to configure both the Internet Explorer and
+the Netscape browser, we recommend configuring Netscape first
+and then configuring Internet Explorer.
+<P>
+For Windows 2000 or Windows XP, do the following:
+<ol>
+   <li>Open the Windows Explorer.
+   <li>Select the "Tools" menu.
+   <li>Select the "Folders Options".
+   <li>Select "Files Types".
+   <li>Click on "New":
+       <ul>
+          <li>Enter "DP" for the file extension.
+          <li>Click the "&lt;&lt;Advanced" button and then select
+              "DATAPLOT GUI" from the associated files list.
+       </ul>
+   <li>When you click on the next Dataplot macro, it may bring up
+       a Windows menus.  If you get the "Open With" menu, uncheck
+       the "Always ask before opening" button and then click OK.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="Firefox">
+<I>
+Configuring the Firefox version 1.0 Browser under
+Windows 2000/XP
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Use the following procedure to configure the Firefox browser under
+Windows 2000/XP.
+<ol>
+   <li>Initiate one of the Dataplot macros in the
+       "Work this Example Yourself" page.
+   <li>You should see a dialog appear prompting you for
+       the application to use to open the file.
+   <li>Select "Other".
+   <li>Use the file browser to navigate to the folder where you
+       have installed Dataplot on your Windows system (this will
+       typically be
+       <br>
+       "C:\Program Files\NIST\DATAPLOT" or
+       "C:\DATAPLOT").
+   <li>Firefox does not list ".BAT" files, so you need to manually
+       type in DP.BAT for the application.
+   <li>The next time you initiate a Dataplot macro, you may be
+       prompted as to whether you want to "Open" or "Save" the
+       file.  Check the "Do this automatically for files like this
+       from now on" box.  Subsequent Dataplot macros should then
+       run automatically.
+</ol>
+If you want to remove the ".DP" file type, select "Tools" from
+the Firefox menus.  Then select Options and then select
+Downloads.  At this point you will see the menu that allows you
+to delete the "DP" file type.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD COLSPAN=2>
+<HR>
+
+</TR>
+<!-- end paragraph -->
+
+</table>
+
+<img SRC="http://www.nist.gov/itl/" BORDER=0 USEMAP="#nvbar.nvbar" >
+<map name="nvbar.nvbar">
+<area shape="rect" coords="22,6,67,20" href="http://www.nist.gov/" Target="_top">
+<area shape="rect" coords="3,23,92,40" href="http://www.nist.gov/cgi-bin/exit_nist.cgi?url=http://www.sematech.org" Target="_top">
+<area shape="rect" alt="Home" coords="114,12,165,31" href="index.html" Target="_top">
+<area shape="rect" alt="Tools & Aids" coords="190,12,290,31" href="toolaids.html" Target="_top">
+<area shape="rect" alt="Search Handbook" coords="318,14,376,30" href="search.html" Target="_top">
+<area shape="rect" alt="Previous Page" coords="428,15,471,29" href="index.html" Target="_top">
+<area shape="rect" alt="Next Page" coords="476,15,517,30" href="index.html" Target="_top">
+<area shape="default" nohref>
+</map>
+
+</body>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/toolaids/dpbrows.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 23:04:16 GMT -->
+</html>

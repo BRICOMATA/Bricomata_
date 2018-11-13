@@ -1,0 +1,437 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section3/prc35.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1"><script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.3.5. Do two arbitrary processes have the same central tendency?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section4/prc4.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc34.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc3.html">Comparisons based on data from two processes</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.3.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Do two arbitrary processes have the same central tendency?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>The nonparametric equivalent of the \(t\) test is due to Mann and
+Whitney, called the \(U\) test</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+By "arbitrary" we mean that we make no underlying assumptions about
+normality or any other distribution.  The test is called the
+<b>Mann-Whitney U Test</b>, which is the nonparametric equivalent of
+the \(t\)
+<!-- <i><big>t</big></i>  -->
+test for means.
+<p>
+The \(U\)-test
+<!-- <i>U</i>-test  -->
+(as the majority of nonparametric tests) uses the
+rank sums of the two samples.
+
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%">
+<i>Procedure</i>
+</td>
+
+<td valign=top width="85%">
+The test is implemented as follows.
+<ol>
+   <li>Rank all \((n_1 + n_2)\)
+       <!-- (<i>n</i><sub>1</sub> + <i>n</i><sub>2</sub>) -->
+       observations in ascending order.  Ties receive the average
+       of their observations.
+       <p>
+   <li>Calculate the sum of the ranks, call these \(T_a\) and \(T_b\).
+       <!-- <i>T</i><sub>a</sub> and <i>T</i><sub>b</sub> -->
+       <p>
+   <li>Calculate the \(U\) statistic,
+       <p>
+       $$ U_a = n_1 \, n_2 + 0.5 \, n_1 (n_1 + 1) - T_a $$     
+       <!-- <ul>
+       <i>U<sub>a</sub></i> =
+       <i>n</i><sub>1</sub>(<i>n</i><sub>2</sub>) +
+       0.5(<i>n</i><sub>1</sub>)(<i>n</i><sub>1</sub> + 1) -
+       <i>T<sub>a</sub></i>
+       </ul> -->
+       <p>
+       or
+       <p>
+       $$ U_b = n_1 \, n_2 + 0.5 \, n_2(N_2 + 1) - T_b $$
+
+       <!-- <ul>
+       <i>U<sub>b</sub></i> =
+       <i>n</i><sub>1</sub>(<i>n</i><sub>2</sub>) +
+       0.5(<i>n</i><sub>2</sub>)(<i>n</i><sub>2</sub> + 1) -
+       <i>T<sub>b</sub></i>
+       </ul> -->
+       <p>
+       where \(U_a + U_b = n_1 \, n_2\).
+       <!-- <i>U<sub>a</sub></i> + <i>U<sub>b</sub></i> =
+       <i>n</i><sub>1</sub>(<i>n</i><sub>2</sub>). -->
+</ol>
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Null Hypothesis
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The null hypothesis is: the two populations have the same central tendency.
+The alternative hypothesis is: The central tendencies are <b>NOT</b> the same.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Test statistic
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The test statistic, \(U\),
+<!-- <i>U</i>, -->
+is the smaller of \(U_a\) and \(U_b\).
+<!-- <i>U<sub>a</sub></i> and <i>U<sub>b</sub></i>. -->
+For sample sizes larger than 20, we can
+use the normal \(z\)
+<!-- <i>z</i> -->
+as follows:
+
+$$ z = \frac{U - \mbox{E }(U)}{\sigma} \, , $$
+
+<!--
+<ul>
+<i>z</i> = [ <i>U</i> - E(<i>U</i>)] /
+<img align=absmiddle src="eqns/sigma.gif" alt="sigma">
+</ul>
+-->
+
+where
+
+$$\mbox{E }(U) = 0.5 \, n_1 \, n_2 \,\,\,\,\, \mbox{ and } \,\,\,\,\, 
+   \sigma^2 = \frac{n_1 \, n_2 \,(n_1 + n_2 + 1)}{12} \, . $$
+
+<!--
+<ul>
+<img SRC="eqns/mann4.gif" height=25 width=310 align=ABSCENTER
+     ALT="E(U) = 0.5*(n1)*(n2) and sigma**2 = [n1*n2*(n1+n2+1)]/12">
+</ul>
+-->
+
+The critical value is the normal tabled \(z\)
+<!-- <i><big>z</big></i>  -->
+for \(\alpha/2\)
+<!-- <img align=absmiddle src="gifs/alpha.gif" alt="alpha">/2 -->
+for a two-tailed test or \(z\)
+<!-- <i><big>z</big></i> -->
+at \(\alpha\)
+<!-- <img align=absmiddle src="gifs/alpha.gif" alt="alpha"> -->
+level, for a one-tail test.
+<p>
+For small samples, tables are readily available in most 
+textbooks on nonparametric statistics.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Example</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td valign=top width="15%">
+<i>An illustrative example of the \(U\) test</i>
+</td>
+
+<td valign=top width="85%">
+Two processing systems were used to clean wafers.  The following data
+represent the (coded) particle counts.  The null hypothesis is that
+there is no difference between the central tendencies of the particle counts; the
+alternative hypothesis is that there is a difference.  The solution
+shows the typical kind of output software for this procedure would
+generate, based on the large sample approximation.
+<p>
+<table align=center>
+
+<tr align=center>
+<td width="25%">Group A</td>
+<td width="25%">Rank</td>
+<td width="25%">Group B</td>
+<td width="25%">Rank</td>
+</tr>
+
+<tr>
+<td colspan=4><hr></td>
+</tr>
+
+<tr align=center>
+<td>0.55</td>
+<td>8</td>
+<td>0.49</td>
+<td>5</td>
+</tr>
+
+<tr align=center>
+<td>0.67</td>
+<td>15.5</td>
+<td>0.68</td>
+<td>17</td>
+</tr>
+
+<tr align=center>
+<td>0.43</td>
+<td>1</td>
+<td>0.59</td>
+<td>9.5</td>
+</tr>
+
+<tr align=center>
+<td>0.51</td>
+<td>6</td>
+<td>0.72</td>
+<td>19</td>
+</tr>
+
+<tr align=center>
+<td>0.48</td>
+<td>3.5</td>
+<td>0.67</td>
+<td>15.5</td>
+</tr>
+
+<tr align=center>
+<td>0.60</td>
+<td>11</td>
+<td>0.75</td>
+<td>20.5</td>
+</tr>
+
+<tr align=center>
+<td>0.71</td>
+<td>18</td>
+<td>0.65</td>
+<td>13.5</td>
+</tr>
+
+<tr align=center>
+<td>0.53</td>
+<td>7</td>
+<td>0.77</td>
+<td>22</td>
+</tr>
+<tr align=center>
+<td>0.44</td>
+<td>2</td>
+<td>0.62</td>
+<td>12</td>
+</tr>
+<tr align=center>
+<td>0.65</td>
+<td>13.5</td>
+<td>0.48</td>
+<td>3.5</td>
+</tr>
+<tr align=center>
+<td>0.75</td>
+<td>20.5</td>
+<td>0.59</td>
+<td>9.5</td>
+</tr>
+</table>
+
+<br>
+<br>
+
+
+<table cellpadding=4 align=center>
+
+<tr align=center>
+<td></td>
+<td>N</td>
+<td>Sum of Ranks</td>
+<td>\(U\)</td>
+<td>Std. Dev of \(U\)</td>
+<td>Median</td>
+</tr>
+
+<tr align=center>
+<td>A</td>
+<td>11</td>
+<td>106.000</td>
+<td>81.000</td>
+<td>15.229</td>
+<td>0.540</td>
+</tr>
+
+<tr align=center>
+<td>B</td>
+<td>11</td>
+<td>147.000</td>
+<td>40.000</td>
+<td>15.229</td>
+<td>0.635</td>
+</tr>
+
+</table>
+<p>
+For \(U = 40.0\)
+<!-- <i>U</i>  -->
+and \(\mbox{E }(U) = 0.5 \, n_1 \, n_2 = 60.5\),
+<!-- E[<i>U</i>] = 0.5(<i>n</i><sub>1</sub>)(<i>n</i><sub>2</sub>) = 60.5, -->
+the test statistic is
+
+$$ z = \frac{U - \mbox{E }(U)}{\sigma} = \frac{40.0 - 60.5}{15.23} = -1.346 \, , $$
+
+<!--
+<p>
+<center>
+<img align=absmiddle src="prc35_eq1.gif" 
+ alt="z = (U - E[U])/sigma = (40.0-60.5)/15.23 = -1.346">
+</center>
+<p>
+-->
+
+where
+
+$$ \sigma = \sqrt{\frac{n_1 \, n_2 \, (n_1 + n_2 + 1)}{12}} = \sqrt{\frac{11(11)(11+11+1)}{12}} =15.23 \, . $$
+
+<!-- 
+<p>
+<center>
+<img align=absmiddle src="prc35_eq2.gif" 
+ alt="s = sqrt{n1(n2)(n1+n2+1)/12} = sqrt{11(11)(23)/12} = 15.23">
+</center>
+<p>
+-->
+
+For a two-sided test with significance level \(\alpha\)
+<!-- <i>&alpha;</i>  -->
+= 0.05, the critical value is \(z_{1-\alpha/2}\)
+<!-- <i><big>z</big></i><sub>1-<i>&alpha;</i>/2</sub> -->
+= 1.96.  Since \(|z|\)
+<!-- |<i><big>z</big></i>| -->
+is less than the critical value, we do not reject the null hypothesis and 
+conclude that there is not enough evidence to claim that 
+two groups have different central tendencies.
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc34.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section4/prc4.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section3/prc35.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+</HTML>

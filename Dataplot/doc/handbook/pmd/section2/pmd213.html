@@ -1,0 +1,158 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section2/pmd213.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:43 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.2.1.3. The random errors have a constant standard deviation.</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd214.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd212.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd2.html">Underlying Assumptions for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.2.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd21.html">What are the typical underlying assumptions in process modeling?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.2.1.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>The random errors have a constant standard deviation.</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>All Data Treated Equally by Most Process Modeling Methods</I>
+</TD>
+<TD WIDTH=85%>
+Due to the presence of random variation, it can be difficult to determine
+whether or not all of the data in a data set are of equal quality.  As a
+result, most process modeling procedures treat all of the data equally
+when using it to estimate the unknown parameters in the model.  Most methods
+also use a single estimate of the amount of random variability in the data
+for computing prediction and calibration uncertainties.  Treating all of the
+data in the same way also yields simpler, easier-to-use models.  Not
+surprisingly, however, the decision to treat the data like this can have a
+negative effect on the quality of the resulting model too, if it turns out
+the data are not all of equal quality.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Data Quality Measured by Standard Deviation</I>
+</TD>
+<TD WIDTH=85%>
+Of course data quality can't be measured point-by-point since it is clear
+from direct observation of the data that the amount of error in each point
+varies.  Instead, points that have the same underlying average squared error,
+or <I>variance</I>, are considered to be of equal quality.  Even though the
+specific process response values observed at points that meet this criterion
+will have different errors, the data collected at such points will be of equal
+quality over repeated data collections.  Since the standard deviation of the 
+data at each set of explanatory variable values is simply the square root of 
+its variance, the standard deviation of the data for each different combination
+of explanatory variables can also be used to measure data quality.  The
+standard deviation is preferred, in fact, because it has the advantage of being
+measured in the same units as the response variable, making it easier to
+relate to this statistic.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Assumption Not Needed for Weighted Least Squares</I>
+</TD>
+<TD WIDTH=85%>
+The assumption that the random errors have constant standard deviation is
+not implicit to <A HREF="../section1/pmd143.html">weighted least squares
+regression</A>.  Instead, it is assumed that the weights provided in the
+analysis correctly indicate the differing levels of variability present in
+the response variables.
+The weights are then used to adjust the amount of influence each data point
+has on the estimates of the model parameters to an appropriate level.  They
+are also used to adjust prediction and calibration uncertainties to the correct
+levels for different regions of the data set.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Assumption Does Apply to LOESS</I>
+</TD>
+<TD WIDTH=85%>
+Even though it uses weighted least squares to estimate the model parameters,  
+<A HREF="../section1/pmd144.html">LOESS</A> still relies on the assumption of
+a constant standard deviation.  The weights used in LOESS actually reflect the
+relative level of similarity between mean response values at neighboring
+points in the explanatory variable space rather than the level of response
+precision at each set of explanatory variable values.  Actually, because LOESS
+uses separate parameter estimates in each localized subset of data, it 
+does not require the assumption of a constant standard deviation of the data
+for parameter estimation.  The subsets of data used in LOESS are usually small
+enough that the precision of the data is roughly constant within each subset.  LOESS
+normally makes no provisions for adjusting uncertainty computations for
+differing levels of precision across a data set, however.
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd212.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd214.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section2/pmd213.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:43 GMT -->
+</HTML>

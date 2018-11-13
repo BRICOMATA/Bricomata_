@@ -1,0 +1,41 @@
+Dataplot commands and output:
+
+reset data
+reset i/o
+reset plot control
+dimension 500 30
+read mpc441.dat run wafer probe mo day op temp y s df
+let n1 = count y subset run 1
+let df1 = n1 - 1
+let n2 = count y subset run 2
+let df2 = n2 - 1
+let dfpool = df1 + df2
+let s2run1 = standard deviation y subset run 1
+let s2run2 = standard deviation y subset run 2
+let s2pool = ((df1*(s2run1)**2 + df2*(s2run2)**2)/dfpool)**.5
+print s2run1 df1
+print s2run2 df2
+print s2pool dfpool
+
+> PARAMETERS AND CONSTANTS--
+>
+>     S2RUN1  --  0.2728125E-01
+>     DF1     --  0.5000000E+01
+>
+> PARAMETERS AND CONSTANTS--
+>
+>     S2RUN2  --  0.2756367E-01
+>     DF2     --  0.5000000E+01
+>
+> PARAMETERS AND CONSTANTS--
+>
+>     S2  --  0.2742282E-01
+>     v2  --  0.1000000E+02
+
+let J = 6
+let varday = s2**2 - (s1**2)/J
+
+> THE COMPUTED VALUE OF THE CONSTANT VARDAY = -0.2880149E-03 
+
+
+

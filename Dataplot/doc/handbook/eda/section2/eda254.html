@@ -1,0 +1,217 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section2/eda254.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:18 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.2.5.4. Consequences Related to Distributional
+             Assumptions</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section3/eda3.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda253.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda2.html">EDA Assumptions</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda25.html">Consequences</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.2.5.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Consequences Related to Distributional
+             Assumptions</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-----Distributional Analysis----->
+
+<tr>
+<td width=15% valign=top>
+<i>
+Distributional Analysis
+</i>
+</td>
+
+<td width=85% valign=top>
+Scientists and engineers routinely use the mean (average) to
+estimate the "middle" of a distribution.  It is not so well known
+that the variability and the noisiness of the mean as a location
+estimator are intrinsically linked with the underlying
+distribution of the data.  For certain distributions, the mean
+is a poor choice.  For any given distribution, there exists an
+optimal choice-- that is, the estimator with minimum
+variability/noisiness.  This optimal choice may be, for example,
+the median, the midrange, the midmean, the mean, or something else.
+The implication of this is to
+<a href="../section3/eda365.html">"estimate" the distribution</a>
+first, and then--based on the 
+<a href="../section3/eda366.html">distribution</a>--choose the
+optimal estimator.  The resulting engineering parameter estimators
+will have less variability than if this approach is not followed.
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Case Studies
+</I>
+</TD>
+
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The <a href="../section4/eda429.html">airplane glass failure</a>
+case study gives an example of determining an appropriate
+distribution and estimating the parameters of that distribution.
+The <a href="../section4/eda422.html">uniform random numbers</a>
+case study gives an example of determining a more appropriate
+centrality parameter for a non-normal distribution.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Other consequences that flow from problems with distributional
+assumptions are:
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Distribution</I>
+</TD>
+
+<TD WIDTH=85% VALIGN=top>
+<ol>
+   <li>The distribution may be changing.
+   <li>The single distribution estimate may be meaningless
+       (if the process distribution is changing).
+   <li>The distribution may be markedly non-normal.
+   <li>The distribution may be unknown.
+   <li>The true probability distribution for the error may remain
+       unknown.
+</ol>
+
+</td>
+</tr>
+
+<!-----begin section: Model ----->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Model</I>
+</TD>
+
+<TD WIDTH=85% VALIGN=top>
+<ol>
+   <li>The model may be changing.
+   <li>The single model estimate may be meaningless.
+   <li>The default model
+       <ul>
+          <i>Y</i> = constant + error
+       </ul>
+       may be invalid.
+   <li>If the default model is insufficient,
+       information about a better model may remain undetected.
+   <li>A poor deterministic model may be fit.
+   <li>Information about an improved model may go undetected.
+</ol>
+
+</tr>
+
+<!-----begin section: Process ----->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Process</I>
+</TD>
+
+<TD WIDTH=85% VALIGN=top>
+<ol>
+   <li>The process may be out-of-control.
+   <li>The process may be unpredictable.
+   <li>The process may be un-modelable.
+</ol>
+
+</td>
+</tr>
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda253.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section3/eda3.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section2/eda254.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:18 GMT -->
+</HTML>

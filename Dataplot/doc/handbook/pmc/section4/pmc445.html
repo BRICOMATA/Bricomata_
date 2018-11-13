@@ -1,0 +1,217 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc445.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:45 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.4.5. Box-Jenkins Models</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc446.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc444.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc44.html">Univariate Time Series Models</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.4.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Box-Jenkins Models</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Box-Jenkins Approach</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The Box-Jenkins ARMA model is a combination of the
+<a href="pmc444.html#AR">AR</a> and <a href="pmc444.html#MA">MA</a>
+models (described on the <a href="pmc444.html">previous page</a>):
+
+$$ \begin{eqnarray}
+X_t & = & \delta + \phi_1 X_{t-1} + \phi_2 X_{t-2} + \cdots + \phi_p X_{t-p} + \\
+    &   & A_t - \theta_1 A_{t-1} - \theta_2 A_{t-2} - \cdots - \theta_q A{t-q} \, , 
+\end{eqnarray} $$
+
+<!--
+<ul>
+<img SRC="eqns/armamode.gif" ALT=
+"X(t) = delt + phi1*X(t-1) + phi2*X(t-2) + ... + phip*X(t-p) +
+ A(t) - theta*A(t-1) - theta2*A(t-2) - ... - thetaq*A(t-q)">
+</ul>
+-->
+
+where the terms in the equation have the same meaning as given for
+the AR and MA model.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Comments on Box-Jenkins Model</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+A couple of notes on this model.
+<ol>
+   <li>The Box-Jenkins model assumes that the time series is
+       <a href="pmc442.html">stationary</a>.  Box and Jenkins
+       recommend differencing non-stationary series one or more times
+       to achieve stationarity. Doing so produces an ARIMA model,
+       with the "I" standing for "Integrated".</li>
+       <p>
+   <li>Some formulations transform the series by subtracting the
+       mean of the series from each data point.  This yields a
+       series with a mean of zero.  Whether you need to do this
+       or not is dependent on the software you use to estimate
+       the model.</li>
+       <p>
+   <li>Box-Jenkins models can be extended to include
+       <a href="pmc443.html">seasonal</a> autoregressive and seasonal
+       moving average terms. Although this complicates the
+       notation and mathematics of the model, the underlying
+       concepts for seasonal autoregressive and seasonal moving
+       average terms are similar to the non-seasonal autoregressive
+       and moving average terms.</li>
+       <p>
+   <li>The most general Box-Jenkins model includes difference
+       operators, autoregressive terms, moving average terms,
+       seasonal difference operators, seasonal autoregressive
+       terms, and seasonal moving average terms.  As with
+       modeling in general, however, only necessary terms should
+       be included in the model.  Those interested in the
+       mathematical details can consult
+       <a href="../section7/pmc7.html#BoxJenkins">Box, Jenkins and
+       Reisel (1994)</a>,
+       <a href="../section7/pmc7.html#Chatfield,">Chatfield (1996)</a>,
+       or <a href="../section7/pmc7.html#Brockwell,">Brockwell and Davis
+      (2002)</a>.
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Stages in Box-Jenkins Modeling</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+There are three primary stages in building a Box-Jenkins
+time series model.
+<ol>
+   <li><a href="pmc446.html">Model Identification</a></li>
+   <li><a href="pmc447.html">Model Estimation</a></li>
+   <li><a href="pmc448.html">Model Validation</a></li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Remarks</i>
+</td>
+
+<td VALIGN=TOP IDTH="85%"><!-- Add main text below -->
+The following remarks regarding Box-Jenkins models should be noted.
+<ol>
+   <li>Box-Jenkins models are quite flexible due to the inclusion of both
+       autoregressive and moving average terms.</li>
+       <p>
+   <li>Based on the Wold decomposition thereom (not discussed in
+       the Handbook), a stationary process can be approximated by
+       an ARMA model.  In practice, finding that approximation may
+       not be easy.</li>
+       <p>
+   <li><a href="../section7/pmc7.html#Chatfield,">Chatfield (1996)</a>
+       recommends <a href="pmc444.html#DECOMPOSITION">decomposition</a>
+       methods for series in which the trend and seasonal components
+       are dominant.</li>
+       <p>
+   <li>Building good ARIMA models generally requires more experience
+       than commonly used statistical methods such as regression.</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Sufficiently Long Series Required</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Typically, effective fitting of Box-Jenkins models requires at
+least a moderately long series.
+<a href="../section7/pmc7.html#Chatfield,">Chatfield (1996)</a>
+recommends at least 50 observations.  Many others would recommend
+at least 100 observations.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc444.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc446.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc445.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:45 GMT -->
+</HTML>

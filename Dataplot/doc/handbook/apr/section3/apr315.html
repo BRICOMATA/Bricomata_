@@ -1,0 +1,279 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section3/apr315.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.3.1.5. Bayesian gamma prior model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section4/apr4.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr314.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr3.html">Reliability Data Collection</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.3.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr31.html">How do you plan a reliability assessment test?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.3.1.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Bayesian gamma prior model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>How to plan a Bayesian test to confirm a system meets its MTBF objective</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+Review <a href="../section1/apr1a.html">Bayesian Basics</a> and 
+<a href="../section2/apr25.html#Assumptions">assumptions</a>,
+if needed. We start at the point when gamma prior parameters 
+\(a\) and \(b\)
+<!-- <i>a</i> and <i>b</i> -->
+have already been determined. Assume we have a given MTBF objective, \(M\),
+<!-- <i>M</i>, -->
+and a desired confidence level of \(100(1-\alpha)\).
+<!-- 100&times;(1-&thinsp;<i>&alpha;</i>).  -->
+We want to confirm the system will have an MTBF of at least \(M\)
+<!-- <i>M</i> -->
+at the \(100(1-\alpha)\)
+<!-- 100&times;(1-&thinsp;<i>&alpha;</i>) -->
+confidence level. As in the section on 
+<a href="apr311.html">classical (HPP) test plans</a>, we pick a number of 
+failures, \(r\),
+<!-- <i>r</i>,  -->
+that we can allow on the test. We need a test time \(T\)
+<!-- <i>T</i> -->
+such that we can observe up to \(r\)
+<!-- <i>r</i> -->
+failures and still 
+"pass" the test. If the test time is too long (or too short), we can 
+iterate with a different choice of \(r\).
+<!-- <i>r</i>. -->
+<p>
+When the test ends, the posterior gamma distribution will have (worst
+case - assuming exactly \(r\)
+<!-- <i>r</i> -->
+failures) new parameters of
+
+$$ a' = a+r, \,\,\,\,\, b' = b + T \, ,$$
+
+<!--
+<center>
+<i>a' = a + r, b' = b + T</i>
+</center>
+<p>
+-->
+
+and passing the test means that the failure rate \(\lambda_{1-\alpha}\),
+<!-- <i>&lambda;</i><sub>1-&thinsp;<i>&alpha;</i></sub>, -->
+the upper \(100(1-\alpha)\)
+<!-- 100&times;(1-&thinsp;<i>&alpha;</i>) -->
+percentile for the posterior gamma, has to equal the target failure rate \(1/M\).
+<!-- 1/<i>M</i>. -->
+But this percentile is, by definition, \(G^{-1}(1-\alpha; \, a', \, b')\),
+<!-- <i>G</i><sup>&thinsp;-1</sup>(1-&thinsp;<i>&alpha;</i>;<i> a', b'</i>), -->
+with \(G^{-1}\)
+<!-- <i>G</i><sup>&thinsp;-1</sup> -->
+denoting the inverse of the gamma distribution
+with parameters \(a', \, b'\).
+<!-- <i>a', b'</i>. -->
+We can find the value of \(T\)
+<!-- <i>T</i>  -->
+that satisfies \(G^{-1}(1-\alpha; \, a', \, b')=1/M\)
+<!-- <i>G</i><sup>&thinsp;-1</sup>(1-&thinsp;<i>&alpha;</i>;<i> a', b'</i>) = 1/<i>M</i> -->
+by trial and error. However, based on the properties of the gamma distribution, 
+it turns out that we can calculate \(T\)
+<!-- <i>T</i>  -->
+directly by using
+
+$$ T = M \cdot G^{-1}(1-\alpha; \, a', \, 1) - b \, .$$
+
+<!--
+<center>
+<i>T</i> = <i>M</i>&times;(<i>G</i><sup> -1</sup>(1-&thinsp;<i>&alpha;</i>; <i>a'</i>, 1)) - <i>b</i>
+</center>
+<p>
+-->
+
+<b>Special Case: The Prior Has \(a\)
+<!-- <i>a</i> -->
+= 1 (The "Weak" Prior)</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>When the prior is a weak prior with \(a\) = 1,
+the Bayesian test is always shorter than the classical test</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+There is a very simple way to calculate the required Bayesian test time
+when the prior is a <a href="../section2/apr25.html#weak">weak prior</a> 
+with \(a\)
+<!-- <i>a</i> -->
+= 1. Just use the 
+<a href="apr311.html">Test Length Guide Table</a> 
+to calculate the classical test time. Call this \(T_c\).
+<!-- <i>T<sub>c</sub></i>. -->
+The Bayesian test time \(T\) is just \(T_c\)
+<!-- <i>T</i> is just <i>T<sub>c</sub></i> -->
+minus the prior parameter \(b\)
+<!-- <i>b</i> -->
+(i.e., \(T = T_c - b\)).
+<!-- <i>T = T<sub>c</sub> - b</i>).  -->
+If the \(b\)
+<!-- <i>b</i> -->
+parameter was set equal to \((\mbox{ln } 2) \cdot \mbox{MTBF }_{50}\)
+<!-- (ln 2) &times; <i>MTBF<sub>50</sub></i> -->
+(where \(\mbox{MTBF}_{50}\)
+<!-- <i>MTBF<sub>50</sub></i>&nbsp;  -->
+is the consensus choice for an "even money" MTBF), then
+
+$$ T = T_c - (\mbox{ln } 2) \cdot \mbox{MTBF }_{50} $$
+
+<!--
+<center>
+<i>T = T<sub>c</sub></i> - (ln 2) &times; <i>MTBF<sub>50</sub></i>
+</center>
+<p>
+-->
+
+This shows that when a weak prior is used, the Bayesian test time is always
+less than the corresponding classical test time. That is why this prior
+is also known as a <b>friendly prior</b>.&nbsp;
+<p><b>Note:</b> In general, Bayesian test times can be shorter, or longer,
+than the corresponding classical test times, depending on the choice of
+prior parameters. However, the Bayesian time will always be shorter when
+the prior parameter \(a\)
+<!-- <i>a</i> -->
+is less than, or equal to, 1.&nbsp;
+<p>
+<a NAME="Example:Calculating a Bayesian Test Time"></a>
+<b>Example: Calculating a Bayesian Test Time</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Example</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A new piece of equipment has to meet a MTBF
+requirement of 500 hours at 80 % confidence. A group of engineers decide
+to use their collective experience to determine a Bayesian gamma prior
+using the 50/95 method described in 
+<a href="../section2/apr25.html#Assumptions">Section 2</a>. 
+They think 600 hours is a likely MTBF value and they are very confident
+that the MTBF will exceed 250. Following the 
+<a href="../section2/apr25.html#Example">example</a>
+in Section 2, they determine that the gamma prior parameters are \(a\)
+<!-- <i>a</i> -->
+= 2.863 and \(b\)
+<!-- <i>b</i> -->
+= 1522.46.
+<p>
+Now they want to determine an appropriate test time so that they can
+confirm a MTBF of 500 with at least 80 % confidence, provided they have
+no more than two failures.
+<p>
+We obtain a test time of 1756.117 hours using 
+
+$$ 500 \cdot G^{-1}(1-0.2; \, 2.863+2, \, 1) - 1522.46 \, . $$
+
+<!--
+<center>
+500&times;(<i>G</i><sup> -1</sup>(1-0.2; 2.863+2, 1)) - 1522.46
+</center>
+<p>
+-->
+
+To compare this result to the classical test time required, use the
+<a href="apr311.html">Test Length Guide Table</a>. 
+The table factor is 4.28, so the test time needed is 500 &times; 4.28 = 2140 hours 
+for a non-Bayesian test. The Bayesian test saves
+about 384 hours, or an 18 % savings. If the test is run for 1756 hours,
+with no more than two failures, then an MTBF of at least 500 hours has been
+confirmed at 80 % confidence.
+<p>
+If, instead, the engineers had decided to use a weak prior with an \(\mbox{MTBF}_{50}\)
+<!-- <i>MTBF<sub>50</sub></i> -->
+of 600, the required test time would have been
+
+$$ 2140 - 600 \cdot \mbox{ln } 2 = 1725 \mbox { hours} \, . $$
+
+<!--
+<center>
+2140 - 600 &times; ln 2 = 1724 hours
+</center>
+-->
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr314.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section4/apr4.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section3/apr315.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+</HTML>

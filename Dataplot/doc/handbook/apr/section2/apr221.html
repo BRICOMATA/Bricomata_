@@ -1,0 +1,673 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr221.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:17 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.2.2.1. Probability plotting</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr222.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr22.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr2.html">Assumptions/Prerequisites</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr22.html">How do you plot reliability data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.2.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Probability plotting</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Use probability plots to see your data and visually 
+check model assumptions</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+Probability plots are simple visual ways of summarizing reliability 
+data by plotting <a href="../section1/apr121.html">CDF</a>
+estimates versus time using a log-log scale. 
+<p>
+The \(x\)
+<!-- <i>x</i> -->
+axis is labeled "Time" and the 
+<!-- <i>y</i> -->
+axis is labeled "cumulative percent" or "percentile". There are rules, 
+independent of the model, for calculating plotting positions (points) 
+from the reliability data. These only depend on the type of 
+<a href="../section1/apr131.html">censoring</a>
+in the data and whether exact times of failure are recorded 
+or only readout times. 
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Plot each failure mode separately</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+Remember that different failure modes can and should be separated out and 
+individually analyzed. When analyzing failure
+mode A, for example, treat failure times from failure modes B, C, etc.,
+as <a href="../section1/apr131.html#Separating out Failure">censored run
+times.</a> Then repeat for failure mode B, and so on. </td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Data points line up roughly on a straight
+line when the model chosen is reasonable</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+When the points are plotted, the analyst fits a straight line to the data 
+(either by eye, or with the aid of a least squares fitting program). Every 
+straight line on, say, a Weibull probability plot uniquely
+corresponds to a particular <a href="../section1/apr162.html">Weibull life
+distribution</a> model and the same is true for 
+<a href="../section1/apr164.html">lognormal</a> or 
+<a href="../section1/apr161.html">exponential</a> plots. If the points
+follow the line reasonably well, then the model is consistent with the
+data. If it was your previously chosen model, there is no reason to question
+the choice. In addition, there is a simple way to find the parameter estimates 
+that correspond to the fitted straight line.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Plotting positions on the \(x\)
+<!-- <i>x</i>  -->
+axis depend on the type of data censoring</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<a NAME="Plotting"></a><b>Plotting Positions</b>:
+<a href="../section1/apr131.html">Censored Data (Type I or Type II)</a>
+<p>
+At the time \(t_i\) of the \(i\)-th
+<!-- <i>t<sub>i</sub></i> of the <i>i</i>-th -->
+failure, we need
+an estimate of the CDF (or the cumulative population percent failure). 
+The simplest and most obvious estimate is just \(100(i/n)\)
+<!-- 100 × <i>i/n</i> -->
+(with a total of \(n\)
+<!-- <i>n</i> -->
+units on test). This, however, is generally an overestimate
+(i.e. biased). Various texts recommend corrections such as 
+\(100(i-0.5)/n\) or \(100i/(n+1)\).
+<!-- 100 × (<i>i</i>-0.5)/<i>n</i> or 100 × <i>i/</i>(<i>n</i>+1). -->
+Here, we recommend
+what are known as (approximate) <b>median rank</b> estimates.
+<p>
+For each time \(t_i\) of the \(i\)-th
+<!-- <i>t<sub>i</sub></i> of the <i>i</i>-th -->
+failure, calculate the CDF or percentile estimate using
+\(100(i-0.3)/(n+0.4)\).
+<!-- 100 × (<i>i</i> - 0.3)/(<i>n</i> + 0.4).  -->
+<p>
+<b>Plotting Positions</b>: <a href="../section1/apr131.html">Readout Data</a>
+<p>
+Let the readout times be \(T_1, \, T_2, \, \ldots, \, T_k\)
+<!-- <i>T<sub>1</sub>, T<sub>2</sub>, ..., T<sub>k</sub></i> -->
+and let the corresponding new failures recorded at each readout be 
+\(r_1, \, r_2, \, \ldots, \, r_k\).
+<!-- <i>r<sub>1</sub>, r<sub>2</sub>, ..., r<sub>k</sub></i>. -->
+Again, there are \(n\)
+<!-- <i>n</i> -->
+units on test.
+<p>
+For each readout time \(T_j\),
+<!-- T<sub>j</sub>, -->
+calculate the CDF or percentile estimate using
+
+$$ \frac{100 \sum_{i=1}^j r_i}{n} \, . $$
+
+<!--
+<center><p>
+<img SRC="eqns/ro.gif" ALT="100XSUM[i=1 to j]{r(i)}/n" height=93 width=93></center>
+<p>
+-->
+
+<b>Plotting Positions</b>: <a href="../section1/apr131.html">Multicensored Data</a>
+<p>
+The calculations are more complicated for multicensored data. 
+<a href="apr215.html">K-M estimates</a> (described in a preceding section) 
+can be used to obtain plotting positions at every failure time. The more precise 
+<a href="apr215.html#Modified K - M">Modified K-M Estimates</a> are recommended. 
+They reduce to the Censored Type I or the Censored Type II median rank estimates 
+when the data consist of only failures, without any removals except possibly 
+at the end of the test. 
+<p>
+<a NAME="Reliability Models"></a><b>Reliability Models</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Plotting positions on the \(y\)
+<!-- <i>y</i> -->
+axis depend on the reliability model</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The general idea is to take the model CDF equation and write it in such a way 
+that a function of \(F(t)\)
+<!-- <i>F</i>(<i>t</i>) -->
+is a linear equation of a function of \(t\).
+<!-- <i>t</i>. -->
+This will be clear after a few examples. In the formulas that follow, "ln" always 
+means "natural logarithm", while "log" always means "base 10 logarithm". 
+<p>
+a) <b>Exponential Model:</b> 
+Rewrite the
+<a href="../section1/apr161.html#Formula's and Plots">exponential CDF</a> as
+
+$$ \mbox{ln} \left( \frac{1}{1-F(t)} \right) = \lambda t \, , $$
+
+or, equivalently,
+
+$$ \mbox{log} \left( \frac{1}{1 - F(t)} \right) = \frac{\lambda}{\mbox{ln } 10} t \, . $$
+
+<!--
+<p><center>
+<img SRC="eqns/expinv.gif" ALT="LN{1/(1 - F(t)} = lambda*t  or, equivalently  
+LOG{1/(1 - F(t))} = (lambda/LN(10))*t" height=128 width=325>
+</center><p>
+-->
+
+If we let \(y = 1/[1-F(t)]\) and \(x = t\),
+<!-- <i>y</i> = 1/{1 - <i>F</i>(<i>t</i>)} and <i>x = t</i>, -->
+then \(\mbox{log } y\)
+<!-- log(<i>y</i>) -->
+is linear in \(x\)
+<!-- <i>x</i> -->
+with slope \(\lambda / \mbox{ln } 10\).
+<!-- <i>&lambda;</i> / ln10. -->
+Thus, we can make an exponential probability plot by
+using a logarithmic \(y\)
+<!-- <i>y</i> -->
+axis. Use the plotting position estimates for \(F(t_i)\)
+<!-- <i>F</i>(<i>t<sub>i</sub></i>) -->
+described above (without the 100 × multiplier) to 
+calculate pairs of \((x_i,\, y_i)\)
+<!-- <i>(x<sub>i</sub>, y<sub>i</sub>)</i> -->
+points. 
+<p>
+If the data are consistent with an exponential model, the resulting
+plot will have points that line up almost as a straight line going through
+the origin with slope \(\lambda / \mbox{ln } 10\).
+<!-- <i>&lambda;</i> / ln10. -->
+<p>
+b) <b>Weibull Model:</b> Rewrite the 
+<a href="../section1/apr162.html#Formula'sand">Weibull CDF</a> as
+
+$$ \mbox{ln ln } \left( \frac{1}{1-F(t)} \right) = \gamma \mbox{ ln } t - \gamma \mbox{ ln } \alpha $$
+
+or
+
+$$ \mbox{log ln } \left( \frac{1}{1-F(t)} \right) = \gamma \mbox{ log } t - \gamma \mbox{ log } \alpha \, . $$
+
+<!-- 
+<p><center>
+<img SRC="eqns/weiinv.gif" ALT="LN(LN(1/(1 - F(t)))) = gamma*LN(t) - gamma*LN(alpha) or, 
+LOG(LN(1/(1 - F(t)))) = gamma*LOG(t) - gamma*LOG(alpha)" height=128 width=321>
+</center><p>
+-->
+
+If we let \(y = \mbox { ln }(1/[1-F(t)])\) and \(x = t\),
+<!-- <i>y</i> = ln [1/{1-<i>F</i>(<i>t</i>)}] and <i>x = t</i>, -->
+then \(\mbox{log } y\)
+<!-- <i>y</i>) -->
+is linear in \(\mbox{log } x\)
+<!-- log(<i>x</i>) -->
+with slope \(\gamma\).
+<!-- <i>&gamma;</i>. -->
+Thus, we can make a Weibull probability plot using a log-log scale.
+Use the plotting position estimates for \(F(t_i)\)
+<!-- <i>F</i>(<i>t<sub>i</sub></i>) -->
+(without the 100 × multiplier) to calculate pairs of \((x_i, \, y_i)\)
+<!-- <i>(x<sub>i</sub>, y<sub>i</sub>)</i> -->
+points. 
+<p>
+If the data are consistent with a Weibull model, the resulting plot
+will have points that line up roughly on a straight line with slope \(\gamma\).
+<!-- <i>&gamma;</i>. -->
+This line will cross the \(\mbox{log } x\)
+<!-- <i>x</i> -->
+axis at time \(t = \alpha\)
+<!-- <i>t = &alpha;</i>  -->
+and the \(\mbox{log } y\)
+<!-- <i>y</i> -->
+axis (i.e., the intercept) at \(-\gamma \mbox{ log } \alpha\).
+<!-- <i>-&gamma;</i> log <i>&alpha;</i>. -->
+<p>
+
+
+c) <b>Lognormal Model</b>: Rewrite the 
+<a href="../section1/apr164.html#Formula's and">lognormal cdf</a> as
+
+$$ \mbox{ln } t = \sigma \, \Phi^{-1} \left[ F(t) \right] + \mbox { ln } T_{50} $$
+
+or,
+
+$$ \mbox{log } t = \frac{\sigma}{\mbox{ln } 10} \Phi^{-1} \left[ F(t) \right] + \mbox{ log } T_{50} \, , $$
+
+<!--
+<p><center>
+<img SRC="eqns/loginv.gif" ALT="LN(t) = sigma*PHI**(-1){F(t)} + LN(T50) or, 
+LOG(t) = (sigma/LN(10))*PHI**(-1){F(t)} + LOG(T50)" height=93 width=292>
+</center><p>
+-->
+
+with \(\Phi^{-1}\)
+<!-- <img SRC="gifs/fsup1.gif" ALT="PHI**(-1)" height=22 width=30 align=ABSBOTTOM> -->
+denoting the inverse function for the standard normal distribution (taking
+a probability as an argument and returning the corresponding "\(z\)"
+<!-- "<i>z</i>" -->
+value).
+<p>
+If we let \(y = t\) and \(x = \Phi^{-1}[F(t)]\)
+<!-- <i>y = t</i> and 
+<i>x = <img SRC="gifs/fsup1.gif" ALT="PHI**(-1)" height=22 width=30 align=ABSBOTTOM></i>{<i>F(t)</i>}, -->
+then \(\mbox{log } y\)
+<!-- <i>y</i> -->
+is linear in \(x\)
+<!-- <i>x</i> -->
+with slope \(\sigma / \mbox{ln } 10\)
+<!-- <i>&sigma;</i> / ln10 -->
+and intercept (when \(F(t)\) = 0.5) of \(\mbox{log } T_{50}\).
+<!-- <i>F</i>(<i>t</i>) = 0.5) of log <i>T<sub>50</sub></i>. -->
+We generate a lognormal probability plot using a logarithmic \(y\)
+<!-- <i>y</i> -->
+axis.  Use the plotting position estimates for \(F(t_i)\)
+<!-- <i>F</i>(<i>t<sub>i</sub></i>) -->
+(without the 100 × multiplier) to calculate pairs of (\(x_i, \, y_i\))
+<!-- <i>(x<sub>i</sub>, y<sub>i</sub>)</i> -->
+points. 
+<p>
+If the data are consistent with a lognormal model, the resulting plot
+will have points that line up roughly on a straight line with slope  \(\sigma / \mbox{ln } 10\)
+<!-- <i>&sigma;</i> / ln10 -->
+and intercept \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+on the \(\mbox{log } y\)
+<!-- <i>y</i> -->
+axis.
+<p>
+
+
+d) <b>Extreme Value Distribution (Type I - for minimum):</b> Rewrite the
+<a href="../section1/apr163.html#Explanation and Formulas">extreme
+value distribution CDF</a> as 
+
+$$ \mbox{ln } \left\{ -\mbox{ ln } [1 - F(x)]\right\} = (x - \mu)/\beta \, . $$
+
+<!--
+<center>
+<img SRC="eqns/evinv.gif" ALT="LN(-LN(1 - F(x))) = (x - mu)/beta" height=26 width=264>
+</center><p>
+-->
+
+If we let \(y = -\mbox{ ln }[1 - F(x)]\),
+<!-- <i>y</i> = -ln(1 - <i>F</i>(<i>x</i>)), -->
+then \(\mbox{ln } y\)
+<!-- <i>y</i> -->
+is linear in \(x\)
+<!-- <i>x</i> -->
+with slope 1/\(\beta\)
+<!-- 1 / <i>&beta;</i> -->
+and intercept \(-\mu / \beta\).
+<!-- -<i>&mu;</i> / <i>&beta;</i>. -->
+We plot \(y\) versus \(x\)
+<!-- <i>y</i> versus <i>x</i> -->
+where the \(y\)
+<!-- <i>y</i> -->
+axis is base 10 logarithmic. 
+The points should follow a straight line with a slope of \((1/\beta) \cdot \mbox{ln } 10\)
+<!-- (1 / <i>&beta;</i>)&middot;ln10 -->
+and an intercept of (\(-\mu/\beta) \cdot \mbox{ln } 10\).
+<!-- (-<i>&mu;</i> / <i>&beta;</i>)&middot;ln10. -->
+The \(\mbox{ln } 10\) factors in the slope and intercept 
+are needed because the plot uses a base 10 logarithmic axis.
+<p>
+<a NAME="Example"></a><b>Example</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><a NAME="example"></a>
+<i>A Weibull example of probability plotting</i></td>
+
+<td VALIGN=TOP WIDTH="85%">We generated 20 random  
+<a href="../section1/apr162.html#DATAPLOT and EXCEL Functions for the">
+Weibull failure times</a> with a shape parameter of 
+\(\gamma\) = 1.5 and \(\alpha\) = 500.
+<!-- <i>&gamma;</i> = 1.5 and <br><i>&alpha;</i> = 500. -->
+Assuming a test time of \(T\) = 500 hours, 
+only 10 of these failure times would have been observed. They are, 
+to the nearest hour: 54, 187, 216, 240, 244, 335, 361, 373, 375, and 386. 
+We will compute plotting position CDF estimates based on these failure 
+times, and then generate a probability plot. 
+<p>
+<center><table BORDER COLS=4 WIDTH="100%" >
+<tr>
+<td>
+<center>( 1)
+<br>Failure 
+<br>(\(i\))
+<!-- <i>i</i> -->
+</center>
+</td>
+
+<td>
+<center>(2) 
+<br>Time of Failure 
+<br>(\(x\))
+<!-- (<i>x</i>) -->
+</center>
+</td>
+
+<td>
+<center>(3)
+<br>\(F(t_i)\)
+<!-- <i>F</i>(<i>t<sub>i</sub></i>) -->
+estimate 
+<br>\((i-0.3)/(20+0.4)\)
+<!-- (<i>i</i>-0.3)/(20+0.4) -->
+</center>
+</td>
+
+<td>
+<center>(4)
+<br>ln\((1/[1-F(t_i)])\)
+<!-- {1/(1-<i>F</i>(<i>t<sub>i</sub></i>)} -->
+<br>(\(y\))
+<!-- (<i>y</i>) -->
+</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>54 </center>
+</td>
+
+<td>
+<center>0.034</center>
+</td>
+
+<td>
+<center>0.035</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>2</center>
+</td>
+
+<td>
+<center>187</center>
+</td>
+
+<td>
+<center>0.083</center>
+</td>
+
+<td>
+<center>0.087</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>3</center>
+</td>
+
+<td>
+<center>216</center>
+</td>
+
+<td>
+<center>0.132</center>
+</td>
+
+<td>
+<center>0.142</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>240</center>
+</td>
+
+<td>
+<center>0.181</center>
+</td>
+
+<td>
+<center>0.200</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>244</center>
+</td>
+
+<td>
+<center>0.230</center>
+</td>
+
+<td>
+<center>0.262</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>335</center>
+</td>
+
+<td>
+<center>0.279</center>
+</td>
+
+<td>
+<center>0.328</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>7</center>
+</td>
+
+<td>
+<center>361</center>
+</td>
+
+<td>
+<center>0.328</center>
+</td>
+
+<td>
+<center>0.398</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>373</center>
+</td>
+
+<td>
+<center>0.377</center>
+</td>
+
+<td>
+<center>0.474</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>375</center>
+</td>
+
+<td>
+<center>0.426</center>
+</td>
+
+<td>
+<center>0.556</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>386</center>
+</td>
+
+<td>
+<center>0.475</center>
+</td>
+
+<td>
+<center>0.645</center>
+</td>
+</tr>
+</table></center>
+
+<p>
+We generate a probability plot using column (4) versus column (2) and log-log scale axes.
+
+<img SRC="apr221_r01.gif" ALT="Weibull plot of Weibull random numbers" height=500 width=550>
+
+Note that the configuration of points appears to have some curvature.
+This is mostly due to the very first point on the plot (the earliest time
+of failure). The first few points on a probability plot have more variability
+than points in the central range and less attention should be paid to them
+when visually testing for "straightness". </td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Use of least squares (regression) to fit a line through the points 
+on a probability plot</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+Since our data are plotted on a log-log scale, we fit a straight line
+using \(\mbox{log } x\)
+<!-- <i>x</i>) -->
+as the independent variable and \(\mbox{log } y\)
+<!-- <i>y</i>) -->
+as the dependent variable. 
+<P>
+The regression produces a slope estimate of 1.46, which is close to the 1.5
+value used in the simulation.  The intercept is -4.114 and setting this equal 
+to \(-\gamma \mbox{ log } \alpha\)
+<!-- -<i>&gamma;</i> log <i>&alpha;</i> -->
+we estimate \(\alpha\) = 657
+<!-- <i>&alpha;</i> = 657 -->
+(the "true" value used in the simulation was 500).
+<p>
+The analyses in this section can can be implemented using both 
+<a href="apr221.dp">Dataplot code</a> and <a href="apr221.r">R code</a>.
+Both packages have special functions to automatically generate probability 
+plots for a wide variety of distributions.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr22.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr222.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr221.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:19 GMT -->
+</HTML>

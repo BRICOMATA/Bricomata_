@@ -1,0 +1,329 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:37 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.1.4.1. Linear Least Squares Regression</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd142.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd14.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd1.html">Introduction to Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd14.html">What are some of the different statistical methods for model building?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.1.4.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Linear Least Squares Regression</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Modeling Workhorse</I>
+</TD>
+<TD WIDTH=85%>
+Linear least squares regression is by far the most widely used 
+modeling method.  It is what most people mean when they say they have
+used "regression", "linear regression" or "least squares" to fit a model
+to their data.  Not only is linear least squares regression the most widely
+used modeling method, but it has been adapted to a broad range of
+situations that are outside its direct scope.  It plays a strong underlying
+role in many other modeling methods, including the other methods discussed
+in this section: 
+<A HREF="pmd142.html">nonlinear least squares regression</A>, 
+<A HREF="pmd143.html">weighted least squares regression</A> and 
+<A HREF="pmd144.html">LOESS</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="def">Definition of a Linear Least Squares Model</I>
+</TD>
+<TD WIDTH=85%>
+Used directly, with an <A HREF="../section3/pmd32.html">appropriate data 
+set</A>, linear least squares regression can be used to fit the data
+with any function of the form
+
+$$ f(\vec{x};\vec{\beta}) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+f(\vec{x};\vec{\beta}) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots
+" ALIGN=baseline SRC="eqns/lmd.gif"></CENTER><BR> -->
+in which 
+<OL>
+<LI>each explanatory variable in the function is multiplied by an unknown
+parameter, 
+<LI>there is at most one unknown parameter with no corresponding 
+explanatory variable, and 
+<LI>all of the individual terms are summed to produce
+the final function value.  
+</OL>
+In statistical terms, any function that meets these
+criteria would be called a "linear function". The term "linear" is
+used, even though the function may not be a straight line, because if the
+unknown parameters are considered to be variables and the explanatory variables
+are considered to be known coefficients corresponding to those "variables",
+then the problem becomes a system (usually overdetermined) of linear equations
+that can be solved for the values of the unknown parameters.  To differentiate
+the various meanings of the word "linear", the linear models being discussed
+here are often said to be "linear in the parameters" or "statistically linear".
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="time">Why "Least Squares"?</I>
+</TD>
+<TD WIDTH=85%>
+Linear least squares regression also gets its name from the way the
+estimates of the unknown parameters are computed.  The "method of least 
+squares" that is used to obtain parameter estimates was independently 
+developed in the late 1700's and the early 1800's by the mathematicians
+Karl Friedrich Gauss, Adrien Marie Legendre and (possibly) Robert Adrain 
+<A HREF="../section7/pmd7.html#Stigler, S.M. (1978)">[Stigler (1978)]</A>
+<A HREF="../section7/pmd7.html#Harter, H.L. (1983)">[Harter (1983)]</A>
+<A HREF="../section7/pmd7.html#Stigler, S.M. (1986)">[Stigler (1986)]</A>
+working in Germany, France and America, respectively.  In the least squares
+method the unknown parameters are estimated by minimizing the sum of the
+squared deviations between the data and the model.  The minimization process
+reduces the overdetermined system of equations formed by the data to a 
+sensible system of \(p\),
+<!-- <IMG ALT="p" ALIGN=middle SRC="eqns/p.gif", BORDER=0> -->
+(where \(p\)
+<!-- <IMG ALT="p" SRC="eqns/p.gif", BORDER=0 ALIGN=middle> -->
+is the number of parameters
+in the functional part of the model) equations in \(p\)
+<!-- <IMG ALT="p" SRC="eqns/p.gif", BORDER=0 ALIGN=middle> -->
+unknowns.
+This new system of equations is then solved to obtain the parameter estimates.  
+To learn more about how the method of least squares is used to estimate the
+parameters, see <A HREF="../section4/pmd431.html">Section 4.4.3.1</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Examples of Linear Functions</I>
+</TD>
+<TD WIDTH=85%>
+As just mentioned above, linear models are not limited to being straight lines
+or planes, but include a fairly wide range of shapes.  For example, a simple 
+quadratic curve,
+
+$$ f(x;\vec{\beta}) = \beta_0 + \beta_1x + \beta_{11}x^2 \, ,$$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+f(x;\vec{\beta}) = \beta_0 + \beta_1x + \beta_{11}x^2
+" ALIGN=baseline SRC="eqns/lfex1.gif"></CENTER><BR> -->
+is linear  in the statistical sense.  A straight-line model in  
+\(\log(x)\),
+<!-- <IMG ALT="\log(x)" ALIGN=absmiddle SRC="eqns/lnx.gif"> -->
+
+$$ f(x;\vec{\beta}) = \beta_0 + \beta_1\ln(x) \, , $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+f(x;\vec{\beta}) = \beta_0 + \beta_1\ln(x)
+" ALIGN=baseline SRC="eqns/lfex2.gif"></CENTER><BR> -->
+
+or a polynomial in \(\sin(x)\), 
+<!-- <IMG ALT="\sin(x)" ALIGN=absmiddle SRC="eqns/sinx.gif"> -->
+
+$$ f(x;\vec{\beta}) = \beta_0 + \beta_1\sin(x) + \beta_2\sin(2x) + \beta_3\sin(3x) \, , $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+f(x;\vec{\beta}) = \beta_0 + \beta_1\sin(x) + \beta_2\sin(2x) + \beta_3\sin(3x)
+" ALIGN=baseline SRC="eqns/lfex3.gif"></CENTER><BR> -->
+
+is also linear in the statistical sense because they are linear in the 
+parameters, though not with respect to the 
+observed explanatory variable, \(x\).
+<!-- <IMG ALT="x" ALIGN=baseline SRC="eqns/x.gif">. -->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Nonlinear Model Example</I>
+</TD>
+<TD WIDTH=85%>
+Just as models that are linear in the statistical sense do not
+have to be linear with respect to the explanatory variables, nonlinear
+models can be linear with respect to the explanatory variables, but
+not with respect to the parameters.  For example,
+
+$$ f(x;\vec{\beta}) = \beta_0 + \beta_0\beta_1x $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+f(x;\vec{\beta}) = \beta_0 + \beta_0\beta_1x
+" ALIGN=baseline SRC="eqns/nlfex1.gif"></CENTER><BR> -->
+is linear in \(x\),
+<!-- <IMG ALT="x" ALIGN=baseline SRC="eqns/x.gif">, -->
+but it cannot be written in the general form of a linear model presented 
+<A HREF="#def">above</A>.  This
+is because the  slope of this line is expressed as the product of two
+parameters.  As a result, nonlinear least squares regression could be
+used to fit this model, but linear least squares cannot be used.  For further
+examples and discussion of nonlinear models see the next section,
+<A HREF="pmd142.html">Section 4.1.4.2</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Advantages of Linear Least Squares</I>
+</TD>
+<TD WIDTH=85%>
+Linear least squares regression has earned its place as the primary tool
+for process modeling because of its effectiveness and completeness.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Though there are types of data that are better described by functions
+that are nonlinear in the parameters, many processes in science and
+engineering are well-described by linear models. This is because
+either the processes are inherently linear or because, over short ranges, any process
+can be well-approximated by a linear model.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The estimates of the unknown parameters obtained from linear least squares 
+regression are the optimal estimates from a broad class of possible 
+parameter estimates under the usual assumptions used for process modeling.
+Practically speaking, linear least squares regression makes very efficient 
+use of the data.  Good results can be obtained with relatively small data sets.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Finally, the theory associated with linear regression
+is well-understood and allows for construction of different types of 
+easily-interpretable statistical intervals for predictions, calibrations,
+and optimizations.  These statistical intervals can then be used
+to give clear answers to scientific and engineering questions.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Disadvantages of Linear Least Squares</I>
+</TD>
+<TD WIDTH=85%>
+The main disadvantages of linear least squares are limitations in the shapes
+that linear models can assume over long ranges, possibly poor extrapolation 
+properties, and sensitivity to outliers.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Linear models with nonlinear terms in the predictor variables curve relatively slowly, so for 
+inherently nonlinear processes it becomes increasingly difficult to find
+a linear model that fits the data well as the range of the data increases.
+As the explanatory variables become extreme, the output of the linear model will
+also always more extreme.  This means that linear models
+may not be effective for extrapolating the results of a process for which data
+cannot be collected in the region of interest.  Of course extrapolation is 
+potentially dangerous regardless of the model type. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Finally, while the method of least squares
+often gives optimal estimates of the unknown parameters, it is very sensitive
+to the presence of unusual data points in the data used to fit a model.  One or
+two outliers can sometimes seriously skew the results of a least squares
+analysis.  This makes <A HREF="../section4/pmd44.html">model validation</A>,
+<A HREF="../section4/pmd445.html#nppi">especially with respect to outliers</A>,
+critical to obtaining sound answers to the questions motivating the construction
+of the model.
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd14.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd142.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd141.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:37 GMT -->
+</HTML>

@@ -1,0 +1,209 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr184.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:12 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.8.4. R out of N model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr185.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr183.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.8.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr18.html">How can you evaluate reliability from the "bottom-up" (component failure mode to system failure rate)?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.8.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>R out of N model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>An \(r\) out of \(n\) model is a system that survives when at least \(r\) of its components
+are working (any \(r\))</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+An "\(r\) out of \(n\)"
+<!-- "<i>r</i> out of <i>n</i>" -->
+system contains both the <a href="apr182.html">series</a> system model and
+the <a href="apr183.html">parallel</a> system model as special cases. The
+system has \(n\)
+<!-- <i>n</i> -->
+components that operate or fail independently of one
+another and as long as at least \(r\)
+<!-- <i>r</i> -->
+of these components (any \(r\))
+<!-- (any <i>r</i>) -->
+survive, the system survives. System failure occurs when the (\(n - r + \) 1)-th
+<!-- (<i>n-r+1</i>)th -->
+component failure occurs.
+<p>
+When \(r = n\), the \(r\) out of \(n\) 
+<!-- <i>r</i> = <i>n</i>, the <i>r </i>out of <i>n</i> -->
+model reduces
+to the series model. When \(r\) = 1, the \(r\) out of \(n\) 
+<!-- <i>r </i>= 1, the<i> r</i> out of <i>n</i> -->
+model becomes the parallel model.
+<p>
+We treat here the simple case where all the components are identical.
+<p>
+Formulas and assumptions for the \(r\) out of \(n\)
+<!-- <i>r</i> out of <i>n</i> -->
+model (identical components):
+<ol>
+<li>
+All components have the identical reliability function \(R(t)\).
+<!-- <i>R(t)</i>. -->
+</li>
+
+<li>
+All components operate independently of one another (as far as failure
+is concerned).</li>
+
+<li>
+The system can survive any (\(n - r\))
+<!-- (<i>n-r</i>) -->
+of the components failing. The
+system fails at the instant of the (\(n - r + \) 1)-th
+<!-- (<i>n-r+1</i>)th -->
+component failure.</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Formula for an \(r\) out of \(n\) system where the components are identical</i>
+</td>
+
+<td WIDTH="85%">
+System reliability is given by adding the probability of exactly \(r\)
+<!-- <i>r</i> -->
+components surviving to time \(t\)
+<!-- <i>t</i>  -->
+to the probability of exactly (\(r\) + 1)
+<!-- (<i>r+1</i>) -->
+components surviving, and so on up to the probability
+of all components surviving to time \(t\).
+<!-- <i>t</i>. -->
+These are binomial probabilities (with \(p = R(t)\)),
+<!-- (with <i>p = R(t)</i>), -->
+so the system reliability is given by:
+
+$$ R_S(t) = \sum_{i=r}^n \left( \begin{array}{c} n \\ i \end{array} \right)
+            \left[ R(t) \right]^i \left[ 1 - R(t) \right] ^{n-i} \,\, . $$
+
+<!--
+<center>
+<p>
+<img SRC="eqns/routn.gif" ALT="Rs(t) = SUM[i=r to n]{(N i)R**i(t)*[1-R(t)]**(n-i)" height=48 width=222>
+</center>
+<p>
+-->
+
+<b>Note</b>: If we relax the assumption that all the components are
+identical, then \(R_S(t)\)
+<!-- <i>R<sub>s</sub>(t)</i> -->
+would be the sum of probabilities evaluated for all possible terms 
+that could be formed by picking at least \(r\)
+<!-- <i>r</i> -->
+survivors and the corresponding failures. The probability for each term
+is evaluated as a product of \(R(t)\)'s and \(F(t)\)'s.
+<!-- <i>R(t)</i>'s and <i>F(t)</i>'s. -->
+For example, for \(n\) = 4 and \(r\) = 2,
+<!-- <i>n</i> = 4 and<i> r </i>= 2, -->
+the system reliability would be (abbreviating
+the notation for \(R(t)\) and \(F(t)\)
+<!-- <i>R(t)</i> and <i>F(t)</i> -->
+by using only \(R\) and \(F\))
+<!-- <i>R</i> and <i>F)</i> -->
+
+$$ \begin{eqnarray}
+R_S & = & R_1 R_2 F_3 F_4 + R_1 R_3 F_2 F_4 + R_1 R_4 F_2 F_3 + R_2 R_3 F_1 F_4 \\
+    & + & R_2 R_4 F_1 F_3 + R_3 R_4 F_1 F_2 + R_1 R_2 R_3 F_4 + R_1 R_3 R_4 F_2 \\
+    & + & R_1 R_2 R_4 F_3 + R_2 R_3 R_4 F_1 + R_1 R_2 R_3 R_4 \,\, .
+\end{eqnarray} $$
+
+<!--
+<p>
+<i>R<sub>s</sub> = R<sub>1</sub>R<sub>2</sub>F<sub>3</sub>F<sub>4</sub>
++ R<sub>1</sub>R<sub>3</sub>F<sub>2</sub>F<sub>4 </sub>+ R<sub>1</sub>R<sub>4</sub>F<sub>2</sub>F<sub>3</sub>
++ R<sub>2</sub>R<sub>3</sub>F<sub>1</sub>F<sub>4</sub></i>
+<br><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + R<sub>2</sub>R<sub>4</sub>F<sub>1</sub>F<sub>3</sub>
++ R<sub>3</sub>R<sub>4</sub>F<sub>1</sub>F<sub>2</sub> + R<sub>1</sub>R<sub>2</sub>R<sub>3</sub>F<sub>4</sub>
++ R<sub>1</sub>R<sub>3</sub>R<sub>4</sub>F<sub>2</sub></i>
+<br><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + R<sub>1</sub>R<sub>2</sub>R<sub>4</sub>F<sub>3</sub>
++ R<sub>2</sub>R<sub>3</sub>R<sub>4</sub>F<sub>1</sub> + R<sub>1</sub>R<sub>2</sub>R<sub>3</sub>R<sub>4&nbsp;</sub></i>
+-->
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr183.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr185.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr184.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:12 GMT -->
+</HTML>

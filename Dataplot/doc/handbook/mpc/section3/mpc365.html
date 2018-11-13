@@ -1,0 +1,268 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc365.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:25 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.6.5. Data analysis and model validation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc3651.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc3641.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">2.</FONT> <A HREF="../mpc.html"><FONT COLOR="#00105A">Measurement Process Characterization</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">2.3.</FONT> <A HREF="mpc3.html"><FONT COLOR="#00105A">Calibration</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">2.3.6.</FONT> <A HREF="mpc36.html"><FONT COLOR="#00105A">Instrument calibration over a regime</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">2.3.6.5.</FONT> Data analysis and model validation </H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+   </TD>
+   </TR>
+
+   
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>First step - plot the calibration data</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+If the model for the calibration curve is not known from theoretical
+considerations or experience, it is necessary to identify and validate
+a model for the calibration curve.  To begin this process, the
+calibration data are plotted as a function of known values of the
+reference standards; this <A HREF="../../pmd/section4/pmd421.html">plot
+should suggest a candidate model</A> for describing the data.  A linear
+model should always be a consideration.  If the responses and their
+known values are in the same units, a plot of differences between
+responses and known values is more informative than a plot of the
+data for exposing structure in the data.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Warning - regarding statistical software</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Once an initial model has been chosen, the coefficients in the model
+are estimated from the data using a statistical software package. It
+is impossible to over-emphasize the importance of using reliable and 
+documented software for this analysis.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Output required from a software package</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The software package will use
+the <A HREF="../../pmd/section4/pmd431.html">method of least squares</A>
+for estimating the coefficients.  The software package should also be
+capable of performing a 'weighted' fit for situations where
+<A HREF="../../pmd/section2/pmd213.html">errors of measurement are
+non-constant</A> over the calibration interval.  The
+<A HREF="../../pmd/section4/pmd454.html">choice of weights</A>
+is usually the responsibility of the user.    The software package
+should, at the minimum, provide the following information:
+<UL>
+   <LI>Coefficients of the calibration curve
+   <LI>Standard deviations of the coefficients
+   <LI>Residual standard deviation of the fit
+   <LI><A HREF="mpc365.html#Ftest">F-ratio for goodness of fit</A> 
+       (if there are repetitions on the <i>y</i>-axis at each reference
+        value)
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Typical analysis of a quadratic fit</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A HREF="mpc3651.html">Load cell measurements </A>are 
+modeled as a quadratic function of known loads as shown below.  
+There are three repetitions at each load level for a total of 33 
+measurements. 
+<P>
+<PRE>
+Parameter estimates for model y = a + b*x + c*x*x + e:
+
+Parameter  Estimate  Std. Error     t-value  Pr(>|t|)    
+a        -1.840e-05   2.451e-05      -0.751     0.459    
+b         1.001e-01   4.839e-06   20687.891    <2e-16 
+c         7.032e-06   2.014e-07      34.922    <2e-16 
+
+Residual standard error = 3.764e-05 (30 degrees of freedom)
+Multiple R-squared = 1
+Adjusted R-squared = 1 
+
+
+Analysis of variance table:
+
+Source of     Degrees of   Sum of         Mean
+Variation      Freedom     Squares       Square       F-Ratio      Pr(>F)
+
+Model             2         12.695       6.3475       4.48e+09    <2.2e-16
+Residual         30       4.2504e-08    1.4170e-09
+
+(Lack of fit)     8       4.7700e-09    5.9625e-10    0.3477       0.9368
+(Pure error)     22       3.7733e-08    1.7151e-09
+
+Total            32         12.695
+</PRE>
+<P>
+The analyses shown above can be reproduced using 
+<A HREF="mpc365.dp">Dataplot code</A> and
+<A HREF="mpc365.r">R code</A>. 
+<P>
+Note: Dataplot reports a probability associated with the F-ratio
+(for example, 6.334 % for the lack-of-fit test), where a probability greater 
+than 95 % indicates an F-ratio that is
+significant at the 5 % level.  R reports a <I>p</I>-value that
+corresponds to the probability greater than the F-ratio, so a value less 
+than 0.05 would indicate significance at the 5 % level.  Other software 
+may report in other ways; therefore, it is necessary to check the 
+interpretation for each package. 
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="Ftest">The F-ratio is used to test the goodness of the
+fit to the data</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The F-ratio provides information on the model as a good descriptor
+of the data.  The F-ratio is compared with a critical value from the
+<A HREF="../../eda/section3/eda3673.html">F-table</A>.  An F-ratio smaller
+than the critical value indicates that all significant structure has been 
+captured by the model.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>F-ratio < 1 always indicates a good fit</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+For the load cell analysis, a <A HREF="mpc36.html#plot">plot of the
+data</A> suggests a linear fit.  However, the linear fit gives a very
+large F-ratio.  For the quadratic fit, the F-ratio is 0.3477 with
+<I>v</I><sub>1</sub> = 8 and <I>v</I><sub>2</sub> = 22 degrees of freedom.  The critical value
+of F(0.05, 8, 20) = 2.45 indicates that the quadratic function is sufficient
+for describing the data.  A fact to keep in mind is that an F-ratio < 1
+does not need to be checked against a critical value; it always
+indicates a good fit to the data.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>The t-values are used to test the significance of individual
+coefficients</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="ttest">The <I>t</I>-values can be compared with critical values
+from a <A HREF="../../eda/section3/eda3672.html"><I>t</I>-table</A>.  
+However, for a test at the 5 % significance level, a <I>t</I>-value < 2 
+is a good indicator of non-significance.  The <I>t</I>-value for the 
+intercept term, <I><FONT SIZE=4>a</FONT></I>, is < 2 indicating that 
+the intercept term is not significantly different from zero.  The 
+<I>t</I>-values for the linear and quadratic terms are significant 
+indicating that these coefficients are needed in the model.  If the 
+intercept is dropped from the model, the analysis is repeated to obtain 
+new estimates for the coefficients, <I><FONT SIZE=4>b</FONT></I> and
+<I><FONT SIZE=4>c</FONT></I>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residual standard deviation</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The residual standard deviation estimates the standard deviation of
+a single measurement with the load cell.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Further considerations and tests of assumptions</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The residuals (differences between the measurements and their fitted
+values) from the fit should also be examined for
+<A HREF="../../pmd/section2/pmd213.html">outliers</A> and 
+<A HREF="../../pmd/section4/pmd441.html">structure</A> that might 
+invalidate the calibration curve. They are also a good indicator of
+whether <A HREF="../../pmd/section2/pmd21.html">basic assumptions</A> of
+normality and equal precision for all measurements are valid.
+<P>
+If the initial model proves inappropriate for the data, 
+a <A HREF="../../pmd/section4/pmd45.html">strategy for 
+improving the model</A> is followed. 
+</TD></TR>
+
+
+
+
+
+
+
+
+
+
+
+</TABLE>
+</UL>
+<P>
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc3641.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc3651.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc365.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:27 GMT -->
+</HTML>

@@ -1,0 +1,34 @@
+.
+. Starting Step 4.1
+device 1 off
+device 2 off
+let means = distinct metal
+variance plot ultrason metal
+let var = yplot
+retain var subset tagplot=1
+delete ytemp xtemp
+let ytemp = log(var)
+let xtemp = log(means)
+fit ytemp xtemp
+.
+device 1 on
+device 2 on
+title displacement 7
+title size 3
+title Fit for Estimating Weights
+x1label log(^metal)
+y1label log(Replicate Variances)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ytemp pred vs xtemp
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 4.1: Page Back for Output

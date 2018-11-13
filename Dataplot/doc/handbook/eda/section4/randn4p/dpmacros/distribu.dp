@@ -1,0 +1,20 @@
+. Starting Step 4.5
+.
+let ksloc = mean y
+let ksscale = sd y
+set anderson darling critical value simulation
+set goodness of fit fully specified off
+normal anderson-darling goodness of fit test y
+let string inormad = YES
+if statval > cutoff95
+  let string inormad = NO
+end of if
+let adstat = statval
+.
+normal probability plot y
+let string inorm = YES
+if PPCC < .987
+  let string inorm = NO
+end of if
+.
+. Finished Step 4.5: Page Back for Output

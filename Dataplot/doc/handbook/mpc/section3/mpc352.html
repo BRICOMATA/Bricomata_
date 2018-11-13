@@ -1,0 +1,290 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc352.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:14 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.5.2. Control of bias and long-term variability</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc3521.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc3511.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc35.html">Control of artifact calibration</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.5.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Control of bias and long-term variability</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<I>Control parameters are estimated using historical data</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+A control chart procedure is used for controlling bias and long-term
+variability. The procedure is designed to be implemented in real time
+after a baseline and control limits for the check standard of interest
+have been established from the database of check standard values. A
+separate control chart is required for each check standard. The control
+procedure outlined here is based on a Shewhart control chart with upper
+and lower control limits that are symmetric about the average.  The
+<A HREF="mpc3522.html">EWMA control procedure</A> that is sensitive to
+small changes in the process is discussed on another page. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<I>For a Shewhart control procedure, the average and standard deviation
+of historical check standard values are the parameters of interest</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+<A NAME="baseline">The check standard values are denoted by
+
+$$ C_k \, (k=1, \, \ldots, \, K) \, .$$
+<!--
+<P><CENTER>
+<IMG SRC="mpc352a.gif" ALT="C(k)(k=1,...,K)">
+</CENTER>
+<P>
+-->
+The baseline is the process average which is computed from the check
+standard values as
+
+$$ \overline{C} = \frac{1}{K} \sum_{k=1}^K C_k \,\,. $$
+<!--
+<P>
+<CENTER>
+-->
+<!-- <IMG SRC="mpc352b.gif" -->
+<!--
+<IMG SRC="cbar.gif"
+     ALT="Cbar = (1/K)*SUM[k=1 to K]{C(k)}">
+</CENTER>
+<P>
+-->
+The process standard deviation is
+
+$$ {\large s}_2 =\sqrt{\frac{1}{K-1} \sum_{k=1}^K (C_k - \overline{C})^2} $$
+<!--
+<P>
+<CENTER>
+-->
+<!-- <IMG SRC="mpc352c.gif" -->
+<!--
+<IMG SRC="cbars2.gif"
+     ALT="s2 = SQRT((1/(K-1))*SUM[k=1 to K]{(C(k) - Cbar)**2}">
+</CENTER>
+<P>
+-->
+with <I>K</I> - 1 degrees of freedom.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<I>The control limits depend on the t
+<br>
+distribution and the degrees of freedom in the process
+standard deviation</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+If \( \overline{C} \)
+<!-- <IMG SRC="cbar2.gif" ALT="Cbar"> --> 
+has been computed
+from historical data, the upper and lower control limits are: 
+
+\begin{eqnarray}
+UCL &=& \overline{C} + t_{1-\alpha/2, \, K-1} \cdot  s_2 \\
+      &  & \\
+LCL &=& \overline{C} - t_{1-\alpha/2, \, K-1} \cdot  s_2  
+\end{eqnarray}
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc352a1.gif"
+     ALT="UCL = CBAR + t_(alpha/2,K-1)*s2,  LCL = CBAR - t_(alpha/2,K-1)*s2">
+</CENTER>
+<P>
+-->
+where \( {\large t}_{1-\alpha/2, \, K-1} \)
+<!-- <i><FONT SIZE=+2>t</font></i><sub>1-<i>&alpha;</i>/2, <i>K</i>-1</sub> -->
+denotes the 1-<i>&alpha;</i>/2
+critical value
+from the <A HREF="../../eda/section3/eda3672.html"><font size=+1><I>t</I> </font> table</A> 
+with <I>v</I> = <I>K</I> - 1 degrees of freedom.
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Sample code</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+Sample code for computing the <font size=+1><I>t</I></font> value for a
+conservative case where <i>&alpha;</i>= 0.05, 
+<I>J</I> = 6, and <I>K</I> = 6, is available for both 
+<A HREF="mpc352.dp">Dataplot</A> and <A HREF="mpc352.r">R</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Simplification for large degrees of freedom</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+It is standard practice to use a value of 3 instead of a critical
+value from the <font size=+1><I>t</I></font> table, given the process standard deviation has large
+degrees of freedom, say, <I>v</I> > 15.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<!-- Add marginal notes below -->
+<I>The control procedure is invoked in real-time and a failure implies
+that the current calibration should be rejected</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+The control procedure compares the check standard value,
+<I><FONT SIZE=4>C,</FONT></I> from each calibration 
+run with the upper and lower control limits. This procedure should be 
+implemented in real time and does not necessarily require a graphical 
+presentation. The check standard value can be compared algebraically
+with the control limits. The calibration run is judged to be
+out-of-control if either:
+<P>
+<FONT SIZE=4><CENTER><I>C > UCL</I></CENTER>
+<P>
+or
+<P>
+<CENTER><I>C < LCL</I></CENTER></FONT>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<I>Actions to be taken</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+If the check standard value exceeds one of the control limits, the
+process is judged to be out of control and the current calibration run
+is rejected. The best strategy in this situation is to repeat the
+calibration to see if the failure was a chance occurrence. Check
+standard values that remain in control, especially over a period of
+time, provide confidence that no new biases have been introduced into
+the measurement process and that the long-term variability of the
+process has not changed.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<!-- Add marginal notes below -->
+<I>Out-of-control signals that recur require investigation</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+Out-of-control signals, particularly if they recur, can be symptomatic
+of one of the following conditions:
+<UL>
+   <LI>Change or damage to the reference standard(s)
+   <LI>Change or damage to the check standard
+   <LI>Change in the long-term variability of the calibration process
+</UL>
+<P>
+For more guidance, see <A HREF="../section2/mpc224.html">Remedies and
+strategies for dealing with out-of-control signals</A>. 
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Caution - be sure to plot the data</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+If the tests for control are carried out algebraically, it is
+recommended that, at regular intervals, the check standard values be
+plotted against time to check for drift or anomalies in the measurement
+process.
+
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc3511.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc3521.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc352.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:15 GMT -->
+</HTML>

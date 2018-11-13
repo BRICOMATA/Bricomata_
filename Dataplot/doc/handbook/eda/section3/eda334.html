@@ -1,0 +1,300 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda334.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:25 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.4. Bootstrap Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda335.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda333.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Bootstrap Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Estimate uncertainty
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The bootstrap (<a href="../section4/eda43.html#Efron">Efron and
+      Gong</a>) plot is used to estimate the uncertainty of a statistic.
+
+   </td>
+</tr>
+
+<!-----begin section: xxx -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>
+      Generate subsamples with replacement
+      </I>
+   </td>
+   <td width=85% valign=top>
+      To generate a bootstrap uncertainty estimate for a given
+      statistic from a set of data, a subsample of a size less
+      than or equal to the size of the data set is
+      generated from the data, and the statistic is calculated.
+      This subsample is generated <I>with replacement</I> so
+      that any data point can be sampled multiple times or not
+      sampled at all.  This process is repeated for many
+      subsamples, typically between 500 and 1000.  The computed
+      values for the statistic form an estimate of the sampling
+      distribution of the statistic.
+      <p>
+      For example, to estimate the uncertainty of the median from
+      a dataset with 50 elements, we generate a subsample of 50
+      elements and calculate the median.  This is repeated at
+      least 500 times so that we have at least 500 values for the
+      median.  Although the number of bootstrap samples to use is
+      somewhat arbitrary, 500 subsamples is usually sufficient.
+      To calculate a 90% confidence interval for the median, the
+      sample medians are sorted into ascending order and the value
+      of the 25th median (assuming exactly 500 subsamples were taken)
+      is the lower confidence limit while the value of the 475th
+      median (assuming exactly 500 subsamples were taken) is the
+      upper confidence limit.
+
+   </td>
+</tr>
+
+<!-----begin section: Sample Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot:
+      </I>
+   </td> <td width=85% valign=top>
+
+      <img src = "gif/bootstra.gif"
+	alt="sample bootstrap plot"
+>
+      <p>
+      This bootstrap plot was generated from 500 uniform random
+      numbers.  Bootstrap plots and corresponding histograms
+      were generated for the mean, median, and mid-range.  The
+      histograms for the corresponding statistics clearly show that
+      for uniform random numbers the mid-range has the smallest
+      variance and is, therefore, a superior location estimator to
+      the mean or the median.
+   </td>
+</tr>
+
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+         The bootstrap plot is formed by:
+         <ul>
+            <li>Vertical axis: Computed value of the desired statistic
+                for a given subsample.
+            <li>Horizontal axis: Subsample number.
+         </ul>
+         The bootstrap plot is simply the computed value of the
+         statistic versus the subsample number.  That is, the
+         bootstrap plot generates the values for the desired
+         statistic.  This is usually immediately followed by a
+         histogram or some other distributional plot to show the
+         location and variation of the sampling
+         distribution of the statistic.
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The bootstrap plot is used to answer the following questions:
+      <ul>
+         <li>What does the sampling distribution for the statistic
+             look like? 
+         <li>What is a 95% confidence interval for the statistic?
+         <li>Which statistic has a sampling distribution with the
+             smallest variance?  That is, which statistic generates
+             the narrowest confidence interval?
+      </ul> 
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Importance</I>
+   </td>
+   <td width=85% valign=top>
+      The most common uncertainty calculation is generating a
+      confidence interval for the mean.  In this case, the 
+      uncertainty formula can be derived mathematically.  However,
+      there are many situations in which the uncertainty
+      formulas are mathematically intractable.  The bootstrap
+      provides a method for calculating the uncertainty in these
+      cases.
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Cautuion on use of the bootstrap
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The bootstrap is not appropriate for all distributions and
+statistics (<a href-"../section4/eda43.htm#TIBRASHANI">Efron and
+Tibrashani</a>).  For example, because of the shape of the uniform
+distribution, the bootstrap is not appropriate for estimating the
+distribution of statistics that are heavily dependent on the
+tails, such as the range.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="histogra.html">Histogram</a><br>
+      Jackknife<br>
+   <p>
+   The jacknife is a technique that is closely related to the
+   bootstrap.  The jackknife is beyond the scope of this handbook.
+   See the <a href="../section4/eda43.html#Efron">Efron and Gong</a>
+   article for a discussion of the jackknife.
+
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The bootstrap plot is demonstrated in the
+      <a href="../section4/eda422.html">uniform random numbers</a>
+      case study.
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The bootstrap is becoming more common in general purpose statistical
+software programs.  However, it is still not supported in many of
+these programs.  Both R software and Dataplot
+support a bootstrap capability.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+   
+  
+   
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda333.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda335.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda334.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:26 GMT -->
+</HTML>

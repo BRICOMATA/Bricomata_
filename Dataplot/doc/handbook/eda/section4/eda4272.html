@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4272.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:55:59 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.7.2. Graphical Output and Interpretation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4273.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4271.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.7.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda427.html">Standard Resistor</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.7.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Graphical Output and Interpretation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Goal
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The goal of this analysis is threefold:
+<OL>
+   <LI>Determine if the univariate model:
+       <P>
+       <UL>
+          <!--
+          <img src="eqns/conmodel.gif" alt="Y(i) = C + E(i)">
+          -->
+          \( Y_{i} = C + E_{i} \)
+       </UL>
+       <P>
+       is appropriate and valid.
+   </LI>
+   <P>
+   <LI>Determine if the typical underlying assumptions for an
+       "in control" measurement process are valid.  These assumptions
+       are:
+       <ol>
+          <li>random drawings;
+          <li>from a fixed distribution;
+          <li>with the distribution having a fixed location; and
+          <li>the distribution having a fixed scale.
+       </ol>
+   </LI>
+   <P>
+   <LI>Determine if the confidence interval
+       <P>
+       <UL>
+          <!--
+          <img src="eqns/ybarpms.gif"
+               alt="YBAR +/- 2*s/SQRT(N)">
+          -->
+          \( \bar{Y} \pm 2s/\sqrt{N} \)
+       </UL>
+       <P>
+       is appropriate and valid where <I><B>s</B></I> is the
+       standard deviation of the original data.
+   </LI>
+</OL>
+
+
+</TD>
+</TR>
+<!-- end paragraph -->
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="4-PLOT">
+<I>
+4-Plot of Data
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<IMG SRC="resistor/gif/4plot.gif" alt="4-Plot of Data">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The assumptions are addressed by the graphics shown above:
+<ol>
+   <li>The <a href="../section3/runseqpl.html">run sequence plot</a>
+       (upper left) indicates significant shifts
+       in both location and variation.  Specifically, the location
+       is increasing with time.  The variability seems greater
+       in the first and last third of the data than it does in the
+       middle third.
+       <p>
+   <li>The <a href="../section3/lagplot.html">lag plot</a>
+       (upper right) shows a significant non-random
+       pattern in the data.  Specifically, the strong linear
+       appearance of this plot is indicative of a model that
+       relates <b><i>Y<sub>t</sub></i></b> to
+       <b><i>Y<sub>t-1</sub></i></b>.
+       <p>
+   <li>The distributional plots, the 
+       <a href="../section3/histogra.html">histogram</a>
+       (lower left) and the
+       <a href="../section3/normprpl.html">normal probability plot</a>
+       (lower right), are not interpreted
+       since the randomness assumption is so clearly violated.
+</ol>
+The serious violation of the non-randomness assumption means that
+the univariate model
+<UL>
+   <!-- <img src="eqns/conmodel.gif" alt="Y(i) = C + E(i)"> -->
+   \( Y_{i} = C + E_{i} \)
+</UL>
+is not valid.  Given the linear appearance of the lag plot, the
+first step might be to consider a model of the type
+<UL>
+<!--
+<img src="eqns/armodel.gif" align=bottom
+     alt="Y(i) = A0 + A1*Y(i-1) + E(i)">
+-->
+\( Y_{i} = A_0 + A_1*Y_{i-1} + E_{i} \)
+</UL>
+However, discussions with the scientist revealed the following:
+<ol>
+   <li>the drift with respect to location was expected.
+       <P>
+   <li>the non-constant variability was not expected.
+</ol>
+The scientist examined the data collection device and determined
+that the non-constant variation was a seasonal effect.  The 
+high variability data in the first and last thirds was collected
+in winter while the more stable middle third was collected in the
+summer.  The seasonal effect was determined to be caused by
+the amount of humidity affecting the measurement equipment.  In this
+case, the solution was to modify the test equipment to be less
+sensitive to enviromental factors.
+<p>
+Simple graphical techniques can be quite effective in revealing
+unexpected results in the data.  When this occurs, it is important
+to investigate whether the unexpected result is due to problems in
+the experiment and data collection, or is it in fact indicative of an
+unexpected underlying structure in the data.  This determination
+cannot be made on the basis of statistics alone.  The role of the
+graphical and statistical analysis is to detect problems or unexpected
+results in the data.  Resolving the issues requires the knowledge of
+the scientist or engineer.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Individual Plots
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Although it is generally unnecessary, the plots can be generated
+individually to give more detail.  Since the lag plot indicates
+significant non-randomness, we omit the distributional plots.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RUNSEQ">
+<I>
+Run Sequence Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src="resistor/gif/runseq.gif" alt="Run Sequence Plot">
+<p>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="LAGPLOT">
+<I>
+Lag Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src="resistor/gif/lagplot.gif" alt="Lag Plot">
+<p>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4271.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4273.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4272.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:56:02 GMT -->
+</HTML>

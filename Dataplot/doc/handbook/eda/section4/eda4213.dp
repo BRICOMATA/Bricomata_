@@ -1,0 +1,531 @@
+Dataplot commands and output:
+
+
+.Invoke Dataplot, set defautls, read data 	
+.
+.  Starting Normal Random Numbers Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+tic offset units screen
+tic offset 5 5
+title displacement 2
+case asis
+title case asis
+label case asis
+tic label case asis
+character case asis all
+legend case asis
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+skip 25
+set read format 10f7.4
+serial read randn.dat y
+skip 0
+set read format
+. Finished Step 1.1
+
+
+.
+.4-Plot 	
+.
+. Starting Step 2.1
+. Generate 4-plot
+.
+label size 6
+tic label size 6
+character size 4
+x3label displacement 11
+x3label automatic
+4-plot Y
+x3label
+.
+justification center
+height 4
+move 50 96
+text Normal Random Numbers:  4-Plot
+. Finished Step 2.1
+
+
+
+.Run Sequence Plot 	
+
+. Starting Step 3.1
+.
+y1label y
+x1label index
+plot y
+. Finished Step 3.1
+
+
+.
+.Lag Plot 	
+.
+. Starting Step 3.2
+. Lag plot
+.
+y1label y(  i  )
+x1label y(i-1)
+line blank
+char x
+lag plot y
+. Finished Step 3.2
+
+
+.
+.Histogram with Overlaid Normal PDF 	
+.
+. Starting Step 3.3
+.
+y1label Rlc()elative uc()Flc()requency
+x1label Y
+let s = standard deviation y
+let xmean = mean y
+x2label lc()mean = ^xmean, sd = ^s
+x3label
+let a = 0.3*s
+let xmin = minimum y
+let xmax = maximum y
+class upper xmax
+class lower xmin4
+legend 1 Clc()lass uc()wlc()idth = ^a
+xlimits -4 4
+relative histogram y
+limits freeze
+legend 1
+pre-erase off
+line solid
+character blank
+plot norpdf(x,xmean,s) for x = xmin 0.01 xmax
+pre-erase on
+limits
+x2label
+. Finished Step 3.3
+
+
+.
+.Normal Probability Plot 	
+.
+. Starting Step 3.4
+.
+y1label Dlc()ata
+x1label Tlc()heoretical
+char circle
+char hw 1 0.75
+line blank
+normal probability plot y
+let x1 = xplot(1)
+let y1 = ppa0 + ppa1*x1
+let n = size xplot
+let xn = xplot(n)
+let yn = ppa0 + ppa1*xn
+line solid
+drawdata x1 y1 xn yn
+justification center
+move 50 4
+text Flc()itted uc()llc()ine: uc()Ilc()ntercept = ^PPA0, uc()Slc()lope = ^ppa1
+. Finished Step 3.4
+
+
+.
+.Summary Statistics 	
+.
+. Starting Step 4.1
+.
+summary y
+. Finished Step 4.1
+
+>                                 SUMMARY
+>  
+>                      NUMBER OF OBSERVATIONS =      500
+>  
+>  
+> ***********************************************************************
+> *        LOCATION MEASURES         *       DISPERSION MEASURES        *
+> ***********************************************************************
+> *  MIDRANGE     =   0.3945000E+00  *  RANGE        =   0.6083000E+01  *
+> *  MEAN         =  -0.2935997E-02  *  STAND. DEV.  =   0.1021041E+01  *
+> *  MIDMEAN      =   0.1623600E-01  *  AV. AB. DEV. =   0.8174360E+00  *
+> *  MEDIAN       =  -0.9300000E-01  *  MINIMUM      =  -0.2647000E+01  *
+> *               =                  *  LOWER QUART. =  -0.7204999E+00  *
+> *               =                  *  LOWER HINGE  =  -0.7210000E+00  *
+> *               =                  *  UPPER HINGE  =   0.6455001E+00  *
+> *               =                  *  UPPER QUART. =   0.6447501E+00  *
+> *               =                  *  MAXIMUM      =   0.3436000E+01  *
+> ***********************************************************************
+> *       RANDOMNESS MEASURES        *     DISTRIBUTIONAL MEASURES      *
+> ***********************************************************************
+> *  AUTOCO COEF  =   0.4505888E-01  *  ST. 3RD MOM. =   0.3072273E+00  *
+> *               =   0.0000000E+00  *  ST. 4TH MOM. =   0.2990314E+01  *
+> *               =   0.0000000E+00  *  ST. WILK-SHA =   0.7515639E+01  *
+> *               =                  *  UNIFORM PPCC =   0.9756625E+00  *
+> *               =                  *  NORMAL  PPCC =   0.9961721E+00  *
+> *               =                  *  TUK -.5 PPCC =   0.8366451E+00  *
+> *               =                  *  CAUCHY  PPCC =   0.4922674E+00  *
+> ***********************************************************************
+
+
+.
+.Location Statistics 	
+.
+. Starting Step 4.2
+.
+let n = size y
+let ymean = mean y
+let ysdm = standard deviation of mean y
+let idf = n - 1
+.
+let lclm = ymean - tppf(0.975,idf)*ysdm
+let uclm = ymean + tppf(0.975,idf)*ysdm
+.
+let x = sequence 1 1 n
+fit y x
+let idf2 = n - 2
+read dpst1f.dat coef coefsd
+let bsd = coefsd(2)
+let lclb = bsd - tppf(0.975,idf2)*bsd
+let uclb = bsd + tppf(0.975,idf2)*bsd
+let string idrift = NO
+let atemp = lclb*uclb
+if atemp < 0
+  let string idrift = YES
+end of if
+.
+. Finished Step 4.2
+
+>LEAST SQUARES MULTILINEAR FIT
+>SAMPLE SIZE N       =      500
+>NUMBER OF VARIABLES =        1
+>NO REPLICATION CASE
+> 
+> 
+>        PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+> 1  A0                  0.699127E-02   (0.9155E-01)        0.7636E-01
+> 2  A1       X         -0.396298E-04   (0.3167E-03)        -0.1251
+> 
+>RESIDUAL    STANDARD DEVIATION =         1.02205
+>RESIDUAL    DEGREES OF FREEDOM =         498
+
+
+.
+Variation Statistics 	
+.
+. Starting Step 4.3
+.
+let n = size y
+let ysd = standard deviation y
+let idf = n - 1
+.
+let ucls = idf*ysd*ysd/chsppf(0.025,idf)
+let ucls = sqrt(ucls)
+let lcls = idf*ysd*ysd/chsppf(0.975,idf)
+let lcls = sqrt(lcls)
+.
+let x = sequence 1 1 n
+let x = code4 x
+bartlett test y x
+.
+. Finished Step 4.3
+
+>               BARTLETT TEST
+>           (STANDARD DEFINITION)
+> NULL HYPOTHESIS UNDER TEST--ALL SIGMA(I) ARE EQUAL
+>  
+> TEST:
+>    DEGREES OF FREEDOM          =    3.000000
+>  
+>    TEST STATISTIC VALUE        =    2.373660
+>    CUTOFF: 95% PERCENT POINT   =    7.814727
+>    CUTOFF: 99% PERCENT POINT   =    11.34487
+>  
+>    CHI-SQUARE CDF VALUE        =    0.501443
+>  
+>   NULL          NULL HYPOTHESIS        NULL HYPOTHESIS
+>   HYPOTHESIS    ACCEPTANCE INTERVAL    CONCLUSION
+> ALL SIGMA EQUAL    (0.000,0.950)         ACCEPT
+
+
+.
+.Randomness 	
+.
+. Starting Step 4.4
+.
+runs y
+.
+let nlag = 20
+xlimits 0 20
+y1label autocorrelation
+x1label lag
+autocorrelation plot y
+let yauto = yplot(2)
+let string irand = YES
+let amin = maximum yplot subset tagplot = 4
+let amax = maximum yplot subset tagplot = 3
+if yauto < amin
+  let string irand = NO
+end of if
+if yauto > amax
+  let string irand = NO
+end of if
+xlimits
+.
+. Finished Step 4.4
+
+>                    RUNS UP
+>         STATISTIC = NUMBER OF RUNS UP
+>             OF LENGTH EXACTLY I
+> I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+> 1        98.0    104.2083     10.2792       -0.60
+> 2        43.0     45.7167      5.2996       -0.51
+> 3        13.0     13.1292      3.2297       -0.04
+> 4         6.0      2.8563      1.6351        1.92
+> 5         1.0      0.5037      0.7045        0.70
+> 6         0.0      0.0749      0.2733       -0.27
+> 7         0.0      0.0097      0.0982       -0.10
+> 8         0.0      0.0011      0.0331       -0.03
+> 9         0.0      0.0001      0.0106       -0.01
+>10         0.0      0.0000      0.0032        0.00
+>        STATISTIC = NUMBER OF RUNS UP
+>            OF LENGTH I OR MORE
+> I         STAT     EXP(STAT)    SD(STAT)       Z
+> 
+> 1       161.0    166.5000      6.6546       -0.83
+> 2        63.0     62.2917      4.4454        0.16
+> 3        20.0     16.5750      3.4338        1.00
+> 4         7.0      3.4458      1.7786        2.00
+> 5         1.0      0.5895      0.7609        0.54
+> 6         0.0      0.0858      0.2924       -0.29
+> 7         0.0      0.0109      0.1042       -0.10
+> 8         0.0      0.0012      0.0349       -0.03
+> 9         0.0      0.0001      0.0111       -0.01
+>10         0.0      0.0000      0.0034        0.00
+>                   RUNS DOWN
+>         STATISTIC = NUMBER OF RUNS DOWN
+>             OF LENGTH EXACTLY I
+> I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+> 1        91.0    104.2083     10.2792       -1.28
+> 2        55.0     45.7167      5.2996        1.75
+> 3        14.0     13.1292      3.2297        0.27
+> 4         1.0      2.8563      1.6351       -1.14
+> 5         0.0      0.5037      0.7045       -0.71
+> 6         0.0      0.0749      0.2733       -0.27
+> 7         0.0      0.0097      0.0982       -0.10
+> 8         0.0      0.0011      0.0331       -0.03
+> 9         0.0      0.0001      0.0106       -0.01
+>10         0.0      0.0000      0.0032        0.00
+>         STATISTIC = NUMBER OF RUNS DOWN
+>             OF LENGTH I OR MORE
+> I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+> 1       161.0    166.5000      6.6546       -0.83
+> 2        70.0     62.2917      4.4454        1.73
+> 3        15.0     16.5750      3.4338       -0.46
+> 4         1.0      3.4458      1.7786       -1.38
+> 5         0.0      0.5895      0.7609       -0.77
+> 6         0.0      0.0858      0.2924       -0.29
+> 7         0.0      0.0109      0.1042       -0.10
+> 8         0.0      0.0012      0.0349       -0.03
+> 9         0.0      0.0001      0.0111       -0.01
+>10         0.0      0.0000      0.0034        0.00
+>         RUNS TOTAL = RUNS UP + RUNS DOWN
+>       STATISTIC = NUMBER OF RUNS TOTAL
+>            OF LENGTH EXACTLY I
+> I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+> 1       189.0    208.4167     14.5370       -1.34
+> 2        98.0     91.4333      7.4947        0.88
+> 3        27.0     26.2583      4.5674        0.16
+> 4         7.0      5.7127      2.3123        0.56
+> 5         1.0      1.0074      0.9963       -0.01
+> 6         0.0      0.1498      0.3866       -0.39
+> 7         0.0      0.0193      0.1389       -0.14
+> 8         0.0      0.0022      0.0468       -0.05
+> 9         0.0      0.0002      0.0150       -0.01
+>10         0.0      0.0000      0.0045        0.00
+>       STATISTIC = NUMBER OF RUNS TOTAL
+>             OF LENGTH I OR MORE
+> I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+> 1       322.0    333.0000      9.4110       -1.17
+> 2       133.0    124.5833      6.2868        1.34
+> 3        35.0     33.1500      4.8561        0.38
+> 4         8.0      6.8917      2.5154        0.44
+> 5         1.0      1.1790      1.0761       -0.17
+> 6         0.0      0.1716      0.4136       -0.41
+> 7         0.0      0.0217      0.1474       -0.15
+> 8         0.0      0.0024      0.0494       -0.05
+> 9         0.0      0.0002      0.0157       -0.02
+>10         0.0      0.0000      0.0047        0.00
+>        LENGTH OF THE LONGEST RUN UP         =     5
+>        LENGTH OF THE LONGEST RUN DOWN       =     4
+>        LENGTH OF THE LONGEST RUN UP OR DOWN =     5
+>  
+>        NUMBER OF POSITIVE DIFFERENCES =   252
+>        NUMBER OF NEGATIVE DIFFERENCES =   247
+>        NUMBER OF ZERO     DIFFERENCES =     0
+
+
+.
+.Distributional Analysis 	
+.
+. Starting Step 4.5
+.
+anderson-darling normal test y
+let string inorm = YES
+normal probability plot y
+if PPCC < .987
+  let string inorm = NO
+end of if
+.
+. Finished Step 4.5
+
+>               ANDERSON-DARLING 1-SAMPLE TEST
+>               THAT THE DATA CAME FROM A NORMAL DISTRIBUTION
+>  
+> 1. STATISTICS:
+>       NUMBER OF OBSERVATIONS                =      500
+>       MEAN                                  =  -0.2935997E-02
+>       STANDARD DEVIATION                    =    1.021041
+>  
+>       ANDERSON-DARLING TEST STATISTIC VALUE =    1.061249
+>       ADJUSTED TEST STATISTIC VALUE         =    1.069633
+>  
+> 2. CRITICAL VALUES:
+>       90         % POINT    =   0.6560000
+>       95         % POINT    =   0.7870000
+>       97.5       % POINT    =   0.9180000
+>       99         % POINT    =    1.092000
+>  
+> 3. CONCLUSION (AT THE 5% LEVEL):
+>       THE DATA DO NOT COME FROM A NORMAL DISTRIBUTION.
+
+
+.
+.Outlier Analysis Statistics 	
+.
+. Starting Step 4.6
+.
+grubbs test y
+. Finished Step 4.6
+
+>               GRUBBS TEST FOR OUTLIERS
+>               (ASSUMPTION: NORMALITY)
+>  
+> 1. STATISTICS:
+>       NUMBER OF OBSERVATIONS      =      500
+>       MINIMUM                     =   -2.647000
+>       MEAN                        =  -0.2935997E-02
+>       MAXIMUM                     =    3.436000
+>    STANDARD DEVIATION          =    1.021041
+>  
+>    GRUBBS TEST STATISTIC       =    3.368068
+>  
+> 2. PERCENT POINTS OF THE REFERENCE DISTRIBUTION
+>    FOR GRUBBS TEST STATISTIC
+>       0          % POINT    =    0.000000
+>       50         % POINT    =    3.274338
+>       75         % POINT    =    3.461431
+>       90         % POINT    =    3.695134
+>       95         % POINT    =    3.863087
+>       97.5       % POINT    =    4.024592
+>       99         % POINT    =    4.228033
+>       100        % POINT    =    22.31596
+>
+> 3. CONCLUSION (AT THE 5% LEVEL):
+>       THERE ARE NO OUTLIERS.
+
+
+.
+.Print Report 	
+.
+. Starting Step 4.7
+.
+capture report.tex
+print " "
+print " "
+print "Analysis for 500 normal random numbers"
+print " "
+print "1: Sample Size                           = ^n"
+print " "
+print "2: Location"
+print "   Mean                                  = ^ymean"
+print "   Standard Deviation of Mean            = ^ysdm"
+print "   95% Confidence Interval for Mean      = (^lclm,^uclm)"
+print "   Drift with respect to location?       = ^idrift"
+print " "
+print "3: Variation"
+print "   Standard Deviation                    = ^ysd"
+print "   95% Confidence Interval for SD        = (^lcls,^ucls)"
+print "   Drift with respect to variation?"
+print "   (based on Bartletts test on quarters"
+print "   of the data)                          = NO"
+print " "
+print "4: Distribution"
+print "   Normal PPCC                           = ^PPCC"
+print "   Data are Normal?"
+print "     (as measured by Normal PPCC)        = ^inorm"
+print " "
+print "5: Randomness"
+print "   Autocorrelation                       = ^yauto"
+print "   Data are Random?"
+print "     (as measured by autocorrelation)    = ^irand"
+print " "
+print "6: Statistical Control"
+print "   (i.e., no drift in location or scale,"
+print "   data are random, distribution is "
+print "   fixed, here we are testing only for"
+print "   fixed normal)"
+print "   Data Set is in Statistical Control?   = YES"
+print " "
+print "7: Outliers?"
+print "   (as determined by Grubbs' test)       = NO"
+print " "
+end of capture
+list report.tex
+. Finished Step 4.7
+
+> Analysis for 500 normal random numbers
+>  
+> 1: Sample Size                           = 500
+>  
+> 2: Location
+>    Mean                                  = -0.00294
+>    Standard Deviation of Mean            = 0.045663
+>    95% Confidence Interval for Mean      = (-0.09266,0.086779)
+>    Drift with respect to location?       = NO
+>  
+> 3: Variation
+>    Standard Deviation                    = 1.021042
+>    95% Confidence Interval for SD        = (0.961437,1.088585)
+>    Drift with respect to variation?
+>    (based on Bartletts test on quarters
+>    of the data)                          = NO
+>  
+> 4: Distribution
+>    Normal PPCC                           = 0.996173
+>    Data are Normal?
+>      (as measured by Normal PPCC)        = YES
+>  
+> 5: Randomness
+>    Autocorrelation                       = 0.045059
+>    Data are Random?
+>      (as measured by autocorrelation)    = YES
+>  
+> 6: Statistical Control
+>    (i.e., no drift in location or scale,
+>    data are random, distribution is 
+>    fixed, here we are testing only for
+>    fixed normal)
+>    Data Set is in Statistical Control?   = YES
+>  
+> 7: Outliers?
+>    (as determined by Grubbs' test)       = NO
+

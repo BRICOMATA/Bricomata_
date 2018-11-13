@@ -1,0 +1,292 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33o.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.24. Quantile-Quantile Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33p.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33n.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.24.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Quantile-Quantile Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Check If Two Data Sets Can Be Fit With the Same Distribution
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The quantile-quantile (q-q) plot is a graphical technique
+      for determining if two data sets come from populations with
+      a common distribution.
+      <p>
+      A q-q plot is a plot of the quantiles of the first data
+      set against the quantiles of the second data set.
+      By a quantile, we mean the fraction (or percent) of points
+      below the given value.  That is, the 0.3 (or 30%) quantile
+      is the point at which 30% percent of the data fall below
+      and 70% fall above that value.
+      <p>
+      A 45-degree reference line is also plotted.  If the two
+      sets come from a population with the same distribution, the
+      points should fall approximately along this reference line.  The
+      greater the departure from this reference line, the greater the
+      evidence for the conclusion that the two data sets have come
+      from populations with different distributions.
+      <p>
+      The advantages of the q-q plot are:
+      <ol>
+         <li>The sample sizes do not need to be equal.
+             <P>
+         <li>Many distributional aspects can be simultaneously
+             tested.  For example, shifts in location, shifts in
+             scale, changes in symmetry, and the presence of
+             outliers can all be detected from this plot.
+             For example, if the two data sets come from populations
+             whose distributions differ only by a shift in location,
+             the points should lie along a straight line that is
+             displaced either up or down from the 45-degree
+             reference line.
+      </ol>
+      <p>
+      The q-q plot is similar to a
+      <a href="probplot.html">probability plot</a>.  For a
+      probability plot, the quantiles for one of the data samples
+      are replaced with the quantiles of a theoretical
+      distribution.
+
+   </td>
+</tr>
+
+
+<!-----begin section: Sample Plot -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot
+      </I>
+   </td>
+
+   <td width=85% valign=top>
+      <img src = "gif/qqplot.gif"
+           alt="sample quantile-quantile plot">
+      <p>
+      This q-q plot shows that 
+      <ol>
+         <li>These 2 batches do not appear to have come from
+             populations with a common distribution.
+         <li>The batch 1 values are significantly higher than
+             the corresponding batch 2 values.  
+         <li>The differences are increasing from values 525 to
+             625.  Then the values for the 2 batches get closer
+             again.
+      </ol>
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition:<br>
+         Quantiles for Data Set 1 Versus Quantiles of Data Set 2
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The q-q plot is formed by:
+      <ul>
+         <li>Vertical axis: Estimated quantiles from data set 1
+         <li>Horizontal axis: Estimated quantiles from data set 2
+      </ul>
+      <p>
+      Both axes are in units of their respective data sets.
+      That is, the actual quantile level is not plotted.
+      For a given point on the q-q plot, we know
+      that the quantile level is the same for both points,
+      but not what that quantile level actually is.
+      <p>
+      If the data sets have the same size, the q-q plot is
+      essentially a plot of sorted data set 1 against
+      sorted data set 2.  If the data sets are not of equal size,
+      the quantiles are usually picked to correspond to the
+      sorted values from the smaller data set and then the
+      quantiles for the larger data set are interpolated.
+
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The q-q plot is used to answer the following questions:
+      <ul>
+         <li>Do two data sets come from populations with a common
+             distribution?</li>
+         <li>Do two data sets have common location and scale?</li>
+         <li>Do two data sets have similar distributional shapes?</li>
+         <li>Do two data sets have similar tail behavior?</li>
+      </ul> 
+   </td>
+</tr>
+
+<!-----begin section: Importance -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Importance:
+         Check for Common Distribution
+      </I>
+   </td>
+   <td width=85% valign=top>
+      When there are two data samples, it is often desirable
+      to know if the assumption of a common distribution is
+      justified.  If so, then location and scale estimators can
+      pool both data sets to obtain estimates of the common location
+      and scale.  If two samples do differ, it is also useful to gain
+      some understanding of the differences.  The q-q plot can
+      provide more insight into the nature of the difference
+      than analytical methods such as the chi-square
+      and Kolmogorov-Smirnov 2-sample tests.
+
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="bihistog.html">Bihistogram</a><br>
+      <a href="eda353.html">T Test</a><br>
+      <a href="eda359.html">F Test</a><br>
+      2-Sample Chi-Square Test<br>
+      2-Sample Kolmogorov-Smirnov Test<br>
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The quantile-quantile plot is demonstrated in the
+      <a href="../section4/eda42a.html">ceramic strength</a>
+      data case study.
+   </td>
+</tr>
+
+<!-----begin section: software -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      Q-Q plots are available in some general purpose statistical
+      software programs.
+      If the number of data points in the two samples are equal,
+      it should be relatively easy to write a macro in statistical
+      programs that do not support the q-q plot.  If the number
+      of points are not equal, writing a macro for a q-q plot may
+      be difficult.
+
+   </td>
+</tr>
+
+<!-----end jjf----->
+   
+  
+   
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33n.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33p.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33o.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:14 GMT -->
+</HTML>

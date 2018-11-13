@@ -1,0 +1,40 @@
+.
+. Starting Eddy Current Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+device 2 postscript
+dimension 100 variables
+tic mark offset units data
+xtic offset 0.5 0.5
+legend case asis
+label case asis
+title case asis
+title displacement 2
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read splett3.dat y x1 x2 x3 runseq
+variable label y Sensitivity
+variable label x1 Numbersp()ofcr()Turns
+variable label x2 Windingcr()Distance
+variable label x3 Wirecr()Gage
+.  Following lines for confounding structure
+let k = 3
+let string project = Eddy Current Data
+.
+let kp1 = k+1
+let kp2 = k+2
+let n = number y
+let index = sequence 1 1 n
+.
+call confound.dp
+. Finished Step 1.1: Page Back for Output

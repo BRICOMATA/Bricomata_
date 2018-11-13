@@ -1,0 +1,718 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section5/pmc52.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+      <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+      <TITLE>6.5.2. What do we do when data are non-normal</TITLE>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="pmc53.html" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="pmc51.html" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../index-3.html" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.html" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+	   <area shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">6.</FONT> <A HREF="../pmc.html"><FONT COLOR="#00105A">Process or Product Monitoring and Control</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">6.5.</FONT> <A HREF="pmc5.html"><FONT COLOR="#00105A">Tutorials</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">6.5.2.</FONT> What to do when data are
+    non-normal</H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+   </TD>
+   </TR>
+
+   
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Often it is possible to transform non-normal data into
+approximately normal data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Non-normality is a way of life, since no characteristic
+(height, weight, etc.) will have <i>exactly</i> a normal
+distribution. One strategy to make non-normal data resemble normal
+data is by using a transformation. There is no dearth of transformations
+in statistics; the issue is which one to select for the situation at hand.
+Unfortunately, the choice of the "best" transformation is generally not
+obvious.
+<p>
+This was recognized in 1964 by
+<a href="../section7/pmc7.html#Box, G.E.P.; G.M.">G.E.P. Box and
+D.R. Cox</a>. They wrote a paper in which a useful family of power
+transformations was suggested.  These transformations are defined only
+for positive data values. This should not pose any problem because a
+constant can always be added if the set of observations contains one
+or more negative values.
+<p>
+The <a NAME="Box-Cox"></a>Box-Cox power transformations are given
+by
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>The Box-Cox Transformation</i>
+</td>
+<td VALIGN=TOP WIDTH="85%">
+$$ \begin{eqnarray}
+x(\lambda) & = &  \frac{x^\lambda -1}{\lambda}  \,\,\,\,\, & \lambda \ne 0 \\
+x(\lambda) & = & \mbox{ln}(x) & \lambda = 0 \, .
+\end{eqnarray} $$
+
+<!-- 
+<center>
+<img SRC="eqns/boxcox1.gif" BORDER=0 height=72 width=166
+ALT="x(lambda) = (x**lambda - 1)/lambda   lambda <> 0;
+     x(lambda) = LN(x)    lambda = 0">
+</center>
+-->
+<p>
+Given the vector of data observations \( x = x_1, \, x_2, \, \ldots, \, x_n\),
+<!-- <b>x</b> = <i>x</i><sub>1</sub>, <i>x</i><sub>2</sub>,
+...<i>x</i><sub>n</sub>, -->
+one way to select the power \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lambda"> -->
+is to use the \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lambda"> -->
+that maximizes the logarithm of the likelihood function
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>The logarithm of the likelihood function</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+
+$$ f(x,\lambda) = -\frac{n}{2} \mbox{ln}\left[ \sum_{i=1}^{n}{\frac{(x_i(\lambda) - \bar{x}(\lambda))^2}{n}} \right] + 
+                  (\lambda - 1)\sum_{i=1}^{n}{\ln(x_i)} \, , $$
+
+<center>
+<!-- <img SRC="eqns/boxcox2.gif" height=152 width=334 ALT= -->
+<!-- <img SRC="eqns/boxcox2.gif" height=61 width=349 ALT=  -->
+<!--
+<img SRC="eqns/boxcoxa.gif" ALT=
+"f(x,lambda) =
+ (-n/2)*LN{SUM[i=1 to n][(x(i)(lambda) - xbar(lambda))**2/n}
+ + (lambda - 1)*SUM[i=1 to n][LN(x(i)]">
+-->
+</center>
+where
+
+$$ \bar{x}(\lambda) = \frac{1}{n}\sum_{i=1}^{n}{x_i(\lambda)} $$
+
+<!--
+<p>
+<center>
+<img SRC="eqns/boxcoxb.gif"
+     ALT="xbar(lambda) = (1/n)*SUM[i=1 to n][x(i)(lambda)]">
+</center>
+-->
+<p>
+is the arithmetic mean of the transformed data.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<I>
+Confidence bound for \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lambda"> -->
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+In addition, a confidence bound (based on the
+<a href="../../apr/section2/apr233.html">likelihood ratio</a>
+statistic) can be constructed for \(\lambda\)
+<!-- <img SRC="eqns/lambda.gif" ALT="lambda"  align=ABSCENTER> -->
+as follows: a set of \(\lambda\)
+<!-- <img SRC="eqns/lambda.gif" ALT="lambda"  align=ABSCENTER> -->
+values that represent an approximate \(100(1-\alpha)\) %
+<!-- 100(1- <img SRC="eqns/alpha.gif" ALT="alpha"  align=ABSCENTER>)% -->
+confidence bound for \(\lambda\)
+<!-- <img SRC="eqns/lambda.gif" ALT="lambda" align=ABSCENTER> -->
+is formed from those \(\lambda\)
+<!-- <img SRC="eqns/lambda.gif" ALT="lambda"  align=ABSCENTER> -->
+that satisfy
+
+$$ f(x,\lambda) \ge f(x,\hat{\lambda}) - 0.5 \chi^2_{1-\alpha, \, 1} \, ,$$
+
+<!--
+<ul>
+   <img SRC="pmc52_eqn.gif" 
+    ALT="f(x,lambda) >= f(x,lamda hat) - 0.5*chi-square_1-alpha,1">
+</ul>
+-->
+where \(\hat{\lambda}\)
+<!-- <img SRC="eqns/lamhat.gif" ALT="lamda hat" align=ABSCENTER> -->
+denotes the maximum likelihood estimator for \(\lambda\)
+<!-- <img SRC="eqns/lambda.gif" ALT="lambda"  align=ABSCENTER> -->
+and \(\chi_{1-\alpha, \, 1}^2\)
+<!-- <i>&Chi;</i><sup>&nbsp;2</sup><sub>1-<i>&alpha;</i>, 1</sub> -->
+is the \(100(1-\alpha)\) 
+<!-- 100(1-<img align=bottom src="eqns/alpha.gif" alt="alpha">) -->
+percentile of the chi-square distribution with 1 degree of freedom.
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Example of the Box-Cox scheme</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+To illustrate the procedure, we used the data from Johnson
+and Wichern's textbook (Prentice Hall 1988), Example 4.14.
+The observations are microwave radiation measurements.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<I>
+Sample data
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center>
+<table>
+<tr>
+   <td valign=top align=center>
+      0.15
+   </td>
+   <td valign=top align=center>
+      0.09
+   </td>
+   <td valign=top align=center>
+      0.18
+   </td>
+   <td valign=top align=center>
+      0.10
+   </td>
+   <td valign=top align=center>
+      0.05
+   </td>
+   <td valign=top align=center>
+      0.12
+   </td>
+   <td valign=top align=center>
+      0.08
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0.05
+   </td>
+   <td valign=top align=center>
+      0.08
+   </td>
+   <td valign=top align=center>
+      0.10
+   </td>
+   <td valign=top align=center>
+      0.07
+   </td>
+   <td valign=top align=center>
+      0.02
+   </td>
+   <td valign=top align=center>
+      0.01
+   </td>
+   <td valign=top align=center>
+      0.10
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0.10
+   </td>
+   <td valign=top align=center>
+      0.10
+   </td>
+   <td valign=top align=center>
+      0.02
+   </td>
+   <td valign=top align=center>
+      0.10
+   </td>
+   <td valign=top align=center>
+      0.01
+   </td>
+   <td valign=top align=center>
+      0.40
+   </td>
+   <td valign=top align=center>
+      0.10
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0.05
+   </td>
+   <td valign=top align=center>
+      0.03
+   </td>
+   <td valign=top align=center>
+      0.05
+   </td>
+   <td valign=top align=center>
+      0.15
+   </td>
+   <td valign=top align=center>
+      0.10
+   </td>
+   <td valign=top align=center>
+      0.15
+   </td>
+   <td valign=top align=center>
+      0.09
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0.08
+   </td>
+   <td valign=top align=center>
+      0.18
+   </td>
+   <td valign=top align=center>
+      0.10
+   </td>
+   <td valign=top align=center>
+      0.20
+   </td>
+   <td valign=top align=center>
+      0.11
+   </td>
+   <td valign=top align=center>
+      0.30
+   </td>
+   <td valign=top align=center>
+      0.02
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      0.20
+   </td>
+   <td valign=top align=center>
+      0.20
+   </td>
+   <td valign=top align=center>
+      0.30
+   </td>
+   <td valign=top align=center>
+      0.30
+   </td>
+   <td valign=top align=center>
+      0.40
+   </td>
+   <td valign=top align=center>
+      0.30
+   </td>
+   <td valign=top align=center>
+      0.05
+   </td>
+</tr>
+</table>
+</center>
+<!-- <img SRC="eqns/boxcox4.gif" height=140 width=222> -->
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Table of log-likelihood values for various values of \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lambda"> -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The values of the log-likelihood function obtained by varying \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lambda"> -->
+from -2.0 to 1.9 are given below.
+<p>
+<center>
+<table>
+<tr>
+   <th valign=bottom align=center>
+      \(\lambda\)
+      <!-- <img align=top src="eqns/lambda.gif" alt="lambda"> -->
+   </th>
+   <th valign=botom align=center>
+      <i>LLF</i>
+   </th>
+   <th valign=bottom align=center>
+      \(\lambda\)
+      <!-- <img align=top src="eqns/lambda.gif" alt="lambda"> -->
+   </th>
+   <th valign=bottom align=center>
+      <i>LLF</i>
+   </th>
+   <th valign=bottom align=center>
+      \(\lambda\)
+      <!-- <img align=top src="eqns/lambda.gif" alt="lambda"> -->
+   </th>
+   <th valign=bottom align=center>
+      <i>LLF</i>
+   </th>
+</tr>
+<td colspan=6>
+   <hr noshade>
+</td>
+<tr>
+   <td valign=top align=center>
+      -2.0
+   </td>
+   <td valign=top align=center>
+      7.1146
+   </td>
+   <td valign=top align=center>
+      -0.6
+   </td>
+   <td valign=top align=center>
+      89.0587
+   </td>
+   <td valign=top align=center>
+      0.7
+   </td>
+   <td valign=top align=center>
+      103.0322
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1.9
+   </td>
+   <td valign=top align=center>
+      14.1877
+   </td>
+   <td valign=top align=center>
+      -0.5
+   </td>
+   <td valign=top align=center>
+      92.7855
+   </td>
+   <td valign=top align=center>
+      0.8
+   </td>
+   <td valign=top align=center>
+      101.3254
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1.8
+   </td>
+   <td valign=top align=center>
+      21.1356
+   </td>
+   <td valign=top align=center>
+      -0.4
+   </td>
+   <td valign=top align=center>
+      96.0974
+   </td>
+   <td valign=top align=center>
+      0.9
+   </td>
+   <td valign=top align=center>
+      99.3403
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1.7
+   </td>
+   <td valign=top align=center>
+      27.9468
+   </td>
+   <td valign=top align=center>
+      -0.3
+   </td>
+   <td valign=top align=center>
+      98.9722
+   </td>
+   <td valign=top align=center>
+      1.0
+   </td>
+   <td valign=top align=center>
+      97.1030
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1.6
+   </td>
+   <td valign=top align=center>
+      34.6082
+   </td>
+   <td valign=top align=center>
+      -0.2
+   </td>
+   <td valign=top align=center>
+      101.3923
+   </td>
+   <td valign=top align=center>
+      1.1
+   </td>
+   <td valign=top align=center>
+      94.6372
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1.5
+   </td>
+   <td valign=top align=center>
+      41.1054
+   </td>
+   <td valign=top align=center>
+      -0.1
+   </td>
+   <td valign=top align=center>
+      103.3457
+   </td>
+   <td valign=top align=center>
+      1.2
+   </td>
+   <td valign=top align=center>
+      91.9643
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1.4
+   </td>
+   <td valign=top align=center>
+      47.4229
+   </td>
+   <td valign=top align=center>
+      0.0
+   </td>
+   <td valign=top align=center>
+      104.8276
+   </td>
+   <td valign=top align=center>
+      1.3
+   </td>
+   <td valign=top align=center>
+      89.1034
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1.3
+   </td>
+   <td valign=top align=center>
+      53.5432
+   </td>
+   <td valign=top align=center>
+      0.1
+   </td>
+   <td valign=top align=center>
+      105.8406
+   </td>
+   <td valign=top align=center>
+      1.4
+   </td>
+   <td valign=top align=center>
+      86.0714
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      1.2
+   </td>
+   <td valign=top align=center>
+      59.4474
+   </td>
+   <td valign=top align=center>
+      0.2
+   </td>
+   <td valign=top align=center>
+      106.3947
+   </td>
+   <td valign=top align=center>
+      1.5
+   </td>
+   <td valign=top align=center>
+      82.8832
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1.1
+   </td>
+   <td valign=top align=center>
+      65.1147
+   </td>
+   <td valign=top align=center>
+      0.3
+   </td>
+   <td valign=top align=center>
+      106.5069
+   </td>
+   <td valign=top align=center>
+      1.6
+   </td>
+   <td valign=top align=center>
+      79.5521
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -0.9
+   </td>
+   <td valign=top align=center>
+      75.6471
+   </td>
+   <td valign=top align=center>
+      0.4
+   </td>
+   <td valign=top align=center>
+      106.1994
+   </td>
+   <td valign=top align=center>
+      1.7
+   </td>
+   <td valign=top align=center>
+      76.0896
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -0.8
+   </td>
+   <td valign=top align=center>
+      80.4625
+   </td>
+   <td valign=top align=center>
+      0.5
+   </td>
+   <td valign=top align=center>
+      105.4985
+   </td>
+   <td valign=top align=center>
+      1.8
+   </td>
+   <td valign=top align=center>
+      72.5061
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -0.7
+   </td>
+   <td valign=top align=center>
+      84.9421
+   </td>
+   <td valign=top align=center>
+      0.6
+   </td>
+   <td valign=top align=center>
+      104.4330
+   </td>
+   <td valign=top align=center>
+      1.9
+   </td>
+   <td valign=top align=center>
+      68.8106
+   </td>
+</tr>
+</table>
+</center>
+<p>
+<!-- <img SRC="eqns/boxcox5.gif" height=332 width=316> -->
+This table shows that \(\lambda = 0.3\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lambda"> = .3 -->
+maximizes the log-likelihood function (LLF).  This becomes 0.28
+if a second digit of accuracy is calculated.
+<p>
+The Box-Cox transform is also discussed in Chapter 1 under the
+<a href="../../eda/section3/eda335.html">Box Cox Linearity Plot</a>
+and the
+<a href="../../eda/section3/eda336.html">Box Cox Normality Plot</a>.
+The Box-Cox normality plot discussion provides a graphical
+method for choosing \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lamda"> -->
+to transform a data set to normality.  The criterion used to choose \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lamda"> -->
+for the Box-Cox linearity plot is the value of \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lamda"> -->
+that maximizes the correlation between the transformed \(x\)-values
+and the \(y\)-values when making a normal probability plot of the
+(transformed) data.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+   
+   </TABLE>
+
+   <IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index-3.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.html" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.html"        coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="pmc51.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="pmc53.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section5/pmc52.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:11 GMT -->
+</HTML>

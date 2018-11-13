@@ -1,0 +1,253 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd447.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:06 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.4.7. How can I test whether all of the terms in the functional part of the model are necessary?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd45.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd446.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd44.html">How can I tell if a model fits my data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.4.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can I test whether all of the terms in the functional part of the model are necessary?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Unnecessary Terms in the Model Affect Inferences</I>
+</TD>
+<TD WIDTH=85%>
+Models that are generally correct in form, but that include extra, unnecessary terms are said to "over-fit"
+the data. The term over-fitting is used to describe this problem because the extra terms in the model make 
+it more flexible than it should be, allowing it to fit some of the random variation in the data as if it 
+were deterministic structure.  Because the parameters for any unnecessary terms in the model usually have 
+estimated values near zero, it may seem as though leaving them in the model would not hurt anything. It is 
+true, actually, that having one or two extra terms in the model does not usually have much negative impact.
+However, if enough extra terms are left in the model, the consequences can be serious. Among other things, 
+including unnecessary terms in the model can cause the uncertainties estimated from the data to be larger than 
+necessary, potentially impacting scientific or engineering conclusions to be drawn from the analysis of the 
+data.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Empirical and Local Models Most Prone to Over-fitting the Data</I>
+</TD>
+<TD WIDTH=85%>
+Over-fitting is especially likely to occur when developing purely empirical models for processes when there 
+is no external understanding of how much of the total variation in the data might be systematic and how much
+is random. It also happens more frequently when using regression methods that fit the data 
+<A HREF="../section1/pmd144.html">locally</A> instead of using an explicitly specified function to describe 
+the structure in the data. Explicit functions are usually relatively simple and have few terms. It is usually
+difficult to know how to specify an explicit function that fits the noise in the data, since noise will not
+typically display much structure. This is why over-fitting is not usually a problem with these types of 
+models. Local models, on the other hand, can easily be made to fit very complex patterns, allowing them to
+find apparent structure in process noise if care is not exercised. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Statistical Tests for Over-fitting</I>
+</TD>
+<TD WIDTH=85%>
+Just as statistical tests can be used to check for significant missing or misspecified terms in the functional
+part of a model, they can also be used to determine if any unnecessary terms have been included. In fact, 
+checking for over-fitting of the data is one area in which statistical tests are more effective than residual
+plots.  To test for over-fitting, however, individual tests of the importance of each parameter in the model
+are used rather than following using a single test as done when testing for 
+<A HREF="pmd446.html">terms that are missing or misspecified</A> in the model.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Tests of Individual Parameters</I>
+</TD>
+<TD WIDTH=85%>
+Most output from regression software also includes individual statistical tests that compare 
+the hypothesis that each parameter is equal to zero with the alternative that it is not zero.
+These tests are convenient because they are automatically included in most computer output, 
+do not require replicate measurements, and give specific information about each parameter in
+the model. However, if the different predictor variables included in the model have values 
+that are correlated, these tests can also be quite difficult to interpret. This is because
+these tests are actually testing whether or not each parameter is zero <B>given that all of the
+other predictors are included in the model</B>.
+</TD>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Test Statistics Based on Student's t Distribution</I>
+</TD>
+<TD WIDTH=85%>
+The test statistics for testing whether or not each parameter is zero are typically based on Student's 
+<I>t</I> distribution. Each parameter estimate in the model is measured in terms of how many standard 
+deviations it is from its hypothesized value of zero. If the parameter's estimated value is close enough 
+to the hypothesized value that any deviation can be attributed to random error, the hypothesis that the 
+parameter's true value is zero is not rejected. If, on the other hand, the parameter's estimated value 
+is so far away from the hypothesized value that the deviation cannot be plausibly explained by random 
+error, the hypothesis that the true value of the parameter is zero is rejected. 
+</TD>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Because the hypothesized value of each parameter is zero, the test statistic for each of these tests is 
+simply the estimated parameter value divided by its estimated standard deviation,
+
+$$ T = \frac{(\hat{\beta}_i-0)}{\hat{\sigma}_{\hat{\beta}_i}} = 
+ \frac{\hat{\beta}_i}{\hat{\sigma}_{\hat{\beta}_i}} $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+T = \frac{(\hat{\beta}_i-0)}{\hat{\sigma}_{\hat{\beta}_i}} = 
+ \frac{\hat{\beta}_i}{\hat{\sigma}_{\hat{\beta}_i}}
+" ALIGN=BOTTOM SRC="eqns/t.gif"></CENTER><BR> -->
+
+which provides a measure of the distance between the estimated and hypothesized values of the parameter 
+in standard deviations. Based on the assumptions that the random errors are normally distributed and the 
+true value of the parameter is zero (as we have hypothesized), the test statistic has a 
+<A HREF="../../eda/section3/eda3664.html">Student's <I>t</I> distribution</A> with \(n-p\)
+<!-- <IMG ALT="n-p" ALIGN=ABSMIDDLE SRC="eqns/dfsigmahat.gif"> -->
+degrees of freedom. Therefore, cut-off values for the <I>t</I> distribution can be used to 
+determine how extreme the test statistic must be in order for each parameter estimate to be 
+too far away from its hypothesized value for the deviation to be attributed to random error. 
+Because these tests are generally used to simultaneously test whether or not a parameter value 
+is greater than or less than zero, the tests should each be used with cut-off values with a 
+significance level of \(\alpha/2\).
+<!-- <IMG ALT=" \alpha/2 " ALIGN=absmiddle SRC="eqns/alphaover2.gif">. -->
+This will guarantee that the hypothesis that each parameter equals zero will be rejected by 
+chance with probability \(\alpha\).
+<!-- <IMG ALT=" \alpha " SRC="eqns/alpha.gif">. -->
+Because of the symmetry of the <I>t</I> distribution, only one cut-off value, the upper or the 
+lower one, needs to be determined, and the other will be it's negative.  Equivalently, many 
+people simply compare the absolute value of the test statistic to the upper cut-off value.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Parameter Tests for the Pressure / Temperature Example</I>
+</TD>
+<TD WIDTH=85%>
+To illustrate the use of significance tests for each parameter 
+in a model, the regression results for the 
+<A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature</A> 
+example are shown below. In this case a straight-line model was fit to the 
+data, so the output includes tests of the significance of the 
+intercept and slope. The estimates of the intercept and the slope 
+are 7.74899 and 3.93014, respectively. Their estimated standard deviations 
+are listed in the next column followed by the test statistics to determine 
+whether or not each parameter is zero. The estimated residual 
+standard deviation, \(\hat{\sigma}\),
+<!-- <IMG ALT="\hat{\sigma}" SRC="eqns/sigmahat.gif">, -->
+and its degrees of freedom are also listed.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A Regression Results: Pressure / Temperature Example</A></I>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+Parameter   Estimate    Std. Dev.    <I>t</I> Value
+B0           7.74899       2.3538      3.292
+B1           3.93014       0.0507     77.515
+
+Residual standard deviation = 4.299098
+Residual degrees of freedom = 38
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Looking up the cut-off value from the <A HREF"../../eda/section3/eda3672.htm">tables of the <I>t</I> 
+distribution</A> using a significance level of \(\alpha = 0.05\)
+<!-- <IMG ALT="\alpha = 0.05" SRC="eqns/alphaeq05.gif"> -->
+and 38 degrees of freedom 
+yields a critical value of 2.024 (the critical value is obtained from the column 
+labeled "0.975" since this is a two-sided test and 1-0.05/2 = 0.975). Since 
+both of the test statistics are larger in absolute value than 
+the critical value of 2.024, the appropriate conclusion is that both the slope 
+and intercept are significantly different from zero at the 95 % significance level.
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd446.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd45.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd447.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:06 GMT -->
+</HTML>

@@ -1,0 +1,391 @@
+Dataplot commands and output:
+
+.Set Software Options and Get Started 	
+.
+.
+. Starting Furnace Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units absolute
+tic mark offset 5 5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read furnace.dat run zone wafer filmthic
+variable label run Run Number
+variable label zone Furnace Location
+variable label wafer Wafer Number
+variable label filmthic Film Thickness (ang.)
+. Finished Step 1.1
+
+.Initial Plots of Resonse Data 	
+.
+.
+. Starting Step 2.1
+multiplot corner coordinates 5 5 95 95
+multiplot 2 2
+multiplot scale factor 1.5
+y1label displacement 12
+.
+title Normal Probability Plot
+x1label Theoretical
+y1label Data
+char circle
+char fill on all
+char size 1
+normal probability plot filmthic
+char fill off
+char size
+.
+title
+y1label ^filmthic
+x1label
+x1tic marks off
+x1tic mark labels off
+line box plot
+character box plot
+fences on
+box plot filmthic
+line solid all
+character blank all
+x1tic marks on
+x1tic mark labels on
+.
+relative histogram filmthic
+multiplot 2 2 3
+limits freeze
+let m = mean filmthic
+let s = standard deviation filmthic
+plot norpdf(x,m,s) for x = 450 0.5 700
+limits
+.
+end of multiplot
+.
+multiplot corner coordinates
+multiplot scale factor 1
+. Finished Step 2.1
+
+.Summary Statistics and Quantiles 	
+.
+.
+. Starting Step 2.2
+let m = mean filmthic
+let s = standard deviation filmthic
+let n = size filmthic
+let n2 = n - 1
+let mupp = m + tppf(0.975,n2)*s/sqrt(n)
+let mlow = m - tppf(0.975,n2)*s/sqrt(n)
+let supp = sqrt(n2*s**2/chsppf(0.025,n2))
+let slow = sqrt(n2*s**2/chsppf(0.975,n2))
+print "Estimated Mean                       = ^m"
+print "Estimated Standard Deviation         = ^s"
+print "Lower 95% Confidence Bound for Mean  = ^mlow"
+print "Upper 95% Confidence Bound for Mean  = ^mupp"
+print "Lower 95% Confidence Bound for SD    = ^slow"
+print "Upper 95% Confidence Bound for SD    = ^supp"
+.
+let p0 = minimum filmthic
+let p005 = 0.5  percentile filmthic
+let p025 = 2.5  percentile filmthic
+let p10  = 10   percentile filmthic
+let p25  = 25   percentile filmthic
+let p50  = 50   percentile filmthic
+let p75  = 75   percentile filmthic
+let p90  = 90   percentile filmthic
+let p975 = 97.5 percentile filmthic
+let p995 = 99.5 percentile filmthic
+let p100 = maximum filmthic
+print " 100.0% Point     = ^p100"
+print "  99.5% Point     = ^p995"
+print "  97.5% Point     = ^p975"
+print "  90.0% Point     = ^p90"
+print "  75.0% Point     = ^p75"
+print "  50.0% Point     = ^p50"
+print "  25.0% Point     = ^p25"
+print "  10.0% Point     = ^p10"
+print "   2.5% Point     = ^p025"
+print "   0.5% Point     = ^p005"
+print "   0.0% Point     = ^p0"
+.
+. Finished Step 2.2
+
+.Capability Analysis 	
+.
+.
+. Starting Step 2.3
+let lsl = 460
+let usl = 660
+let target = 560
+capability analysis filmthic
+.
+. Finished Step 2.3
+
+> ****************************************************
+> *            CAPABILITY ANALYSIS                   *
+> *     NUMBER OF OBSERVATIONS       =      168      *
+> *     MEAN                         =    563.03571  *
+> *     STANDARD DEVIATION           =     25.38468  *
+> ****************************************************
+> *  LOWER SPEC LIMIT  (LSL)         =    460.00000  *
+> *  UPPER SPEC LIMIT  (USL)         =    660.00000  *
+> *  TARGET         (TARGET)         =    560.00000  *
+> *  USL COST      (USLCOST)         =   UNDEFINED   *
+> ****************************************************
+> *  CP                              =      1.31313  *
+> *  CP LOWER 95% CI                 =      1.17234  *
+> *  CP UPPER 95% CI                 =      1.45372  *
+> *  CPL                             =      1.35299  *
+> *  CPL LOWER 95% CI                =      1.21845  *
+> *  CPL UPPER 95% CI                =      1.48753  *
+> *  CPU                             =      1.27327  *
+> *  CPU LOWER 95% CI                =      1.14217  *
+> *  CPU UPPER 95% CI                =      1.40436  *
+> *  CPK                             =      1.27327  *
+> *  CPK LOWER 95% CI                =      1.12771  *
+> *  CPK UPPER 95% CI                =      1.41882  *
+> *  CNPK                            =      1.35762  *
+> *  CPM                             =      1.30384  *
+> *  CPM LOWER 95% CI                =      1.16405  *
+> *  CPM UPPER 95% CI                =      1.44344  *
+> *  CC                              =      0.00460  *
+> *  ACTUAL      % DEFECTIVE         =      0.00000  *
+> *  THEORETICAL % DEFECTIVE         =      0.00915  *
+> *  ACTUAL (BELOW) % DEFECTIVE      =      0.00000  *
+> *  THEORETICAL(BELOW)  % DEFECTIVE =      0.00247  *
+> *  ACTUAL (ABOVE) % DEFECTIVE      =      0.00000  *
+> *  THEORETICAL(ABOVE)  % DEFECTIVE =      0.00668  *
+> *  EXPECTED LOSS                   =    UNDEFINED  *
+> ****************************************************
+
+
+.Box Plot by Run 	
+.
+.
+. Starting Step 3.1
+.
+title Box Plot by Run
+x1label Run
+y1label ^filmthic
+character box plot
+line box plot
+fences on
+xlimits 0 20
+major xtic mark number 5
+minor xtic mark number 4
+xtic offset 0 2
+xtic offset units data
+ylimits 480 640
+ytic offset 0 0
+box plot filmthic run
+line solid all
+character blank all
+let xmean = mean filmthic
+drawdata 0 xmean 22 xmean
+xlimits
+major xtic mark number
+minor xtic mark number
+xtic marks offset units abso
+xtic marks offset 0 0
+.
+. Finished Step 3.1
+
+.Box Plot by Furnace Location 	
+.
+.
+. Starting Step 3.2
+.
+title Box Plot by Furnace Location
+x1label ^zone
+y1label ^filmthic
+character box plot
+line box plot
+fences on
+xlimits 1 4
+major xtic mark number 4
+minor xtic mark number 0
+xtic offset 1 1
+ytic offset 0 0
+tic offset units data
+ylimits 480 640
+box plot filmthic zone
+line solid all
+character blank all
+let xmean = mean filmthic
+drawdata 0 xmean 5 xmean
+xlimits
+major xtic mark number
+minor xtic mark number
+xtic marks offset units abso
+xtic marks offset 0 0
+.
+. Finished Step 3.2
+
+.Box Plot by Wafer 	
+.
+.
+. Starting Step 3.3
+.
+title Box Plot by Wafer
+x1label ^wafer
+y1label ^filmthic
+character box plot
+line box plot
+fences on
+xlimits 1 2
+major xtic mark number 2
+minor xtic mark number 0
+xtic offset 1 1
+ytic offset 0 0
+tic offset units data
+ylimits 480 640
+box plot filmthic wafer
+line solid all
+character blank all
+let xmean = mean filmthic
+drawdata 0 xmean 3 xmean
+xlimits
+major xtic mark number
+minor xtic mark number
+xtic marks offset units abso
+xtic marks offset 0 0
+.
+. Finished Step 3.3
+
+.Block Plot 	
+.
+.
+. Starting Step 3.4
+.
+title Block Plot by Furnace Location
+x1label Furnace Location within Run
+y1label ^filmthic
+character size 2 2
+character 1 2
+line blank all
+xlimits 0 20
+major xtic mark number 5
+minor xtic mark number 4
+xtic offset 0 2
+ytic offset 0 0
+tic offset units data
+ylimits 480 640
+block plot filmthic run zone wafer
+line solid all
+retain xplot yplot subset tagplot = 1 to 2
+let tag = sequence 1 2 1 84
+pre-erase off
+plot yplot xplot tag
+line dotted
+loop for k = 1.5 1 20.5
+   drawdata k 480 k 640
+end of loop
+character blank all
+lines solid all
+xlimits
+major xtic mark number
+minor xtic mark number
+xtic marks offset units abso
+xtic marks offset 0 0
+pre-erase on
+.
+. Finished Step 3.4
+
+.Analysis of Variance and Components of Variance 	
+.
+.
+. Starting Step 4.1
+.
+. Compute some statistics based on filmthic variable
+. These are used to compute "total sums of squares" statistics
+.
+let ybar = mean filmthic
+let n = number filmthic
+let nx0 = n
+let df0 = n-1
+let s = sd filmthic
+let ss0 = df0*(s*s)
+let ms0 = ss0/df0
+print nx0 df0 ss0 ms0
+.
+. Do one-way anova on runs
+. This used to compute the "run sums of squares" statistics
+.
+anova filmthic run
+let pred1 = pred
+let dx1 = distinct run
+let nx1 = number dx1
+let df1 = nx1-1
+let res1 = pred1-ybar
+let res1sq = res1*res1
+let ss1 = sum res1sq
+let ms1 = ss1/df1
+.
+.  Do one-way anova based on each unique combination of run and zone
+.  This used to compute the ".. sums of squares" statistics
+.
+let tag = 10*run + zone
+anova filmthic tag
+let pred2 = pred
+let dtag = distinct tag
+let ntag = number dtag
+let df2 = ntag-nx1
+let res2 = pred2-pred1
+let res2sq = res2*res2
+let ss2 = sum res2sq
+let ms2 = ss2/df2
+.
+.  Compute the ".. sums of squares" statistics
+.
+let df3 = df0 - df1 - df2
+let res3 = filmthic - pred2
+let res3sq = res3*res3
+let ss3 = sum res3sq
+let ms3 = ss3/df3
+.
+.  Compute the Components of Variance Factors
+.
+let zoned = distinct zone
+let nzone = size zoned
+let wafed = distinct wafer
+let nwafe = size wafed
+let var3 = ms3
+let var2 = (ms2 - var3)/nwafe
+let var1 = (ms1 - nwafe*var2 - var3)/(nzone*nwafe)
+let vartot = var1 + var2 + var3
+let var1p = var1/vartot
+let var2p = var2/vartot
+let var3p = var3/vartot
+.
+.  Print the ANOVA table
+.
+print "Values for ANOVA table"
+print "Source           N        DF         SS    Mean Square"
+print "Total          ^nx0       ^df0     ^ss0     ^ms0"
+print "Run             ^nx1        ^df1     ^ss1    ^ms1"
+print "Location(Run)             ^df2     ^ss2      ^ms2"
+print "Within          ^ntag        ^df3     ^ss3        ^ms3"
+.
+.  Print the Components of Variance table
+.
+print " "
+print " "
+print "Values for Components of Variance table"
+print "Component          Variance       % of Total"
+print "Run                ^var1        ^var1p"
+print "Location(Run)      ^var2        ^var2p"
+print "Within             ^var3       ^var3p"
+.
+. Finished Step 4.1

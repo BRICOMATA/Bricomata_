@@ -1,0 +1,309 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd624.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:10:46 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.6.2.4. Transformations to Improve Fit and Equalize Variances</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd625.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd623.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd6.html">Case Studies in Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd62.html">Alaska Pipeline</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.6.2.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Transformations to Improve Fit and Equalize Variances</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+        Transformations
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      In regression modeling, we often apply transformations
+      to achieve the following two goals:
+      <ol>
+         <li>to satisfy the homogeneity of variances
+             assumption for the errors.
+         <li>to linearize the fit as much as possible.
+      </ol>
+      Some care and judgment is required in that these
+      two goals can conflict. We generally try to 
+      achieve homogeneous variances first and then
+      address the issue of trying to linearize the fit.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=ytransform>
+      <I>
+        Plot of Common Transformations to Obtain
+        Homogeneous Variances
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      The first step is to try transforming the
+      response variable to find a tranformation that 
+      will equalize the variances.  In practice, 
+      the square root, ln, and
+      reciprocal transformations often work well for
+      this purpose.  We will try these first.
+      <p>
+      <A HREF="pipeline/plots/transf1_f.gif">
+      <IMG SRC="pipeline/plots/transf1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of transformations indicates ln transformation is best">
+      </A>
+      <p>
+      In examining these plots, we are looking for the plot that
+      shows the most constant variability across the horizontal
+      range of the plot.
+      <p>
+      This plot indicates that the ln transformation is a good
+      candidate model for achieving the most homogeneous
+      variances.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=xtransform>
+      <I>
+        Plot of Common Transformations to Linearize
+        the Fit
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      One problem with applying the above transformation is that
+      the plot indicates that a straight-line fit will no longer
+      be an adequate model for the data.  We address this problem
+      by attempting to find a transformation of the
+      predictor variable that will result in the most
+      linear fit.  In practice, the square root, ln, and
+      reciprocal transformations often work well for
+      this purpose.  We will try these first.
+      <p>
+      <A HREF="pipeline/plots/transf2_f.gif">
+      <IMG SRC="pipeline/plots/transf2_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of transformations indicates ln transformation is best">
+      </A>
+      <p>
+      This plot shows that the ln transformation of the
+      predictor variable is a good candidate model.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=boxcox>
+      <I>
+        Box-Cox Linearity Plot
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      The previous step can be approached more formally
+      by the use of the
+      <a href="../../eda/section3/boxcoxli.html">Box-Cox
+      linearity</a> plot.  The <I>&alpha;</I>
+      <!-- <IMG ALT="\alpha" SRC="eqns/alpha.gif"> -->
+      value on the <I>x</I> axis corresponding to
+      the maximum correlation value on the <I>y</I> axis indicates the
+      power transformation that yields the most linear
+      fit.
+      <p>
+      <A HREF="pipeline/plots/transf3_f.gif">
+      <IMG SRC="pipeline/plots/transf3_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="Box-Cox plot shows a value of approximately -0.1 achieves the most linear fit">
+      </A>
+      <p>
+      This plot indicates that a value of -0.1 achieves the
+      most linear fit.
+      <p>
+      In practice, for ease of interpretation, we often prefer to
+      use a common transformation, such as the ln or square root,
+      rather than the value that yields the mathematical maximum.
+      However, the Box-Cox linearity plot still indicates whether
+      our choice is a reasonable one.  That is, we might sacrifice a
+      small amount of linearity in the fit to have a simpler model.
+      <P>
+      In this case, a value of 0.0 would indicate a ln
+      transformation.  Although the optimal value from the plot is
+      -0.1, the plot indicates that any value between -0.2 and
+      0.2 will yield fairly similar results.  For that reason,
+      we choose to stick with the common ln transformation.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=loglogfit>
+      <I>
+        ln-ln Fit
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      Based on the above plots, we choose to fit a ln-ln model.
+<PRE>
+Parameter     Estimate    Stan. Dev    <I>t</I> Value
+B0            0.281384      0.08093       3.48
+B1            0.885175      0.02302      38.46
+  
+Residual standard deviation = 0.168260
+Residual degrees of freedom = 105
+
+Lack-of-fit <i>F</i> statistic              = 1.7032
+Lack-of-fit critical value, <i>F</i><sub>0.05,76,29</sub> = 1.73
+</PRE>
+Note that although the residual standard deviation is significantly
+lower than it was for the original fit, we cannot compare them
+directly since the fits were performed on different scales.
+</TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=fit>
+      <I>
+        Plot of Predicted Values
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      <p>
+      <A HREF="pipeline/plots/fit2_f.gif">
+      <IMG SRC="pipeline/plots/fit2_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of predicted values with raw data">
+      </A>
+      <p>
+      The plot of the predicted values with the transformed data
+      indicates a good fit.  In addition, the variability of the
+      data across the horizontal range of the plot seems
+      relatively constant.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=6plot>
+      <I>
+        6-Plot of Fit
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85% VALIGN=TOP>
+      <A HREF="pipeline/plots/6plot2_f.gif">
+      <IMG SRC="pipeline/plots/6plot2_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="6-plot indicates regression assumptions satisfied">
+      </A><BR>
+      Since we transformed the data, we need to check that
+      all of the regression assumptions are now valid.
+      <p>
+      The 6-plot of the residuals indicates that all of the
+      regression assumptions are now satisfied.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=residuals>
+      <I>
+        Plot of Residuals
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      <A HREF="pipeline/plots/res2_f.gif">
+      <IMG SRC="pipeline/plots/res2_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of residuals versus predictor variable shows homogeneous variances for residuals">
+      </A>
+      <P>
+      In order to see more detail, we generate a full-size
+      plot of the residuals versus the predictor variable, as shown above.
+      This plot suggests that the assumption of homogeneous variances is now met.
+
+   </TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd623.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd625.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd624.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:11:07 GMT -->
+</HTML>

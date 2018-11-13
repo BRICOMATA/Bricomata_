@@ -1,0 +1,258 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc553.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:00:49 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.5.5.3. Propagation of error for many variables</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc56.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc552.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc5.html">Uncertainty analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc55.html">Propagation of error considerations</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.5.5.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Propagation of error for many variables</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Example from fluid flow with a nonlinear function</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Computing uncertainty for measurands based on more complicated functions can be done using basic propagation of errors principles.  For example, suppose we want to compute the uncertainty of the discharge coefficient for fluid flow  
+<A HREF="../section7/mpc7.html#Whetstone">(Whetstone et al.)</A>.  The measurement equation is
+<P>
+$$ C_d = \frac{\dot{m} \sqrt{1-\left( \frac{d}{D} \right) ^4}}{K d^2 F \sqrt{\rho} \sqrt{\Delta P}} $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553_eq1.gif" ALT="">
+</CENTER>
+-->
+where 
+<P>
+$$ \begin{eqnarray*}
+C_d       &=& \mbox{discharge coefficient} \\
+\dot{m} &=& \mbox{mass flow rate} \\ 
+d          &=& \mbox{orifice diameter} \\
+D         &=& \mbox{pipe diameter} \\
+\rho      &=& \mbox{fluid density} \\
+\Delta P &=& \mbox{differential pressure} \\
+K          &=& \mbox{constant} \\
+F          &=& \mbox{thermal expansion factor (constant)} \\
+\end{eqnarray*} $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553_eq2.gif" ALT="measurement equation">
+</CENTER>
+-->
+<P>
+Assuming the variables in the equation are uncorrelated, the squared uncertainty of the discharge coefficient is
+<P>
+$$ s^2_{Cd} = \left[ \frac{\partial C_d}{\partial \dot{m}} \right]^2 s^2_{\dot m} +
+                  \left[ \frac{\partial C_d}{\partial d} \right]^2 s^2_d +
+                  \left[ \frac{\partial C_d}{\partial D} \right]^2 s^2_D +
+                 \left[ \frac{\partial C_d}{\partial \rho} \right]^2 s^2_{\rho} +
+                 \left[ \frac{\partial C_d}{\partial \Delta P} \right]^2 s^2_{\Delta P} $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553_eq3.gif" ALT="(s_Cd)^2 = (dCd/dm)^2*(s_m)^2 
+           +(dCd/dd)^2*(s_d)^2 + (dCd/dD)^2*(s_D)^2 + (dCd/drho)^2*(s_rho)^2
+           + (dCd/dDeltaP)^2*(s_DeltaP)^2">
+</CENTER>
+-->
+<P>
+and the partial derivatives are the following.
+<P>
+$$ \frac{\partial C_d}{\partial \dot{m}} = 
+      \frac{\sqrt{1-\left( \frac{d}{D} \right) ^4}}{K d^2 F \sqrt{\rho} \sqrt{\Delta P}} $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553_eq4.gif" ALT="dCd/dm = (sqrt(1-(d/D)^4))/
+           (K d^2 F sqrt(rho) sqrt(DeltaP))">
+</CENTER>
+-->
+<P>
+$$ \frac{\partial C_d}{\partial d} = 
+      \frac{-2\dot{m} d}{K F D^4 \sqrt{\rho} \sqrt{\Delta P} \sqrt{1-\left( \frac{d}{D} \right) ^4}} - 
+      \frac{2 \dot{m} \sqrt{1-\left( \frac{d}{D} \right) ^4}}{K d^3 F \sqrt{\rho} \sqrt{\Delta P}} $$
+<!-- 
+<CENTER>
+<IMG SRC = "mpc553_eq5.gif" ALT="dCd/dd = 
+           (-2 m d)/(K F D^4 sqrt(rho) sqrt(DeltaP) sqrt(1-(d/D)^4)))
+           -2 m sqrt(1-(d/D)^4)/(K d^3 F sqrt(rho) sqrt(DeltaP))">
+</CENTER>
+-->
+<P>
+$$ \frac{\partial C_d}{\partial D} =   
+      \frac{2 \dot{m} d^2}{K F D^5 \sqrt{\rho} \sqrt{\Delta P} \sqrt{1-\left( \frac{d}{D} \right) ^4}} $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553a_eq6.gif" ALT="dCd/dC =
+           2 m d^2 / (K F D^5 sqrt(rho) sqrt(DeltaP) sqrt(1-(d/D)^4))">
+</CENTER>
+-->
+<P>
+$$ \frac{\partial C_d}{\partial \rho} =
+        \frac{- \dot{m} \sqrt{1-\left( \frac{d}{D} \right) ^4}}{2 K d^2 F \rho^{\frac{3}{2}} \sqrt{\Delta P}} $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553a_eq7.gif" ALT="dCd/drho =
+           -m sqrt(1-(d/D)^4) / (2 K F d^2 rho^(3/2) sqrt(DeltaP))">
+</CENTER>
+-->
+<P>
+$$ \frac{\partial C_d}{\partial \Delta P} =
+      \frac{- \dot{m} \sqrt{1-\left( \frac{d}{D} \right) ^4}}{2 K d^2 F \sqrt{\rho} (\Delta P)^{\frac{3}{2}}} $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553a_eq8.gif" ALT="dCd/dDeltaP =
+           -m sqrt(1-(d/D)^4) / (2 K F d^2 sqrt(rho) DeltaP^(3/2))">
+</CENTER>
+-->
+<P>
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software can simplify propagation of error</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Propagation of error for more complicated functions can be done 
+reliably with software capable of symbolic computations or
+algebraic representations.
+<p>
+Symbolic computation software can also be used to combine the 
+partial derivatives with the appropriate standard deviations, 
+and then the standard deviation for the discharge coefficient 
+can be evaluated and plotted for specific values of the 
+secondary variables, as shown in the
+<A HREF="../section3/mpc3673.html">comparison of check standard
+analysis and propagation of error</A>.
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Simplification for dealing with multiplicative variables</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+Propagation of error for several variables can be simplified
+considerably for the special case where:
+<UL>
+   <LI>the function, \(Y\), is a simple multiplicative 
+       function of secondary variables, and
+   <LI>uncertainty is evaluated as a percentage.
+</UL>
+<p>
+For three variables, \(X, Z, W\), the function 
+<P>
+$$ Y = X \cdot Z \cdot W $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553c.gif" ALT="Y = X*Z*W">
+</CENTER>
+-->
+<P>
+has a standard deviation in absolute units of
+<P>
+$$ \begin{eqnarray*}
+s_Y & = & \sqrt{(ZW)^2 s_x^2 + (XW)^2 s_z^2 + (XZ)^2 s_w^2} \\
+    & = & Y \sqrt{\frac{s_x^2}{X^2} + \frac{s_z^2}{Z^2} + \frac{s_w^2}{W^2}} \\
+\end{eqnarray*} $$
+<!--
+<CENTER>
+<IMG SRC = "mpc553e.gif" ALT=
+"s(Y) = SQRT{(Z*W)**2*s(x)**2 + (X*W)**2*s(z)**2 + (X*Z)**2*s(w)**2} =
+ Y*SQRT{s(x)**2/X**2 + s(z)**2/Z**2 + s(w)**2/W**2}">
+</CENTER>
+-->
+<P>
+In percent units, the standard deviation can be written as
+<P>
+$$ \frac{s_Y}{Y} = \sqrt{\frac{s_x^2}{X^2} + \frac{s_z^2}{Z^2} + \frac{s_w^2}{W^2}}$$
+<!--
+<CENTER>
+<IMG SRC = "mpc553d.gif"
+     ALT="s(Y)/Y = SQRT{s(x)**2/X**2 + s(z)**2/Z**2 + s(w)**2/W**2}">
+</CENTER>
+-->
+<P> 
+if all covariances are negligible.  These formulas are easily extended
+to more than three variables.
+</TD>
+</TR>
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc552.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc56.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc553.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:00:49 GMT -->
+</HTML>

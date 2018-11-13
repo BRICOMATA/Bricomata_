@@ -1,0 +1,684 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:25 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.2.4. Are the model residuals well-behaved?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section3/pri3.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri23.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri2.html">Assumptions</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.2.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Are the model residuals well-behaved?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Residuals are the differences between the observed and predicted
+responses
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Residuals are estimates of experimental error obtained by <i>subtracting
+the observed responses from the predicted responses.</i>
+<p>
+The predicted response is calculated from the chosen model, after all
+the unknown model parameters have been estimated from the experimental
+data.
+<p>
+Examining residuals is a key part of all statistical modeling,
+including DOE's.  Carefully looking at residuals can tell us whether
+our assumptions are reasonable and our choice of model is
+appropriate.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Residuals are elements of variation unexplained by fitted model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<a NAME="Residuals"></a>Residuals can be thought of as elements of
+variation unexplained by the fitted model.  Since this is a form of
+error, the same general assumptions apply to the group of residuals
+that we typically use for errors in general: <i>one expects them to be
+(roughly) normal and (approximately) independently distributed with a
+mean of 0 and some constant variance</i>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Assumptions for residuals
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+These are the assumptions behind ANOVA and classical regression
+analysis.  This means that an analyst should expect a regression model
+to err in predicting a response in a random fashion; the model should
+predict values higher than actual and lower than actual with equal
+probability.  In addition, the level of the error should be independent
+of when the observation occurred in the study, or the size of the
+observation being predicted, or even the factor settings involved in
+making the prediction.  The overall pattern of the residuals should be
+similar to the bell-shaped pattern observed when plotting a histogram
+of normally distributed data.
+<p>
+We emphasize the use of <i>graphical methods</i> to examine residuals.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Departures indicate inadequate model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Departures from these assumptions usually mean that the residuals
+contain <i>structure</i> that is not accounted for in the model.
+Identifying that structure and adding term(s) representing it to the
+original model leads to a better model.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Tests for Residual Normality</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Plots for examining residuals
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Any graph suitable for displaying the distribution of a set of data
+is suitable for judging the normality of the distribution of a group of
+residuals.&nbsp; The three most common types are:
+<ol>
+   <li><a href="../../eda/section3/histogra.html">histograms</a>,
+   <li><a href="../../eda/section3/normprpl.html">normal probability
+       plots</a>, and
+   <li>dot plots.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Histogram
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- <img SRC="gifs/fig25a1.gif" height=226 width=400 -->
+<img SRC="gifs/reshist.gif"
+     ALT="Sample histogram of residuals from a semiconductor process">
+<!--
+<center>
+<b>FIGURE 2.2</b>
+</center>
+ -->
+<p>
+The histogram is a frequency plot obtained by placing the data in
+regularly spaced cells and plotting each cell frequency versus
+the center of the cell. Figure 2.2 illustrates an approximately normal
+distribution of residuals produced by a model for a calibration
+process.  We have superimposed a normal density function on the
+histogram.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Small sample sizes
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Sample sizes of residuals are generally small (&lt;50) because
+experiments have limited treatment combinations, so a histogram is
+not be the best choice for judging the distribution of residuals.  A
+more sensitive graph is the normal probability plot.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Normal probability plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The steps in forming a normal probability plot are:
+<ul>
+   <li>Sort the residuals into ascending order.
+       <p>
+   <li>Calculate the cumulative probability of each residual using
+       the formula:
+       <p>
+       <ul>
+          <i>P</i>(<i>i</i>-th residual) = <i>i</i>/(<i>N</i>+1)
+       </ul>
+       <p>
+       with <i>P</i> denoting the cumulative probability of a point,
+       <i>i</i> is the order of the value in the list and <i>N</i> is the
+       number of entries in the list.
+       <p>
+   <li>Plot the calculated <i>p</i>-values versus the residual value on
+       normal probability paper.
+</ul>
+The normal probability plot should produce an approximately straight
+line if the points come from a normal distribution.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample normal probability plot with overlaid dot plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Figure 2.3 below illustrates the normal probability graph created from
+the same group of residuals used for Figure 2.2.
+<p>
+<!-- <img SRC="gifs/fig25b1.gif" height=227 width=400 -->
+<img SRC="gifs/normprob.gif"
+     ALT="Sample normal probability plot">
+<!-- <center><b>FIGURE 2.3</b></center> -->
+<p>
+<!--
+The values on the left y-axis correspond to the area under a normal
+distribution curve that lies to the left of a particular 'z' value
+shown on the right y-axis.  Note that this left y-axis is not a
+linear scale.
+<P>
+ -->
+This graph includes the addition of a dot plot.  The dot plot is the
+collection of points along the left y-axis.  These are the values
+of the residuals.  The purpose of the dot plot is to provide an
+indication the distribution of the residuals.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+"S" shaped curves indicate bimodal distribution
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Small departures from the straight line in the normal probability plot
+are common, but a clearly "S" shaped curve on this graph suggests a
+bimodal distribution of residuals.  Breaks near the middle of this graph
+are also indications of abnormalities in the residual distribution.
+<p>
+NOTE: Studentized residuals are residuals converted to a scale
+approximately representing the standard deviation of an individual
+residual from the center of the residual distribution.  The technique
+used to convert residuals to this form produces a Student's t
+distribution of values.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Independence of Residuals Over Time</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Run sequence plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+If the order of the observations in a data table represents the order
+of execution of each treatment combination, then a plot of the residuals
+of those observations versus the case order or time order of the
+observations will test for any time dependency.  These are referred
+to as <a href="../../eda/section3/runseqpl.html">run sequence plots</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample run sequence plot that exhibits a time trend
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- <img SRC="gifs/fig26a1.gif" height=242 width=400 -->
+<img SRC="gifs/restime1.gif"
+     ALT="Run sequence plot that exhibits a time trend">
+<!-- <br><b>FIGURE 2.4</b> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample run sequence plot that does not exhibit a time trend
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- <img SRC="gifs/fig26b1.gif" height=244 width=400> -->
+<img SRC="gifs/restime2.gif"
+     ALT="Run sequence plot that exhibits no time trend">
+<!-- <br><b>FIGURE 2.5</b></center> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Interpretation of the sample run sequence plots
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The residuals in Figure 2.4 suggest a time trend, while those in Figure
+2.5 do not.  Figure 2.4 suggests that the system was drifting slowly to
+lower values as the investigation continued.  In extreme cases a drift
+of the equipment will produce models with very poor ability to account
+for the variability in the data (low R<sup>2</sup>).
+<p>
+If the investigation includes centerpoints, then plotting them in time
+order may produce a more clear indication of a time trend if one exists.
+Plotting the raw responses in time sequence can also sometimes detect
+trend changes in a process that residual plots might not detect.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Plot of Residuals Versus Corresponding Predicted Values</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Check for increasing residuals as size of fitted value increases
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Plotting residuals versus the value of a fitted response should produce
+a distribution of points scattered randomly about 0, regardless of the
+size of the fitted value. Quite commonly, however, residual values may
+increase as the size of the fitted value increases. When this happens,
+the residual cloud becomes "funnel shaped" with the larger end toward
+larger fitted values; that is, the residuals have larger and larger
+scatter as the value of the response increases.  Plotting the absolute
+values of the residuals instead of the signed values will produce a
+"wedge-shaped" distribution; a smoothing function is added to each
+graph which helps to show the trend.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample residuals versus fitted values plot showing increasing
+residuals
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<center>
+<!-- <img SRC="gifs/fig27a1.gif" height=241 width=400 ALT= -->
+<img SRC="gifs/respred1.gif"
+     "Residuals versus fitted values plot showing increasing residuals">
+<!-- <br><b>FIGURE 2.6</b> -->
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample residuals versus fitted values plot that does not show increasing
+residuals
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<center>
+<!-- <img SRC="gifs/fig27b1.gif" height=237 width=400 ALT= -->
+<img SRC="gifs/respred2.gif" alt=
+"Residuals versus fitted values plot that does not show increasing
+ residuals">
+<!-- <br><b>FIGURE 2.7</b> -->
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Interpretation of the residuals versus fitted values plots
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+A residual distribution such as that in Figure 2.6 showing a trend to
+higher absolute residuals as the value of the response increases
+suggests that one should transform the response, perhaps by modeling
+its logarithm or square root, etc., (contractive transformations).
+Transforming a response in this fashion often simplifies its
+relationship with a predictor variable and leads to simpler models.
+Later sections discuss transformation in more detail.  Figure 2.7 plots
+the residuals after a transformation on the response variable was
+used to reduce the scatter.  Notice the difference in scales on the
+vertical axes.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Independence of Residuals from Factor Settings</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample residuals versus factor setting plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<center>
+<!-- <img SRC="gifs/fig28a1.gif" height=246 width=400 alt= -->
+<img SRC="gifs/resx1.gif"
+     ALT="Sample residuals versus factor setting plot">
+<!-- <br><b>FIGURE 2.8</b> -->
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample residuals versus factor setting plot after adding a
+quadratic term
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<center>
+<!-- <img SRC="gifs/fig28b1.gif" height=246 width=400 alt= -->
+<img SRC="gifs/resx2.gif"
+     ALT="Sample residuals versus factor setting plot after adding
+ quadratic term">
+<!-- <br><b>FIGURE 2.9</b> -->
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Interpreation of residuals versus factor setting plots
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Figure 2.8 shows that the size of the residuals changed as a function
+of a predictor's settings.  A graph like this suggests that the model
+needs a higher-order term in that predictor or that one should
+transform the predictor using a logarithm or square root, for example.
+Figure 2.9 shows the residuals for the same response after adding a
+quadratic term.  Notice the single point widely separated from the other
+residuals in Figure 2.9.  This point is an "outlier."  That is, its
+position is well within the range of values used for this predictor in
+the investigation, but its result was somewhat lower than the model
+predicted.  A signal that curvature is present is a trace resembling a
+"frown" or a "smile" in these graphs.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample residuals versus factor setting plot lacking one or
+more higher-order terms
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<center>
+<!-- <img SRC="gifs/fig28c1.gif" height=252 width=400 alt= -->
+<img SRC="gifs/resx3.gif"
+     ALT="Sample residuals versus factor setting plot lacking one or
+ more higher-order terms">
+<!-- <br><b>FIGURE 2.10</b> -->
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Interpretation of plot
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The example given in Figures 2.8 and 2.9 obviously involves five levels
+of the predictor. The experiment utilized a response surface design.
+For the simple factorial design that includes center points, if the
+response model being considered lacked one or more higher-order terms,
+the plot of residuals versus factor settings might appear as in
+Figure 2.10.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Graph indicates prescence of curvature
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+While the graph gives a definite signal that curvature is present,
+identifying the source of that curvature is not possible due to the
+structure of the design.  Graphs generated using the other predictors
+in that situation would have very similar appearances.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Additional discussion of residual analysis
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Note</b>: Residuals are an important subject discussed repeatedly
+in this Handbook. For example, graphical residual plots 
+are discussed in <a href="../../eda/section3/eda3333.html">Chapter 1</a>
+and the general examination of residuals as a part of model building is
+discussed in <a href="../../pmd/section4/pmd44.html">Chapter 4</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri23.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section3/pri3.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:34 GMT -->
+</HTML>

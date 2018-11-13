@@ -1,0 +1,792 @@
+Dataplot commands and output:
+
+.
+. Starting Light Intensity Case Study
+.
+. Setting Dataplot Defaults
+
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units data
+xtic offset 0.5 0.5
+legend case asis
+label case asis
+title case asis
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read inn.dat y x1 x2 x3 x4 x5 x6 x7
+variable label y Sonoluminescent Light Intensity
+variable label x1 sp()cr()Molarity
+variable label x2 Solutecr()Type
+variable label x3 ph
+variable label x4 Gascr()Type
+variable label x5 Watercr()Depth
+variable label x6 Horncr()Depth
+variable label x7 Flaskcr()Clamp
+.  Following lines for confounding structure
+let k = 7
+let string project = Sonoluminescent Light Intensity
+.
+let kp1 = k+1
+let kp2 = k+2
+let n = number y
+let index = sequence 1 1 n
+.
+call confound.dp
+. Finished Step 1.1
+
+
+.Ordered Data Plot 	
+.
+.
+. Starting Step 2.1
+tic offset 5 5
+tic offset units screen
+box shadow hw 0 0
+title Sonoluminescent Light Intensity cr()Ordered Data Plot
+device 1 off
+ytic offset 0 0
+plot y
+probe fy1min; let mintic = probeval
+probe fy1max; let maxtic = probeval
+let rangetic = maxtic-mintic
+ytic offset 5 5
+device 1 on
+.
+loop for j = 1 1 k
+   let z^j = x^j
+end loop
+let y2 = sortc y z1 z2 z3 z4 z5 z6 z7
+char x
+lines blank
+y1label Light Intensity
+x1label Settings
+x1tics off
+x1tic labels off
+xmin -1
+let yoffset = 2*k + 4
+y1tic offset yoffset 5
+plot y2 index
+.
+probe fy1min; let ybottom = probeval
+probe fy1max; let ytop = probeval
+let ybase = 20+yoffset-2
+let yinc = 2
+just center
+loop for j = 1 1 k
+   let ypos = ybase-j*yinc
+   loop for l = 1 1 n
+      let xpos = xplot(l)
+      let zjl = z^j(l)
+      let string ch = -
+      if zjl = 1; let string ch = +; end if
+      moveds xpos ypos
+      text ^ch
+   end loop
+   move 20 ypos
+   text X^j:
+end loop
+.
+call dexkn.dp
+.
+x1tics on
+x1tic labels on
+limits
+y1tic offset 5 5
+title
+y1label
+x1label
+just left
+xtic offset units data
+xtic offset 0.5 0.5
+ytic offset 0 0
+. Finished Step 2.1
+
+
+.Dex Scatter Plot 	
+.
+.
+. Starting Step 2.2
+title Sonoluminescent Light Intensity cr()Scatter Plot
+xlimits 1 7
+major x1tic mark number 7
+minor x1tic mark number 0
+xtic offset 0.6 0.6
+x1tic mark label format alpha
+x1tic mark label content ^x1 ^x2 ^x3 ^x4 ^x5 ^x6 ^x7
+y1label ^y
+line solid all
+line blank
+char blank all
+char x
+dex scatter plot y x1 x2 x3 x4 x5 x6 x7
+limits freeze
+pre-erase off
+char bl all
+lines solid all
+let k2 = 2*k
+plot yplot xplot xplot subset tagplot 1 to k2
+pre-erase on
+limits
+.
+let dxplot = distinct xplot
+let dxplot = sort dxplot
+let ndxplot = number dxplot
+let b = 18
+just cece
+loop for j = 1 1 ndxplot
+   let a = dxplot(j)
+   moveds a b
+   let evenodd = mod(j,2)
+   if evenodd = 1
+      text -
+   end if
+   if evenodd = 0
+      text +
+   end if
+end loop
+.
+box 15 85 21 90
+hw 2 1
+just left
+move 16 87.75
+text k = ^k
+move 16 85.75
+text n = ^n
+.
+line blank
+title
+y1label
+xlimits
+x1tic mark label format
+major x1tic mark number
+minor x1tic mark number
+xtic offset 0.5 0.5
+. Finished Step 2.2
+
+
+
+.Dex Mean Plot 	
+.
+.
+. Starting Step 2.3
+title Sonoluminescent Light Intensity cr()Main Effects Plot
+xlimits 1 7
+major xtic mark number 7
+minor xtic mark number 0
+xtic offset 0.6 0.6
+xtic mark label format alpha
+xtic mark label content ^x1 ^x2 ^x3 ^x4 ^x5 ^x6 ^x7
+y1label Average Response of ^y
+ytic offset 5 5
+char circle
+char fill on
+line solid
+dex mean plot y x1 x2 x3 x4 x5 x6 x7
+.
+let dxplot = distinct xplot
+let dxplot = sort dxplot
+let ndxplot = number dxplot
+let b = 18
+just cece
+loop for j = 1 1 ndxplot
+   let a = dxplot(j)
+   moveds a b
+   let evenodd = mod(j,2)
+   if evenodd = 1
+      text -
+   end if
+   if evenodd = 0
+      text +
+   end if
+end loop
+.
+call dexkn.dp
+.
+char x
+char fill off
+line blank
+title
+y1label
+xlimits
+xtic mark label format real
+major xtic mark number default
+minor xtic mark number default
+xtic offset 0.5 0.5
+ytic offset 0 0
+. Finished Step 2.3
+
+
+.Dex Interaction Effects Plot 	
+.
+.
+. Starting Step 3.1
+variable label y  Y
+variable label x1 X1
+variable label x2 X2
+variable label x3 X3
+variable label x4 X4
+variable label x5 X5
+variable label x6 X6
+variable label x7 X7
+.
+device 1 off
+dex mean plot y x1 to x^k
+device 1 on
+.
+let numfac = k
+.
+let ybar = mean y
+let ybar2 = abs(ybar)
+let lybar2 = log10(ybar2)
+if lybar2 >= 0
+   let lybar3 = int(lybar2)
+end if
+if lybar2 < 0
+   let lybar3 = -int(abs(lybar2))-1
+end if
+let dp = 3-lybar3
+if dp < 0
+   let dp = 0
+end if
+.
+let string stat = mean
+.
+ylimits freeze
+.
+let string s0 = Average Y
+y1label
+y1label displacement 30
+loop for j = 1 1 k
+   let string s^j = X^j
+end loop
+major ytic mark number 5
+.
+erase
+call dexstat2.dp
+multiplot off
+move 50 95
+just center
+hw 2 1
+text Sonoluminescent Light Intensity cr()Interaction Effects Matrix
+.
+ylimits
+title
+y1label displacement
+x1label
+major ytic mark number
+.
+variable label y Sonoluminescent Light Intensity
+variable label x1 sp()cr()Molarity
+variable label x2 Solutecr()Type
+variable label x3 ph
+variable label x4 Gascr()Type
+variable label x5 Watercr()Depth
+variable label x6 Horncr()Depth
+variable label x7 Flaskcr()Clamp
+. Finished Step 3.1
+
+
+.Block Plots 	
+.
+.
+. Starting Step 3.2
+char blank all
+char - +
+lines solid all
+lines bl bl
+x1tics off
+x1tic labels off
+.
+char hw 5 4 5 4
+legend 1 hw 5 4
+tic label size 8
+label size 9
+.
+y1label Average Response
+y1label displacement 20
+.
+multiplot 3 3
+multiplot corner coordinates 10 8 95 90
+.
+legend 1 coordinates 18 85
+legend 1 x1
+x1label Factor Combinations: X2 X3
+mean block plot y x2 x3 x1
+legend 1 x2
+x1label Factor Combinations: X1 X3
+mean block plot y x1 x3 x2
+legend 1 x3
+x1label Factor Combinations: X1 X2
+mean block plot y x1 x2 x3
+legend 1 x4
+x1label Factor Combinations: X1 X2
+mean block plot y x1 x2 x4
+legend 1 x5
+x1label Factor Combinations: X1 X2
+mean block plot y x1 x2 x5
+legend 1 x6
+x1label Factor Combinations: X1 X2
+mean block plot y x1 x2 x6
+legend 1 x7
+x1label Factor Combinations: X1 X2
+mean block plot y x1 x2 x7
+multiplot corner coordinates 15 20 85 90
+multiplot off
+.
+move 50 95
+just center
+hw 2 1
+text Sonoluminescent Light Intensity
+move 50 92
+just center
+hw 2 1
+text Block Plots
+.
+legend 1
+x1tics on
+x1tic labels on
+char hw 2 1 all
+legend 1 hw 2 1
+label size 2
+tic label size 2
+title
+y1label
+y1label displacement default
+x1label
+. Finished Step 3.2
+
+
+.Youden Plot 	
+.
+.
+. Starting Step 5.1
+tic offset units screen
+tic offset 5 5
+yates y
+skip 0
+read dpst1f.dat tag coef
+.
+device 1 off
+dex mean plot y x1 to x^k
+device 1 on
+.
+let numtag = number tag
+loop for j = 1 1 numtag
+   let posint = tag(j)
+   call digit.dp
+   let prod = ^sdigit
+   let ymeanp(j) = mean y subset prod +1
+   let ymeanm(j) = mean y subset prod -1
+end loop
+let effect = ymeanp - ymeanm
+char blank all
+char automatic tag
+lines blank all
+probe fy1min; let ybottom = probeval
+probe fy1max; let ytop = probeval
+. let a = 50
+. let b = 80
+let ydel = ytop-ybottom
+let a = ybottom + (1/14)*ydel; . 1/14 is correct for offset 5 5
+let b = ytop - (1/14)*ydel
+ylimits a b
+xlimits a b
+title displacement 6
+title ^project cr() Youden Plot
+y1label Average Response for  +  Setting
+x1label Average Response for  -  Setting
+let numeffec = number tag
+let index2 = sequence 1 1 numeffec
+plot ymeanp ymeanm index2
+lines solid
+draw data ybar a ybar b
+draw data a ybar b ybar
+.
+let numyplot = number yplot
+just lece
+loop for j = 1 1 numyplot
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let tagj = tag(j)
+   let string ch = ^con^tagj:
+.  text ^tagj
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagj
+   text ^ch
+end loop
+move 86 90
+text Factor: Confound
+.
+limits
+title
+y1label
+x1label
+.
+loop for j = 1 1 numeffec
+   let xpos = ymeanm(j)
+   let ypos = ymeanp(j)
+   let tagj = tag(j)
+   let string ch = ^con^tagj
+   movedata xpos ypos
+   just cece
+   text ^ch
+end loop
+.
+call dexkn.dp
+.
+line solid all
+line blank
+character blank all
+character x
+ title displacement
+limits
+title
+y1label
+x1label
+tic offset units data
+xtic offset 0.5 0.5
+ytic offset 0 0
+. Finished Step 5.1
+
+
+.Plot of Absolute Value of Effects 	
+.
+.
+. Starting Step 6.1
+.
+call yatesgen.dp
+.
+title displacement 7
+tic offset units screen
+tic offset 5 5
+title Sonoluminescent Light Intensity cr()|Effects| Plot
+y1label |Effects|
+x1label Factor
+ygrid
+xtics off
+xtic label off
+y1tic offset 10
+char circle
+char hw 1 1
+char fill on
+lines blank
+spike on
+let s = sd y
+let coef2 = abs(coef)
+plot coef2 index2
+.
+hw 2 1
+if n > 20; hw 1.5 .75; end if
+just cece
+loop for j = 1 1 numeffec
+   let x0 = xplot(j)
+   let evenodd = mod(j,2)
+   let y0 = 23
+   if evenodd = 0; let y0 = 27; end if
+   if n < 10; let y0 = 27; end if
+   moveds x0 y0
+   let tagj = tag(j)
+   let string ch = ^con^tagj
+.  text ^tagj
+   text ^ch
+end loop
+.
+let x0 = 57
+let y0 = 86-2*numeffec-2
+box fill on; box fill pattern solid; box fill color g80
+box x0 y0 85 90
+lines dotted
+draw x0 87 85 87
+.
+hw 2 1
+just left
+let y0 = 88
+let x0 = 60
+move x0 y0
+text Factor
+let x0 = 70
+move x0 y0
+text Effect
+let y0 = 86
+loop for j = 1 1 numeffec
+   let x0 = 60
+   let y0 = y0-2
+   move x0 y0
+   let tagj = tag(j)
+   let string ch = ^cop^tagj
+   text ^ch
+   let x0 = 74
+   move x0 y0
+   let coefj = coef(j)
+   text : ^coefj
+end loop
+.
+let x0 = 35
+let y0 = 87
+box 15 90 x0 y0
+let y0 = 88
+let x0 = 17
+move x0 y0
+let ybar = average y
+text Average = ^ybar
+.
+let numyplot = number yplot
+just lece
+loop for j = 1 1 numyplot
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let tagj = tag(j)
+   let string ch = ^con^tagj:
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagj
+   text ^ch
+end loop
+move 86 90
+text Factor: Confound
+.
+grid off
+y1tic offset 5
+x1tics on
+x1tic label on
+char blank all
+char hw 2 1
+lines solid all
+spike off
+just left
+title
+y1label
+x1label
+tic offset 5 5
+. Finished Step 6.1
+
+
+.Half-Normal Probability Plot of Effects 	
+.
+.
+. Starting Step 7.1
+tic offset units screen
+tic offset 5 5
+label size 4
+tic label size 4
+yates y
+skip 0
+read dpst1f.dat tag coef
+.
+let coef2 = abs(coef)
+char x
+lines bl
+title displacement 6
+title Sonoluminescent Light Intensity cr() Half-normal Probability Plot of Effects
+y1label Ordered |Effects|
+x1label Half-normal Distribution Order Statistic Medians
+halfnormal probability plot coef2
+.
+let numyplot = number yplot
+just lece
+loop for j = 1 1 numyplot
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let jrev = numyplot-j+1
+   let tagjrev = tag(jrev)
+   let string ch = ^con^tagjrev:
+.  text ^tagjrev
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagjrev
+   text ^ch
+end loop
+move 86 90
+text Factor: Conf.
+.
+call dexkn.dp
+.
+just left
+title
+title displacement 2
+y1label
+x1label
+tic offset units data
+xtic offet 0.5 0.5
+ytic offset 0 0
+. Finished Step 7.1
+
+
+.Cumulative Residuals SD Plot 	
+.
+.
+. Starting Step 8.1
+.
+call yatesgen.dp
+.
+y1label Residual SD
+x1label Cumulative Model
+ygrid
+x1tics off
+x1tic label off
+y1tic offset 10
+char circle
+char hw 1 1
+char fill on
+lines blank
+spike on
+let numeffec = number tag
+let numeffp1 = numeffec+1
+let index2 = sequence 1 1 numeffec
+let s = sd y
+let cumrsd(numeffp1) = s
+let index2(numeffp1) = 0
+plot cumrsd index2
+.
+hw 2 1
+if n > 20; hw 1.5 .75; end if
+just cece
+loop for j = 1 1 numeffec
+   let x0 = xplot(j)
+   let evenodd = mod(j,2)
+   let y0 = 23
+   if evenodd = 0; let y0 = 27; end if
+   if n < 10; let y0 = 27; end if
+   moveds x0 y0
+   let tagj = tag(j)
+   let string ch = ^con^tagj
+.  text ^tagj
+   text ^ch
+end loop
+moveds 0 27
+if n <= 20; text Average; end if
+if n > 20; text Ave.; end if
+.
+let numyplot = number yplot
+let numyplm1 = numyplot-1
+just lece
+loop for j = 1 1 numyplm1
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let tagj = tag(j)
+   let string ch = ^con^tagj:
+.  text ^tagj
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagj
+   text ^ch
+end loop
+let j = numyplot
+let yplotj = yplot(j)
+movesd 86 yplotj
+text Average
+move 86 90
+text Factor: Confound
+.
+move 50 97
+just center
+hw 3 1.5
+text Sonoluminescent Light Intensity
+move 50 93
+text Cumulative Residual SD Plot
+.
+box 15 85 21 90
+hw 2 1; just left; move 16 87.75; text k = ^k
+move 16 85.75; text n = ^n
+.
+grid off
+y1tic offset 5
+x1tics on
+x1tic label on
+char blank all
+char hw 2 1
+lines solid all
+spike off
+just left
+title
+y1label
+x1label
+tic offset 5 5
+hw 2 1
+. Finished Step 8.1
+
+
+.Dex Contour Plot of Factors 1 and 2 	
+.
+.
+. Starting Step 9.1
+line solid
+character blank
+title
+device 1 off
+ytic offset 0 0
+plot y
+probe fy1min; let mintic = probeval
+probe fy1max; let maxtic = probeval
+let rangetic = maxtic-mintic
+let sigdig = msd(rangetic)
+let inc = rangetic/sigdig
+let numinc = rangetic/inc
+let inc2 = inc
+if numinc = 1; let inc2 = inc/10; end if
+if numinc = 2; let inc2 = inc/5; end if
+if numinc = 3; let inc2 = inc/3; end if
+if numinc = 4; let inc2 = inc/2; end if
+if numinc = 5; let inc2 = inc/2; end if
+if numinc = 6; let inc2 = inc/2; end if
+ytic offset 5 5
+device 1 on
+.
+call yatesgen.dp
+.
+let tagj = tag(1)
+let posint = ^con^tagj
+call digit.dp
+let numdig1 = numdig
+let d1 = digit(1)
+if numdig1 >= 2; let d2 = digit(2); end if
+.
+let tagj = tag(2)
+let posint = ^con^tagj
+call digit.dp
+let numdig2 = numdig
+let d3 = digit(1)
+if numdig2 >= 2; let d4 = digit(2); end if
+.
+print numdig1 d1 d2 numdig2 d3 d4
+if numdig1 >= 2
+   let u1 = x^d1; let hit1 = d1
+   let u2 = x^d2; let hit2 = d2
+end if
+.
+if numdig1 = 1
+   let u1 = x^d1; let hit1 = d1
+   let u2 = x^d3; let hit2 = d3
+   if numdig2 >= 2
+      if d3 = d1; let u2 = x^d4; let hit2 = d4; end if
+      if d4 = d1; let u2 = x^d3; let hit2 = d3; end if
+   end if
+end if
+.
+let start = mintic - 3*inc2
+let stop = maxtic + 3*inc2
+let ycont = sequence start inc2 stop
+y1label X^hit2
+x1label X^hit1
+erase
+call dexcont.dp
+case asis
+move 50 97
+just center
+hw 3 1.5
+text Sonoluminescent Light Intensity
+move 50 93
+text Contour Plot of the 2 Dominant Factors: X^hit1 and X^hit2
+. Finished Step 9.1
+

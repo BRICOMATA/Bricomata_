@@ -1,0 +1,339 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section3/pmd33.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.3.3. What are some general design principles for process modeling?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd34.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd32.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd3.html">Data Collection for Process Modeling</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.3.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>What are some general design principles for process modeling?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Experimental Design Principles Applied to Process Modeling
+</I>
+</TD>
+<TD WIDTH=85%>
+There are six principles of experimental design as applied to
+process modeling:
+<OL>
+   <LI>Capacity for Primary Model
+   <LI>Capacity for Alternative Model
+   <LI>Minimum Variance of Coefficient Estimators
+   <LI>Sample where the Variation Is 
+   <LI>Replication
+   <LI>Randomization
+</OL>
+We discuss each in detail below.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Capacity for Primary Model
+</I>
+</TD>
+<TD WIDTH=85%>
+For your best-guess model, make sure that the design has the
+capacity for estimating the coefficients of that model.  For a
+simple example of this, if you are fitting a quadratic model, then make
+sure you have at least three distinct horixontal axis points.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Capacity for Alternative Model
+</I>
+</TD>
+<TD WIDTH=85%>
+If your best-guess model happens to be inadequate, make sure that the
+design has the capacity to estimate the coefficients of your
+best-guess back-up alternative model (which means implicitly that
+you should have already identified such a model).
+For a simple example, if you suspect (but are not positive) that a
+linear model is appropriate, then it is best to employ a globally
+robust design (say, four points at each extreme and three points in
+the middle, for a ten-point design) as opposed to the locally
+optimal design (such as five points at each extreme).  The locally
+optimal design will provide a best fit to the line, but have no
+capacity to fit a quadratic.  The globally robust design will provide
+a good (though not optimal) fit to the line and additionally provide
+a good (though not optimal) fit to the quadratic.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Minimum Variance of Coefficient Estimators
+</I>
+</TD>
+<TD WIDTH=85%>
+For a given model, make sure the design has the property of
+minimizing the variation of the least squares estimated
+coefficients.  This is a general principle that is always in
+effect but which in practice is hard to implement for many
+models beyond the simpler 1-factor 
+
+$$ y = f(x;\vec{\beta} + \varepsilon) $$
+
+<!-- <p><center>
+<IMG ALT="y = f(x;\vec{\beta} + \epsilon)" 
+     ALIGN=absmiddle SRC="pmd32_eq3.gif">
+</center><p> -->
+
+models.  For more complicated 1-factor models, and for most
+multi-factor
+
+$$ y = f(\vec{x};\vec{\beta} + \varepsilon) $$
+
+<!-- <p><center> 
+<IMG ALT="y = f(\vec{x};\vec{\beta} + \epsilon)"
+     ALIGN=absmiddle SRC="pmd33_eq.gif"> 
+</center><p> -->
+
+models, the expressions for
+the variance of the least squares estimators, although available,
+are complicated and assume more than the analyst typically knows.
+The net result is that this principle, though important, is harder
+to apply beyond the simple cases.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Where the Variation Is (Non Constant Variance Case)
+</I>
+</TD>
+<TD WIDTH=85%>
+Regardless of the simplicity or complexity of the model, there are
+situations in which certain regions of the curve are noisier than
+others.  A simple case is when there is a linear relationship
+between \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+and \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+but the recording device is proportional rather than absolute 
+and so larger values of \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+are intrinsically noisier than smaller values of \(y\).
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">. -->
+In such cases, sampling where the variation is
+means to have more replicated points in those regions that are
+noisier.  The practical answer to how many such replicated
+points there should be is
+
+$$ n_{i} = \frac{1} {\sigma_{i}^{2}} $$
+
+<!-- <P><center><IMG ALT="n_{i} = \frac{1} {\sigma_{i}^{2}}
+" SRC="eqns/nisigma.gif"></center><P> -->
+
+with \(\sigma_{i}\)
+<!-- <IMG ALT="\sigma_{i}" ALIGN=middle SRC="eqns/sigmai.gif">  -->
+denoting the theoretical
+standard deviation for that given region of the curve.  
+Usually \(\sigma_{i}\)
+<!-- <IMG ALT="\sigma_{i}" ALIGN=middle SRC="eqns/sigmai.gif"> -->
+is estimated by a-priori guesses for
+what the local standard deviations are.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Where the Variation Is (Steep Curve Case)
+</I>
+</TD>
+<TD WIDTH=85%>
+A common occurence for non-linear models is for some regions of the
+curve to be steeper than others.  For example, in fitting an
+exponential model (small \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif">  -->
+corresponding to large \(y\),
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">, -->
+and large \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">  -->
+corresponding to small \(x\))
+<!-- <IMG ALT="x" SRC="eqns/x.gif">)  -->
+it is often the case that the \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">  -->
+data in the steep region are intrinsically noisier than the \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+data in the relatively flat regions.  The reason for
+this is that commonly the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values themselves have a bit of noise and this \(x\)-noise
+<!-- <IMG ALT="x" SRC="eqns/x.gif">-noise -->
+gets translated into larger \(y\)-noise
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">-noise  -->
+in the steep sections than in the
+shallow sections.  In such cases, when we know the shape of the
+response curve well enough to identify steep-versus-shallow
+regions, it is often a good idea to sample more heavily in the steep
+regions than in the shallow regions.  A practical rule-of-thumb for where
+to position the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif">  -->
+values in such situations is to
+<OL>
+   <LI>sketch out your best guess for what the resulting curve
+       will be;
+   <LI>partition the vertical (that is the \(y\))
+       <!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif">) -->
+       axis into \(n\)
+       <!-- <IMG ALT="n" SRC="eqns/n.gif"> -->
+       equi-spaced points (with \(n\)
+       <!-- <IMG ALT="n" SRC="eqns/n.gif"> -->
+       denoting the total number of data points that you can afford); 
+   <LI>draw horizontal lines from each vertical axis point to where
+       it hits the sketched-in curve.
+   <LI>drop a vertical projection line from the curve intersection
+       point to the horizontal axis.
+</OL>
+These will be the recommended \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values to use in the design.
+<P>
+The above rough procedure for an exponentially decreasing curve
+would thus yield a logarithmic preponderance of points in the steep
+region of the curve and relatively few points in the flatter part
+of the curve.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="rep.r1">Replication</A></I>
+</TD>
+<TD WIDTH=85%>
+If affordable, replication should be part of every design.
+Replication allows us to compute a model-independent estimate of the
+process standard deviation.  Such an estimate may then be used as a
+criterion in an objective 
+<A HREF="../section4/pmd446.html">lack-of-fit test</A> 
+to assess whether a given model is adequate.
+Such an objective lack-of-fit F-test can be employed only if the design
+has built-in replication.  Some replication is essential; replication 
+at every point is ideal.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+<A NAME="rnd.r1">Randomization</A>
+</I>
+</TD>
+<TD WIDTH=85%>
+Just because the \(x\)'s
+<!-- <IMG ALT="x" SRC="eqns/x.gif">'s -->
+have some natural ordering does not mean that the data 
+should be collected in the same order as the \(x\)'s.
+<!-- <IMG ALT="x" SRC="eqns/x.gif">'s. -->
+Some aspect of randomization should
+enter into every experiment, and experiments for process modeling
+are no exception.  Thus if your are sampling ten points on a curve,
+the ten \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+values should not be collected by
+sequentially stepping through the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values from the smallest to the largest.  If you do so, and if 
+some extraneous drifting or wear occurs in the machine, the operator, 
+the environment, the measuring device, etc., then that drift will
+unwittingly contaminate the \(y\)
+<!-- <IMG ALT="y" ALIGN=middle SRC="eqns/y.gif"> -->
+values and in turn
+contaminate the final fit.  To minimize the effect of such potential
+drift, it is best to randomize (use random number tables) the
+sequence of the \(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+values.  This will not make the
+drift go away, but it will spread the drift effect
+evenly over the entire curve, realistically inflating the variation
+of the fitted values, and providing some mechanism after the fact
+(at the residual analysis model validation stage) for uncovering or
+discovering such a drift.  If you do not randomize the run sequence,
+you give up your ability to detect such a drift if it occurs.
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd32.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd34.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section3/pmd33.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:13 GMT -->
+</HTML>

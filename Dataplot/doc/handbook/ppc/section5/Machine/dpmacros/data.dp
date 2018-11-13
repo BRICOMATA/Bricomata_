@@ -1,0 +1,33 @@
+.
+. Starting Furnace Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units absolute
+tic mark offset 5 5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read machine.dat machine day time sample diameter
+variable label machine Machine
+variable label day Day
+variable label time Time of Day
+variable label sample Sample Number
+variable label diameter Diameter (inches)
+.
+.  Following data is the throughput data
+let ytemp = data 576 604 583 657 604 586 510 546 571
+let xtemp = sequence 1 3 1 3
+. Finished Step 1.1: Page Back for Output

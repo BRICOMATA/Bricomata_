@@ -1,0 +1,288 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr46.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:16 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.6. How do you estimate reliability using the Bayesian gamma prior model?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr47.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr453.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How do you estimate reliability using the Bayesian gamma prior model?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td WIDTH="15%"></td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+The <a href="../section1/apr1a.html">Bayesian paradigm</a> was introduced in 
+Section 1 and Section 2 described the assumptions underlying the 
+<a href="../section2/apr25.html">gamma/exponential system model</a> 
+(including several methods to transform prior data and engineering
+judgment into gamma prior parameters "\(a\)" and "\(b\)").
+<!-- "<i>a</i>" and "<i>b</i>"). -->
+Finally, we saw in Section 3 how to use this Bayesian system model to calculate
+the <a href="../section3/apr315.html">required test time</a> needed to confirm
+a system MTBF at a given confidence level.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Review of Bayesian procedure for the gamma
+exponential system model</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The goal of Bayesian reliability procedures is to obtain as accurate a 
+posterior distribution as possible, and then use this distribution to 
+calculate failure rate (or MTBF) estimates with confidence intervals (called
+<b>credibility intervals</b> by Bayesians). The figure below summarizes the 
+steps in this process.
+<p>
+<img SRC="gifs/bayesum.gif" ALT="Diagram illustrating the steps in Bayesian analysis" height=395 width=550>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>How to estimate the MTBF with bounds, based
+on the posterior distribution</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Once the test has been run, and \(r\)
+<!-- <i>r</i> -->
+failures observed, the posterior gamma parameters are:
+
+$$ a' = a + r, \,\,\,\,\, b' = b + T \, , $$
+
+<!--
+<blockquote>
+<i>a'</i> = <i>a</i> + <i>r,  b</i>' = <i>b</i> + T
+</blockquote>
+-->
+
+and a (median) estimate for the MTBF is calculated by
+
+$$ \frac{1}{G^{-1}(0.5, \, a', \, 1/b')} \, , $$
+<!--
+<blockquote>
+1 / <i>G</i><sup> -1</sup>(0.5, <i>a</i>', (1/<i>b</i>'))
+</blockquote>
+-->
+
+where \(G(q, \, \gamma, \, \beta)\)
+<!-- <i>G</i>(<i>q</i>, <i>&gamma;</i>, <i>&beta;</i>)  -->
+represents the gamma distribution with shape parameter \(\gamma\),
+<!-- <i>&gamma;</i>, --> 
+and scale parameter \(\beta\).
+<!-- <i>&beta;</i>. -->
+Some people prefer to use the reciprocal of the mean of the posterior distribution
+as their estimate for the MTBF. The mean is the <b>minimum mean square error</b> 
+(MSE) estimator of \(\lambda\),
+<!-- <i>&lambda;</i>, -->
+but using the reciprocal of the mean to 
+estimate the MTBF is always more conservative than the "even money" 50 % estimator.
+<p>
+A lower 80 % bound for the MTBF is obtained from
+
+$$ \frac{1}{G^{-1}(0.8, \, a', \, 1/b')} \, , $$
+
+<!-- 
+<blockquote>
+1 / <i>G</i><sup> -1</sup>(0.8, <i>a</i>', (1/<i>b</i>'))
+</blockquote>
+-->
+
+and, in general, a lower 100(1-\(\alpha\)) %
+<!-- <i>&alpha;</i>) %  -->
+lower bound is given by
+
+$$ \frac{1}{G^{-1}(1-\alpha, \, a', \, 1/b')} \, . $$
+
+<!--
+<blockquote>
+1 / <i>G</i><sup> -1</sup>((1-<i>&alpha;</i>), <i>a</i>', (1/<i>b</i>')).
+</blockquote>
+-->
+
+A two-sided 100(1-\(\alpha\)/2) %
+<!-- <i>&alpha;</i>) % -->
+credibility interval for the MTBF is
+
+$$ \left[ \frac{1}{G^{-1}(1-\alpha/2, \, a', \, 1/b')} , \,\,\, \frac{1}{G^{-1}(\alpha/2, \, a', \, 1/b')} \right] \, . $$
+
+<!--
+<blockquote>
+[1 / <i>G</i><sup> -1</sup>((1-<i>&alpha;</i>/2), <i>a</i>', (1/<i>b</i>')), <br>
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+ 1 / <i>G</i><sup> -1</sup>((<i>&alpha;</i>/2), <i>a</i>', (1/<i>b</i>'))].
+</blockquote>
+-->
+
+Finally, the \(G(1/M, \, a', \, 1/b')\)
+<!-- <i>G</i>((1/M), <i>a</i>', (1/<i>b</i>'))  -->
+calculates the probability that MTBF is greater than \(M\).
+<p>
+<b>Example</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>A Bayesian example to estimate
+the MTBF and calculate upper and lower bounds</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A system has completed a reliability test aimed
+at confirming a 600 hour MTBF at an 80 % confidence level. Before the test,
+a gamma prior with \(a\) = 2, \(b\) = 1400
+<!-- <i>a</i> = 2, <i>b</i> = 1400  -->
+was agreed upon, based
+on testing at the vendor's location. Bayesian test planning calculations,
+allowing up to 2 new failures, called for a test of 1909 hours. When that
+test was run, there actually were exactly two failures. What can be said
+about the system?
+<p>
+The posterior gamma CDF has parameters \(a'\) = 4 and \(b'\) = 3309.
+<!-- <i>a</i>' = 4 and <i>b</i>' = 3309. -->
+The plot below shows CDF values on the \(y\)-axis,
+<!-- <i>y</i>-axis, -->
+plotted against \(1/\lambda\) = MTBF,
+<!-- 1/<i>&lambda;</i> = MTBF, -->
+on the \(x\)-axis.
+<!-- <i>x</i>-axis. -->
+By going from probability, on the \(y\)-axis,
+<!-- <i>y</i>-axis, -->
+across to the curve and down to the MTBF, we can estimate any MTBF percentile point. 
+<p>
+<img SRC="apr46_r01.gif" ALT="Plot of posterior (after test) gamma distribution" >
+<p>
+The MTBF values are shown below.
+<table WIDTH="95%" >
+<tr>
+<td WIDTH="50%">\(1/G^{-1}(0.9, \, 4, \, 1/3309)\)
+<!-- 1 / <i>G</i><sup> -1</sup>(0.9, 4, (1/3309)) -->
+</td>
+
+<td WIDTH="50%">\(= 495\) hours
+</td>
+</tr>
+
+<tr>
+<td> \(1/G^{-1}(0.8, \, 4, \, 1/3309)\)
+<!-- 1 / <i>G</i><sup> -1</sup>(0.8, 4, (1/3309)) -->
+</td>
+
+<td>\(= 600\) hours (as expected)
+</td>
+</tr>
+
+<tr>
+<td>\(1/G^{-1}(0.5, \, 4, \, 1/3309)\)
+<!-- 1 / <i>G</i><sup> -1</sup>(0.5, 4, (1/3309)) -->
+</td>
+
+<td>\(= 901\) hours
+</td>
+</tr>
+
+<tr>
+<td>\(1/G^{-1}(0.1, \, 4, \, 1/3309)\)
+<!-- 1 / <i>G</i><sup> -1</sup>(0.1, 4, (1/3309)) -->
+</td>
+
+<td>\(= 1897\) hours
+</td>
+</tr>
+</table>
+
+<p>
+The test has confirmed a 600 hour MTBF at 80 % confidence, a 495 hour
+MTBF at 90 % confidence and (495, 1897) is a 90 % credibility interval
+for the MTBF. A single number (point) estimate for the system MTBF would
+be 901 hours. Alternatively, you might want to use the reciprocal of the
+mean of the posterior distribution \((b'/a')\) 
+<!-- (<i>b</i>'/<i>a</i>') -->
+= 3309/4 = 827
+hours as a single estimate. The reciprocal mean is more conservative, 
+in this case it is a 57 % lower bound \((G(4/3309, \, 4, \, 1/3309))\).
+<!-- (<i>G</i>((4/3309), 4, (1/3309))). -->
+<p>
+The analyses in this section can can be implemented using 
+<a href="apr46.r">R code</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr453.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr47.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr46.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:18 GMT -->
+</HTML>

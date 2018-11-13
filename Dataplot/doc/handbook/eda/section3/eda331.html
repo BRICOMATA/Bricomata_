@@ -1,0 +1,459 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda331.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:18 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.1. Autocorrelation Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda3311.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Autocorrelation Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Purpose: <br>
+Check Randomness
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Autocorrelation plots 
+(<a href="../section4/eda43.html#Box">Box and Jenkins, pp. 28-32</a>)
+are a commonly-used tool for checking randomness in a data set.
+This randomness is ascertained by computing autocorrelations for
+data values at varying time lags.  If random, such autocorrelations
+should be near zero for any and all time-lag separations.  If
+non-random, then one or more of the autocorrelations will be
+significantly non-zero.
+<p>
+In addition, autocorrelation plots are used in the model
+identification stage for <a href="../../pmc/section4/pmc4.html">
+Box-Jenkins</a> autoregressive, moving average time series models.
+
+</td>
+</tr>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Autocorrelation is Only One Measure of Randomness
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Note that uncorrelated does not necessarily mean random.
+Data that has significant autocorrelation is not random.  However,
+data that does not show significant autocorrelation can still
+exhibit non-randomness in other ways.  Autocorrelation is just one
+measure of randomness.  In the context of model validation (which is the
+primary type of randomness we dicuss in the Handbook), checking for
+autocorrelation is typically a sufficient test of randomness since the
+residuals from a poor fitting models tend to display non-subtle
+randomness.  However, some applications require a more rigorous
+determination of randomness.  In these cases, a battery of tests,
+which might include checking for autocorrelation, are applied since
+data can be non-random in many different and often subtle ways.
+<p>
+An example of where a more rigorous check for randomness is needed
+would be in testing random number generators.
+
+</td>
+</tr>
+<!-----begin section: sample plot -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Plot:<br>
+Autocorrelations should be near-zero for randomness.  Such is
+not the case in this example and thus the randomness assumption
+fails
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<IMG SRC="../gif/autocop0.gif" alt="A sample autocorrelation plot">
+<P>
+This sample autocorrelation plot shows that the time series is not
+random, but rather has a high degree of autocorrelation between
+adjacent and near-adjacent observations.
+
+</TD>
+</TR>
+
+<!-----begin section: definition -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Definition: <br>
+r(h) versus h
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Autocorrelation plots are formed by
+<UL>
+   <li>Vertical axis: Autocorrelation coefficient
+       <p>
+       <ul>
+       <!--
+          <img src="eqns/rh.gif" alt="R(h) = C(h)/C(0)">
+       -->
+          \[ R_{h} = C_{h}/C_{0} \]
+       </ul>
+       <p>
+       where <B><i>C<sub>h</sub></i></B> is the autocovariance
+       function
+       <p>
+       <ul>
+       <!--
+          <img src="eqns/ch.gif" alt=
+       "C(h) = (1/N)*SUM[i=1 to N-h][(Y(i) - YBAR)(Y(i+h) - YBAR)]">
+       -->
+          \[ C_{h} = \frac{1}{N}\sum_{t=1}^{N-h}(Y_{t} - 
+          \bar{{Y}})(Y_{t+h} - \bar{{Y}}) \]
+       </ul>
+       <p>
+       and <b><i>C<sub>0</sub></i></b> is the variance function
+       <p>
+       <ul>
+          <!--
+          <img src="eqns/c0.gif" alt=
+          "C(0) = (1/N)*SUM[i=1 to N][(Y(i) - YBAR)^2]">
+          -->
+          \[ C_{0} = \frac{\sum_{t=1}^{N}(Y_{t} - \bar{Y})^2}{N} \]
+       </ul>
+       <p>
+       Note that <B><I>R<sub>h</sub></I></B> is between -1 and +1.
+       <p>
+       Note that some sources may use the following formula for
+       the autocovariance function
+       <p>
+       <ul>
+          <!--
+          <img src="eqns/ch2.gif" alt=
+       "C(h) = (1/(N-h))*SUM[i=1 to N-h][(Y(i) - YBAR)(Y(i+h) - YBAR)]">
+          -->
+          \[ C_{h} = \frac{1}{N-h}\sum_{t=1}^{N-h}(Y_{t} -
+          \bar{{Y}})(Y_{t+h} - \bar{{Y}}) \]
+       </ul>
+       <p>
+       Although this definition has less bias, the (1/<i>N</i>)
+       formulation has some desirable statistical properties and
+       is the form most commonly used in the statistics literature.
+       See <a href="../section4/eda43.html#Chatfield">pages 20 and
+       49-50 in Chatfield</a> for details.
+       <p>
+   <li>Horizontal axis: Time lag <i>h</i> (<i>h</i> = 1, 2, 3, ...)
+       <p>
+   <li>The above line also contains several horizontal reference
+       lines.  The middle line is at zero.  The other four lines
+       are 95 % and 99 % confidence bands.  Note that there are
+       two distinct formulas for generating the confidence bands.
+       <p>
+       <ol>
+          <li>If the autocorrelation plot is being used to test for
+              randomness (i.e., there is no time dependence in the
+              data), the following formula is recommended:
+              <p>
+              <ul>
+                 <!--
+                 <img src="eqns/autocon1.gif"
+                      alt="+/- z(1-alpha/2)/[SQRT(N)]">
+                 -->
+                 \[ \pm \frac{z_{1-\alpha/2}} {\sqrt{N}} \]
+              </ul>
+              <p>
+              where <i>N</i> is the sample size, <i>z</i> is the
+              cumulative distribution function of the standard normal
+              distribution and
+              <!--
+              <img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+              -->
+              \( \alpha \)
+              is the significance level.  In this case, the confidence bands
+              have fixed width that depends on the sample size.  This is the
+              formula that was used to generate the confidence bands in
+              the above plot.
+              <p>
+          <li>Autocorrelation plots are also used in the model
+              identification stage for fitting
+              <a href="../../pmc/section4/pmc446.html">ARIMA models</a>.
+              In this case, a moving average model is assumed for the data
+              and the following confidence bands should be generated:
+              <p>
+              <ul>
+                 <!--
+                 <img src="eqns/autocon2.gif" alt=
+                 "+/- z(1-alpha/2)/[SQRT((1/N) + 2*SUM[i=1 to k][Y(i)^2]">
+                 -->
+                 \[ \pm z_{1-\alpha/2} \sqrt{\frac{1}{N}
+                 (1 + 2 \sum_{i=1}^{k}{y_{i}^2})} \]
+              </ul>
+              <p>
+              where <i>k</i> is the lag, <i>N</i> is the sample size,
+              <i>z</i> is the cumulative distribution function of the
+              standard normal distribution and
+              <!--
+              <img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+              -->
+              \( \alpha \)
+              is the significance level.  In this case, the confidence
+              bands increase as the lag increases.
+       </ol>
+</UL>
+
+</TD>
+</TR>
+
+<!-----begin section: questions -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Questions</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The autocorrelation plot can provide answers to the following
+questions:
+<OL>
+   <li> Are the data random?
+   <LI> Is an observation related to an adjacent observation?
+   <LI> Is an observation related to an observation twice-removed?
+        (etc.)
+   <LI> Is the observed time series white noise?
+   <LI> Is the observed time series sinusoidal?
+   <LI> Is the observed time series autoregressive?
+   <LI> What is an appropriate model for the observed time series?
+   <li> Is the model
+        <p>
+        <ul>
+           <i>Y</i> = constant + error
+        </ul>
+        <p>
+        valid and sufficient?
+   <li> Is the formula
+        <!--
+        <img align=absmiddle src="eqns/sdivsqrtn.gif"
+             alt="s(YBAR) = s/SQRT(N)">
+        -->
+        \[ s_{\bar{{Y}}} = s/\sqrt{N} \]
+        valid?
+</OL>
+
+</TD>
+</TR>
+
+<!-----begin section: importance -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Importance: <br>
+Ensure validity of engineering conclusions
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<p>
+Randomness (along with fixed model, fixed variation, and fixed
+distribution) is one of the four assumptions that typically
+underlie all measurement processes.  The randomness assumption is
+critically important for the following three reasons:
+<ol>
+   <li> Most standard statistical tests depend on randomness.  The
+        validity of the test conclusions is directly linked to the
+        validity of the randomness assumption.
+        <p>
+   <li> Many commonly-used statistical formulae depend on the
+        randomness assumption, the most common formula being the
+        formula for determining the standard deviation of the sample
+        mean:
+        <p>
+        <ul>
+          <!--
+          <img src="eqns/sdivsqrtn.gif"
+               alt="s(YBAR) = s/SQRT(N)">
+          -->
+          \[ s_{\bar{{Y}}} = s/\sqrt{N} \]
+        </ul>
+        <p>
+        where <b><i>s</i></b> is the standard
+        deviation of the data.  Although heavily used, the results
+        from using this formula are of no value unless the
+        randomness assumption holds.
+        <p>
+   <li> For univariate data, the default model is
+        <p>
+        <ul>
+           <i>Y</i> = constant + error
+        </ul>
+        <p>
+        If the data are not random, this model is incorrect
+        and invalid, and the estimates for the parameters (such as
+        the constant) become nonsensical and invalid.
+</ol>
+In short, if the analyst does not check for randomness, then
+the validity of many of the statistical conclusions becomes
+suspect.  The autocorrelation plot is an excellent way of checking
+for such randomness.
+
+</TD>
+</TR>
+
+<!-----begin section: examples -->
+
+<tr>
+<td width=15% valign=top>
+   <a name = "examples"> </a>
+   <I>Examples</I>
+</td>
+<td width=85% valign=top>
+   Examples of the autocorrelation plot for several common
+   situations are given in the following pages.
+   <ol>
+      <li><a href = "autocop1.html">Random (= White Noise)</a><br>
+      <li><a href = "autocop2.html">Weak autocorrelation</a><br>
+      <li><a href = "autocop3.html">Strong autocorrelation and
+          autoregressive model</a> <br>
+      <li><a href = "autocop4.html">Sinusoidal model</a><br>
+   </ol>
+
+</td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Related Techniques </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<a href="../../pmc/section4/pmc4463.html">Partial Autocorrelation
+   Plot</a> <br>
+<a href="lagplot.html">Lag Plot</a> <br>
+<a href="spectrum.html">Spectral Plot</a> <br>
+<a href="../../pmc/section4/pmc4431.html">Seasonal Subseries
+   Plot</a> <br>
+</TD>
+</TR>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The autocorrelation plot is demonstrated in the
+      <a href="../section4/eda425.html">beam deflection</a> data
+      case study.
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      Autocorrelation plots are available in most general purpose
+      statistical software programs.
+   </td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda3311.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda331.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:21 GMT -->
+</HTML>

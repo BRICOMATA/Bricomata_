@@ -1,0 +1,991 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section4/pri471.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.4.7.1. Full factorial example</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri472.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri47.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri4.html">Analysis of DOE data</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.4.7.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri47.html">Examples of DOE's</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.4.7.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Full factorial example</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Data Source</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>This example uses data from a NIST high performance ceramics
+experiment</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+This data set was taken from an experiment that was performed a few
+years ago at NIST by Said Jahanmir of the Ceramics Division in the
+Material Science and Engineering Laboratory.  The original analysis
+was performed primarily by Lisa Gill of the Statistical Engineering
+Division.  The example shown here is an independent analysis of a
+modified portion of the original data set.
+<p>
+The original data set was part of a high performance ceramics experiment
+with the goal of characterizing the effect of grinding parameters on
+sintered reaction-bonded silicon nitride, reaction bonded silicone
+nitride, and sintered silicon nitride.
+<p>
+Only modified data from the first of the three ceramic types (sintered
+reaction-bonded silicon nitride) will be discussed in this illustrative
+example of a full factorial data analysis.
+<p>
+The reader can download the data as a
+<a href="gifs/ceramic.txt">text file</a>.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Description of Experiment: Response and Factors</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Response and factor variables</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Purpose: To determine the effect of machining factors on ceramic strength
+<br>Response variable = mean (over 15 repetitions) of the ceramic
+    strength
+<br>Number of observations = 32 (a complete 2<sup>5</sup> factorial
+    design)
+<ul>
+   Response Variable Y = Mean (over 15 reps) of Ceramic Strength
+   <br>
+   Factor 1 = Table Speed (2 levels: slow (.025 m/s) and fast (.125 m/s))
+   <br>
+   Factor 2 = Down Feed Rate (2 levels: slow (.05 mm) and fast (.125 mm))
+   <br>
+   Factor 3 = Wheel Grit (2 levels: 140/170 and 80/100)
+   <br>
+   Factor 4 = Direction (2 levels: longitudinal and transverse)
+   <br>
+   Factor 5 = Batch (2 levels: 1 and 2)
+</ul>
+Since two factors were qualitative (direction and batch) and it was
+reasonable to expect monotone effects from the quantitative factors,
+no centerpoint runs were included.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+The data
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The design matrix, with measured ceramic strength responses, appears
+below. The actual randomized run order is given in the last column. (The
+interested reader may download the data as a
+<a href="gifs/ceramic.txt">text file</a>.)
+<p>
+<PRE>
+    speed rate grit direction batch strength order
+  1    -1   -1   -1        -1    -1   680.45    17
+  2     1   -1   -1        -1    -1   722.48    30
+  3    -1    1   -1        -1    -1   702.14    14
+  4     1    1   -1        -1    -1   666.93     8
+  5    -1   -1    1        -1    -1   703.67    32
+  6     1   -1    1        -1    -1   642.14    20
+  7    -1    1    1        -1    -1   692.98    26
+  8     1    1    1        -1    -1   669.26    24
+  9    -1   -1   -1         1    -1   491.58    10
+ 10     1   -1   -1         1    -1   475.52    16
+ 11    -1    1   -1         1    -1   478.76    27
+ 12     1    1   -1         1    -1   568.23    18
+ 13    -1   -1    1         1    -1   444.72     3
+ 14     1   -1    1         1    -1   410.37    19
+ 15    -1    1    1         1    -1   428.51    31
+ 16     1    1    1         1    -1   491.47    15
+ 17    -1   -1   -1        -1     1   607.34    12
+ 18     1   -1   -1        -1     1   620.80     1
+ 19    -1    1   -1        -1     1   610.55     4
+ 20     1    1   -1        -1     1   638.04    23
+ 21    -1   -1    1        -1     1   585.19     2
+ 22     1   -1    1        -1     1   586.17    28
+ 23    -1    1    1        -1     1   601.67    11
+ 24     1    1    1        -1     1   608.31     9
+ 25    -1   -1   -1         1     1   442.90    25
+ 26     1   -1   -1         1     1   434.41    21
+ 27    -1    1   -1         1     1   417.66     6
+ 28     1    1   -1         1     1   510.84     7
+ 29    -1   -1    1         1     1   392.11     5
+ 30     1   -1    1         1     1   343.22    13
+ 31    -1    1    1         1     1   385.52    22
+ 32     1    1    1         1     1   446.73    29
+</PRE>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Analysis of the Experiment</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>Five basic steps</a></i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The experimental data will be analyzed following the previously
+described <a href="pri41.html#DOE Analysis">five basic steps</a>.
+The analyses shown in this page can be generated using 
+<a href="pri471.r">R code</a>.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b><u>Step 1: Look at the data</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Plot the response variable
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+We start by plotting the response data several ways to see if any trends
+or anomalies appear that would not be accounted for by the standard
+linear response models.
+<p>
+First, we look at the distribution of the response variable regardless
+of factor levels by generating the following four plots.
+<ol>
+   <li>The first plot is a
+       <a href="../../eda/section3/normprpl.html">normal probability
+       plot</a> of the response variable. The red line is the theoretical 
+       normal distribution.
+   <li>The second plot is a <a href="../../eda/section3/boxplot.html">box
+       plot</a> of the response variable. 
+   <li>The third plot is a
+       <a href="../../eda/section3/histogra.html">histogram</a> of the
+       response variable.
+   <li>The fourth plot is the response versus the run order.
+</ol>
+<P>
+<center>
+<img SRC="pri471_r01.gif" 
+     ALT="4-plot: normal probability plot, box plot, histogram, run-order plot">
+</center>
+<p>
+Clearly there is "structure" that we hope to account for when we fit
+a response model. For example, the response variable is separated into
+two roughly equal-sized clumps in the histogram.  The first clump is
+centered approximately around the value 450 while the second clump
+is centered approximately around the value 650.  As hoped for, the
+run-order plot does not indicate a significant time effect.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Box plots of response by factor variables
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Next, we look at box plots of the response for each factor.
+<p>
+<img SRC="pri471_r02.gif" 
+     ALT="box plots of response for each factor">
+<p>
+Several factors, most notably "Direction" followed by "Batch" and
+possibly "Wheel Grit", appear to change the average response level.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<a NAME="Step 2: Create the Theoretical"></a><b><u>Step 2: Create the
+theoretical model</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Theoretical model: assume all four-factor and higher interaction
+terms are not significant
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+For a 2<sup>5</sup> full factorial experiment we can fit a model
+containing a mean term, five main effect terms, ten two-factor
+interaction terms, ten three-factor interaction terms, five
+four-factor interaction terms, and a five-factor interaction term
+(32 parameters).  However, we start by assuming all four-factor and
+higher interaction terms are non-existent. It's very rare for such
+high-order interactions to be significant, and they are very difficult
+to interpret from an engineering viewpoint.  The assumption allows us to
+accumulate the sums of squares for these terms and use them to estimate
+an error term.  We start with a theoretical model with
+26 unknown constants, hoping the data will clarify which of these are
+the significant main effects and interactions we need for a final model.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b><u>Step 3: Fit model to the data</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Results from fitting up to and including third-order interaction terms
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The ANOVA table for the 26-parameter model (intercept not shown) follows.
+<pre>
+                    Summary of Fit
+                RSquare         0.995127
+                RSquare Adj     0.974821
+          Root Mean Square Error     17.81632
+           Mean of Response         546.8959
+                   Observations  32
+</pre>
+<pre>
+                                 <u>Sum</u>
+<u>Source</u>                <u>DF</u>     <u>of Squares</u>  <u>F Ratio</u>     <u>Prob>F</u>
+X1: Table Speed        1       894.33     2.8175     0.1442
+X2: Feed Rate          1      3497.20    11.0175     0.0160
+X1: Table Speed*       1      4872.57    15.3505     0.0078
+    X2: Feed Rate
+X3: Wheel Grit         1     12663.96    39.8964     0.0007
+X1: Table Speed*       1      1838.76     5.7928     0.0528
+    X3: Wheel Grit
+X2: Feed Rate*         1       307.46     0.9686     0.3630
+    X3: Wheel Grit
+X1:Table Speed*        1       357.05     1.1248     0.3297
+   X2: Feed Rate*
+   X3: Wheel Grit
+X4: Direction          1    315132.65   992.7901     <.0001
+X1: Table Speed*       1      1637.21     5.1578     0.0636
+    X4: Direction
+X2: Feed Rate*         1      1972.71     6.2148     0.0470
+    X4: Direction
+X1: Table Speed        1      5895.62    18.5735     0.0050
+    X2: Feed Rate*
+    X4: Direction
+X3: Wheel Grit*        1      3158.34     9.9500     0.0197
+    X4: Direction
+X1: Table Speed*       1         2.12     0.0067     0.9376
+    X3: Wheel Grit*
+    X4: Direction
+X2: Feed Rate*         1        44.49     0.1401     0.7210
+    X3: Wheel Grit*
+    X4: Direction
+X5: Batch              1     33653.91   106.0229     <.0001
+X1: Table Speed*       1       465.05     1.4651     0.2716
+    X5: Batch
+X2: Feed Rate*         1       199.15     0.6274     0.4585
+    X5: Batch
+X1: Table Speed*       1       144.71     0.4559     0.5247
+    X2: Feed Rate*
+    X5: Batch
+X3: Wheel Grit*        1        29.36     0.0925     0.7713
+    X5: Batch
+X1: Table Speed*       1        30.36     0.0957     0.7676
+    X3: Wheel Grit*
+    X5: Batch
+X2: Feed Rate*         1        25.58     0.0806     0.7860
+    X3: Wheel Grit*
+    X5: Batch
+X4: Direction *        1      1328.83     4.1863     0.0867
+    X5: Batch
+X1: Table Speed*       1       544.58     1.7156     0.2382
+    X4: Directio*
+    X5: Batch
+X2: Feed Rate*         1       167.31     0.5271     0.4952
+    X4: Direction*
+    X5: Batch
+X3: Wheel Grit*        1        32.46     0.1023     0.7600
+    X4: Direction*
+    X5: Batch
+</pre>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+This fit has a large R<sup>2</sup> and adjusted R<sup>2</sup>, but the high
+number of large (>0.10) <I>p</I>-values (in the "Prob>F" column) makes it
+clear that the model has many unnecessary terms.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Stepwise regression
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Starting with the 26 terms, we use stepwise regression
+to eliminate unnecessary terms. By a combination of stepwise
+regression and the removal of remaining terms with a <i>p</i>-value
+larger than 0.05, we quickly arrive at a model with an intercept and
+12 significant effect terms.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Results from fitting the 12-term model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<pre>
+                Summary of Fit
+               RSquare 0.989114
+               RSquare Adj 0.982239
+         Root Mean Square Error 14.96346
+          Mean of Response 546.8959
+         Observations (or Sum Wgts) 32
+</pre>
+<pre>
+
+                                 <u>Sum</u>
+<u>Source</u>                <u>DF</u>     <u>of Squares</u>  <u>F Ratio</u>     <u>Prob>F</u>
+X1: Table Speed        1       894.33     3.9942     0.0602
+X2: Feed Rate          1      3497.20    15.6191     0.0009
+X1: Table Speed*       1      4872.57    21.7618     0.0002
+    X2: Feed Rate
+X3: Wheel Grit         1     12663.96    56.5595     <.0001
+X1: Table Speed*       1      1838.76     8.2122     0.0099
+    X3: Wheel Grit
+X4: Direction          1    315132.65  1407.4390     <.0001
+X1: Table Speed*       1      1637.21     7.3121     0.0141
+    X4: Direction
+X2: Feed Rate*         1      1972.71     8.8105     0.0079
+    X4: Direction
+X1: Table Speed*       1      5895.62    26.3309     <.0001
+    X2: Feed Rate*
+    X4:Direction
+X3: Wheel Grit*        1      3158.34    14.1057     0.0013
+    X4: Direction
+X5: Batch              1     33653.91   150.3044     <.0001
+X4: Direction*         1      1328.83     5.9348     0.0249
+    X5: Batch
+</pre>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Normal plot of the effects
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Non-significant effects should effectively follow an approximately
+normal distribution with the same location and scale.  Significant
+effects will vary from this normal distribution.  Therefore, another
+method of determining significant effects is to generate a normal 
+probability plot of all 31 effects.  The effects that deviate
+substantially from the straight line fit to the data are 
+considered significant.  
+Although this is a somewhat subjective criteria, it tends to work
+well in practice.  It is helpful to use both the numerical output
+from the fit and graphical techniques such as the normal probability
+plot in deciding which terms to keep in the model.
+<p>
+A normal probability plot of the effects is shown below.  (To reduce 
+the scale of the y-axis, the largest two effects, X4: Direction 
+and X5: Batch, are not shown on the plot.  In addition, these two 
+effects were not used to compute the normal reference line.)  The 
+effects we consider to be significant are labeled.  In this case, we
+have arrived at the exact same 12 terms by looking at the normal 
+probability plot as we did from the stepwise regression.
+<p>
+<center>
+<img SRC="pri471_r03.gif" height=508 width=550
+     ALT="Normal plot of the 31 effects">
+</center>
+<p>
+Most of the effects cluster close to the center (zero) line and
+follow the fitted normal model straight line. The effects that appear to
+be above or below the line by more than a small amount are the same
+effects identified using the stepwise routine, with the exception of
+<i>X</i>1.  Some analysts prefer to include a main effect term
+when it has several significant interactions even if the main
+effect term itself does not appear to be significant.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Model appears to account for most of the variability
+</I >
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+At this stage, the model appears to account for most of the variability
+in the response, achieving an adjusted R<sup>2</sup> of 0.982. All the
+main effects are significant, as are six 2-factor interactions and
+one 3-factor interaction. The only interaction that makes little
+physical sense is the " <i>X</i>4: Direction*<i>X</i>5: Batch"
+interaction - why would the response using one batch of material
+react differently when the batch is cut in a different direction as
+compared to another batch of the same formulation?
+<p>
+However, before accepting any model, residuals need to be examined.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b><u>Step 4: Test the model assumptions using residual graphs (adjust
+and simplify as needed)</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Plot of residuals versus predicted responses
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+First we look at the residuals plotted versus the predicted responses.
+<center>
+<img SRC="pri471_r04.gif" height=408 width=450
+     ALT="Plot of residuals versus predicted response">
+</center>
+<p>
+The residuals appear to spread out more with larger values of predicted
+strength, which should not happen when there is a common variance.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Next we examine the distribution of the residuals with a normal quantile
+plot, a box plot, a histogram, and a run-order plot.
+<p>
+<center>
+<img SRC="pri471_r05.gif" height=508 width=550 ALT=
+     "Normal probability plot, box plot, and histogram of the residuals">
+</center>
+<p>
+None of these plots appear to show typical normal residuals and 
+the boxplot indicates that there may be outliers.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b><u>Step 4 continued: Transform the data and fit the model
+again</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Box-Cox Transformation
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+We next look at whether we can model a transformation of the response
+variable and obtain residuals with the assumed properties.  We
+calculate an optimum Box-Cox transformation by finding the value of
+<img align=absmiddle src="eqns/lambda.gif" alt="lambda">
+that maximizes the negative log likelihood.  
+<p>
+<center>
+<img SRC="pri471_r06.gif" height=408 width=450
+     ALT="Box-Cox transformation graph, optimal value at lambda = 0.2">
+</center>
+<p>
+The optimum is found at
+<img align=absmiddle src="eqns/lambda.gif" alt="lambda"> = 0.2.  
+A new Y: Strength variable is calculated using:
+<P>
+<center>
+<img SRC="pri471_eq1.gif" ALT="Box-Cox transformation">
+</center>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Fit model to transformed data
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+When the 12-effect model is fit to the transformed data, the
+"X4: Direction * X5: Batch" interaction term is no longer significant.
+The 11-effect model fit is shown below, with parameter estimates and
+<i>p</i>-values.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+The fitted model after applying Box-Cox transformation
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<pre>
+
+    <b>The 11-Effect Model Fit to Tranformed Response Data</b>
+
+               Response:    Y:NewStrength
+
+                  Summary of Fit
+               RSquare 0.99041
+               RSquare Adj 0.985135
+         Root Mean Square Error 13.81065
+          Mean of Response 1917.115
+         Observations (or Sum Wgts) 32</center>
+</pre>
+<pre>
+                       <u>Parameter</u>
+<u>Effect</u>                  <u>Estimate</u>         <u>p-value</u>
+Intercept               1917.115          <.0001
+X1: Table Speed            5.777          0.0282
+X2: Feed Rate             11.691          0.0001
+X1: Table Speed*         -14.467          <.0001
+    X2: Feed Rate
+X3: Wheel Grit           -21.649          <.0001
+X1: Table Speed*           7.339          0.007
+    X3: Wheel Grit
+X4: Direction            -99.272          <.0001
+X1: Table Speed*          -7.188          0.0080
+    X4: Direction
+X2: Feed Rate*            -9.160          0.0013
+    X4: Direction
+X1: Table Speed*          15.325          <.0001
+    X2: Feed Rate*
+    X4:Direction
+X3: Wheel Grit*           12.965          <.0001
+    X4: Direction
+X5: Batch                -31.871          <.0001
+</pre>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Model has high R<sup>2</sup>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+This model has a very large R<sup>2</sup> and adjusted R<sup>2</sup>. The
+residual plots (shown below) are quite a bit better behaved than before
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Residual plots from model with transformed response
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The plot of the residuals versus the predicted values indicates that the
+transformation has resolved the problem of increasing variace with increasing 
+strength.
+<center>
+<img SRC="pri471_r07.gif" height=408 width=450
+     ALT="residual vs predicted">
+</center>
+<p>
+The <a href="../../eda/section3/normprpl.html">normal probability
+plot</a>, <a href="../../eda/section3/boxplot.html">box plot</a>, and
+the <a href="../../eda/section3/histogra.html">histogram</a> of the
+residuals do not indicate any serious violations of the model
+assumptions.  The 
+<a href="../../eda/section3/runseqpl.html">run sequence plot</a>
+of the residuals does not indicate any time dependent patterns.
+<center>
+<img SRC="pri471_r08.gif" height=508 width=550
+     ALT="Normal prob. plot, box plot, histogram, & run-order plot of residuals">
+</center>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b><u>Step 5. Answer the questions in your experimental objectives</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Important main effects and interaction effects
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The magnitudes of the effect estimates show that "Direction" is by far
+the most important factor. "Batch" plays the next most critical role,
+followed by "Wheel Grit". Then, there are several important interactions
+followed by "Feed Rate". "Table Speed" plays a role in almost every
+significant interaction term, but is the least important main effect
+on its own.  Note that large interactions can obscure main effects.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Plots of the main effects and significant 2-way interactions
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Plots of the main effects and the significant 2-way interactions are
+shown below.
+<br>
+<p>
+<center>
+<img SRC="pri471_r09.gif" height=440 width=550
+     ALT="Plots of the main effects">
+<p>
+<br>
+<img SRC="pri471_r10.gif" height=508 width=550
+     ALT="Plots of significant 2-way interactions">
+</center>
+<P>
+Next, we plot 2-way interaction plot showing means for all 
+combinations of levels for the two factors.
+<center>
+<img SRC="pri471_r11.gif" height=508 width=550
+     ALT="Plots of significant 2-way interactions">
+</center>
+<P>
+The labels located in the diagonal spaces of the plot grid 
+have two purposes.  First, the label indicates the factor 
+associated with the x-axis for all plots in the same row.
+Second, the label indicates the factor defining the two 
+lines for plots in the same column.  
+<P>
+For example, the plot labeled r*s contains averages for 
+low and high levels of the rate variable (x-axis) for 
+both levels of speed.  The blue line represents the low 
+level of speed and the pink line represents the high level 
+of speed.  The two lines in the r*s plot cross, indicating 
+that there is interaction between rate and speed.  Parallel 
+lines indicate that there is no interaction between the two 
+factors.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<I>
+Optimal Settings
+</I>
+</td>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+Based on the analyses, we can select factor settings that 
+maximize ceramic strength.  Translating from "-1" and "+1" back to  
+the actual factor settings, we have: Table speed at "1" or .125m/s; 
+Down Feed Rate at "1" or .125 mm; Wheel Grit at "-1" or 140/170; 
+and Direction at "-1" or longitudinal.
+<p>
+Unfortunately, "Batch" is also a very significant factor, with the first
+batch giving higher strengths than the second. Unless it is possible to
+learn what worked well with this batch, and how to repeat it, not much
+can be done about this factor.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Comments</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Analyses with value of Direction fixed indicates complex model is
+needed only for transverse cut
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<ol start=1>
+   <li>One might ask what an analysis of just the 2<sup>4</sup> factorial
+       with "Direction" kept at -1 (i.e., longitudinal) would yield. This
+       analysis turns out to have a very simple model; only "Wheel Grit"
+       and "Batch" are significant main effects and no interactions are
+       significant.
+       <p>
+       If, on the other hand, we do an analysis of the 2<sup>4</sup>
+       factorial with "Direction" kept at +1 (i.e., transverse), then we
+       obtain a 7-parameter model with all the main effects and
+       interactions we saw in the 2<sup>5</sup> analysis, except, of
+       course, any terms involving "Direction".
+       <p>
+       So it appears that the complex model of the full analysis came
+       from the physical properties of a transverse cut, and these
+       complexities are not present for longitudinal cuts.
+</ol>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Half fraction design
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<ol start=2>
+   <li>If we had assumed that three-factor and higher interactions were
+       negligible before experimenting, a
+       <!-- <img align=absmiddle src="eqns/2resv.gif" alt="2(V)^(5-1)"> -->
+       \( 2_{V}^{5-1} \) half fraction design might have been chosen. In
+       hindsight, we would have obtained valid estimates for all main
+       effects and two-factor interactions except for <i>X</i><sub>3</sub>
+       and <i>X</i><sub>5</sub>, which would have been aliased with
+       <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>4</sub>
+       in that half fraction.
+</ol>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Natural log transformation
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<ol start=3>
+   <li>Finally, we note that many analysts might prefer to adopt a
+       natural logarithm transformation (i.e., use ln <i>Y</i>) as the
+       response instead of using a Box-Cox transformation with an
+       exponent of 0.2. The natural logarithm transformation corresponds
+       to an exponent of
+       <!-- <img align=absmiddle src="eqns/lambda.gif" alt="lamda"> -->
+       \( \lambda \)= 0 in the Box-Cox graph.
+</ol>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri47.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri472.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section4/pri471.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:48:09 GMT -->
+</HTML>

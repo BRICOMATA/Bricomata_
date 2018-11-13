@@ -1,0 +1,275 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd442.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:25 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.4.2. How can I detect non-constant variation across the data?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd443.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd441.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd44.html">How can I tell if a model fits my data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.4.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can I detect non-constant variation across the data?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Scatter Plots Allow Comparison of Random Variation Across Data</I>
+</TD>
+<TD WIDTH=85%>
+Similar to their use in checking the sufficiency of the functional form of 
+the model, <A HREF="../../eda/section3/scatterp.html">scatter plots</A> of 
+the residuals are also used to check the <A HREF="../section2/pmd213.html">
+assumption of constant standard deviation of random errors</A>.  Scatter plots
+of the residuals versus the explanatory variables and versus the predicted
+values from the model allow comparison of the amount of random variation in
+different parts of the data.  For example, the plot below shows residuals 
+from a straight-line fit to the <A HREF="../section1/pmd11.html#pt.r1">
+Pressure/Temperature data</A>.  In this plot the range of the residuals looks
+essentially constant across the levels of the predictor variable, temperature.  
+The scatter in the residuals at temperatures between 20 and 30 degrees is 
+similar to the scatter in the residuals between 40 and 50 degrees and between
+55 and 70 degrees.  This suggests that the standard deviation of the random 
+errors is the same for the responses observed at each temperature.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residuals from Pressure / Temperature Example</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt4_f.gif"><IMG SRC="plots/mvpt4_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residuals from pressure/temperature example"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="pt.r3">Modification of Example</A></I>
+</TD>
+<TD WIDTH=85%>
+To illustrate how the residuals from the Pressure/Temperature data would look
+if the standard deviation was not constant across the different temperature
+levels, a modified version of the data was simulated.  In the modified version,
+the standard deviation increases with increasing values of 
+pressure.  Situations like this, in which the standard deviation increases with
+increasing values of the response, are among the most common ways that 
+non-constant random variation occurs in physical science and engineering
+applications.  A plot of the data is shown below.  
+<!-- DEP --><A HREF="dep/dep442.html">Comparison</A> of these two versions
+of the data is interesting because in the original units of the data they
+don't look strikingly different.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Pressure Data with Non-Constant Residual Standard Deviation</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt5_f.gif"><IMG SRC="plots/mvpt5_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="pressure data with non-constant residual standard deviation"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residuals Indicate Non-Constant Standard Deviation</I>
+</TD>
+<TD WIDTH=85%>
+The residual plot from a straight-line fit to the modified data, however,
+highlights the non-constant standard deviation in the data.  The horn-shaped
+residual plot, starting with residuals close together around 20 degrees and 
+spreading out more widely as the temperature (and the pressure) increases, is
+a typical plot indicating that the assumptions of the analysis are not
+satisfied with this model.  Other residual plot shapes besides the
+horn shape could indicate non-constant standard deviation as well.  For
+example, if the response variable for a data set peaked in the middle of the
+range of the predictors and was small for extreme values of the predictors,
+the residuals plotted versus the predictors would look like two horns with
+the bells facing one another.  In a case like this, a plot of the residuals
+versus the predicted values would exhibit the single horn shape, however.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residuals from Modified Pressure Data</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt6_f.gif"><IMG SRC="plots/mvpt6_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residuals from modified pressure data"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residual Plots Comparing Variability Apply to Most Methods</I>
+</TD>
+<TD WIDTH=85%>
+The use of residual plots to check the assumption of constant standard
+deviation works in the same way for most modeling methods.  It is not limited
+to least squares regression even though that is almost always the context in
+which it is explained.  The plot below shows the residuals from a LOESS fit to
+the data from the <A HREF="../section1/pmd132.html#tc.r1">Thermocouple
+Calibration example</A>.  The even spread of the residuals across the range of
+the data does not indicate any changes in the standard deviation, leading us
+to the conclusion that this assumption is not unreasonable for these data.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residuals from LOESS Fit to Thermocouple Calibration Data</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvtc1_f.gif"><IMG SRC="plots/mvtc1_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residuals from LOESS fit to thermocouple calibration data"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Correct Function Needed to Check for Constant Standard Deviation</I>
+</TD>
+<TD WIDTH=85%>
+One potential pitfall in using residual plots to check for constant standard
+deviation across the data is that the functional part of the model must
+adequately describe the systematic variation in the data.  If that is not 
+the case, then the typical horn shape
+observed in the residuals could be due to an artifact of the  function fit to
+the data rather than to non-constant variation.  For example, in the 
+<A HREF="pmd422.html#pr.r1">Polymer Relaxation example</A> it was hypothesized 
+that both time and temperature are related to the response variable, torque.  
+However, if a single stretched exponential model in time was the initial model
+used for the process, the residual plots could be misinterpreted fairly easily,
+leading to the false conclusion that the standard deviation is not constant across
+the data.  When the functional part of the model does not fit the data well, the
+residuals do not reflect purely random variations in the process.  Instead, they
+reflect the remaining structure in the data not accounted for by the function.
+Because the residuals are not random, they cannot be used to answer questions
+about the random part of the model.
+This also emphasizes the importance of plotting the data before fitting the
+initial model, even if a theoretical model for the data is available.
+<A HREF="pmd422.html#dmhd">Looking at the data before fitting the initial model</A>,
+at least in this case, would likely forestall this potential problem. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Polymer Relaxation Data Modeled as a Single Stretched Exponential</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpr1_f.gif"><IMG SRC="plots/mvpr1_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="polymer relaxation data modeled as a single stretched exponential"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residuals from Single Stretched Exponential Model</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpr2_f.gif"><IMG SRC="plots/mvpr2_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residuals from single stretched exponential model"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Getting Back on Course After a Bad Start</I>
+</TD>
+<TD WIDTH=85%>
+Fortunately, even if the initial model were incorrect, and the residual plot
+above was made, there are clues in this plot that indicate that the horn
+shape (pointing left this time) is not caused by non-constant standard
+deviation.  The cluster of residuals at time zero that have a residual
+torque near one indicate that the functional part of the model does not fit
+the data.  In addition, even when the residuals occur with equal frequency above
+and below zero, the spacing of the residuals at each time does not really look
+random.  The spacing is too regular to represent random measurement errors.
+At measurement times near the low end of the scale, the spacing of the points
+increases as the residuals decrease and at the upper end of the scale the
+spacing decreases as the residuals decrease.  The patterns in the spacing of
+the  residuals also points to the fact that the functional form of the model is
+not correct and needs to be corrected before drawing conclusions about the
+distribution of the residuals.
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd441.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd443.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd442.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:32 GMT -->
+</HTML>

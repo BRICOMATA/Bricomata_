@@ -1,0 +1,360 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd632.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:11:47 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.6.3.2. Initial Non-Linear Fit</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd633.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd631.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd6.html">Case Studies in Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd63.html">Ultrasonic Reference Block Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.6.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Initial Non-Linear Fit</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="PLOT1">
+      <I>
+        Plot of Data
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      The first step in fitting a nonlinear function is to
+      simply plot the data.
+      <P>
+      <A HREF="ultrason/plots/plot1_f.gif">
+      <IMG SRC="ultrason/plots/plot1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of original data shows an exponentially decaying pattern">
+      </A>
+      <P>
+      This plot shows an exponentially decaying pattern in
+      the data.  This suggests that some type of exponential
+      function might be an appropriate model for the data.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+        Initial Model Selection
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      There are two issues that need to be addressed in
+      the initial model selection when fitting a nonlinear
+      model.
+      <OL>
+         <LI>We need to determine an appropriate functional
+             form for the model.
+         <LI>We need to determine appropriate starting values
+             for the estimation of the model parameters.
+      </OL>
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+        Determining an Appropriate Functional Form for the
+        Model
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      Due to the large number of potential functions that can
+      be used for a nonlinear model, the determination of an
+      appropriate model is not always obvious.  Some
+      <a href="../section4/pmd42.html">guidelines for selecting
+      an appropriate model</a> were given in the analysis
+      chapter.
+      <P>
+      The plot of the data will often suggest a well-known
+      function.  In addition, we often use scientific and
+      engineering knowledge in determining an appropriate
+      model.  In scientific studies, we are frequently
+      interested in fitting a theoretical model to the data.
+      We also often have historical knowledge from previous
+      studies (either our own data or from published studies)
+      of functions that have fit similar data well in the
+      past.  In the absence of a theoretical model or
+      experience with prior data sets, selecting an
+      appropriate function will often require a certain
+      amount of trial and error.
+      <P>
+      Regardless of whether or not we are using scientific
+      knowledge in selecting the model,
+      <a href="../section4/pmd44.html">model validation</a> is
+      still critical in determining if our selected model
+      is adequate.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+        Determining Appropriate Starting Values
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      Nonlinear models are fit with iterative methods that
+      require starting values.  In some cases, inappropriate
+      starting values can result in parameter estimates
+      for the fit that converge to a local minimum or maximum
+      rather than the global minimum or maximum.
+      Some models are relatively insensitive to the choice
+      of starting values while others are extremely
+      sensitive.
+      <P>
+      If you have prior data sets that fit similar models,
+      these can often be used as a guide for determining
+      good starting values.  We can also sometimes make
+      educated guesses from the functional form of the
+      model.  For some models, there may be specific
+      methods for determining starting values.  For
+      example, sinusoidal models that are commonly used
+      in time series are quite sensitive to good starting
+      values.  The
+      <a href="../../eda/section4/eda425.html">beam deflection
+      case study</a> shows an example of obtaining starting
+      values for a sinusoidal model.
+      <P>
+      In the case where you do not know what good starting
+      values would be, one approach is to create a grid of
+      values for each of the parameters of the model and
+      compute some measure of goodness of fit, such as the
+      residual standard deviation, at each point on the grid.
+      The idea is to create a broad grid that encloses
+      reasonable values for the parameter.  However, we
+      typically want to keep the number of grid points for
+      each parameter relatively small to keep the
+      computational burden down (particularly as the number
+      of parameters in the model increases).  The idea is
+      to get in the right neighborhood, not to find the
+      optimal fit.  We would pick the grid point that 
+      corresponds to the smallest residual standard
+      deviation as the starting values.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+        Fitting Data to a Theoretical Model
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      For this particular data set, the scientist was trying
+      to fit the following theoretical model.
+ 
+$$ y = \frac{\exp(-b_1 x)} {b_2 + b_3 x} + \varepsilon $$
+<!--
+      <UL>
+         <IMG ALT="y = \frac{\exp(-b_1 x)} {b_2 + b_3 x} + \epsilon"SRC="pmd63_eq1.gif">
+      </UL>
+-->
+      Since we have a theoretical model, we use this as
+      the initial model.  We set the starting values for 
+      all three parameters to 0.1.
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=fit>
+      <I>Nonlinear Fit Results</I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      The following results were generated for the nonlinear fit.
+<PRE>
+Parameter     Estimate    Stan. Dev    <I>t</I> Value
+b1            0.190279   0.2194E-01        8.6
+b2            0.006131   0.3450E-03       17.8
+b3            0.010531   0.7928E-03       13.3
+  
+Residual standard deviation  = 3.362
+Residual degrees of freedom  = 211
+</PRE>
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=predicted>
+      <I>
+        Plot of Predicted Values with Original Data
+      </I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      <A HREF="ultrason/plots/fit1_f.gif">
+      <IMG SRC="ultrason/plots/fit1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of predicted values with raw data">
+      </A>
+      <p>
+      This plot shows a reasonably good fit.  It is difficult
+      to detect any violations of the fit assumptions from
+      this plot.  The estimated model is
+
+$$ \hat{y} = \frac{\exp(-0.190x)} {0.00613 + 0.0105x} $$
+<!--
+      <UL>
+         <IMG ALT="\hat{y} = \frac{\exp(-0.190x)} {0.00613 + 0.0105x}" SRC="pmd63_eq2.gif">
+      </UL>
+-->
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=6plot>
+      <I>
+        6-Plot for Model Validation
+      </I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      When there is a single independent variable, the
+      <a href="../../eda/section3/6plot.html">6-plot</a>
+      provides a convenient method for initial model
+      validation.
+      <p>
+      <A HREF="ultrason/plots/6plot1_f.gif">
+      <IMG SRC="ultrason/plots/6plot1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="6-plot shows 6 different model validation plots, residuals do not show constant variance">
+      </A>
+      <p>
+      The basic assumptions for regression models are that
+      the errors are random observations from a normal
+      distribution with zero mean and constant standard
+      deviation (or variance).
+      <p>
+      These plots suggest that the variance of the errors is
+      not constant.
+      <p>
+      In order to see this more clearly, we will generate full-
+      sized a plot of the predicted values from the model and 
+      overlay the data and plot the residuals against the 
+      independent variable, Metal Distance.
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=residuals>
+      <I>
+        Plot of Residual Values Against Independent Variable
+      </I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      <A HREF="ultrason/plots/res1_f.gif">
+      <IMG SRC="ultrason/plots/res1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of residuals versus independent variable shows non-homogeneous ">
+      </A>
+      <p>
+      This plot suggests that the errors have greater variance for
+      the values of metal distance less than one than elsewhere.  That is,
+      the assumption of homogeneous variances seems to be violated.
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+         Non-Homogeneous Variances
+      </I>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+   Except when the Metal Distance is less than or equal to one, there
+   is not strong evidence that the error variances differ. Nevertheless,
+   we will use transformations or weighted fits to see if we can elminate
+   this problem.
+   </TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd631.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd633.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd632.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:11:57 GMT -->
+</HTML>

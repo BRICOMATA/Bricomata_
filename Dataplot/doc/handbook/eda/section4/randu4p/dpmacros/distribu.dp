@@ -1,0 +1,38 @@
+. Starting Step 5.5
+.
+set anderson darling critical value simulation
+set goodness of fit fully specified off
+.
+let ksloc = mean y
+let ksscale = sd y
+normal anderson-darling goodness of fit test y
+let string inormad = YES
+if statval > cutoff95
+  let string inormad = NO
+end of if
+let adstatn = statval
+.
+uniform mle y
+let a = lowlimit
+let b = upplimit
+uniform anderson-darling goodness of fit test y
+let string iunifad = YES
+if statval > cutoff95
+  let string iunifad = NO
+end of if
+let adstatu= statval
+.
+normal probability plot y
+let NPPCC = PPCC
+if NPPCC < .987
+  let string inorm = NO
+end of if
+let string iunif = YES
+uniform probability plot y
+let UPPCC = PPCC
+if UPPCC < .99
+  let string iunif = NO
+end of if
+.
+.
+. Finished Step 5.5: Page Back for Output

@@ -1,0 +1,282 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc5333.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:00:32 GMT -->
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+   <TITLE>2.5.3.3.3. Bias with sparse data</TITLE>
+</HEAD>
+<BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="mpc54.html" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="mpc5332.html" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../index-3.html" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.html" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+	   <area sharea shape="default" nohref>
+</map>
+<BR>
+<!---<LEFT>--->
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+<TR>
+
+<TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">2.</FONT> <A HREF="../mpc.html"><FONT COLOR="#00105A">Measurement Process Characterization</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">2.5.</FONT> <A HREF="mpc5.html"><FONT COLOR="#00105A">Uncertainty analysis</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">2.5.3.</FONT> <A HREF="mpc53.html"><FONT COLOR="#00105A">Type A evaluations</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">2.5.3.3.</FONT> <A HREF="mpc533.html"><FONT COLOR="#00105A">Type A evaluations of bias</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">2.5.3.3.3.</FONT> Bias with sparse data </H2>
+<FONT SIZE=-1>
+</=-1>
+</=-1>
+</P>
+</FONT></FONT></FONT>
+</TD>
+</TR>
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Strategy for dealing with limited data</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The purpose of this discussion is to outline methods for dealing
+with biases that may be real but which cannot be estimated reliably
+because of the sparsity of the data.  For example, a test between two,
+of many possible, configurations of the measurement process cannot
+produce a reliable enough estimate of bias to permit a correction, but
+it can reveal problems with the measurement process.  The strategy for
+a significant bias is to apply a 'zero' correction.  The type A
+uncertainty component is the standard deviation of the correction, and
+the calculation depends on whether the bias is
+<UL>
+   <LI><A HREF="mpc5331.html#consistent">inconsistent</A>
+   <LI><A HREF="mpc5332.html#inconsistent">consistent</A>
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="exwiring">Example of differences among wiring
+settings</A></I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+An example is given of a study of wiring settings for a single gauge.
+The gauge, a 4-point probe for measuring resistivity of silicon wafers,
+can be wired in several ways.  Because it was not possible to test all
+wiring configurations during the gauge study, measurements were made in
+only two configurations as a way of identifying possible problems.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Data on wiring configurations</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+Measurements were made on six wafers over six days (except for 5
+measurements on wafer 39) with probe #2062 wired in two configurations.
+This sequence of measurements was repeated after about a month resulting
+in two runs.  A <A HREF="../section4/mpc455.html#wiringdata">database of
+differences between measurements in the two configurations</A> on the
+same day are analyzed for significance.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A HREF="mpc536a.dp">Run software macro for making plotting
+differences between the 2 wiring configurations</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="plot">A plot of the differences between the 2 configurations
+shows that the differences for run 1 are, for the most part, < zero, and
+the differences for run 2 are > zero. The following
+<a href="../../dataplot.html">Dataplot</a> commands produce the plot:
+<FONT SIZE=4>
+<FONT SIZE=4><FONT COLOR="#D60081">
+<PRE>
+dimension 500 30
+read mpc536.dat wafer day probe d1 d2
+let n = count probe
+let t = sequence 1 1 n
+let zero = 0 for i = 1 1 n
+lines dotted blank blank
+characters blank 1 2
+x1label = DIFFERENCES BETWEEN 2 WIRING CONFIGURATIONS 
+x2label SEQUENCE BY WAFER AND DAY
+plot zero d1 d2 vs t
+</PRE>
+</FONT></FONT>
+
+</TABLE>
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+
+<CENTER>
+<IMG SRC = "mpc536.gif"
+     ALT="Plot of the differences between the 2 wiring configurations">
+</CENTER>
+
+</TABLE>
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Statistical test for difference between 2 configurations</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+A t-statistic is used as an approximate test where we are assuming the
+differences are approximately normal.  The average difference and
+standard deviation of the difference are required for this test.  If
+<P>
+<CENTER>
+<IMG SRC="../section4/mpc455a.gif"
+     ALT="t = |{SQRT(N)}/s(diff)}*Avg(diff)| > 2">
+</CENTER>
+<P>
+the difference between the two configurations is statistically
+significant.
+<P>
+The average and standard deviation computed from the <I>N = 29</I>
+differences in each run from the table above are shown along with
+corresponding t-values which confirm that the differences are
+significant, but in opposite directions, for both runs.
+<PRE>
+<B><FONT SIZE =4>Average differences between wiring configurations
+
+ Run Probe    Average    Std dev    N    t</FONT></B>
+
+  1    2062      - 0.00383       0.00514     29    - 4.0
+
+  2    2062      + 0.00489       0.00400     29    + 6.6 
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A HREF="mpc536b.dp">Run software macro for making t-test</A></I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The following <a href="../../dataplot.html">Dataplot</a> commands
+<FONT SIZE = 4>
+<FONT SIZE=4><FONT COLOR="#D60081">
+<PRE>
+let dff = n-1
+let avgrun1 = average d1
+let avgrun2 = average d2
+let sdrun1 = standard deviation d1
+let sdrun2 = standard deviation d2
+let t1 = ((n-1)**.5)*avgrun1/sdrun1
+let t2 = ((n-1)**.5)*avgrun2/sdrun2
+print avgrun1 sdrun1 t1
+print avgrun2 sdrun2 t2
+let tcrit=tppf(.975,dff)
+</PRE>
+</FONT></FONT>
+reproduce the statistical tests in the table.
+<FONT SIZE = 4>
+<FONT SIZE=4><FONT COLOR="#D60081">
+<PRE>
+ PARAMETERS AND CONSTANTS--
+
+     AVGRUN1 -- -0.3834483E-02
+     SDRUN1  --  0.5145197E-02
+     T1      -- -0.4013319E+01
+
+ PARAMETERS AND CONSTANTS--
+
+     AVGRUN2 --  0.4886207E-02
+     SDRUN2  --  0.4004259E-02
+     T2      --  0.6571260E+01
+
+</PRE>
+</FONT></FONT>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="stddevcorr">Case of inconsistent bias</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="inconsistent">The data reveal a significant wiring bias 
+for both runs that changes direction between runs.  Because of this
+inconsistency, a 'zero' correction is applied to the results, and the
+type A uncertainty is taken to be
+<P>
+<CENTER>
+<IMG SRC="mpc533f.gif"
+     ALT="s(correction) = (1/SQRT(3))*MaxBias">
+</CENTER>
+<P>
+For this study, the type A uncertainty for wiring bias is 
+<P>
+<CENTER>
+<IMG SRC="mpc536a.gif"
+     ALT="s(correction) = (1/SQRT(3))*0.00489 ohm.cm">
+</CENTER>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Case of consistent bias</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<A NAME="consistent">Even if the bias is consistent over time, a 'zero'
+correction is applied to the results, and for a single run, the
+estimated standard deviation of the correction is
+<P>
+<CENTER>
+<IMG SRC="mpc536b.gif"
+     ALT="s(correction) = (1/SQRT(N))*s(diff)">
+</CENTER>
+<P>
+For two runs (1 and 2), the estimated standard deviation of the
+correction is
+<P>
+<CENTER>
+<IMG SRC="mpc536c.gif"
+     ALT="s(correction) = (1/SQRT(2*N))*SQRT{s(diff1)**2 + s(diff2)**2}">
+</CENTER>
+</TD>
+</TR>
+
+
+
+</TABLE>
+</UL>
+<P>
+<A HREF="http://www.nist.gov/">
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+<P>
+<MAP NAME="nvbar.nvbar">
+<AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+<AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+</MAP>
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-3.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../main.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc5332.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc54.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc5333.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:00:42 GMT -->
+</HTML>

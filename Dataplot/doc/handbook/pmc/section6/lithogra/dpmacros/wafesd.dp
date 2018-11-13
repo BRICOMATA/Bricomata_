@@ -1,0 +1,29 @@
+.
+. Starting Step 4.5 - SD control chart for wafer
+.
+y1label sd of line width
+x1label wafer
+line solid all
+line solid solid solid blank
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 90
+xtic offset 4 5
+ytic offset 0.05 0.05
+let xwafer = sequence 1 5 1 90
+s control chart width xwafer
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 7
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+. movedata a1 a4
+. text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.5: Page Back for Output

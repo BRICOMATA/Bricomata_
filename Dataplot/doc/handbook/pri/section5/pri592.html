@@ -1,0 +1,402 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri592.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:32 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.2. DOE scatter plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri593.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri591.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>DOE scatter plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The DOE (design of experiments) scatter plot answers the following
+three questions:
+<ol>
+   <li>What are the most important factors?
+   <li>What is the best setting for each of these important factors?
+   <li>What data points are outliers?
+</ol>
+In the above questions, the terms "important", "best", and
+"outliers" need clarification and specificity:
+<p>
+<a name="important">
+<b>Important</b>
+</a>
+<p>
+A factor can be "important" if it leads to a significant shift
+in either the location or the variation of the response variable
+as we go from the "-" setting to the "+" setting
+of the factor.  Both definitions are relevant and acceptable.  The
+default definition of "important" in engineering/scientific
+applications is a shift in location.  Unless specified otherwise,
+when a factor is claimed to be important, the implication is
+that the factor caused a large location shift in the response.
+<p>
+<a name="best">
+<b>Best</b>
+</a>
+<p>
+A factor setting is "best" if it results in a typical response
+that is closest, in location, to the desired project goal
+(maximization, minimization, target).  This desired project goal
+is an engineering, not a statistical, question, and so the desired
+optimization goal must be specified by the engineer.
+<p>
+<a name="outlier">
+<b>Outlier</b>
+</a>
+<p>
+A data point is an "outlier" if it comes from a different
+probability distribution or from a different deterministic model
+than the remainder of the data.  A single outlier in a data set
+can affect all effect estimates and so in turn can potentially
+invalidate the factor rankings in terms of importance.
+<p>
+Given the above definitions, the DOE scatter plot is a useful
+early-step tool for determining the important factors, best
+settings, and outliers.  An alternate name for the DOE scatter
+plot is "main effects plot".
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The output for the DOE scatter plot is:
+<ol>
+   <li>Primary: Identification of the important factors.
+   <li>Secondary: Best setting for these factors and identification
+       of outliers.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The DOE scatter plot is formed by
+<ul>
+   <li>Vertical Axis: The response (= the raw data) for a given
+       setting (- or +) of a factor for each of the <i>k</i>
+       factors.
+       <p>
+   <li>Horizontal Axis: The <i>k</i> factors, and the two settings
+       (- and +) within each factor.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Motivation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The scatter plot is the primary data analysis tool for determining
+if and how a response relates to another factor.  Determining if
+such a relationship exists is a necessary first step in converting
+statistical association to possible engineering cause-and-effect.
+Looking at how the raw data change as a function of
+the different levels of a factor is a fundamental step which, it
+may be argued, should never be skipped in any data analysis.
+<p>
+From such a foundational plot, the analyst invariably extracts
+information dealing with location shifts, variation shifts, and
+outliers.  Such information may easily be washed out by other
+"more advanced" quantitative or graphical procedures (even
+computing and plotting means!).  Hence there is motivation for the
+DOE scatter plot.
+<p>
+If we were interested in assessing the importance of a single
+factor, and since "important" by default means shift in location,
+then the simple scatter plot is an ideal tool.  A large shift (with
+little data overlap) in the body of the data from the "-" setting
+to the "+" setting of a given factor would imply that the
+factor is important.  A small shift (with much overlap) would
+imply the factor is not important.
+<p>
+The DOE scatter plot is actually a sequence of <i>k</i>
+such scatter plots with one scatter plot for each factor.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot for defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The DOE scatter plot for the defective springs data set is as follows.
+<p>
+<A HREF="gifs/dexscat.gif">
+   <IMG SRC="gifs/dexscat.r.gif" BORDER=0
+        alt="DOE scatter plot for the defective springs data">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+As discussed previously, the DOE scatter plot is
+used to look for the following:
+<ol>
+   <li>Most Important Factors;
+   <li>Best Settings of the Most Important Factors;
+   <li>Outliers.
+</ol>
+Each of these will be discussed in turn.
+<p>
+<b>Most Important Factors:</b>
+<p>
+For each of the <i>k</i> factors, as we go from the "-" setting
+to the "+" setting within the factor, is there a location shift
+in the body of the data?  If yes, then
+<ol>
+   <li>Which factor has the biggest such data location shift (that
+       is, has least data overlap)?  This defines the "most
+       important factor".
+       <p>
+   <li>Which factor has the next biggest shift (that is, has next
+       least data overlap)?  This defines the "second most important
+       factor".
+       <p>
+   <li>Continue for the remaining factors.
+</ol>
+In practice, the DOE scatter plot will typically only be able to
+discriminate the most important factor (largest shift) and perhaps
+the second most important factor (next largest shift).  The degree
+of overlap in remaining factors is frequently too large to
+ascertain with certainty the ranking for other factors.
+<p>
+<b>Best Settings for the Most Important Factors:</b>
+<p>
+For each of the most important factors, which
+setting ("-" or "+") yields the "best" response?
+<p>
+In order to answer this question, the engineer must first define "best".
+This is done with respect to the overall project goal in
+conjunction with the specific response variable under study.  For
+some experiments (e.g., maximizing the speed of a chip), "best"
+means we are trying to maximize the response (speed).  For other
+experiments (e.g., semiconductor chip scrap), "best" means we are
+trying to minimize the response (scrap).  For yet other experiments
+(e.g., designing a resistor) "best" means we are trying to hit a
+specific target (the specified resistance).  Thus the definition of
+"best" is an engineering precursor to the determination of best
+settings.
+<p>
+Suppose the analyst is attempting to maximize the response.  In such a
+case, the analyst would proceed as follows:
+<ol>
+   <li>For factor 1, for what setting (- or +) is the body of the
+       data higher?
+   <li>For factor 2, for what setting (- or +) is the body of the
+       data higher?
+   <li>Continue for the remaining factors.
+</ol>
+The resulting <i>k</i>-vector of best settings:
+<ul>
+   (x1best, x2best, ..., xkbest)
+</ul>
+is thus theoretically obtained by looking at each factor
+individually in the DOE scatter plot and choosing the setting
+(- or +) that has the body of data closest to the desired
+optimal (maximal, minimal, target) response.
+<p>
+As indicated earlier, the DOE scatter plot will typically be able to
+estimate best settings for only the first few important factors.
+Again, the degree of data overlap precludes ascertaining best
+settings for the remaining factors.  Other tools, such as the
+<a href-"pri593.htm">DOE mean plot</a>, will do a better job of
+determining such settings.  
+<p>
+<b>Outliers:</b>
+<p>
+Do any data points stand apart from the bulk of the data?  If so,
+then such values are candidates for further investigation as
+outliers.  For multiple outliers, it is of interest to note if
+all such anomalous data cluster at the same setting for any of
+the various factors.  If so, then such settings become candidates
+for avoidance or inclusion, depending on the nature (bad or 
+good), of the outliers.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The application of the DOE scatter plot to the defective springs
+data set results in the following conclusions:
+<ol>
+   <li>Most Important Factors:
+       <p>
+       <ol>
+          <li><i>X</i><sub>1</sub>  (most important);
+          <li><i>X</i><sub>2</sub>  (of lesser importance);
+          <li><i>X</i><sub>3</sub>  (of least importance).
+       </ol>
+       <p>
+       that is,
+       <p>
+       <ul>
+          <li>factor 1 definitely looks important;
+          <li>factor 2 is a distant second;
+          <li>factor 3 has too much overlap to be important
+              with respect to location, but is flagged for further
+              investigation due to potential differences in
+              variation.
+       </ul>
+       <p>
+   <li>Best Settings:
+       <p>
+       <ul>
+          (<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, -, -) = (+1, -1, -1)
+       </ul>
+       <p>
+   <li>Outliers: None detected.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri591.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri593.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri592.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:36 GMT -->
+</HTML>

@@ -1,0 +1,317 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd422.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:45 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.2.2. Using the Data to Select an Appropriate Function</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd423.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd421.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd42.html">How do I select a function to describe my process?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.2.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Using the Data to Select an Appropriate Function</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Plot the Data</I></TD>
+<TD WIDTH=85%>
+The best way to select an initial model is to plot the data.
+Even if you have a good idea of what the form of the regression function will be,
+plotting allows a preliminary check of the 
+<A HREF="../section2/pmd21.html">underlying assumptions</A> required for the
+model fitting to succeed.  Looking at the data also often provides other
+insights about the process or the methods of data collection that cannot
+easily be obtained from numerical summaries of the data alone.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Example</I></TD>
+<TD WIDTH=85%>
+The data from the <A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature
+example</A> is plotted below.  From the plot it looks like a straight-line
+model will fit the data well.  This is as expected based on Charles' Law.  In
+this case there are no signs of any problems with the process or data
+collection.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Straight-Line Model Looks Appropriate</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mspt1_f.gif">
+<IMG ALIGN=BOTTOM SRC="plots/mspt1_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="data from the Pressure/Temperature example; straight line model looks appropriate">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Start with Least Complex Functions First</I></TD>
+<TD WIDTH=85%>
+A key point when selecting a model is to start with the simplest function
+that looks as though it will describe the structure in the data.  Complex
+models are fine if required, but they should not be used unnecessarily.  
+Fitting models that are more complex than necessary means that random noise 
+in the data will be modeled as deterministic structure.  This will 
+unnecessarily reduce the amount of data available for estimation of the 
+residual standard deviation, potentially increasing the uncertainties of 
+the results obtained when the model is used to answer engineering or 
+scientific questions. Fortunately, many physical systems can be modeled well
+with straight-line, polynomial, or simple nonlinear functions.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Quadratic Polynomial a Good Starting Point</I></TD>
+<TD WIDTH=85%>
+<A HREF="plots/mstc1_f.gif">
+<IMG ALIGN=BOTTOM SRC="plots/mstc1_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="voltage vs. temperature; quadratic polynomial looks appropriate">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><A NAME="dmhd"><I>Developing Models in Higher Dimensions</I></A></TD>
+<TD WIDTH=85%>
+When the function describing the deterministic variability in the response
+variable depends on several predictor (input) variables, it can be difficult
+to see how the different variables relate to one another.  One way to tackle
+this problem that often proves useful is to plot cross-sections of the data and
+build up a function one dimension at a time.  This approach will often shed
+more light on the relationships between the different predictor variables and
+the response than plots that lump different levels of one or more predictor
+variables together on plots of the response variable versus another predictor
+variable.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="pr.r1">Polymer Relaxation Example</A></I>
+</TD>
+<TD WIDTH=85%>
+For example, materials scientists are interested in how cylindrical polymer samples
+that have been twisted by a fixed amount relax over time. They are also interested 
+in finding out how temperature may affect this process. As a result, both time
+and temperature are thought to be important factors for describing the systematic 
+variation in the 
+relaxation data plotted below.  When the torque is plotted against time, however,
+the nature of the relationship is not clearly shown.  Similarly, when torque is 
+plotted versus the temperature the effect of temperature is also unclear.  The 
+difficulty in interpreting these plots arises because the plot of torque versus 
+time includes data for several different temperatures and the plot of torque versus
+temperature includes data observed at different times.  If both temperature and
+time are necessary parts of the function that describes the data, these plots
+are collapsing what really should be displayed as a three-dimensional surface
+onto a two-dimensional plot, muddying the picture of the data. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Polymer Relaxation Data</I></TD>
+<TD WIDTH=85%>
+<A HREF="plots/mspr1_f.gif">
+<IMG ALIGN=BOTTOM SRC="plots/mspr1_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="torque vs. time">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I></I></TD>
+<TD WIDTH=85%>
+<A HREF="plots/mspr2_f.gif">
+<IMG ALIGN=BOTTOM SRC="plots/mspr2_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="torque vs. temperature">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Multiplots Reveal Structure</I></TD>
+<TD WIDTH=85%>
+If cross-sections of the data are plotted in multiple plots instead of lumping
+different explanatory variable values together, the relationships
+between the variables can become much clearer.  Each cross-sectional plot below
+shows the relationship between torque and time for a particular temperature.  
+Now the relationship between torque and time for each temperature is clear.  It
+is also easy to see that the relationship differs for different temperatures.  
+At a temperature of 25 degrees there is a sharp drop in torque between 0 and 20
+minutes and then the relaxation slows.   At a temperature of 75 degrees,
+however, the relaxation drops at a rate that is nearly constant over the whole
+experimental time period.  The fact that the profiles of torque versus time
+vary with temperature confirms that any functional description of the polymer
+relaxation process will need to include temperature.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Cross-Sections of the Data</I></TD>
+<TD WIDTH=85%>
+<A HREF="plots/mspr3_f.gif">
+<IMG ALIGN=BOTTOM SRC="plots/mspr3_r.gif" BORDER=0 HEIGHT=712 WIDTH=550
+alt="cross-sections of the data">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Cross-Sectional Models Provide Further Insight</I></TD>
+<TD WIDTH=85%>
+Further insight into the appropriate function to use can be obtained by
+separately modeling each cross-section of the data and then relating the
+individual models to one another.  Fitting the accepted stretched exponential
+relationship between torque (\(y\))
+<!-- (<IMG ALT="y" SRC="eqns/y.gif" ALIGN=middle>) -->
+and time (\(x_1\)),
+<!-- (<IMG ALT="x_1" SRC="eqns/x1.gif" ALIGN=middle>), -->
+
+$$ y = \beta_0 + \beta_1\exp\left[-\left(\frac{x_1}{\beta_2}\right)^{\beta_3}\right] + \varepsilon $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+y = \beta_0 + \beta_1\exp(-(\frac{x_1}{\beta_2})^{\beta_3}) + \epsilon
+" SRC="pmd422_eq1.gif">
+</CENTER><BR> -->
+
+to each cross-section of the polymer data and then examining plots of the
+estimated parameters versus temperature roughly indicates how temperature
+should be incorporated into a model of the polymer relaxation data.  The
+individual stretched exponentials fit to each cross-section of the data are
+shown in the plot above as solid curves through the data.  Plots of the
+estimated values of each of the four parameters in the stretched exponential
+versus temperature are shown below. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Cross-Section Parameters vs. Temperature</I></TD>
+<TD WIDTH=85%>
+<A HREF="plots/mspr4_f.gif">
+<IMG ALIGN=BOTTOM SRC="plots/mspr4_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="cross-section parameters vs. temperature">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I></I></TD>
+<TD WIDTH=85%>
+The solid line near the center of each plot of the cross-sectional parameters
+from the stretched exponential is the mean of the estimated parameter values
+across all six levels of temperature.  The dashed lines above and below the
+solid reference line  provide approximate bounds on how much the parameter
+estimates could vary due to random variation in the data.  These bounds are based
+on the typical value of the standard deviations of the estimates from each 
+individual stretched exponential fit.  From these plots it is clear that only
+the values of \(\beta_2\)
+<!-- <IMG ALT="\beta_2" SRC="eqns/beta3.gif" ALIGN=absmiddle> -->
+significantly differ
+from one another across the temperature range.  In addition, there is a clear
+increasing trend in the parameter estimates for \(\beta_2\).
+<!-- <IMG ALT="\beta_2" SRC="eqns/beta3.gif" ALIGN=absmiddle>. -->
+For each of the other parameters, the estimate at each temperature
+falls within the uncertainty bounds and no clear structure is visible. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I></I></TD>
+<TD WIDTH=85%>
+Based on the plot of estimated \(\beta_2\)
+<!-- <IMG ALT="\beta_2" SRC="eqns/beta3.gif" ALIGN=absmiddle> -->
+values above, augmenting the \(\beta_2\)
+<!-- <IMG ALT="\beta_2" SRC="eqns/beta3.gif" ALIGN=absmiddle> -->
+term in the standard stretched exponential so that the new denominator 
+is quadratic in temperature (denoted by \(x_2\))
+<!-- <IMG ALT="x_2" SRC="eqns/x2.gif" ALIGN=middle>) -->
+should provide a good starting model
+for the polymer relaxation process.  The choice of a quadratic in temperature
+is suggested by the slight curvature in the plot of the individually estimated
+parameter values.  The resulting model is 
+
+$$ y = \beta_0 + \beta_1\exp \left[ -\left(\frac{x_1}{\beta_2+\beta_4x_2+\beta_5x_2^2)}\right)^{\beta_3}\right] + \varepsilon $$
+
+<!-- <BR><BR>
+<CENTER><IMG ALT=" 
+y = \beta_0 + \beta_1\exp(-(\frac{x_1}{(\beta_2+\beta_4x_2+\beta_5x_2^2)})^{\beta_3}) + \epsilon" 
+SRC="pmd422_eq2.gif">.
+</CENTER><BR> -->
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd421.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd423.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd422.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:06 GMT -->
+</HTML>

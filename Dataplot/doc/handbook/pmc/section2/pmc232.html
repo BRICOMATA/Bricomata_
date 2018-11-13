@@ -1,0 +1,895 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section2/pmc232.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:17 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.2.3.2. Choosing a Sampling Plan with a given
+OC Curve</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc24.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc231.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc2.html">Test Product for Acceptability: Lot Acceptance
+Sampling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc23.html">How do you Choose a Single Sampling
+Plan?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.2.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Choosing a Sampling Plan with a given
+OC Curve</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Sample OC curve</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+We start by looking at a typical
+<a href="pmc22.html#Operating Characteristic (OC)">OC
+curve</a>. The OC curve for a (52, 3) sampling plan is shown below.
+<p>
+<img SRC="gifs/occurve.gif" height=300 width=471
+     ALT="Sample OC curve for (52,3) sampling plan">
+</td>
+</tr>
+
+</TABLE>
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Number of defectives is approximately binomial
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+It is instructive to show how the points on this curve are obtained,
+once we have a sampling plan (\(n,c\)) -
+<!-- (<i>n,c</i>) -->
+later we will demonstrate
+how a sampling plan (\(n,c\)) 
+<!--(<i>n,c</i>) -->
+is obtained.
+<p>
+We assume that the lot size \(N\)
+<!-- <i>N</i> -->
+is very large, as compared to the sample size \(n\),
+<!-- <i>n</i>, -->
+so that removing the sample doesn't
+significantly change the remainder of the lot, no matter how many
+defects are in the sample. Then the distribution of the number of
+defectives, \(d\), 
+<!-- <i>d</i>, -->
+in a random sample of \(n\)
+<!-- <i> n</i> -->
+items is
+approximately binomial with parameters \(n\) and \(p\),
+<!-- <i>n</i> and <i>p</i>, -->
+where \(p\)
+<!-- <i> p</i> -->
+is the fraction of defectives per lot.
+<p>
+The probability of observing exactly \(d\)
+<!-- <i>d </i> -->
+defectives is given by
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+The <a href="../../eda/section3/eda366i.html">binomial
+distribution</a>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+
+$$ P_d = f(d) = \frac{n!}{d! (n-d)!} p^d (1-p)^{n-d} \, .$$
+<!-- 
+<center>
+<img SRC="eqns/oc1.gif" height=44 width=242
+     ALT="P(d) = f(d) = [n!/(d!*(n-d)!)]*p**d*(1-p)**(n-d)">
+</center>
+<p>
+-->
+The probability of acceptance is the probability that \(d\),
+<!-- <i> d</i>, -->
+the number of defectives, is less than or equal to \(c\),
+<!-- <i>c</i>, -->
+the accept number.  This means that
+
+$$ P_a = P(d \le c) = \sum_{d=0}^c \frac{n!}{d!(n-d)!} p^d(1-p)^{n-d} \, .$$
+<!-- 
+<p>
+<center>
+<img SRC="eqns/oc2.gif" height=45 width=270 ALT=
+"Pa = P{d<=c} = SUM[d=0 to c]{[n!/(d!*(n-d)!)]*p**d*(1-p)**(n-d)}">
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>
+Sample table for \(P_a\), \(P_d\) using the binomial distribution
+</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Using this formula with \(n=52\), \(c=3\), and \(p = 0.01, \, 0.02, \, \ldots, \, 0.12\),
+<!-- <i>n </i>= 52 and <i>c</i>=3 and <i>p</i>= .01, .02, ...,.12 -->
+we find:
+<p>
+<center>
+<!-- <img SRC="eqns/ocdat.gif" height=310 width=66> -->
+<table noborder>
+<tr>
+   <td valign=top width=50>
+      \(P_a\)
+      <!-- P<sub>a</sub> -->
+   </td>
+   <td valign=top width=50>
+      \(P_d\)
+      <!-- P<sub>d</sub> -->
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.998
+   </td>
+   <td valign=top width=50>
+      0.01
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.980
+   </td>
+   <td valign=top width=50>
+      0.02
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.930
+   </td>
+   <td valign=top width=50>
+      0.03
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.845
+   </td>
+   <td valign=top width=50>
+      0.04
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.739
+   </td>
+   <td valign=top width=50>
+      0.05
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.620
+   </td>
+   <td valign=top width=50>
+      0.06
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.502
+   </td>
+   <td valign=top width=50>
+      0.07
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.394
+   </td>
+   <td valign=top width=50>
+      0.08
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.300
+   </td>
+   <td valign=top width=50>
+      0.09
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.223
+   </td>
+   <td valign=top width=50>
+      0.10
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.162
+   </td>
+   <td valign=top width=50>
+      0.11
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.115
+   </td>
+   <td valign=top width=50>
+      0.12
+   </td>
+</tr>
+</table>
+</center>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<b><font size=+1>Solving for (<i>n,c</i>)</font></b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Equations for calculating a sampling plan
+with a given OC curve</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+In order to design a sampling plan with a specified OC curve one
+needs two designated points. Let us design a sampling plan such that
+the probability of acceptance is \(1-\alpha\)
+<!-- 1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+for lots with fraction defective \(p_1\)
+<!-- <i>p</i><sub>1</sub> -->
+and the probability of acceptance is \(\beta\)
+<!-- <img align=absmiddle src="eqns/beta.gif" alt="beta"> -->
+for lots with fraction defective \(p_2\).
+<!-- <i>p</i><sub>2</sub>. -->
+Typical choices for these
+points are: \(p_1\)
+<!-- <i>p<sub>1</sub></i> -->
+is the <a href="pmc22.html#Acceptable Quality Level">AQL</a>,
+\(p_2\)
+<!-- <i>p<sub>2</sub></i> -->
+is the
+<a href="pmc22.html#Lot Tolerance Percent Defective">LTPD</a>
+and \(\alpha, \, \beta\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha">,
+<img align=absmiddle src="eqns/beta.gif" alt="beta"> -->
+are the <a href="pmc22.html#Type I Error (Producers">Producer's
+Risk (Type I error)</a> and <a href="pmc22.html#Type II Error
+(Consumers">Consumer's Risk (Type II error)</a>, respectively.
+<p>
+If we are willing to assume that binomial sampling is valid, then the
+sample size \(n\),
+<!-- <i>n</i>, -->
+and the acceptance number \(c\)
+<!-- <i>c</i> -->
+are the solution to
+
+$$ \begin{eqnarray}
+1 - \alpha & = & \sum_{d=0}^c \frac{n!}{d!(n-d)!} p_1^d (1-p_1)^{n-d} \\
+    \beta  & = & \sum_{d=0}^c \frac{n!}{d!(n-d)!} p_2^d (1-p_2)^{n-d} \, .
+\end{eqnarray} $$
+<!-- 
+<center>
+<p>
+<img SRC="eqns/oc4.gif" height=93 width=216 ALT=
+"1 - alpha = SUM[d=0 to c]{[n!/(d!*(n-d)!)]*p1**d*(1-p1)**(n-d)};
+"   beta = SUM[d=0 to c]{[n!/(d!*(n-d)!)]*p2**d*(1-p2)**(n-d)}">
+</center>
+<p>
+-->
+These two simultaneous equations are nonlinear so there is no simple,
+direct solution. There are however a number of iterative techniques
+available that give approximate solutions so that composition of a
+computer program poses few problems.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<b><font size=+1>Average Outgoing Quality (AOQ)</font></b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Calculating AOQs
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We can also calculate the
+<a href="pmc22.html#Average Outgoing Quality">AOQ</a>
+for a (\(n,c\))
+<!-- (<i>n,c</i>) -->
+sampling plan, provided rejected lots are 100 %
+inspected and defectives are replaced with good parts.
+<p>
+Assume all lots come in with exactly a \(p_0\)
+<!-- <i>p</i><sub>0</sub> -->
+proportion of defectives.  After screening a rejected lot, the final
+fraction defectives will be zero for that lot.  However, accepted
+lots have fraction defective \(p_0\).
+<!-- <i>p</i><sub>0</sub>. -->
+Therefore, the outgoing lots from the inspection stations 
+are a mixture of lots with fractions defective \(p_0\)
+<!-- <i>p</i><sub>0</sub> -->
+and 0. Assuming the lot size is \(N\),
+<!-- <i>N</i>, -->
+we have.
+
+$$ \mbox{AOQ} = \frac{P_a p(N-n)}{N} \, . $$
+<!--
+<p>
+<center>
+<img SRC="eqns/oc3.gif" height=41 width=128
+     ALT="AOQ = Pa*p*(N-n)/N">
+</center>
+<p>
+-->
+For example, let \(N=10000\), \(n=52\), \(c=3\),
+<!-- <i>N</i> = 10000, <i>n </i>= 52, <i>c</i> = 3, -->
+and \(p\),
+<!-- <i>p</i>, -->
+<u> the quality of incoming lots</u>, equals 0.03.  Now at \(p = 0.03\),
+<!-- <i>p</i> = 0.03, -->
+we glean from the OC curve table that \(p_a = 0.930\) 
+<!-- <i>p<sub>a</sub></i> = 0.930 -->
+and
+
+$$ \mbox{AOQ} = \frac{(0.930)(0.03)(10000-52)}{10000} = 0.02775 \, . $$
+<!-- 
+<ul>
+   <i>AOQ</i> = (.930)(.03)(10000-52) / 10000 = 0.02775.
+</ul>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>
+Sample table of AOQ versus \(p\)
+</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Setting \(p = 0.01, \, 0.02, \, \ldots, \, 0.12\),
+<!-- <i>p </i>= .01, .02, ..., .12, -->
+we can generate the following table.
+<center>
+<p>
+<table noborder>
+<tr>
+   <td valign=top width=50>
+      AOQ
+   </td>
+   <td valign=top width=50>
+      \(p\)
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0010
+   </td>
+   <td valign=top width=50>
+      0.01
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0196
+   </td>
+   <td valign=top width=50>
+      0.02
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0278
+   </td>
+   <td valign=top width=50>
+      0.03
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0338
+   </td>
+   <td valign=top width=50>
+      0.04
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0369
+   </td>
+   <td valign=top width=50>
+      0.05
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0372
+   </td>
+   <td valign=top width=50>
+      0.06
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0351
+   </td>
+   <td valign=top width=50>
+      0.07
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0315
+   </td>
+   <td valign=top width=50>
+      0.08
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0270
+   </td>
+   <td valign=top width=50>
+      0.09
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0223
+   </td>
+   <td valign=top width=50>
+      0.10
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0178
+   </td>
+   <td valign=top width=50>
+      0.11
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      0.0138
+   </td>
+   <td valign=top width=50>
+      0.12
+   </td>
+</tr>
+</table>
+<!-- <img SRC="eqns/aoqdat.gif" height=308 width=72> -->
+</center> 
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Sample plot of AOQ versus \(p\)
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A plot of the AOQ
+<!-- <i>AOQ</i> -->
+versus \(p\)
+<!-- <i>p</i> -->
+is given below.
+<p>
+<center>
+<img SRC="gifs/aoq11.gif" height=258 width=331
+     ALT="Plot of the AOQ versus p">
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation of AOQ plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From examining this curve we observe that when the incoming quality
+is very good (very small fraction of defectives coming in), then the
+outgoing quality is also very good (very small fraction of
+defectives going out).  When the incoming lot quality is very bad,
+most of the lots are rejected and then inspected.  The "duds" are
+eliminated or replaced by good ones, so that the quality of the
+outgoing lots, the AOQ,
+<!-- <i>AOQ</i>, -->
+becomes very good.  In between these extremes, the AOQ
+<!-- <i>AOQ</i> -->
+rises, reaches a maximum, and then drops.
+<p>
+The maximum ordinate on the AOQ
+<!-- <i>AOQ</i> -->
+curve represents the worst
+possible quality that results from the rectifying inspection
+program. It is called the <b>average outgoing quality limit,</b>
+(<b><a href="pmc22.html#Average Outgoing Quality Level">AOQL</a>
+</b>).
+<p>
+From the table we see that the \(\mbox{AOQL} = 0.372\) at \(p=0.06\)
+<!-- <i>AOQL</i> = 0.0372 at <i>p</i>= .06 -->
+for the above example.
+<p>
+One final remark: if \(N \gg n\),
+<!-- <i>N</i> >> <i>n</i>, -->
+then the \(\mbox{AOQ} \approx P_a p\).
+<!-- <i>AOQ</i>~ <i>p<sub>a</sub> p </i>. -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<b><font size=+1><a NAME="ATI">The Average
+Total Inspection (ATI)</a></font></b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Calculating the Average Total Inspection</i>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+What is the total amount of inspection when rejected lots are
+screened?
+<p>
+If all lots contain zero defectives, no lot will be rejected.
+<p>
+If all items are defective, all&nbsp; lots will be inspected, and the
+amount to be inspected is \(N\).
+<!-- <i>N</i>. -->
+<p>
+Finally, if the lot quality is \(0 \lt p \lt 1\),
+<!-- 0 &lt; <i>p </i>&lt; 1, -->
+the average
+amount of inspection per lot will vary between the sample size \(n\),
+<!-- <i>n</i>, -->
+and the lot size \(N\).
+<!-- <i>N</i>. -->
+<p>
+Let the quality of the lot be \(p\)
+<!-- <i>p</i> -->
+and the probability of lot acceptance be \(P_a\),
+<!-- <i>p<sub>a</sub></i>, -->
+then the ATI
+<!-- <i>ATI</i> -->
+per lot is
+
+$$ \mbox{ATI} = n + (1 - P_a) (N - n) \, . $$
+
+<!--
+<ul>
+   <i>ATI</i> =<i> n + (</i>1 <i>- p<sub>a</sub>) (N - n)</i>
+</ul>
+<p>
+-->
+For example, let \(N=10000\), \(n=52\), \(c=3\), and \(p = 0.03\).
+<!-- <i>N</i> = 10000, <i>n</i> = 52, <i>c</i>= 3, and <i>p</i> = .03&nbsp; -->
+We know from the OC table that \(P_a = 0.93\).
+<!-- <i>p<sub>a</sub></i> = 0.930. -->
+Then \(\mbox{ATI} = 52 + (1-0.930)(10000 - 52) = 753\).
+<!-- <i>ATI</i> = 52 + (1-.930)(10000 - 52) = 753. -->
+(Note that while 0.930 was rounded to three
+decimal places, 753 was obtained using more decimal places.)
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<I>
+Sample table of ATI versus \(p\)
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Setting \(p = 0.01, \, 0.02, \, \ldots, \, 0.14\)
+<!-- <i>p</i>= .01, .02, ....14 -->
+generates the following table.
+<center>
+<table noborder>
+<tr>
+   <td valign=top width=50>
+      ATI
+   </td>
+   <td valign=top width=50>
+      \(p\)
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      70
+   </td>
+   <td valign=top width=50>
+      0.01
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      253
+   </td>
+   <td valign=top width=50>
+      0.02
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      753
+   </td>
+   <td valign=top width=50>
+      0.03
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      1584
+   </td>
+   <td valign=top width=50>
+      0.04
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      2655
+   </td>
+   <td valign=top width=50>
+      0.05
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      3836
+   </td>
+   <td valign=top width=50>
+      0.06
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      5007
+   </td>
+   <td valign=top width=50>
+      0.07
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      6083
+   </td>
+   <td valign=top width=50>
+      0.08
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      7012
+   </td>
+   <td valign=top width=50>
+      0.09
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      7779
+   </td>
+   <td valign=top width=50>
+      0.10
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      8388
+   </td>
+   <td valign=top width=50>
+      0.11
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      8854
+   </td>
+   <td valign=top width=50>
+      0.12
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      9201
+   </td>
+   <td valign=top width=50>
+      0.13
+   </td>
+</tr>
+<tr>
+   <td valign=top width=50>
+      9453
+   </td>
+   <td valign=top width=50>
+      0.14
+   </td>
+</tr>
+</table>
+<!-- <img SRC="eqns/atidat.gif" height=356 width=69> -->
+</center>
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot of ATI versus \(p\)
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A plot of ATI
+<!-- <i>ATI </i> -->
+versus \(p\),
+<!-- <i>p,</i> -->
+the Incoming Lot Quality (ILQ)
+<!-- (<i>ILQ</i>) -->
+is given below.
+<p>
+<center>
+<img SRC="gifs/ati1.gif" height=258 width=334
+     ALT="Plot of ATI versus p">
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc231.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc24.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section2/pmc232.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:19 GMT -->
+</HTML>

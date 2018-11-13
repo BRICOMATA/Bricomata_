@@ -1,0 +1,282 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section6/mpc617.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:01:21 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.6.1.7. Dataplot macros</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc62.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc616.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc6.html">Case studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc61.html">Gauge study of resistivity probes</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.6.1.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Dataplot macros</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Plot of wafer and day effect on repeatability standard deviations
+for run 1</I>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc61.dat run wafer probe mo day op hum y sw
+y1label ohm.cm
+title GAUGE STUDY
+lines blank all
+let z = pattern 1 2 3 4 5 6 for I = 1 1 300
+let z2 = wafer + z/10 -0.25
+characters a b c d e f
+X1LABEL WAFERS
+X2LABEL REPEATABILITY STANDARD DEVIATIONS BY WAFER AND DAY
+X3LABEL CODE FOR DAYS: A, B, C, D, E, F
+TITLE RUN 1
+plot sw z2 day subset run 1
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Plot of wafer and day effect on repeatability standard deviations
+for run 2</I>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc61.dat run wafer probe mo day op hum y sw
+y1label ohm.cm
+title GAUGE STUDY
+lines blank all
+let z = pattern 1 2 3 4 5 6 for I = 1 1 300
+let z2 = wafer + z/10 -0.25
+characters a b c d e f
+X1LABEL WAFERS
+X2LABEL REPEATABILITY STANDARD DEVIATIONS BY WAFER AND DAY
+X3LABEL CODE FOR DAYS: A, B, C, D, E, F
+TITLE RUN 2
+plot sw z2 day subset run 2
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Plot of repeatability standard deviations for 5 probes - run 1</I>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc61.dat run wafer probe mo day op hum y sw
+y1label ohm.cm
+title GAUGE STUDY
+lines blank all
+let z = pattern 1 2 3 4 5 6 for I = 1 1 300
+let z2 = wafer + z/10 -0.25
+characters 1 2 3 4 5
+X1LABEL WAFERS
+X2LABEL REPEATABILITY STANDARD DEVIATIONS BY WAFER AND PROBE
+X3LABEL CODE FOR PROBES: 1= SRM1; 2= 281; 3=283; 4=2062; 5=2362
+TITLE RUN 1
+plot sw z2 probe subset run 1
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Plot of repeatability standard deviations for 5 probes - run 2</I>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc61.dat run wafer probe mo day op hum y sw
+y1label ohm.cm
+title GAUGE STUDY
+lines blank all
+let z = pattern 1 2 3 4 5 6 for I = 1 1 300
+let z2 = wafer + z/10 -0.25
+characters 1 2 3 4 5
+X1LABEL WAFERS
+X2LABEL REPEATABILITY STANDARD DEVIATIONS BY WAFER AND PROBE
+X3LABEL CODE FOR PROBES: 1= SRM1; 2= 281; 3=283; 4=2062; 5=2362
+TITLE RUN 2
+plot sw z2 probe subset run 2
+</PRE>
+</TD>
+</TR>
+
+<TR><TD WIDTH=15% VALIGN=top>
+<I>Plot of differences from the wafer mean for 5 probes - run 1</I>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+read mpc61a.dat wafer probe d1 d2
+let biasrun1 = mean d1 subset probe 2362
+print biasrun1
+title GAUGE STUDY FOR 5 PROBES
+Y1LABEL OHM.CM
+lines dotted dotted dotted dotted dotted solid
+characters 1 2 3 4 5 blank
+xlimits 137 143
+let zero = pattern 0 for I = 1 1 30
+x1label DIFFERENCES AMONG PROBES VS WAFER (RUN 1)
+plot d1 wafer probe and
+plot zero wafer
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Plot of differences from the wafer mean for 5 probes - run 2</I>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+read mpc61a.dat wafer probe d1 d2
+let biasrun2 = mean d2 subset probe 2362
+print biasrun2
+title GAUGE STUDY FOR 5 PROBES
+Y1LABEL OHM.CM
+lines dotted dotted dotted dotted dotted solid
+characters 1 2 3 4 5 blank
+xlimits 137 143
+let zero = pattern 0 for I = 1 1 30
+x1label DIFFERENCES AMONG PROBES VS WAFER (RUN 2)
+plot d2 wafer probe and
+plot zero wafer
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Plot of averages by day showing reproducibility and stability for
+measurements made with probe #2362 on 5 wafers</I>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 300 50
+label size 3
+read mcp61b.dat  wafer probe mo1 day1 y1 mo2 day2 y2 diff
+let t = mo1+(day1-1)/31.
+let t2= mo2+(day2-1)/31.
+x3label WAFER 138
+multiplot 3 2
+plot y1 t subset wafer 138 and
+plot y2 t2 subset wafer 138
+x3label wafer 139
+plot y1 t subset wafer 139 and
+plot y2 t2 subset wafer 139
+x3label WAFER 140
+plot y1 t subset wafer 140 and
+plot y2 t2 subset wafer 140
+x3label WAFER 140
+plot y1 t subset wafer 141 and
+plot y2 t2 subset wafer 141
+x3label WAFER 142
+plot y1 t subset wafer 142 and
+plot y2 t2 subset wafer 142
+</PRE>
+</TD>
+</TR>
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc616.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc62.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section6/mpc617.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:01:21 GMT -->
+</HTML>

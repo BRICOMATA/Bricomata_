@@ -1,0 +1,88 @@
+.
+. Starting Step 5.2
+tic offset units screen
+tic offset 5 5
+yates y
+skip 0
+read dpst1f.dat tag coef
+.
+device 1 off
+dex mean plot y x1 to x^k
+device 1 on
+.
+let numtag = number tag
+loop for j = 1 1 numtag
+   let posint = tag(j)
+   call digit.dp
+   let prod = ^sdigit
+   let ymeanp(j) = mean y subset prod +1
+   let ymeanm(j) = mean y subset prod -1
+end loop
+let effect = ymeanp - ymeanm
+char blank all
+char automatic tag
+lines blank all
+probe fy1min
+let ybottom = probeval
+probe fy1max
+let ytop = probeval
+let ydel = ytop-ybottom
+let a = ybottom + (1/14)*ydel
+. 1/14 is correct for offset 5 5
+let b = ytop - (1/14)*ydel
+ylimits a b
+xlimits a b
+title displacement 6
+title ^project cr() Youden Plot
+y1label Average Response for  +  Setting
+x1label Average Response for  -  Setting
+let numeffec = number tag
+let index2 = sequence 1 1 numeffec
+plot ymeanp ymeanm index2
+lines solid
+let ybar = mean y
+draw data ybar a ybar b
+draw data a ybar b ybar
+.
+let numyplot = number yplot
+just lece
+loop for j = 1 1 numyplot
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let tagj = tag(j)
+   let string ch = ^con^tagj:
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagj
+   text ^ch
+end loop
+move 86 90
+text Factor: Confound
+.
+limits
+title
+label
+.
+loop for j = 1 1 numeffec
+   let xpos = ymeanm(j)
+   let ypos = ymeanp(j)
+   let tagj = tag(j)
+   let string ch = ^con^tagj
+   movedata xpos ypos
+   just cece
+   text ^ch
+end loop
+.
+call dexkn.dp
+.
+line solid all
+character x
+line blank
+title displacement 2
+limits
+title
+label
+tic offset units data
+xtic offset 0.5 0.5
+ytic offset 0 0
+. Finished Step 5.2: Page Back for Output

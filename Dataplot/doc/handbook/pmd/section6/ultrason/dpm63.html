@@ -1,0 +1,737 @@
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/ultrason/dpm63.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:29:18 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<TITLE>Dataplot Commands for Ultrasonic Reference Block Case Study</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+<IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../pmd636.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="../pmd636.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../../index-3.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Ultrasonic Reference Block Case Study</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Set Software Options and Get Started
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Ultrasonic Reference Block Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units absolute
+tic mark offset 5 5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+.  Following 2 lines for better looking gif files
+frame thickness 0.15
+tic mark thickness 0.15
+. Finished Setting Defaults
+.
+. Starting Step 1.1
+skip 25
+read chwirut1.dat ultrason metal
+variable label ultrason Ultrasonic Response
+variable label metal Metal Distance
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Initial Plot of Data
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.1
+x1label ^metal
+y1label ^ultrason
+title Ultrasonic Reference Block Data
+plot ultrason metal
+title
+x1label
+y1label
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Pre-Fit to Determine Starting Values
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.2
+let function f = exp(-b1*metal)/(b2+b3*metal)
+pre-fit ultrason = f ...
+    for b1 = 0.1 0.1 1 for b2 = 0.1 0.1 1 for b3 = 0.1 0.1 1
+.
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Fit and Plot Predicted Values with Data
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.3
+let b1 = 0.1
+let b2 = 0.1
+let b3 = 0.1
+fit ultrason = exp(-b1*metal)/(b2+b3*metal)
+let pred1 = pred
+let r1 = ressd
+.
+title displacement 7
+title size 3
+title Ultrasonic Reference Block Datacr()with Unweighted Nonlinear Fit
+x1label ^metal
+y1label ^ultrason
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+line thickness 0.1 0.15
+plot ultrason pred vs metal
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+line thickness 0.1 0.1
+title displacement 1.5
+.
+. Finished Step 2.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Initial Fit Model Validation
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.4
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot ultrason metal
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 2.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Plot Residuals
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.5
+title displacement 7
+title size 3
+title Ultrasonic Reference Block Data Residuals - Unweighted Fit
+x1label ^metal
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+ylimits -15 15
+xlimits 0 6
+plot res vs metal
+x1label
+y1label
+character blank all
+line solid all
+char x
+line solid
+character fill off all
+character hw
+title displacement 1.5
+title
+ylimits
+xlimits
+line thickness 0.15
+drawdata 0.7 0 6.3 0
+line thickness 0.1
+.
+. Finished Step 2.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Plot Common Transformations of Dependent Variable
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.1
+multiplot 2 2
+multiplot corner coordinates 5 5 95 95
+multiplot scale factor 2.5
+char x
+line blank
+y1label displacement 15
+x1label displacement 15
+tic offset units data
+xtic offset 0.5 0.5
+xlimits 1 6
+major xtic mark number 6
+minor xtic mark number 0
+ylimits 20 80
+major ytic mark number 4
+minor ytic mark number 1
+ytic offset 15 15
+x1label ^metal
+y1label ^ultrason
+plot ultrason metal
+ylimits 2 8
+ytic offset 0.5 2
+y1label sqrt(^ultrason)
+let ytemp = sqrt(ultrason)
+plot ytemp metal
+y1label log(^ultrason)
+let ytemp = log(ultrason)
+major ytic mark number 5
+ylimits 1.5 4.5
+ytic offset 0.2 0.2
+plot ytemp metal
+y1label 1/(^ultrason)
+let ytemp = 1/(ultrason)
+major ytic mark number 3
+ylimits 0.05 0.25
+ytic offset 0.03 0.01
+plot ytemp metal
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+label
+label displacement
+limits
+major tic mark number
+minor tic mark number
+tic mark offset units absolute
+tic mark offset 5 5
+move 50 97
+justification center
+height 3
+text Transformations of Response Variable
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Plot Common Transformations of Predictor Variable
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.2
+multiplot 2 2
+multiplot corner coordinates 5 5 95 95
+multiplot scale factor 2.5
+char x
+line blank
+y1label displacement 15
+x1label displacement 15
+ylimits 2 8
+major ytic mark number 4
+minor ytic mark number 1
+ytic offset 0.5 1.5
+xlimits 1 6
+major xtic mark number 6
+minor xtic mark number 0
+xtic offset 1 0.5
+tic offset units data
+x1label ^metal
+y1label sqrt(^ultrason)
+let ytemp = sqrt(ultrason)
+plot ytemp metal
+xlimits 0.5 2.5
+major xtic mark number 5
+xtic offset 0 0.1
+x1label sqrt(^metal)
+let xtemp = sqrt(metal)
+plot ytemp xtemp
+xlimits -0.5 1.5
+major xtic mark number 3
+minor xtic mark number 1
+xtic offset 0.3 0.4
+x1label log(^metal)
+let xtemp = log(metal)
+plot ytemp xtemp
+xlimits 0 2
+major xtic mark number 5
+xtic offset 0 0.2
+x1label 1/(^metal)
+let xtemp = 1/(metal)
+plot ytemp xtemp
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+label
+label displacement
+limits
+major tic mark number
+minor tic mark number
+tic mark offset units absolute
+tic mark offset 5 5
+move 50 97
+justification center
+height 3
+text Transformations of Predictor Variable
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Fit Tranformed Model, Plot Predicted Values with Data
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.3
+let ytemp = sqrt(ultrason)
+let xtemp = metal
+fit ytemp = exp(-b1*xtemp)/(b2+b3*xtemp)
+let pred2 = pred**2
+let res2 = (ultrason - pred2)
+let r2 = standard deviation res2
+title displacement 7
+title size 3
+title Transformed Data with Fit
+x1label ^metal
+y1label sqrt(^ultrason)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ytemp pred vs xtemp
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 3.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Model Validation for Transformed Model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.4
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot ytemp xtemp
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 3.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Residual Plot for Transformed Model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.5
+title displacement 7
+title size 3
+title Residuals From Fit to Transformed Data
+x1label ^metal
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+ylimits -0.5 1.0
+major ytic mark number 4
+minor ytic mark number 1
+tic offset units data
+ytic offset 0.2 0.3
+xlimits 1 6
+xtic offset 1 0.5
+major xtic mark number 6
+minor xtic mark number 1
+plot res vs xtemp
+line solid all
+drawdata 0.5 0 6.3 0
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+limits
+tic offset units absolute
+tic offset 5 5
+major tic mark number
+minor tic mark number
+.
+. Finished Step 3.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Fit Weight Function
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.1
+device 1 off
+device 2 off
+let means = distinct metal
+variance plot ultrason metal
+let var = yplot
+retain var subset tagplot=1
+delete ytemp xtemp
+let ytemp = log(var)
+let xtemp = log(means)
+fit ytemp xtemp
+.
+device 1 on
+device 2 on
+title displacement 7
+title size 3
+title Fit for Estimating Weights
+x1label log(^metal)
+y1label log(Replicate Variances)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ytemp pred vs xtemp
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Residuals From Weight Function Fit
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.2
+title displacement 7
+title size 3
+title Residuals From Weight Estimation Fit
+x1label log(^metal)
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+plot res vs xtemp
+line solid all
+drawdata -1.0 0 2.0 0
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+.
+. Finished Step 4.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Weighted Fit
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.3
+let weights = 1/(metal**(-1.0))
+weights weights
+fit ultrason = exp(-b1*metal)/(b2+b3*metal)
+let pred3 = pred
+let res3 = ultrason - pred
+let r3 = standard deviation res3
+let res = sqrt(weights)*res
+title displacement 7
+title size 3
+title Ultrasonic Data with Weighted FitCR()Weights = 1/(^lab**-1.0)
+x1label ^metal
+y1label ^ultrason
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ultrason pred vs metal
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 4.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Model Validation for Weighted Fit
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.4
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot ultrason metal
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 4.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Plot Residuals for Weighted Fit
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.5
+title displacement 7
+title size 3
+title Residuals From Weighted Fit
+x1label ^metal
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+plot res vs metal
+line solid all
+line thickness 0.15
+drawdata 0.5 0 6.5 0
+line thickness 0.1
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+.
+. Finished Step 4.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Compare 3 Fits
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.1
+.
+title displacement 7
+title size 3
+title Data with Unweighted Line WLS Fit,CR()and Fit Using Transformed Variables
+x1label ^metal
+y1label ^ultrason
+character circle blank blank blank
+character fill on off off off
+character hw 1.0 0.75
+line blank solid dash dot
+legend size 3
+legend case asis
+legend 1 Unweighted Fit
+legend 1 coordinates 48 79
+legend 2 Weighted Fit
+legend 2 coordinates 48 74
+legend 3 Transformed Fit
+legend 3 coordinates 48 69
+box shadow off
+plot ultrason pred1 pred3 pred2 vs metal
+line solid
+draw 40 80 45 80
+line dotted
+draw 40 75 45 75
+line dash
+draw 40 70 45 70
+legend
+legend coordinates
+box coordinates
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+print "RESSD From Unweighted Fit  = ^r1"
+print "RESSD From Transformed Fit = ^r2"
+print "RESSD From Weighted Fit    = ^r3"
+.
+. Finished Step 5.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+
+</TABLE>
+
+<IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../../index-3.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="../pmd636.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../pmd636.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/ultrason/dpm63.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:29:18 GMT -->
+</HTML>

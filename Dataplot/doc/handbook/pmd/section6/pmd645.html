@@ -1,0 +1,278 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd645.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:13:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.6.4.5. Cubic/Cubic Rational Function Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd646.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd644.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd6.html">Case Studies in Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd64.html">Thermal Expansion of Copper Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.6.4.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Cubic/Cubic Rational Function Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="CCEXACT">
+      <I>
+        C/C Rational Function Model
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+       Since the Q/Q model did not describe the data well, we
+       next fit a cubic/cubic (C/C) rational function
+       model.
+       <P>
+Based on the procedure described in 
+<a href="pmd642.html#StartingValues">4.6.4.2</a>,
+we fit the model:
+
+$$ y = A_0 + A_1 x + A_2 x^2 + A_3 x^3 - B_1 x - B_2 x^2 - B_3 x^3 + \varepsilon \, , $$
+
+<!--
+<UL>
+<IMG ALT="y = A0 + A1*x + A2*x^2 + A3*x^3 - B1*x - B2*x^2 - B3*x^3 + e" 
+     SRC="pmd64_eq6.gif">
+</UL>
+-->
+
+using the following seven representative points to generate the
+starting values for the C/C rational function.
+<UL>
+<PRE>
+ TEMP        THERMEXP
+ ----        --------
+  10             0
+  30             2
+  40             3
+  50             5
+ 120            12
+ 200            15
+ 800            20
+</PRE>
+</UL>
+The coefficients from the preliminary linear fit of the seven points are:
+<UL>
+<PRE>
+A0 = -2.323648e+00  
+A1 =  3.530298e-01
+A2 = -1.383334e-02  
+A3 =  1.766845e-04 
+B1 = -3.395949e-02 
+B2 =  1.100686e-04  
+B3 =  7.910518e-06 
+</PRE>
+</UL>
+</TD>
+</TR>
+
+
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="FITOUT">
+      <I>
+        Nonlinear Fit Output
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+       The results of fitting the C/C model are shown below.  
+       <PRE>
+Parameter        Estimate    Stan. Dev    <I>t</I> Value
+A0           1.07913        0.1710            6.3
+A1          -0.122801       0.1203E-01      -10.2
+A2           0.408837E-02   0.2252E-03       18.2
+A3          -0.142848E-05   0.2610E-06       -5.5
+B1          -0.576111E-02   0.2468E-03      -23.3
+B2           0.240629E-03   0.1060E-04       23.0
+B3          -0.123254E-06   0.1217E-07      -10.1
+
+Residual standard deviation = 0.0818
+Residual degrees of freedom = 229
+</PRE>
+The regression analysis yields the following estimated model.
+
+$$ \hat{y} = \frac{1.079 - 0.122x + 0.004097x^{2} - 0.00000143x^{3}} {1 - 0.00576x + 0.000241x^{2} - 0.000000123x^{3}} $$
+
+<!--
+       <UL>
+          <IMG ALT=" 
+\hat{y} = \frac{1.079 - 0.122x + 0.004097x^{2} - 0.00000143x^{3}} {1 - 0.00576x + 0.000241x^{2} - 0.000000123x^{3}}
+" SRC="pmd64_eq7.gif">
+       </UL>
+-->
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="PLOTFIT">
+      <I>
+        Plot of C/C Rational Function Fit
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      We generate a plot of the fitted rational
+      function model with the raw data.
+      <P>
+      <A HREF="copper/plots/ccfit_f.gif">
+      <IMG SRC="copper/plots/ccfit_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="plot of C/C model appears to be a good fit">
+      </A>
+      <P>
+      The fitted function with the raw data
+      appears to show a reasonable fit.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="6PLOT">
+      <I>
+        6-Plot for Model Validation
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      Although the plot of the fitted function with the raw
+      data appears to show a reasonable fit, we need to
+      validate the
+      <a href="../section2/pmd21.html">model assumptions</a>.
+      The <a href="../../eda/section3/6plot.html">6-plot</a>
+      is an effective tool for this purpose.
+      <P>
+      <A HREF="copper/plots/cc6plo_f.gif">
+      <IMG SRC="copper/plots/cc6plo_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="6-plot of C/C model indicates no significant violation of assumptions">
+      </A>
+      <P>
+      The 6-plot indicates no significant violation of
+      the model assumptions.  That is, the errors appear to
+      have constant location and scale (from the residual
+      plot in row 1, column 2), seem to be random (from
+      the lag plot in row 2, column 1), and approximated
+      well by a normal distribution (from the histogram and
+      normal probability plots in row 2, columns 2 and 3).
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME="RESPLOT">
+      <I>
+        Residual Plot
+      </I>
+      </A>
+   </TD>
+   <TD WIDTH=85%>
+      We generate a full-sized residual plot in order to
+      show more detail.
+      <P>
+      <A HREF="copper/plots/ccres1_f.gif">
+      <IMG SRC="copper/plots/ccres1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="full-sized residual plot shows the pattern in the residuals more clearly">
+      </A>
+      <P>
+      The full-sized residual plot suggests that the assumptions
+      of constant location and scale for the errors are
+      valid.  No distinguishing pattern is evident in the
+      residuals.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+        Conclusion
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      We conclude that the cubic/cubic rational function
+      model does in fact provide a satisfactory model for
+      this data set.
+
+   </TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd644.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd646.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd645.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:13:19 GMT -->
+</HTML>

@@ -1,0 +1,754 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/pmc621.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:23:23 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.6.2.1. Background and Data</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc622.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc62.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc6.html">Case Studies in Process Monitoring</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc62.html">Aerosol Particle Size</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.6.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Background and Data</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Data Source</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The source of the data for
+this case study is Antuan Negiz who analyzed these data while he was a
+post-doc in the NIST Statistical Engineering Division from the Illinois
+Institute of Technology.
+<!--  Antuan discussed this data in the paper (1994,
+"Statistical Monitoring and Control of Multivariate Continuous
+Processes"). -->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Data Collection</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+These data were collected from an aerosol mini-spray dryer device.
+The purpose of this device is to convert
+a slurry stream into deposited particles in a drying chamber. The device
+injects the slurry at high speed. The slurry is pulverized as it enters
+the drying chamber when it comes into contact with a hot gas stream at
+low humidity. The liquid contained in the pulverized slurry particles is
+vaporized, then transferred to the hot gas stream leaving behind dried
+small-sized particles.
+<p>The response variable is particle size, which is collected equidistant
+in time. There are a variety of associated variables that may affect the
+injection process itself and hence the size and quality of the deposited
+particles. For this case study, we restrict our analysis to the response
+variable.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Applications</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Such deposition process operations
+have many applications from powdered laundry detergents at one extreme
+to ceramic molding at an important other extreme. In ceramic molding, the
+distribution and homogeneity of the particle sizes are particularly important
+because after the molds are baked and cured, the properties of the final
+molded ceramic product is strongly affected by the intermediate uniformity
+of the base ceramic particles, which in turn is directly reflective of
+the quality of the initial atomization process in the aerosol injection
+device.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Aerosol Particle Size Dynamic Modeling and Control</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The data set consists of particle
+sizes collected over time. The basic distributional properties of this
+process are of interest in terms of distributional shape, constancy of
+size, and variation in size. In addition, this time series may be examined
+for autocorrelation structure to determine a prediction model of particle
+size as a function of time--such a model is frequently autoregressive in
+nature. Such a high-quality prediction equation would be essential as a
+first step in developing a predictor-corrective recursive feedback mechanism
+which would serve as the core in developing and implementing real-time
+dynamic corrective algorithms. The net effect of such algorthms is, of
+course, a particle size distribution that is much less variable, much more
+stable in nature, and of much higher quality. All of this results in final
+ceramic mold products that are more uniform and predictable across a wide
+range of important performance characteristics.&nbsp;
+<p>
+For the purposes of this case study, we restrict the analysis to determining
+an appropriate Box-Jenkins model of the particle size.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The analyses used in this case study can be generated using
+both <a href="pmc621.dp">Dataplot code</a> and 
+     <a href="pmc621.r">R code</a>.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Case study data</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<pre>
+115.36539
+114.63150
+114.63150
+116.09940
+116.34400
+116.09940
+116.34400
+116.83331
+116.34400
+116.83331
+117.32260
+117.07800
+117.32260
+117.32260
+117.81200
+117.56730
+118.30130
+117.81200
+118.30130
+117.81200
+118.30130
+118.30130
+118.54590
+118.30130
+117.07800
+116.09940
+118.30130
+118.79060
+118.05661
+118.30130
+118.54590
+118.30130
+118.54590
+118.05661
+118.30130
+118.54590
+118.30130
+118.30130
+118.30130
+118.30130
+118.05661
+118.30130
+117.81200
+118.30130
+117.32260
+117.32260
+117.56730
+117.81200
+117.56730
+117.81200
+117.81200
+117.32260
+116.34400
+116.58870
+116.83331
+116.58870
+116.83331
+116.83331
+117.32260
+116.34400
+116.09940
+115.61010
+115.61010
+115.61010
+115.36539
+115.12080
+115.61010
+115.85471
+115.36539
+115.36539
+115.36539
+115.12080
+114.87611
+114.87611
+115.12080
+114.87611
+114.87611
+114.63150
+114.63150
+114.14220
+114.38680
+114.14220
+114.63150
+114.87611
+114.38680
+114.87611
+114.63150
+114.14220
+114.14220
+113.89750
+114.14220
+113.89750
+113.65289
+113.65289
+113.40820
+113.40820
+112.91890
+113.40820
+112.91890
+113.40820
+113.89750
+113.40820
+113.65289
+113.89750
+113.65289
+113.65289
+113.89750
+113.65289
+113.16360
+114.14220
+114.38680
+113.65289
+113.89750
+113.89750
+113.40820
+113.65289
+113.89750
+113.65289
+113.65289
+114.14220
+114.38680
+114.63150
+115.61010
+115.12080
+114.63150
+114.38680
+113.65289
+113.40820
+113.40820
+113.16360
+113.16360
+113.16360
+113.16360
+113.16360
+112.42960
+113.40820
+113.40820
+113.16360
+113.16360
+113.16360
+113.16360
+111.20631
+112.67420
+112.91890
+112.67420
+112.91890
+113.16360
+112.91890
+112.67420
+112.91890
+112.67420
+112.91890
+113.16360
+112.67420
+112.67420
+112.91890
+113.16360
+112.67420
+112.91890
+111.20631
+113.40820
+112.91890
+112.67420
+113.16360
+113.65289
+113.40820
+114.14220
+114.87611
+114.87611
+116.09940
+116.34400
+116.58870
+116.09940
+116.34400
+116.83331
+117.07800
+117.07800
+116.58870
+116.83331
+116.58870
+116.34400
+116.83331
+116.83331
+117.07800
+116.58870
+116.58870
+117.32260
+116.83331
+118.79060
+116.83331
+117.07800
+116.58870
+116.83331
+116.34400
+116.58870
+116.34400
+116.34400
+116.34400
+116.09940
+116.09940
+116.34400
+115.85471
+115.85471
+115.85471
+115.61010
+115.61010
+115.61010
+115.36539
+115.12080
+115.61010
+115.85471
+115.12080
+115.12080
+114.87611
+114.87611
+114.38680
+114.14220
+114.14220
+114.38680
+114.14220
+114.38680
+114.38680
+114.38680
+114.38680
+114.38680
+114.14220
+113.89750
+114.14220
+113.65289
+113.16360
+112.91890
+112.67420
+112.42960
+112.42960
+112.42960
+112.18491
+112.18491
+112.42960
+112.18491
+112.42960
+111.69560
+112.42960
+112.42960
+111.69560
+111.94030
+112.18491
+112.18491
+112.18491
+111.94030
+111.69560
+111.94030
+111.94030
+112.42960
+112.18491
+112.18491
+111.94030
+112.18491
+112.18491
+111.20631
+111.69560
+111.69560
+111.69560
+111.94030
+111.94030
+112.18491
+111.69560
+112.18491
+111.94030
+111.69560
+112.18491
+110.96170
+111.69560
+111.20631
+111.20631
+111.45100
+110.22771
+109.98310
+110.22771
+110.71700
+110.22771
+111.20631
+111.45100
+111.69560
+112.18491
+112.18491
+112.18491
+112.42960
+112.67420
+112.18491
+112.42960
+112.18491
+112.91890
+112.18491
+112.42960
+111.20631
+112.42960
+112.42960
+112.42960
+112.42960
+113.16360
+112.18491
+112.91890
+112.91890
+112.67420
+112.42960
+112.42960
+112.42960
+112.91890
+113.16360
+112.67420
+113.16360
+112.91890
+112.42960
+112.67420
+112.91890
+112.18491
+112.91890
+113.16360
+112.91890
+112.91890
+112.91890
+112.67420
+112.42960
+112.42960
+113.16360
+112.91890
+112.67420
+113.16360
+112.91890
+113.16360
+112.91890
+112.67420
+112.91890
+112.67420
+112.91890
+112.91890
+112.91890
+113.16360
+112.91890
+112.91890
+112.18491
+112.42960
+112.42960
+112.18491
+112.91890
+112.67420
+112.42960
+112.42960
+112.18491
+112.42960
+112.67420
+112.42960
+112.42960
+112.18491
+112.67420
+112.42960
+112.42960
+112.67420
+112.42960
+112.42960
+112.42960
+112.67420
+112.91890
+113.40820
+113.40820
+113.40820
+112.91890
+112.67420
+112.67420
+112.91890
+113.65289
+113.89750
+114.38680
+114.87611
+114.87611
+115.12080
+115.61010
+115.36539
+115.61010
+115.85471
+116.09940
+116.83331
+116.34400
+116.58870
+116.58870
+116.34400
+116.83331
+116.83331
+116.83331
+117.32260
+116.83331
+117.32260
+117.56730
+117.32260
+117.07800
+117.32260
+117.81200
+117.81200
+117.81200
+118.54590
+118.05661
+118.05661
+117.56730
+117.32260
+117.81200
+118.30130
+118.05661
+118.54590
+118.05661
+118.30130
+118.05661
+118.30130
+118.30130
+118.30130
+118.05661
+117.81200
+117.32260
+118.30130
+118.30130
+117.81200
+117.07800
+118.05661
+117.81200
+117.56730
+117.32260
+117.32260
+117.81200
+117.32260
+117.81200
+117.07800
+117.32260
+116.83331
+117.07800
+116.83331
+116.83331
+117.07800
+115.12080
+116.58870
+116.58870
+116.34400
+115.85471
+116.34400
+116.34400
+115.85471
+116.58870
+116.34400
+115.61010
+115.85471
+115.61010
+115.85471
+115.12080
+115.61010
+115.61010
+115.85471
+115.61010
+115.36539
+114.87611
+114.87611
+114.63150
+114.87611
+115.12080
+114.63150
+114.87611
+115.12080
+114.63150
+114.38680
+114.38680
+114.87611
+114.63150
+114.63150
+114.63150
+114.63150
+114.63150
+114.14220
+113.65289
+113.65289
+113.89750
+113.65289
+113.40820
+113.40820
+113.89750
+113.89750
+113.89750
+113.65289
+113.65289
+113.89750
+113.40820
+113.40820
+113.65289
+113.89750
+113.89750
+114.14220
+113.65289
+113.40820
+113.40820
+113.65289
+113.40820
+114.14220
+113.89750
+114.14220
+113.65289
+113.65289
+113.65289
+113.89750
+113.16360
+113.16360
+113.89750
+113.65289
+113.16360
+113.65289
+113.40820
+112.91890
+113.16360
+113.16360
+113.40820
+113.40820
+113.65289
+113.16360
+113.40820
+113.16360
+113.16360
+112.91890
+112.91890
+112.91890
+113.65289
+113.65289
+113.16360
+112.91890
+112.67420
+113.16360
+112.91890
+112.67420
+112.91890
+112.91890
+112.91890
+111.20631
+112.91890
+113.16360
+112.42960
+112.67420
+113.16360
+112.42960
+112.67420
+112.91890
+112.67420
+111.20631
+112.42960
+112.67420
+112.42960
+113.16360
+112.91890
+112.67420
+112.91890
+112.42960
+112.67420
+112.18491
+112.91890
+112.42960
+112.18491</pre>
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc62.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc622.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/pmc621.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:23:27 GMT -->
+</HTML>

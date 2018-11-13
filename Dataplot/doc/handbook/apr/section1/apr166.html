@@ -1,0 +1,308 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr166.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:08 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.6.6. Fatigue life (Birnbaum-Saunders)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr167.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr165.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr16.html">What are the basic lifetime distribution models used for non-repairable
+populations?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.6.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Fatigue life (Birnbaum-Saunders)</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>
+A model based on cycles of stress causing degradation or crack growth
+</i></td>
+
+<td valign=top WIDTH="85%"><!-- Add main text below -->
+In 1969, Birnbaum and Saunders described a life distribution model that could be 
+derived from a physical fatigue process where crack growth causes failure. Since 
+one of the best ways to 
+<a href="../section2/apr21.html">choose a life distribution model</a>
+is to derive it from a physical/statistical argument that is consistent
+with the failure mechanism, the Birnbaum-Saunders fatigue life distribution
+is worth considering.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Formulas and shapes for the fatigue life model</i>
+</td>
+
+<td WIDTH="85%">
+<a NAME="Formulas and Plots for the Birnbaum-Saunders"></a><b>Formulas
+and Plots for the Birnbaum-Saunders Model</b>
+<p>
+The PDF, CDF, mean, and variance for the Birnbaum-Saunders
+distribution are shown below. The parameters are:  \(\gamma\),
+<!-- <i>&gamma;</i>, -->
+a shape parameter; and \(\mu\),
+<!-- <i>&mu;</i>, -->
+a scale parameter. These are the parameters we will use in
+our discussion, but there are other choices also common in the literature
+(see the parameters used for the 
+<a href="#Derivation and Use of the Birnbaum-Saunders Model:">derivation of the model</a>).
+
+$$ \begin{array}{ll}
+\mbox{PDF:}          & f(t) = \frac{1}{2 \mu^2 \gamma^2\sqrt{\pi}} \left( \frac{t^2 - \mu^2}{\sqrt{\frac{t}{\mu}} - \sqrt{\frac{\mu}{t}}} \right) 
+                              \mbox{exp} \left[ -\frac{1}{\gamma^2} \left( \frac{t}{\mu} + \frac{\mu}{t} -2 \right) \right] \\
+                     & \\
+\mbox{CDF:}          & F(t) = \Phi \left( \frac{1}{\gamma} \left[ \sqrt{\frac{t}{\mu}} - \sqrt{\frac{\mu}{t}} \, \right] \right) \\
+                     & \\
+                     & \Phi(z) \mbox{denotes the standard normal CDF.} \\
+                     & \\
+\mbox{Mean:}         & \mu \left( 1 + \frac{\gamma^2}{2} \right) \\
+                     & \\
+\mbox{Variance:}     & \mu^2 \gamma^2 \left( 1 + \frac{5 \gamma^2}{4} \right) 
+\end{array} $$
+
+<!--
+<p>
+<center>
+<img SRC="apr166_e1.gif" ALT="PDF: f(t) = {1/(2*SQRT(PI)*gamma**2*mu*t**2)}*{(t**2imu**2)/(SQRT(t/mu) - 
+SQRT(mu/t))}*EXP*{(1/gamma**2)*((t/mu)+(mu/t)-2)};   CDF: F(t) = PHI{(1/gamma)*[SQRT(t/mu)-SQRT(mu/t)]};   
+MEAN: mu*(1+gamma**2/2);   VARIANCE: mu**2*gamma**2*(1+5*gamma**2/4);     
+where PHI is standard normal CDF function">
+</center>
+<p>
+-->
+PDF shapes for the model vary from highly skewed and long tailed (small
+gamma values) to nearly symmetric and short tailed as gamma increases.
+This is shown in the figure below.
+<center>
+<img SRC="gifs/flifepdf.gif" ALT="Plot of Fatigue Life PDF's for different values of the shape parameter" >
+<p>
+Corresponding failure rate curves are shown in the next figure.
+<br>
+<img SRC="gifs/flifehaz.gif" ALT="Plot of Fatigue Life Hazard functions for different values of 
+the shape parameter" >
+</center>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>If crack growth in each stress cycle is a
+random amount independent of past cycles of growth, the Fatigue Life mode
+model may apply.</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="Derivation and Use of the Birnbaum-Saunders Model:"></a>
+<b>Derivation and Use of the Birnbaum-Saunders Model</b>:
+<p>
+Consider a material that continually undergoes cycles of stress loads.
+During each cycle, a dominant crack grows towards a critical length that
+will cause failure. Under repeated application of \(n\)
+<!-- <i>n</i> -->
+cycles of loads, the total extension of the dominant crack can be written as
+
+$$ W_n = \sum_{j=1}^n Y_j \, , $$
+
+<!--
+<center>
+<img SRC="eqns/img10.gif" ALT="W(n) = SUM[j=1 to n]Y(j)" >
+</center>
+<p>
+-->
+and we assume the \(Y_j\)
+<!-- <i>Y<sub>j</sub></i>  -->
+are independent and identically
+distributed non-negative random variables with mean \(\mu\)
+<!-- <i>&mu;</i>  -->
+and variance \(\sigma^2\).
+<!-- <i>&sigma;</i><sup>2</sup>. -->
+Suppose failure occurs at the \(N\)-th
+<!-- <i>N</i>-th -->
+cycle, when \(W_n\)
+<!-- <i>W<sub>n</sub></i> -->
+first exceeds a constant critical value \(w\).
+<!-- <i>w</i>. -->
+If \(n\)
+<!-- <i>n</i> -->
+is large, we can use a central limit theorem argument to conclude that
+
+$$ \mbox{Pr}(N \le n) = 1 - \mbox{Pr} \left( \sum_{j=1}^n Y_j \le w \right) 
+                      = \Phi \left( \frac{\mu \sqrt{n}}{\sigma} - \frac{w}{\sigma \sqrt{n}} \right) \, . $$
+
+<!--
+<p>
+<center>
+<img SRC="eqns/img14.gif" ALT="Pr(N<=n) = 1 - Pr(SUM[j=1 to n](Y(j)) <= w) = 
+PHI(mu*SQRT(n)/sigma - w/(sigma*SQRT(n)))" height=61 width=325>
+</center>
+<p>
+-->
+Since there are many cycles, each lasting a very short time, we can
+replace the discrete number of cycles \(N\)
+<!-- <i>N</i> -->
+needed to reach failure by the continuous time \(t_f\)
+<!-- <i>t<sub>f</sub></i>&thinsp; -->
+needed to reach failure.  The CDF \(F(t)\) of \(t_f\)
+<!-- <i>F(t)</i> of <i>t<sub>f</sub></i>&thinsp; -->
+is given by
+
+$$ F(t) = \Phi \left\{ \frac{1}{\alpha} \left[ \sqrt{\frac{t}{\beta}} - \sqrt{\frac{\beta}{t}} \right] \right\} \, , $$
+
+for appropriate choice of 
+
+$$ \alpha = \frac{\sigma}{\sqrt{\mu w}} \,\, \mbox{ and } \,\, \beta = \frac{w}{\mu} \,\, .$$
+
+<!--
+<p>
+<center>
+<img SRC="eqns/img15.gif" ALT="F(t) = PHI{(1/alpha)*[SQRT(t/beta) - SQRT(beta/t)]}     
+for appropriate choice of alpha = sigma/SQRT(mu*w) and beta = w/mu" >
+</center>
+<p>
+-->
+
+Here \(\Phi\)
+<!-- &Phi; -->
+denotes the standard normal CDF. Writing the model with parameters \(\alpha\) and \(\beta\)
+<!-- <i>&alpha;</i> and <i>&beta;</i> -->
+is an alternative
+way of writing the Birnbaum-Saunders distribution that is often used
+(\(\alpha = \gamma\) and \(\beta = \mu\),
+<!-- (<i>&alpha;</i> = <i>&gamma;</i> and <i>&beta;</i> = <i>&mu;</i>, -->
+as compared to the way the formulas were parameterized earlier in this section).
+<p>
+<b>Note:</b>
+<br>The critical assumption in the derivation, from a physical point of
+view, is that the crack growth during any one cycle is independent of the
+growth during any other cycle. Also, the growth has approximately the same
+random distribution, from cycle to cycle. This is a very different situation
+from the proportional degradation argument used to derive a log normal
+distribution model, with the rate of degradation at any point in time depending
+on the total amount of degradation that has occurred up to that time.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>This kind of physical degradation is consistent
+with Miner's Rule.</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The Birnbaum-Saunders assumption, while physically
+restrictive, is consistent with a deterministic model from materials physics
+known as Miner's Rule (Miner's Rule implies that the damage that occurs
+after \(n\)
+<!-- <i>n</i> -->
+cycles, at a stress level that produces a fatigue life of \(N\)
+<!-- <i>N</i> -->
+cycles, is proportional to \(n/N\)).
+<!-- <i>n/N</i>). -->
+So, when the physics of failure suggests Miner's Rule applies, 
+the Birnbaum-Saunders model is a reasonable choice for a life distribution model.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Birnbaum-Saunders probability plot</i>
+</td>
+
+<td WIDTH="85%"><a NAME="DATAPLOT Functions for the Birnbaum-Saunders Model"></a>
+We generated 100 random numbers from a Birnbaum-Saunders distribution where
+\(\mu\) = 5000 and \(\gamma\) = 2,
+<!-- <i>&mu;</i> = 5000 and <i>&gamma;</i> = 2, -->
+and created a 
+<a href="../../eda/section3/probplot.html">fatigue life probability plot</a> 
+of the 100 data points.
+<p>
+<center>
+<img SRC="apr166_r01.gif" ALT="Fatigue Life probability plot of 100 Fatigue Life random numbers" >
+</center>
+If the points on the probability plot line up roughly on a straight line, as 
+expected for data we generated, then the data are correctly modeled by the 
+Birnbaum-Saunders distribution.
+<p>
+The PDF value at time \(t\) = 4000
+<!-- <i>t</i> = 4000 -->
+for a Birnbaum-Saunders (fatigue life) distribution 
+with parameters \(\mu\) = 5000 and \(\gamma\) = 2 
+<!-- <i>&mu;</i> = 5000 and <i>&gamma;</i> = 2 -->
+is 4.987e-05 and the CDF value is 0.455.
+<p>
+Functions for computing Birnbaum-Saunders distribution PDF values, CDF values, and 
+for producing probability plots, are found in both 
+<a href="apr166.dp">Dataplot code</a> and <a href="apr166.r">R code</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr165.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr167.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr166.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+</HTML>

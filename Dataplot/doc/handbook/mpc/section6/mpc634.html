@@ -1,0 +1,542 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section6/mpc634.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:19 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.6.3.4. Dataplot macros</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc64.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc633.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc6.html">Case studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.6.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc63.html">Evaluation of type A uncertainty</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.6.3.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Dataplot macros</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="repeat1">
+<I>Reads data and plots the repeatability standard deviations for
+probe #2362 and pools standard deviations over days, wafers -- run 1</I>
+</A>
+</TD>
+<TD WIDTH=85%><!-- Add main text below --> 
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 rows
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+retain run wafer probe y sr    subset probe =  2362
+let df = sr - sr + 5.
+y1label ohm.cm
+characters * all
+lines blank all
+x2label Repeatability standard deviations for probe 2362 - run 1
+plot sr subset run 1
+let var = sr*sr
+let df11 = sum df subset run 1
+let s11 = sum var subset run 1
+. repeatability standard deviation for run 1
+let s11 = (5.*s11/df11)**(1/2)
+print s11 df11
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="repeat2"><I>Reads data and plots repeatability standard
+deviations for probe #2362 and pools standard deviations over days,
+wafers -- run 2</I></A>
+</TD>
+<TD WIDTH=85%><!-- Add main text below --> 
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+retain run wafer probe y sr subset probe 2362
+let df = sr - sr + 5.
+y1label ohm.cm
+characters * all
+lines blank all
+x2label Repeatability standard deviations for probe 2362 - run 2
+plot sr subset run 2
+let var = sr*sr
+let df11 = sum df subset run 1
+let df12 = sum df subset run 2
+let s11 = sum var subset run 1
+let s12 = sum var subset run 2
+let s11 = (5.*s11/df11)**(1/2)
+let s12 = (5.*s12/df12)**(1/2)
+print s11 df11
+print s12 df12
+let s1 = ((s11**2 + s12**2)/2.)**(1/2)
+let df1=df11+df12
+. repeatability standard deviation and df for run 2
+print s1 df1
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="level2run1"><I>Computes level-2 standard deviations from
+daily averages and pools over wafers -- run 1</I></A>
+</TD>
+<TD>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 rows
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+retain run wafer probe y sr subset probe 2362
+sd plot y wafer subset run 1
+let s21 = yplot
+let wafer1 = xplot
+retain s21 wafer1 subset tagplot = 1
+let nwaf = size s21
+let df21 = 5 for i = 1 1 nwaf
+. level-2 standard deviations and df for 5 wafers - run 1
+print wafer1 s21 df21
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="level2run2"><I>Computes level-2 standard deviations from daily
+averages and pools over wafers -- run 2</I></A>
+</TD>
+<TD>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 rows
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+retain run wafer probe y sr subset probe 2362
+sd plot y wafer subset run 2
+let s22 = yplot
+let wafer1 = xplot
+retain s22 wafer1 subset tagplot = 1
+let nwaf = size s22
+let df22 = 5 for i = 1 1 nwaf
+. level-2 standard deviations and df for 5 wafers - run 1
+print wafer1 s22 df22
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="poollevel2"><I>Pools level-2 standard deviations over wafers
+and runs</I></A>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+retain run wafer probe y sr subset probe 2362
+sd plot y wafer subset run 1
+let s21 = yplot
+let wafer1 = xplot
+sd plot y wafer subset run 2
+let s22 = yplot
+retain s21 s22 wafer1 subset tagplot = 1
+let nwaf = size wafer1
+let df21 = 5 for i = 1 1 nwaf
+let df22 = 5 for i = 1 1 nwaf
+let s2a = (s21**2)/5 + (s22**2)/5
+let s2 = sum s2a
+let s2 = sqrt(s2/2) 
+let df2a = df21 + df22
+let df2 = sum df2a
+. pooled level-2 standard deviation and df across wafers and runs
+print s2 df2
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="level3"><I>Computes level-3standard deviations from run
+averages and pools over wafers</I></A>
+</TD>
+<TD WIDTH=85%><!-- Add main text below --> 
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 rows
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+retain run wafer probe y sr subset probe 2362
+.
+mean plot y wafer subset run 1
+let m31 = yplot
+let wafer1 = xplot
+mean plot y wafer subset run 2
+let m32 = yplot
+retain m31 m32 wafer1 subset tagplot = 1
+let nwaf = size m31
+let s31 =(((m31-m32)**2)/2.)**(1/2)
+let df31 = 1 for i = 1 1 nwaf
+. level-3 standard deviations and df for 5 wafers
+print wafer1 s31 df31
+let s31 = (s31**2)/5
+let s3 = sum s31
+let s3 = sqrt(s3)
+let df3=sum df31
+. pooled level-3 std deviation and df over 5 wafers
+print s3 df3
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="plotbias">
+<I>Plot differences from the average wafer value for each probe showing
+bias for probe #2362</I>
+</A>
+</TD>
+<TD WIDTH=85%><!-- Add main text below --> 
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+read mpc61a.dat wafer probe d1 d2
+let biasrun1 = mean d1 subset probe 2362
+let biasrun2 = mean d2 subset probe 2362
+print biasrun1 biasrun2
+title GAUGE STUDY FOR 5 PROBES
+Y1LABEL OHM.CM
+lines dotted dotted dotted dotted dotted solid
+characters 1 2 3 4 5 blank
+xlimits 137 143
+let zero = pattern 0 for I = 1 1 30
+x1label DIFFERENCES AMONG PROBES VS WAFER (RUN 1)
+plot d1 wafer probe and
+plot zero wafer
+let biasrun2 = mean d2 subset probe 2362
+print biasrun2
+title GAUGE STUDY FOR 5 PROBES
+Y1LABEL OHM.CM
+lines dotted dotted dotted dotted dotted solid
+characters 1 2 3 4 5 blank
+xlimits 137 143
+let zero = pattern 0 for I = 1 1 30
+x1label DIFFERENCES AMONG PROBES VS WAFER (RUN 2)
+plot d2 wafer probe and
+plot zero wafer
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="bias"><I>Compute bias for probe #2362 by wafer</I></A>
+</TD>
+<TD WIDTH=85%><!-- Add main text below --> 
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+set read format
+.
+cross tabulate mean y run wafer
+retain run wafer probe y sr subset probe 2362
+skip 1
+read dpst1f.dat runid wafid ybar
+print runid wafid ybar
+let ngroups = size ybar
+skip 0
+.
+let m3 = y - y
+feedback off
+loop for k = 1 1 ngroups
+    let runa = runid(k)
+    let wafera = wafid(k)
+    let ytemp = ybar(k)
+    let m3 = ytemp subset run = runa subset wafer = wafera
+end of loop
+feedback on
+.
+let d = y - m3
+let bias1 = average d subset run 1
+let bias2 = average d subset run 2
+.
+mean plot d wafer subset run 1
+let b1 = yplot
+let wafer1 = xplot
+mean plot d wafer subset run 2
+let b2 = yplot
+retain b1 b2 wafer1 subset tagplot = 1
+let nwaf = size b1
+. biases for run 1 and run 2 by wafers
+print wafer1 b1 b2
+. average biases over wafers for run 1 and run 2
+print bias1 bias2
+. end of calculations
+
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="correction"><I>Compute correction for bias for measurements
+with probe #2362 and the standard deviation of the correction</I></A>
+</TD>
+<TD WIDTH=85%><!-- Add main text below --> 
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+set read format f1.0,f6.0,f8.0,32x,f10.4,f10.4
+read mpc633a.dat run wafer probe y sr
+set read format
+.
+cross tabulate mean y run wafer
+retain run wafer probe y sr subset probe 2362
+skip 1
+read dpst1f.dat runid wafid ybar
+let ngroups = size ybar
+skip 0
+.
+let m3 = y - y
+feedback off
+loop for k = 1 1 ngroups
+    let runa = runid(k)
+    let wafera = wafid(k)
+    let ytemp = ybar(k)
+    let m3 = ytemp subset run = runa subset wafer = wafera
+end of loop
+feedback on
+.
+let d = y - m3
+let bias1 = average d subset run 1
+let bias2 = average d subset run 2
+.
+mean plot d wafer subset run 1
+let b1 = yplot
+let wafer1 = xplot
+mean plot d wafer subset run 2
+let b2 = yplot
+retain b1 b2 wafer1 subset tagplot = 1
+.
+extend b1 b2
+let sd = standard deviation b1
+let sdcorr = sd/(10**(1/2))
+let correct = -(bias1+bias2)/2.
+. correction for probe #2362, standard dev, and standard dev of corr
+print correct sd sdcorr
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="wiringconfigs">
+<I>Plot differences between wiring configurations A and B</I>
+</A>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 30
+label size 3
+read mpc633k.dat wafer probe a1 s1 b1 s2 a2 s3 b2 s4
+let diff1 = a1 - b1
+let diff2 = a2 - b2
+let t = sequence 1 1 30
+lines blank all
+characters 1 2 3 4 5
+y1label ohm.cm
+x1label Config A - Config B -- Run 1
+x2label over 6 days and 5 wafers
+x3label legend for wafers 138, 139, 140, 141, 142: 1, 2, 3, 4, 5
+plot diff1 t wafer
+x1label Config A - Config B -- Run 2
+plot diff2 t wafer
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="testconfigs"><I>Compute average differences between
+configuration A and B; standard deviations and t-statistics for testing
+significance</I></A>
+</TD>
+<TD WIDTH=85%>
+<PRE>
+reset data
+reset plot control
+reset i/o
+separator character @
+dimension 500 rows
+label size 3
+read mpc633k.dat wafer probe a1 s1 b1 s2 a2 s3 b2 s4
+let diff1 = a1 - b1
+let diff2 = a2 - b2
+let d1 = average diff1
+let d2 = average diff2
+let s1 = standard deviation diff1
+let s2 = standard deviation diff2
+let t1 = (30.)**(1/2)*(d1/s1)
+let t2 = (30.)**(1/2)*(d2/s2)
+. Average config A-config B; std dev difference; t-statistic for run 1
+print d1 s1 t1
+. Average config A-config B; std dev difference; t-statistic for run 2
+print d2 s2 t2
+separator character ;
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="uncertainty"><I>Compute standard uncertainty, effective degrees
+of freedom, t value and expanded uncertainty</I></A>
+</TD>
+<TD>
+<PRE>
+reset data
+reset plot control
+reset i/o
+dimension 500 rows
+label size 3
+read mpc633m.dat sz a df
+let c = a*sz*sz
+let d = c*c
+let e = d/(df)
+let sume = sum e
+let u = sum c
+let u = u**(1/2)
+let effdf=(u**4)/sume
+let tvalue=tppf(.975,effdf)
+let expu=tvalue*u
+.
+. uncertainty, effective degrees of freedom, tvalue and
+. expanded uncertainty
+print u effdf tvalue expu
+. end of calculations
+</PRE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc633.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc64.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section6/mpc634.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:19 GMT -->
+</HTML>

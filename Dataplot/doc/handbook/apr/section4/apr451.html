@@ -1,0 +1,1669 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr451.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:44 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.5.1. Constant repair rate (HPP/exponential) model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr452.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr45.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr45.html">How do you fit system repair rate models?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.5.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Constant repair rate (HPP/exponential) model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>This section covers estimating MTBF's and calculating 
+upper and lower confidence bounds</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+The <a href="../section1/apr171.html">HPP</a>
+or 
+<a href="../section1/apr161.html">exponential model</a> 
+is widely used for two reasons:
+<ul>
+<li>
+Most systems spend most of their useful lifetimes operating in the flat
+constant repair rate portion of the 
+<a href="../section1/apr124.html">bathtub curve</a>
+</li>
+
+<li>
+It is easy to 
+<a href="../section3/apr311.html">plan tests</a>, 
+<a href="apr412.html#MLE's for the Exponential Model (Type I">estimate the MTBF</a> 
+and calculate confidence intervals when assuming the exponential model.</li>
+</ul>
+This section covers the following:
+<ol>
+<li>
+<b><a href="#Estimating the MTBF (or repair rate/failure">Estimating the
+MTBF (or repair rate/failure rate)</a></b></li>
+
+<li>
+<b><a href="#How To Use the MTBF Confidence Interval Factors">How to use
+the MTBF confidence interval factors</a></b></li>
+
+<li>
+<b><a href="#Tables of MTBF Confidence Interval Factors">Tables of MTBF
+confidence interval factors&nbsp;</a></b></li>
+
+<li>
+<b><a href="#Confidence Interval Equation">Confidence interval equation
+and "zero fails" case</a></b></li>
+
+<li>
+<b><a href="#Calculation of Confidence">Calculation of confidence intervals</a></b></li>
+
+<li>
+<b><a href="#Example">Example</a></b></li>
+</ol>
+<a NAME="Estimating the MTBF (or repair rate/failure"></a><b>Estimating
+the MTBF (or repair rate/failure rate)</b>
+<p>
+For the HPP system model, as well as for the non repairable exponential
+population model, there is only one unknown parameter \(\lambda\)
+<!-- &nbsp;<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+(or equivalently, the MTBF = 1/\(\lambda\).
+<!-- <img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM>). -->
+The method used for estimation is the same for the HPP model and for the
+exponential population model.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>The best estimate of the MTBF is just "Total
+Time" divided by "Total Failures"</i></td>
+
+<td VALIGN=TOP WIDTH="85%">The estimate of the MTBF is
+
+$$ \widehat{\mbox{MTBF}} = \frac{\mbox{Total System(s) operation time}}{\mbox{Total number of failures}} $$
+
+$$ \hat{\lambda} = \frac{1}{\widehat{\mbox{MTBF}}} 
+    = \frac{\mbox{Total number of failures}}{\mbox{Total System(s) (or units) operation time}} $$
+
+<!--
+<center>
+<img SRC="eqns/expest.gif" ALT="MTBF = (Total System(s) operation time)/(Total number of failures;    
+lambdahat = 1/MTBF = (Total number of Failures)/(Total System(s) (or units) operation time)" >
+</center>
+-->
+
+<p>
+This estimate is the <a href="apr412.html">maximum likelihood estimate</a>
+whether the data are <a href="../section1/apr131.html">censored </a>
+or complete, or from a 
+<a href="../section1/apr121.html">repairable system or a non-repairable population</a>.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Confidence Interval Factors multiply the
+estimated MTBF to obtain lower and upper bounds on the true MTBF</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="How To Use the MTBF Confidence Interval Factors"></a>
+<b>How To Use the MTBF Confidence Interval Factors</b>
+<ol>
+<li>
+Estimate the MTBF by the standard estimate (total unit test hours divided
+by total failures)</li>
+
+<li>
+Pick a confidence level (i.e., pick 100(1-\(\alpha\))).
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSBOTTOM>)). -->
+For 95 %, \(\alpha\)
+<!-- &nbsp;<img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSBOTTOM> -->
+= 0.05; for 90 %, \(\alpha\)
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSBOTTOM> -->
+= 0.1; for 80 %, \(\alpha\)
+<!-- &nbsp;<img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSBOTTOM> -->
+= 0.2 and for 60 %, \(\alpha\)
+<!-- &nbsp;<img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSBOTTOM> -->
+= 0.4</li>
+
+<li>
+Read off a lower and an upper factor from the confidence interval tables
+for the given confidence level and number of failures \(r\)
+<!-- <i>r</i> -->
+</li>
+
+<li>
+Multiply the MTBF estimate by the lower and upper factors to obtain MTBF<sub>lower</sub>
+and MTBF<sub>upper</sub></li>
+
+<li>
+When \(r\)
+<!-- <i>r </i> -->
+(the number of failures) = 0, multiply the total unit test
+hours by the "0 row" lower factor to obtain a 100(1-\(\alpha\)/2) %
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSBOTTOM>/2)% -->
+one-sided lower bound for the MTBF. There is no upper bound when \(r\)
+<!-- <i> r </i> -->
+= 0.</li>
+
+<li>
+Use (MTBF<sub>lower</sub>, MTBF<sub>upper</sub>) as a 100(1-\(\alpha\)) %
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSCENTER>)% -->
+confidence interval for the MTBF \(\lambda\)
+<!-- &nbsp;<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+(\(r\)
+<!-- <i>r </i> -->
+> 0)
+</li>
+
+<li>
+Use MTBF<sub>lower</sub> as a (one-sided) lower 100(1-\(\alpha\)/2) %
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSCENTER>/2)% -->
+limit for the MTBF
+</li>
+
+<li>
+Use MTBF<sub>upper</sub> as a (one-sided) upper 100(1-\(\alpha\)/2) %
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSCENTER>/2)% -->
+limit for the MTBF
+</li>
+
+<li>
+Use (1/MTBF<sub>upper</sub>, 1/MTBF<sub>lower</sub>) as a 100(1-\(\alpha\)) %
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSCENTER>)% -->
+confidence interval for \(\lambda\)
+<!-- &nbsp;<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+</li>
+
+<li>
+Use 1/MTBF<sub>upper</sub> as a (one-sided) lower 100(1-\(\alpha\)/2) %
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSCENTER>/2)% -->
+limit for \(\lambda\)
+<!-- &nbsp;<img SRC="gifs/lambda.gif" ALT="lambda"  align=ABSBOTTOM> -->
+</li>
+
+<li>
+Use 1/MTBF<sub>lower</sub> as a (one-sided) upper 100(1-\(\alpha\)/2) %
+<!-- <img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSCENTER>/2)% -->
+limit for\(\lambda\)
+<!-- &nbsp;<img SRC="gifs/lambda.gif" ALT="lambda" height=18 width=14 align=ABSCENTER> -->
+</li>
+</ol>
+<a NAME="Tables of MTBF Confidence Interval Factors"></a><b>Tables of MTBF
+Confidence Interval Factors</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Confidence bound factor tables for 60, 80,
+90 and 95 % confidence</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<table COLS=5 WIDTH="100%" >
+<caption><b>Confidence Interval Factors to Multiply MTBF Estimate</b></caption>
+
+<tr>
+<td COLSPAN="5">
+<hr></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td ALIGN=CENTER COLSPAN="2"><b>60%</b></td>
+
+<td ALIGN=CENTER COLSPAN="2"><b>80%</b></td>
+</tr>
+
+<tr ALIGN=CENTER>
+<td><b>Num Fails r</b></td>
+
+<td><b>Lower for MTBF</b></td>
+
+<td><b>Upper for MTBF</b></td>
+
+<td><b>Lower for MTBF</b></td>
+
+<td><b>Upper for MTBF</b></td>
+</tr>
+
+<tr>
+<td COLSPAN="5">
+<hr></td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>0.6213</center>
+</td>
+
+<td>
+<center>-</center>
+</td>
+
+<td>
+<center>0.4343</center>
+</td>
+
+<td>
+<center>-</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>0.3340</center>
+</td>
+
+<td>
+<center>4.4814</center>
+</td>
+
+<td>
+<center>0.2571</center>
+</td>
+
+<td>
+<center>&nbsp;9.4912&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>2</center>
+</td>
+
+<td>
+<center>0.4674</center>
+</td>
+
+<td>
+<center>2.4260</center>
+</td>
+
+<td>
+<center>0.3758</center>
+</td>
+
+<td>
+<center>3.7607</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>3</center>
+</td>
+
+<td>
+<center>0.5440</center>
+</td>
+
+<td>
+<center>1.9543</center>
+</td>
+
+<td>
+<center>0.4490</center>
+</td>
+
+<td>
+<center>&nbsp; 2.7222&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>0.5952</center>
+</td>
+
+<td>
+<center>1.7416</center>
+</td>
+
+<td>
+<center>0.5004</center>
+</td>
+
+<td>
+<center>2.2926</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>0.6324</center>
+</td>
+
+<td>
+<center>1.6184</center>
+</td>
+
+<td>
+<center>0.5391</center>
+</td>
+
+<td>
+<center>2.0554</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>0.6611</center>
+</td>
+
+<td>
+<center>1.5370</center>
+</td>
+
+<td>
+<center>0.5697</center>
+</td>
+
+<td>
+<center>1.9036</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>7</center>
+</td>
+
+<td>
+<center>0.6841</center>
+</td>
+
+<td>
+<center>1.4788</center>
+</td>
+
+<td>
+<center>0.5947</center>
+</td>
+
+<td>
+<center>1.7974</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>0.7030</center>
+</td>
+
+<td>
+<center>1.4347</center>
+</td>
+
+<td>
+<center>0.6156</center>
+</td>
+
+<td>
+<center>&nbsp;1.7182&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>0.7189</center>
+</td>
+
+<td>
+<center>1.4000</center>
+</td>
+
+<td>
+<center>0.6335</center>
+</td>
+
+<td>
+<center>1.6567</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>0.7326</center>
+</td>
+
+<td>
+<center>1.3719</center>
+</td>
+
+<td>
+<center>0.6491</center>
+</td>
+
+<td>
+<center>1.6074</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>11</center>
+</td>
+
+<td>
+<center>0.7444</center>
+</td>
+
+<td>
+<center>1.3485</center>
+</td>
+
+<td>
+<center>0.6627</center>
+</td>
+
+<td>
+<center>1.5668</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>12</center>
+</td>
+
+<td>
+<center>0.7548</center>
+</td>
+
+<td>
+<center>1.3288</center>
+</td>
+
+<td>
+<center>0.6749</center>
+</td>
+
+<td>
+<center>&nbsp;1.5327&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>13</center>
+</td>
+
+<td>
+<center>0.7641</center>
+</td>
+
+<td>
+<center>1.3118</center>
+</td>
+
+<td>
+<center>0.6857</center>
+</td>
+
+<td>
+<center>1.5036</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>14</center>
+</td>
+
+<td>
+<center>0.7724</center>
+</td>
+
+<td>
+<center>1.2970</center>
+</td>
+
+<td>
+<center>0.6955</center>
+</td>
+
+<td>
+<center>1.4784</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>15</center>
+</td>
+
+<td>
+<center>0.7799</center>
+</td>
+
+<td>
+<center>1.2840</center>
+</td>
+
+<td>
+<center>0.7045</center>
+</td>
+
+<td>
+<center>1.4564</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>20</center>
+</td>
+
+<td>
+<center>0.8088</center>
+</td>
+
+<td>
+<center>1.2367</center>
+</td>
+
+<td>
+<center>0.7395</center>
+</td>
+
+<td>
+<center>&nbsp;1.3769&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>25</center>
+</td>
+
+<td>
+<center>0.8288</center>
+</td>
+
+<td>
+<center>1.2063</center>
+</td>
+
+<td>
+<center>0.7643</center>
+</td>
+
+<td>
+<center>&nbsp;1.3267&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>30</center>
+</td>
+
+<td>
+<center>0.8436</center>
+</td>
+
+<td>
+<center>1.1848</center>
+</td>
+
+<td>
+<center>0.7830</center>
+</td>
+
+<td>
+<center>1.2915</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>35</center>
+</td>
+
+<td>
+<center>0.8552</center>
+</td>
+
+<td>
+<center>1.1687</center>
+</td>
+
+<td>
+<center>0.7978</center>
+</td>
+
+<td>
+<center>1.2652</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>40</center>
+</td>
+
+<td>
+<center>0.8645</center>
+</td>
+
+<td>
+<center>1.1560</center>
+</td>
+
+<td>
+<center>0.8099</center>
+</td>
+
+<td>
+<center>1.2446</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>45</center>
+</td>
+
+<td>
+<center>0.8722</center>
+</td>
+
+<td>
+<center>1.1456</center>
+</td>
+
+<td>
+<center>0.8200</center>
+</td>
+
+<td>
+<center>&nbsp;1.2280&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>50</center>
+</td>
+
+<td>
+<center>0.8788</center>
+</td>
+
+<td>
+<center>1.1371</center>
+</td>
+
+<td>
+<center>0.8286</center>
+</td>
+
+<td>
+<center>1.2142</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>75</center>
+</td>
+
+<td>
+<center>0.9012</center>
+</td>
+
+<td>
+<center>1.1090</center>
+</td>
+
+<td>
+<center>0.8585</center>
+</td>
+
+<td>
+<center>1.1694</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>100</center>
+</td>
+
+<td>
+<center>0.9145</center>
+</td>
+
+<td>
+<center>1.0929</center>
+</td>
+
+<td>
+<center>0.8766</center>
+</td>
+
+<td>
+<center>1.1439</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>500</center>
+</td>
+
+<td>
+<center>0.9614</center>
+</td>
+
+<td>
+<center>1.0401</center>
+</td>
+
+<td>
+<center>0.9436</center>
+</td>
+
+<td>
+<center>&nbsp;1.0603&nbsp;</center>
+</td>
+</tr>
+</table>
+
+<table COLS=5 WIDTH="100%" >
+<caption><b>Confidence Interval Factors to Multiply MTBF Estimate</b></caption>
+
+<tr>
+<td COLSPAN="5">
+<hr></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td ALIGN=CENTER COLSPAN="2"><b>90%</b></td>
+
+<td ALIGN=CENTER COLSPAN="2"><b>95%</b></td>
+</tr>
+
+<tr ALIGN=CENTER>
+<td><b>Num Fails</b></td>
+
+<td><b>Lower for MTBF</b></td>
+
+<td><b>Upper for MTBF</b></td>
+
+<td><b>Lower for MTBF</b></td>
+
+<td><b>Upper for MTBF</b></td>
+</tr>
+
+<tr>
+<td COLSPAN="5">
+<hr></td>
+</tr>
+
+<tr>
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>0.3338</center>
+</td>
+
+<td>
+<center>-</center>
+</td>
+
+<td>
+<center>0.2711</center>
+</td>
+
+<td>
+<center>-</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>0.2108</center>
+</td>
+
+<td>
+<center>19.4958&nbsp;</center>
+</td>
+
+<td>
+<center>0.1795</center>
+</td>
+
+<td>
+<center>39.4978&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>2</center>
+</td>
+
+<td>
+<center>0.3177</center>
+</td>
+
+<td>
+<center>5.6281</center>
+</td>
+
+<td>
+<center>0.2768</center>
+</td>
+
+<td>
+<center>8.2573</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>3</center>
+</td>
+
+<td>
+<center>0.3869</center>
+</td>
+
+<td>
+<center>3.6689</center>
+</td>
+
+<td>
+<center>0.3422</center>
+</td>
+
+<td>
+<center>4.8491</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>0.4370</center>
+</td>
+
+<td>
+<center>2.9276</center>
+</td>
+
+<td>
+<center>0.3906</center>
+</td>
+
+<td>
+<center>3.6702</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>0.4756</center>
+</td>
+
+<td>
+<center>2.5379</center>
+</td>
+
+<td>
+<center>0.4285</center>
+</td>
+
+<td>
+<center>3.0798</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>0.5067</center>
+</td>
+
+<td>
+<center>2.2962</center>
+</td>
+
+<td>
+<center>0.4594</center>
+</td>
+
+<td>
+<center>2.7249</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>7</center>
+</td>
+
+<td>
+<center>0.5324</center>
+</td>
+
+<td>
+<center>2.1307</center>
+</td>
+
+<td>
+<center>0.4853</center>
+</td>
+
+<td>
+<center>2.4872</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>0.5542</center>
+</td>
+
+<td>
+<center>2.0096</center>
+</td>
+
+<td>
+<center>0.5075</center>
+</td>
+
+<td>
+<center>2.3163</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>0.5731</center>
+</td>
+
+<td>
+<center>&nbsp;1.9168&nbsp;</center>
+</td>
+
+<td>
+<center>0.5268</center>
+</td>
+
+<td>
+<center>2.1869</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>0.5895</center>
+</td>
+
+<td>
+<center>1.8432</center>
+</td>
+
+<td>
+<center>0.5438</center>
+</td>
+
+<td>
+<center>2.0853</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>11</center>
+</td>
+
+<td>
+<center>0.6041</center>
+</td>
+
+<td>
+<center>1.7831</center>
+</td>
+
+<td>
+<center>0.5589</center>
+</td>
+
+<td>
+<center>2.0032</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>12</center>
+</td>
+
+<td>
+<center>0.6172</center>
+</td>
+
+<td>
+<center>1.7330</center>
+</td>
+
+<td>
+<center>0.5725</center>
+</td>
+
+<td>
+<center>1.9353</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>13</center>
+</td>
+
+<td>
+<center>0.6290</center>
+</td>
+
+<td>
+<center>1.6906</center>
+</td>
+
+<td>
+<center>0.5848</center>
+</td>
+
+<td>
+<center>1.8781</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>14</center>
+</td>
+
+<td>
+<center>0.6397</center>
+</td>
+
+<td>
+<center>1.6541</center>
+</td>
+
+<td>
+<center>0.5960</center>
+</td>
+
+<td>
+<center>1.8291</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>15</center>
+</td>
+
+<td>
+<center>0.6494</center>
+</td>
+
+<td>
+<center>1.6223</center>
+</td>
+
+<td>
+<center>0.6063</center>
+</td>
+
+<td>
+<center>1.7867</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>20</center>
+</td>
+
+<td>
+<center>0.6882</center>
+</td>
+
+<td>
+<center>&nbsp; 1.5089&nbsp;</center>
+</td>
+
+<td>
+<center>0.6475</center>
+</td>
+
+<td>
+<center>1.6371</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>25</center>
+</td>
+
+<td>
+<center>0.7160</center>
+</td>
+
+<td>
+<center>1.4383</center>
+</td>
+
+<td>
+<center>0.6774</center>
+</td>
+
+<td>
+<center>1.5452</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>30</center>
+</td>
+
+<td>
+<center>0.7373</center>
+</td>
+
+<td>
+<center>1.3893</center>
+</td>
+
+<td>
+<center>0.7005</center>
+</td>
+
+<td>
+<center>1.4822</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>35</center>
+</td>
+
+<td>
+<center>0.7542</center>
+</td>
+
+<td>
+<center>1.3529</center>
+</td>
+
+<td>
+<center>0.7190</center>
+</td>
+
+<td>
+<center>1.4357</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>40</center>
+</td>
+
+<td>
+<center>0.7682</center>
+</td>
+
+<td>
+<center>1.3247</center>
+</td>
+
+<td>
+<center>0.7344</center>
+</td>
+
+<td>
+<center>1.3997</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>45</center>
+</td>
+
+<td>
+<center>0.7800</center>
+</td>
+
+<td>
+<center>1.3020</center>
+</td>
+
+<td>
+<center>0.7473</center>
+</td>
+
+<td>
+<center>1.3710</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>50</center>
+</td>
+
+<td>
+<center>0.7901</center>
+</td>
+
+<td>
+<center>1.2832</center>
+</td>
+
+<td>
+<center>0.7585</center>
+</td>
+
+<td>
+<center>1.3473</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>75</center>
+</td>
+
+<td>
+<center>0.8252</center>
+</td>
+
+<td>
+<center>1.2226</center>
+</td>
+
+<td>
+<center>0.7978</center>
+</td>
+
+<td>
+<center>1.2714</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>100</center>
+</td>
+
+<td>
+<center>0.8469</center>
+</td>
+
+<td>
+<center>1.1885</center>
+</td>
+
+<td>
+<center>0.8222</center>
+</td>
+
+<td>
+<center>1.2290</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>500</center>
+</td>
+
+<td>
+<center>0.9287</center>
+</td>
+
+<td>
+<center>1.0781</center>
+</td>
+
+<td>
+<center>0.9161</center>
+</td>
+
+<td>
+<center>1.0938</center>
+</td>
+</tr>
+</table>
+
+<p><a NAME="Confidence Interval Equation"></a><b>Confidence Interval Equation
+and "Zero Fails" Case</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Formulas for confidence bound factors - even
+for "zero fails" case</i></td>
+
+<td VALIGN=TOP WIDTH="85%">Confidence bounds for the typical Type I censoring
+situation are obtained from chi-square distribution tables or programs.
+The formula for calculating confidence intervals is:
+
+$$ 
+P \left[
+\frac{\mbox{MTBF } \cdot 2r}{\chi^2_{1-\alpha/2, \, 2(r+1)}} \le \mbox { True MTBF } 
+\le \frac{\mbox{MTBF } \cdot 2r}{\chi^2_{\alpha/2, \, 2r}} \right] \ge 1- \alpha \, .$$
+
+<!--
+<center>
+<img SRC="apr451_eq1.gif" ALT="P{MTBF*2*r/Chi-Square(1-alpha/2,2*(r+1)) 
+<= True MTBF <= MTBF*2*r/Chi-Square(alpha/2,2*r)} >= 1 - alpha" >
+</center>
+-->
+
+<p>In this formula, \(\chi^2_{\alpha/2, \, 2r}\)
+<!-- <i>&Chi;</i><sup>&nbsp;2</sup><sub><i>&alpha;</i>/2,2<i>r</i></sub>&nbsp; -->
+is a value that the chi-square statistic with 2\(r\)
+<!-- <i>r</i> -->
+degrees of freedom is less than with probability \(\alpha\)/2.
+<!-- <i>&alpha;</i>/2. -->
+In other words, the left-hand tail of the distribution has probability \(\alpha\)/2.
+<!-- <i>&alpha;</i>/2. -->
+An even simpler version of this formula can be written using \(T\) = the total unit test time:
+
+$$ P \left[
+\frac{2T}{\chi^2_{1-\alpha/2, \, 2(r+1)}} \le \mbox{ True MTBF }
+\le \frac{2T}{\chi^2_{\alpha/2, \, 2r}} \right] \ge 1- \alpha \, . $$
+
+<!--
+<center>
+<p>
+<img SRC="apr451_eq2.gif" ALT="P{T*2/Chi-Square(1-alpha/2,2*(r+1)) <= 
+     True MTBF <= T*2/Chi-Square(alpha/2,2*r)} >= 1 - alpha" >
+</center>
+-->
+
+<p>
+These bounds are exact for the case of one or more repairable systems
+on test for a fixed time. They are also exact when non repairable units
+are on test for a fixed time and failures are replaced with new units during
+the course of the test. For other situations, they are approximate.&nbsp;
+<p>
+When there are zero failures during the test or operation time, only
+a (one-sided) MTBF lower bound exists, and this is given by
+
+$$ \mbox{MTBF}_{\mbox{lower}} = \frac{T}{-\mbox{ln } \alpha} \, . $$
+
+<!--
+<blockquote>
+MTBF<sub>lower</sub> = T/(<font size=+2>-</font>ln<img SRC="gifs/alpha.gif" 
+ALT="alpha" height=14 width=14 align=ABSCENTER>)
+</blockquote>
+-->
+
+The interpretation of this bound is the following: if the true MTBF were
+any lower than MTBF<sub>lower</sub>, we would have seen at least one failure
+during \(T\) hours of test with probability at least 1-\(\alpha\).
+<!-- <i>&alpha;</i>. -->
+Therefore, we are 100(1-\(\alpha\)) %
+<!-- <i>&alpha;</i>) % -->
+confident that the true MTBF is not lower than MTBF<sub>lower</sub>.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><a NAME="Calculation of Confidence"></a>
+<i>Calculation of confidence limits</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A one-sided, lower 100(1-\(\alpha\)/2) %
+<!-- <i>&alpha;</i>/2) % -->
+confidence bound for the MTBF is given by
+
+$$ \mbox{LOWER } = \frac{2T}{G^{-1}(1-\alpha/2, \, 2(r+1))} \, , $$
+
+<!--
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp; LOWER = 2T/<i>G</i><sup> -1</sup>(1-<i>&alpha;</i>/2, [2(<i>r</i>+1)])
+<p>
+-->
+
+where \(T\) is the total unit or system test time, \(r\)
+<!-- <i>r</i> -->
+is the total
+number of failures, and \(G(q, \, \nu)\)
+<!-- <i>G</i>(<i>q</i>,<i>&nu;</i>) -->
+is the \(\chi^2\)
+<!-- <i>&Chi;</i><sup> 2</sup> -->
+distribution function with shape parameter \(\nu\).
+<!-- <i>&nu;</i>. -->
+<p>
+A one-sided, upper 100(1-\(\alpha\)/2) %
+<!-- <i>&alpha;</i>/2) % -->
+confidence bound for the MTBF is given by
+
+$$ \mbox{UPPER } = \frac{2T}{G^{-1}(\alpha/2, \, 2r)} \, . $$
+
+<!--
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp; UPPER = 2T/<i>G</i><sup> -1</sup>(<i>&alpha;</i>/2, [2<i>r</i>])
+<p>
+-->
+
+The two intervals together, (LOWER, UPPER), are a 
+100(1-\(\alpha\)) %
+<!-- <i>&alpha;</i>) % --> 
+two-sided confidence interval for the true MTBF.
+<p>
+Please use caution when using CDF and inverse CDF functions in commercial software 
+because some functions require left-tail probabilities and others require right-tail 
+probabilities.  In the left-tail case, \(\alpha\)/2
+<!-- <i>&alpha;</i>/2 -->
+is used for the upper bound because 2\(T\) is being divided by the smaller percentile, 
+and 1-\(\alpha\)/2
+<!-- <i>&alpha;</i>/2 -->
+is used for the lower bound because 2\(T\) is divided by the larger percentile.
+For the right-tail case, 1-\(\alpha\)/2
+<!-- <i>&alpha;</i>/2 -->
+is used to compute the upper bound and \(\alpha\)/2
+<!-- <i>&alpha;</i>/2 -->
+is used to compute the lower bound.  Our formulas for \(G^{-1}(q, \, \nu)\)
+<!-- <i>G</i><sup>&nbsp;-1</sup>(<i>q</i>,<i>&nu;</i>) -->
+assume the inverse CDF function requires left-tail probabilities.
+<p>
+<a NAME="Example"></a><b>Example</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Example showing how to calculate confidence
+limits</i></td>
+
+<td VALIGN=TOP WIDTH="85%">A system was observed for two calendar months
+of operation, during which time it was in operation for 800 hours and had
+2 failures.
+<p>
+The MTBF estimate is 800/2 = 400 hours. A 90 %, two-sided confidence interval is
+given by (400&times;0.3177, 400&times;5.6281) = (127, 2251). 
+The same interval could have been obtained using 
+
+$$ \begin{eqnarray}
+\mbox{LOWER } & = & \frac{1600}{G^{-1}(0.95, \, 6)} \\
+              &   &   \\
+\mbox{UPPER } & = & \frac{1600}{G^{-1}(0.05, \, 4)} \, .
+\end{eqnarray} $$
+
+<!--
+<blockquote>
+LOWER = 1600/<i>G</i><sup> -1</sup>(0.95,6)<br>
+UPPER = 1600/<i>G</i><sup> -1</sup>(0.05,4)
+</blockquote>
+-->
+
+Note that 127 is a 95 % lower limit for the true MTBF. The customer is usually
+only concerned with the lower limit and one-sided lower limits are often
+used for statements of contractual requirements.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Zero fails confidence limit calculation</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+What could we have said if the system had no failures? For a 95 % lower 
+confidence limit on the true MTBF, we either use the 0 failures factor from 
+the 90 % confidence interval table and calculate 800 &times; 0.3338 = 267, or 
+we use \(T / \mbox{ ln } \alpha\) = 800/(ln 0.05) = 267.
+<p>
+The analyses in this section can can be implemented using both
+<a href="apr451.dp">Dataplot code</a> and <a href="apr451.r">R code</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr45.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr452.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr451.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:48 GMT -->
+</HTML>

@@ -1,0 +1,303 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5993.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:02 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.9.3. Motivation: How do we Construct a Good Model?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5994.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri5992.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri599.html">Cumulative residual standard deviation plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.9.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Motivation: How do we Construct a Good Model?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Models for 2<sup><i>k</i></sup> and 2<sup><i>k</i>-<i>p</i></sup>
+designs
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Given that we have a statistic to measure the quality of a model, any
+model, we move to the question of how to construct reasonable models
+for fitting data from 2<sup><i>k</i></sup> and
+2<sup><i>k</i>-<i>p</i></sup> designs.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Initial simple model
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The simplest such proposed model is
+<ul>
+   \( Y = c + \epsilon \)
+   <!--
+   <img src="eqns/constmod.gif"
+        alt="Y = c + e">
+   -->
+</ul>
+that is, the response <i>Y</i> = a constant + random error.  This
+trivial model says that all of the factors (and interactions) are in
+fact worthless for prediction and so the best-fit model is one
+that consists of a simple horizontal straight line through the body
+of the data.  The least squares estimate for this constant <i>c</i> in
+the above model is the sample mean \( \bar{Y} \).
+<!-- <img align=bottom src="eqns/ybar.gif" alt="Ybar">. -->
+The prediction equation for this model is thus
+<ul>
+   \( \hat{Y} = \bar{Y} \)
+   <!-- <img src="eqns/yhatybar.gif" alt="Yhat = Ybar"> -->
+</ul>
+The predicted values \( \small \hat{Y} \)
+<!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat"> -->
+for this fitted trivial model are thus given by a vector consisting of the
+same value (namely \( \bar{Y} \))
+<!-- <img align=bottom src="eqns/ybar.gif" alt="Ybar">) -->
+throughout.  The residual vector for this model will thus simplify to
+simple deviations from the mean:
+<ul>
+   \( Y - \bar{Y} \)
+   <!-- <img src="eqns/ymybar.gif" alt="Y - Ybar"> -->
+</ul>
+Since the number of fitted coefficients in this model is 1 (namely the
+constant <i>c</i>), the residual standard deviation is the following:
+<ul>
+   \( s_{res} = \sqrt{\frac{\sum_{i=1}^{n}{(Y_{i} - \bar{Y})^2}}{n - 1}} \)
+   <!--
+   <img src="eqns/ressdcm.gif" alt=
+        "Sres = sqrt(SUM{i=1 to n][(Y(i) - Ybar)**2] / (n-1))">
+   -->
+</ul>
+which is of course the familiar, commonly employed sample standard
+deviation.  If the residual standard deviation for this trivial model
+were "small enough", then we could terminate the model-building process
+right there with no further inclusion of terms.  In practice, however,
+this trivial model does <b>not</b> yield a residual standard
+deviation that is small enough (because the common value \( \bar{Y} \)
+<!-- <img align=bottom src="eqns/ybar.gif" alt="Ybar"> -->
+will not be close enough to some of the raw responses
+<i>Y</i>) and so the model must be augmented--but how?
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Next-step model
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The logical next-step proposed model will consist of the above
+additive constant plus some term that will improve the predicted
+values the most.  This will equivalently reduce the residuals the
+most and thus reduce the residual standard deviation the most.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Using the most important effects
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+As it turns out, it is a mathematical fact that the factor or
+interaction that has the largest estimated effect
+<ul>
+   \( \hat{E} = \bar{Y}(+) - \bar{Y}(-) \) 
+   <!-- <img src="eqns/effest.gif" alt="E = Ybar(+) - Ybar(-))"> -->
+</ul>
+will necessarily, after being included in the model, yield the
+"biggest bang for the buck" in terms of improving the predicted
+values toward the response values <i>Y</i>.  Hence at this point the
+model-building process and the effect estimation process merge.
+<p>
+In the previous steps in our analysis, we developed a ranked list
+of factors and interactions.  We thus have a ready-made ordering of
+the terms that could be added, one at a time, to the model.  This
+ranked list of effects is precisely what we need to cumulatively
+build more complicated, but better fitting, models.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Step through the ranked list of factors
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Our procedure will thus be to step through, one by one, the ranked list
+of effects, cumulatively augmenting our current model by the next term
+in the list, and then compute (for all <i>n</i> design points) the
+predicted values, residuals, and residual standard deviation.  We
+continue this one-term-at-a-time augmentation until the predicted
+values are acceptably close to the observed responses <i>Y</i> (and
+hence the residuals and residual standard deviation become acceptably
+close to zero).
+<p>
+Starting with the simple average, each cumulative model in this
+iteration process will have its own associated residual standard
+deviation.  In practice, the iteration continues until the residual
+standard deviations become sufficiently small.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Cumulative residual standard deviation plot
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The cumulative residual standard deviation plot is a graphical summary
+of the above model-building process.  On the horizontal axis is a
+series of terms (starting with the average, and continuing on with
+various main effects and interactions).  After the average, the
+ordering of terms on the horizontal axis is identical to the ordering 
+of terms based on <a href="pri598.html">the half-normal probability
+plot</a> ranking based on effect magnitude.
+<p>
+On the vertical axis is the corresponding residual standard deviation
+that results when the cumulative model has its coefficients fitted via
+least squares, and then has its predicted values, residuals, and
+residual standard deviations computed.  The first residual standard
+deviation (on the far left of the cumulative residual standard
+deviation plot) is that which results from the model consisting of
+<ol>
+   <li>the average.
+</ol>
+The second residual standard deviation plotted is from the model
+consisting of
+<ol>
+   <li>the average, plus
+   <li>the term with the largest |effect|.
+</ol>
+The third residual standard deviation plotted is
+from the model consisting of
+<ol>
+   <li>the average, plus
+   <li>the term with the largest |effect|, plus
+   <li>the term with the second largest |effect|.
+</ol>
+and so forth.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri5992.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5994.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5993.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:02 GMT -->
+</HTML>

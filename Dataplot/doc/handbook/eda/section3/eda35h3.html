@@ -1,0 +1,412 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:27:08 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.17.3. Generalized Extreme Studentized Deviate Test
+       for Outliers</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35i.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35h2.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.17.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35h.html">Detection of Outliers</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.17.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Generalized ESD Test for Outliers</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Detection of Outliers
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The generalized (extreme Studentized deviate) ESD test
+      (<a href="../section4/eda43.html#Rosner">Rosner 1983</a>)
+      is used to detect one or more
+      <a href="eda35h.html">outliers</a> in a univariate data set
+      that follows an <a href="eda35h.html#Normality">approximately
+      normal distribution</a>.
+      <p>
+      The primary limitation of the
+      <a href="eda35h1.html">Grubbs test</a> and the
+      <a href="eda35h2.html">Tietjen-Moore test</a> is that the
+      suspected number of outliers, <i>k</i>, must be specified
+      exactly.  If <i>k</i> is not specified correctly, this
+      can distort the conclusions of these tests.  On the other hand,
+      the generalized ESD test
+      (<a href="../section4/eda43.html#Rosner">Rosner 1983</a>)
+      only requires that an upper bound for the suspected number of
+      outliers be specified.
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Given the upper bound, <i>r</i>, the generalized ESD test
+      essentially performs <i>r</i> separate tests: a test for one
+      outlier, a test for two outliers, and so on up to <i>r</i>
+      outliers.
+      <p>
+      The generalized ESD test is defined for the hypothesis:
+      <table>
+      <tr>
+         <td>
+            H<sub>0</sub>:
+         </td>
+         <td>
+            There are no outliers in the data set
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            H<sub>a</sub>:
+         </td>
+         <td>
+            There are up to <i>r</i> outliers in the data set
+         </td>
+      </tr>
+      <p>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td>
+            Compute
+            <p>
+            <ul>
+               <!--
+               <img src="eda35h3_e1.gif" alt=
+                    "R(i) = (max(i)|x(i) - xbar"/s">
+               -->
+               \( R_i = \frac{\mbox{max}_i |x_i - \bar{x}|}{s} \)
+            </ul>
+            <p>
+            with
+            <!-- <img align=absmiddle src="eqns/xbarlc.gif" alt="xbar"> -->
+            \(\bar{x}\) and <b><i>s</i></b> denoting the sample mean and
+            sample standard deviation, respectively.
+            <p>
+            Remove the observation that maximizes 
+            <!-- <img align=absmiddle src="eqns/gesdr2.gif"
+                      alt="|x(i)-xbar"> -->
+            \(|x_{i} - \bar{x}|\) and then recompute the above statistic
+            with <i>n</i> - 1 observations.  Repeat this process until
+            <i>r</i> observations have been removed.  This results in the
+            <i>r</i> test statistics <i>R<sub>1</sub></i>,
+            <i>R<sub>2</sub></i>, ..., <i>R<sub>r</sub></i>.
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=top>
+            <!-- <img src="eqns/alpha.gif" alt="alpha">. -->
+            <big><i>&alpha;</i></big>
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Critical Region:
+         </td>
+         <td>
+            Corresponding to the <i>r</i> test statistics, compute
+            the following <i>r</i> critical values
+            <p>
+            <ul>
+                <!--
+                <img src="eda35h3_e2.gif"
+alt="lambda(i) = [(n-i)*t(n-i-1,p)]/[SQRT((n-i-1+t(n-i-1,p)^2)*(n-i+1))]">
+                -->
+                \( \lambda_{i} = \frac{(n-i) \, t_{p, \,
+                n-i-1}}{\sqrt{(n-i-1+t_{p, \, n-i-1}^{2}) (n-i+1)}}
+                \hspace{.2in} i = 1, 2, \ldots, r \)
+            </ul>
+            <p>
+            where <big><i>t</big><sub>p,&nu;</sub></i>
+            is the 100<i>p</i> percentage point from the
+            <a href="eda3664.html"><i>t</i> distribution</a> with 
+            <big><i>&nu;</i></big> degrees of freedom and
+            <p>
+            <ul>
+               <!--
+               <img align=absmiddle src="eda35h3_e3.gif" alt=
+                    "p = 1 - alpha/(2*(n-i+1))">.
+               -->
+               \(  p = 1-\frac{\alpha}{2(n-i+1)} \)
+            </ul>
+            <p>
+            The number of outliers is determined by finding the
+            largest <i>i</i> such that <i>R<sub>i</sub></i> >
+            <big><i>&lambda;<sub>i</sub></i></big>.
+            <p>
+            Simulation studies by
+            <a href="../section4/eda43.html#Rosner">Rosner</a> indicate
+            that this critical value approximation is very accurate for
+            <i>n</i> &ge; 25 and reasonably accurate for <i>n</i> &ge; 15.
+         </td>
+       </tr>
+
+     </table>
+     <p>
+     Note that although the generalized ESD is essentially
+     <a href="eda35h1.html">Grubbs test</a> applied sequentially,
+     there are a few important distinctions:
+     <ul>
+        <li>The generalized ESD test makes approriate adjustments
+            for the critical values based on the number of outliers
+            being tested for that the sequential application of Grubbs
+            test does not.
+            <p>
+        <li>If there is significant masking, applying Grubbs test
+            sequentially may stop too soon.  The example below
+            identifies three outliers at the 5 % level when using the
+            generalized ESD test.  However, trying to use Grubbs test
+            sequentially would stop at the first iteration and
+            declare no outliers.
+     </ul>
+
+   </td>
+</tr>
+
+<!-----begin section: sample output -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Generalized ESD Test Example</I>
+   </td>
+   <td width=85% valign=top>
+      The <a href="../section4/eda43.html#Rosner">Rosner</a> paper
+      gives an example with the following data.
+      <p>
+      <pre>
+         -0.25 0.68 0.94 1.15 1.20 1.26 1.26
+          1.34 1.38 1.43 1.49 1.49 1.55 1.56
+          1.58 1.65 1.69 1.70 1.76 1.77 1.81
+          1.91 1.94 1.96 1.99 2.06 2.09 2.10
+          2.14 2.15 2.23 2.24 2.26 2.35 2.37
+          2.40 2.47 2.54 2.62 2.64 2.90 2.92
+          2.92 2.93 3.21 3.26 3.30 3.59 3.68
+          4.30 4.64 5.34 5.42 6.01
+      </pre>
+      <p>
+      As a first step, a normal probability plot was generated
+      <p>
+      <img src="gif/gesd.gif" alt="Normal Probability Plot of the Data">
+      <p>
+      This plot indicates that the normality assumption is questionable.
+      <p>
+      Following the Rosner paper, we test for up to 10 outliers:
+<PRE> 
+      H<sub>0</sub>:  there are no outliers in the data
+      H<sub>a</sub>:  there are up to 10 outliers in the data
+
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical region:  Reject H<sub>0</sub> if <I>R<sub>i</sub></I> > critical value
+ 
+      Summary Table for Two-Tailed Test
+      ---------------------------------------
+            Exact           Test     Critical  
+        Number of      Statistic    Value, &lambda;<I><sub>i</sub></I>  
+      Outliers, <I>i</I>      Value, <I>R<sub>i</sub></I>          5 %  
+      ---------------------------------------
+              1          3.118          3.158  
+              2          2.942          3.151  
+              3          3.179          3.143 * 
+              4          2.810          3.136  
+              5          2.815          3.128  
+              6          2.848          3.120  
+              7          2.279          3.111  
+              8          2.310          3.103  
+              9          2.101          3.094  
+             10          2.067          3.085  
+ </PRE>
+   For the generalized ESD test above, there are essentially 10
+   separate tests being performed.  For this example, the largest number of outliers 
+   for which the test statistic is greater than the critical value (at the 5 % level)
+   is three.  We therefore conclude that there are three outliers in this data set.
+</TD>
+</TR>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The generalized ESD test can be used to answer the following
+      question:
+      <OL>
+         <LI>How many outliers does the data set contain?</LI>
+      </OL>
+   </td>
+</tr>
+
+<!-----begin section: importance -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Many statistical techniques are sensitive to the presence
+      of outliers.  For example, simple calculations of the mean
+      and standard deviation may be distorted by a single grossly
+      inaccurate data point.
+      <p>
+      Checking for outliers should be a routine part of any data
+      analysis.  Potential outliers should be examined to see if
+      they are possibly erroneous.  If the data point is in error,
+      it should be corrected if possible and deleted if it is not
+      possible.  If there is no reason to believe that the outlying
+      point is in error, it should not be deleted without careful
+      consideration.  However, the use of more robust techniques
+      may be warranted.  Robust techniques will often downweight
+      the effect of outlying points without deleting them.     
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      Several graphical techniques can, and should, be used to help
+      detect outliers.  A simple normal probability plot, run sequence
+      plot, a box plot, or a histogram should show any obviously outlying
+      points.  In addition to showing potential outliers, several of these
+      graphics also help assess whether the data follow an approximately
+      normal distribution.
+      <UL>
+         <a href="runseqpl.html">Run Sequence Plot</a><br>
+         <a href="histogra.html">Histogram</a><br>
+         <a href="boxplot.html">Box Plot</a><br>
+         <a href="normprpl.html">Normal Probability Plot</a><br>
+         <a href="lagplot.html">Lag Plot</a><br>
+      </UL>
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Some general purpose statistical software programs support the
+generalized ESD test.
+Both <a href="eda35h3.dp">Dataplot code</a> and 
+<a href="eda35h3.r">R code</a> can be used to generate the
+analyses in this section.
+
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35h2.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35i.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35h3.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:27:13 GMT -->
+</HTML>

@@ -1,0 +1,312 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd453.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:32 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.5.3. Accounting for Errors with a Non-Normal Distribution</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section5/pmd5.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd452.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd45.html">If my current model does not fit the data well, how can I improve it?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.5.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Accounting for Errors with a Non-Normal Distribution</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Basic Approach: Transformation</I>
+</TD>
+<TD WIDTH=85%>
+Unlike when <A HREF="pmd452.html">correcting for non-constant variation in the random errors</A>,
+there is really only one basic approach to handling data with non-normal random errors for most
+regression methods. This is because most methods rely on the 
+<A HREF="../section2/pmd214.html">assumption of normality</A> and the use of linear estimation
+methods (like least squares) to make probabilistic inferences to answer scientific or 
+engineering questions. For methods that rely on normality of the data, direct manipulation of 
+the data to make the random errors approximately normal is usually the best way to try to bring
+the data in line with this assumption. The main alternative to transformation is to use a 
+fitting criterion that directly takes the distribution of the random errors into account when
+estimating the unknown parameters.  Using these types of fitting criteria, such as 
+<A HREF="../../apr/section4/apr412.html">maximum likelihood</A>, can provide very good 
+results. However, they are often much harder to use than the general fitting criteria used 
+in most process modeling methods.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="ut">Using Transformations</A></I>
+</TD>
+<TD WIDTH=85%>
+The basic steps for using transformations to handle data with non-normally distributed random
+errors are essentially the same as those used to handle non-constant variation of the random
+errors.
+<OL>
+<LI>Transform the response variable to make the distribution of the random errors approximately
+normal.
+<LI>Transform the predictor variables, if necessary, to attain or restore a simple functional 
+form for the regression function.
+<LI>Fit and validate the model in the transformed variables.
+<LI>Transform the predicted values back into the original units using the inverse of the 
+transformation applied to the response variable.
+</OL>
+The main difference between using transformations to account for non-constant variation and 
+non-normality of the random errors is that it is harder to directly see the effect of a 
+transformation on the distribution of the random errors. It is very often the case, however, 
+that non-normality and non-constant standard deviation of the random errors go together, and
+that the same transformation will correct both problems at once. In practice, 
+therefore, if you choose a transformation to fix any non-constant variation in the data, you 
+will often also improve the normality of the random errors. If the data appear to have 
+non-normally distributed random errors, but do have a constant standard deviation, you can 
+always fit models to several sets of transformed data and then check to see which 
+transformation appears to produce the most normally distributed residuals.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Typical Transformations for Meeting Distributional Assumptions</I>
+</TD>
+<TD WIDTH=85%>
+Not surprisingly, three transformations that are often effective for making the distribution 
+of the random errors approximately normal are:
+<OL>
+<LI>\(\sqrt{y}\),
+<!-- <IMG ALT="\sqrt{y}" ALIGN=ABSMIDDLE SRC="eqns/sqrty.gif">,<BR><BR> -->
+<LI>\(\ln{(y)}\)
+<!--  <IMG ALT="\ln{(y)}" ALIGN=ABSMIDDLE SRC="eqns/lny.gif"> -->
+(note: the base of the logarithm does not really matter), and<BR><BR>
+<LI>\(\frac{1}{y}\).
+<!-- <IMG ALT="\frac{1}{y}" ALIGN=ABSMIDDLE SRC="eqns/oneovery.gif">. -->
+</OL>
+These are the same transformations often used for stabilizing the variation in the data.  Other
+appropriate transformations to improve the distributional properties of the random errors may be
+suggested by scientific knowledge or selected using the data. However, these three 
+transformations are good ones to start with since they work well in so many situations.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Example</I>
+</TD>
+<TD WIDTH=85%>
+To illustrate how to use transformations to change the distribution of the random errors, we 
+will look at a modified version of the 
+<A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature example</A> in which the errors
+are uniformly distributed.  Comparing the results obtained from fitting the data in their 
+original units and under different transformations will directly illustrate the effects of
+the transformations on the distribution of the random errors.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Modified Pressure/Temperature Data with Uniform Random Errors</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mipt15_f.gif">
+<IMG SRC="plots/mipt15_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="modified pressure/temperature data with uniform random errors">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fit of Model to the Untransformed Data</I>
+</TD>
+<TD WIDTH=85%>
+A four-plot of the residuals obtained after fitting a straight-line model to the
+Pressure/Temperature data with uniformly distributed random errors is shown below. 
+The histogram and normal probability plot on the bottom row of the four-plot are the most 
+useful plots for assessing the distribution of the residuals. In this case the histogram 
+suggests that the distribution is more rectangular than bell-shaped, indicating the
+random errors a not likely to be normally distributed. The curvature in the normal probability
+plot also suggests that the random errors are not normally distributed. If the random errors
+were normally distributed  the normal probability plots should be a fairly straight line.
+Of course it wouldn't be perfectly straight, but smooth curvature or several points lying
+far from the line are fairly strong indicators of non-normality. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residuals from Straight-Line Model of Untransformed Data with Uniform Random Errors</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mipt16_f.gif">
+<IMG SRC="plots/mipt16_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residuals from the straight-line model fit to the untransformed data with uniform random errors">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Selection of Appropriate Transformations</I>
+</TD>
+<TD WIDTH=85%>
+Going through <A HREF="pmd452.html#ut">a set of steps similar to those used to find 
+transformations to stabilize the random variation</A>, different pairs of transformations of
+the response and predictor which have a simple functional form and will potentially have
+more normally distributed residuals are chosen. In the multiplots below, all of the 
+possible combinations of basic transformations are applied to the temperature and pressure
+to find the pairs which have simple functional forms. In this case, which is typical, the
+the data with square root-square root, ln-ln, and inverse-inverse tranformations all 
+appear to follow a straight-line model. The next step will be to fit lines to each of these 
+sets of data and then to compare the residual plots to see whether any have random errors 
+which appear to be normally distributed.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>sqrt(Pressure) vs Different Tranformations of Temperature</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mipt17_f.gif">
+<IMG SRC="plots/mipt17_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="sqrt(pressure) vs different tranformations of temperature">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>log(Pressure) vs Different Tranformations of Temperature</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mipt18_f.gif">
+<IMG SRC="plots/mipt18_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="ln(pressure) vs different tranformations of temperature">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>1/Pressure vs Different Tranformations of Temperature</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mipt19_f.gif">
+<IMG SRC="plots/mipt19_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="1/pressure vs different tranformations of temperature">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Fit of Model to Transformed Variables</I>
+</TD>
+<TD WIDTH=85%>
+The normal probability plots and histograms below show the results of fitting straight-line
+models to the three sets of transformed data. The results from the fit of the model to the 
+data in its original units are also shown for comparison. From the four normal probability
+plots it looks like the model fit using the ln-ln transformations produces the most normally
+distributed random errors. Because the normal probability plot for the ln-ln data is so 
+straight, it seems safe to conclude that taking the ln of the pressure  makes the distribution
+of the random errors approximately normal. The histograms seem to confirm this since the 
+histogram of the ln-ln data looks reasonably bell-shaped while the other histograms are not
+particularly bell-shaped. Therefore, assuming the other residual plots also indicated that 
+a straight line model fit this transformed data, the use of ln-ln tranformations appears to
+be appropriate for analysis of this data.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residuals from the Fit to the Transformed Variables</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mipt20_f.gif">
+<IMG SRC="plots/mipt20_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residuals from the fit to transformed variables">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residuals from the Fit to the Transformed Variables</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mipt21_f.gif">
+<IMG SRC="plots/mipt21_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="residuals from the fit to transformed variables">
+</A>
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd452.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section5/pmd5.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd453.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:45 GMT -->
+</HTML>

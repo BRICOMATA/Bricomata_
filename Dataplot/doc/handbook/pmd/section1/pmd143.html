@@ -1,0 +1,204 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd143.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:37 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.1.4.3. Weighted Least Squares Regression</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd144.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd142.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd1.html">Introduction to Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd14.html">What are some of the different statistical methods for model building?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.1.4.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Weighted Least Squares Regression</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Handles Cases Where Data Quality Varies</I>
+</TD>
+<TD WIDTH=85%>
+One of the common <A HREF="../section2/pmd21.html">assumptions underlying most
+process modeling methods</A>, including linear and nonlinear least squares 
+regression, is that each data point provides equally precise information
+about the <A HREF="pmd11.html#def">deterministic part of the total process 
+variation</A>.  In other words, the standard deviation of the error term
+is constant over all values of the predictor or explanatory variables.
+This assumption, however, clearly does not hold, even approximately, in every
+modeling application.  For example, in the semiconductor photomask linespacing
+data shown below, it appears that the precision of the linespacing
+measurements decreases as the line spacing increases. 
+In situations like this, when it may not be reasonable to assume that every 
+observation should be treated equally, weighted least squares can often be
+used to maximize the efficiency of parameter estimation.  This is done by
+attempting to give each data point its proper amount of influence over the
+parameter estimates. A procedure that treats all of the data equally would
+give less precisely measured points more influence than they should have
+and would give highly precise points too little influence.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Linespacing Measurement Error Data</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/lnspcg.gif"><IMG SRC="plots/lnspcg.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="true line spacing (micrometers) vs. measured - true line spacing (micrometers)"
+></A>
+</TD>
+</TR>
+
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="def">Model Types and Weighted Least Squares</I>
+</TD>
+<TD WIDTH=85%>
+Unlike linear and nonlinear least squares regression, weighted least squares
+regression is not associated with a particular type of function used to
+describe the relationship between the process variables.  Instead, weighted
+least squares reflects the behavior of the random errors in the model; and 
+it can be used with functions that are either 
+<A HREF="pmd141.html#def">linear</A> or <A HREF="pmd142.html#def">nonlinear</A>
+in the parameters.  It works by incorporating extra nonnegative constants,
+or weights, associated with each data point, into the fitting criterion.  The
+size of the weight indicates the precision of the information contained in the
+associated observation.  Optimizing the weighted fitting criterion to find the
+parameter estimates allows the weights to determine the contribution of each 
+observation to the final parameter estimates. It is important to note that 
+the weight for each observation is given relative to the weights of the other
+observations; so different sets of absolute weights can have identical effects.
+</TD>
+</TR>
+
+<TD WIDTH=15% VALIGN=top>
+<I>Advantages of Weighted Least Squares</I>
+</TD>
+<TD WIDTH=85%>
+Like all of the least squares methods discussed so far, weighted least squares
+is an efficient method that makes good  use of small data sets.  It also 
+shares the ability to provide different types of easily interpretable
+statistical intervals for estimation, prediction, calibration and optimization.
+In addition, as discussed above, the main advantage that weighted least squares
+enjoys over other methods is the ability to handle regression situations in which
+the data points are of varying quality.  If the standard deviation of the random
+errors in the data is not constant across all levels of the explanatory variables,
+using weighted least squares with  weights that are inversely proportional to the
+variance at each level of the explanatory variables yields the most precise 
+parameter estimates possible.  
+</TD>
+</TR>
+
+<TD WIDTH=15% VALIGN=top>
+<I>Disadvantages of Weighted Least Squares</I>
+</TD>
+<TD WIDTH=85%>
+The biggest disadvantage of weighted least squares, which many people are not 
+aware of, is probably the fact that the theory behind this method is based on 
+the assumption that the weights are known exactly.  This is almost never the 
+case in real applications, of course, so estimated weights must be used instead.
+The effect of using estimated weights is difficult to assess, but experience 
+indicates that small variations in the the weights due to estimation do not often
+affect a regression analysis or its interpretation. However, when the weights are
+estimated from small numbers of replicated observations, the results of an analysis
+can be very badly and unpredictably affected. This is especially likely to be the
+case when the weights for extreme values of the predictor or explanatory variables
+are estimated using only a few observations.  It is important to remain aware of 
+this potential problem, and to only use weighted least squares when the weights 
+can be estimated precisely relative to one another 
+<A HREF="../section7/pmd7.html#Carroll, R.J. and Ruppert, D. (1988)">
+[Carroll and Ruppert (1988)</A>, 
+<A HREF="../section7/pmd7.html#Ryan, T.P. (1997)">Ryan (1997)]</A>.
+</TD>
+</TR>
+
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Weighted least squares regression, like the other least squares methods, is
+also sensitive to the effects of outliers. If potential outliers are not 
+investigated and dealt with appropriately, they will likely have a negative
+impact on the parameter estimation and other aspects of a weighted least 
+squares analysis. If a weighted least squares regression actually increases
+the influence of an outlier, the results of the analysis may be far inferior
+to an unweighted least squares analysis.
+</TD>
+</TR>
+
+<TD WIDTH=15% VALIGN=top>
+<I>Futher Information</I>
+</TD>
+<TD WIDTH=85%>
+Further information on the weighted least squares fitting criterion can be found
+in <A HREF="../section4/pmd432.html">Section 4.3</A>. Discussion of methods for
+weight estimation can be found in <A HREF="../section4/pmd452.html">Section 4.5</A>.
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd142.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd144.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd143.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:38 GMT -->
+</HTML>

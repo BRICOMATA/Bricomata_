@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33v1.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.31.1. DOE Youden Plot</TITLE>
+</HEAD>
+<BODY BGCOLOR="FFFFCC">
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33w.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33v.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-3.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../main.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+<!---<LEFT>--->
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+<TR>
+
+<TD VALIGN=TOP COLSPAN=2>
+
+<FONT SIZE=-1><FONT COLOR="#D60021">1.</FONT> <A HREF="../eda.html"><FONT COLOR="#00105A">Exploratory Data Analysis</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.</FONT> <A HREF="eda3.html"><FONT COLOR="#00105A">EDA Techniques</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.3.</FONT> <A HREF="eda33.html"><FONT COLOR="#00105A">Graphical Techniques: Alphabetic</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.3.31.</FONT> <A HREF="eda33v.html"><FONT COLOR="#00105A">Youden Plot</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">1.3.3.31.1.</FONT> DOE Youden Plot </H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-----begin section: DEX Contour Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <A NAME="dexyoudenplot">
+      <I>DOE Youden Plot: Introduction
+      </I>
+      </A>
+   </td>
+   <td width=85% valign=top>
+      The DOE (Design of Experiments) Youden plot is a specialized
+      Youden plot used in the analysis of
+      <a href="../../pri/section3/pri333.html">full</a> and
+      <a href="../../pri/section3/pri334.html">fractional</a>
+      experiment designs.  In particular, it is used in support of an
+      <a href="../../ppc/section2/ppc23.html">analysis of variance</a>.
+      These designs may have a low level, coded as
+      "-1" or "-", and a high level, coded as "+1" or "+", for each
+      factor.  In addition, there can optionally be one or more
+      center points.  Center points are at the midpoint between
+      the low and high levels for each factor and are coded as "0".
+      <P>
+      The DOE Youden plot only uses the "-1" and "+1" points and
+      can be used to help determine the appropriate model. 
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      Construction of DOE Youden Plot
+      </I>
+   </TD>
+   <TD WIDTH=85%>
+      The following are the primary steps in the construction
+      of the DOE Youden plot.
+      <P>
+      <OL>
+         <li>For a given factor or interaction term, compute the
+             mean of the response variable for the low level
+             of the factor and for the high level of the factor.
+             Any center points are omitted from the computation.
+             <P>
+         <li>Plot the point where the <i>y</i>-coordinate is the mean
+             for the high level of the factor and the
+             <i>x</i>-coordinate is the mean for the low level of the
+             factor.  The character used for the plot point should
+             identify the factor or interaction term (e.g., "1" for
+             factor 1, "13" for the interaction between factors 1 and
+             3).
+             <P>
+         <li>Repeat steps 1 and 2 for each factor and interaction
+             term of the data.
+             <P>
+      </OL>
+      The high and low values of the interaction terms are obtained by
+      multiplying the corresponding values of the main level factors.
+      For example, the interaction term <i>X</i><sub>13</sub> is
+      obtained by multiplying the values for <i>X</i><sub>1</sub> with
+      the corresponding values of <i>X</i><sub>3</sub>.  Since the
+      values for <i>X</i><sub>1</sub> and <i>X</i><sub>3</sub> are
+      either "-1" or "+1", the resulting values for
+      <i>X</i><sub>13</sub> are also either "-1" or "+1".
+      <p>
+      In summary, the DOE Youden plot is a plot of the mean
+      of the response variable for the high level of a factor or
+      interaction term against the mean of the response variable
+      for the low level of that factor or interaction term.
+      <P>
+      For unimportant factors and interaction terms, these mean
+      values should be nearly the same.  For important factors
+      and interaction terms, these mean values should be quite
+      different.  So the interpretation of the plot is that
+      unimportant factors should be clustered together near the
+      grand mean.  Points that stand apart from this cluster
+      identify important factors that should be included in the
+      model.
+
+   </td>
+</tr>
+<!-- end paragraph -->
+
+<!-----begin section: DEX Youden Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Sample DOE Youden Plot
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The following is a DOE Youden plot for the data used in the
+      <a href="../../pri/section6/pri61.html">Eddy current</a> case
+      study.  The analysis in that case study demonstrated that
+      X1 and X2 were the most important factors.
+      <P>
+      <img src = "gif/pri618_r02.gif" height=600 width=600
+           alt="sample DOE Youden plot">
+
+   </td>
+</tr>
+
+
+<!-----begin section: DEX Youden Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Interpretation of the Sample DOE Youden Plot
+      </I>
+   </td>
+   <td width=85% valign=top>
+      From the above DOE Youden plot, we see that factors 1 and 2
+      stand out from the others.  That is, the mean
+      response values for the low and high levels of factor 1 and
+      factor 2 are quite different.  For factor 3 and the 2 and 3-term
+      interactions, the mean response values for the low and high
+      levels are similar.
+      <p>
+      We would conclude from this plot that factors 1 and 2 are
+      important and should be included in our final model while the
+      remaining factors and interactions should be omitted from the
+      final model.
+
+   </td>
+</tr>
+
+
+<!-----begin section: Case Study -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The <a href="../../pri/section6/pri611.html">Eddy current</a>
+      case study demonstrates the use of the DOE Youden plot in the
+      context of the analysis of a full factorial design.
+
+   </td>
+</tr>
+
+<!-----begin section: dataplot command -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      DOE Youden plots are not typically available as built-in
+      plots in statistical software programs.  However, it should
+      be relatively straightforward to write a macro to generate
+      this plot in most general purpose statistical software
+      programs.
+
+   </td>
+</tr>
+
+<!-----end -------->
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33v.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33w.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33v1.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+</HTML>

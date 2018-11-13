@@ -1,0 +1,63 @@
+.
+. Starting Step 6.1
+weight
+fit field lab
+let pred1 = pred
+let r1 = ressd
+let weights = 1/(lab**1.5)
+weight weights
+fit field lab
+let pred2 = pred
+let res2 = field - pred2
+let r2 = standard deviation res2
+weight
+let xtemp = log(lab)
+let ytemp = log(field)
+fit ytemp xtemp
+let pred3 = pred
+let pred3 = exp(pred)
+let res3 = field - pred3
+let r3 = standard deviation res3
+.
+title displacement 7
+title size 3
+title Data with Unweighted Line WLS Fit,CR()and Fit Using Transformed Variables
+x1label ^lab
+y1label ^field
+character circle blank blank blank
+character fill on off off off
+character hw 1.0 0.75
+line blank solid dash dot
+legend size 3
+legend case asis
+legend 1 Unweighted Fit
+legend 1 coordinates 28 79
+legend 2 Weighted Fit
+legend 2 coordinates 28 74
+legend 3 Transformed Fit
+legend 3 coordinates 28 69
+box shadow off
+plot field pred1 pred3 pred2 vs lab
+line solid
+draw 20 80 25 80
+line dotted
+draw 20 75 25 75
+line dash
+draw 20 70 25 70
+legend
+legend coordinates
+box coordinates
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+set write rewind off
+write RES.OUT "Original fit:       RESSD = ^r1"
+write RES.OUT "Weighted fit:       RESSD = ^r2"
+write RES.OUT "Transformed fit:    RESSD = ^r3"
+.
+. Finished Step 6.1: Page Back for Output

@@ -1,0 +1,892 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc431.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:27 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.3.1. Single Exponential Smoothing</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc432.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc43.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc43.html">What is Exponential Smoothing?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.3.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Single Exponential Smoothing</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Exponential smoothing weights past observations with exponentially
+decreasing weights to forecast future values</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This smoothing scheme begins by setting \(S_2\) to \(y_1\),
+<!-- <i>S</i><sub>2</sub> to <i>y</i><sub>1</sub>, -->
+where \(S_i\)
+<!-- <i>S<sub>i</sub></i> -->
+stands for smoothed observation or EWMA, and \(y\)
+<!-- <i>y</i> -->
+stands for the original observation.
+The subscripts refer to the time periods, \(1, \, 2, \, \ldots, \, n\).
+<!-- 1, 2, ..., <i>n</i>. -->
+For the third period, \(S_3 = \alpha y_2 + (1-\alpha) S_2\);
+<!-- <i>S</i><sub>3</sub> = <img SRC="eqns/alpha.gif" ALT="alpha" align=ABSCENTER>
+<i>y</i><sub>2</sub> + (1-<img SRC="eqns/alpha.gif" ALT="alpha"  align=ABSCENTER>)
+<i>S</i><sub>2</sub>; -->
+and so on.  There is no \(S_1\);
+<!-- <i>S</i><sub>1</sub>; -->
+the smoothed series starts with the smoothed version of the second observation.
+<p>
+For any time period \(t\),
+<!-- <i>t</i>, -->
+the smoothed value \(S_t\)
+<!-- <i>S<sub>t</sub></i> -->
+is found by computing
+
+$$ S_t = \alpha y_{t-1} + (1-\alpha)S_{t-1} \,\,\,\,\,\,\, 0 < \alpha \le 1 \,\,\,\,\,\,\, t \ge 3 \, . $$
+<!--
+<center>
+<img SRC="eqns/ts9a.gif" height=70 width=298
+ALT="S(t) = alpha*y(t-1) + (1-alpha)*S(t-1), 0 < alpha <= 1, t >= 3">
+</center>
+-->
+This is the <i>basic equation of exponential smoothing</i> and the
+constant or parameter \(\alpha\)
+<!-- <img SRC="eqns/alpha.gif" ALT="alpha" align=ABSCENTER> -->
+is called the <i>smoothing constant</i>.
+<p>
+<b>Note</b>: There is an alternative approach to exponential smoothing
+that replaces \(y_{t-1}\)
+<!-- <i>y</i><sub><i>t</i>-1</sub> -->
+in the basic equation with \(y_t\),
+<!-- <i>y<sub>t</sub></i>, -->
+the current observation.  That formulation,
+due to Roberts (1959), is described in the section on
+<a href="../section3/pmc324.html">EWMA control charts</a>.  
+The formulation here follows Hunter (1986).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Setting the first EWMA</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>The first forecast is very important</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The initial EWMA plays an important role in computing all the
+subsequent EWMAs.  Setting \(S_2\) to \(y_1\)
+<!-- <i>S</i><sub>2</sub> to <i>y</i><sub>1</sub> -->
+is one method of initialization.  Another way is to set it to the target of the process.
+<p>
+Still another possibility would be to average the first four or five
+observations.
+<p>
+It can also be shown that the smaller the value of \(\alpha\),
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha">, -->
+the more important is the selection of the initial EWMA.  The user would
+be wise to try a few methods, (assuming that the software has them
+available) before finalizing the settings.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Why is it called "Exponential"?</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Expand basic equation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Let us expand the basic equation by first substituting for \(S_{t-1}\)
+<!-- <i>S</i><sub><i>t</i>-1</sub> -->
+in the basic equation to obtain
+
+$$ \begin{eqnarray}
+S_t & = & \alpha y_{t-1} + (1-\alpha) \left[ \alpha y_{t-2} + (1-\alpha) S_{t-2} \right] \\
+    & = & \alpha y_{t-1} + \alpha (1-\alpha) y_{t-2} + (1-\alpha)^2 S_{t-2} \, . 
+\end{eqnarray} $$
+
+<!--
+<p>
+<center>
+<i>S<sub>t</sub></i> =
+<img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+ <i>y</i><sub><i>t</i>-1</sub> +
+ (1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">)
+ [ <img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+ <i>y</i><sub><i>t</i>-2</sub> + 
+ (1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">)
+ <i>S</i><sub><i>t</i>-2</sub> ]
+ <br>&nbsp;&nbsp; = 
+ <img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+ <i>y</i><sub><i>t</i>-1</sub> +
+ <img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+ (1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">)
+ <i>y</i><sub><i>t</i>-2</sub> +
+ (1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">)<sup>2</sup>
+<i>S</i><sub><i>t</i>-2</sub>
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Summation formula for basic equation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+By substituting for \(S_{t-2}\),
+<!-- <i>S<sub>t</sub></i><sub>-2</sub>, -->
+then for \(S_{t-3}\),
+<!-- <i>S<sub>t</sub></i><sub>-3</sub>, -->
+and so forth, until we reach \(S_2\)
+<!-- <i>S</i><sub>2</sub> -->
+(which is just \(y_1\)),
+<!-- <i>y</i><sub>1</sub>), -->
+it can be shown that the expanding equation can be written as:
+
+$$ S_t = \alpha \sum_{i=1}^{t-2} (1-\alpha)^{i-1} y_{t-i} 
+       + (1-\alpha)^{t-2} S_2 \, , \,\,\,\,\, t \ge 2 \, . $$
+
+<p>
+<center>
+<!--
+<img SRC="eqns/ts11a.gif" height=90 width=270
+     ALT="S(t) = alpha*SUM[i=0 to t-1][(1-alpha)**(i-1)*y(t-1)] +
+ (1-alpha)**(t-2)*S(2),  t >= 2">
+-->
+<!-- <img SRC="eqns/ts11acor.gif" ALT=
+"S(t) = alpha*SUM[i=0 to t-2][(1-alpha)**(i-1)*y(t-1)] +
+ (1-alpha)**(t-2)*S(2),  t >= 2">
+-->
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Expanded equation for \(S_5\)
+<!-- S<sub>5</sub> -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+For example, the expanded equation for the smoothed value \(S_5\) 
+<!-- <i>S</i><sub>5</sub><i> -->
+is:
+
+$$ S_5 = \alpha \left[ (1-\alpha)^0 y_{5-1} + (1-\alpha)^1 y_{5-2} + (1-\alpha)^2 y_{5-3} \right] 
+       + (1-\alpha)^3 S_2 \, . $$
+<!--
+<p>
+<img SRC="eqns/ts12.gif" height=78 width=397 ALT=
+     "S(5) = alpha*[(1-alpha)**0*y(5-1) + (1-alpha)**1*y(5-2) +
+ (1-alpha)**2*y(5-3)] + (1 - alpha)**3*S(2)">
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+</TABLE>
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Illustrates exponential behavior
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This illustrates the exponential behavior.  The weights, \(\alpha(1-\alpha)^t\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha">
+(1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">) <sup> <i>t</i></sup> -->
+decrease geometrically, and their sum is unity
+as shown below, using a property of geometric series:
+
+$$ \alpha \sum_{i=0}^{t-1} (1-\alpha)^i = \alpha \left[ 
+   \frac{1-(1-\alpha)^t}{1-(1-\alpha)}
+   \right] = 1 - (1-\alpha)^t \, . $$
+<!--
+<center>
+<img SRC="eqns/ts10.gif" height=101 width=274
+     ALT=alpha*SUM[i=0 to t-1](1-alph)**i =
+ alpha*[(1 - (1-alpha)**t)/(1 - (1-alpha))] = 1 - (1-alpha)**t">
+</center>
+-->
+From the last formula we can see that the summation term shows that the
+contribution to the smoothed value \(S_t\)
+<!-- <i>S<sub>t</sub></i> -->
+becomes <u>less</u> at each consecutive time period.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Example for \(\alpha = 0.3\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> = .3 -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Let \(\alpha = 0.3\).
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> = .3. -->
+Observe that the weights \(\alpha(1-\alpha)^t\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> 
+(1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">) 
+<sup><i>t&nbsp;</i></sup> -->
+decrease exponentially (geometrically)
+with time.
+<p>
+<center>
+<table>
+<tr>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <th align=center valign=top>
+      Value
+   </th>
+   <th align=center valign=top>
+      weight
+   </th>
+</tr>
+<tr>
+   <td colspan=3>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      last
+   </td>
+   <td align=center valign=top>
+      \(y_1\) <!-- <i>y</i><sub>1</sub> -->
+   </td>
+   <td align=center valign=top>
+      0.2100
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <td align=center valign=top>
+      \(y_2\) <!-- <i>y</i><sub>2</sub> -->
+   </td>
+   <td align=center valign=top>
+      0.1470
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <td align=center valign=top>
+      \(y_3\) <!-- <i>y</i><sub>3</sub> -->
+   </td>
+   <td align=center valign=top>
+      0.1029
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <td align=center valign=top>
+      \(y_4\) <!-- <i>y</i><sub>4</sub> -->
+   </td>
+   <td align=center valign=top>
+      0.0720
+   </td>
+</tr>
+</table>
+</center>
+<!-- <img SRC="eqns/ts13.gif" height=164 width=144> -->
+<!-- <img SRC="eqns/ts13.gif" height=18 width=9> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>What is the "best" value for \(\alpha\)?
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha">? --> 
+</b> 
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>How do you choose the weight parameter?</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The speed at which the older responses are dampened (smoothed) is a
+function of the value of \(\alpha\).
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha">. -->
+When \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+is close to 1, dampening is quick and when \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+is close to 0, dampening is slow. This is illustrated in the
+table below.
+<p>
+<ul>
+---------------> towards past observations
+</ul>
+<p>
+<center>
+<table width=300>
+<tr>
+   <td align=center valign=bottom>
+      \(\alpha\) 
+      <!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+   </td>
+   <td align=center valign=bottom>
+      \((1-\alpha)\)
+      <!-- (1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">) -->
+   </td>
+   <td align=center valign=bottom>
+      \((1-\alpha)^2\)
+      <!-- (1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">) <sup>2</sup> -->
+   </td>
+   <td align=center valign=bottom>
+      \((1-\alpha)^3\)
+      <!-- (1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">) <sup>3</sup> -->
+   </td>
+   <td align=center valign=bottom>
+      \((1-\alpha)^4\)
+      <!-- (1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">) <sup>4</sup> -->
+   </td>
+</tr>
+<tr>
+   <td colspan=5>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      0.9
+   </td>
+   <td align=center valign=top>
+      0.1
+   </td>
+   <td align=center valign=top>
+      0.01
+   </td>
+   <td align=center valign=top>
+      0.001
+   </td>
+   <td align=center valign=top>
+      0.0001
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      0.5
+   </td>
+   <td align=center valign=top>
+      0.5
+   </td>
+   <td align=center valign=top>
+      0.25
+   </td>
+   <td align=center valign=top>
+      0.125
+   </td>
+   <td align=center valign=top>
+      0.0625
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      0.1
+   </td>
+   <td align=center valign=top>
+      0.9
+   </td>
+   <td align=center valign=top>
+      0.81
+   </td>
+   <td align=center valign=top>
+      0.729
+   </td>
+   <td align=center valign=top>
+      0.6561
+   </td>
+</tr>
+</table>
+</center>
+<p>
+<!-- <img SRC="eqns/ts14.gif" height=138 width=262> -->
+We choose the best value for \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+so the value which results in the smallest MSE.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Example</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Let us illustrate this principle with an example.  Consider the
+following data set consisting of 12 observations taken over time:
+<p>
+<center>
+<table width=300>
+<tr>
+   <th align=center valign=botom>
+      <br>
+      Time
+   </th>
+   <th align=center valign=bottom>
+      \(y_t\) <!-- <i>y<sub>t</sub></i> -->
+   </th>
+   <th align=center valign=bottom>
+      \(S(\alpha=0.1)\)
+      <!-- <i>S</i> (<img align=absmiddle src="eqns/alpha.gif" alt="alpha">=.1) -->
+   </th>
+   <th align=center valign=bottom>
+      Error
+   </th>
+   <th align=center valign=bottom>
+      Error<br>
+      squared
+   </th>
+</tr>
+<tr>
+   <td colspan=5>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      1
+   </td>
+   <td align=center valign=top>
+      71
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      2
+   </td>
+   <td align=center valign=top>
+      70
+   </td>
+   <td align=center valign=top>
+      71
+   </td>
+   <td align=center valign=top>
+      -1.00
+   </td>
+   <td align=center valign=top>
+      1.00
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      3
+   </td>
+   <td align=center valign=top>
+      69
+   </td>
+   <td align=center valign=top>
+      70.9
+   </td>
+   <td align=center valign=top>
+      -1.90
+   </td>
+   <td align=center valign=top>
+      3.61
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      4
+   </td>
+   <td align=center valign=top>
+      68
+   </td>
+   <td align=center valign=top>
+      70.71
+   </td>
+   <td align=center valign=top>
+      -2.71
+   </td>
+   <td align=center valign=top>
+      7.34
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      5
+   </td>
+   <td align=center valign=top>
+      64
+   </td>
+   <td align=center valign=top>
+      70.44
+   </td>
+   <td align=center valign=top>
+      -6.44
+   </td>
+   <td align=center valign=top>
+      41.47
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      6
+   </td>
+   <td align=center valign=top>
+      65
+   </td>
+   <td align=center valign=top>
+      69.80
+   </td>
+   <td align=center valign=top>
+      -4.80
+   </td>
+   <td align=center valign=top>
+      23.04
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      7
+   </td>
+   <td align=center valign=top>
+      72
+   </td>
+   <td align=center valign=top>
+      69.32
+   </td>
+   <td align=center valign=top>
+      2.68
+   </td>
+   <td align=center valign=top>
+      7.18
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      8
+   </td>
+   <td align=center valign=top>
+      78
+   </td>
+   <td align=center valign=top>
+      69.58
+   </td>
+   <td align=center valign=top>
+      8.42
+   </td>
+   <td align=center valign=top>
+      70.90
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      9
+   </td>
+   <td align=center valign=top>
+      75
+   </td>
+   <td align=center valign=top>
+      70.43
+   </td>
+   <td align=center valign=top>
+      4.57
+   </td>
+   <td align=center valign=top>
+      20.88
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      10
+   </td>
+   <td align=center valign=top>
+      75
+   </td>
+   <td align=center valign=top>
+      70.88
+   </td>
+   <td align=center valign=top>
+      4.12
+   </td>
+   <td align=center valign=top>
+      16.97
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      11
+   </td>
+   <td align=center valign=top>
+      75
+   </td>
+   <td align=center valign=top>
+      71.29
+   </td>
+   <td align=center valign=top>
+      3.71
+   </td>
+   <td align=center valign=top>
+      13.76
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      12
+   </td>
+   <td align=center valign=top>
+      70
+   </td>
+   <td align=center valign=top>
+      71.67
+   </td>
+   <td align=center valign=top>
+      -1.67
+   </td>
+   <td align=center valign=top>
+      2.79
+   </td>
+</tr>
+</table>
+</center>
+<!-- <img SRC="eqns/ts15.gif" height=356 width=260> -->
+<p>
+The sum of the squared errors (SSE) = 208.94.  The mean of the
+squared errors (MSE) is the SSE /11 = 19.0.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Calculate for different values of \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+</i> 
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The MSE was again calculated for \(\alpha = 0.5\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> = .5 -->
+and turned out to be 16.29, so in this case we would prefer an \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+of 0.5. Can we do better?  We could apply the proven trial-and-error
+method. This is an iterative procedure beginning with a range of \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+between 0.1 and 0.9.  We determine the best initial choice for \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+and then search between \(\alpha - \Delta\) and \(\alpha + \Delta\).
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -
+<img align=absmiddle src="eqns/ucdelta.gif" alt="delta">
+and <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> +
+<img align=absmiddle src="eqns/ucdelta.gif" alt="delta">. -->
+We could repeat this perhaps one more time to find the best \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+to 3 decimal places.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Nonlinear optimizers can be used
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+But there are better search methods, such as the Marquardt procedure.
+This is a nonlinear optimizer that minimizes the sum of squares of
+residuals.  In general, most well designed statistical software
+programs should be able to find the value of \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+that minimizes the MSE.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Sample plot showing smoothed data for 2 values of \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<img SRC="gifs/tseries2.gif" height=356 width=341
+     ALT="Plot with raw data and smoothed data for alpha = .1 and alpha = .5">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc43.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc432.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc431.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:29 GMT -->
+</HTML>

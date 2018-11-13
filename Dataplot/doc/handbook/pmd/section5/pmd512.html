@@ -1,0 +1,537 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:48 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.5.1.2. How can I predict the value and and estimate the uncertainty of a single response?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd52.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd511.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd5.html">Use and Interpretation of Process Models</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.5.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd51.html">What types of predictions can I make using the model?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.5.1.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can I predict the value and and estimate the uncertainty of a single response?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>A Different Type of Prediction</I>
+</TD>
+<TD WIDTH=85%>
+In addition to estimating the average value of the response variable for a given combination of 
+preditor values, as discussed on the <A HREF="pmd511.html">previous page</A>, it is also possible
+to make predictions of the values of new measurements or observations from a process. Unlike the
+true average response, a new measurement is often actually observable in the future. However, 
+there are a variety of different situations in which a prediction of a measurement value may be
+more desirable than actually making an observation from the process. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Example</I>
+</TD>
+<TD WIDTH=85%>
+For example, suppose that a concrete supplier needs to supply concrete of a specified measured
+strength for a particular contract, but knows that strength varies systematically with the 
+ambient temperature when the concrete is poured. In order to be sure that the concrete will meet
+the specification, prior to pouring, samples from the batch of raw materials can be mixed, poured,
+and measured in advance, and the relationship between temperature and strength can be modeled.
+Then predictions of the strength across the range of possible field temperatures can be used to
+ensure the product is likely to meet the specification. Later, after the concrete is poured (and
+the temperature is recorded), the accuracy of the prediction can be verified.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>\(\hat{y}=f(\vec{x},\hat{\vec{\beta}})\)
+<!-- <IMG ALT="\hat{y}=f(\vec{x},\hat{\vec{\beta}})" SRC="eqns/yhateqfxb.gif"> -->
+</I>
+</TD>
+<TD WIDTH=85%>
+The mechanics of predicting a new measurement value associated with a combination of predictor 
+variable values are similar to the steps used in the estimation of the average response value. In 
+fact, the actual estimate of the new measured value is obtained by evaluating the estimated 
+regression function at the relevant predictor variable values, exactly as is done for the average
+response. The estimates are the same for these two quantities because, assuming the model fits 
+the data, the only difference between the average response and a particular measured response is 
+a random error.  Because the error is random, and has a mean of zero, there is no additional 
+information in the model that can be used to predict the particular response beyond the information
+that is available when predicting the average response.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Uncertainties Do Differ</I>
+</TD>
+<TD WIDTH=85%>
+As when estimating the average response, a probabilistic interval is used when predicting a new 
+measurement to provide the information needed to make engineering or scientific conclusions. 
+However, even though the estimates of the average response and particular response values are
+the same, the uncertainties of the two estimates do differ.  This is because the uncertainty 
+of the measured response must include both the uncertainty of the estimated average response 
+and the uncertainty of the new measurement that could conceptually be observed. This 
+uncertainty must be included if the interval that will be used to summarize the prediction result
+is to contain the new measurement with the specified confidence. To help distinguish the two types
+of predictions, the probabilistic intervals for estimation of a new measurement value are called
+prediction intervals rather than confidence intervals.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Standard Deviation of Prediction</I>
+</TD>
+<TD WIDTH=85%>
+The estimate of the standard deviation of the predicted value, \(\hat{\sigma}_f\),
+<!-- <IMG ALT="\hat{\sigma}_f" ALIGN=middle SRC="eqns/sigmahatf.gif">, -->
+is obtained as described 
+<A HREF="pmd511.html#sf">earlier</A>.  Because the residual standard deviation describes the 
+random variation in each individual measurement or observation from the process, \(\hat{\sigma}\),
+<!-- <IMG ALT="\hat{\sigma}" SRC="eqns/sigmahat.gif">, -->
+the estimate of the residual standard deviation obtained when 
+fitting the model to the data, is used to account for the extra uncertainty needed to predict a 
+measurement value. Since the new observation is independent of the data used to fit the model, 
+the estimates of the two standard deviations are then combined by "root-sum-of-squares" or 
+"in quadrature", according to standard formulas for computing variances, to obtain the standard
+deviation of the prediction of the new measurement, \(\hat{\sigma}_p\).
+<!-- <IMG ALT="\hat{\sigma}_p" ALIGN=middle SRC="eqns/sigmahatp.gif">. -->
+The formula for \(\hat{\sigma}_p\)
+<!-- <IMG ALT="\hat{\sigma}_p" ALIGN=middle SRC="eqns/sigmahatp.gif"> -->
+is
+
+$$ \hat{\sigma}_p = \sqrt{\hat{\sigma}^2 + \hat{\sigma}^2_f} \, . $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\hat{\sigma}_p = \sqrt{\hat{\sigma}^2 + \hat{\sigma}^2_f}
+" SRC="eqns/sigmahatpf.gif">.</CENTER><BR> -->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Coverage Factor and Prediction Interval Formula</I>
+</TD>
+<TD WIDTH=85%>
+Because both \(\hat{\sigma}_f\)
+<!-- <IMG ALT="\hat{\sigma}_f" ALIGN=middle SRC="eqns/sigmahatf.gif"> -->
+and \(\hat{\sigma}_p\)
+<!-- <IMG ALT="\hat{\sigma}_p" ALIGN=middle SRC="eqns/sigmahatp.gif"> -->
+are mathematically nothing more than different scalings of \(\hat{\sigma}\),
+<!-- <IMG ALT="\hat{\sigma}" SRC="eqns/sigmahat.gif">, -->
+and coverage factors from the <I>t</I> distribution
+only depend on the amount of data available for estimating \(\hat{\sigma}\),
+<!-- <IMG ALT="\hat{\sigma}" ALIGN=absmiddle SRC="eqns/sigmahat.gif">, -->
+the coverage factors are the same for confidence
+and prediction intervals. Combining the coverage factor and the standard deviation of the 
+prediction, the formula for constructing prediction intervals is given by 
+
+$$ \hat{y} \pm t_{1-\alpha/2,\nu} \cdot \hat{\sigma}_p $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\hat{y} \pm t_{1-\alpha/2,\nu}\hat{\sigma}_p
+" SRC="eqns/pif.gif">.</CENTER><BR> -->
+
+As with the <A HREF="pmd511.html#cci">computation of confidence intervals</A>, some software may 
+provide the total uncertainty for the prediction interval given the equation above, or may 
+provide the lower and upper prediction bounds. As suggested before, however, it is a good idea
+to test the software on an example for which prediction limits are already available to make 
+sure that the software is computing the expected type of intervals.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Prediction Intervals for the Example Applications</I>
+</TD>
+<TD WIDTH=85%>
+Computing prediction intervals for the measured pressure in the 
+<A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature</A> example, at temperatures of 25, 
+45, and 65, and for the measured torque on specimens from the 
+<A HREF="../section4/pmd422.html#pr.r1">polymer relaxation</A> example at different 
+times and temperatures, gives the results listed in the tables below. Note: the number of 
+significant digits shown is larger than would normally be reported. However, as many significant
+digits as possible should be carried throughout all calculations and results should only be rounded
+for final reporting. If reported numbers may be used in further calculations, then they should
+not be rounded even when finally reported. A useful rule for rounding final results that will not
+be used for further computation is to round all of the reported values to one or two significant 
+digits in the total uncertainty, \(t_{1-\alpha/2,\nu} \, \hat{\sigma}_p\).
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}\hat{\sigma}_p" ALIGN=middle SRC="eqns/tsp.gif">. -->
+This is the convention for rounding that has been used in the tables below.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Pressure / Temperature Example</I>
+</TD>
+<TD WIDTH=85%>
+<TABLE CELLSPACING=8>
+<TR>
+<TD VALIGN=bottom ALIGN=center>
+\(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{y}\)
+<!-- <IMG ALT="\hat{y}" SRC="eqns/yhat.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{\sigma}\)
+<!-- <IMG ALT="\hat{\sigma}" SRC="eqns/sigmahat.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{\sigma}_f\)
+<!-- <IMG ALT="\hat{\sigma}_f" SRC="eqns/sigmahatf.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{\sigma}_p\)
+<!-- <IMG ALT="\hat{\sigma}_p" SRC="eqns/sigmahatp.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(t_{1-\alpha/2,\nu}\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}" SRC="eqns/t.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(t_{1-\alpha/2,\nu} \, \hat{\sigma}_p\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}\hat{\sigma}_p" SRC="eqns/tsp.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Lower 95%<BR>Prediction<BR>Bound
+</FONT>
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Upper 95%<BR>Prediction<BR>Bound
+</FONT>
+</TD>
+<TR><TD COLSPAN=9><HR></TD></TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>25</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>106.0025</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.299099</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>1.1976162</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.462795</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.024394</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>9.034455</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>97.0</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>115.0</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>45</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>184.6053</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.299099</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.6803245</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.352596</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.024394</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>8.811369</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>175.8</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>193.5</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>65</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>263.2081</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.299099</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>1.2441620</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.475510</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.024394</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>9.060197</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>254.1</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>272.3</FONT></TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Polymer Relaxation Example</I>
+</TD>
+<TD WIDTH=85%>
+<TABLE CELLSPACING=8>
+<TR>
+<TD VALIGN=bottom ALIGN=center>
+\(x_1\)
+<!-- <IMG ALT=" x_1" SRC="eqns/x1.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(x_2\)
+<!-- <IMG ALT="x_2" SRC="eqns/x2.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{y}\)
+<!-- <IMG ALT="\hat{y}" SRC="eqns/yhat.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{\sigma}\)
+<!-- <IMG ALT="\hat{\sigma}" SRC="eqns/sigmahat.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{\sigma}_f\)
+<!-- <IMG ALT="\hat{\sigma}_f" SRC="eqns/sigmahatf.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{\sigma}_p\)
+<!-- <IMG ALT="\hat{\sigma}_p" SRC="eqns/sigmahatp.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(t_{1-\alpha/2,\nu}\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}" SRC="eqns/t.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(t_{1-\alpha/2,\nu} \, \hat{\sigma}_p\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}\hat{\sigma}_p" SRC="eqns/tsp.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Lower 95%<BR>Prediction<BR>Bound
+</FONT>
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Upper 95%<BR>Prediction<BR>Bound
+</FONT>
+</TD>
+<TR><TD COLSPAN=10><HR></TD></TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>20<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>25<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.586307<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04341221<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.02840153<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.05187742<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.10377030<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.48<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.69<FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>80<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>25<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.998012<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04341221<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.01217109<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04508609<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.09018560<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.91<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.09<FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>20<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>50<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.960607<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04341221<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.01371149<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04552609<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.09106573<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.87<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>7.05<FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>80<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>50<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.342600<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04341221<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.01007761<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04456656<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.08914639<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.25<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.43<FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>20<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>75<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>7.521252<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04341221<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.01205401<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04505462<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.09012266<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>7.43<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>7.61<FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>80<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>75<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.220895<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04341221<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.01330727<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.04540598<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.09082549<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.13<FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.31<FONT></TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Interpretation of Prediction Intervals</I>
+</TD>
+<TD WIDTH=85%>
+Simulation of many sets of data from a process model provides a good way to obtain a detailed 
+understanding of the probabilistic nature of the prediction intervals. The main advantage of 
+using simulation is that it allows direct comparison of how prediction intervals constructed 
+from a limited amount of data relate to the measured values that are being estimated.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The plot below shows 95 % prediction intervals computed from 50 independently generated data 
+sets that follow the same model as the data in the Pressure/Temperature example. Random errors
+from the normal distribution with a mean of zero and a known standard deviation are added to 
+each set of true temperatures and true pressures that lie on a perfect straight line to produce 
+the simulated data. Then each data set is used to compute a prediction interval for a newly 
+observed pressure at a temperature of 65. The newly observed measurements, observed
+after making the prediction, are noted with an "X" for each data set.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Prediction Intervals Computed from 50 Sets of Simulated Data</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mupt3_f.gif">
+<IMG SRC="plots/mupt3_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="prediction intervals computed from 50 sets of simulated data">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Confidence Level Specifies Long-Run Interval Coverage</I>
+</TD>
+<TD WIDTH=85%>
+From the plot it is easy to see that not all of the intervals contain the pressure values observed
+after the prediction was made. Data set 4 produced an interval that did not capture the newly 
+observed pressure measurement at a temperature of 65.  However, for 49 out of 50, or not much over
+95 % of the data sets, the prediction intervals did capture the measured pressure. When the number
+of data sets was increased to 5000, prediction intervals computed for 4734, or 94.68 %, of the
+data sets covered the new measured values.  Finally, when the number of data sets was increased 
+to 10000, 94.92 % of the confidence intervals computed covered the true average pressure.  Thus, 
+the simulation shows that although any particular prediction interval might not cover its 
+associated new measurement, in repeated experiments this method produces intervals that contain 
+the new measurements at the rate specified by the user as the confidence level. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Comparison with Confidence Intervals</I>
+</TD>
+<TD WIDTH=85%>
+It is also interesting to compare these results to the <A HREF="pmd511.html#ci">analogous results
+for confidence intervals</A>. Clearly the most striking difference between the two plots is in 
+the sizes of the uncertainties. The uncertainties for the prediction intervals are much larger 
+because they must include the standard deviation of a single new measurement, as well as the 
+standard deviation of the estimated average response value. The standard deviation of the 
+estimated average
+response value is lower because a lot of the random error that is in each measurement cancels out
+when the data are used to estimate the unknown parameters in the model. In fact, if as the sample 
+size increases, the limit on the width of a confidence interval approaches zero while the limit on
+the width of the prediction interval as the sample size increases approaches 
+\(z_{1-\alpha/2} \, \hat{\sigma}\).
+<!-- <IMG ALT="z_{1-\alpha/2}\hat{\sigma}" ALIGN=absmiddle SRC="eqns/zsigma.gif">. -->
+Understanding the different types of intervals and 
+the bounds on interval width can be important when planning an experiment that requires a result
+to have no more than a specified level of uncertainty to have engineering value.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Interpretation Summary</I>
+</TD>
+<TD WIDTH=85%>
+To summarize the interpretation of the probabilistic nature of confidence intervals in words:
+in independent, repeated experiments, \(100(1-\alpha) \, \%\)
+<!-- <IMG ALT="100(1-\alpha)\%" ALIGN=absmiddle SRC="eqns/clp.gif"> -->
+of the intervals will be expected cover their true values, given that the assumptions needed 
+for the construction of the intervals hold.  
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd511.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd52.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section5/pmd512.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:49 GMT -->
+</HTML>

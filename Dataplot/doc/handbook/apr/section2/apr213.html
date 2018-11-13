@@ -1,0 +1,221 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr213.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:17 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.2.1.3. Multiplicative degradation
+argument</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr214.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr212.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr2.html">Assumptions/Prerequisites</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr21.html">How do you choose an appropriate life distribution model?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.2.1.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Multiplicative degradation
+argument</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>The lognormal model can be applied when degradation is caused by random 
+shocks that increase degradation at a rate proportional to the total 
+amount already present</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+A brief verbal description
+of the multiplicative degradation argument (leading to a derivation of
+the lognormal model) was given under 
+<a href="../section1/apr164.html#Uses of the Lognormal Distribution Model">
+Uses of the Lognormal Distribution Model</a>. 
+Here a formal derivation will be outlined because it gives insight into 
+why the lognormal has been a successful model for many failure mechanisms 
+based on degradation processes.
+<p>
+Let \(y_1, \, y_2, \, \ldots, \, y_n\)
+<!-- <i>y<sub>1</sub>, y<sub>2</sub>, ...y<sub>n&nbsp;</sub></i> -->
+be measurements
+of the amount of degradation for a particular failure process taken at
+successive discrete instants of time as the process moves towards failure.
+Assume the following relationships exist between the \(y\)'s:
+<!-- <i>y</i>'s: -->
+
+$$ y_i = (1 + \epsilon_i)y_{i-1} \, , $$
+
+<!--
+&nbsp;
+<center>
+<p><img SRC="eqns/yrelation.gif" ALT="y(i) = (1 + e(i))**y(i-1)" ></center>
+<p>
+-->
+
+where the \(\epsilon_i\)
+<!-- &nbsp;<img SRC="gifs/epssubi.gif" ALT="e(i)" height=24 width=16 align=TEXTTOP> -->
+are small, independent random perturbations or "shocks" to the system that
+move the failure process along. In other words, the increase in the amount
+of degradation from one instant to the next is a small random multiple
+of the total amount of degradation already present. This is what is meant
+by <b>multiplicative degradation</b>. The situation is analogous to a snowball
+rolling down a snow covered hill; the larger it becomes, the faster it
+grows because it is able to pick up even more snow.
+<p>
+We can express the total amount of degradation at the \(n\)-th
+<!-- <i>n</i>-th -->
+instant of time by
+
+$$ x_n = \left( \prod_{i=1}^n (1 + \epsilon_i) \right) x_0 \, , $$
+
+<!-- 
+<center><img SRC="eqns/mult.gif" ALT="x(n) = {PRODUCT[i=1 to n](1 + e(i))}*x(0)" >
+</center>
+<p>
+-->
+
+where \(x_0\)
+<!-- <i>x<sub>0</sub></i> -->
+is a constant and the \(\epsilon_i\)
+<!-- &nbsp;<img SRC="gifs/epssubi.gif" ALT="e(i)" height=24 width=16 align=TEXTTOP> -->
+are small random shocks. Next we take natural logarithms of both sides
+and obtain:
+
+$$ \mbox{ln } x_n = \sum_{i=1}^n \mbox{ln }(1 + \epsilon_i) + \mbox{ln } x_0 
+    \approx \sum_{i=1}^n \epsilon_i + \mbox{ln } x_0 \, . $$
+
+<!-- 
+&nbsp;
+<center>
+<p><img SRC="eqns/logmult.gif" ALT="LN(x(n)) = SUM{i=1 to n](LN(1+e(i))) + LN(x(0))  
+is approximately SUM[i=1 to n](e(i)) + LN(x(0))" >
+</center>
+<p>
+-->
+
+Using a Central Limit Theorem argument we can conclude that ln \(x_n\)
+<!-- <i>x<sub>n</sub></i> -->
+has approximately a normal distribution. But by the 
+<a href="../section1/apr164.html#Formula's and">properties of the lognormal</a> 
+distribution, this means that \(x_n\)
+<!-- <i>x<sub>n </sub></i> -->
+(or the amount of degradation) will follow approximately a lognormal model
+for any \(n\)
+<!-- <i> n</i> -->
+(or at any time \(t\)).
+<!-- <i>t</i>). -->
+Since failure occurs when the amount of degradation reaches a critical point, 
+time of failure will be modeled successfully by a lognormal for this type of process.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Failure mechanisms that might be successfully
+modeled by the lognormal distribution based on the multiplicative degradation
+model</i></td>
+
+<td WIDTH="85%">What kinds of failure mechanisms might be expected to follow&nbsp;
+a multiplicative degradation model? The processes listed below are likely
+candidates:
+<ol>
+<li>
+Chemical reactions leading to the formation of new compounds</li>
+
+<li>
+Diffusion or migration of ions&nbsp;</li>
+
+<li>
+Crack growth or propagation</li>
+</ol>
+Many semiconductor failure modes are caused by one of these three degradation
+processes. Therefore, it is no surprise that the lognormal model has been
+very successful for the following semiconductor wear out failure mechanisms:&nbsp;
+<ol>
+<li>
+Corrosion</li>
+
+<li>
+Metal migration</li>
+
+<li>
+Electromigration</li>
+
+<li>
+Diffusion</li>
+
+<li>
+Crack growth</li>
+</ol>
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr212.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr214.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr213.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:17 GMT -->
+</HTML>

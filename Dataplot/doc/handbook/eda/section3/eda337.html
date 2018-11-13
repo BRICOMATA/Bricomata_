@@ -1,0 +1,334 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda337.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:29 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.7. Box Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda338.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda336.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Box Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!----- begin section: purpose -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Purpose: <br>
+Check location and
+variation shifts
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Box plots 
+(<a href="../section4/eda43.html#Chambers">Chambers 1983</a>)
+are an excellent tool for conveying location and variation information
+in data sets, particularly for detecting and illustrating
+location and variation changes between different groups of data.
+
+</TD>
+</TR>
+
+<!----- begin section: Sample -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Plot:<br>
+This box plot reveals that machine has a significant effect
+on energy with respect to location and possibly variation
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<IMG SRC="../gif/boxplot0.gif"
+     alt="box plot comparing four machines for energy output">
+<P>
+This box plot, comparing four machines for energy output, shows that
+machine has a significant effect on energy with respect to both
+location and variation.  Machine 3 has the highest energy response
+(about 72.5); machine 4 has the least variable energy response with
+about 50% of its readings being within 1 energy unit.
+
+</TD>
+</TR>
+
+<!----- begin section: definition -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Definition
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Box plots are formed by
+<UL>
+    Vertical axis: Response variable<BR>
+    Horizontal axis: The factor of interest<BR>
+</UL>
+More specifically, we
+<OL>
+   <LI>Calculate the <a href="eda351.html">median</a> and the
+       <a href="eda356.html">quartiles</a> (the lower quartile
+       is the 25th percentile and the upper quartile is the 75th
+       percentile).
+       <p>
+   <LI>Plot a symbol at the median (or draw a line) and draw a box
+       (hence the name--box plot) between the lower and upper
+       quartiles; this box represents the middle 50% of the
+       data--the "body" of the data.</li>
+       <p>
+   <LI>Draw a line from the lower quartile to the minimum point and
+       another line from the upper quartile to the maximum point.
+       Typically a symbol is drawn at these minimum and maximum
+       points, although this is optional.</LI>
+</OL>
+Thus the box plot identifies the middle 50% of the
+data, the median, and the extreme points.
+
+</TD>
+</TR>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Single or multiple box plots can be drawn
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A single box plot can be drawn for one batch of data with no distinct
+groups.  Alternatively, multiple box plots can be drawn together to
+compare multiple data sets or to compare groups in a single data set.
+For a single box plot, the width of the box is arbitrary.  For multiple
+box plots, the width of the box plot can be set proportional to the
+number of points in the given group or sample (some software
+implementations of the box plot simply set all the boxes to the
+same width).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Box plots with fences
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+There is a useful variation of the box plot that more specifically
+identifies outliers.  To create this variation:
+<OL>
+   <LI>Calculate the <a href="eda351.html">median</a> and the
+       <a href="eda356.html">lower and upper quartiles</a>.
+       <P>
+   <LI>Plot a symbol at the median and draw a box between the
+       lower and upper quartiles.</LI>
+       <P>
+   <LI>Calculate the interquartile range (the difference between
+       the upper and lower quartile) and call it IQ.</LI>
+       <P>
+   <LI>Calculate the following points:
+       <P>
+       <UL>
+          L1 = lower quartile - 1.5*IQ<BR>
+          L2 = lower quartile - 3.0*IQ<BR>
+          U1 = upper quartile + 1.5*IQ<BR>
+          U2 = upper quartile + 3.0*IQ<BR>
+       </UL></LI>
+       <P>
+    <LI>The line from the lower quartile to the minimum is now
+        drawn from the lower quartile to the smallest point that
+        is greater than L1.  Likewise, the line from the upper
+        quartile to the maximum is now drawn to the largest point
+        smaller than U1.</LI>
+       <P>
+    <LI>Points between L1 and L2 or between U1 and U2 are drawn as
+        small circles.  Points less than L2 or greater than U2 are
+        drawn as large circles.</LI>
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!----- begin section: questions -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Questions</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The box plot can provide answers to the following questions:
+<OL>
+   <LI>Is a factor significant?</LI>
+   <LI>Does the location differ between subgroups?</LI>
+   <LI>Does the variation differ between subgroups?</LI>
+   <LI>Are there any outliers?</LI>
+</OL>
+</TD>
+</TR>
+
+<!----- begin section: importance -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Importance: <br>
+Check the significance
+of a factor
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The box plot is an important EDA tool for
+determining if a factor has a significant effect
+on the response with respect to either location or variation.
+<P>
+The box plot is also an effective tool for summarizing large
+quantities of information.
+</TD>
+</TR>
+
+<!----- begin section: related techniques -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Related Techniques </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<a href="eda33k.html">Mean Plot</a><BR>
+<a href="eda354.html">Analysis of Variance</a><BR>
+</TD>
+</TR>
+
+<!-----begin section: do worked example -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>Case Study </i>
+</TD>
+
+<TD WIDTH=85% valign=top>
+   The box plot is demonstrated in the
+   <a href="../section4/eda42a.html">ceramic strength</a> data
+   case study.
+
+</TD>
+</TR>
+
+<!----- begin section: dataplot command -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Box plots are available in most general purpose statistical software
+programs.
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+
+
+
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda336.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda338.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda337.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:31 GMT -->
+</HTML>

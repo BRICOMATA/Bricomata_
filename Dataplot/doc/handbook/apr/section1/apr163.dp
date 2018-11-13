@@ -1,0 +1,42 @@
+Dataplot commands and output:
+
+. Calculate PDF and CDF values of the extreme value distribution
+. corresponding to the points 5, 8, 10, 12, 12.8. 
+SET MINMAX 1
+LET BET = .5
+LET M = LOG(200000)
+LET X = DATA 5 8 10 12 12.8
+
+
+. Calculate PDF values.
+LET PD = EV1PDF(X, M, BET)
+PRINT PD
+
+> ---------------
+>              PD
+> ---------------
+>          0.0000
+>          0.0004
+>          0.0239
+>          0.6830
+>          0.2468
+
+
+. Calculate CDF values.
+LET CD = EV1CDF(X, M, BET)
+PRINT CD
+
+> ---------------
+>              CD
+> ---------------
+>          0.0000
+>          0.0002
+>          0.0120
+>          0.4842
+>          0.9623
+
+
+. Generate extreme value probability plot.
+LET SAM = EXTREME VALUE TYPE 1 RANDOM NUMBERS FOR I = 1 1 100
+LET SAM = (BET*SAMPLE) + M
+EXTREME VALUE TYPE 1 PROBABILITY PLOT SAM

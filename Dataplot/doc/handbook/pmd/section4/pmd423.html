@@ -1,0 +1,206 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd423.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:06 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.2.3. Using Methods that Do Not Require Function Specification</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd43.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd422.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd42.html">How do I select a function to describe my process?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Using Methods that Do Not Require Function Specification</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Functional Form Not Needed, but Some Input Required</I>
+</TD>
+<TD WIDTH=85%>
+Although many modern regression methods, like 
+<A HREF="../section1/pmd144.html">LOESS</A>, 
+do not require the user to specify a single type of function to fit the entire 
+data set, some initial information still usually needs to be provided by the
+user. Because most of these types of regression methods fit a series of simple 
+local models to the data, one quantity that usually must be specified is the 
+size of the
+neighborhood each simple function will describe. This type of parameter is 
+usually called the bandwidth or smoothing parameter for the method. For some 
+methods the form of the simple functions must also be specified, while for 
+others the functional form is a fixed property of the method.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Input Parameters Control Function Shape</I>
+</TD>
+<TD WIDTH=85%>
+The smoothing parameter controls how flexible the functional part of the model
+will be. This, in turn, controls how closely the function will fit the data,
+just as the choice of a straight line or a polynomial of higher degree determines 
+how closely a traditional regression model will track the deterministic 
+structure in a set of data. The exact information that must be specified in order 
+to fit the regression function to the data will vary from method to method.
+Some methods may require other user-specified parameters require, in addition to
+a smoothing parameter, to fit the regression function.  However, the purpose of the 
+user-supplied information is similar for all methods.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Starting Simple still Best</I>
+</TD>
+<TD WIDTH=85%>
+As for more traditional methods of regression, simple regression functions are
+better than complicated ones in local regression. The complexity of a regression
+function can be gauged by its potential to track the data. With traditional modeling
+methods, in which a global function that describes the data is given explictly, it is 
+relatively easy to differentiate between simple and complicated models. With local 
+regression methods, on the other hand,  it can sometimes difficult to tell how simple 
+a particular regression function actually is based on the inputs to the procedure.
+This is because of the different ways of specifying local functions, the effects of
+changes in the smoothing parameter, and the relationships between the different inputs.  
+Generally, however, any local functions should be as simple as possible and the 
+smoothing parameter should be set so that each local function is fit to a large 
+subset of the data.  For example, if the method offers a choice of local functions,
+a straight line would typically be a better starting point than a higher-order 
+polynomial or a statistically nonlinear function.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Function Specification for LOESS</I>
+</TD>
+<TD WIDTH=85%>
+To use LOESS, the user must specify the degree, \(d\),
+<!-- <B><I>d</I></B>, -->
+of the local polynomial to be fit to the data, and the fraction of the data, 
+\(q\),
+<!-- <B><I>q</I></B>, -->
+to be used in each fit. In this case, the simplest possible 
+initial function specification is \(d=1\)
+<!-- <B><I>d=1</I></B> -->
+and \(q=1\).
+<!-- <B><I>q=1</I></B>. -->
+While it is relatively easy to understand how the degree of the local polynomial 
+affects the simplicity of the initial model, it is not as easy to determine how 
+the smoothing parameter affects the function.  However, plots of the data from the 
+<A HREF="../section1/dep/dep144.html">computational example of LOESS in Section 1</A>
+with four potential choices of the initial regression function show that
+the simplest LOESS function, with \(d=1\)
+<!-- <B><I>d=1</I></B> -->
+and \(q=1\),
+<!-- <B><I>q=1</I></B>, -->
+is too simple to capture much of the structure in the data. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>LOESS Regression Functions with Different Initial Parameter Specifications</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mslc1_f.gif">
+<IMG ALIGN=BOTTOM SRC="plots/mslc1_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="data from the LOESS computation example with different initial fits">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Experience Suggests Good Values to Use</I>
+</TD>
+<TD WIDTH=85%>
+Although the simplest possible LOESS function is not flexible enough to describe the 
+data well, any of the other functions shown in the figure would be reasonable choices. 
+All of the latter functions track the data well enough to allow assessment of the
+different assumptions that need to be checked before deciding that the model really 
+describes the data well. None of these functions is probably exactly right, but they
+all provide a good enough fit to serve as a starting point for model refinement. The fact
+that there are several LOESS functions that are similar indicates that additional 
+information is needed to determine the best of these functions.
+Although it is debatable, experience indicates that it is probably best to keep the initial 
+function simple and set the smoothing parameter so each local function is fit to a
+relatively small subset of the data. Accepting this principle, the best of these initial 
+models is the one in the upper right corner of the figure with \(d=1\)
+<!-- <B><I>d=1</I></B> -->
+and \(q=0.5\).
+<!-- <B><I>q=0.5</I></B>. -->
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd422.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd43.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd423.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:10 GMT -->
+</HTML>

@@ -1,0 +1,297 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:24 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.2. Bihistogram</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda333.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda3314.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Bihistogram</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!----- begin section: purpose -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Purpose: <br>
+Check for a change
+in location,
+variation, or
+distribution
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The bihistogram is an EDA tool for assessing whether a
+before-versus-after engineering modification has caused a change in
+<ul>
+   <li>location;
+   <li>variation; or
+   <li>distribution.
+</ul>
+It is a graphical alternative to the 
+<a href="eda353.html">two-sample t-test</a>.  The bihistogram can be
+more powerful than the t-test in that all of the distributional
+features (location, scale, skewness, outliers) are evident on a
+single plot.  It is also based on the common and well-understood
+<a href="histogra.html">histogram</a>.
+
+</TD>
+</TR>
+
+<!----- begin section: Sample -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Plot:<br>
+This bihistogram reveals that there is a significant
+difference in ceramic breaking strength between batch 1
+(above) and batch 2 (below)
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<IMG SRC="../gif/bihistog.gif"
+alt="bihistogram revealing a significant difference
+ in ceramic breaking strength between batch 1 and 2"
+>
+
+<P>
+From the above bihistogram, we can see that batch 1 is centered
+at a ceramic strength value of approximately 725 while batch 2 is
+centered at a ceramic strength value of approximately 625.  That
+indicates that these batches are displaced by about 100 strength
+units.  Thus the batch factor has a significant effect on the location
+(typical value) for strength and hence batch is said to be
+"significant" or to "have an effect".  We thus see graphically and
+convincingly what a t-test or
+<a href="../../prc/section4/prc42.html">analysis of variance</a>
+would indicate quantitatively.
+<p>
+With respect to variation, note that the spread (variation) of
+the above-axis batch 1 histogram does not appear to be that much
+different from the below-axis batch 2 histogram.  With respect to
+distributional shape, note that the batch 1 histogram is skewed left
+while the batch 2 histogram is more symmetric with even a hint of
+a slight skewness to the right.
+<p>
+Thus the bihistogram reveals that there is a clear difference between
+the batches with respect to location and distribution, but not in regard
+to variation.  Comparing batch 1 and batch 2, we also note that
+batch 1 is the "better batch" due to its 100-unit higher
+average strength (around 725).
+
+</TD>
+</TR>
+
+<!----- begin section: definition -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Definition:<br>
+Two adjoined
+histograms
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Bihistograms are formed by vertically juxtaposing two histograms:
+<UL>
+   <li>Above the axis: Histogram of the response variable for
+       condition 1
+   <li>Below the axis: Histogram of the response variable for
+       condition 2
+</UL>
+
+</TD>
+</TR>
+
+<!----- begin section: questions -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Questions</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The bihistogram can provide answers to the following questions:
+<OL>
+   <LI>Is a (2-level) factor significant?
+   <LI>Does a (2-level) factor have an effect?
+   <LI>Does the location change between the 2 subgroups?
+   <LI>Does the variation change between the 2 subgroups?
+   <LI>Does the distributional shape change between subgroups?
+   <LI>Are there any outliers?
+</OL>
+
+</TD>
+</TR>
+
+<!----- begin section: importance -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Importance: <br>
+Checks 3 out of
+the 4 underlying
+assumptions of a measurement
+process
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The bihistogram is an important EDA tool for determining if a factor
+"has an effect".  Since the bihistogram provides insight into the
+validity of three (location, variation, and distribution) out of the
+four (missing only randomness) underlying
+<a href="../section2/eda21.html">assumptions</a>
+in a measurement process, it is an especially valuable tool.  Because of
+the dual (above/below) nature of the plot, the bihistogram is
+restricted to assessing factors that have only two levels.  However,
+this is very common in the before-versus-after character of many
+scientific and engineering experiments.
+
+</TD>
+</TR>
+
+<!----- begin section: related techniques -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Related Techniques </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<a href="eda353.html">t test</a> (for shift in location) <br>
+<a href="eda359.html">F test</a> (for shift in variation) <br>
+<a href="eda35g.html">Kolmogorov-Smirnov test</a> (for shift in
+       distribution) <br>
+<a href="eda33o.html">Quantile-quantile plot</a> (for shift in
+       location and distribution) <br>
+</TD>
+</TR>
+
+<!----- begin section: case study -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Case Study
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+   The bihistogram is demonstrated in the
+   <a href="../section4/eda42a.html">ceramic strength</a> data
+   case study.
+</TD>
+</TR>
+
+<!----- begin section: dataplot command -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The bihistogram is not widely available in general purpose
+statistical software programs.  Bihistograms can be generated using Dataplot 
+and R software.
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+
+   
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda3314.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda333.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:25 GMT -->
+</HTML>

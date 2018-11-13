@@ -1,0 +1,438 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc45.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:10 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+      <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+      <TITLE>6.4.5. Multivariate Time Series Models</TITLE>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="pmc451.html" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="pmc44a.html" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+	   <area shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">6.</FONT> <A HREF="../pmc.html"><FONT COLOR="#00105A">Process or Product Monitoring and Control</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">6.4.</FONT> <A HREF="pmc4.html"><FONT COLOR="#00105A">Introduction to Time Series Analysis</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">6.4.5.</FONT> Multivariate Time Series Models </H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+   </TD>
+   </TR>
+
+   
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>If each time series observation is a vector of numbers, you can
+model them using a multivariate form of the Box-Jenkins model</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The multivariate form of the Box-Jenkins univariate models is
+sometimes called the ARMAV model, for AutoRegressive Moving Average
+Vector or simply vector ARMA process.
+<p>
+The ARMAV model for a <u>stationary</u> multivariate time series,
+with a zero mean vector, represented by
+
+$$ x_t = (x_{1t}, \, x_{2t}, \, \ldots, \, x_{nt})^T, \,\,\,\,\,\,\,\,  -\infty < t < \infty $$
+
+<!--
+<p>
+<ul>
+<img SRC="eqns/xt.gif" ALT=
+"X(t) = (x(1t), x(2t), ... , x(nt))**T   -infinity < t < infinity">
+</ul>
+-->
+is of the form
+
+$$ \begin{eqnarray}
+x_t & = & \phi_1 x_{t-1} + \phi_2 x_{t-2} + \cdots + \phi_p x_{t-p} + \\
+    &   & a_t - \theta_1 a_{t-1} - \theta_2 a_{t-2} - \cdots - \theta_q a_{t-q} \, , 
+\end{eqnarray} $$
+
+<!--
+<ul>
+<img SRC="eqns/armamv.gif" ALT=
+"x(t) = phi1*x(t-1) + phi2*x(t-2) + ... + phip*x(t-p) + a(t) -
+ theta1*a(t-1) - theta2*a(t-2) - ... - thetaq*a(t-q)">
+</ul>
+-->
+where
+<ul>
+   <li> \(x_t\) and \(a_t\) are \( n \times 1\)
+       <!-- <b><i>x<sub>t</sub></i></b> and
+       <b><i>a<sub>t</sub></i></b> are <i>n</i> x 1 -->
+       column vectors with \(a_t\)
+       <!-- <b><i>a<sub>t</sub></i></b> -->
+       representing multivariate white noise,
+       <p>
+   <li> \(\phi_k = \{\phi_{k.jj}\}, \,\,\,  k = 1, \, 2, \, \ldots, \, p\)
+       <!-- <img align=absmiddle SRC="eqns/phik.gif" ALT=
+       "phi(k) = {phi(kjj},   k = 1, 2, ..., p"> -->
+       <p>
+       \(\theta_k = \{\theta_{k.jj}\}, \,\,\,  k = 1, \, 2, \, \ldots, \, q\)
+       <!-- <img align=absmiddle SRC="eqns/thetak.gif" ALT=
+       "theta(k) = {theta(kjj},   k = 1, 2, ..., q"> -->
+       <p>
+       are \(n \times n\)
+       <!-- <i>n</i> x <i>n</i> -->
+       matrices for autoregressive and moving average parameters,
+       <p>
+   <li> \(E[a_t]=0\)
+       <!-- E<b>[<i>a<sub>t</sub></i>]</b> = <b>0</b> -->
+       <p>
+   <li>\(E[a_t a_{t-k}'] = 0,  \,\,\, k \ne 0\)
+       <!-- <img align=absmiddle src="eqns/eat1.gif"
+            alt="E(a(t),a(t-k)') = 0  for k <> 0"> -->
+       <p>
+       \(E[a_t a_{t-k}'] = \Sigma_a,  \,\,\, k = 0\)
+       <!-- <img align=absmiddle src="eqns/eat2.gif"
+            alt="E(a(t)*a(t-k)') = Sigma(a) for k = 0"> -->
+       <p>
+       where \(\Sigma_a\)
+       <!-- <img align=absmiddle src="eqns/sigmauc.gif"
+       alt="Sigma"><sub><i>a</i></sub> -->
+       is the dispersion or covariance matrix of \(a_t\).
+       <!-- <i>a<sub>t</sub></i> -->
+</ul>
+<!-- <img SRC="eqns/armav1.gif" height=361 width=326> -->
+As an example, for a bivariate series with \(n=2\), \(p=2\), and \(q=1\),
+<!-- <i>n</i> = 2, <i>p</i> = 2, and <i>q</i> = 1, -->
+the ARMAV(2,1) model is:
+
+$$ \begin{eqnarray}
+\left( \begin{array}{c} x_{1t} \\ x_{2t} \end{array} \right) & = & \left( \begin{array}{cc} \phi_{1.11} & \phi_{1.12} \\ \phi_{1.21} & \phi_{1.22} \end{array} \right)  \left( \begin{array}{c}  x_{1t-1} \\ x_{2t-1} \end{array} \right)  +  
+\left( \begin{array}{cc} \phi_{2.11} & \phi_{2.12} \\ \phi_{2.21} & \phi_{2.22} \end{array} \right)  \left( \begin{array}{c}  x_{1t-2} \\ x_{2t-2} \end{array} \right) + \\
+ & &  \left( \begin{array}{c} a_{1t} \\ a_{2t} \end{array} \right) - \left( \begin{array}{cc} \phi_{1.11} & \phi_{1.12} \\ \phi_{1.21} & \phi_{1.22} \end{array} \right) \left( \begin{array}{c} a_{1t-1} \\ a_{2t-1} \end{array} \right)
+\end{eqnarray} $$
+
+<!--
+<ul>
+<img SRC="eqns/armamvex.gif" ALT=
+"(x(1t) x(2t)) = {phi(1.11) phi(1.12); phi(1.21) phi(1.22)}{x(1t-1) x(2t-1)} +
+{phi(2.11) phi(2.12); phi(2.21) phi(2.22)} {x(1t-2) x(2t-2)} +
+{a(1t) a(2t)} - {phi(1.11) phi(1.12); phi(1.21) phi(1.22)}{a(1t-1) a(2t-1)}">
+</ul>
+-->
+with
+
+$$ a_t = \left( \begin{array}{c} a_{1t} \\ a_{2t} \end{array} \right) \, .$$
+
+<!--
+<ul>
+   <img align=absmiddle src="eqns/at.gif" alt="a(t) = [a(1t); a(2t)]">
+</ul>
+-->
+<!-- <img SRC="eqns/armav2.gif" height=154 width=294> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Estimation of parameters and covariance matrix difficult</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The estimation of the matrix parameters and
+<a href="../section5/pmc541.html#Mean vector and Covariance">covariance
+matrix</a> is complicated and very difficult without computer
+software.  The estimation of the Moving Average matrices is
+especially an ordeal.  If we opt to ignore the MA component(s) we
+are left with the <a NAME="ARV model"></a>ARV model given by:
+
+$$ x_{t} = \phi_{1}x_{t-1} + \phi_{2}x_{t-2} + \ldots + \phi_{p}x_{t-p} + a_{t} \, , $$
+
+
+<ul>
+<!-- <img SRC="eqns/armav3.gif" height=220 width=305 -->
+<!--
+<img SRC="eqns/armvmode.gif"
+ALT="x(t) = phi1*x(t-1) + phi2*x(t-2) + ... + phip*x(t-p) + a(t)">
+-->
+</ul>
+
+where
+<ul>
+   <li>\(x_t\)
+       <!-- <b><i>x<sub>t</sub></i></b> -->
+       is a vector of observations, \(x_{1t}, \, x_{2t}, \, \ldots, \, x_{nt}\)
+       <!-- <b><i>x<sub>1t</sub></i></b>,
+       <b><i>x<sub>2t</sub></i></b>, ... ,
+       <b><i>x<sub>nt</sub></i></b> -->
+       at time \(t\),
+       <!-- <i>t</i> -->
+       <p>
+   <li>\(a_t\)
+       <!-- <b><i>a<sub>t</sub></i></b> -->
+       is a vector of white noise, \(a_{1t}, \, a_{2t}, \, \ldots, \, a_{nt}\)
+       <!-- <b><i>a<sub>1t</sub></i></b>,
+       <b><i>a<sub>2t</sub></i></b>, ... ,
+       <b><i>a<sub>nt</sub></i></b> -->
+       at time \(t\),
+       <!-- <i>t</i> -->
+       <p>
+   <li>\(\phi_k = \{\phi_{k.jj}\}, \,\,\, k = 1, \, 2, \, \ldots, \, p\)
+       <!-- <img align=absmiddle src="eqns/phik.gif" alt=
+       "phi(k) = {phi(k.jj)}, k = 1, 2, ..., p"> -->
+       <br>
+       is a \(n \times n\)
+       <!-- <i>n</i> x <i>n</i> -->
+       matrix of autoregressive parameters,
+       <p>
+   <li>\(E[a_t] = 0\)
+       <!-- E<b>[<i>a<sub>t</sub></i>]</b> = <b>0</b> -->
+       <p>
+   <li>\(E[a_t a_{t-k}'] = 0, \,\,\,\,\, k \ne 0\)
+       <!-- <img align=absmiddle src="eqns/eat1.gif"
+            alt="E(a(t),a(t-k)') = 0  for k <> 0"> -->
+       <p>
+       \(E[a_t a_{t-k}'] = \Sigma_a, \,\,\,\,\, k = 0\)
+       <!-- <img align=absmiddle src="eqns/eat2.gif"
+            alt="E(a(t)*a(t-k)') = Sigma(a) for k = 0"> -->
+       <p>
+       where \(\Sigma_a\)
+       <!-- &Sigma;<sub>a</sub> -->
+       is the dispersion or covariance matrix.
+</ul>
+A model with \(p\)
+<!-- <i>p</i> -->
+autoregressive matrix parameters is an
+ARV(\(p\))
+<!-- <i>p</i>) -->
+model or a vector AR model.
+<p>
+The parameter matrices may be estimated by multivariate least squares,
+but there are other methods such as maximium likelihood estimation.
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interesting properties of parameter matrices
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+There are a few interesting properties associated with the phi or AR
+parameter matrices.  Consider the following example for a bivariate
+series with \(n=1\), \(p=2\), and \(q = 0\). 
+<!-- <i>n</i> =2, <i>p</i> = 2, and <i>q</i> = 0. -->
+The ARMAV(2,0) model is:
+<p>
+
+$$ \left( \begin{array}{c} x_{t} \\ y_{t} \end{array} \right) = 
+   \left( \begin{array}{cc} \phi_{1.11} & \phi_{1.12} \\ 
+   \phi_{1.21} & \phi_{1.22} \end{array} \right)  \left( \begin{array}{c}  x_{t-1} \\ 
+   y_{t-1} \end{array} \right)  + \left( \begin{array}{cc} \phi_{2.11} & \phi_{2.12} \\ 
+   \phi_{2.21} & \phi_{2.22} \end{array} \right)  \left( \begin{array}{c}  x_{t-2} \\ 
+   y_{t-2} \end{array} \right)  + \left( \begin{array}{c} a_{1t} \\ a_{2t} \end{array} \right) \, .$$
+
+<ul>
+<!-- <img SRC="eqns/armav4.gif" height=168 width=350 -->
+<!--<img SRC="eqns/armvex.gif" ALT="
+{x(t) y(t)} = {phi(1.11)  phi(1.12; phi(1.21)  phi(1.22)}*
+{x(t-1) y(t-1)} +
+   {phi(2.11)  phi(2.12; phi(2.21)  phi(2.22)}*{x(t-2) y(t-2)} +
+ {a(1t) a(2t)}"> 
+-->
+</ul>
+<p>
+Without loss of generality, assume that the \(X\)
+<!-- <i>X</i> -->
+series is input and the \(Y\)
+<!-- <i>Y</i> -->
+series are output and that the mean vector is \((0,0)\).
+<!-- = (0,0). -->
+<p>
+Therefore, tranform the observation by subtracting their respective
+averages.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Diagonal terms of Phi matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<u>The diagonal terms of each Phi matrix are the scalar
+estimates for each series</u>, in this case:
+
+<ul>
+\(\phi_{1.11}, \, \phi_{2.11}\)
+<!-- <img align=bottom src="eqns/phi.gif" alt="phi"><sub>1.11</sub>,
+<img align=bottom src="eqns/phi.gif" alt="phi"><sub>2.11</sub> -->
+for the input series \(X\),
+<!-- <i>X</i>, -->
+<br>
+\(\phi_{1.22}, \, \phi_{2.22}\)
+<!-- <img align=bottom src="eqns/phi.gif" alt="phi"><sub>1.22</sub>,
+<img align=bottom src="eqns/phi.gif" alt="phi">.<sub>2.22</sub> -->
+for the output series \(Y\).
+<!-- <i>Y.</i> -->
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Transfer mechanism
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<u>The lower off-diagonal elements represent the influence of the
+input on the output.</u>
+<p>
+This is called the "transfer" mechanism or transfer-function model
+as discussed by Box and Jenkins in Chapter 11.  The \(\phi\)
+<!-- <img align=absmiddle src="eqns/phi.gif" alt="phi"> -->
+terms here correspond to their \(\delta\)
+<!-- <img align=abmiddle src="eqns/delta.gif" alt="delta"> -->
+terms.
+<p>
+<u>The upper off-diagonal terms represent the influence of the output
+on the input.</u>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Feedback
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This is called "feedback".  The presence of feedback can also be seen
+as a high value for a coefficient in the correlation matrix of the
+residuals.  A "true" transfer model exists when there is no feedback.
+<p>
+This can be seen by expressing the matrix form into scalar form:
+
+$$ \begin{eqnarray}
+x_t & = & \phi_{1.11}x_{t-1} + \phi_{2.11}x_{t-2} + 
+          \phi_{1.12}y_{t-1} + \phi_{2.12}y_{t-2} + a_{1t} \\
+    &   & \\
+y_t & = & \phi_{1.22}y_{t-1} + \phi_{2.22}y_{t-2} +
+          \phi_{1.21}x_{t-1} + \phi_{2.21}x_{t-2} + a_{2t}
+\end{eqnarray} $$
+
+<ul>
+<!-- <img SRC="eqns/armav5.gif" height=93 width=314 ALT= -->
+<!--
+<img SRC="pmc451_eq1.gif" ALT=
+"x(t) = phi(1.11)*x(t-1) + phi(2.11)*x(t-2) + phi(1.12)*y(t-1) +
+ phi(2.12)*y(t-2) + a(1t)">
+<img SRC="pmc451_eq2.gif" ALT=
+"y(t) = phi(1.22)*y(t-1) + phi(2.22)*y(t-2) + phi(1.21)*x(t-1) +
+ phi(2.21)*x*t-2) + a(t-2)">
+-->
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Delay
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<u>Finally, delay or "dead" time can be measured by studying the lower
+off-diagonal elements again.</u>
+<p>
+If, for example, \(\phi_{1.21}\)
+<!-- <img align=top src="eqns/phi.gif" alt="phi"><sub>1.21</sub> -->
+is non-significant, the delay is 1 time period.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="pmc44a.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="pmc451.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc45.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:10 GMT -->
+</HTML>
+
+
+
+

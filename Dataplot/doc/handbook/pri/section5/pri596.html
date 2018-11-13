@@ -1,0 +1,352 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri596.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:48 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.6. DOE Youden plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri597.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri595.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>DOE Youden plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The DOE (design of experiments) Youden plot answers the following
+question:
+<ul>
+   What are the important factors (including interactions)?
+</ul>
+In its original interlab rendition, the
+<a href="../../eda/section3/youdplot.html">Youden plot</a> was a
+graphical technique developed in the 1960's by Jack Youden of NIST for
+assessing between-lab biases and within-lab variation problems in
+the context of interlab experimentation.  In particular, it was
+appropriate for the analysis of round-robin data when exactly two
+materials, batches, etc.  were used in the design.
+<p>
+In a design of experiments context, we borrow this duality emphasis
+and apply it to 2-level designs.  The 2-component emphasis of the
+Youden plot makes it a natural to be applied to such designs.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The DOE Youden plot provides specific information on
+<ol>
+   <li>Ranked list of factors (including interactions); and
+   <li>Separation of factors into two categories:
+      important and unimportant.
+</ol>
+The primary output from a DOE Youden plot is the ranked list of
+factors (out of the <i>k</i> factors and interactions).  For full
+factorial designs, interactions include the full complement of
+interactions at all orders; for fractional factorial designs,
+interactions include only some, and occasionally none, of the
+actual interactions.  Further, the DOE Youden plot yields information
+identifying which factors/interactions are important and which
+are unimportant.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The DOE Youden plot consists of the following:
+<ul>
+   <li>Vertical Axis: Mean response at the "+" setting for each
+       factor and each interaction.  For a given factor or interaction,
+       <i>n</i>/2 response values will go into computing the "+" mean.
+       <p>
+   <li>Horizontal Axis: Mean response at the "-" setting for each factor
+       and each interaction.  For a given factor or interaction,
+       <i>n</i>/2 response values will go into computing the "-" mean.
+       <p>
+   <li>Plot Character: Factor/interaction identification for which
+       <p>
+       <ul>
+          1 indicates factor <i>X</i><sub>1</sub>;<br>
+          2 indicates factor <i>X</i><sub>2</sub>;<br>
+          ...<br>
+          12 indicates the 2-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction<br>
+          123 indicates the 3-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>3</sub>
+          interaction<br>
+          etc.<br>
+       </ul>
+</ul>
+In essence, the DOE Youden plot is a scatter plot of the
+"+" average responses versus the "-" average responses.  The
+plot will consist of <i>n</i> - 1  points with one point for each factor
+and one point for each (available) interaction.  Each point on the plot
+is annotated to identify which factor or interaction is being
+represented.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Motivation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Definitionally, if a factor is <b>unimportant</b>, the "+"
+average will be approximately the same as the "-" average, and if a
+factor is <b>important</b>, the "+" average will be considerably
+different from the "-" average.  Hence a plot that compares the
+"+" averages with the "-" averages directly seems potentially
+informative.
+<p>
+From the definition above, the DOE Youden plot is a scatter plot with
+the "+" averages on the vertical axis and the "-" averages on the
+horizontal axis.  Thus, unimportant factors will tend to cluster
+in the middle of the plot and important factors will tend to be far
+removed from the middle.
+<p>
+Because of an arithmetic identity which requires that the average of
+any corresponding "+" and "-" means must equal the grand mean,
+all points on a DOE Youden plot will lie on a -45 degree diagonal line.
+Or to put it another way, for each factor
+<ul>
+   average (+) + average (-) = constant  (with constant = grand mean)
+</ul>
+So
+<ul>
+   average (+) = constant - average (-)
+</ul>
+Therefore, the slope of the line is -1 and all points lie on the line.
+Important factors will plot well-removed from the center because
+average (+) = average (-) at the center.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot for defective springs data
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Applying the DOE Youden plot for the defective springs data set
+yields the following plot.
+<p>
+<A HREF="gifs/youden.gif">
+   <IMG SRC="gifs/youden.r.gif" BORDER=0
+        alt="DOE Youden plot for the defective springs data">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+In the DOE Youden plot, we look for the following:
+<ol>
+   <li>A ranked list of factors (including interactions).
+       The intersecting dotted lines at the center of the
+       plot are the value of the grand mean on both the vertical
+       and horizontal axes.  Scan the points along the negative-slope
+       diagonal line and note as to whether such points are clustered
+       around the grand mean or are displaced up or down the
+       diagonal line.
+       <p>
+       <ol>
+          <li>Which point is farthest away from the center?
+              This defines the "most important" factor.
+          <li>Which point is next farthest away from the center?
+              This defines the "second most important" factor.
+          <li>Continue in a similar manner for the remaining points.
+              The points closest to the center define the "least
+              important" factors.
+       </ol>
+       <p>
+   <li>Separation of factors into important/unimportant categories.
+       Interpretationally, if a factor is <b>unimportant</b>,
+       the "+" average will be about the same as the "-" average,
+       so the plot of "+" vertically and "-" horizontally will be near
+       the grand mean of all <i>n</i> - 1 data points.
+       <p>
+       Conversely, if a factor is important, the "+" average will
+       differ greatly from the "-" average, and so the plot
+       of "+" vertically and "-" horizontally will be considerably
+       displaced up into the top left quadrant or down into the bottom
+       right quadrant.
+       <p>
+       The separation of factors into important/unimportant
+       categories is thus done by answering the question:
+       <p>
+       <ul>
+         Which points visually form a cluster around the center?
+         (these define the "unimportant factors"--all remaining
+         factors are "important").
+       </ul>
+</ol>
+This ranked list of important factors derived from the DOE
+Youden plot is to be compared with the ranked lists
+obtained from previous steps.  Invariably, there will be a
+large degree of consistency exhibited across all/most of
+the techniques.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The application of the DOE Youden plot to the defective springs
+data set results in the following conclusions:
+<ol>
+   <li>Ranked list of factors (including interactions):
+       <p>
+       <ol>
+          <li><i>X</i><sub>1</sub> (most important)
+          <li><i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> (next most important)
+          <li><i>X</i><sub>2</sub>
+          <li>other factors are of lesser importance
+       </ol>
+       <p>
+   <li>Separation of factors into important/unimportant categories:
+       <p>
+       <ul>
+          <li>"Important": <i>X</i><sub>1</sub>, <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub>, and <i>X</i><sub>2</sub>
+          <li>"Unimportant": the remainder
+       </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri595.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri597.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri596.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:50 GMT -->
+</HTML>

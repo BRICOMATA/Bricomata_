@@ -1,0 +1,395 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section5/pmc55.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.5.5. Principal Components</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc551.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc5436.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc5.html">Tutorials</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.5.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Principal Components</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Dimension reduction tool
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+A Multivariate Analysis problem could start out with a substantial
+number of correlated variables.  <b>Principal Component Analysis</b>
+is a dimension-reduction tool that can be used advantageously in
+such situations.  Principal component analysis aims at reducing a
+large set of variables to a small set that still contains most of
+the information in the large set.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Principal factors
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The technique of principal component analysis enables us to create
+and use a reduced set of variables, which are called <i>principal
+factors</i>.  A reduced set is much easier to analyze and interpret.
+To study a data set that results in the estimation of roughly 500
+parameters may be difficult, but if we could reduce these to 5 it
+would certainly make our day.  We will show in what follows how to
+achieve substantial dimension reduction.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Inverse transformaion not possible
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+While these principal factors <u>represent</u> or replace one
+or more of the original variables, it should be noted that they
+are not just a one-to-one transformation, so inverse transformations
+are not possible.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Original data matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+To shed a light on the structure of principal
+components analysis, let us consider a multivariate data matrix
+\({\bf X}\), with \(n\) rows and \(p\)
+<!-- <b><i>X,</i></b> with <i>n</i> rows and <i>p</i> -->
+columns.  The \(p\)
+<!-- <i>p</i> -->
+elements of each row are scores or measurements
+on a subject such as height, weight and age.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Linear function that maximizes variance
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Next, <i>standardize</i> the \({\bf X}\)
+<!-- <b><i>X</i></b> -->
+matrix so that each column
+mean is 0 and each column variance is 1.  Call this matrix \({\bf Z}\).
+<!-- <b><i>Z</i></b>. -->
+Each column is a vector variable, \({\bf z}_i, \, i = 1, \, \ldots, \, p\).
+<!-- <i><b>z</b><sub>i</sub></i>, <i>i</i> = 1, . . . , <i>p</i>. -->
+The main idea behind principal component analysis is to derive a linear
+function \({\bf y}\)
+<!-- <b><i>y</i></b> -->
+for each of the vector variables \({\bf z}_i\).
+<!-- <i><b>z</b><sub>i</sub></i>. -->
+This linear function possesses an extremely important property; 
+namely, <u>its variance is maximized.</u>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Linear function is component of \({\bf z}\)
+<!-- <b>z</b> -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This linear function is referred to as a component of \({\bf z}\).
+<!-- <b><i>z</i></b>. -->
+To illustrate the computation of a single element for the 
+\(j\)th \({\bf y}\)
+<!-- <i>j</i>th <b><i>y</i></b> -->
+vector, consider the product \({\bf y} = {\bf z} {\bf v}'\)
+<!-- <b><i>y = z v'</b></i> -->
+where \({\bf v}'\)
+<!-- <b><i>v</i></b>' -->
+is a column vector of \({\bf V}\), and \({\bf V}\) 
+<!-- <b><i>V</i></b> and <b><i>V</i></b> -->
+is a \(p \times p\)
+<!-- <i>p</i> x <i>p</i> -->
+coefficient matrix that carries the \(p\)-element
+<!-- <i>p</i>-element -->
+variable \({\bf z}\)
+<!-- <b><i>z</i></b> -->
+into the derived \(n\)-element
+<!-- <i>n</i>-element -->
+variable \({\bf y}\).  \({\bf V}\)
+<!-- <b><i>y</i></b>.  <b><i>V</i></b> -->
+is known as the eigen vector matrix.  The dimension of \({\bf z}\) is \(1 \times p\),
+<!-- <i><b>z</b></i> is 1 x <i>p</i>, -->
+the dimension of \({\bf v}'\) is \(p \times 1\).
+<!-- <b><i>v</i></b>' is <i>p</i> x 1. -->
+The scalar algebra for the component score for the \(i\)th
+<!-- <i>i</i>th -->
+individual of \({\bf y}_j, \, j = 1, \, \ldots, \, p\) is:
+<!-- <i><b>y<sub>j</sub></b></i>, <i>j</i> = 1, ...<i>p</i> is: -->
+
+$$ y_{ij} = v_1' z_{1i} + v_2' z_{2i} + \cdots + v_p' z_{pi} \, . $$
+
+<!--
+<ul>
+   <i>y<sub>ji</sub> =  v'<sub>1</sub>z<sub>1i</sub> +
+   v'<sub>2</sub>z<sub>2i</sub> + ... +
+   v'<sub>p</sub>z<sub>pi</sub></i>
+</ul>
+-->
+This becomes in matrix notation for all of the \(y\):
+<!-- <i>y</i>: -->
+
+$$ {\bf Y} = {\bf Z} {\bf V} \, . $$
+
+<!-- 
+<ul>
+   <i><b>Y = ZV</i></b>
+</ul>
+-->
+<!--
+It is specified algebraically by
+<b><i>y = V'z</i></b>, where <b><i>V</i></b> is a
+<i>p x n</i> coefficient matrix that carries the <i>p</i>-element
+variable <b><i>z</i></b> into the derived <i>n</i>-element variable
+<b><i>y</i></b>.
+ -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Mean and dispersion matrix of \({\bf y}\)
+<!-- <b><i>y</i></b> -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The mean of \({\bf y}\) is \({\bf m}_y = {\bf V}'{\bf m}_z = 0\),
+<!-- <b><i>y</i></b> is <i><b>m</b><sub>y</sub> =
+<b>V'm</b><sub>z</sub></i> = 0, -->
+because \({\bf m}_z = 0\).
+<!-- <i><b>m</b><sub>z</sub></i> = 0. -->
+<p>
+The dispersion matrix of \({\bf y}\)
+<!-- <b><i>y</i></b> -->
+is
+
+$$ {\bf D}_y = {\bf V}' {\bf D}_z {\bf V} = {\bf V}' {\bf R} {\bf V} \, . $$
+
+<!--
+<ul>
+  <b><i>D<sub>y</sub> = V'D<sub>z</sub>V = V'RV</i></b>
+</ul>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+\({\bf R}\)
+<!-- <b><i>R</i></b> -->
+is correlation matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Now, it can be shown that the dispersion matrix \({\bf D}_z\)
+<!-- <b><i>D<sub>z</sub></i></b> -->
+of a standardized variable is a correlation matrix.  Thus \({\bf R}\)
+<!-- <b><i>R</i></b> -->
+is the correlation matrix for \({\bf z}\).
+<!-- <b><i>z</i></b>. -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Number of parameters to estimate increases rapidly as \(p\)
+<!-- <i>p</i> -->
+increases
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+At this juncture you may be tempted to say: "so what?".  To answer
+this let us look at the intercorrelations among the elements of a
+vector variable.  The number of parameters to be estimated for a
+\(p\)-element
+<!-- <i>p</i>-element -->
+variable is
+
+<ul>
+   <li>\(p\) 
+       <!-- <i>p</i> -->
+       means
+   <li>\(p\)
+       <!-- <i> p</i> -- > 
+       variances 
+   <li>\((p^2 - p)/2\) 
+       <!--(<i>p<sup>2</sup> - p)/2</i> -->
+       covariances 
+   <li>for a total of \(2p + (p^2 - p)/2\)
+       <!-- <i>2p + (p<sup>2</sup>-p)/2</i> -->
+       parameters. 
+</ul>
+So
+<ul>
+   <li>If \(p = 2\),
+       <!-- <i>p</i> = 2, -->
+       there are 5 parameters 
+   <li>If \(p = 10\),
+       <!--- <i>p</i> = 10, -->
+       there are 65 parameters 
+   <li>If \(p \ge 30\),
+       <!-- <i>p</i> = 30, -->
+       there are 495 parameters 
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<I>
+Uncorrelated variables require no covariance estimation
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+All these parameters must be estimated and interpreted.  That is a
+herculean task, to say the least.  Now, if we could transform the
+data so that we obtain a vector of uncorrelated variables, life
+becomes much more bearable, since there are no covariances.
+</td>
+</tr>
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc5436.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc551.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section5/pmc55.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:11 GMT -->
+</HTML>

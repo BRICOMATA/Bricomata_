@@ -1,0 +1,758 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr234.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:29 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.2.3.4. Trend tests</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr24.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr233.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr2.html">Assumptions/Prerequisites</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr23.html">How can you test reliability model assumptions?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.2.3.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Trend tests</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Formal Trend
+Tests should accompany Trend Plots and Duane Plots. Three are given in
+this section</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+In this section we look at
+formal statistical tests that can allow us to quantitatively determine
+whether or not the repair times of a system show a significant trend (which
+may be an improvement or a degradation trend). The section on <a href="apr223.html">trend
+and growth plotting</a> contained a discussion of visual tests for trends
+- this section complements those visual tests as several numerical tests
+are presented.
+<p>Three statistical test procedures will be described:&nbsp;
+<ol>
+<li>
+<a href="#The Reverse Arrangement">The Reverse Arrangement Te</a>st (a
+simple and useful test that has the advantage of making no assumptions
+about a model for the possible trend)</li>
+
+<li>
+<a href="#The Military Handbook">The Military Handbook Test</a> (optimal
+for distinguishing between "no trend" and a trend following the NHPP Power
+Law or Duane model)</li>
+
+<li>
+<a href="#The Laplace">The Laplace Test </a>(optimal for distinguishing
+between "no trend" and a trend following the NHPP Exponential Law model)</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>The Reverse Arrangement Test (RAT test) is
+simple and makes no assumptions about what model a trend might follow</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="The Reverse Arrangement"></a>
+<b>The Reverse Arrangement Test</b>
+<p>
+Assume there are \(r\)
+<!-- <i>r</i> -->
+repairs during the observation period and
+they occurred at system ages \(T_1, \, T_2, \, T_3, \, \ldots, \, T_r\).
+<!-- <i>T<sub>1</sub>, T<sub>2</sub>, T<sub>3</sub>,...T<sub>r</sub></i><sub> </sub> -->
+(We set the start of the observation period to \(T = 0\)).
+<!-- <i>T</i> = 0).  -->
+Let \(I_1 = T_1, \, I_2 = T_2 - T_1, \, I_3 = T_3 - T_2, \, \ldots, \, I_r = T_r - T_{r-1}\)
+<!-- <i>I<sub>1</sub> = T<sub>1</sub>,&nbsp;</i>
+<br><i>I<sub>2</sub></i> <i>= T<sub>2</sub> - T<sub>1</sub>, I<sub>3</sub>
+= T<sub>3</sub> - T<sub>2</sub>, ..., I<sub>r</sub> = T<sub>r</sub> - T<sub>r-1</sub></i> -->
+be the inter-arrival times for repairs (i.e., the sequence of waiting times
+between failures). Assume the observation period ends at time \(T_{end} > T_r\).
+<!-- <i>T<sub>end</sub>>T<sub>r</sub></i>.&nbsp; -->
+<p>
+Previously, we plotted this sequence of inter-arrival times to look
+for evidence of trends. Now, we calculate how many instances we have of
+a later inter-arrival time being strictly greater than an earlier inter-arrival
+time. Each time that happens, we call it a <i>reversal</i>. If there are
+a lot of reversals (more than are likely from pure chance with no trend),
+we have significant evidence of an improvement trend. If there are too
+few reversals we have significant evidence of degradation.&nbsp;
+<p>A formal definition of the reversal count and some properties of this
+count are:&nbsp;
+<ul>
+<li>
+count a reversal every time \(I_j < I_k\)
+<!-- <i>I<sub>j</sub> &lt; I<sub>k</sub></i> -->
+for some \(j\) and \(k\) with \(j < k\)
+<!-- <i>j</i> and <i>k</i> with <i>j</i> &lt; <i>k</i>&nbsp; -->
+</li>
+
+<li>
+this reversal count is the total number of reversals \(R\)
+<!-- <i>R</i> -->
+</li>
+
+<li>
+for \(r\)
+<!-- <i>r</i> -->
+repair times, the maximum possible number of reversals is \(r(r-1)/2\)
+<!-- <i>r(r-</i>1<i>)/</i>2 -->
+</li>
+
+<li>
+if there are no trends, on the average one would expect to have \(r(r-1)/4\)
+<!-- <i>r(r-</i>1<i>)</i>/4 -->
+reversals.
+</li>
+</ul>
+As a simple example, assume we have 5 repair times at system ages 22, 58,
+71, 156 and 225, and the observation period ended at system age 300 . First
+calculate the inter arrival times and obtain: 22, 36, 13, 85, 69. Next,
+count reversals by "putting your finger" on the first inter-arrival time,
+22, and counting how many later inter arrival times are greater than that.
+In this case, there are 3. Continue by "moving your finger" to the second
+time, 36, and counting how many later times are greater. There are exactly
+2. Repeating this for the third and fourth inter-arrival times (with many
+repairs, your finger gets very tired!) we obtain 2 and 0 reversals, respectively.
+Adding 3 + 2 + 2 + 0 = 7, we see that \(R\) = 7.
+<!-- <i>R</i> = 7. -->
+The total possible
+number of reversals is 5x4/2 = 10 and an "average" number is half this,
+or 5.&nbsp;
+<p>
+In the example, we saw 7 reversals (2 more than average). Is this strong
+evidence for an improvement trend? The following table allows us to answer
+that at a 90 % or 95 % or 99 % confidence level - the higher the confidence,
+the stronger the evidence of improvement (or the less likely that pure
+chance alone produced the result).
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>A useful table to check whether a reliability
+test has demonstrated significant improvement</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+<center><table BORDER COLS=4 WIDTH="100%" >
+<caption>
+<center>Value of \(R\)
+<!-- <i>R</i> -->
+Indicating Significant Improvement <br>(One-Sided Test)
+</center>
+</caption>
+
+<tr>
+<td>
+<center>Number of Repairs</center>
+</td>
+
+<td>
+<center>Minimum \(R\)
+<!-- <i>R</i> -->
+for 90 % Evidence of Improvement</center>
+</td>
+
+<td>
+<center>Minimum \(R\)
+<!-- <i>R</i> -->
+for 95 % Evidence of Improvement</center>
+</td>
+
+<td>
+<center>Minimum \(R\)
+<!-- <i>R</i> -->
+for 99 % Evidence of Improvement</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>-</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>10</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>12</center>
+</td>
+
+<td>
+<center>13</center>
+</td>
+
+<td>
+<center>14</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>7</center>
+</td>
+
+<td>
+<center>16</center>
+</td>
+
+<td>
+<center>17</center>
+</td>
+
+<td>
+<center>19</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>20</center>
+</td>
+
+<td>
+<center>22</center>
+</td>
+
+<td>
+<center>24</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>25</center>
+</td>
+
+<td>
+<center>27</center>
+</td>
+
+<td>
+<center>30</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>31</center>
+</td>
+
+<td>
+<center>33</center>
+</td>
+
+<td>
+<center>36</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>11</center>
+</td>
+
+<td>
+<center>37</center>
+</td>
+
+<td>
+<center>39</center>
+</td>
+
+<td>
+<center>43</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>12</center>
+</td>
+
+<td>
+<center>43</center>
+</td>
+
+<td>
+<center>46</center>
+</td>
+
+<td>
+<center>50</center>
+</td>
+</tr>
+</table></center>
+
+<p>
+<b>One-sided test</b> means before looking at the data we expected improvement
+trends, or, at worst, a constant repair rate. This would be the case if
+we know of actions taken to improve reliability (such as occur during reliability
+improvement tests).&nbsp;
+<p>
+For the \(r\) = 5
+<!-- <i> r</i> = 5  -->
+repair times example above where we had \(R\) = 7,
+<!-- <i>R</i> = 7, -->
+the table shows we do not (yet) have enough evidence to demonstrate
+a significant improvement trend. That does not mean that an improvement
+model is incorrect - it just means it is not yet "proved" statistically.
+With small numbers of repairs, it is not easy to obtain significant results.&nbsp;
+<p>
+For numbers of repairs beyond 12, there is a good approximation formula
+that can be used to determine whether \(R\)
+<!-- <i>R</i> -->
+is large enough to be significant. Calculate&nbsp;
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Use this formula when there are more than
+12 repairs in the data set</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+
+$$ z = \frac{R - \frac{r(r-1)}{4} + 0.5}{\sqrt{\frac{(2r+5)(r-1)r}{72}}} \, , $$
+
+<!--
+<center><img SRC="eqns/rat.gif" ALT="z = [R - r*(r-1)/4 + 0.5]/SQRT((2*r+5)*(r-1)*r/72)" >
+</center>
+<p>
+-->
+
+and if \(z\) > 1.282,
+<!-- <i>z > </i>1.282, -->
+we have at least 90 % significance. If \(z\)
+<!-- <i>z</i> -->
+> 1.645, we have 95 % significance, and a \(z\)
+<!-- <i>z</i> -->
+> 2.33 indicates 99 % significance
+since \(z\)
+<!-- <i>z</i> -->
+has an approximate standard normal distribution.
+<p>
+That covers the (one-sided) test for significant improvement trends.
+If, on the other hand, we believe there may be a degradation trend (the
+system is wearing out or being over stressed, for example) and we want
+to know if the data confirms this, then we expect a low value for \(R\)
+<!-- <i>R</i> -->
+and we need a table to determine when the value is low enough to be significant.
+The table below gives these critical values for \(R\).
+<!-- <i>R</i>.&nbsp; -->
+<center><table BORDER COLS=4 WIDTH="100%" >
+<caption>
+<center>Value of \(R\)
+<!-- <i>R</i> -->
+Indicating Significant Degradation Trend (One-Sided Test)
+</center>
+</caption>
+
+<tr>
+<td>
+<center>Number of Repairs</center>
+</td>
+
+<td>
+<center>Maximum \(R\)
+<!-- <i>R</i>  -->
+for 90 % Evidence of Degradation</center>
+</td>
+
+<td>
+<center>Maximum \(R\)
+<!-- <i>R</i> -->
+for 95 % Evidence of Degradation</center>
+</td>
+
+<td>
+<center>Maximum \(R\)
+<!-- <i>R</i>  -->
+for 99 % Evidence of Degradation</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>-</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>3</center>
+</td>
+
+<td>
+<center>2</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>7</center>
+</td>
+
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>2</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>11</center>
+</td>
+
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>14</center>
+</td>
+
+<td>
+<center>12</center>
+</td>
+
+<td>
+<center>9</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>11</center>
+</td>
+
+<td>
+<center>18</center>
+</td>
+
+<td>
+<center>16</center>
+</td>
+
+<td>
+<center>12</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>12</center>
+</td>
+
+<td>
+<center>23</center>
+</td>
+
+<td>
+<center>20</center>
+</td>
+
+<td>
+<center>16</center>
+</td>
+</tr>
+</table></center>
+
+<p>
+For numbers of repairs \(r\)
+<!-- <i>r</i> -->
+> 12, use the approximation formula above, with \(R\)
+<!-- <i>R</i> -->
+replaced by \([r(r-1)/2 - R]\).
+<!-- [<i>r(r-</i>1<i>)/</i>2 <i>- R</i>]. -->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Because of the success of the Duane model
+with industrial improvement test data, this Trend Test is recommended</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="The Military Handbook"></a><b>The Military
+Handbook Test</b>
+<p>
+This test is better at finding significance when the choice is between
+no trend and a NHPP Power Law (Duane) model. In other words, if the data
+come from a system following the Power Law, this test will generally do
+better than any other test in terms of finding significance.&nbsp;
+<p>
+As before, we have \(r\)
+<!-- <i> r</i> -->
+times of repair \(T_1, \, T_2, \, \ldots, \, T_r\)
+<!-- <i>T<sub>1</sub>, T<sub>2</sub>, T<sub>3</sub>, ...T<sub>r</sub></i> -->
+with the observation period ending at time \(T_{end} > T_r\).
+<!-- <i>T<sub>end</sub>>T<sub>r</sub></i>. -->
+Calculate&nbsp;
+
+$$ \chi_{2r}^2 = 2 \sum_{i=1}^r \mbox{ ln } \frac{T_{end}}{T_i} \, , $$
+
+<!-- 
+<center>
+<img SRC="eqns/miltest.gif" ALT="Chi-Square(2r) = 2*SUM[i=1 to r]{LN(Tend/Ti)}" >
+</center>
+<p>
+-->
+
+and compare this to percentiles of the Chi-Square distribution with \(2r\)
+<!-- 2<i>r</i> -->
+degrees of freedom. For a one-sided improvement test, reject
+no trend (or HPP) in favor of an improvement trend if the chi square value
+is beyond the 90 (or 95, or 99) percentile. For a one-sided degradation
+test, reject no trend if the chi-square value is less than the 10 (or 5,
+or 1) percentile.&nbsp;
+<p>
+Applying this test to the 5 repair times example, the test statistic
+has value 13.28 with 10 degrees of freedom, and the chi-square percentile 
+is 79 %.
+<p>
+<a NAME="The Laplace"></a><b>The Laplace Test</b>
+<p>
+This test is better at finding significance when the choice is between
+no trend and a NHPP Exponential model. In other words, if the data come
+from a system following the Exponential Law, this test will generally do
+better than any test in terms of finding significance.&nbsp;
+<p>
+As before, we have \(r\)
+<!-- <i>r</i> -->
+times of repair \(T_1, \, T_2, \, \ldots, \, T_r\)
+<!-- <i>T<sub>1</sub>, T<sub>2</sub>, T<sub>3</sub>, ...T<sub>r&nbsp;</sub></i><sub> </sub> -->
+with the observation period ending at time \(T_{end} > T_r\).
+<!-- T<i><sub>end</sub></i>>T<i><sub>r</sub></i>. -->
+Calculate
+
+$$ z = \frac{\sqrt{12r} \sum_{i=1}^r \left( T_i - \frac{T_{end}}{2}\right)}{r T_{end}} \, , $$
+
+<!--
+<center>
+<p>
+<img SRC="eqns/laplace.gif" ALT="z = SQRT(12*r)*SUM[i=1 to r]{(Ti - Tend/2)/(r*Tend)}" >
+</center>
+<p>
+-->
+
+and compare this to high (for improvement) or low (for degradation)
+percentiles of the standard normal distribution. 
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Formal tests generally confirm the subjective
+information conveyed by trend plots</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="Case Study 1: Reliability Test Improvement Data"></a>
+<b>Case Study 1: Reliability Test Improvement Data (Continued from earlier work)</b>
+<p>
+The <a href="apr223.html">failure data and Trend plots and Duane plot</a>
+were shown earlier. The observed failure times were: 5, 40, 43, 175, 389,
+712, 747, 795, 1299 and 1478 hours, with the test ending at 1500 hours.
+<p>
+<b>Reverse Arrangement Test:</b> The inter-arrival times are: 5, 35,
+3, 132, 214, 323, 35, 48, 504 and 179. The number of reversals is 33, which,
+according to the table above, is just significant at the 95 % level.&nbsp;
+<p>
+<b>The Military Handbook Test:</b> The Chi-Square test statistic, using
+the formula given above, is 37.23 with 20 degrees of freedom and has significance 
+level 98.9 %. Since the Duane Plot looked very
+reasonable, this test probably gives the most precise significance assessment
+of how unlikely it is that sheer chance produced such an apparent improvement
+trend (only about 1.1 % probability).&nbsp;
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr233.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr24.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr234.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:29 GMT -->
+</HTML>

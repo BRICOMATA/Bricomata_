@@ -1,0 +1,290 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc444.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:45 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.4.4. Common Approaches to Univariate Time Series</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc445.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc4431.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc44.html">Univariate Time Series Models</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.4.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Common Approaches to Univariate Time Series</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+There are a number of approaches to modeling time series.  We
+outline a few of the most common approaches below.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="DECOMPOSITION"></a><i>Trend, Seasonal, Residual
+Decompositions</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+One approach is to decompose the time series into a trend, seasonal,
+and residual component.
+<p>
+<a href="pmc435.html">Triple exponential smoothing</a> is an example
+of this approach.  Another example, called seasonal <i>loess,</i>
+is based on <a href="../../pmd/section1/pmd144.html">locally
+weighted least squares</a> and is discussed by
+<a href="../../eda/section4/eda43.html#Cleveland2">Cleveland
+(1993)</a>.  We do not discuss seasonal <i>loess</i> in this
+handbook.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="FREQUENCY"></a><i>Frequency Based Methods</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Another approach, commonly used in scientific and engineering
+applications, is to analyze the series in the frequency domain.
+An example of this approach in modeling a sinusoidal
+type data set is shown in the
+<a href="../../eda/section4/eda425.html">beam deflection case
+study</a>.  The <a href="../../eda/section3/spectrum.html">spectral
+plot</a> is the primary tool for the frequency analysis of time
+series.
+<p>
+Detailed discussions of frequency-based methods are included in
+<a href="../../eda/section4/eda43.html#Bloomfield">Bloomfield
+(1976)</a>,
+<a href="../../eda/section4/eda43.html#Jenkins">Jenkins and
+Watts (1968)</a>, and
+<a href="../section7/pmc7.html#Chatfield,">Chatfield
+(1996)</a>.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a NAME="AR"></a><i>Autoregressive (AR) Models</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+A common approach for modeling univariate time series is the
+autoregressive (AR) model:
+
+$$ X_t = \delta + \phi_1 X_{t-1} + \phi_2 X_{t-2} + \cdots + \phi_p X_{t-1} + A_t \, $$
+
+<!--
+<ul>
+   <img SRC="eqns/armodel.gif"
+        ALT="X(t) = delta + phi1*X*(t-1) + phi2*X(t-2) + ... +
+ phip*X(t-p) + A(t)">
+</ul>
+-->
+where \(X_t\)
+<!-- <b><i>X<sub>t</sub></i></b> -->
+is the time series, \(A_t\)
+<!-- <b><i>A<sub>t</sub></i></b> -->
+is white noise, and 
+
+$$ \delta = \left( 1 - \sum_{i=1}^p \phi_i \right) \mu \, , $$
+
+<!-- <img SRC="eqns/phi1.gif" align=ABSCENTER alt="phi1">, ...,
+<img SRC="eqns/phip.gif" align=ABSCENTER alt="phip"> and -->
+<!--
+<ul>
+<img SRC="eqns/armean.gif"
+     ALT="delta = (1 - SUM[i=1 to p][phi(i)])*mu">
+</ul>
+-->
+with \(\mu\)
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu"> -->
+denoting the process mean.
+<p>
+An autoregressive model is simply a
+<a href="../../pmd/section1/pmd141.html">linear regression</a> 
+of the current value of the series against one or more prior
+values of the series.  The value of \(p\)
+<!-- <b><i>p</i></b> -->
+is called the order of the AR model.
+<p>
+AR models can be analyzed with one of various methods, including
+<a href="../../pmd/section4/pmd4.html">standard linear least squares techniques</a>.  
+They also have a straightforward interpretation.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<a name="MA">
+<i>Moving Average (MA) Models</i>
+</a>
+</td>
+
+<td VALIGN=TOPWIDTH="85%"><!-- Add main text below -->
+Another common approach for modeling univariate time series models
+is the moving average (MA) model:
+
+$$ X_t = \mu + A_t - \theta_1 A_{t-1} - \theta_2 A_{t-2} - \cdots - \theta_q A_{t-q} \, $$
+
+<!-- 
+<ul>
+<img SRC="eqns/mamodel.gif"
+     ALT="X(t) = mu + A(t) - theta1*A(t-1) - theta2*A(t-2) - ... - thetaq*A(t-q)">
+</ul>
+-->
+where \(X_t\)
+<!-- <b><i>X<sub>t</sub></i></b> -->
+is the time series, \(\mu\)
+<!-- <img align=absmiddle SRC="eqns/mu.gif" ALT="mu"> -->
+is the mean of the series, \(A_{t-i}\)
+<!-- <b><i>A<sub>t-i</sub></i></b> -->
+are white noise terms, and \(\theta_1, \, \ldots, \, \theta_q\)
+<!-- 
+<img SRC="eqns/theta.gif" align=ABSMIDDLE ALT="theta"><sub>1</sub>, ... ,
+<img SRC="eqns/theta.gif" align=ABSMIDDLE ALT="theta"><sub>q</sub> 
+-->
+are the parameters of the model.
+The value of \(q\)
+<!-- <b><i>q</i></b> -->
+is called the order of the MA model.
+<p>
+That is, a moving average model is conceptually a
+<a href="../../pmd/section1/pmd141.html">linear regression</a> of
+the current value of the series against the white noise or random
+shocks of one or more prior values of the series.  The
+random shocks at each point are assumed to come from the same
+distribution, typically a normal distribution, with location at
+zero and constant scale.  The distinction in this model is that these
+random shocks are propogated to future values of the time series.
+Fitting the MA estimates is more complicated than with AR models
+because the error terms are not observable.  This means
+that iterative non-linear fitting procedures need to be used in
+place of linear least squares.  MA models also have a less obvious
+interpretation than AR models.
+<p>
+<!--
+Given the more difficult estimation and interpretation of MA models,
+the obvious question is why are they used instead of AR models?
+In the standard regression situation, the error terms, or random
+shocks, are assumed to be independent.  That is, the random shocks
+at the <i>i</i>th observation only affect that <i>i</i>th
+observation.  However, in many time series this assumption is not
+valid since the random shocks are propogated to future values of
+the time series.  Moving average models accommodate the random
+shocks in previous values of the time series in estimating the
+current value of the time series.
+-->
+Sometimes the
+<a href="../../eda/section3/autocopl.html">ACF</a> and
+<a href="pmc4463.html">PACF</a> will suggest that a MA model would be a
+better model choice and sometimes both AR and MA terms should be used
+in the same model (see
+<a href="pmc445.html">Section 6.4.4.5</a>).
+<p>
+Note, however, that the error terms <i>after</i> the model is fit
+should be independent and follow the standard
+<a href="../../eda/section2/eda21.html">assumptions
+for a univariate process</a>.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Box-Jenkins Approach</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+Box and Jenkins popularized an approach that combines the moving
+average and the autoregressive approaches in the book
+"<i><a href="../section7/pmc7.html">Time Series Analysis: Forecasting
+and Control</a></i>" (Box, Jenkins, and Reinsel, 1994).
+<p>
+Although both autoregressive and moving average approaches were
+already known (and were originally investigated by Yule), the
+contribution of Box and Jenkins was in developing a systematic
+methodology for identifying and estimating models that could
+incorporate both approaches.  This makes Box-Jenkins models a
+powerful class of models.  The next several sections
+will discuss these models in detail.
+</td>
+</tr>
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc4431.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc445.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc444.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:45 GMT -->
+</HTML>

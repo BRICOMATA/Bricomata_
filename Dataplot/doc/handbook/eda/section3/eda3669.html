@@ -1,0 +1,583 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3669.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:52:15 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.6.6.9. Lognormal Distribution</TITLE>
+</HEAD>
+<BODY BGCOLOR="FFFFCC">
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda366a.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda3668.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-3.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../main.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+<!---<LEFT>--->
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+<TR>
+
+<TD VALIGN=TOP COLSPAN=2>
+
+<FONT SIZE=-1><FONT COLOR="#D60021">1.</FONT> <A HREF="../eda.html"><FONT COLOR="#00105A">Exploratory Data Analysis</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.</FONT> <A HREF="eda3.html"><FONT COLOR="#00105A">EDA Techniques</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.6.</FONT> <A HREF="eda36.html"><FONT COLOR="#00105A">Probability Distributions</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">1.3.6.6.</FONT> <A HREF="eda366.html"><FONT COLOR="#00105A">Gallery of Distributions</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">1.3.6.6.9.</FONT> Lognormal Distribution </H2>
+<FONT SIZE=-1>
+</=-1>
+</=-1>
+</P>
+</FONT></FONT></FONT>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="PDF">
+Probability Density Function
+</a>
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+A variable <i>X</i> is lognormally distributed if \(Y = \ln(X)\) is
+normally distributed with "LN" denoting the natural logarithm.
+The general formula for the <a href="eda362.html#PDF">probability
+density function</a> of the lognormal distribution is
+<p>
+<!--
+<img src="eqns/lgnpdfg.gif" alt=
+"f(x) = EXP(-((ln((x-theta)/m))**2/(2*sigma*2))/
+ ((x-theta)*sigma*SQRT(2*PI))   x >= theta; sigma, m > 0">
+-->
+\( f(x) = \frac{e^{-((\ln((x-\theta)/m))^{2}/(2\sigma^{2}))}} 
+{(x-\theta)\sigma\sqrt{2\pi}} \hspace{.2in}   x > \theta; m, 
+\sigma > 0 \)
+<p>
+where <i>&sigma;</i> is the <a href="eda363.html">shape parameter</a>
+(and is the standard deviation of the log of the distribution),
+<i>&theta;</i> is the <a href="eda364.html">location parameter</a> and
+<i>m</i> is the <a href="eda364.html">scale parameter</a> (and is also the
+median of the distribution).  If <i>x</i> = <i>&theta;</i>, then
+<i>f</i>(<i>x</i>) = 0.  The case where <i>&theta;</i> = 0 and
+<i>m</i> = 1 is called the <b>standard lognormal distribution</b>.  The
+case where <i>&theta;</i> equals zero is called the 2-parameter lognormal
+distribution.
+<P>
+The equation for the standard lognormal distribution is
+<p>
+<!--
+<img src="eqns/lgnpdf.gif" alt=
+"f(x) = EXP(-(log(x)**2/(2*sigma**2))/(x*sigma*SQRT(2*PI))
+  x >= 0; sigma > 0">
+-->
+\( f(x) = \frac{e^{-((\ln x)^{2}/2\sigma^{2})}} 
+{x\sigma\sqrt{2\pi}} \hspace{.2in} x > 0; \sigma > 0 \)
+<p>
+Since the general form of probability functions can be 
+<a href="eda364.html#FORMULAS">expressed in terms of the standard
+distribution</a>, all subsequent formulas in this section are
+given for the standard form of the function.
+<P>
+Note that the lognormal distribution is commonly parameterized
+with
+<P>
+\( \mu = \log(m) \)
+<P>
+The <i>&mu;</i> parameter is the mean of the log of the distribution.  If
+the <i>&mu;</i> parameterization is used, the lognormal pdf is
+<P>
+\( f(x) = \frac{e^{-(\ln(x - \theta) - \mu)^2/(2\sigma^2)}}
+{(x - \theta)\sigma\sqrt{2\pi}} \hspace{.2in} x > 0; \sigma > 0 \)
+<P>
+We prefer to use the <i>m</i> parameterization since <i>m</i> is an
+explicit scale parameter.
+<P>
+The following is the plot of the lognormal probability density
+function for four values of <i>&sigma;</i>.
+<p>
+<img src="gif/lgnpdf4.gif"
+alt="plot of the lognormal probability density function for
+ four values of sigma">
+<P>
+There are several common parameterizations of the lognormal
+distribution.  The form given here is from
+<a href="../section4/eda43.html#Evans">Evans, Hastings, and
+Peacock</a>.
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="CDF">
+Cumulative Distribution Function
+</a>
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#CDF">cumulative distribution
+function</a> of the lognormal distribution is
+<p>
+<!--
+<img src="eqns/lgncdf.gif"
+     alt="F(x) = PHI(LN(x)/sigma)   x >= 0; sigma > 0">
+-->
+\( F(x) = \Phi(\frac{\ln(x)} {\sigma}) \hspace{.2in}  x \ge 0; 
+\sigma > 0 \)
+<p>
+where \(\Phi\) is the <a href="eda3661.html#CDF">cumulative distribution
+function of the normal distribution</a>.
+<p>
+The following is the plot of the lognormal cumulative distribution
+function with the same values of <i>&sigma;</i> as the pdf plots above.
+<p>
+<img src="gif/lgncdf4.gif"
+     alt="plot of the lognormal cumulative distribution function">
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="PPF">
+Percent Point Function
+</a>
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#PPF">percent point
+function</a> of the lognormal distribution is
+<p>
+<!--
+<img src="eqns/lgnppf.gif"
+     alt="G(p) = EXP(sigma*PHI**(-1)(p))   0 <= p < 1; sigma > 0">
+-->
+\( G(p) = \exp(\sigma\Phi^{-1}(p))  \hspace{.2in} 0 \le p < 1; 
+\sigma > 0 \)
+<p>
+where \(\Phi^{-1}\) is the <a href="eda3661.html#PPF">percent point
+function of the normal distribution</a>.
+<p>
+The following is the plot of the lognormal percent point function with
+the same values of <i>&sigma;</i> as the pdf plots above.
+<p>
+<img src="gif/lgnppf4.gif"
+     alt="plot of the lognormal percent point function">
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="HAZARD">
+Hazard Function
+</a>
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#HAZARD">hazard
+function</a> of the lognormal distribution is
+<p>
+<!--
+<img src="eqns/lgnhaz.gif" alt=
+"(1/(sigma*x))*phi(LOG(x)/sigma)/PHI(-LOG(x)/sigma)  x > 0; sigma > 0">
+-->
+\( h(x,\sigma) = \frac{(\frac{1} {x\sigma})\phi(\frac{\ln x} {\sigma})} 
+{\Phi(\frac{-\ln x} {\sigma})} \hspace{.2in} x > 0; \sigma > 0 \)
+<p>
+where \(\phi\) is the <a href="eda3661.html#PDF">probability density
+function of the normal distribution</a> and \(\Phi\) is the
+<a href="eda3661.html#CDF">cumulative distribution function of the
+normal distribution</a>.
+<p>
+The following is the plot of the lognormal hazard function with the
+same values of <i>&sigma;</i> as the pdf plots above.
+<p>
+<img src="gif/lgnhaz4.gif"
+     alt="plot of the lognormal hazard function">
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="CUMHAZ">
+Cumulative Hazard Function
+</a>
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#CUMHAZ">cumulative
+hazard function</a> of the lognormal distribution is
+<p>
+<!--
+<img src="eqns/lgncha.gif"
+     alt="H(x) = -LN(1 - PHI(LN(x)/sigma))   x >= 0; sigma > 0">
+-->
+\( H(x) = -\ln(1 - \Phi(\frac{\ln(x)} {\sigma})) \hspace{.2in} 
+x \ge 0; \sigma > 0 \)
+<p>
+where \(\Phi\) is the <a href="eda3661.html#CDF">cumulative distribution
+function of the normal distribution</a>.
+<p>
+The following is the plot of the lognormal cumulative hazard function
+with the same values of <i>&sigma;</i> as the pdf plots above.
+<p>
+<img src="gif/lgncha4.gif"
+     alt="plot of the lognormal cumulative hazard function">
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="SURVIVAL">
+Survival Function
+</a>
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#SURVIVAL">survival function</a>
+of the lognormal distribution is
+<p>
+<!--
+<img src="eqns/lgnsur.gif"
+     alt="S(x) = 1 - PHI(LN(x)/sigma)   x >= 0; sigma > 0">
+-->
+\( S(x) = 1 - \Phi(\frac{\ln(x)} {\sigma}) \hspace{.2in}  x \ge 0; 
+\sigma > 0 \)
+<p>
+where \(\Phi\) is the <a href="eda3661.html#CDF">cumulative distribution
+function of the normal distribution</a>.
+<p>
+The following is the plot of the lognormal survival function
+with the same values of <i>&sigma;</i> as the pdf plots above.
+<p>
+<img src="gif/lgnsurv4.gif"
+     alt="plot of the lognormal survival function">
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="INVSURV">
+Inverse Survival Function
+</a>
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#INVERSESURVIVAL">inverse
+survival function</a> of the lognormal distribution is
+<p>
+<!--
+<img src="eqns/lgnisur.gif"
+     alt="Z(p) = EXP(sigma*PHI**(-1)(1-p))   0 <= p < 1; sigma > 0">
+-->
+\( Z(p) = \exp(\sigma\Phi^{-1}(1-p))  \hspace{.2in} 0 \le p < 1; 
+\sigma > 0 \)
+<p>
+where \(\Phi^{-1}\) is the <a href="eda3661.html#PPF">percent point
+function of the normal distribution</a>.
+<p>
+The following is the plot of the lognormal inverse survival function
+with the same values of <i>&sigma;</i> as the pdf plots above.
+<p>
+<img src="gif/lgnisur4.gif"
+     alt="plot of the lognormal inverse survival function">
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Common Statistics
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formulas below are with the location parameter equal to zero
+and the scale parameter equal to one.
+<P>
+<table>
+
+   <tr>
+      <td valign=top width=30%>
+        Mean
+      </td>
+      <td valign=top width=70%>
+         <!-- <img src="eqns/lgnmean.gif" alt="EXP(0.5*sigma**2"> -->
+         \( e^{0.5\sigma^{2}} \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Median
+      </td>
+      <td valign=top width=70%>
+         Scale parameter <i>m</i> (= 1 if scale parameter not
+         specified).
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Mode
+      </td>
+      <td valign=top width=70%>
+         <!-- <img src="eqns/lgnmode.gif" alt="1/EXP(sigma**2)"> -->
+         \( \frac{1} {e^{\sigma^{2}}} \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Range
+      </td>
+      <td valign=top width=70%>
+        0 to \(\infty\)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Standard Deviation
+      </td>
+      <td valign=top width=70%>
+         <!--
+         <img src="eqns/lgnsd.gif"
+              alt="SQRT(EXP(sigma**2)*(EXP(sigma**2)-1))">
+         -->
+         \( \sqrt{e^{\sigma^{2}} (e^{\sigma^{2}} - 1)} \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Skewness
+      </td>
+      <td valign=top width=70%>
+         <!--
+         <img src="eqns/lgnskew.gif"
+              alt="(EXP(sigma**2)+2)**SQRT(EXP(sigma**2)-1))">
+         -->
+         \( (e^{\sigma^{2}}+2) \sqrt{e^{\sigma^{2}} - 1} \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Kurtosis
+      </td>
+      <td valign=top width=70%>
+         <!--
+         <img src="eqns/lgnkurt.gif"
+         alt="EXP(sigma**2)**4+2*EXP(sigma**2)**3+3*EXP(sigma**2)**2-3">
+         -->
+         \( (e^{\sigma^{2}})^{4} + 2(e^{\sigma^{2}})^{3} + 
+         3(e^{\sigma^{2}})^{2} - 3 \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Coefficient of Variation
+      </td>
+      <td valign=top width=70%>
+         <!--
+         <img src="eqns/lgncoefv.gif"
+              alt="SQRT(EXP(sigma**2) - 1)">
+         -->
+         \( \sqrt{e^{\sigma^{2}} - 1} \)
+      </td>
+    </tr>
+
+</table> 
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Parameter Estimation
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The maximum likelihood estimates for the scale parameter,
+<b><i>m</i></b>, and the shape parameter, &sigma;, are
+<ul>
+   <!--
+   <img src="eqns/mhat.gif" alt="mhat = EXP(uhat)">
+   -->
+   \( \hat{m} = \exp{\hat{\mu}} \)
+</ul>
+and
+<ul>
+   <!--
+   <img src="eqns/sigmahat.gif" alt=
+        "sigmahat = SQRT{SUM[i=1 to N][(LOG(X(i))-mu)**2]/N}">
+   -->
+   \( \hat{\sigma} = \sqrt{\frac{\sum_{i=1}^{N}{(\ln{(X_{i})} -
+   \hat{\mu})^{2}}} {N}} \)
+</ul>
+where 
+<ul>
+<!--
+<img src="eqns/uhat.gif"
+     alt="Uhat = SUM[i=1 to N][LOG(X(i))]/N">
+-->
+\( \hat{\mu}= \frac{\sum_{i=1}^{N}{\ln{X_i}}} {N} \)
+</ul>
+If the location parameter is known, it can be subtracted from the
+original data points before computing the maximum likelihood estimates
+of the shape and scale parameters.
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Comments
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The lognormal distribution is used extensively in
+<a href="../../apr/apr.html">reliability</a> applications to
+model failure times.  The lognormal and
+<a href="eda3668.html">Weibull</a> distributions are probably the
+most commonly used distributions in reliability applications.
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</i>
+</td>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Most general purpose statistical software programs support at least
+some of the probability functions for the lognormal distribution.
+
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+
+   
+   </TABLE>
+   </UL>
+   <P>
+   <A HREF="http://www.nist.gov/">
+   <IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   <P>
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index-3.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.html" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="eda3668.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="eda366a.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3669.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:52:21 GMT -->
+</HTML>
+
+

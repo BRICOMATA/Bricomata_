@@ -1,0 +1,174 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr181.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.8.1. Competing risk model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr182.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr18.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.8.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr18.html">How can you evaluate reliability from the "bottom-up" (component failure mode to system failure rate)?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.8.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Competing risk model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Use the competing risk model when the failure mechanisms are independent 
+and the first mechanism failure causes the component to fail</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+Assume a (replaceable) component or unit has \(k\)
+<!-- <i>k</i> -->
+different ways it can fail. These are called <b>failure modes</b> 
+and underlying each failure mode is a <b>failure mechanism</b>.
+<p>
+The <b>Competing Risk Model</b> evaluates component reliability by "building
+up" from the reliability models for each failure mode.
+<p>
+The following three assumptions are needed.
+<ol>
+<li>
+Each failure mechanism leading to a particular type of failure (i.e., failure
+mode) proceeds independently of every other one, at least until a failure
+occurs.</li>
+
+<li>
+The component fails when the <b>first</b> of all the competing failure
+mechanisms reaches a failure state.</li>
+
+<li>
+Each of the \(k\)
+<!-- <i>k</i> -->
+failure modes has a known life distribution model \(F_i(t)\).
+<!-- <i>F<sub>i</sub>(t)</i>. -->
+</li>
+</ol>
+The competing risk model can be used when all three assumptions hold. If
+\(R_c(t)\), \(F_c(t)\), and \(h_c(t)\)
+<!-- <i>R<sub>c</sub>(t)</i>, <i>F<sub>c</sub>(t)</i>, and <i>h<sub>c</sub>(t)</i> -->
+denote the reliability, CDF and failure rate for the component, respectively, and 
+\(R_i(t)\), \(F_i(t)\), and \(h_i(t)\)
+<!-- <i>R<sub>i</sub>(t), F<sub>i</sub>(t)</i> and <i>h<sub>i</sub>(t)</i> -->
+are the reliability, CDF and failure rate for the \(i\)-th
+<!-- <i>i</i>-th -->
+failure mode, respectively, then the competing risk model formulas are:
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Multiply reliabilities and add failure rates</i></td>
+
+<td WIDTH="85%">
+
+$$ \begin{eqnarray}
+R_c(t) & = & \prod_{i=1}^k R_i(t) \\
+& & \\
+F_c(t) & = & 1 - \prod_{i=1}^k [1 - F_i(t)] \\
+& & \\
+h_c(t) & = & \sum_{i=1}^k h_i(t)
+\end{eqnarray} $$
+
+<!--
+<center>
+<img SRC="eqns/compr.gif" ALT="Rc(t) = PRODUCT[i=1 to k]Ri(t);     
+Fc(t) = 1 - PRODUCT[i=1 to k]{1 - Fi(t)};     
+hc(t) = SUM[i=1 to k]hi(t)" height=162 width=149>
+</center>
+<p>
+-->
+
+Think of the competing risk model in the following way:
+<blockquote>All the failure mechanisms are having a race to see which can
+reach failure first. They are not allowed to "look over their shoulder
+or sideways" at the progress the other ones are making. They just go their
+own way as fast as they can and the first to reach "failure" causes the
+component to fail.&nbsp;
+<p>Under these conditions the component reliability is the product of the
+failure mode reliabilities and the component failure rate is just the sum
+of the failure mode failure rates.</blockquote>
+Note that the above holds for any arbitrary life distribution model, as
+long as "independence" and "first mechanism failure causes the component
+to fail" holds.&nbsp;
+<p>When we learn how to plot and analyze reliability data in later sections,
+the methods will be applied separately to each failure mode within the
+data set (considering failures due to all other modes as "<a href="apr131.html#Multicensored">censored
+run times</a>"). With this approach, the competing risk model provides
+the glue to put the pieces back together again.</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr18.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr182.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr181.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:11 GMT -->
+</HTML>

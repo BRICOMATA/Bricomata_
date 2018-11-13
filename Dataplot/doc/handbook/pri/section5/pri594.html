@@ -1,0 +1,872 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri594.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:40 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.4. Interaction effects matrix plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri595.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri593.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Interaction effects matrix plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The interaction effects matrix plot is an extension of the
+<a href="pri593.html">DOE mean plot</a> to include both main effects
+and 2-factor interactions (the DOE mean plot focuses on main effects
+only).  The interaction effects matrix plot answers the following two
+questions:
+<ol>
+   <li>What is the ranked list of factors (including 2-factor
+       interactions), ranked from most important to least important;
+       and
+   <li>What is the best setting for each of the <i>k</i> factors?
+</ol>
+For a <i>k</i>-factor experiment, the effect on the response
+could be due to main effects and various interactions all the way up
+to <i>k</i>-term interactions.  As the number of factors, <i>k</i>,
+increases, the total number of interactions increases
+exponentially.  The total number of possible interactions of all
+orders = 2<sup><i>k</i></sup> - 1 - <i>k</i>.  Thus for <i>k</i> = 3,
+the total number of possible interactions = 4, but for <i>k</i> = 7
+the total number of possible interactions = 120.
+<p>
+In practice, the most important interactions are likely to be 2-factor
+interactions.  The total number of possible 2-factor interactions is
+<!--
+<ul>
+   <img src="eqns/kchoose2.gif"
+        alt="k-choose-2 = k!/[2!*(k-2)!]">
+</ul>
+-->
+\[ \left( \begin{array}{c}
+           k \\ 2
+           \end{array}
+   \right)
+   = \frac{k!} {2!(k-2)!} = \frac{k(k-1)}{2}
+\]
+Thus for <i>k</i> = 3, the number of 2-factor interactions = 3, while
+for <i>k</i> = 7, the number of 2-factor interactions = 21.
+<p>
+It is important to distinguish between the number of interactions
+that are active in a given experiment versus the number of
+interactions that the analyst is capable of making definitive
+conclusions about.  The former depends only on the physics and
+engineering of the problem.  The latter depends on the number of
+factors, <i>k</i>, the choice of the <i>k</i> factors, the constraints
+on the number of runs, <i>n</i>, and ultimately on the experimental
+design that the analyst chooses to use.  In short, the number of
+possible interactions is <b>not</b> necessarily identical to the
+number of interactions that we can detect.
+<p>
+Note that
+<ol>
+   <li>with full factorial designs, we can uniquely
+       estimate interactions of all orders;
+   <li>with fractional factorial designs, we can uniquely estimate
+       only some (or at times no) interactions; the more fractionated
+       the design, the fewer interactions that we can estimate.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The output for the interaction effects matrix plot is
+<ol>
+   <li>Primary: Ranked list of the factors (including 2-factor
+       interactions) with the factors are ranked from important to
+       unimportant.
+       <p>
+   <li>Secondary: Best setting for each of the <i>k</i> factors.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The interaction effects matrix plot is an upper right-triangular
+matrix of <a href="../../eda/section3/meanplot.html"> mean plots</a>
+consisting of <i>k</i> main effects plots on the diagonal and
+<i>k</i>*(<i>k</i>-1)/2 2-factor interaction effects plots
+on the off-diagonal.
+<p>
+In general, interactions are <b>not</b> the same as the usual
+(multiplicative) cross-products.  However, for the special case of
+2-level designs coded as (-, +) = (-1, +1), the interactions
+<b>are</b> identical to cross-products.  By way of contrast,
+if the 2-level designs are coded otherwise (e.g., the (1, 2) notation
+espoused by Taguchi and others), then this equivalance is <b>not</b>
+true.  Mathematically,
+<ul>
+   {-1, +1} x {-1, +1} => {-1, +1}
+</ul>
+but
+<ul>
+   {1, 2} x {1, 2} => {1, 2, 4}
+</ul>
+Thus, coding does make a difference.  We recommend the use of
+the (-, +) coding.
+<p>
+It is remarkable that with the - and + coding, the 2-factor
+interactions are dealt with, interpreted, and compared in the same
+way that the <i>k</i> main effects are handled.  It is thus natural to
+include both 2-factor interactions and main effects within the same
+matrix plot for ease of comparison.
+<p>
+For the off-diagonal terms, the first construction step is to form
+the horizontal axis values, which will be the derived values (also
+- and +) of the cross-product.  For example, the settings for the
+<i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction are derived by simple multiplication
+from the data as shown below.
+<ul>
+<table noborder>
+   <tr>
+     <td valign=top align=center width=75>
+        <i>X</i><sub>1</sub>
+     </td>
+     <td valign=top align=center width=75>
+        <i>X</i><sub>2</sub>
+     </td>
+     <td valign=top align=center width=75>
+        <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        -
+     </td>
+     <td valign=top align=center>
+        -
+     </td>
+     <td valign=top align=center>
+        +
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        +
+     </td>
+     <td valign=top align=center>
+        -
+     </td>
+     <td valign=top align=center>
+        -
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        -
+     </td>
+     <td valign=top align=center>
+        +
+     </td>
+     <td valign=top align=center>
+        -
+     </td>
+   </tr>
+   <tr>
+     <td valign=top align=center>
+        +
+     </td>
+     <td valign=top align=center>
+        +
+     </td>
+     <td valign=top align=center>
+        +
+     </td>
+   </tr>
+</table>
+</ul>
+Thus <i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, and <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> all form a closed
+(-, +) system.  The advantage of the closed system is that graphically
+interactions can be interpreted in the exact same fashion as the
+<i>k</i> main effects.
+<p>
+After the entire <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> vector of settings has been
+formed in this way, the vertical axis of the <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>
+interaction plot is formed:
+<ol>
+   <li>the plot point above <i>X</i><sub>1</sub>*<i>X</i></sub>2</sub> = "-" is simply the
+       mean of all response values for which <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> = "-"
+   <li>the plot point above <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> = "+" is simply the
+       mean of all response values for which <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> = "+".
+</ol>
+We form the plots for the remaining 2-factor interactions in a
+similar fashion.
+<p>
+All the mean plots, for both main effects and 2-factor interactions,
+have a common scale to facilitate comparisons.  Each mean plot has
+<ol>
+   <li>Vertical Axis: The mean response for a given setting (- or +)
+       of a given factor or a given 2-factor interaction.
+       <p>
+   <li>Horizontal Axis: The 2 settings (- and +) within each factor,
+       or within each 2-factor interaction.
+       <p>
+   <li>Legend:
+       <p>
+       <ol>
+          <li>A tag (1, 2, ..., <i>k</i>, 12, 13, etc.), with
+              1 = <i>X</i><sub>1</sub>, 2 = <i>X</i><sub>2</sub>, ..., <i>k</i> =
+              <i>X<sub>k</sub></i>, 12 = <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>,
+              13 = <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub>, 35 = <i>X</i><sub>3</sub>*<i>X</i><sub>5</sub>,
+              123 = <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>3</sub>, etc.) which
+              identifies the particular mean plot; and
+              <p>
+          <li>The least squares estimate of the factor (or 2-factor
+              interaction) effect.  These effect estimates are large
+              in magnitude for important factors and near-zero in
+              magnitude for unimportant factors.
+       </ol>
+</ol>
+<a name="2levelmodel">
+In a <a href="pri5995.html">later section</a>, we discuss in detail
+the models associated with full and fractional factorial 2-level designs.
+One such model representation is
+<ul>
+<!--
+<font size = "5"><pre><i>Y</i> = <i>&mu;</i> + <i>&beta;</i><sub>1</sub>*<i>X</i><sub>1</sub> + <i>&beta;</i><sub>2</sub>*<i>X</i><sub>2</sub> + <i>&beta;</i><sub>12</sub>*<i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> + ... + <i>&epsilon;</i>
+</pre><font size = "3">
+-->
+\( Y = \mu + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{12} X_{1} X_{2} +
+       \cdots + \epsilon \)
+</ul>
+For factor variables coded with + and - settings, the
+<i>&beta;</i><sub>i</sub> coefficient is one half of the effect estimate
+due to factor <i>X</i><sub>i</sub>.  Thus, if we multiply the least-squares
+coefficients by two, due to orthogonality, we obtain the simple difference
+of means at the + setting and the - setting.  This is true for the
+<i>k</i> main factors.  It is also true for all two-factor and
+multi-factor interactions.
+</a>
+<p>
+Thus, visually, the difference in the mean values on the plot is
+identically the least squares estimate for the effect.  Large
+differences (steep lines) imply important factors while small
+differences (flat lines) imply unimportant factors.
+<p>
+<!-- In earlier sections, a somewhat different form of the model is
+used (without the leading 0.5).  In this case, the plotted effects
+are not necessarily equivalent to the least squares estimates.
+When using a given software program, you need to be aware what
+convention for the model the software uses.  In either case, the
+effects matrix plot is still useful.  However, the estimates of the
+coefficients in the model are equal to the effect estimates only if
+the above convention for the model is used. -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Motivation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+As discussed in detail above, the next logical step beyond main effects
+is displaying 2-factor interactions, and this plot matrix provides a
+convenient graphical tool for examining the relative importance of
+main effects and 2-factor interactions in concert.  To do so, we make
+use of the striking aspect that in the context of 2-level designs,
+the 2-factor interactions are identical to cross-products and the
+2-factor interaction effects can be interpreted and compared the same
+way as main effects.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot for defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Constructing the interaction effects matrix plot for the defective
+springs data set yields the following plot.
+<p>
+<A HREF="gifs/interact.gif">
+   <IMG SRC="gifs/interact.r.gif" BORDER=0 alt=
+   "Interaction effects matrix plot for the defective springs data">
+</A>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From the interaction effects matrix, we can draw three
+important conclusions:
+<ol>
+   <li>Important Factors (including 2-factor interactions);
+   <li>Best Settings;
+   <li>Confounding Structure (for fractional factorial designs).
+</ol>
+We discuss each of these in turn.
+<ol>
+   <li><b>Important factors (including 2-factor interactions):</b>
+       <p>
+       Jointly compare the <i>k</i> main factors and the
+       <i>k</i>*(<i>k</i>-1)/2
+       2-factor interactions.  For each of these subplots, as we go
+       from the "-" setting to the "+" setting within a subplot, is
+       there a shift in location of the average data (yes/no)?
+       Since all subplots have a common (-1, +1) horizontal axis,
+       questions involving shifts in location translate into
+       questions involving steepness of the mean lines (large
+       shifts imply steep mean lines while no shifts
+       imply flat mean lines).
+       <p>
+       <ol>
+          <li>Identify the factor or 2-factor interaction that has the
+              largest shift (based on averages).  This defines
+              the "most important factor".  The largest shift is
+              determined by the steepest line.
+              <p>
+          <li>Identify the factor or 2-factor interaction that has the
+              next largest shift (based on averages).  This
+              defines the "second most important factor".  This shift
+              is determined by the next steepest line.
+              <p>
+          <li>Continue for the remaining factors.
+       </ol>
+       <p>
+       This ranking of factors and 2-factor interactions
+       based on local means is a major step in
+       building the definitive list of ranked factors
+       as required for screening experiments.
+       <p>
+   <li><b>Best settings:</b>
+       <p>
+       For each factor (of the <i>k</i> main factors along
+       the diagonal), which setting (- or +) yields
+       the "best" (highest/lowest) average response?
+       <p>
+       Note that the experimenter has the ability to change settings
+       for only the <i>k</i> main factors, not for any 2-factor
+       interactions.  Although a setting of some 2-factor interaction
+       may yield a better average response than the alternative
+       setting for that same 2-factor interaction, the experimenter is
+       unable to set a 2-factor interaction setting in practice.
+       That is to say, there is no "knob" on the machine that
+       controls 2-factor interactions; the "knobs" only control the
+       settings of the <i>k</i> main factors.
+       <p>
+       How then does this matrix of subplots serve as
+       an improvement over the <i>k</i> best settings that
+       one would obtain from the <a href="pri593.html">DOE mean
+       plot</a>?  There are two common possibilities:
+       <p>
+       <ol>
+          <li>Steep Line:
+              <p>
+              For those main factors along the diagonal that have
+              steep lines (that is, are important), choose the best
+              setting directly from the subplot.  This will be the same
+              as the best setting derived from the DOE mean plot.
+              <p>
+          <li>Flat line:
+              <p>
+              For those main factors along the diagonal that have flat
+              lines (that is, are unimportant), the naive conclusion to
+              use either setting, perhaps giving preference to the
+              cheaper setting or the easier-to-implement setting, may
+              be unwittingly incorrect.  In such a case, the use of the
+              off-diagonal 2-factor interaction information from the
+              interaction effects matrix is critical for deducing the
+              better setting for this nominally "unimportant" factor.
+              <p>
+              To illustrate this, consider the following example:
+              <p>
+              <ul>
+                 <li>Suppose the factor <i>X</i><sub>1</sub> subplot is steep
+                     (important) with the best setting for <i>X</i><sub>1</sub>
+                     at "+".
+                 <li>Suppose the factor <i>X</i><sub>2</sub> subplot is flat
+                    (unimportant) with both settings yielding about
+                    the same mean response.
+              </ul>
+              <p>
+              Then what setting should be used for <i>X</i><sub>2</sub>? To answer
+              this, consider the following two cases:
+              <p>
+              <ol>
+                 <li>Case 1. If the <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction plot
+                     happens also to be flat (unimportant), then choose
+                     either setting for <i>X</i><sub>2</sub> based on cost or ease.
+                 <li>Case 2. On the other hand, if the
+                     <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction plot is steep
+                     (important), then this dictates a prefered setting
+                     for <i>X</i><sub>2</sub> <b>not</b> based on cost or ease.
+              </ol>
+              <p>
+              To be specific for case 2, if <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> is
+              important, with <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> = "+" being the
+              better setting, and if <i>X</i><sub>1</sub> is important, with
+              <i>X</i><sub>1</sub> = "+" being the better setting, then
+              this implies that the best setting for <i>X</i><sub>2</sub> must be
+              "+" (to assure that <i>X</i><sub>1</sub>*<i>X</i></sub>2</sub> (= +*+) will also
+              be "+").  The reason for this is that since we are already
+              locked into <i>X</i><sub>1</sub> = "+", and since <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>
+              = "+" is better, then the only way we can obtain
+              <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> = "+" with <i>X</i><sub>1</sub> = "+" is for
+              <i>X</i><sub>2</sub> to be "+" (if <i>X</i><sub>2</sub> were "-", then
+              <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> with <i>X</i><sub>1</sub> = "+" would yield
+              <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> = "-").
+              <p>
+              In general, if <i>X</i><sub>1</sub> is important, <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>
+              is important, and <i>X</i><sub>2</sub> is not important, then
+              there are four distinct cases for deciding
+              what the best setting is for <i>X</i><sub>2</sub>:
+              <ul>
+              <table noborder>
+                 <tr>
+                   <td valign=top align=center>
+                      <i>X</i><sub>1</sub>
+                   </td>
+                   <td valign=top align=center>
+                      <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>
+                   </td>
+                   <td valign=top align=center>
+                      => <i>X</i><sub>2</sub>
+                   </td>
+                 </tr>
+                 <tr>
+                   <td valign=top align=center>
+                      +
+                   </td>
+                   <td valign=top align=center>
+                      +
+                   </td>
+                   <td valign=top align=center>
+                      +
+                   </td>
+                 </tr>
+                 <tr>
+                   <td valign=top align=center>
+                      +
+                   </td>
+                   <td valign=top align=center>
+                      -
+                   </td>
+                   <td valign=top align=center>
+                      -
+                   </td>
+                 </tr>
+                 <tr>
+                   <td valign=top align=center>
+                      -
+                   </td>
+                   <td valign=top align=center>
+                      +
+                   </td>
+                   <td valign=top align=center>
+                      -
+                   </td>
+                 </tr>
+                 <tr>
+                   <td valign=top align=center>
+                      -
+                   </td>
+                   <td valign=top align=center>
+                      -
+                   </td>
+                   <td valign=top align=center>
+                      +
+                   </td>
+                 </tr>
+              </table>
+              </ul>
+              By similar reasoning, examining each factor and pair of
+              factors, we thus arrive at a resulting vector of the
+              <i>k</i> best settings:
+              <p>
+              <ul>
+                 (x1best, x2best, ..., xkbest)
+              </ul>
+              <p>
+              This average-based <i>k</i>-vector should be compared
+              with best settings <i>k</i>-vectors obtained from
+              previous steps (in particular, from step 1 in which the
+              best settings were drawn from the best data value).
+              <p>
+              When the average-based best settings and the data-based
+              best settings agree, we benefit from the increased
+              confidence given our conclusions.
+              <p>
+              When the average-based best settings and the
+              data-based best settings disagree, then what settings
+              should the analyst finally choose?  Note that in general
+              the average-based settings and the data-based settings
+              will invariably be identical for all "important" factors.
+              Factors that do differ are virtually always
+              "unimportant".  Given such disagreement,
+              the analyst has three options:
+              <p>
+              <ol>
+                 <li>Use the average-based settings for minor
+                     factors.  This has the advantage of a broader
+                     (average) base of support.
+                 <li>Use the data-based settings for minor factors.
+                     This has the advantage of demonstrated local
+                    optimality.
+                 <li>Use the cheaper or more convenient settings for
+                     the local factor.  This has the advantage of
+                     practicality.
+              </ol>
+              <p>
+       </ol>
+       <p>
+       Thus the interaction effects matrix yields important
+       information not only about the ranked list of factors, but
+       also about the best settings for each of the <i>k</i> main
+       factors.  This matrix of subplots is one of the most important
+       tools for the experimenter in the analysis of 2-level
+       screening designs.
+       <p>
+   <li><b>Confounding Structure (for Fractional Factorial Designs)</b>
+      <p>
+      When the interaction effects matrix is used to analyze
+      2-level fractional (as opposed to full) factorial designs,
+      important additional information can be extracted from the
+      matrix regarding confounding structure.
+      <p>
+      It is well-known that all fractional factorial designs have
+      confounding, a property whereby every estimated main effect is
+      confounded/contaminated/biased by some high-order
+      interactions.  The practical effect of this is that the analyst
+      is unsure of how much of the estimated main effect is due to the
+      main factor itself and how much is due
+      to some confounding interaction.  Such contamination is the price
+      that is paid by examining <i>k</i> factors with a sample size
+      <i>n</i> that is less than a full factorial
+      <i>n</i> = 2<sup><i>k</i></sup> runs.
+      <p>
+      It is a "fundamental theorem" of the discipline of experimental
+      design that for a given number of factors <i>k</i> and a given
+      number of runs <i>n</i>, some fractional factorial designs are
+      better than others.  "Better" in this case means that the
+      intrinsic confounding that <b>must</b> exist in all
+      fractional factorial designs has been minimized by the choice
+      of design.  This minimization is done by constructing the design
+      so that the main effect confounding is pushed to as high an
+      order interaction as possible.
+      <p>
+      The rationale behind this is that in physical science and
+      engineering systems it has been found that the
+      "likelihood" of high-order interactions being significant is
+      small (compared to the likelihood of main effects and 2-factor
+      interactions being significant).  Given this, we would prefer
+      that such inescapable main effect confounding be with the highest
+      order interaction possible, and hence the bias to the estimated
+      main effect be as small as possible.
+      <p>
+      The worst designs are those in which the main effect confounding
+      is with 2-factor interactions.  This may be dangerous
+      because in physical/engineering systems, it is quite common for
+      Nature to have some real (and large) 2-factor interactions.  In
+      such a case, the 2-factor interaction effect will be inseparably
+      entangled with some estimated main effect, and so the experiment
+      will be flawed in that
+      <p>
+      <ol>
+         <li>ambiguous estimated main effects and
+         <li>an ambiguous list of ranked factors
+      </ol>
+      <p>
+      will result.
+      <p>
+      If the number of factors, <i>k</i>, is large and the
+      number of runs, <i>n</i>, is constrained to be small, then
+      confounding of main effects with 2-factor interactions is
+      unavoidable.  For example, if we have <i>k</i> = 7 factors and
+      can afford only <i>n</i> = 8 runs, then the corresponding
+      2-level fractional factorial design is a 2<sup>7-4</sup>
+      which necessarily will have main effects confounded with (3)
+      2-factor interactions.  This cannot be avoided.
+      <p>
+      On the other hand, situations arise in which 2-factor interaction
+      confounding with main effects results not from constraints on
+      <i>k</i> or <i>n</i>, but on poor design construction.  For
+      example, if we have <i>k</i> = 7 factors and can afford <i>n</i>
+      = 16 runs, a poorly constructed design might have main effects
+      counfounded with 2-factor interactions, but a well-constructed
+      design with the
+      same <i>k</i> = 7, <i>n</i> = 16 would have main effects
+      confounded with 3-factor interactions but <b>no</b> 2-factor
+      interactions.  Clearly, this latter design is preferable in
+      terms of minimizing main effect confounding/contamination/bias.
+      <p>
+      For those cases in which we do have main effects confounded
+      with 2-factor interactions, an important question arises:
+      <p>
+      <ul>
+         For a particular main effect of interest,
+         how do we know which 2-factor interaction(s)
+         confound/contaminate that main effect?
+      </ul>
+      <p>
+      The usual answer to this question is by means of generator theory,
+      confounding tables, or alias charts.  An alternate complementary
+      approach is given by the interaction effects matrix.  In
+      particular, if we are examining a 2-level fractional factorial
+      design and
+      <p>
+      <ol>
+         <li>if we are not sure that the design has main effects
+             confounded with 2-factor interactions, or
+         <li>if we are sure that we have such 2-factor
+             interaction confounding but are not sure
+             what effects are confounded,
+      </ol>
+      <p>
+      then how can the interaction effects matrix be of assistance?
+      The answer to this question is that the confounding structure
+      can be read <b>directly</b> from the interaction effects matrix.
+      <p>
+      For example, for a 7-factor experiment, if, say, the factor
+      <i>X</i><sub>3</sub> is confounded with the 2-factor interaction
+      <i>X</i><sub>2</sub>*<i>X</i><sub>5</sub>, then
+      <p>
+      <ol>
+         <li>the appearance of the factor <i>X</i><sub>3</sub> subplot
+             and the appearance of the 2-factor
+             interaction <i>X</i><sub>2</sub>*<i>X</i><sub>5</sub> subplot will
+             necessarily be identical, and
+         <li>the value of the estimated main effect for <i>X</i><sub>3</sub>
+             (as given in the legend of the main effect subplot) and
+             the value of the estimated 2-factor interaction effect for
+             <i>X</i><sub>2</sub>*<i>X</i><sub>5</sub> (as given in the legend of the
+             2-factor interaction subplot) will also necessarily be
+             identical.
+      </ol>
+      <p>
+      The above conditions are necessary, but not sufficient for the
+      effects to be confounded.
+      <p>
+      Hence, in the abscence of tabular descriptions (from your
+      statistical software program) of the confounding structure, the
+      interaction effect matrix offers the following graphical
+      alternative for deducing confounding structure in fractional
+      factorial designs:
+      <p>
+      <ol>
+         <li>scan the main factors along the diagonal subplots and
+             choose the subset of factors that are "important".
+         <li>For each of the "important" factors, scan all of the
+             2-factor interactions and compare the main factor subplot
+             and estimated effect with each 2-factor interaction
+             subplot and estimated effect.
+         <li>If there is no match, this implies that the main effect
+             is <b>not</b> confounded with any 2-factor interaction.
+         <li>If there is a match, this implies that the main
+             effect <b>may</b> be confounded with that 2-factor
+             interaction.
+         <li>If none of the main effects are confounded with any
+             2-factor interactions, we can have high confidence in the
+             integrity (non-contamination) of our estimated main
+             effects.
+         <li>In practice, for highly-fractionated designs, each main
+             effect may be confounded with several 2-factor
+             interactions.  For example, for a 2<sup>7-4</sup>
+             fractional factorial design, each main effect will be
+             confounded with three 2-factor interactions.  These
+             1 + 3 = 4 identical subplots will be blatantly obvious
+             in the interaction effects matrix.
+      </ol>
+      <p>
+      Finally, what happens in the case in which the design
+      the main effects are <b>not</b> confounded with 2-factor
+      interactions (<b>no</b> diagonal subplot matches any off-diagonal
+      subplot).  In such a case, does the interaction effects matrix
+      offer any useful further insight and information?
+      <p>
+      The answer to this question is yes because even though such
+      designs have main effects unconfounded with 2-factor interactions,
+      it is fairly common for such designs to have 2-factor interactions
+      confounded with one another, and on occasion it may be of
+      interest to the analyst to understand that confounding.  A
+      specific example of such a design is a 2<sup>4-1</sup> design
+      formed with <i>X</i><sub>4</sub> settings = <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>3</sub>.
+      In this case, the 2-factor-interaction confounding structure may
+      be deduced by comparing all of the 2-factor interaction subplots
+      (and effect estimates) with one another.  Identical subplots and
+      effect estimates hint strongly that the two 2-factor interactions
+      are confounded.  As before, such comparisons provide necessary
+      (but not sufficient) conditions for confounding.  Most statistical
+      software for analyzing fractional factorial experiments will
+      explicitly list the confounding structure.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The application of the interaction effects matrix plot to the
+defective springs data set results in the following conclusions:
+<ol>
+   <li>Ranked list of factors (including 2-factor interactions):
+       <p>
+       <ol>
+          <li><i>X</i><sub>1</sub>    (estimated effect = 23.0)
+          <li><i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> (estimated effect = 10.0)
+          <li><i>X</i><sub>2</sub>    (estimated effect = -5.0)
+          <li><i>X</i><sub>3</sub>    (estimated effect =  1.5)
+          <li><i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> (estimated effect =  1.5)
+          <li><i>X</i><sub>2</sub>*<i>X</i><sub>3</sub> (estimated effect =  0.0)
+       </ol>
+       <p>
+       Factor 1 definitely looks important.  The <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub>
+       interaction looks important.  Factor 2 is of lesser importance.
+       All other factors and 2-factor interactions appear to be
+       unimportant.
+       <p>
+   <li>Best Settings (on the average):
+       <p>
+       <ul>
+          (<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, -, +) = (+1, -1, +1)
+       </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri593.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri595.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri594.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:44 GMT -->
+</HTML>

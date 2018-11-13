@@ -1,0 +1,392 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section2/pmd216.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:43 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.2.1.6. The explanatory variables are observed without error.</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section3/pmd3.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd215.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd2.html">Underlying Assumptions for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.2.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd21.html">What are the typical underlying assumptions in process modeling?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.2.1.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>The explanatory variables are observed without error.</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Assumption Needed for Parameter Estimation</I>
+</TD>
+<TD WIDTH=85%>
+As discussed <A HREF="pmd212.html">earlier</A> in this section, the random
+errors (the \(\varepsilon\)'s)
+<!-- <IMG ALT="\varepsilon" SRC="eqns/eps.gif">'s) -->
+in the basic model, 
+
+$$ y = f(\vec{x};\vec{\beta}) + \varepsilon \, ,$$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+y = f(\vec{x};\vec{\beta}) + \varepsilon
+" SRC="eqns/model.gif">,</CENTER><BR> -->
+must have a mean of zero at each combination of explanatory variable values
+to obtain valid estimates of the parameters in the functional part of the
+process model (the \(\beta \, \)'s).
+<!-- <IMG ALT="\beta" ALIGN=absmiddle SRC="eqns/beta.gif">'s). -->
+Some of the more obvious sources of random errors with non-zero means include 
+<OL>
+<LI>drift in the process, 
+<LI>drift in the measurement system used to obtain the process data, and
+<LI>use of a miscalibrated measurement system.
+</OL>
+However, the presence of <I>random</I> errors in the measured values of the
+explanatory variables is another, more subtle, source of \(\varepsilon\)'s
+<!-- <IMG ALT="\varepsilon" SRC="eqns/eps.gif">'s -->
+with non-zero means.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Explanatory Variables Observed with Random Error Add Terms to \(\varepsilon\)
+<!-- <IMG ALT="\varepsilon" SRC="eqns/eps.gif"> -->
+</I>
+</TD>
+<TD WIDTH=85%>
+The values of explanatory variables observed with independent,
+normally distributed random errors, \(\vec{\delta}\),
+<!-- <IMG ALT="\vec{\delta}" SRC="eqns/delta.gif">, -->
+can be 
+differentiated from their true values using the definition 
+
+$$ \vec{x}_{obs} = \vec{x}_{true} + \vec{\delta} $$
+
+<!-- <BR><BR><CENTER><IMG ALT="\vec{x}_{obs} = \vec{x}_{true} + \vec{\delta}" 
+     SRC="eqns/xedef.gif">.</CENTER><BR> -->
+
+Then applying the mean value theorem from multivariable calculus shows
+that the random errors in a model based on \(\vec{x}_{obs}\),
+<!-- <IMG ALT="\vec{x}_{obs}" SRC="eqns/xobs.gif">, -->
+
+$$ y = f(\vec{x}_{obs};\vec{\beta}) + \varepsilon \, , $$
+
+<!-- <BR><BR><CENTER><IMG ALT="y = f(\vec{x}_{obs};\vec{\beta}) + \varepsilon" 
+     SRC="eqns/model2.gif">,</CENTER><BR> -->
+are 
+<A HREF="../section7/pmd7.html#Seber G.A.F and Wild C.F. (1989)">[Seber (1989)]</A>
+
+$$ \begin{array}{ccl}
+\varepsilon & = & y - f(\vec{x}_{obs};\vec{\beta}) \\
+            &   & \\
+            & = & y - f(\vec{x}_{true}+\vec{\delta};\vec{\beta})  \\
+            &   & \\
+            & = & y - f(\vec{x}_{true};\vec{\beta}) + \vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta}) \\
+            &   & \\
+            & = & \varepsilon_y + \vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})
+\end{array} $$
+
+<!-- 
+<BR><BR><CENTER><IMG ALT=" 
+\begin{array}{ccl}
+\varepsilon & = & y - f(\vec{x}_{obs};\vec{\beta}) \\
+            &   & \\
+            & = & y - f(\vec{x}_{true}+\vec{\delta};\vec{\beta})  \\
+            &   & \\
+            & = & y - f(\vec{x}_{true};\vec{\beta}) + \vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta}) \\
+            &   & \\
+            & = & \varepsilon_y + \vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})
+\end{array}
+" SRC="eqns/mvte.gif"></CENTER><BR>
+-->
+
+with \(\varepsilon_y\)
+<!-- <IMG ALT="\varepsilon_y" ALIGN=middle SRC="eqns/epsy.gif"> -->
+denoting the random error associated
+with the basic form of the model, 
+
+$$ y = f(\vec{x}_{true};\vec{\beta}) + \varepsilon_y \, ,$$
+
+<!-- <BR><BR><CENTER><IMG ALT="y = f(\vec{x}_{true};\vec{\beta}) + \varepsilon_y" 
+     SRC="eqns/model3.gif">,</CENTER><BR> -->
+
+under all of the usual assumptions
+(denoted here more carefully than is usually necessary), 
+and \(\vec{x}^{\,*}\)
+<!-- <IMG ALT="\vec{x}^{\,*}" SRC="eqns/xstar.gif"> -->
+is a value between \(\vec{x}_{true}\)
+<!-- <IMG ALT="\vec{x}_{true}" ALIGN=baseline SRC="eqns/xtrue.gif"> -->
+and  \(\vec{x}_{obs}\).
+<!-- <IMG ALT="\vec{x}_{obs}" SRC="eqns/xobs.gif">. -->
+This extra term in the expression of the random error, 
+\( \vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})\),
+<!-- <IMG ALT="\vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})" 
+     ALIGN=absmiddle SRC="eqns/dfprime.gif">, -->
+complicates matters because 
+\(\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprime.gif"> -->
+is typically not a constant.  For most functions, 
+\(\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprime.gif"> --> 
+will depend on the explanatory variable values and, more importantly, 
+on \(\vec{\delta}\).
+<!-- <IMG ALT="\vec{\delta}" SRC="eqns/delta.gif">. -->
+This is the source of the problem with observing
+the explanatory variable values with random error.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>\(\vec{\delta}\)
+<!-- <IMG ALT="\vec{\delta}" SRC="eqns/delta.gif"> -->
+Correlated with \(\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprime.gif"> -->
+</I>
+</TD>
+<TD WIDTH=85%>
+Because each of the components of \(\vec{x}^{\,*}\),
+<!-- <IMG ALT="\vec{x}^{\,*}" SRC="eqns/xstar.gif">, -->
+denoted by 
+\(x^{\,*}_j\),
+<!-- <IMG ALT="x^{\,*}_j" ALIGN=absmiddle SRC="eqns/xstarj.gif">, -->
+are functions of the components of \(\vec{\delta}\),
+<!-- <IMG ALT="\vec{\delta}" SRC="eqns/delta.gif">, -->
+similarly denoted by \(\delta_j\),
+<!-- <IMG ALT="\delta_j" ALIGN=absmiddle SRC="eqns/deltaj.gif">, -->
+whenever any of the components of \(\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprime.gif"> -->
+simplify to expressions that are not constant, the random variables 
+\(\delta_j\)
+<!-- <IMG ALT="\delta_j" ALIGN=absmiddle SRC="eqns/deltaj.gif"> -->
+and \(f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprimej.gif"> -->
+will be correlated.  This correlation will then usually
+induce a non-zero mean in the product 
+\(\vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})\).
+<!-- <IMG ALT="\vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})" 
+     ALIGN=absmiddle SRC="eqns/dfprime.gif">. -->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+For example, a positive correlation between \(\delta_j\)
+<!-- <IMG ALT="\delta_j" ALIGN=absmiddle SRC="eqns/deltaj.gif"> -->
+and \(f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprimej.gif"> -->
+means that when \(\delta_j\)
+<!-- <IMG ALT="\delta_j" ALIGN=absmiddle SRC="eqns/deltaj.gif"> -->
+is large, \(f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprimej.gif"> -->
+will also tend to be large.  Similarly, when \(\delta_j\)
+<!-- <IMG ALT="\delta_j" ALIGN=absmiddle SRC="eqns/deltaj.gif"> -->
+is small, \(f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprimej.gif"> -->
+will also tend to be small.  This could cause \(\delta_j\)
+<!-- <IMG ALT="\delta_j" ALIGN=absmiddle SRC="eqns/deltaj.gif"> -->
+and \(f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="f_{j}\,\!'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprimej.gif" > -->
+to always have the same sign,
+which would preclude their product having a mean of zero since all of the
+values of \(\delta_j f_j\,\!'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="\delta_j f_j\,\!'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/djfpj.gif"> -->
+would be greater than or
+equal to zero.  A negative correlation, on the other hand, could mean that
+these two random variables would always have opposite signs,
+resulting in a negative mean for \(\delta_j f_j\,\!'(\vec{x}^{\,*};\vec{\beta})\).
+<!-- <IMG ALT="\delta_j f_j\,\!'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/djfpj.gif">. -->
+These examples are extreme, but illustrate how correlation can cause trouble
+even if both \(\vec{\delta}\)
+<!-- <IMG ALT="\vec{\delta}" SRC="eqns/delta.gif"> -->
+and \(\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/fprime.gif"> -->
+have zero means individually.  
+What will happen in any particular modeling situation will depend on the
+variability of the \(\vec{\delta}\)'s,
+<!-- <IMG ALT="\vec{\delta}" SRC="eqns/delta.gif">'s, -->
+the form of the function, the true values of the \(\beta \, \)'s,
+<!-- <IMG ALT="\beta" ALIGN=absmiddle SRC="eqns/beta.gif">'s, -->
+and the values of the explanatory variables. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Biases Can Affect Parameter Estimates When Means of 
+\(\varepsilon\)'s
+<!-- <IMG ALT="\varepsilon" SRC="eqns/eps.gif">'s -->
+are 0</I>
+</TD>
+<TD WIDTH=85%>
+Even if the \(\varepsilon\)'s
+<!-- <IMG ALT="\varepsilon" SRC="eqns/eps.gif">'s -->
+have zero means, observation of the
+explanatory variables with random error can still bias the parameter estimates.
+Depending on the method used to estimate the parameters, the 
+explanatory variables can be used in the computation of the parameter estimates
+in ways that keep the \(\vec{\delta}\)'s
+<!-- <IMG ALT="\vec{\delta}" SRC="eqns/delta.gif">'s -->
+from canceling out.  One
+unfortunate example of this phenomenon is the use of least squares to
+estimate the parameters of a straight line.  In this case, because of the
+simplicity of the model, 
+
+$$ y = \beta_0 + \beta_1x_{obs} + \varepsilon \, ,$$
+
+<!-- <BR><BR><CENTER><IMG ALT="y = \beta_0 + \beta_1x_{obs} + \varepsilon" SRC="eqns/model4.gif">,</CENTER><BR> -->
+the term \(\vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})\)
+<!-- <IMG ALT="\vec{\delta}\!\cdot\!\!\vec{f}\:'(\vec{x}^{\,*};\vec{\beta})" ALIGN=absmiddle SRC="eqns/dfprime.gif"> -->
+simplifies to \(\delta\beta_1\).
+<!-- <IMG ALT="\delta\beta_1" ALIGN=absmiddle SRC="eqns/db.gif">.  -->
+Because this term does not involve \(\vec{x}^{\,*}\),
+<!-- <IMG ALT="\vec{x}^{\,*}" SRC="eqns/xstar.gif">, -->
+it does not induce non-zero means in the \(\varepsilon\)'s.
+<!-- <IMG ALT="\varepsilon" SRC="eqns/eps.gif">'s. -->
+With the way the explanatory variables enter into the
+formulas for the estimates of the \(\beta \,\)'s,
+<!-- <IMG ALT="\beta" ALIGN=absmiddle SRC="eqns/beta.gif">'s, -->
+the random errors in the explanatory variables do not cancel out on
+average.  This results in parameter estimators that are biased and will not
+approach the true parameter values no matter how much data are collected.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Berkson Model Does Not Depend on this Assumption</I>
+</TD>
+<TD WIDTH=85%>
+There is one type of model in which errors in the measurement of the
+explanatory variables do not bias the parameter estimates.  The Berkson model 
+<A HREF="../section7/pmd7.html#Berkson J. (1950)">[Berkson (1950)]</A> is a
+model in which the <I>observed</I> values
+of the explanatory variables are directly controlled by the experimenter while
+their true values vary for each observation.  The
+differences between the observed and true values for each explanatory variable
+are assumed to be independent random variables from a normal distribution with
+a mean of zero.  In addition, the errors associated with each explanatory
+variable must be independent of the errors associated with all of the other 
+explanatory variables, and also independent of the observed values of each explanatory
+variable.  Finally, the Berkson model requires the functional part of the model
+to be a straight line, a plane, or a higher-dimension first-order model in the 
+explanatory variables.  When these conditions are all met, the errors in the
+explanatory variables can be ignored.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Applications for which the Berkson model correctly describes the
+data are most often situations in which the experimenter can adjust equipment
+settings so that the observed values of the explanatory variables  will be
+known ahead of time.  For example, in a study of the relationship between
+the temperature used to dry a sample for chemical analysis and the resulting
+concentration of a volatile consituent, an oven might be used to prepare
+samples at temperatures of 300 to 500 degrees in  50 degree increments.  In
+reality, however, the true temperature inside the oven will probably not
+exactly equal 450 degrees each time that setting is used (or 300 when that 
+setting is used, etc).  The Berkson model would apply, though, as long as the
+errors in measuring the temperature randomly differed from one another each
+time an observed value of 450 degrees was used and the mean of the true
+temperatures over many repeated runs at an oven setting of 450 degrees really
+was 450 degrees.  Then, as long as the model was also a straight line relating
+the concentration to the observed values of temperature, the errors in the
+measurement of temperature would not bias the estimates of the parameters.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Assumption Validity Requires Careful Consideration</I>
+</TD>
+<TD WIDTH=85%>
+The validity of this assumption requires careful consideration in scientific
+and engineering applications.  In these types of applications it is most often
+the case that the response variable and the explanatory variables will all
+be measured with some random error.  Fortunately, however, there is
+also usually some knowledge of the relative amount of information in the
+observed values of each variable.  This allows a rough assessment of how much
+bias there will be in the estimated values of the parameters.  As long as
+the biases in the parameter estimators have a negligible effect on the intended
+use of the model, then this assumption can be considered valid from a practical
+viewpoint.  <A HREF="../section4/pmd44.html">Section 4.4.4</A>, which 
+covers model validation, points to a discussion of a practical method for
+checking the validity of this assumption. 
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd215.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section3/pmd3.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section2/pmd216.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:43 GMT -->
+</HTML>

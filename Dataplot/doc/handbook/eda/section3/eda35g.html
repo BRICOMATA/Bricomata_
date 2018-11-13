@@ -1,0 +1,453 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35g.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:19 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.16. Kolmogorov-Smirnov Goodness-of-Fit Test</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35h.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35f.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.16.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Kolmogorov-Smirnov Goodness-of-Fit Test</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Test for Distributional Adequacy
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Kolmogorov-Smirnov test
+      (<a href="../section4/eda43.html#Chakravart">Chakravart, Laha,
+      and Roy, 1967</a>) is used to decide if a sample comes from a
+      population with a specific distribution.
+      <p>
+      The Kolmogorov-Smirnov (K-S) test is based on the empirical
+      distribution function (ECDF).  Given <i>N</i> <i>ordered</i>
+      data points <b><i>Y<sub>1</sub>, Y<sub>2</sub>, ...,
+      Y<sub>N</sub></i></b>, the ECDF is defined as
+      <ul>
+          <!--
+          <img src="eqns/en.gif" alt="E(n) = n(i)/N">
+          -->
+          \[ E_{N} = n(i)/N \]
+      </ul>
+      where <b><i>n(i)</i></b> is the number of points less than
+      <b><i>Y<sub>i</sub></i></b> and the <b><i>Y<sub>i</sub></i></b>
+      are ordered from smallest to largest value.  This is a step
+      function that increases by 1/<i>N</i> at the value of each
+      ordered data point.
+      <p>
+      The graph below is a plot of the empirical
+      distribution function with a normal cumulative distribution
+      function for 100 normal random numbers.  The K-S test
+      is based on the maximum distance between these two curves.
+      <p>
+        <img src="gif/ecdf.gif" alt=
+   "graph of empirical distribution function for 100 random numbers">
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Characteristics and Limitations of the K-S Test
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+An attractive feature of this test is that
+the distribution of the K-S test statistic itself does not
+depend on the underlying cumulative distribution function being
+tested.  Another advantage is that it is an exact test (the
+chi-square goodness-of-fit test depends on an adequate sample size
+for the approximations to be valid). Despite these advantages,
+the K-S test has several important limitations:
+<ol>
+   <li>It only applies to continuous distributions.</li>
+   <li>It tends to be more sensitive near the center of the
+       distribution than at the tails.</li>
+   <li>Perhaps the most serious limitation is that the
+       distribution must be fully specified.  That is, if
+       location, scale, and shape parameters are estimated
+       from the data, the critical region of the K-S test
+       is no longer valid.  It typically must be determined by
+       simulation.
+       </li>
+   </ol>
+<p>
+Several goodness-of-fit tests, such as the
+<a href="eda35e.html">Anderson-Darling</a> test and the Cramer
+Von-Mises test, are refinements of the K-S test.  As these refined
+tests are generally considered to be more powerful than the original
+K-S test, many analysts prefer them.  Also, the advantage for the K-S
+test of having the critical values be indpendendent of the underlying
+distribution is not as much of an advantage as first appears.  This
+is due to limitation 3 above (i.e., the distribution parameters are
+typically not known and have to be estimated from the data).  So in
+practice, the critical values for the K-S test have to be determined
+by simulation just as for the Anderson-Darling and Cramer Von-Mises
+(and related) tests.
+<p>
+Note that although the K-S test is typically developed in the context
+of continuous distributions for uncensored and ungrouped data, the
+test has in fact been extended to discrete distributions and to
+censored and grouped data.  We do not discuss those cases here.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Kolmogorov-Smirnov test is defined by:
+      <table>
+
+      <tr>
+         <td>
+            H<sub>0</sub>:
+         </td>
+         <td>
+            The data follow a specified distribution
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            H<sub>a</sub>:
+         </td>
+         <td>
+            The data do not follow the specified distribution
+         </td>
+      </tr>
+      <p>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td>
+            The Kolmogorov-Smirnov test statistic is defined as
+            <ul>
+               <!--
+               <img src="eqns/ks_new.gif"
+                    alt="D = max [F(Y(i) - (i-1)/N,(i/N) - F(Y(i))]">
+               -->
+               \[ D = \max_{1 \le i \le N} \left( F(Y_{i}) -
+               \frac{i-1} {N}, \frac{i}{N} - F(Y_{i}) \right) \]
+            </ul>
+            where <b><i>F</i></b> is the theoretical cumulative
+            distribution of the distribution being tested which must
+            be a continuous distribution (i.e., no discrete
+            distributions such as the binomial or Poisson), and it
+            must be fully specified (i.e., the
+            <a href="eda364.html">location, scale</a>, and
+            <a href="eda363.html">shape</a> parameters cannot
+            be estimated from the data).
+         </td
+       </tr>
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=top>
+            <!-- <img src="eqns/alpha.gif" alt="alpha">. -->
+            <big><i>&alpha;</i></big>
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Critical Values:
+         </td>
+         <td>
+            The hypothesis regarding the distributional form is
+            rejected if the test statistic, <b><i>D</i></b>, is
+            greater than the critical value obtained from a table.
+            There are several variations of these tables in the
+            literature that use somewhat different scalings for the
+            K-S test statistic and critical regions.  These alternative
+            formulations should be equivalent, but it is necessary to
+            ensure that the test statistic is calculated in a way
+            that is consistent with how the critical values were
+            tabulated.
+            <p>
+            We do not provide the K-S tables in the Handbook since
+            software programs that perform a K-S test will provide
+            the relevant critical values.
+         </td>
+       </tr>
+
+     </table>
+   </td>
+</tr>
+
+<tr>
+   <td width=15% valign=top>
+      <I>Technical Note</I>
+   </td>
+   <td width=85% valign=top>
+      Previous editions of e-Handbook gave the following formula
+      for the computation of the Kolmogorov-Smirnov goodness of
+      fit statistic:
+      <ul>
+         <!--
+         <img src="eqns/ks.gif" alt="D = max |F(Y(i) - (i/N)|">
+         -->
+         \[ D = \max_{1 \le i \le N}
+         \left| F(Y_{i}) - \frac{i} {N} \right| \]
+      </ul>
+      This formula is in fact not correct.  Note that this formula
+      can be rewritten as:
+      <ul>
+         <!--
+         <img src="eqns/ks_old.gif"
+              alt="D = max [F(Y(i) - (i/N),(i/N) - F(Y(i))]">
+         -->
+         \[ D = \max_{1 \le i \le N}
+         (F(Y_{i}) - \frac{i} {N}, \frac{i}{N} - F(Y_{i})) \]
+      </ul>
+      This form makes it clear that an upper bound on the difference
+      between these two formulas is <i>i</i>/<i>N</i>.  For actual
+      data, the difference is likely to be less than the upper bound.
+      <p>
+      For example,
+      for <i>N</i> = 20, the upper bound on the difference between
+      these two formulas is 0.05 (for comparison, the 5% critical
+      value is 0.294).  For <i>N</i> = 100, the upper bound is
+      0.001.  In practice, if you have moderate to large sample sizes
+      (say <i>N</i> &ge; 50), these formulas are essentially
+      equivalent.
+
+   </td>
+</tr>
+
+<!-----begin section: sample output -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Kolmogorov-Smirnov Test Example</I>
+   </td>
+   <td width=85% valign=top>
+      We generated 1,000 random numbers for normal, double exponential, 
+      <i>t</i> with 3 degrees of freedom, and lognormal distributions.  
+      In all cases, the Kolmogorov-Smirnov test was applied to test for 
+      a normal distribution.  
+      <P>
+      The normal random numbers were stored in the variable Y1,
+      the double exponential random numbers were stored in the
+      variable Y2, the <i>t</i> random numbers were stored in the
+      variable Y3, and the lognormal random numbers were stored
+      in the variable Y4.
+
+      <PRE>
+      H<sub>0</sub>:  the data are normally distributed
+      H<sub>a</sub>:  the data are not normally distributed
+
+      Y1 test statistic:  <I>D</I> = 0.0241492  
+      Y2 test statistic:  <I>D</I> = 0.0514086 
+      Y3 test statistic:  <I>D</I> = 0.0611935
+      Y4 test statistic:  <I>D</I> = 0.5354889
+
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical value:  0.04301    
+      Critical region:  Reject H<sub>0</sub> if <I>D</I> > 0.04301
+      </PRE>
+As expected, the null hypothesis is not rejected for the normally
+distributed data, but is rejected for the remaining three
+data sets that are not normally distributed.
+
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Kolmogorov-Smirnov test can be used to answer the following
+      types of questions:
+      <ul>
+         <li>Are the data from a normal distribution?
+         <li>Are the data from a log-normal distribution?
+         <li>Are the data from a Weibull distribution?
+         <li>Are the data from an exponential distribution?
+         <li>Are the data from a logistic distribution?
+      </ul>
+   </td>
+</tr>
+
+<!-----begin section: importance -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Importance
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Many statistical tests and procedures are based on specific
+      distributional <a href="../section2/eda2.html">assumptions</a>.
+      The assumption of normality
+      is particularly common in classical statistical tests.
+      Much reliability modeling is based on the assumption
+      that the data follow a Weibull distribution.
+      <p>
+      There are many non-parametric and robust techniques that
+      are not based on strong distributional assumptions.  By
+      non-parametric, we mean a technique, such as the
+      <a href="../../prc/section2/prc243.html">sign test</a>,
+      that is not based on a specific distributional assumption.
+      By robust, we mean a statistical technique that performs well
+      under a wide range of distributional assumptions.
+      However, techniques based on specific distributional assumptions
+      are in general more powerful than these non-parametric and
+      robust techniques.  By power, we mean the ability to detect
+      a difference when that difference actually exists.  Therefore,
+      if the distributional assumptions can be confirmed, the
+      parametric techniques are generally preferred.
+      <p>
+      If you are using a technique that makes a normality (or some
+      other type of distributional) assumption, it is important to
+      confirm that this assumption is in fact justified.  If
+      it is, the more powerful parametric techniques can be used.
+      If the distributional assumption is not justified, using
+      a non-parametric or robust technique may be required.
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="eda35e.html">Anderson-Darling goodness-of-fit Test</a><br>
+      <a href="eda35f.html">Chi-Square goodness-of-fit Test</a><br> 
+      <a href="../../prc/section2/prc213.html">Shapiro-Wilk
+            Normality Test</a><br>
+      <a href="probplot.html">Probability Plots</a><br> 
+      <a href="ppccplot.html">Probability Plot Correlation Coefficient
+            Plot</a><br> 
+   </td>
+</tr>
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Some general purpose statistical software programs support the
+Kolmogorov-Smirnov goodness-of-fit test, at least for 
+the more common distributions.
+Both <a href="eda35g.dp">Dataplot code</a> and 
+<a href="eda35g.r">R code</a> can be used to generate the
+analyses in this section.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35f.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35h.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35g.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:22 GMT -->
+</HTML>

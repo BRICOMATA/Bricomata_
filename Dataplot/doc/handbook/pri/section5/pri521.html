@@ -1,0 +1,736 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri521.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:48:47 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.2.1. D-Optimal designs</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri522.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri52.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri52.html">What is a computer-aided design?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>D-Optimal designs</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>D-optimal designs are often used when <a href="pri51.html">classical
+designs do not apply</a></i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+D-optimal designs are one form of design provided by a computer
+algorithm. These types of computer-aided designs are particularly
+useful when classical designs do not apply.
+<p>
+Unlike standard classical designs such as factorials and fractional
+factorials, D-optimal design matrices are usually not orthogonal and
+effect estimates are correlated.
+<P>
+These types of designs are always an option regardless of the type of
+model the experimenter wishes to fit (for example, first order,
+first order plus some interactions, full quadratic, cubic, etc.) or
+the objective specified for the experiment (for example, screening,
+response surface, etc.). D-optimal designs are straight optimizations
+based on a chosen optimality criterion and the model that will be fit.
+The optimality criterion used in generating D-optimal designs is one of
+maximizing |X'X|, the determinant of the information matrix X'X.
+<P>
+This optimality criterion results in minimizing the generalized variance
+of the parameter estimates for a pre-specified model. As a result, the
+'optimality' of a given D-optimal design is model dependent. That is,
+the experimenter must specify a model for the design before a computer
+can generate the specific treatment combinations. Given the total
+number of treatment runs for an experiment and a specified model, the
+computer algorithm chooses the optimal set of design runs from a
+<i>candidate set</i> of possible design treatment runs. This candidate
+set of treatment runs usually consists of all possible combinations of
+various factor levels that one wishes to use in the experiment.
+<p>
+In other words, the candidate set is a collection of treatment
+combinations from which the D-optimal algorithm chooses the treatment
+combinations to include in the design. The computer algorithm generally
+uses a stepping and exchanging process to select the set of treatment
+runs.
+<P>
+<b>Note</b>: There is no guarantee that the design the computer
+generates is actually D-optimal.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>D-optimal designs are useful when resources are
+limited or there are constraints on factor settings</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The reasons for using D-optimal designs instead of standard classical
+designs generally fall into two categories:
+<ol>
+   <li>standard factorial or fractional factorial designs require too
+       many runs for the amount of resources or time allowed for the
+       experiment</li>
+   <li>the design space is constrained (the process space contains
+       factor settings that are not feasible or are impossible to
+       run).</li>
+</ol>
+</td>
+</tr>
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Example</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Suppose an industrial process has three design variables 
+(<i>k</i> = 3), and engineering judgment specifies the 
+following model as an appropriate representation of the process.
+<p>
+<center>
+<!--
+<img SRC="pri521_eq.gif" alt=
+"Y = Beta0 + Beta1*X1 + Beta2*X2 + Beta3*X3 + Beta11*X1^2 + e">
+-->
+\( Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \beta_{3} X_{3} +
+       \beta_{11} X_{1}^{2} + \epsilon \)
+</center>
+<p>
+The levels being considered by the researcher are (coded)
+<ul>
+   <i>X</i><sub>1</sub>: 5 levels (-1, -0.5, 0, 0.5, 1)
+   <br><i>X</i><sub>2</sub>: 2 levels (-1, 1)
+   <br><i>X</i><sub>3</sub>: 2 levels (-1, 1)
+</ul>
+Due to resource limitations, only <i>n</i> = 12 data points
+can be collected.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Create the candidate set</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Given the experimental specifications, the first step
+in generating the design is to create a candidate set 
+of points. The candidate set is a data table with a 
+row for each point (run) to be considered for the design, 
+often a full factorial. For our problem, the candidate set 
+is a full factorial in all factors containing 
+5*2*2 = 20 possible design runs.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Table containing the candidate set</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<center>
+<table noborder width=350>
+<caption align=center>
+   <b>TABLE 5.1&nbsp; Candidate Set for Variables X<sub>1</sub>,
+   X<sub>2</sub>, X<sub>3</sub></b>
+</caption>
+
+<tr>
+   <th align=center valign=top>
+      X<sub>1</sub>
+   </th>
+   <th align=center valign=top>
+      X<sub>2</sub>
+   </th>
+   <th align=center valign=top>
+      X<sub>3</sub>
+   </th>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+     -1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+     +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      -0.5
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      -0.5
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      -0.5
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      -0.5
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      0
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      0
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      0
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      0
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      0.5
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      0.5
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      0.5
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      0.5
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+   <td align=center valign=top>
+     +1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      -1
+   </td>
+</tr>
+
+<tr>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+   <td align=center valign=top>
+      +1
+   </td>
+</tr>
+
+</table>
+</td>
+</tr>
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Generating a D-optimal design</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+D-optimal designs maximize the D-efficiency, which is a volume 
+criterion on the generalized variance of the parameter estimates. 
+The D-efficiency of the standard fractional factorial is 100 %, but 
+it is not possible to achieve 100 % D-efficiency when pure 
+quadratic terms such as \( X_{1}^{2} \) are included in the model.
+<P>
+The D-efficiency values are a function of the number of points in the 
+design, the number of independent variables in the model, and the 
+maximum standard error for prediction over the design points. The 
+best design is the one with the highest D-efficiency.  Other reported
+efficiencies (e.g. A, G, I) help choose an optimal design when various
+models produce similar D-efficiencies. 
+</td>
+</tr>
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>D-optimal design</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The D-optimal design (D=0.6825575, A=2.2, G=1, I=4.6625) using 
+12 runs is shown in Table 5.2 in standard order.  The standard 
+error of prediction is also shown.  The design runs should be 
+randomized before the treatment combinations are executed.
+<p>
+<center>
+<table noborder width=250>
+<caption align=center>
+   <b>TABLE 5.2&nbsp; Final D-optimal Design</b>
+</caption>
+<tr>
+   <th valign=top align=center>
+      X<sub>1</sub>
+   </th>
+   <th valign=top align=center>
+      X<sub>2</sub>
+   </th>
+   <th valign=top align=center>
+      X<sub>3</sub>
+   </th>
+   <th valign=top align=center>
+      OptStdPred
+   </th>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr>
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      &nbsp;0
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      &nbsp;0
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      &nbsp;0
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      &nbsp;0
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      -1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      +1
+   </td>
+   <td valign=top align=center>
+      0.645497
+   </td>
+</tr>
+</table>
+</center>
+<!-- <img SRC="eqns/terri2.gif" height=357 width=222> -->
+</td>
+</tr>
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software note
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Software packages may have different procedures for generating 
+D-optimal designs, so the final design may be different depending
+on the software packaged being used.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri52.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri522.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri521.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:48:47 GMT -->
+</HTML>

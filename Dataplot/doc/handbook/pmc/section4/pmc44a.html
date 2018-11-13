@@ -1,0 +1,269 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc44a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:55 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.4.10. Box-Jenkins Analysis on Seasonal Data</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc45.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc449.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc44.html">Univariate Time Series Models</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.4.10.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Box-Jenkins Analysis of Seasonal Data</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Series G</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+This example illustrates a Box-Jenkins time series
+analysis for seasonal data using the series G data set in 
+<a href="../section7/pmc7.html#Box, G.E.P.; G.M.">
+Box, Jenkins, and Reinsel, 1994</a>.
+A plot of the 144 observations is shown below.
+<center>
+<img SRC="pmc44a_r01.gif" height=400 width=400
+     ALT="Plot of Series G Data">
+</center>
+
+Non-constant variance can be removed by performing a natural 
+log transformation.
+
+<center>
+<img SRC="pmc44a_r02.gif" height=400 width=400
+     ALT="Plot of natural log of series G">
+</center>
+
+Next, we remove trend in the series by taking first differences.  The 
+resulting series is shown below.
+
+<center>
+<img SRC="pmc44a_r03.gif" height=400 width=400
+     ALT="Plot of first differences of the natural log of series G">
+</center>
+
+</td>
+</tr>
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Analyzing Autocorrelation Plot for Seasonality</i>
+</td>
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+To identify an appropriate model, we plot the ACF of the time series.
+
+<center>
+<img SRC="pmc44a_r04.gif" height=400 width=400
+     ALT="ACF plot of first differenced natural log series G">
+</center>
+
+If very large autocorrelations are observed at lags spaced <i>n</i>
+periods apart, for example at lags 12 and 24, then there is
+evidence of periodicity.  That effect should be removed, since the
+objective of the identification stage is to reduce the
+autocorrelation throughout.  So if simple differencing is not
+enough, try seasonal differencing at a selected period, such as 
+4, 6, or 12.  In our example, the seasonal period is 12. 
+<p>
+A plot of Series G after taking the natural log, first differencing,
+and seasonal differencing is shown below.
+
+<center>
+<img SRC="pmc44a_r05.gif" height=400 width=400
+     ALT="Seasonal and first differenced natural log of series G">
+</center>
+
+The number of seasonal terms is rarely more than one. If you know the
+shape of your forecast function, or you wish to assign a particular shape
+to the forecast function, you can select the appropriate number of terms
+for seasonal AR or seasonal MA models.
+<p>
+The book by Box and Jenkins, <i>Time Series Analysis Forecasting
+and Control</i> (the later edition is Box, Jenkins and Reinsel, 1994)
+has a discussion on these forecast functions on pages 326 - 328. Again,
+if you have only a faint notion, but you do know that there was a trend
+upwards before differencing, pick a seasonal MA term and see what comes
+out in the diagnostics.
+<p>
+An ACF plot of the seasonal and first differenced natural log of series
+G is shown below.
+
+<center>
+<img SRC="pmc44a_r06.gif" height=400 width=400
+ALT="Autocorrelation plot after taking seasonal difference">
+</center>
+
+The plot has a few spikes, but most autocorrelations are near zero,
+indicating that a seasonal MA(1) model is appropriate.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Model Fitting</i>
+</td>
+<td WIDTH="85%"><!-- Add main text below -->
+We fit a seasonal MA(1) model to the data 
+
+$$ X_t - \delta = A_t + \theta_1 \, A_{t-1} + \psi_1 \, A_{t-12}
+                + \theta_1 \, \psi_1 \, A_{t-13} \, , $$
+
+<!--
+<p>
+<center>
+<img SRC="pmc44a_eqn2.gif" ALT="MA(1) Model">
+</center>
+<p>
+-->
+where \(\theta_1\)
+<!-- <i>&theta;</i><sub>1</sub> -->
+represents the MA(1) parameter and \(\psi_1\)
+<!-- <i>&psi;</i><sub>1</sub> -->
+represents the seasonal parameter.
+The model fitting results are shown below.
+<pre>                            Seasonal
+Estimate            MA(1)     MA(1)
+--------          -------    -------
+Parameter         -0.4018    -0.5569
+Standard Error     0.0896     0.0731
+
+Residual standard deviation = 0.0367  
+Log likelihood = 244.7
+AIC = -483.4
+</pre>
+Test the randomness of the residuals up to 30 lags using
+the Box-Ljung test.  Recall that the degrees of freedom for
+the critical region must be adjusted to account for 
+two estimated parameters.
+<pre>
+H<SUB>0</SUB>:  The residuals are random.
+H<SUB>a</SUB>:  The residuals are not random.  
+
+Test statistic:  <i>Q</i> = 29.4935
+Significance level:  &alpha; = 0.05
+Degrees of freedom:  <i>h</i> = 30 - 2 = 28
+Critical value:  <i>&Chi;</i><sup>&thinsp;2</sup><sub>1-<i>&alpha;</i>,<i>h</i></sub> = 41.3371 
+Critical region: Reject H<SUB>0</SUB> if <i>Q</i> > 41.3371
+</pre>
+Since the null hypothesis of the Box-Ljung test is not rejected
+we conclude that the fitted model is adequate.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Forecasting</i>
+</td>
+<td WIDTH="85%"><!-- Add main text below -->
+Using our seasonal MA(1) model, we forcast values 12 
+periods into the future and compute 90 % confidence limits.  
+<pre>
+              Lower                   Upper
+    Period    Limit      Forecast     Limit
+    ------   --------    --------    --------
+      145    424.0234    450.7261    478.4649
+      146    396.7861    426.0042    456.7577
+      147    442.5731    479.3298    518.4399
+      148    451.3902    492.7365    537.1454
+      149    463.3034    509.3982    559.3245
+      150    527.3754    583.7383    645.2544
+      151    601.9371    670.4625    745.7830
+      152    595.7602    667.5274    746.9323
+      153    495.7137    558.5657    628.5389
+      154    439.1900    497.5430    562.8899
+      155    377.7598    430.1618    489.1730
+      156    417.3149    477.5643    545.7760
+</pre>
+
+<center>
+<img SRC="pmc44a_r07.gif" height=400 width=400
+ALT="Plot of forecasted values with 90 % confidence limits">
+</center>
+
+<!--
+All the anlayses in this page can be generated 
+using both <a href="pmc44a.dp">Dataplot code</a> and 
+<a href="pmc44a.r">R code</a>.
+ -->
+All the anlayses in this page can be generated 
+using <a href="pmc44a.r">R code</a>.
+
+
+</td>
+</tr>
+
+   
+</TABLE>
+   
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc449.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc45.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc44a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:22:05 GMT -->
+</HTML>

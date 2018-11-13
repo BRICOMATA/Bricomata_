@@ -1,0 +1,800 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr423.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:41 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.2.3. Fitting models using degradation data instead of failures</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr43.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr422.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr42.html">How do you fit an acceleration model?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Fitting models using degradation data instead of failures</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>If you can fit models using degradation data, you don't need actual test failures</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+When failure can be related directly to a change over time in a measurable product 
+parameter, it opens up the possibility of measuring degradation over time and using 
+that data to extrapolate when failure will occur. That allows us to fit acceleration
+models and life distribution models without actually waiting for failures
+to occur.
+<p>
+This overview of degradation modeling assumes you have chosen a
+<a href="../section2/apr21.html">life distribution model</a> and an 
+<a href="../section2/apr24.html">acceleration model</a> 
+and offers an alternative to the 
+<a href="../section3/apr314.html">accelerated testing methodology</a> 
+based on failure data, previously described. The following topics are covered.
+<blockquote>
+<ul>
+<li>
+<a href="#Common Assumptions When Modeling Degradation">Common assumptions</a>
+</li>
+
+<li>
+<a href="#Advantages of Modeling Based on Degradation Data">Advantages</a>
+</li>
+
+<li>
+<a href="#Drawbacks to Modeling Based on Degradation">Drawbacks</a>
+</li>
+
+<li>
+<a href="#A Simple Method For Modeling Degradation Data">A simple method</a>
+</li>
+
+<li>
+<a href="#A More Accurate Regression Model">A more accurate approach for
+a special case</a>
+</li>
+
+<li>
+<a href="#Example">Example</a>
+</li>
+</ul>
+</blockquote>
+More details can be found in 
+<a href="apr47.html#Nelson, W., (1990), Accelerated Testing, John">Nelson (1990, pages 521-544)</a> 
+or 
+<a href="apr47.html#Tobias, P. A., and Trindade, D. C. (1995), Applied">Tobias
+and Trindade (1995, pages 197-203)</a>.
+<p>
+<a NAME="Common Assumptions When Modeling Degradation"></a>
+<b>Common Assumptions When Modeling Degradation Data</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>You need a measurable parameter that drifts (degrades) linearly to a critical failure value</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Two common assumptions typically made when degradation data are modeled are the following:
+<ol>
+<li>
+A parameter \(D\), that can be measured over time, drifts monotonically (upwards,
+or downwards) towards a specified critical value \(DF\). When it reaches \(DF\),
+failure occurs.
+</li>
+
+<li>
+The drift, measured in terms of \(D\), is linear over time with a slope (or
+<b>rate of degradation</b>) \(R\), that depends on the relevant stress the unit is
+operating under and also the (random) characteristics of the unit being
+measured. Note: It may be necessary to define \(D\) as a transformation of
+some standard parameter in order to obtain linearity - logarithms or powers
+are sometimes needed.
+</li>
+</ol>
+The figure below illustrates these assumptions by showing degradation plots
+of five units on test. Degradation readings for each unit are taken at the
+same four time points and straight lines fit through these readings on
+a unit-by-unit basis. These lines are then extended up to a critical (failure)
+degradation value. The projected times of failure for these units are then
+read off the plot. The are: \(t_1, \, t_2, \, \ldots, \, t_5\).
+<!-- <i>t<sub>1</sub>, t<sub>2</sub>, ...,t<sub>5</sub></i>. -->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Plot of linear degradation trends for five units read out at four time points</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<img SRC="gifs/deg1.gif" ALT="Plot of linear degradation trends for5 unitsread out at four time points">
+<p>
+In many practical situations, \(D\) starts at 0 at time zero, and all the
+linear theoretical degradation lines start at the origin. This is the case
+when \(D\) is a "% change" parameter, or failure is defined as a change of
+a specified magnitude in a parameter, regardless of its starting value.
+Lines all starting at the origin simplify the analysis since we don't have
+to characterize the population starting value for \(D\), and the "distance"
+any unit "travels" to reach failure is always the constant \(DF\). For these
+situations, the degradation lines would look as follows.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Often, the degradation lines go through the origin - as when % change is the 
+measurable parameter increasing to a failure level</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<img SRC="gifs/deg2.gif" ALT="Linear degradation plot going through orgin">
+<p>
+It is also common to assume the effect of measurement error, when reading
+values of \(D\), has relatively little impact on the accuracy of model estimates.
+<p>
+<a NAME="Advantages of Modeling Based on Degradation Data"></a>
+<b>Advantages of Modeling Based on Degradation Data</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Modeling based on complete samples of measurement
+data, even with low stress cells, offers many advantages</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<ol>
+<li>
+Every degradation readout for every test unit contributes a data point.
+This leads to large amounts of useful data, even if there are very few
+failures.
+</li>
+
+<li>
+You don't have to run tests long enough to obtain significant numbers of
+failures.
+</li>
+
+<li>
+You can run low stress cells that are much closer to use conditions and
+obtain meaningful degradation data. The same cells would be a waste of
+time to run if failures were needed for modeling. Since these cells are
+more typical of use conditions, it makes sense to have them influence model
+parameters.
+</li>
+
+<li>
+Simple plots of degradation versus time can be used to visually test the linear
+degradation assumption.
+</li>
+</ol>
+<a NAME="Drawbacks to Modeling Based on Degradation"></a>
+<b>Drawbacks to Modeling Based on Degradation Data</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Degradation may not proceed in a smooth, linear fashion towards 
+what the customer calls "failure"</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<ol>
+<li>
+For many failure mechanisms, it is difficult or impossible to find a measurable
+parameter that degrades to a critical value in such a way that reaching
+that critical value is equivalent to what the customer calls a failure.
+</li>
+
+<li>
+Degradation trends may vary erratically from unit to unit, with no apparent
+way to transform them into linear trends.
+</li>
+
+<li>
+Sometimes degradation trends are reversible and a few units appear to "heal
+themselves" or get better. This kind of behavior does not follow typical
+assumptions and is difficult to model.
+</li>
+
+<li>
+Measurement error may be significant and overwhelm small degradation trends,
+especially at low stresses.
+</li>
+
+<li>
+Even when degradation trends behave according to assumptions and the chosen
+models fit well, the final results may not be consistent with an analysis
+based on actual failure data. This probably means that the failure mechanism
+depends on more than a simple continuous degradation process.
+</li>
+</ol>
+Because of the last listed drawback, it is a good idea to have at least
+one high-stress cell where enough real failures occur to do a standard
+life distribution model analysis. The parameter estimates obtained can
+be compared to the predictions from the degradation data analysis, as a
+"reality" check.
+<p>
+<a NAME="A Simple Method For Modeling Degradation Data"></a>
+<b>A Simple Method For Modeling Degradation Data</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>A simple approach is to extend each unit's
+degradation line until a projected "failure time" is obtained</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<ol>
+<li>
+As shown in the figures above, fit a line through each unit's degradation
+readings. This can be done by hand, but using a least squares regression
+program is better.
+</li>
+
+<li>
+Take the equation of the fitted line, substitute \(DF\) for \(Y\) and solve for
+\(X\). This value of \(X\) is the "projected time of fail" for that unit.
+</li>
+
+<li>
+Repeat for every unit in a stress cell until a complete sample of (projected)
+times of failure is obtained for the cell.
+</li>
+
+<li>
+Use the failure times to compute life distribution parameter estimates
+for a cell. Under the fairly typical assumption of a 
+<a href="../section1/apr164.html">lognormal model</a>, 
+this is very simple. Take natural logarithms of all failure
+times and treat the resulting data as a sample from a normal distribution.
+Compute the sample mean and the sample standard deviation. These are estimates
+of \(\mbox{ln } T_{50}\) and \(\sigma\),
+<!-- ln <i>T<sub>50</sub></i> and <i>&sigma;</i>, -->
+respectively, for the cell.
+</li>
+
+<li>
+Assuming there are \(k\)
+<!-- <i>k</i>  -->
+cells with varying stress, fit an appropriate 
+<a href="../section2/apr24.html">acceleration model</a> 
+using the cell \(\mbox{ln } T_{50}\) 
+<!-- ln <i>T<sub>50</sub></i> -->
+values, as described in the 
+<a href="apr421.html">graphical estimation</a> section. A single
+sigma estimate is obtained by taking the square root of the average of
+the cell \(\sigma^2\)
+<!-- <i>&sigma;</i><sup>2</sup> -->
+estimates (assuming the same number 
+of units each cell). If the cells have \(n_j\)
+<!-- <i>n<sub>j</sub></i> -->
+units on test, where the \(n_j\)
+<!-- <i>n<sub>j</sub></i> -->
+values are not all equal, use the pooled 
+sum-of-squares estimate across all \(k\)
+<!-- <i>k</i>  -->
+cells calculated by
+</li>
+</ol>
+
+$$ \hat{\sigma}^2 = \frac{1}{\sum_{j=1}^k (n_j - 1)} 
+   \sum_{j=1}^k \sum_{i=1}^{n_j} \left( x_{ij} - \bar{x}_j \right)^2 \, . $$
+
+<!--
+<center>
+<img SRC="eqns/pool.gif" ALT="sigmahat**2 = 
+{1/SUM[j=1 to k](n(j)-1))}*SUM[j=1 to k]SUM[i=1 to n(j)](x(ij) - xbar(j)**2" >
+</center>
+-->
+
+<p>
+<a NAME="A More Accurate Regression Model"></a>
+<b>A More Accurate Regression Approach For the Case When \(D\) = 0 at time 0 and 
+the "Distance To Fail" \(DF\) is the Same for All Units</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Models can be fit using all the degradation readings and linear regression</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Let the degradation measurement for the \(i\)-th
+<!-- <i>i</i>-th -->
+unit at the \(j\)-th
+<!-- <i>j</i>-th -->
+readout time in the \(k\)-th
+<!-- <i>k</i>-th -->
+stress cell be given by \(D_{ijk}\),
+<!-- <i>D<sub>ijk</sub></i>, --> 
+and let the corresponding readout time be denoted by \(t_{jk}\).
+<!-- <i>t<sub>jk</sub></i>. -->
+That readout gives a degradation rate (or slope) 
+estimate of \(D_{ijk} / t_{jk}\).
+<!-- <i>D<sub> ijk</sub>/</i> <i>t<sub> jk</sub></i>. -->
+This follows from the linear assumption or:
+<p>
+<center>
+(Rate of degradation) &times; (Time on test) = (Amount of degradation)
+</center>
+
+<p>
+Based on that readout alone, an estimate of the natural logarithm of
+the time to fail for that unit is
+
+$$ y_{ijk} = \mbox{ln } DF - \left( \mbox{ln } D_{ijk} - \mbox{ln } t_{jk} \right) \, . $$
+
+<!--
+<p>
+<center>
+<i>y<sub>ijk</sub> </i>= ln DF - (ln <i>D<sub>ijk</sub></i> - ln<i>
+t<sub>jk</sub></i>).
+</center>
+-->
+
+<p>
+This follows from the basic formula connecting linear degradation with
+failure time
+<center>
+(rate of degradation) &times; (time of failure) = \(DF\)
+</center>
+
+<p>
+by solving for (time of failure) and taking natural logarithms.
+<p>
+For an <a href="apr421.html">Arrhenius model</a> analysis, with
+
+$$ t_f = A \cdot \mbox{exp}\left( \frac{\Delta H}{KT} \right) \, , $$
+
+$$ y_{ijk} = a + b x_k \, , $$
+
+<!--
+<p>
+<center>
+<img SRC="eqns/tfsety.gif" ALT="t(f) = A*EXP(deltaH/(k*T)), set    y(ijk) = a = b*x(k)" >
+</center>
+-->
+
+<p>
+with the \(x_k\)
+<!-- <i>x<sub>k</sub></i> -->
+values equal to \(1/KT\).
+<!-- 1/<i>K</i>T. -->
+Here \(T\) is
+the temperature of the \(k\)-th
+<!-- <i>k</i>-th -->
+cell, measured in Kelvin (273.16 + degrees Celsius) and \(K\)
+<!-- <i>K</i> -->
+is Boltzmann's constant (8.617 &times; 10<sup>-5</sup>
+in eV/ unit Kelvin). Use a linear regression program to estimate 
+\(a = \mbox{ln } A\) and \(b = \Delta H\).
+<!-- <i>a</i> = ln <i>A</i> and <i>b</i> = &Delta;<i>H</i>. -->
+If we further assume \(t_f\)
+<!-- t<sub>f</sub> -->
+has a lognormal distribution, the mean square residual error from the 
+regression fit is an estimate of \(\sigma^2\)
+<!-- <i>&sigma;</i><sup>2</sup> -->
+(with \(\sigma\)
+<!-- <i>&sigma;</i> -->
+the lognormal sigma)</i>.
+<p>
+One way to think about this model is as follows: each unit has a random
+rate \(R\) of degradation. Since \(t_f = DF/R\),
+<!-- <i>t<sub>f</sub></i> = DF/R, -->
+it follows from a characterization property of the normal distribution that if 
+<!-- <i>t<sub>f</sub></i> -->
+is lognormal, then \(R\) must also have a lognormal distribution (assuming
+\(DF\) and \(R\) are independent). After we take logarithms, \(\mbox{ln } R\) has a normal
+distribution with a mean determined by the acceleration model parameters.
+The randomness in \(R\) comes from the variability in physical characteristics
+from unit to unit, due to material and processing differences.
+<p>
+Note: The estimate of sigma based on this simple graphical approach
+might tend to be too large because it includes an adder due to the measurement
+error that occurs when making the degradation readouts. This is generally
+assumed to have only a small impact.
+<p><a NAME="Example"></a>
+<b>Example: Arrhenius Degradation Analysis</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>An example using the regression approach to fit an Arrhenius model</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A component has a critical parameter that studies
+show degrades linearly over time at a rate that varies with operating temperature.
+A component failure based on this parameter occurs when the parameter value
+changes by 30 % or more. Fifteen components were tested under 3 different
+temperature conditions (5 at 65 &deg;C, 5 at 85 &deg;C and the
+last 5 at 105 &deg;C). Degradation percent values were read out at
+200, 500 and 1000 hours. The readings are given by unit in the following
+three temperature cell tables.
+<center>
+<p><b><u>65 &deg;C</u></b></center>
+
+<table BORDER COLS=3 WIDTH="100%" >
+<tr>
+<td>
+<center><u>200 hr</u></center>
+</td>
+
+<td>
+<center><u>500 hr</u></center>
+</td>
+
+<td>
+<center><u>1000 hr</u></center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.87</td>
+
+<td>
+<center>1.48</center>
+</td>
+
+<td>
+<center>2.81</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.33</td>
+
+<td>
+<center>&nbsp;0.96</center>
+</td>
+
+<td>
+<center>2.13</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.94</td>
+
+<td>
+<center>2.91</center>
+</td>
+
+<td>
+<center>5.67</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.72</td>
+
+<td>
+<center>1.98</center>
+</td>
+
+<td>
+<center>4.28</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.66</td>
+
+<td>
+<center>&nbsp;0.99</center>
+</td>
+
+<td>
+<center>2.14</center>
+</td>
+</tr>
+</table>
+
+<center>
+<p><b><u>&nbsp;85 &deg;C</u></b></center>
+
+<table BORDER COLS=3 WIDTH="100%" >
+<tr>
+<td>
+<center><u>200 hr</u></center>
+</td>
+
+<td>
+<center><u>500 hr</u></center>
+</td>
+
+<td>
+<center><u>1000 hr</u></center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.41</td>
+
+<td>
+<center>2.47</center>
+</td>
+
+<td>
+<center>5.71</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3.61</td>
+
+<td>
+<center>&nbsp;8.99</center>
+</td>
+
+<td>
+<center>17.69</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2.13</td>
+
+<td>
+<center>5.72</center>
+</td>
+
+<td>
+<center>11.54</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.36</td>
+
+<td>
+<center>9.82</center>
+</td>
+
+<td>
+<center>19.55</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.91</td>
+
+<td>
+<center>17.37</center>
+</td>
+
+<td>
+<center>34.84</center>
+</td>
+</tr>
+</table>
+
+<center>
+<p>&nbsp;<b><u>105 &deg;C</u></b></center>
+
+<table BORDER COLS=3 WIDTH="100%" >
+<tr>
+<td>
+<center><u>200 hr</u></center>
+</td>
+
+<td>
+<center><u>500 hr</u></center>
+</td>
+
+<td>
+<center><u>1000 hr</u></center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24.58</td>
+
+<td>
+<center>62.02</center>
+</td>
+
+<td>
+<center>124.10</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9.73</td>
+
+<td>
+<center>&nbsp;24.07</center>
+</td>
+
+<td>
+<center>48.06</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4.74</td>
+
+<td>
+<center>11.53</center>
+</td>
+
+<td>
+<center>23.72</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 23.61</td>
+
+<td>
+<center>58.21</center>
+</td>
+
+<td>
+<center>117.20</center>
+</td>
+</tr>
+
+<tr>
+<td>Unit 5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10.90</td>
+
+<td>
+<center>&nbsp;27.85</center>
+</td>
+
+<td>
+<center>54.97</center>
+</td>
+</tr>
+</table>
+
+<p>
+Note that one unit failed in the 85 &deg;C cell and four units failed in
+the 105 &deg;C cell. Because there were so few failures, it would be impossible
+to fit a life distribution model in any cell but the 105 &deg;C cell, and
+therefore no acceleration model can be fit using failure data. We will
+fit an Arrhenius/lognormal model, using the degradation data.
+<p>
+<b><u>Solution:</u></b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Fit the model to the degradation data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+From the above tables, first create a variable (\(DEG\)) with 45 degradation values 
+starting with the first row in the first table and proceeding to the last 
+row in the last table. Next, create a temperature variable (\(TEMP\)) that has 
+15 repetitions of 65, followed by 15 repetitions of 85 and then 15 repetitions of 105. 
+Finally, create a time variable (\(TIME\)) that corresponds to readout times.
+<p>
+Fit the Arrhenius/lognormal equation, \(y_{ijk} = a + bx_{ijk}\),
+<!-- <i>y<sub>ijk</sub></i> = <i>a</i> + <i>b</i>&thinsp;<i>x<sub>ijk</sub></i>, -->
+where 
+
+$$ y_{ijk} = \mbox{ln } 30 - \left( \mbox{ln } DEG - \mbox{ln } TIME \right) $$
+
+<!--
+<center>
+<i>y<sub>ijk</sub></i> = ln(30) - (ln(DEG) - ln(TIME))
+</center>
+-->
+
+and
+
+$$ x_{ijk} = \frac{100000}{8.617(TEMP + 273.16)} \, . $$
+
+<!-- 
+<center>
+<i>x<sub>ijk</sub></i> = 100000 / [8.617*(TEMP + 273.16)].
+</center>
+-->
+
+<p>
+The linear regression results are the following.
+<pre>
+   Parameter     Estimate   Stan. Dev   <i>t</i> Value
+   ---------     --------   ---------   -------
+   <i>a</i>            -18.94337    1.83343     -10.33 
+   <i>b</i>              0.81877    0.05641      14.52 
+ 
+   Residual standard deviation = 0.5611 
+   Residual degrees of freedom = 45
+</pre>
+<p>
+
+The Arrhenius model parameter estimates are:  \(\mbox{ln } A\) = -18.94; \(\Delta H\) = 0.82.
+<!-- ln <i>A</i> = -18.94; &Delta;<i>H</i> = 0.82. -->
+An estimate of the lognormal sigma is \(\sigma\) = 0.56.
+<!-- <i>&sigma;</i> = 0.56. -->
+<p>
+The analyses in this section can can be implemented using both
+<a href="apr423.dp">Dataplot code</a> and <a href="apr423.r">R code</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr422.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr43.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr423.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:44 GMT -->
+</HTML>

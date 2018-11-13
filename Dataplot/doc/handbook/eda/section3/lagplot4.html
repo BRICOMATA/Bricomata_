@@ -1,0 +1,271 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/lagplot4.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.15.4. Lag Plot: Sinusoidal Models and Outliers</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33g.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33f3.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.15.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33f.html">Lag Plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.15.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Lag Plot: Sinusoidal Models and Outliers</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----graphic----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Lag Plot
+</I>
+</td>
+
+<td width=85%>
+<img src = "../gif/lagplot4.gif" alt=
+     "lag plot with three outliers and underlying single-cycle
+ sinusoidal model">
+
+</td>
+</tr>
+
+<!-----conclusions----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Conclusions
+</I>
+</td>
+
+<td width=85%>
+We can make the following conclusions based on the above plot.
+<ol>
+   <li>The data come from an underlying single-cycle sinusoidal model.
+   <li>The data contain three outliers.
+</ol>
+</td>
+</tr>
+
+<!-----discussion----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Discussion
+</I>
+</td>
+
+<td width=85%>
+In the plot above for lag = 1, note the tight elliptical clustering
+of points.  Processes with a single-cycle sinusoidal model will have
+such elliptical lag plots.
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Consequences of Ignoring Cyclical Pattern
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+If one were to naively assume that the above process came from the
+null model
+<ul>
+   <!--
+   <img src="eqns/conmodel.gif"
+        alt="Y(i) = A0 + E(i)">
+   -->
+   \[ Y_{i} = A_0 + E_{i} \]
+</ul>
+and then estimate the constant by the sample mean,
+then the analysis would suffer because
+<ol>
+   <li>the sample mean would be biased and meaningless;
+   <li>the confidence limits would be meaningless and optimistically
+       small.
+</ol>
+The proper model
+<ul>
+    <!--
+    <img src="eqns/sinmodel.gif"
+         alt="y(i) = C + alpha*sin(2*PI*omega*t(i) + phi) + E(i)">
+    -->
+    \[ Y_{i} = C + \alpha\sin{(2\pi\omega t_{i} + \phi)} + E_{i} \]
+</ul>
+(where <i>&alpha;</i> is the amplitude, <i>&omega;</i> is the
+frequency--between 0 and .5 cycles per observation--, and
+\( \phi \) is the phase) can be fit by standard 
+<a href="../../pmd/section1/pmd142.html">non-linear least squares</a>,
+to estimate the coefficients and their uncertainties.
+<p>
+The lag plot is also of value in outlier detection.  Note in the above
+plot that there appears to be 4 points lying off the ellipse.
+However, in a lag plot, each point in the original data set Y shows up
+twice in the lag plot--once as <i>Y</i><sub>i</sub> and once as
+<i>Y</i><sub>i-1</sub>.  Hence the outlier in the upper left at
+<i>Y</i><sub>i</sub> = 300 is the same raw data value that appears on
+the far right at <i>Y</i><sub>i-1</sub> = 300.  Thus (-500,300) and
+(300,200) are due to the same outlier, namely the 158th data
+point: 300.  The correct value for this 158th point should
+be approximately -300 and so it appears that a sign got dropped in
+the data collection.  The other two points lying off the ellipse,
+at roughly (100,100) and at (0,-50), are caused by two faulty data
+values: the third data point of -15 should be about +125 and the
+fourth data point of +141 should be about -50, respectively.
+Hence the 4 apparent lag plot outliers are traceable to 3 actual
+outliers in the original run sequence: at points 4 (-15), 5 (141) and
+158 (300).  In retrospect, only one of these (point 158 (= 300)) is an
+obvious outlier in the run sequence plot.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Unexpected Value of EDA
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Frequently a technique (e.g., the lag plot) is constructed to check
+one aspect (e.g., randomness) which it does well.  Along the way, the
+technique also highlights some other anomaly of the data (namely, that
+there are 3 outliers).  Such outlier identification and removal is
+extremely important for detecting irregularities in the data collection
+system, and also for arriving at a "purified" data set for modeling.
+The lag plot plays an important role in such outlier identification.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----recommended next step----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Recommended Next Step
+</I>
+</td>
+
+<td width=85%>
+When the lag plot indicates a sinusoidal model with possible
+outliers, the recommended next steps are:
+<ol>
+   <li>Do a spectral plot to obtain an initial estimate of the
+       frequency of the underlying cycle.  This will be helpful
+       as a starting value for the subsequent non-linear fitting.
+       <p>
+   <li>Omit the outliers.
+       <p>
+   <li>Carry out a non-linear fit of the model to the 197 points.
+       <p>
+       <ul>
+          <!--
+          <img src="eqns/sinmodel.gif"
+          alt="y(i) = C + alpha*sin(2*PI*omega*t(i) + phi) + E(i)">
+          -->
+          \[ Y_{i} = C + \alpha\sin{(2\pi\omega t_{i} + \phi)} + E_{i} \]
+</ol>
+
+</td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33f3.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33g.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/lagplot4.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+</HTML>

@@ -1,0 +1,1108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section4/pri473.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:48:34 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.4.7.3. Response surface model example</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section5/pri5.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri472.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri4.html">Analysis of DOE data</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.4.7.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri47.html">Examples of DOE's</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.4.7.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Response surface model example</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Data Source</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>A <a href="../section3/pri3361.html">CCD</a> 
+with two responses</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+This example uses experimental data published in
+<a href="../section8/pri8.html#Czitrom, V., and">Czitrom and Spagon,
+(1997)</a>, <i>Statistical Case Studies for Industrial Process
+Improvement.</i> The material is copyrighted by the American
+Statistical Association and the Society for Industrial and Applied
+Mathematics, and is used with their permission.  Specifically, 
+Chapter 15, titled "Elimination of TiN Peeling During Exposure 
+to CVD Tungsten Deposition Process Using Designed Experiments", 
+describes a semiconductor wafer processing experiment 
+(labeled <i>Experiment 2</i>).
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Goal, response variables, and factor variables
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The goal of this experiment was to fit response surface models to the
+two responses, <i>deposition layer Uniformity</i> and <i>deposition
+layer Stress</i>, as a function of two particular controllable factors
+of the chemical vapor deposition (CVD) reactor process.  These factors
+were <i>Pressure</i> (measured in torr) and the ratio of the gaseous
+reactants H<sub>2</sub> and WF<sub>6</sub> (called
+H<sub>2</sub>/WF<sub>6</sub>).  The experiment also included
+an important third (categorical) response - the presence or absence of
+titanium nitride (TiN) peeling.  The third response has been
+omitted in this example in order to focus on the response surface
+aspects of the experiment.
+<p>
+To summarize, the goal is to obtain a response surface model for
+two responses, Uniformity and Stress.
+The factors are: Pressure and H<sub>2</sub>/WF<sub>6</sub>.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Experiment Description</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>The design is a 13-run <a href="../section3/pri3361.html#CCI">CCI</a>
+design with 3 centerpoints</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The minimum and maximum values chosen for Pressure were 4 torr and 80
+torr (0.5333 kPa and 10.6658 kPa).  Although the international system
+of units indicates that the standard unit for pressure is Pascal, or 
+1 N/m<sup>2</sup>, we use torr to be consistent with the analysis 
+appearing in the paper by Czitrom and Spagon.
+<p>
+The minimum and maximum H<sub>2</sub>/WF<sub>6</sub> ratios were chosen
+to be 2 and 10. Since response curvature, especially for Uniformity, was
+a distinct possibility, an experimental design that allowed estimating
+a second order (quadratic) model was needed. The experimenters decided
+to use a <a href="../section3/pri3361.html">central composite inscribed
+(CCI)</a> design. For two factors, this design is typically recommended
+to have <a href="../section3/pri3363.html#TABLE 3.28">13 runs with 5
+centerpoint runs.</a>  However, the experimenters, perhaps to conserve a
+limited supply of wafer resources, chose to include only 3 centerpoint
+runs.  The design is still
+<a href="../section7/pri7.html#Rotatability">rotatable</a>, but the
+<a href="../section3/pri337.html#Center Points in Response Surface">uniform
+precision</a> property has been sacrificed.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Table containing the CCI design points and experimental responses
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The table below shows the CCI design and experimental responses, in
+the order in which they were run (presumably randomized). The last two
+columns show <a href="../section7/pri7.html#Coding Factor">coded</a>
+values of the factors.
+<p>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=0 COLS=7 WIDTH="100%">
+<tr VALIGN=BOTTOM>
+<td>
+<center><b><font size=-1>Run</font></b></center>
+</td>
+
+<td>
+<center><b><tt>Pressure</tt></b></center>
+</td>
+
+<td>
+<center><b><tt>H<sub>2</sub>/WF<sub>6</sub></tt></b></center>
+</td>
+
+<td>
+<center><b><tt>Uniformity</tt></b></center>
+</td>
+
+<td>
+<center><b><tt>Stress</tt></b></center>
+</td>
+
+<td>
+<center><b><font size=-1>Coded</font></b>
+<br><b><font size=-1>Pressure</font></b></center>
+</td>
+
+<td>
+<center><b><font size=-1>Coded</font></b>
+<br><b><font size=-1>H<sub>2/</sub>WF<sub>6</sub></font></b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>80</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>4.6</center>
+</td>
+
+<td>
+<center>8.04</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>2</center>
+</td>
+
+<td>
+<center>42</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>6.2</center>
+</td>
+
+<td>
+<center>7.78</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>3</center>
+</td>
+
+<td>
+<center>68.87</center>
+</td>
+
+<td>
+<center>3.17</center>
+</td>
+
+<td>
+<center>3.4</center>
+</td>
+
+<td>
+<center>7.58</center>
+</td>
+
+<td>
+<center>0.71</center>
+</td>
+
+<td>
+<center>-0.71</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>15.13</center>
+</td>
+
+<td>
+<center>8.83</center>
+</td>
+
+<td>
+<center>6.9</center>
+</td>
+
+<td>
+<center>7.27</center>
+</td>
+
+<td>
+<center>-0.71</center>
+</td>
+
+<td>
+<center>0.71</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>7.3</center>
+</td>
+
+<td>
+<center>6.49</center>
+</td>
+
+<td>
+<center>-1</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>42</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>6.4</center>
+</td>
+
+<td>
+<center>7.69</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>7</center>
+</td>
+
+<td>
+<center>15.13</center>
+</td>
+
+<td>
+<center>3.17</center>
+</td>
+
+<td>
+<center>8.6</center>
+</td>
+
+<td>
+<center>6.66</center>
+</td>
+
+<td>
+<center>-0.71</center>
+</td>
+
+<td>
+<center>-0.71</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>42</center>
+</td>
+
+<td>
+<center>2</center>
+</td>
+
+<td>
+<center>6.3</center>
+</td>
+
+<td>
+<center>7.16</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>-1</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>68.87</center>
+</td>
+
+<td>
+<center>8.83</center>
+</td>
+
+<td>
+<center>5.1</center>
+</td>
+
+<td>
+<center>8.33</center>
+</td>
+
+<td>
+<center>0.71</center>
+</td>
+
+<td>
+<center>0.71</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>42</center>
+</td>
+
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>5.4</center>
+</td>
+
+<td>
+<center>8.19</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>11</center>
+</td>
+
+<td>
+<center>42</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>5.0</center>
+</td>
+
+<td>
+<center>7.90</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+</tr>
+</table>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>Low values of both responses are better than high</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Uniformity is calculated from four-point probe sheet
+resistance measurements made at 49 different locations across a wafer.
+The value in the table is the standard deviation of the 49
+measurements divided by their mean, expressed as a percentage. So a
+smaller value of Uniformity indicates a more uniform layer - hence,
+lower values are desirable. The Stress calculation is based on an
+optical measurement of wafer bow, and again lower values are more
+desirable.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Analysis of DOE Data</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Steps for fitting a response surface model</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The steps for fitting a response surface (second-order or quadratic)
+model are as follows:
+<ol>
+   <li>Fit the full model to the first response.</li>
+   <li>Use stepwise regression, forward selection, or backward elimination
+       to identify important variables.</li>
+   <li>When selecting variables for inclusion in the model, follow 
+       the hierarchy principle and keep all main effects that are 
+       part of significant higher-order terms or interactions, 
+       even if the main effect <i>p</i>-value is larger than you would like 
+       (note that not all analysts agree with this principle).</li>
+   <li>Generate diagnostic residual plots (histograms, box plots, 
+       normal plots, etc.) for the model selected.</li>
+   <li>Examine the fitted model plot,  
+       interaction plots, and ANOVA statistics (R<sup>2</sup>, adjusted 
+       R<sup>2</sup>, lack-of-fit test, etc.).  Use all these plots and 
+       statistics to determine whether the model fit is satisfactory.</li>
+   <li>Use contour plots of the response surface to explore the 
+       effect of changing factor levels on the response.</li>
+   <li>Repeat all the above steps for the second response variable.</li>
+   <li>After satisfactory models have been fit to both responses, 
+       you can overlay the surface contours for both responses.</li>
+   <li>Find optimal factor settings.</li>
+</ol>
+</ul>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b><u>Fitting a Model to the Uniformity Response, Simplifying the
+Model and Checking Residuals</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Fit full quadratic model to Uniformity response
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+
+<pre>
+Source              Estimate  Std. Error  t value  Pr(>|t|)   
+------              --------  ----------  -------  --------
+Intercept            5.86613     0.41773   14.043  3.29e-05
+Pressure            -1.90967     0.36103   -5.289  0.00322 
+H2/WF6              -0.22408     0.36103   -0.621  0.56201   
+Pressure*H2/WF6      1.68617     0.71766    2.350  0.06560
+Pressure^2           0.13373     0.60733    0.220  0.83442
+H2/WF6^2             0.03373     0.60733    0.056  0.95786
+
+
+Residual standard error:  0.7235 based on 5 degrees of freedom
+Multiple R-squared:  0.8716
+Adjusted R-squared:  0.7431 
+F-statistic:  6.787 based on 5 and 5 degrees of freedom
+<i>p</I>-value:  0.0278
+</pre>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Stepwise regression for Uniformity</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<pre>
+Start:   AIC=-3.79
+Model:   Uniformity ~ Pressure + H2/WF6 + Pressure*H2/WF6 + Pressure^2 + H2/WF6^2
+
+Step 1:  Remove H2/WF6^2, AIC=-5.79
+Model:   Uniformity ~ Pressure + H2/WF6 + Pressure*H2/WF6 + Pressure^2 
+
+Step 2:  Remove Pressure^2,  AIC=-7.69
+Model:   Uniformity ~ Pressure + H2/WF6 + Pressure*H2/WF6 
+
+Step 3:  Remove H2/WF6,  AIC=-8.88
+Model:   Uniformity ~ Pressure + Pressure*H2/WF6 
+</pre>
+The stepwise routine selects a model containing the intercept, 
+Pressure, and the interaction term.  However, many statisticians do not think an interaction term should be included in a model unless both main effects are also included.  Thus, we will use the model from Step 2 that included Pressure, H2/WF6, and the interaction term.  Interaction plots confirm the need for an interaction term in the model.
+<!--, as does the 
+normal probability plot of the estimated parameters.-->
+<center>
+<img SRC="pri473_r02.gif" height=500 width=500
+     ALT="Uniformity interaction plots">
+<!--
+<img SRC="pri473_r01a.gif" height=500 width=500
+     ALT="Normal probability plot of parameter estimates">
+-->
+</center>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Analysis of model selected by stepwise regression for Uniformity</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+
+<pre>
+Source           DF Sum of Sq  Mean Sq   F value   Pr(>F)
+------           -- ---------  -------   -------   ------
+Model             3   17.739   5.9130      15.66   0.0017
+Total error       7    2.643   0.3776                      
+
+Lack-of-fit       5   1.4963   0.2993       0.52   0.7588
+Pure error        2   1.1467   0.5734
+
+
+Residual standard error:  0.6145 based on 7 degrees of freedom
+Multiple R-squared:  0.8703
+Adjusted R-squared:  0.8148 
+
+
+Source           Estimate  Std. Error  t value  Pr(>|t|)   
+------           --------  ----------  -------  -------- 
+Intercept          5.9273     0.1853    31.993  7.54e-09
+Pressure          -1.9097     0.3066    -6.228  0.000433
+H2/WF6            -0.2241     0.3066    -0.731  0.488607   
+Pressure*H2/WF6    1.6862     0.6095     2.767  0.027829
+</pre>
+<p>
+A contour plot and perspective plot of Uniformity provide a 
+visual display of the response surface.
+<center>
+<img SRC="pri473_r03.gif" height=450 width=450
+     ALT="Contour plot of Uniformity">
+<img SRC="pri473_r04.gif" height=500 width=500
+     ALT="Perspective plot of Uniformity">
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Residual plots</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+We perform a residuals analysis to validate the model assumptions.
+We generate a normal plot, a box plot, a histogram and a
+run-order plot of the residuals.
+<p>
+<center>
+<img SRC="pri473_r05.gif" height=500 width=500
+     ALT="Normal plot, box plot, histogram and run-order plot of residuals">
+</center>
+<p>
+The residual plots do not indicate problems with the underlying assumptions.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Conclusions from the analysis</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+From the above output, we make the following conclusions.
+<ul>
+   <li>The R<sup>2</sup> is reasonable for fitting Uniformity (well
+       known to be a difficult response to model).</li>
+   <li>The lack-of-fit test is not significant (very
+       small "Prob > F " would indicate a lack of fit).</li>
+   <li>The residual plots do not reveal any major violations of the
+       underlying assumptions.</i>
+   <li>The interaction plot shows why an interaction term is needed
+       (parallel lines would suggest no interaction).</li>
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b><u>Fitting a Model to the Stress Response, Simplifying the Model
+and Checking Residuals</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Fit full quadratic model to Stress response
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+ 
+<pre>
+Source            Estimate  Std. Error  t value  Pr(>|t|) 
+------            --------   ---------  -------  --------
+Intercept         8.056791    0.179561   44.869  1.04e-07
+Pressure          0.735933    0.038524   19.103  7.25e-06 
+H2/WF6            0.852099    0.198192    4.299   0.00772
+Pressure*H2/WF6   0.069431    0.076578    0.907   0.40616
+Pressure^2       -0.528848    0.064839   -8.156   0.00045
+H2/WF6^2         -0.007414    0.004057   -1.827   0.12722 
+
+
+Residual standard error:  0.07721 based on 5 degrees of freedom
+Multiple R-squared:  0.9917
+Adjusted R-squared:  0.9834 
+F-statistic:  119.8 based on 5 and 5 degrees of freedom
+<i>p</i>-value:  3.358e-05 
+</pre>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Stepwise regression for Stress</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<pre>
+Start:   AIC=-53.02
+Model:   Stress ~ Pressure + H2/WF6 + Pressure*H2/WF6 + Pressure^2 + H2/WF6^2
+
+Step 1:  AIC=-53.35
+Model:   Stress ~ Pressure + H2/WF6 + Pressure^2 + H2/WF6^2
+</pre>
+The stepwise routine identifies a model containing the intercept, the 
+main effects, and both squared terms.  However, the fit of the full
+quadratic model indicates that neither the H2/WF6 squared term nor the
+interaction term are significant.  A comparison of the full model and 
+the model containing just the main effects and squared pressure 
+terms indicates that there is no significant difference between the
+two models.  
+
+<pre>
+Model 1: Stress ~ Pressure + H2/WF6 + Pressure^2
+Model 2: Stress ~ Pressure + H2/WF6 + Pressure^2 + Pressure*H2/WF6 + H2/WF6^2
+
+Source      DF Sum of Sq  Mean Sq   F value    Pr(>F)
+------      -- ---------  -------   -------   -------
+Model 1      2  0.024802  0.01240      2.08      0.22 
+Model 2      5  0.029804  0.00596  
+</pre>
+In addition, interaction plots do not indicate any significant interaction.  
+<!--A normal probability plot of the parameter estimates supports the 
+selected model. -->
+<center>
+<img SRC="pri473_r07.gif" height=500 width=500
+     ALT="Stress interaction plots">
+<!--
+<img SRC="pri473_r06a.gif" height=500 width=500
+     ALT="Normal probability plot of the parameter estimates"> 
+-->
+</center>
+Thus, we will proceed with the model containing main effects and the 
+squared pressure term.  
+<P>
+The fact that the stepwise procedure selected a model for Stress containing
+a term that was not significant indicates that all output generated by 
+statistical software should be carefully examined.  In this case, the 
+stepwise procedure identified the model with the lowest AIC
+(Akaike information criterion), but did not take into account 
+contributions by individual terms.  Other software using a different 
+criteria may identify a different model, so it is important to understand
+the algorithms being used.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Analysis of reduced model for Stress</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<pre>
+Source           DF Sum of Sq  Mean Sq   F value    Pr(>F)
+------           -- ---------  -------   -------   -------
+Model             3    3.5454   1.1818     151.5   9.9e-07 
+Total error       7    0.0546   0.0078                       
+
+Lack-of-fit       5  0.032405  0.00065      0.58      0.73
+Pure error        2  0.022200  0.01110
+
+
+Residual standard error:  0.0883 based on 7 degrees of freedom
+Multiple R-squared:  0.9848
+Adjusted R-squared:  0.9783 
+
+
+Source        Estimate  Std. Error  t value  Pr(>|t|)    
+------        --------  ----------  -------  --------
+Intercept      7.73410    0.03715   208.185  1.56e-14
+Pressure       0.73593    0.04407    16.699  6.75e-07
+H2/WF6         0.49686    0.04407    11.274  9.65e-06
+Pressure^2    -0.49426    0.07094    -6.967  0.000218 
+</pre>
+A contour plot and perspective plot of Stress provide a visual
+representation of the response surface.
+<center>
+<img SRC="pri473_r08.gif" height=450 width=450
+     ALT="Contour plot of Uniformity">
+<img SRC="pri473_r09.gif" height=500 width=500
+     ALT="Perspective plot of Uniformity">
+</center>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>Residual plots</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+We perform a residuals analysis to validate the model by 
+generating a run-order plot, box plot, histogram, and normal 
+probability plot of the residuals.
+<p>
+<center>
+<img SRC="pri473_r10.gif" height=500 width=500
+     ALT="Normal plot, box plot, histogram and run-order plot of residuals">
+</center>
+The residual plots do not indicate any major violations of the underlying assumptions.
+</td>
+</tr>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Conclusions
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+From the above output, we make the following conclusions.
+<ul>
+   <li>The R<sup>2</sup> is very good for fitting Stress.</li>
+   <li>The lack-of-fit test is not significant (very
+       small "Prob > F " would indicate a lack of fit).</li>
+   <li>The residual plots do not reveal any major violations of the
+       underlying assumptions.</i>
+   <li>The nearly parallel lines in the interaction plots show why an 
+       interaction term is not needed.</li>
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b><u>Response Surface Contours for Both Responses</u></b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Overlay contour plots
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+We overlay the contour plots for the two responses to visually
+compare the surfaces over the region of interest.
+<p>
+<center>
+<img SRC="pri473_r11.gif" height=450 width=450
+     ALT="Contour plot showing both response variables">
+</center>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Summary</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Final response surface models
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The response surface models fit to (coded) Uniformity and Stress
+were:
+<p>
+<b>
+Uniformity = 5.93 - 1.91*Pressure - 0.22*H<sub>2</sub>/WF<sub>6</sub>
+             + 1.70*Pressure*H<sub>2</sub>/WF<sub>6</sub>
+</b>
+<!-- <img SRC="gifs/models.gif" height=56 width=477 ALT= -->
+<!-- <img SRC="eqns/unifresp.gif" ALT=
+"Uniformity = 5.93 - 1.91*Pressure - 0.22 H2/WF6 + 1.70*Pressure*H2/WF6">
+-->
+<p>
+<b>
+Stress = 7.73 + 0.74*Pressure + 0.50*H<sub>2</sub>/WF<sub>6</sub> -
+         0.49*Pressure<sup>2</sup>
+</b>
+<!-- <img SRC="eqns/streresp.gif" ALT=
+"Stress = 7.73 + 0.74*Pressure + 0.50*H2/WF6 - 0.49*Pressure^2">
+ -->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>Trade-offs are often needed for multiple responses</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+The models and the corresponding contour plots show that trade-offs
+have to be made when trying to achieve low values for both Uniformity
+and Stress since a high value of Pressure is good for Uniformity
+while a low value of Pressure is good for Stress. While low values
+of H<sub>2</sub>/WF<sub>6</sub> are good for both responses, the
+situation is further complicated by the fact that the Peeling response
+(not considered in this analysis) was unacceptable for values of
+H<sub>2</sub>/WF<sub>6</sub> below approximately 5.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>Uniformity was chosen as more important</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+In this case, the experimenters chose to focus on optimizing
+Uniformity while keeping H<sub>2</sub>/WF<sub>6</sub> at 5. That
+meant setting Pressure at 80 torr.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>Confirmation runs validated the model projections</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+A set of 16 verification runs at the chosen conditions confirmed that
+all goals, except those for the Stress response, were met by this set
+of process settings.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri472.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section5/pri5.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section4/pri473.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:48:45 GMT -->
+</HTML>

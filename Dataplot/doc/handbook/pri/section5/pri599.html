@@ -1,0 +1,760 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri599.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:58 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.9. Cumulative residual standard deviation plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5991.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri598.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.9.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Cumulative residual standard deviation plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The cumulative residual sd (standard deviation) plot answers the
+question:
+<ul>
+   What is a good model for the data?
+</ul>
+The prior 8 steps in this analysis sequence
+addressed the two important goals:
+<ol>
+   <li>Factors: determining the most important factors
+       that affect the response, and
+   <li>Settings: determining the best settings for these
+       factors.
+</ol>
+In addition to the above, a third goal is of interest:
+<ol start=3>
+   <li>Model: determining a model (that is, a prediction equation)
+       that functionally relates the observed response <i>Y</i>
+       with the various main effects and interactions.
+</ol>
+Such a function makes particular sense when all of the individual
+factors are continuous and ordinal (such as temperature, pressure,
+humidity, concentration, etc.) as opposed to any of the factors being
+discrete and non-ordinal (such as plant, operator, catalyst, supplier).
+<p>
+In the continuous-factor case, the analyst could use such a
+function for the following purposes.
+<ol>
+   <li>Reproduction/Smoothing: predict the response
+       at the observed design points.
+   <li>Interpolation: predict what the response would be
+       at (unobserved) regions between the design points.
+   <li>Extrapolation: predict what the response would be
+      at (unobserved) regions beyond the design points.
+</ol>
+For the discrete-factor case, the methods developed below to arrive
+at such a function still apply, and so the resulting model may
+be used for reproduction.  However, the interpolation and
+extrapolation aspects do not apply.
+<p>
+In modeling, we seek a function <i>f</i> in the <i>k</i> factors
+<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, ..., <i>X<sub>k</sub></i>
+such that the predicted values 
+<ul>
+   \( \hat{Y} = f(X_{1}, X_{2}, \ldots , X_{k}) \)
+   <!--
+   <img src="eqns/yhatfunc.gif"
+        alt="Y = f(X1,X2,...,Xk) + e">
+   -->
+</ul>
+are "close" to the observed raw data values <i>Y</i>. To this end,
+two tasks exist:
+<ol>
+   <li>Determine a good functional form <i>f</i>;
+   <li>Determine good estimates for the coefficients in
+       that function <i>f</i>.
+</ol>
+For example, if we had two factors <i>X</i><sub>1</sub> and
+<i>X</i><sub>2</sub>, our goal would be to
+<ol>
+   <li>determine some function <i>f</i>(<i>X</i><sub>1</sub>,<i>X</i><sub>2</sub>); and
+   <li>estimate the parameters in <i>f</i>
+</ol>
+such that the resulting model would yield predicted values
+\( \hat{Y} \)
+<!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat"> -->
+that are as close as possible to the observed response values <i>Y</i>.
+If the form <i>f</i> has been wisely chosen, a good model will result and
+that model will have the characteristic that the differences ("residuals"
+= <i>Y</i> - \( \hat{Y} \))
+<!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat">) -->
+will be uniformly near zero.  On the other hand, a poor model (from a
+poor choice of the form <i>f</i>) will have the characteristic that some
+or all of the residuals will be "large".
+<p>
+For a given model, a statistic that summarizes the quality of the fit
+via the typical size of the <i>n</i> residuals is the residual standard
+deviation:
+<ul>
+   \( s_{res} = \sqrt{\frac{\sum_{i=1}^{n}{r_{i}^{2}}}{n-p}} \)
+   <!--
+   <img src="eqns/sres.gif"
+        alt="Sres = SQRT(SUM[i=1 to n][r(i)**2/(n-p))">
+   -->
+</ul>
+with <i>p</i> denoting the number of terms in the model (including the
+constant term) and <i>r</i> denoting the <i>i</i>th residual.  We are
+also assuming that the mean of the residuals is zero, which will be the
+case for models with a constant term that are fit using least squares.
+<p>
+If we have a good-fitting model, <i>s<sub>res</sub></i> will be small.
+If we have a poor-fitting model, <i>s<sub>res</sub></i> will be large.
+<p>
+For a given data set, each proposed model has its own quality of fit,
+and hence its own residual standard deviation.  Clearly, the residual
+standard deviation is more of a model-descriptor than a data-descriptor.
+Whereas "nature" creates the data, the analyst creates the models.
+Theoretically, for the same data set, it is possible for the analyst to
+propose an indefinitely large number of models.
+<p>
+In practice, however, an analyst usually forwards only a small,
+finite number of plausible models for consideration.  Each model
+will have its own residual standard deviation.  The cumulative residual
+standard deviation plot is simply a graphical representation of this
+collection of residual standard deviations for various models.  The
+plot is beneficial in that
+<ol>
+   <li>good models are distinguished from bad models;
+   <li>simple good models are distinguished from complicated
+       good models.
+</ol>
+In summary, then, the cumulative residual standard deviation plot is a
+graphical tool to help assess
+<ol>
+   <li>which models are poor (least desirable); and
+   <li>which models are good but complex (more desirable); and
+   <li>which models are good and simple (most desirable).
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The outputs from the cumulative residual standard deviation plot are
+<ol>
+   <li>Primary: A good-fitting prediction equation consisting of an
+       additive constant plus the most important main effects and
+       interactions.
+       <p>
+   <li>Secondary: The residual standard deviation for this
+       good-fitting model.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A cumulative residual sd plot is formed by
+<ol>
+   <li>Vertical Axis: Ordered (largest to smallest) residual standard
+       deviations of a sequence of progressively more complicated
+       fitted models.
+       <p>
+   <li>Horizontal Axis: Factor/interaction identification of the last
+       term included into the linear model:
+       <p>
+       <ul>
+          1 indicates factor <i>X</i><sub>1</sub>;
+          <br>
+          2 indicates factor <i>X</i><sub>2</sub>;
+          <br>
+          ...
+          <br>
+          12 indicates the 2-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction
+          <br>
+          123 indicates the 3-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>3</sub>
+          interaction
+          <br>
+          etc.
+       </ul>
+       <p>
+   <li>Far right margin: Factor/interaction identification (built-in
+       redundancy):
+       <p>
+       <ul>
+          1 indicates factor <i>X</i><sub>1</sub>;
+          <br>
+          2 indicates factor <i>X</i><sub>2</sub>;
+          <br>
+          ...
+          <br>
+          12 indicates the 2-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction
+          <br>
+          123 indicates the 3-factor <i>X</i><sub>1</sub>*<i>X</i><sub>2</sub>*<i>X</i><sub>3</sub>
+          interaction
+          <br>
+          etc.
+       </ul>
+       <p>
+       If the design is a fractional factorial, the confounding
+       structure is provided for main effects and 2-factor interactions.
+</ol>
+The cumulative residual standard deviations plot is thus a
+Pareto-style, largest to smallest, graphical summary of residual
+standard deviations for a selected series of progressively more
+complicated linear models.
+<p>
+The plot shows, from left to right, a model with only a constant and
+the model then augmented by including, one at a time, remaining factors
+and interactions.  Each factor and interaction is incorporated into
+the model in an additive (rather than in a multiplicative or logarithmic
+or power, etc.  fashion).  At any stage, the ordering of the next term
+to be added to the model is such that it will result in the maximal
+decrease in the resulting residual standard deviation.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Motivation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This section addresses the following questions:
+<ol>
+   <li><a href="pri5991.html">What is a model?</a>
+   <li><a href="pri5992.html">How do we select a goodness-of-fit
+       metric for a model?</a>
+   <li><a href="pri5993.html">How do we construct a good model?</a>
+   <li><a href="pri5994.html">How do we know when to stop adding
+       terms?</a>
+   <li><a href="pri5995.html">What is the final form for the model?</a>
+   <li><a href="pri5996.html">What are the advantages of the linear
+       model?</a>
+   <li><a href="pri5997.html">How do we use the model to generate
+       predicted values?</a>
+   <li><a href="pri5998.html">How do we use the model beyond the data
+       domain?</a>
+   <li><a href="pri5999.html">What is the best confirmation point for
+       interpolation?</a>
+   <li><a href="pri599a.html">How do we use the model for
+       interpolation?</a>
+   <li><a href="pri599b.html">How do we use the model for
+       extrapolation?</a>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot for defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Applying the cumulative residual standard deviation plot to the
+defective springs data set yields the following plot.
+<p>
+<A HREF="gifs/cumressd.gif">
+   <IMG SRC="gifs/cumressd.r.gif" BORDER=0 alt=
+"Cumulative residual standard deviation plot for the defective springs data">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+As discussed in detail under <a href="pri5994.html">question 4 in the
+Motivation section</a>, the cumulative residual standard deviation
+"curve" will characteristically decrease left to right as we add more
+terms to the model.  The incremental improvement (decrease) tends to be
+large at the beginning when important factors are being added, but
+then the decrease tends to be marginal at the end as unimportant
+factors are being added.
+<p>
+Including all terms would yield a perfect fit (residual standard
+deviation = 0) but would also result in an unwieldy model.  Including
+only the first term (the average) would yield a simple model (only one
+term!) but typically will fit poorly.  Although a formal quantitative
+stopping rule can be developed based on statistical theory, a
+less-rigorous (but good) alternative stopping rule that is graphical,
+easy to use, and highly effective in practice is as follows:
+<ul>
+   Keep adding terms to the model until the curve's
+   "elbow" is encountered.  The "elbow point" is that
+   value in which there is a consistent, noticeably
+   shallower slope (decrease) in the curve.  Include
+   all terms up to (and including) the elbow point
+   (after all, each of these included terms decreased
+   the residual standard deviation by a large
+   amount).  Exclude any terms <b>after</b> the elbow point
+   since all such successive terms decreased the
+   residual standard deviation so slowly that the
+   terms were "not worth the complication of
+   keeping".
+</ul>
+From the residual standard deviation plot for the
+defective springs data, we note the following:
+<ol>
+   <li>The residual standard deviation (rsd) for
+       the "baseline" model
+       <p>
+       <ul>
+          \( \hat{Y} = \bar{Y} = 71.25 \)
+          <!-- <img align=bottom src="eqns/yhatcons.gif" alt=
+                    "Yhat = Ybar = 71.25"> -->
+       </ul>
+       <p>
+       is <i>s<sub>res</sub></i> = 13.7.
+       <p>
+   <li>As we add the next term, <i>X</i><sub>1</sub>, the rsd drops nearly
+       7 units (from 13.7 to 6.6).
+       <p>
+   <li>If we add the term <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub>, the
+       rsd drops another 3 units (from 6.6 to 3.4).
+       <p>
+   <li>If we add the term <i>X</i><sub>2</sub>, the rsd drops another 2
+       units (from 3.4 to 1.5).
+       <p>
+   <li>When the term <i>X</i><sub>3</sub> is added, the reduction in the
+       rsd (from about 1.5 to 1.3) is negligible.
+       <p>
+   <li>Thereafter to the end, the total reduction in the rsd is
+       from only 1.3 to 0.
+</ol>
+In step 5, note that when we have effects of equal magnitude (the
+<i>X</i><sub>3</sub> effect is equal to the
+<i>X</i><sub>1</sub>*<i>X</i><sub>2</sub> interaction effect), we prefer
+including a main effect before an interaction effect and a lower-order
+interaction effect before a higher-order interaction effect.
+<p>
+In this case, the "kink" in the residual standard deviation curve is
+at the <i>X</i><sub>2</sub> term.  Prior to that, all added terms (including
+<i>X</i><sub>2</sub>) reduced the rsd by a large amount (7, then 3, then 2).
+After the addition of <i>X</i><sub>2</sub>, the reduction in the rsd was small
+(all less than 1):  0.2, then 0.8, then 0.5, then 0.
+<p>
+The final recommended model in this case thus involves <i>p</i> = 4
+terms:
+<ol>
+   <li>the average
+   <li>factor <i>X</i><sub>1</sub>
+   <li>the <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> interaction
+   <li>factor <i>X</i><sub>2</sub>
+</ol>
+The fitted model thus takes on the form
+<ul>
+   \( \hat{Y} = \bar{Y} + B_{1}X_{1} + B_{13}X_{1}X_{3} + B_{2}X_{2} \)
+   <!--
+   <img align=bottom src="eqns/yhat.gif" alt="Yhat">
+   <font size = "4"><i> = average + B<sub>1</sub>*X<sub>1</sub> +
+   B<sub>13</sub>*X<sub>1</sub>*X<sub>3</sub> +
+   B<sub>2</sub>*X<sub>2</sub> </i><font size = "3">
+   -->
+</ul>
+The least-squares estimates for the coefficients in this model are
+<ul>
+   \( \hat{Y} \) = 71.25
+   <br>
+   <i>B</i><sub>1</sub> = 11.5
+   <br>
+   <i>B</i><sub>13</sub> = 5
+   <br>
+   <i>B</i><sub>2</sub> = -2.5
+</ul>
+The <i>B</i><sub>1</sub> = 11.5, <i>B</i><sub>13</sub> = 5, and
+<i>B</i><sub>2</sub> = -2.5 least-squares values are, of course, one half
+of the estimated effects <i>E</i><sub>1</sub> = 23, <i>E</i><sub>13</sub>
+= 10, and <i>E</i><sub>2</sub> = -5.  Effects, calculated as
+<!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat"> -->
+\( \hat{Y} \)(+1) -
+<!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat"> -->
+\( \hat{Y} \)(-1), were previously derived in
+<a href="pri597.html">step 7</a> of the recommended 10-step DOE analysis
+procedure.
+<p>
+The final fitted model is thus
+<ul>
+   \( \hat{Y} = 71.25 + 11.5 X_{1} + 5 X_{1}X_{3} - 2.5 X_{2} \)
+   <!--
+   <img align=bottom src="eqns/yhat.gif" alt="Yhat"> =
+   <font size = "4"><i> 71.25 + 11.5*X<sub>1</sub> +
+   5*X<sub>1</sub>*X<sub>3</sub> - 2.5*X<sub>2</sub> </i>
+   <font size = "3">
+   -->
+</ul>
+Applying this prediction equation to the 8 design points yields:
+predicted values \( \hat{Y} \)
+<!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat"> -->
+that are close to the data <i>Y</i>, and residuals
+(<i>Res</i> = <i>Y</i> - \( \hat{Y} \))
+<!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat">) -->
+that are close to zero:
+<UL>
+<TABLE WIDTH=300 NOBORDER>
+<tr>
+   <th valign=bottom align=center>
+      <i>X</i><sub>1</sub>
+   </th>
+   <th valign=bottom align=center>
+      <i>X</i><sub>2</sub>
+   </th>
+   <th valign=bottom align=center>
+      <i>X</i><sub>3</sub>
+   </th>
+   <th valign=bottom align=center>
+      <i>Y</i>
+   </th>
+   <th valign=bottom align=center>
+      \( \hat{Y} \)
+      <!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat"> -->
+   </th>
+   <th valign=bottom align=center>
+      <i>Res</i>
+   </th>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      67
+   </td>
+   <td valign=top align=center>
+      67.25
+   </td>
+   <td valign=top align=center>
+      -0.25
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      79
+   </td>
+   <td valign=top align=center>
+      80.25
+   </td>
+   <td valign=top align=center>
+      -1.25
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      61
+   </td>
+   <td valign=top align=center>
+      62.25
+   </td>
+   <td valign=top align=center>
+      -1.25
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      75
+   </td>
+   <td valign=top align=center>
+      75.25
+   </td>
+   <td valign=top align=center>
+      -0.25
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      59
+   </td>
+   <td valign=top align=center>
+      57.25
+   </td>
+   <td valign=top align=center>
+      +1.75
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      90
+   </td>
+   <td valign=top align=center>
+      90.25
+   </td>
+   <td valign=top align=center>
+      -0.25
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      -
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      52
+   </td>
+   <td valign=top align=center>
+      52.25
+   </td>
+   <td valign=top align=center>
+      -0.25
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      +
+   </td>
+   <td valign=top align=center>
+      87
+   </td>
+   <td valign=top align=center>
+      85.25
+   </td>
+   <td valign=top align=center>
+      +1.75
+   </td>
+</tr>
+</TABLE>
+</UL>
+Computing the residual standard deviation:
+<ul>
+   \( s_{res} = \sqrt{ \frac{\sum_{i=1}^{n}{r_{i}^{2}}} {n-p} } \)
+   <!--
+   <img src="eqns/sres.gif"
+        alt="sres = sqrt(sum of squared residuals / (n-p))">
+   -->
+</ul>
+with <i>n</i> = 8 data points, and <i>p</i> = 4 estimated coefficients
+(including the average) yields
+<ul>
+   <i><big>s</big></i><sub>res</sub> = 1.54 (or 1.5 if rounded to
+   1 decimal place)
+</ul>
+The detailed <i><big>s</big></i><sub>res</sub> = 1.54 calculation brings
+us full circle, for 1.54 is the value given above the <i>X</i><sub>3</sub>
+term on the cumulative residual standard deviation plot.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The application of the Cumulative Residual
+Standard Deviation Plot to the defective springs
+data set results in the following conclusions:
+<ol>
+   <li>Good-fitting Parsimonious (constant + 3 terms) Model:
+       <p>
+       <ul>
+          \( \hat{Y} = 71.25 + 11.5 X_{1} + 5 X_{1}X_{3} - 2.5 X_{2} \)
+          <!-- <img align=bottom src="eqns/yhat.gif" alt="Yhat"> =
+          <font size = "4"><i> 71.25 + 11.5*X<sub>1</sub> +
+          5*X<sub>1</sub>*X<sub>3</sub> - 2.5*X<sub>2</sub> </i>
+          <font size = "3">
+          -->
+       </ul>
+       <p>
+   <li>Residual Standard Deviation for this Model
+      (as a measure of the goodness-of-fit for
+      the model):
+       <p>
+      <ul>
+          <i><big>s</big><sub>res</sub></i> = 1.54
+      </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri598.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5991.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri599.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:02 GMT -->
+</HTML>

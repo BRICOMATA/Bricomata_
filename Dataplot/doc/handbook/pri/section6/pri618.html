@@ -1,0 +1,458 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section6/pri618.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:28 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.6.1.8. Important Factors and Parsimonious Prediction</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri619.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri617.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri6.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri61.html">Eddy Current Probe Sensitivity Case Study</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.6.1.8.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Important Factors and Parsimonious Prediction</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Identify Important Factors
+</I>
+</TD>
+
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The two problems discussed in the previous section (important
+factors and a parsimonious model) will be handled in parallel since
+determination of one yields the other.  In regard to the
+"important factors", our immediate goal is to take the full
+subset of seven main effects and interactions and extract a subset
+that we will declare as "important", with the complementary
+subset being "unimportant".  Seven criteria are discussed in
+detail in section
+<a href="../../eda/section3/eda35i2.html">1.3.5.18.2</a>
+in Chapter 1.  The relevant criteria will be
+applied here.  These criteria are not all equally important, nor
+will they yield identical subsets, in which case a consensus
+subset or a weighted consensus subset must be extracted.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="selectioncriterion">
+<I>
+Criteria for Including Terms in the Model
+</I>
+</A>
+</TD>
+
+<TD WIDTH=85% VALIGN=top>
+<!-- Add main text below -->
+The criteria that we can use in determining whether to
+keep a factor in the model can be summarized as follows.
+<OL>
+   <li><a href="pri618.html#engsig">Effects: Engineering Significance</a>
+   <li><a href="pri618.html#numsig">Effects: 90 % Numerical Significance</a>
+   <li><a href="pri618.html#statsig">Effects: Statistical Significance</a>
+   <li><a href="pri618.html#probplot">Effects: Normal Probability Plot</a>
+   <li><a href="pri618.html#youden">Averages: Youden Plot</a>
+</OL>
+
+The first four criteria focus on effect estimates with 
+three numerical criteria and one graphical criterion.
+The fifth criterion focuses on averages.  We discuss each of
+these criteria in detail in the following sections.
+<P>
+The last section summarizes the
+<a href="pri618.html#conclusions">conclusions</a> based on all of
+the criteria.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="engsig">
+<I>
+Effects: Engineering Significance
+</I>
+</A>
+</TD>
+
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The
+<a href="../../eda/section3/eda35i2.html#engsig">minimum
+engineering significant difference</a> is defined as
+<UL>
+\( |\hat{\beta_{i}}| > \Delta \)
+<!--
+<img align=absmiddle src="splett3/eqns/absbetad.gif"
+     alt="|betahati|> delta">
+-->
+</UL>
+where \( |\hat{\beta_{i}}| \)
+<!--
+<img align=absmiddle src="splett3/eqns/absbeta.gif"
+     alt="absolute value of betahat">
+-->
+is the absolute value of the parameter estimate (i.e., the effect) and
+\( \Delta \)
+<!--
+<img align=absmiddle src="splett3/eqns/delta.gif"
+     alt="delta">
+-->
+is the minimum engineering significant difference.
+That is, declare a factor as "important" if the effect is greater
+than some a priori declared engineering difference.  We use a
+rough rule-of-thumb of keeping only those factors whose effect is
+greater than 10 % of the current production average.  In this case,
+let's say that the average detector has a sensitivity of 1.25 ohms.
+This suggests that we would declare all factors whose effect is
+greater than 10 % of 1.25 ohms = 0.125 ohms to be significant from
+an engineering point of view.
+<p>
+Based on this minimum engineering-significant-difference criterion,
+we conclude to keep two terms: <i>X</i>1 (1.55125) and <i>X</i>2
+(-0.43375).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="numsig">
+<I>
+Effects: 90 % Numerical Significance
+</I>
+</A>
+</TD>
+
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The 90 %
+<a href="../../eda/section3/eda35i2.html#numsig"">numerical
+significance</a> criterion is defined as
+<UL>
+   \( |\hat{\beta_{i}}| > (max |\hat{\beta_{i}}|) / 10 \)
+   <!--
+   <img align=absmiddle src="splett3/eqns/absbeta2.gif" alt=
+   "absolute value of effect i > maximum absolute value effect">
+   -->
+</UL>
+That is, declare a factor as important if it exceeds 10 % of the
+largest effect.  For the current case study, the largest effect
+is from <i>X</i>1 (1.55125 ohms), and so 10 % of that
+is 0.155 ohms.  This suggests keeping all factors whose effects
+exceed 0.155 ohms.
+<P>
+Based on the 90 % numerical criterion, we would keep
+two terms:  <i>X</i>1 (1.55125) and <i>X</i>2 (-0.43375).  The
+<i>X</i>2*<i>X</i>3 term, (0.14875), is just under the cutoff.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="statsig">
+<I>
+Effects: Statistical Significance
+</I>
+</A>
+</TD>
+
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<a href="../../eda/section3/eda35i2.html#statsig"">Statistical
+significance</a> is defined as
+<UL>
+   \( |\hat{\beta_{i}}| > 2\mbox{ s.e.}(\hat{\beta_i}) \)
+   <!-- <img align=absmiddle src="pri618_sebeta.gif"> -->
+</UL>
+That is, declare a factor as "important" if its effect is more than 2
+standard deviations away from 0 (0, by definition, meaning "no effect").
+The difficulty with this is that in order to invoke this rule we need the
+<i>&sigma;</i> (the standard deviation of an observation).
+<p>
+For the eddy current case study, ignoring three-factor and higher
+interactions leads to an estimate of <i>&sigma;</i>
+based on omitting only a single term: the <i>X</i>1*<i>X</i>2*<i>X</i>3
+interaction.
+<p>
+Thus for our example, if one assumes that the three-factor
+interaction is nil and hence represents a single drawing from a
+population centered at zero, an estimate of the standard
+deviation of an effect is simply the estimate of the interaction effect
+(0.07125).  Two such effect standard deviations is 0.1425.  This rule
+becomes to keep all \( |\hat{\beta_{i}}| \)
+<!-- <img align=absmiddle src="splett3/eqns/absbeta.gif" alt=
+          "absolute value of betai"> -->
+> 0.1425.
+This results in keeping three terms: <i>X</i>1 (1.55125),
+<i>X</i>2 (-0.43375), and <i>X</i>1*<i>X</i>2 (0.14875).
+
+</TD>
+</TR>
+
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="probplot">
+<I>
+Effects: Probability Plot
+</I>
+</A>
+</TD>
+
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The <a href="../section5/pri598.html">normal probability
+plot</a> can be used to identify important factors.
+The following graph shows the normal probability plot of
+the effects.
+<P>
+<A HREF="splett3/gifs/normpr_f.gif">
+<img src="pri618_r01.gif" BORDER=0 height=600 width=600 
+     alt="probability plots indicate that model should include main
+         effects for factor 1 and factor 2 with no interaction terms">
+</A>
+<P>
+The normal probablity plot clearly shows two factors displaced
+off the line, and we see that those two factors are <i>X</i>1 and
+<i>X</i>2.  Thus, we would keep <i>X</i>1 (1.55125) and
+<i>X</i>2 (-0.43375).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="youden">
+<I>
+Effects: Youden Plot
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A <a href="../section5/pri596.html">DOE Youden plot</a> can
+be used in the following way.  A factor is "important" if it
+is displaced away from the central-tendency bunch in a Youden
+plot of high and low averages.
+<P>
+<A HREF="splett3/gifs/youden_f.gif">
+<img src="pri618_r02.gif" BORDER=0 height=600 width=600 
+     alt="Youden plot show factor 1 and factor 2 main effects stand out">
+</A>
+<P>
+For our example, the Youden plot clearly shows a cluster
+of points near the grand average (2.65875) with two displaced
+points above (<i>X</i>1) and below (<i>X</i>2).  Based on the Youden
+plot, we keep two factors: <i>X</i>1 (1.55125) and
+<i>X</i>2 (-0.43375).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="conclusions">
+<I>
+Conclusions
+</I>
+</A>
+</TD>
+
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In summary, the criterion for specifying "important" factors
+yielded the following:
+<P>
+<table cellpadding=0 noborder>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=1>
+           <li>Effects, Engineering Significant:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        <i>X</i>1 <i>X</i>2
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=2>
+           <li>Effects, Numerically Significant:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        <i>X</i>1 <i>X</i>2 (<i>X</i>2*<i>X</i>3 is borderline)
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=3>
+           <li>Effects, Statistically Significant:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        <i>X</i>1 <i>X</i>2 <i>X</i>2*<i>X</i>3
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=4>
+           <li>Effects, Normal Probability Plot:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        <i>X</i>1 <i>X</i>2
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=5>
+           <li>Averages, Youden Plot:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        <i>X</i>1 <i>X</i>2
+     </td>
+   </tr>
+</table>
+<P>
+All the criteria select <i>X</i>1 and <i>X</i>2. One also includes
+the <i>X</i>2*<i>X</i>3 interaction term (and it is borderline for
+another criteria).
+<P>
+We thus declare the following consensus:
+<ol>
+   <li>Important Factors: <i>X</i>1 and <i>X</i>2
+   <li>Parsimonious Prediction Equation:
+       <P>
+       <UL>
+          \( \hat{Y} = 2.65875 + 1.55125 X_{1} - 0.43375 X_{2} \)
+          <!--
+          <img src="pri618_predeq.gif"
+               alt="Yhat = 2.65875 + 1.55125*X1 - 0.43375*X2">
+          -->
+       </UL>
+       <P>
+       (with a residual standard deviation of 0.30429 ohms)
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri617.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri619.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section6/pri618.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:33 GMT -->
+</HTML>

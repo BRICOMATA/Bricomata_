@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5971.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:54 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.7.1. Statistical significance</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5972.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri597.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.7.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri597.html">|Effects| plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.7.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Statistical significance</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Formal statistical methods
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Formal statistical methods to answer the question of statistical
+significance commonly involve the use of
+<ul>
+   <li>ANOVA (analysis of variance); and
+   <li><i>t</i>-based confidence intervals for the effects.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+ANOVA
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The virtue of ANOVA is that it is a powerful, flexible tool with
+many applications.  The drawback of ANOVA is that
+<ul>
+   <li>it is heavily quantitative and non-intuitive;
+   <li>it must have an assumed underlying model; and
+   <li>its validity depends on assumptions of a constant error variance
+        and normality of the errors.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+t confidence intervals
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<i>T</i> confidence intervals for the effects, using the
+<a href="../../eda/section3/eda3664.html"><i>t</i>-distribution</a>,
+are also heavily used for determining factor significance.  As part
+of the <i>t</i> approach, one first needs to determine
+<i>sd</i>(<i>effect</i>), the standard deviation of an effect.  For
+2-level full and fractional factorial designs, such a standard deviation
+is related to <i>&sigma;</i>, the standard deviation of an observation
+under fixed conditions, via the formula:
+<ul>
+   \( \mbox{sd(effect)} = \frac{2 \sigma}{\sqrt{n}} \)
+   <!--
+   <img src="eqns/sdeffect.gif"
+        alt="sd(effect) = sigma * 2/sqrt(n)">
+   -->
+</ul>
+which in turn leads to forming 95% confidence
+intervals for an effect via
+<ul>
+   <i>c</i> * <i>sd</i>(<i>effect</i>)
+</ul>
+for an appropriate multiple <i>c</i> (from the <i>t</i> distribution).
+Thus in the context of the |effects| plot, "drawing the line" at
+<i>c</i> * <i>sd</i>(<i>effect</i>) would serve to separate, as desired,
+the list of effects into 2 domains:
+<ul>
+   <li>significant (that is, important); and
+   <li>not significant (that is, unimportant).
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Estimating sd(effect)
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The key in the above approach is to determine an estimate for
+<i>sd</i>(<i>effect</i>).  Three statistical approaches are common:
+<ol>
+   <li>Prior knowledge about <i>&sigma;</i>:
+       <p>
+       If <i>&sigma;</i> is known, we can compute <i>sd</i>(<i>effect</i>)
+       from the above expression and make use of a conservative
+       (normal-based) 95% confidence interval by drawing the line at
+       <p>
+       <ul>
+          \( \mbox{2 sd(effect)} = 2 \left( \frac{2 \sigma}{\sqrt{n}}
+             \right)  \)
+          <!--
+          <img align=absmiddle src="eqns/sigmaci.gif" alt=
+               "2 * sd(effect) =  2 * sigma*2/sqrt(n)">
+          -->
+       </ul>
+       <p>
+       This method is rarely used in practice because
+       <i>&sigma;</i> is rarely known.
+       <p>
+   <li>Replication in the experimental design:
+       <p>
+       Replication will allow <i>&sigma&</i>
+       to be estimated from the data without depending on the
+       correctness of a deterministic model.  This is a real
+       benefit.  On the other hand, the downside of such replication
+       is that it increases the number of runs, time, and expense of
+       the experiment.  If replication can be afforded, this
+       method should be used.  In such a case, the analyst separates
+       important from unimportant terms by drawing the line at
+       <p>
+       <ul>
+          \( t \mbox{*sd(effect)} = t \mbox{*} \left(
+             \frac{2\hat{\sigma}}{\sqrt{n}} \right) \)
+          <!--
+          <img align=absmiddle src="eqns/sigmaci2.gif" alt=
+               "t * sd(effect) =  t * sigmahat*2/sqrt(n)">
+          -->
+       </ul>
+       <p>
+       with <i>t</i> denoting the 97.5 percent point from the
+       appropriate
+       <a href="../../eda/section3/eda3664.html">Student's-<i>t</i>
+       distribution</a>.
+       <p>
+   <li>Assume 3-factor interactions and higher are zero:
+       <p>
+       This approach "assumes away" all 3-factor interactions and higher
+       and uses the data pertaining to these interactions to estimate
+       <i>&sigma;</i>.  Specifically,
+       <p>
+       <ul>
+          \( \hat{\sigma} = \sqrt{\frac{\mbox{SSQ}}{h}} \)
+          <!--
+          <img align=absmiddle src="eqns/ssqh.gif" alt=
+               "sigmahat = sqrt(SSQ/h)">
+          -->
+       </ul>
+       <p>
+       with <i>h</i> denoting the number of 3-factor interactions and
+       higher, and SSQ is the sum of squares for these higher-order
+       effects.  The analyst separates important from unimportant
+       effects by drawing the line at
+       <p>
+       <ul>
+       \( t \mbox{*sd(effect)} = t \mbox{*}
+          \left( \frac{2 \hat{\sigma}}{\sqrt{n}} \right) \)
+       <!-- 
+       <img align=absmiddle src="eqns/sigmaci2.gif" alt=
+            "t * sd(effect) =  t * sigmahat*2/sqrt(n)">
+       -->
+       </ul>
+       <p>
+       with <i>t</i> denoting the 97.5 percent point from the
+       appropriate (with <i>h</i> degrees of freedom)
+       <a href="../../eda/section3/eda3664.html">Student's-<i>t</i>
+       distribution</a>.
+       <p>
+       This method warrants caution:
+       <ul>
+          <li>it involves an untestable assumption (that such
+              interactions = 0);
+          <li>it can result in an estimate for <i>sd</i>(<i>effect</i>)
+              based on few terms (even a single term); and
+          <li>it is virtually unusable for highly-fractionated
+              designs (since high-order interactions are not
+              directly estimable).
+       </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Non-statistical considerations
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The above statistical methods can and should be used.  Additionally,
+the non-statistical considerations discussed in the next few
+sections are frequently insightful in practice and have their place in
+the EDA approach as advocated here.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri597.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5972.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5971.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:54 GMT -->
+</HTML>

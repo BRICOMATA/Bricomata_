@@ -1,0 +1,302 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section3/pmd34.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.3.4. I've heard some people refer to "optimal" designs, shouldn't I use those?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd35.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd33.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd3.html">Data Collection for Process Modeling</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.3.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>I've heard some people refer to "optimal" designs, shouldn't I use those?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+	<TR>
+	<TD WIDTH=15% VALIGN=top>
+	<I>
+	Classical Designs Heavily Used in Industry
+	</I>
+	</TD>
+	<TD WIDTH=85%>
+	The most heavily used designs in industry are the "classical
+	designs" (full factorial designs, fractional factorial
+	designs, Latin square designs, Box-Behnken designs, etc.).
+	They are so heavily used because they are optimal in their
+	own right and have served superbly
+	well in providing efficient insight into the underlying
+	structure of industrial processes.
+
+	</TD>
+	</TR>
+
+
+	<TR>
+	<TD WIDTH=15% VALIGN=top>
+	<I>
+	Reasons Classical Designs May Not Work
+	</I>
+	</TD>
+	<TD WIDTH=85%>
+	Cases do arise, however, for which the tabulated classical
+	designs do not cover a particular practical situation.
+	That is, user constraints
+	preclude the use of tabulated classical designs
+	because such classical designs do not
+	accommodate user constraints.  Such constraints include:
+	<OL>
+	   <LI>Limited maximum number of runs:
+	       <P>
+	       User constraints in budget and time may dictate a
+	       maximum allowable number of runs that is too small
+	       or too "irregular" (e.g., "13") to be accommodated by
+	       classical designs--even fractional factorial designs.
+	       <P>
+	   <LI>Impossible factor combinations:
+	       <P>
+	       The user may have some factor combinations that are
+	       impossible to run.  Such combinations may at times be
+	       specified (to maintain balance and orthogonality) as
+	       part of a recommeded classical design.  If the user
+	       simply omits this impossible run from the design, the
+	       net effect may be a reduction in the
+	       quality and optimaltiy of the classical design.
+	       <P>
+	   <LI>Too many levels:
+	       <P>
+	       The number of factors and/or the number of levels of some factors
+	       intended for use may not be included in tabulations of classical designs.
+	       <P>
+	   4. Complicated underlying model:
+	       <P>
+	       The user may be assuming an underlying model that is
+	       too complicated (or too non-linear), so that
+	       classical designs would be inappropriate.
+	</OL>
+
+	</TD>
+	</TR>
+
+	<TR>
+	<TD WIDTH=15% VALIGN=top>
+	<I>
+	What to Do If Classical Designs Do Not Exist?
+	</I>
+	</TD>
+	<TD WIDTH=85%>
+	If user constraints are such that classical designs do not exist 
+	to accommodate such constraints, then what is the user to do?
+	<P>
+	The previous section's list of design criteria (capability
+	for the primary model, capability for the alternate model,
+	minimum variation of estimated coefficients, etc.) is a good
+	passive target to aim for in terms of desirable design
+	properties, but provides little help in terms of an active formal
+	construction methodology for generating a design.
+
+	</TD>
+	</TR>
+
+	<TR>
+	<TD WIDTH=15% VALIGN=top>
+	<I>
+	Common Optimality Criteria
+	</I>
+	</TD>
+	<TD WIDTH=85%>
+	To satisfy this need, an "optimal design" methodology has
+	been developed to generate a  design when user
+	constraints preclude the use of tabulated classical designs.
+	Optimal designs may be optimal in many different ways, and
+	what may be an optimal design according to one criterion may
+	be suboptimal for other criteria.  Competing criteria have
+	led to a literal alphabet-soup collection of optimal
+	design methodologies.  The four most popular ingredients in
+	that "soup" are:
+	<P>
+	<TABLE>
+	   <TR>
+	      <TD VALIGN=TOP>
+		  D-optimal designs:
+	      </TD>
+	      <TD VALIGN=TOP>
+		  minimize the generalized variance of the parameter
+		  estimators.
+	      </TD>
+	   </TR>
+
+	   <TR>
+	      <TD VALIGN=TOP>
+		  A-optimal designs:
+	      </TD>
+	      <TD VALIGN=TOP>
+		  minimize the average variance of the parameter estimators.
+	      </TD>
+	   </TR>
+
+	   <TR>
+	      <TD valign=top>
+		  G-optimal designs:
+	      </TD>
+	      <TD valign=top>
+		  minimize the maximum variance of the predicted values.
+	      </TD>
+	   </TR>
+
+	   <TR>
+	      <TD valign=top>
+		  V-optimal designs:
+	      </TD>
+	      <TD valign=top>
+		  minimize the average variance of the predicted values.
+	      </TD>
+	   </TR>
+
+	</TABLE>
+	</TD>
+	</TR>
+
+	<TR>
+	<TD WIDTH=15% VALIGN=top>
+	<I>
+	Need 1: a Model
+	</I>
+	</TD>
+	<TD WIDTH=85%>
+	The motivation for optimal designs is the practical
+	constraints that the user has.  The advantage of optimal
+	designs is that they do provide a reasonable
+	design-generating methodology when no other mechanism
+	exists.  The disadvantage of optimal designs is that they
+	require a model from the user.  The user may not have this model.
+	<P>
+	All optimal designs are model-dependent, and so the quality
+	of the final engineering conclusions that result from the
+	ensuing design, data, and analysis is dependent on the
+	correctness of the analyst's assumed model.  For example, if the
+        responses from a particular process are actually being drawn from a cubic 
+        model and the analyst assumes a linear model and uses the corresponding optimal
+	design to generate data and perform the data analysis, then the
+	final engineering conclusions will be flawed and invalid.  Hence one
+	price for obtaining an in-hand generated design is the designation of
+	a model.  All optimal designs need a model; without a model, the
+	optimal design-generation methodology cannot be used, and
+	general design principles must be reverted to.
+
+	</TD>
+	</TR>
+
+	<TR>
+	<TD WIDTH=15% VALIGN=top>
+	<I>
+	Need 2: a Candidate Set of Points
+	</I>
+	</TD>
+	<TD WIDTH=85%>
+The other price for using optimal design methodology is a
+user-specified set of candidate points.  Optimal designs
+will not generate the best design points from some
+continuous region--that is too much to ask of the mathematics.  
+Optimal designs will generate the best subset of 
+<IMG ALT=" 
+n
+" SRC="eqns/n.gif"> points from a larger superset of 
+candidate points.  The user must specify this candidate set of 
+points.  Most commonly, the superset of candidate points is the
+full factorial design over a fine-enough grid of the factor
+space with which the analyst is comfortable.  If the grid
+is too fine, and the resulting superset overly large, then
+the optimal design methodology may prove computationally
+challenging.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Optimal Designs are Computationally Intensive
+</I>
+</TD>
+<TD WIDTH=85%>
+The optimal design-generation methodology is computationally
+intensive.  Some of the designs (e.g., D-optimal) are better
+than other designs (such as A-optimal and G-optimal) in
+regard to efficiency of the underlying search algorithm.
+Like most mathematical optimization techniques, there is no
+iron-clad guarantee that the result from the optimal design
+methodology is in fact the true optimum.  However, the
+results are usually satisfactory from a practical point of
+view, and are far superior than any ad hoc designs.
+<P>
+For further details about optimal designs, the analyst is
+referred to 
+<a href="../section7/pmd7.html#Montgomery, D.C. (2001)">Montgomery (2001)</a>.
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd33.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd35.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section3/pmd34.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:15 GMT -->
+</HTML>

@@ -1,0 +1,270 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/weibplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:27:01 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.30. Weibull Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33v.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33t.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.30.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Weibull Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Graphical Check To See If Data Come From a
+         Population That Would Be Fit by a Weibull Distribution
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Weibull plot 
+      (<a href="../section4/eda43.html#Nelson">Nelson 1982</a>)
+      is a graphical technique for determining if a data set comes
+      from a population that would logically be fit by a 2-parameter
+      Weibull distribution (the location is assumed to be zero).
+      <p>
+      The Weibull plot has special scales that are designed so that
+      if the data do in fact follow a Weibull distribution,
+      the points will be linear (or nearly linear).  The least
+      squares fit of this line yields estimates for the shape
+      and scale parameters of the Weibull distribution
+      (the location is assumed to be zero).
+      <p>
+      Specifically, the shape parameter is the reciprocal of the
+      slope of the fitted line and the scale parameter is the
+      exponent of the intercept of the fitted line.
+      <p>
+      The Weibull distribution also has the property that the scale
+      parameter falls at the 63.2% point irrespective of the value of
+      the shape parameter.  The plot shows a horizontal line at this 63.2%
+      point and a vertical line where the horizontal line intersects the
+      least squares fitted line.  This vertical line shows the value of
+      scale parameter.
+   </td>
+</tr>
+
+
+<!-----begin section: Sample Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot
+      </I>
+   </td>
+   <td width=85% valign=top>
+
+      <img src = "../gif/weibullp.gif"
+           alt="sample Weibull plot">
+      <p>
+      This Weibull plot shows that:
+      <ol>
+         <li>the assumption of a Weibull distribution is reasonable;
+         <li>the scale parameter estimate is computed to be 33.32;
+         <li>the shape parameter estimate is computed to be 5.28; and
+         <li>there are no outliers.
+       </ol>
+      <p>
+      Note that the values on the x-axis ("0", "1", and "2") are the
+      exponents.  These actually denote the value 10<sup>0</sup> = 1,
+      10<sup>1</sup> = 10, and 10<sup>2</sup> = 100.
+
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition:<br>
+         Weibull Cumulative Probability Versus LN(Ordered Response)
+      </I>
+   </td>
+   <td width=85% valign=top>
+       The Weibull plot is formed by:
+       <ul>
+          <li>Vertical axis: Weibull cumulative probability expressed
+                             as a percentage
+          <li>Horizontal axis: ordered failure times (in a LOG10 scale)
+       </ul>
+       The vertical scale is ln(-ln(1-<i>p</i>)) where
+       <i>p</i>=(<i>i</i>-0.3)/(<i>n</i>+0.4) and <i>i</i> is the rank
+       of the observation.  This scale is chosen in order to
+       linearize the resulting plot for Weibull data.
+
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The Weibull plot can be used to answer the following
+      questions:
+      <ol>
+         <li>Do the data follow a 2-parameter Weibull distribution?
+         <li>What is the best estimate of the shape parameter for the
+             2-parameter Weibull distribution?
+         <li>What is the best estimate of the scale (= variation)
+             parameter for the 2-parameter Weibull distribution?
+      </ol>
+
+   </td>
+</tr>
+
+<!-----begin section: Importance -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance:<br>
+         Check Distributional Assumptions
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Many statistical analyses, particularly in the field of
+      reliability, are based on the assumption that the data follow
+      a Weibull distribution.  If the analysis assumes the
+      data follow a Weibull distribution, it is important
+      to verify this assumption and, if verified, find good estimates
+      of the Weibull parameters.
+
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="probplot.html">Weibull Probability Plot</a><br>
+      <a href="ppccplot.html">Weibull PPCC Plot</a><br>
+      <a href="../../apr/section2/apr22.html">Weibull Hazard
+         Plot</a><br>
+      <p>
+      The Weibull probability plot (in conjunction with the
+      Weibull PPCC plot), the Weibull hazard plot, and the Weibull
+      plot are all similar techniques that can be used for
+      assessing the adequacy of the Weibull distribution as a
+      model for the data, and additionally providing estimation
+      for the shape, scale, or location parameters.
+      <p>
+      The Weibull hazard plot and Weibull plot are designed to
+      handle censored data (which the Weibull probability plot
+      does not).
+
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The Weibull plot is demonstrated in the 
+      <a href="../section4/eda429.html">fatigue life of aluminum alloy specimens</a> 
+      case study.
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      Weibull plots are generally available in statistical software
+      programs that are designed to analyze reliability data.
+
+
+   </td>
+</tr>
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33t.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33v.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/weibplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:27:01 GMT -->
+</HTML>

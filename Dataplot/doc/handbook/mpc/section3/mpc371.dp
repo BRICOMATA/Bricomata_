@@ -1,0 +1,26 @@
+Dataplot commands:
+
+reset data
+reset i/o
+reset plot control
+dimension 500 30
+read linewid.dat day position x y
+let b0 = 0.2817
+let b1 = 0.9767
+let s = 0.06826
+let df = 38
+let alpha = 0.05
+let m = 3
+let zeta = .5*(1 - exp(ln(1-alpha)/m))
+let TSTAR = tppf(zeta, df)
+let W = ((y - b0)/b1) - x 
+let CENTER = W - W
+let LCL = CENTER + s*TSTAR/b1
+let UCL = CENTER - s*TSTAR/b1
+characters * blank blank blank
+lines blank dashed solid solid
+y1label control values
+xlabel TIME IN DAYS
+plot W CENTER UCL LCL vs day
+
+

@@ -1,0 +1,64 @@
+Dataplot commands and output:
+
+let y = data 199.31 199.53 200.19 200.82 201.92 201.95 202.18 245.57
+.
+label case asis
+title case asis
+.
+y1label Sorted Data
+x1label Theoretical Percentiles from Normal Distribution
+title Normal Probability Plot of Mass Spectrometer Measurements
+line blank
+char circle
+char fill on
+char hw 1 0.75
+.
+normal probability plot y
+.
+set write decimals 5
+grubbs maximum y
+.
+
+
+>             Grubbs Test for Outliers: Test for Maximum
+>                      (Assumption: Normality)
+>  
+> Response Variable: Y
+>  
+> H0: There are no outliers
+> Ha: The maximum point is an outlier
+> Potential Outlier Value Tested:                 9.32797
+>  
+> Summary Statistics:
+> Number of Observations:                             195
+> Sample Minimum:                                 9.19684
+> ID for Sample Minimum:                              189
+> Sample Maximum:                                 9.32797
+> ID for Sample Maximum:                               46
+> Sample Mean:                                    9.26146
+> Sample SD:                                      0.02278
+>  
+> Grubbs Test Statistic Value:                    2.91863
+>  
+>  
+> Percent Points of the Reference Distribution
+> -----------------------------------
+>   Percent Point               Value
+> -----------------------------------
+>             0.0    =          0.000
+>            50.0    =          2.774
+>            75.0    =          2.984
+>            90.0    =          3.242
+>            95.0    =          3.424
+>            97.5    =          3.597
+>            99.0    =          3.815
+>           100.0    =         13.893
+>  
+> Conclusions (Upper 1-Tailed Test)
+> ----------------------------------------------
+>   Alpha    CDF   Critical Value     Conclusion
+> ----------------------------------------------
+>     10%    90%            3.242      Accept H0
+>      5%    95%            3.424      Accept H0
+>    2.5%  97.5%            3.597      Accept H0
+>      1%    99%            3.815      Accept H0

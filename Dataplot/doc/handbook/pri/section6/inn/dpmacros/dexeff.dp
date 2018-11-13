@@ -1,0 +1,66 @@
+.
+. Starting Step 3.1
+variable label y  Y
+variable label x1 X1
+variable label x2 X2
+variable label x3 X3
+variable label x4 X4
+variable label x5 X5
+variable label x6 X6
+variable label x7 X7
+.
+device 1 off
+dex mean plot y x1 to x^k
+device 1 on
+.
+let numfac = k
+.
+let ybar = mean y
+let ybar2 = abs(ybar)
+let lybar2 = log10(ybar2)
+if lybar2 >= 0
+   let lybar3 = int(lybar2)
+end if
+if lybar2 < 0
+   let lybar3 = -int(abs(lybar2))-1
+end if
+let dp = 3-lybar3
+if dp < 0
+   let dp = 0
+end if
+.
+let string stat = mean
+.
+ylimits freeze
+.
+let string s0 = Average Y
+y1label
+y1label displacement 30
+loop for j = 1 1 k
+   let string s^j = X^j
+end loop
+major ytic mark number 5
+.
+erase
+call dexstat2.dp
+multiplot off
+move 50 95
+just center
+hw 2 1
+text Sonoluminescent Light Intensity cr()Interaction Effects Matrix
+.
+ylimits
+title
+y1label displacement
+x1label
+major ytic mark number
+.
+variable label y Sonoluminescent Light Intensity
+variable label x1 sp()cr()Molarity
+variable label x2 Solutecr()Type
+variable label x3 ph
+variable label x4 Gascr()Type
+variable label x5 Watercr()Depth
+variable label x6 Horncr()Depth
+variable label x7 Flaskcr()Clamp
+. Finished Step 3.1: Page Back for Output

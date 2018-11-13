@@ -1,0 +1,393 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4292.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:56:53 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.9.2. Graphical Output and Interpretation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda42a.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4291.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda429.html">Fatigue Life of Aluminum Alloy Specimens</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.9.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Graphical Output and Interpretation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Goal
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The goal of this analysis is to select a probabilistic model 
+to describe the dispersion of the measured values of fatigue 
+life of specimens of an aluminum alloy described in 
+<a href="eda4291.html">[1.4.2.9.1]</a>,
+from among several reasonable alternatives.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="INITIALPLOTS">
+<I>
+Initial Plots of the Data
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Simple diagrams can be very informative about location, spread, 
+and to detect possibly anomalous data values or particular patterns
+(clustering, for example).  These include dot-charts, boxplots,
+and histograms. Since building an effective histogram requires
+that a choice be made of bin size, and this choice can be
+influential, one may wish to examine a non-parametric estimate of
+the underlying probability density.
+<p>
+<IMG SRC="eda4292_r01.gif" height=508 width=550 alt="initial plots">
+<p>
+These several plots variously show that the measurements range
+from a value slightly greater than 350,000 to slightly less than
+2,500,000 cycles. The boxplot suggests that the largest
+measured value may be an outlier.
+<p>
+A recommended first step is to check consistency between the data
+and what is to be expected if the data were a sample from a
+particular probability distribution.  Knowledge about the
+underlying properties of materials and of relevant industrial
+processes typically offer clues as to the models that should be
+entertained.  Graphical diagnostic techniques can be very useful
+at this exploratory stage: foremost among these, for univariate
+data, is the quantile-quantile plot, or QQ-plot 
+<a href="eda43.html#Wilk">(Wilk and Gnanadesikan, 1968)</a>.
+<p>
+Each data point is represented by one point in the QQ-plot. The
+ordinate of each of these points is one data value; if this data
+value happens to be the <I>k</I>th order statistic in the sample (that
+is, the <I>k</I>th largest value), then the corresponding abscissa is
+the "typical" value that the <I>k</I>th largest value should have in
+a sample of the same size as the data, drawn from a particular
+distribution. If <I>F</I> denotes the cumulative probability
+distribution function of interest, and the sample comprises <I>n</I>
+values, then  
+<I>F</I><sup> -1 </sup> [(<I>k</I> - 1/2) / (<I>n</I> + 1/2)]
+is a reasonable choice for that "typical" value, because it is an 
+approximation to the median of the <I>k</I>th order statistic in a 
+sample of size <I>n</I> from this distribution.
+<p>
+The following figure shows a QQ-plot of our data relative to the
+Gaussian (or, normal) probability distribution. If the data
+matched expectations perfectly, then the points would all fall on
+a straight line.
+<p>
+<IMG SRC="eda4292_r02.gif" height=508 width=550 alt="normal probability plot">
+<p>
+In practice, one needs to gauge whether the deviations from such
+perfect alignment are commensurate with the natural variability
+associated with sampling. This can easily be done by examining
+how variable QQ-plots of samples from the target distribution may
+be.
+<P>
+The following figure shows, superimposed on the QQ-plot of the
+data, the QQ-plots of 99 samples of the same size as the data,
+drawn from a Gaussian distribution with the same mean and
+standard deviation as the data.
+<p>
+<IMG SRC="eda4292_r03.gif" height=508 width=550 alt="plot of samples from data">
+<p>
+The fact that the cloud of QQ-plots corresponding to 99 samples
+from the Gaussian distribution effectively covers the QQ-plot for
+the data, suggests that the chances are better than 1 in 100 that
+our data are inconsistent with the Gaussian model.
+<P>
+This proves nothing, of course, because even the rarest of events
+may happen. However, it is commonly taken to be indicative of an
+acceptable fit for general purposes. In any case, one may
+naturally wonder if an alternative model might not provide an
+even better fit.
+<P>
+Knowing the provenance of the data, that they portray strength of
+a material, strongly suggests that one may like to examine
+alternative models, because in many studies of reliability
+non-Gaussian models tend to be more appropriate than Gaussian
+models.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Candidate Distributions
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+There are many probability distributions that could reasonably be 
+entertained as candidate models for the data. However, we will restrict
+ourselves to consideration of the following because these have
+proven to be useful in reliability studies.
+<ul>
+<li><a href="../section3/eda3661.html">Normal distribution</a></li>
+<li><a href="../section3/eda366b.html">Gamma distribution</a></li>
+<li>Birnbaum-Saunders distribution</li>
+<li><a href="../section3/eda3668.html">3-parameter Weibull distribution</a></li>
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Approach
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A very simple approach amounts to comparing QQ-plots of the data 
+for the candidate models under consideration. This typically 
+involves first fitting the models to the data, for example employing 
+the method of maximum likelihood 
+<a href="../section3/eda3652.html">[1.3.6.5.2]</a>.
+<P>
+The maximum likelihood estimates are the following:
+<ul>
+<li>Gaussian: mean 1401, standard deviation 389</li>
+<li>Gamma: shape 11.85, rate 0.00846</li>
+<li>Birnbaum-Saunders: shape 0.310, scale 1337</li>
+<li>3-parameter Weibull: location 181, shape 3.43, scale 1357</li>
+</ul>
+The following figure shows how close (or how far) the best
+fitting probability densities of the four distributions
+approximate the non-parametric probability density estimate. This
+comparison, however, takes into account neither the fact that our
+sample is fairly small (101 measured values), nor that the fitted
+models themselves have been estimated from the same data that the
+non-parametric estimate was derived from.
+<p>
+<IMG SRC="eda4292_r04.gif" height=508 width=550 alt="density curves">
+<p>
+These limitations notwithstanding, it is worth examining the
+corresponding QQ-plots, shown below, which suggest that the
+Gaussian and the 3-parameter Weibull may be the best models.
+<p>
+<IMG SRC="eda4292_r05.gif" height=508 width=550 alt="QQ-plots">
+<p>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Model Selection</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A more careful comparison of the merits of the alternative models 
+needs to take into account the fact that the 3-parameter Weibull 
+model (precisely because it has three parameters), may be 
+intrinsically more flexible than the others, which all have two 
+adjustable parameters only.
+<P>
+Two criteria can be employed for a formal comparison: Akaike's
+Information Criterion (AIC), and the Bayesian Information
+Criterion (BIC) 
+<a href="eda43.html#Hastie">(Hastie et. al., 2001)</a>. 
+The smaller the value of either model selection criterion, the better
+the model:
+<P>
+<PRE>
+      AIC  BIC
+ GAU 1495 1501
+ GAM 1499 1504
+ BS  1507 1512
+ WEI 1498 1505
+</PRE>
+<P>
+On this basis (and according both to AIC and BIC), there seems to
+be no cogent reason to replace the Gaussian model by any of the
+other three. The values of BIC can also be used to derive an
+approximate answer to the question of how strongly the data may
+support each of these models. Doing this involves the application
+of Bayesian statistical methods 
+<a href="../../apr/section1/apr1a.html">[8.1.10]</a>.
+
+<P>
+We start from an <I>a priori</I> assignment of equal
+probabilities to all four models, indicating that we have no
+reason to favor one over another at the outset, and then update
+these probabilities based on the measured values of lifetime. The
+updated probabilities of the four models, called their
+<I>posterior probabilities</I>, are approximately proportional to
+exp(-BIC(GAU)/2),
+exp(-BIC(GAM)/2), 
+exp(-BIC(BS)/2), and
+exp(-BIC(WEI)/2). 
+The values are 76 % for GAU, 16 % for GAM, 0.27 %
+for BS, and 7.4 % for WEI.
+<P>
+One possible use for the selected model is to answer the question
+of the age in service by which a part or structure needs to be
+replaced to guarantee that the probability of failure does not
+exceed some maximum acceptable value, for example 0.1 %.The
+answer to this question is the 0.1st percentile of the fitted
+distribution, that is 
+<I>G</I><sup> -1 </sup>(0.001) = 198 thousand
+cycles, where, in this case, 
+<I>G</I><sup> -1 </sup> denotes the inverse of the fitted, 
+Gaussian probability distribution.
+<P>
+To assess the uncertainty of this estimate one may employ the
+statistical bootstrap 
+<a href="../section3/eda334.html">[1.3.3.4]</a>.
+In this case, this involves
+drawing a suitably large number of bootstrap samples from the
+data, and for each of them applying the model fitting and model
+selection exercise described above, ending with the calculation
+of <I>G</I><sup> -1 </sup>(0.001)
+for the best model (which may vary from sample to sample).
+<P>
+The bootstrap samples should be of the same size as the data,
+with each being drawn uniformly at random from the data, <i>with</i>
+replacement. This process, based on 5,000 bootstrap samples,
+yielded a 95 % confidence interval for the 0.1st percentile
+ranging from 40 to 366 thousands of cycles. The large uncertainty
+is not surprising given that we are attempting to estimate the
+largest value that is exceeded with probability 99.9 %, based
+on a sample comprising only 101 measured values.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Prediction Intervals
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+One more application in this analysis is to evaluate
+prediction intervals for the fatigue life of the aluminum 
+alloy specimens.  For example,
+if we were to test three new specimens using
+the same process, we would want to know (with 95 % confidence)
+the minimum number of cycles for these three specimens.  That is,
+we need to find a statistical interval [<i>L</i>, &infin;]
+that contains the fatigue life of all three future
+specimens with 95 % confidence.  The desired interval is a
+one-sided, lower 95 % prediction interval.  Since tables
+of factors for constructing <i>L</i>, are widely available
+for normal models, we use the results corresponding to
+the normal model here for illustration.  Specifically,
+<i>L</i> is computed as
+<P>
+
+<IMG SRC="eda4292_eq.gif" alt="L = xbar + r s = 1400.91 - 2.16 * 391.32 = 555.66">
+
+<P>
+where factor <i>r</i> is given in Table A.14 of 
+<a href="eda43.html#Hahn">Hahn and Meeker (1991)</a>
+or can be obtained from an
+<a href="eda4292_rcode.r">R program</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4291.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda42a.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4292.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:56:59 GMT -->
+</HTML>

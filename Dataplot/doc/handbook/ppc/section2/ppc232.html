@@ -1,0 +1,733 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc232.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:28 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>3.2.3.2. Two-Way Crossed ANOVA</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="ppc2321.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="ppc2311.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">3.</FONT>
+<FONT COLOR="#00105A"><A HREF="../ppc.html">Production
+Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc2.html">Assumptions / Prerequisites</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc23.html">Analysis of Variance Models (ANOVA)</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">3.2.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Two-Way Crossed ANOVA</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Description</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+When we have two factors with at least two levels and one
+or more observations at each level, we say we have a two-way layout. We
+say that the two-way layout is crossed when every level of Factor A occurs
+with every level of Factor B. With this kind of layout we can estimate
+the effect of each factor (Main Effects) as well as any <a href="../../index-3.html">interaction</a>
+between the factors.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Model</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+If we assume that we have K observations at each combination
+of I levels of Factor A and J levels of Factor B, then we can model the
+two-way layout with an equation of the form:
+<p>
+<center>
+<!-- <img SRC="eqns/anova2c.gif" height=24 width=218 -->
+\[ y_{ijk} = m + a_{i} + b_{j} + (ab)_{ij} + \epsilon_{ijk} \]
+<!--
+<img SRC="eqns/anova2c.gif"
+     alt="y(ijk) = m + a(i) + b(j) + (ab)(ij) + e(ijk)">
+-->
+</center>
+<p>
+This equation just says that the <i>kth</i> data value for the <i>jth</i>
+level of Factor B and the <i>ith</i> level of Factor A is the sum of five
+components: the common value (grand mean), the level effect for Factor
+A, the level effect for Factor B, the interaction effect, and the residual.
+Note that (ab) does not mean multiplication; rather that there is interaction
+between the two factors.
+
+
+
+
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Estimation</i></td>
+
+<td valign=top width="85%">
+Like the one-way case, the estimation for the two-way layout can be
+done either by calculating the variance components or by using
+<a href="ppc22.html">CLM</a>
+techniques.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><a href="ppc2311.html">
+<i>Click here for the value splitting example</i></a>
+</td>
+
+<td valign=top width="85%">
+For the two-way ANOVA, we display the data in a two-dimensional
+table with the levels of Factor A in columns and the levels of Factor B
+in rows. The replicate observations fill each cell. We can sweep out the
+common value, the row effects, the column effects, the interaction effects
+and the residuals using&nbsp; <a href="ppc2311.html">value-splitting</a>
+techniques. Sums of squares can be calculated and summarized
+in an ANOVA table as shown below.
+<p>
+<CENTER>
+<TABLE BORDER WIDTH=700>
+  <TR>
+     <TH>
+        Source
+     </TH>
+     <TH>
+        Sum of Squares
+     </TH>
+     <TH>
+        DoF
+     </TH>
+     <TH>
+        Mean Square
+     </TH>
+     <TH>
+        F<sub>0</sub>
+     </TH>
+  </TR>
+  <TR>
+     <TH>
+        <FONT SIZE=-1>
+        Rows
+        </FONT>
+     </TH>
+     <TD>
+        <FONT SIZE=-1>
+        \( SSR = JK\sum{(\bar{y}_{i..} - \bar{y}_{...})^2} \)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        I - 1
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        MSR = SSR/(I - 1)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        MSR/MSE
+        </FONT>
+     </TD>
+  </TR>
+  <TR>
+     <TH>
+        <FONT SIZE=-1>
+        Columns
+        </FONT>
+     </TH>
+     <TD>
+        <FONT SIZE=-1>
+        \( SSC = IK\sum{(\bar{y}_{.j.} - \bar{y}_{...})^2} \)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        J - 1
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        MSC = SSC/(J - 1)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        MSC/MSE
+        </FONT>
+     </TD>
+  </TR>
+  <TR>
+     <TH>
+        <FONT SIZE=-1>
+        Interaction
+        </FONT>
+     </TH>
+     <TD>
+        <FONT SIZE=-1>
+        <!-- 2014/09: last term should be added, not subtracted
+        \( SSI = K\sum\sum{(\bar{y}_{ij.} - \bar{y}_{i..} -
+        \bar{y}_{.j.} - \bar{y}_{...})^2} \) -->
+        \( SSI = K\sum\sum{(\bar{y}_{ij.} - \bar{y}_{i..} -
+        \bar{y}_{.j.} + \bar{y}_{...})^2} \)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        (I - 1)(J - 1)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        MSI = SSC/((I - 1)(J - 1))
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        MSI/MSE
+        </FONT>
+     </TD>
+  </TR>
+  <TR>
+     <TH>
+        <FONT SIZE=-1>
+        Residuals
+        </FONT>
+     </TH>
+     <TD>
+        <FONT SIZE=-1>
+        \( SSE = \sum{\sum{\sum{(y_{ijk} - \bar{y}_{ij.})^2}}} \)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        IJ(K - 1)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        MSE = SSE/(IJ(K - 1))
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        &nbsp;
+        </FONT>
+     </TD>
+  </TR>
+  <TR>
+     <TH>
+        <FONT SIZE=-1>
+        Corr. Total
+        </FONT>
+     </TH>
+     <TD>
+        <FONT SIZE=-1>
+        \( SST = \sum{\sum{\sum{(y_{ijk} - \bar{y}_{...})^2}}} \)
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        IJK - 1
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        &nbsp;
+        </FONT>
+     </TD>
+     <TD>
+        <FONT SIZE=-1>
+        &nbsp;
+        </FONT>
+     </TD>
+  </TR>
+</TABLE>
+</FONT>
+<P>
+
+<!-- <IMG SRC="ppc232table1.gif" ALT="ANOVA Table"> -->
+\( \bar{y}_{i..} = \frac{1}{JK} \sum_{j=1}^{J}{\sum_{k=1}^{K}{y_{ijk}}} \)
+<P>
+<!-- <IMG SRC="ppc232table_eq1.gif" ALT="Row Means"> -->
+\( \bar{y}_{.j.} = \frac{1}{IK} \sum_{i=1}^{I}{\sum_{k=1}^{K}{y_{ijk}}} \)
+<P>
+<!--<IMG SRC="ppc232table_eq2.gif" ALT="Column Means"> -->
+<!-- <IMG SRC="ppc232table_eq3.gif" ALT="Interactions"> -->
+\( \bar{y}_{ij.} = \frac{1}{K} \sum_{k=1}^{K}{y_{ijk}} \)
+<P>
+<!--<IMG SRC="ppc232table_eq4.gif" ALT="Grand Mean">. -->
+\( \bar{y}_{...} = \frac{1}{IJK}
+\sum_{i=1}^{I}{\sum_{j=1}^{J}{\sum_{k=1}^{K}{y_{ijk}}}}
+\)
+</CENTER>
+<P>
+The row labeled, "Corr. Total", in the ANOVA table contains the 
+corrected total sum of squares and the associated degrees of freedom (DoF).
+<p>
+We can use <a href="ppc22.html">CLM</a> techniques to do the estimation.
+We still have the problem that the model is <a href="http://www.nist.gov/itl/">saturated</a>
+and no unique solution exists. We overcome this problem by applying the
+constraints to the model that the two main effects and interaction effects
+each sum to zero.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%" NOSAVE><i>Testing</i></td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+Like testing in the <a href="ppc231.html">one-way
+case</a>, we are testing that two main effects and the interaction are
+zero. Again we just form a ratio of each main effect mean square and the
+interaction mean square to the residual mean square. If the assumptions
+stated below are true then those ratios follow an <i>F</i> distribution and the
+test is performed by comparing the <i>F</i><sub>0</sub> ratios to values in an 
+<i>F</i> table with
+the appropriate degrees of freedom and confidence level.</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Assumptions</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+For estimation purposes, we assume the data can be adequately modeled
+as described in the model above. It is assumed that the random
+component can be modeled with a Gaussian distribution with fixed
+location and spread.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Uses</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+The two-way crossed ANOVA is useful when
+we want to compare the effect of multiple levels of two factors and we
+can combine every level of one factor with every level of the other
+factor. If we have multiple observations at each level, then we can
+also estimate the effects of interaction between the two factors.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><a NAME="example"></a><i>Example</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+Let's extend the <a href="ppc231.html#example">one-way machining
+example</a> by assuming that we want to test if there are any differences in
+pin diameters due to different types of coolant. We still have five different
+machines making the same part and we take five samples from each machine
+for each coolant type to obtain the following data:
+<p>
+<center><table BORDER COLS=6 WIDTH="50%" NOSAVE >
+<tr NOSAVE>
+<th NOSAVE></th>
+
+<td COLSPAN="5">
+<center><b>Machine</b></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER ROWSPAN="6" NOSAVE><b>Coolant</b>
+<br><b>A</b></td>
+
+<td>
+<center><b><u>1</u></b></center>
+</td>
+
+<td ALIGN=CENTER NOSAVE><b><u>2</u></b></td>
+
+<td ALIGN=CENTER NOSAVE><b><u>3</u></b></td>
+
+<td ALIGN=CENTER NOSAVE><b><u>4</u></b></td>
+
+<td ALIGN=CENTER NOSAVE><b><u>5</u></b></td>
+</tr>
+
+<tr>
+<td>0.125</td>
+
+<td>0.118</td>
+
+<td>0.123</td>
+
+<td>0.126</td>
+
+<td>0.118</td>
+</tr>
+
+<tr>
+<td>0.127</td>
+
+<td>0.122</td>
+
+<td>0.125</td>
+
+<td>0.128</td>
+
+<td>0.129</td>
+</tr>
+
+<tr>
+<td>0.125</td>
+
+<td>0.120</td>
+
+<td>0.125</td>
+
+<td>0.126</td>
+
+<td>0.127</td>
+</tr>
+
+<tr>
+<td>0.126</td>
+
+<td>0.124</td>
+
+<td>0.124</td>
+
+<td>0.127</td>
+
+<td>0.120</td>
+</tr>
+
+<tr>
+<td>0.128</td>
+
+<td>0.119</td>
+
+<td>0.126</td>
+
+<td>0.129</td>
+
+<td>0.121</td>
+</tr>
+
+<tr>
+<td ROWSPAN="5">
+<center><b>Coolant</b>
+<br><b>B</b></center>
+</td>
+
+<td>0.124</td>
+
+<td>0.116</td>
+
+<td>0.122</td>
+
+<td>0.126</td>
+
+<td>0.125</td>
+</tr>
+
+<tr>
+<td>0.128</td>
+
+<td>0.125</td>
+
+<td>0.121</td>
+
+<td>0.129</td>
+
+<td>0.123</td>
+</tr>
+
+<tr>
+<td>0.127</td>
+
+<td>0.119</td>
+
+<td>0.124</td>
+
+<td>0.125</td>
+
+<td>0.114</td>
+</tr>
+
+<tr>
+<td>0.126</td>
+
+<td>0.125</td>
+
+<td>0.126</td>
+
+<td>0.130</td>
+
+<td>0.124</td>
+</tr>
+
+<tr>
+<td>0.129</td>
+
+<td>0.120</td>
+
+<td>0.125</td>
+
+<td>0.124</td>
+
+<td>0.117</td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Analyze</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+For analysis details see the <a href="ppc2321.html">crossed
+two-way value splitting example.</a>&nbsp; We can summarize the analysis
+results in an ANOVA table as follows:&nbsp;</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+<center><table BORDER COLS=5 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td>
+<center><b>Source</b></center>
+</td>
+
+<td>
+<center><b>Sum of Squares</b></center>
+</td>
+
+<td>
+<center><b>Deg. of Freedom</b></center>
+</td>
+
+<td>
+<center><b>Mean Square</b></center>
+</td>
+
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE><i>F</i><sub>0</sub></th>
+</tr>
+
+<tr>
+<td>
+<center>machine</center>
+</td>
+
+<td>
+<center>0.000303</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>0.000076</center>
+</td>
+
+<td>
+<center>8.8</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>coolant</center>
+</td>
+
+<td>
+<center>0.00000392</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>0.00000392</center>
+</td>
+
+<td>
+<center>0.45</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>interaction</center>
+</td>
+
+<td>
+<center>0.00001468</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>0.00000367</center>
+</td>
+
+<td>
+<center>0.42</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>residuals</center>
+</td>
+
+<td>
+<center>0.000346</center>
+</td>
+
+<td>
+<center>40</center>
+</td>
+
+<td>
+<center>0.0000087</center>
+</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td>
+<center>corrected total</center>
+</td>
+
+<td>
+<center>0.000668</center>
+</td>
+
+<td>
+<center>49</center>
+</td>
+
+<td>
+<!-- <div align=right>.000011</div> -->
+&nbsp;
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Test</i></td>
+
+<td VALIGN=TOP VALIGN=TOP WIDTH="85%" NOSAVE>
+By dividing the mean square for machine
+by the mean square for residuals we obtain an <i>F</i><sub>0</sub> value of 8.8 which is greater than the critical value of 2.61 based on 4 and 40 degrees of freedom and
+a 0.05 significance level. Likewise the <i>F</i><sub>0</sub> values for Coolant and
+Interaction, obtained by dividing their mean squares by the residual
+mean square, are less than their respective critical values of 4.08 and 2.61 
+(0.05 significance level).
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP NOSAVE><i>Conclusion</i></td>
+
+<td valign=top width="85%">
+From the ANOVA table we can conclude that machine is the most important
+factor and is statistically significant. Coolant is not significant and
+neither is the interaction. These results would lead us to believe that
+some tool-matching efforts would be useful for improving this process.</td>
+</tr>
+   
+   
+   
+   
+
+   
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="ppc2311.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="ppc2321.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc232.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:30 GMT -->
+</HTML>

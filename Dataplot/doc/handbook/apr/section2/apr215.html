@@ -1,0 +1,256 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr215.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:17 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+      <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+      <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+      <TITLE>8.2.1.5. Empirical model fitting - distribution free (Kaplan-Meier)
+approach</TITLE>
+   </HEAD>
+   <BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="apr22.html" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="apr214.html" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../index-3.html" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.html" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+	   <area shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">8.</FONT> <A HREF="../apr.html"><FONT COLOR="#00105A">Assessing Product Reliability</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">8.2.</FONT> <A HREF="apr2.html"><FONT COLOR="#00105A">Assumptions/Prerequisites</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">8.2.1.</FONT> <A HREF="apr21.html"><FONT COLOR="#00105A">How do you choose an appropriate life distribution model?</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">8.2.1.5.</FONT> Empirical model fitting - distribution free (Kaplan-Meier)
+approach </H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+   </TD>
+   </TR>
+
+   
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>The Kaplan-Meier procedure gives CDF estimates for complete or censored sample data
+without assuming a particular distribution model</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->The Kaplan-Meier (K-M) Product
+Limit procedure provides quick, simple estimates of the 
+<a href="../section1/apr122.html">Reliability function</a> 
+or the <a href="../section1/apr121.html">CDF</a> 
+based on failure data that may even be 
+<a href="../section1/apr131.html">multicensored</a>.
+No underlying model (such as Weibull or lognormal) is assumed; K-M estimation
+is an empirical (non-parametric) procedure. Exact times of failure are
+required, however. 
+<p>
+<a NAME="Calculating Kaplan - Meier"></a><b>Calculating Kaplan - Meier Estimates</b>
+<p>
+The steps for calculating K-M estimates are the following: 
+<ol>
+<li>
+Order the actual failure times from \(t_1\) through \(t_r\),
+<!-- <i>t<sub>1</sub></i> through <i>t<sub>r</sub></i>, -->
+where there are \(r\)
+<!-- <i>r</i> -->
+failures</li>
+
+<li>
+Corresponding to each \(t_i\),
+<!-- <i>t<sub>i</sub></i>, -->
+associate the number \(n_i\),
+<!-- <i>n<sub>i</sub></i>, -->
+with \(n_i\)
+<!-- <i>n<sub>i</sub></i> -->
+= the number of operating units just before the the \(i\)-th
+<!-- <i> i</i>-th -->
+failure occurred at time \(t_i\)
+<!-- <i> t<sub>i</sub></i> -->
+</li>
+
+<li>
+Estimate \(R(t_1)\)
+<!-- <i>R</i>(<i>t<sub>1</sub></i>) -->
+by \((n_1 - 1)/n_1\)
+<!-- (<i>n<sub>1 </sub></i><font size=+2>-</font><i>1</i>)<i>/n<sub>1</sub></i> -->
+</li>
+
+<li>
+Estimate \(R(t_i)\)
+<!-- <i>R</i>(<i>t<sub>i</sub></i>) -->
+by \(R(t_{i-1}) \times (n_i - 1)/n_i\)
+<!-- <i>R</i>(<i>t<sub>i-1</sub></i>) × (<i>n<sub>i
+</sub></i><font size=+2>-</font><i>1</i>)<i>/n<sub>i</sub></i> -->
+</li>
+
+<li>
+Estimate the CDF \(F(t_i)\)
+<!-- <i>F</i>(<i>t<sub>i</sub></i>) -->
+by 1 - \(R(t_i)\)
+<!-- 1 <font size=+2>-</font><i> R</i>(<i>t<sub>i</sub></i>) -->
+</li>
+</ol>
+Note that unfailed units taken off test (i.e., <a href="../section1/apr131.html">censored</a>)
+only count up to the last actual failure time before they were removed.
+They are included in the \(n_i\)
+<!-- <i>n<sub>i</sub> </i> -->
+counts up to and including that failure time, but not after. 
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Example of K-M estimate calculations</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A simple example will illustrate the K-M procedure.
+Assume 20 units are on life test and 6 failures occur at the following
+times: 10, 32, 56, 98, 122, and 181 hours. There were 4 unfailed units
+removed from the test for other experiments at the following times: 50
+100 125 and 150 hours. The remaining 10 unfailed units were removed from
+the test at 200 hours. The K-M estimates for this life test are:
+<p>
+\(R\)<!-- <i>R</i> -->(10) = 19/20
+<br>\(R\)<!-- <i>R</i> -->(32) = 19/20 x 18/19
+<br>\(R\)<!-- <i>R</i> -->(56) = 19/20 x 18/19 x 16/17
+<br>\(R\)<!-- <i>R</i> -->(98) = 19/20 x 18/19 x 16/17 x 15/16
+<br>\(R\)<!-- <i>R</i> -->(122) = 19/20 x 18/19 x 16/17 x 15/16 x 13/14
+<br>\(R\)<!-- <i>R</i> -->(181) = 19/20 x 18/19 x 16/17 x 15/16 x 13/14 x 10/11 
+<p>
+<a NAME="A General Expression for K - M"></a>
+<b>A General Expression for K-M Estimates</b>
+<p>
+A general expression for the K-M estimates can be written. Assume we
+have \(n\)
+<!-- <i>n</i> -->
+units on test and order the observed times for these \(n\)
+<!-- <i> n </i> -->
+units from \(t_1\) to \(t_n\).
+<!-- <i>t<sub>1</sub></i> to <i>t<sub>n</sub>.</i> -->
+Some of these are actual
+failure times and some are running times for units taken off test before
+they fail. Keep track of all the indices corresponding to actual failure
+times. Then the K-M estimates are given by:
+
+$$ \hat{R}(t_i) = \prod_{\begin{array}{c} j \in S \\ t_j \le t_i \end{array}} \frac{n-j}{n-j+1} \, , $$
+
+<!--
+<center>
+<p><img SRC="eqns/km.gif" ALT="Rhat(ti) = PRODUCT[j element of S, tj<= ti]{(n-j)/(n-j+1)}" >
+</center>
+<p>
+-->
+
+with the "hat" over \(R\)
+<!-- <i>R</i> -->
+indicating it is an estimate and \(S\)
+<!-- <i>S</i> -->
+is the set of all subscripts \(j\)
+<!-- <i>j</i>  -->
+such that \(t_j\) 
+<!-- <i>t<sub>j </sub></i> -->
+is an actual failure time. The notation \(j \in S\) and \(t_j\)
+<!-- <i>j<img SRC="gifs/elementof.gif" ALT="j element of S"  align=ABSBOTTOM></i>S 
+and <i>t<sub>j</sub></i> -->
+less than or equal to \(t_i\)
+<!-- <i>t<sub>i</sub></i> -->
+means we only form products for indices \(j\) that are in \(S\)
+<!-- <i>j </i>that are in <i>S</i> -->
+and also correspond to times of failure less than or equal to \(t_i\).
+<!-- <i> t<sub>i</sub></i>. -->
+<p>
+Once values for \(R(t_i)\)
+<!-- <i>R</i>(<i>t<sub>i</sub></i>) -->
+are calculated, the CDF estimates are \(F(t_i) = 1 - R(t_i)\).
+<!-- <br><i>F</i>(<i>t<sub>i</sub></i>)<i> = </i>1<i> - R</i>(<i>t<sub>i</sub></i>) -->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>A small modification of K-M estimates produces
+better results for probability plotting</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<a NAME="Modified K - M"></a><b>Modified K-M Estimates</b>
+<p>
+The K-M estimate at the time of the last failure is \(R(t_r)\) = 0
+<!-- <i>R</i>(<i>t<sub>r</sub></i>)= 0 -->
+and \(F(t_r)\) = 1.
+<!-- <i>F(t<sub>r</sub>)</i> = 1. -->
+This estimate has a pessimistic
+bias and cannot be plotted (without modification) on a 
+<a href="apr221.html">probability plot</a> 
+since the CDF for standard reliability models asymptotically
+approaches 1 as time approaches infinity. Better estimates for graphical
+plotting can be obtained by modifying the K-M estimates so that they reduce
+to the median rank estimates for plotting 
+<a href="../section1/apr131.html">Type I Censored</a> 
+life test data (described in the next section). Modified
+K-M estimates are given by the formula 
+
+$$ \hat{R}(t_i) = \frac{n + 0.7}{n + 0.4} \prod_{\begin{array}{c} j \in S \\ t_j \le t_i \end{array}} 
+                  \frac{n-j+0.7}{n-j+1.7} \, . $$
+
+<!--
+<center>
+<p>
+<img SRC="eqns/kmmod.gif" ALT="Rhat(ti) = 
+[(n+0.7)/(n+0.4)]*PRODUCT[j element of S, tj<= ti]{(n-j+0.7)/(n-j+1.7)}" >
+</center>
+<p>
+-->
+
+Once values for \(R(t_i)\)
+<!-- <i>R</i>(<i>t<sub>i</sub></i>) -->
+are calculated, the CDF estimates are \(F(t_i) = 1 - R(t_i)\).
+<!-- <i>F</i>(<i>t<sub>i</sub></i>)<i> = </i>1<i> -  R</i>(<i>t<sub>i</sub></i>)</td> -->
+</tr>
+
+   
+
+   
+   </TABLE>
+   </UL>
+   
+
+   <IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index-3.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../main.html" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="apr214.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="apr22.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+   
+   
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr215.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:17 GMT -->
+</HTML>

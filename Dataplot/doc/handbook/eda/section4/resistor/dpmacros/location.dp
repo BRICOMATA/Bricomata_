@@ -1,0 +1,24 @@
+. Starting Step 4.1
+.
+let n = size y
+let ymean = mean y
+let ysdm = standard deviation of mean y
+let idf = n - 1
+.
+let lclm = ymean - tppf(0.975,idf)*ysdm
+let uclm = ymean + tppf(0.975,idf)*ysdm
+.
+let x = sequence 1 1 n
+fit y x
+let idf2 = n - 2
+read dpst1f.dat coef coefsd
+let bsd = coefsd(2)
+let lclb = bsd - tppf(0.975,idf2)*bsd
+let uclb = bsd + tppf(0.975,idf2)*bsd
+let string idrift = NO
+let atemp = lclb*uclb
+if atemp < 0
+  let string idrift = YES
+end of if
+.
+. Finished Step 4.1: Page Back for Output

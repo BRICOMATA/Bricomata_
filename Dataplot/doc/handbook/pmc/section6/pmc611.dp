@@ -1,0 +1,519 @@
+Dataplot commands and output:
+
+.  Starting Lithographic Process Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+.  Finished Setting Defaults
+
+
+. Starting Step 1.1
+.
+SKIP 25
+read LITHOGRA.DAT cassette wafer site width runseq
+skip 0
+. Finished Step 1.1
+
+
+.Summary 	
+.
+.
+. Starting Step 2.1 - Summary of Response Variable
+.
+summary width
+. Finished Step 2.1
+
+>  
+>                                 SUMMARY
+>  
+>                      NUMBER OF OBSERVATIONS =      450
+>  
+>  
+> ***********************************************************************
+> *        LOCATION MEASURES         *       DISPERSION MEASURES        *
+> ***********************************************************************
+> *  MIDRANGE     =   0.2957607E+01  *  RANGE        =   0.4422122E+01  *
+> *  MEAN         =   0.2532284E+01  *  STAND. DEV.  =   0.6937559E+00  *
+> *  MIDMEAN      =   0.2393183E+01  *  AV. AB. DEV. =   0.5482042E+00  *
+> *  MEDIAN       =   0.2453337E+01  *  MINIMUM      =   0.7465460E+00  *
+> *               =                  *  LOWER QUART. =   0.2046285E+01  *
+> *               =                  *  LOWER HINGE  =   0.2048139E+01  *
+> *               =                  *  UPPER HINGE  =   0.2971948E+01  *
+> *               =                  *  UPPER QUART. =   0.2987150E+01  *
+> *               =                  *  MAXIMUM      =   0.5168668E+01  *
+> ***********************************************************************
+> *       RANDOMNESS MEASURES        *     DISTRIBUTIONAL MEASURES      *
+> ***********************************************************************
+> *  AUTOCO COEF  =   0.6072572E+00  *  ST. 3RD MOM. =   0.4527434E+00  *
+> *               =   0.0000000E+00  *  ST. 4TH MOM. =   0.3382735E+01  *
+> *               =   0.0000000E+00  *  ST. WILK-SHA =   0.6957975E+01  *
+> *               =                  *  UNIFORM PPCC =   0.9681802E+00  *
+> *               =                  *  NORMAL  PPCC =   0.9935199E+00  *
+> *               =                  *  TUK -.5 PPCC =   0.8528156E+00  *
+> *               =                  *  CAUCHY  PPCC =   0.5245036E+00  *
+> ***********************************************************************
+
+
+.4-Plot 	
+.
+.
+. Starting Step 2.2 - Generate a 4-plot
+.
+4-plot width
+. Finished Step 2.2
+
+
+.Run Sequence Plot 	
+.
+.
+. Starting Step 2.3 - Generate a run sequence plot
+.
+y1label width
+x1label sequence
+run sequence plot width
+
+
+.Scatter Plot (Width vs Cassette) 	
+.
+.
+. Starting Step 3.1 - Generate a scatter plot of response versus
+.                     cassette
+.
+y1label width
+x1label cassette
+line blank all
+character x all
+xlimits 0 30
+xtic offset 0 1
+plot width cassette cassette
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 3.1
+
+
+.Box Plot (Width vs Cassette) 	
+.
+.
+. Starting Step 3.2 - Generate a box plot of response versus
+.                     cassette
+.
+y1label width
+x1label cassette
+line box plot
+character box plot
+xlimits 0 30
+xtic offset 0 1
+fences on
+box plot width cassette
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 3.2
+
+
+.Scatter Plot (Width vs Wafer) 	
+.
+.
+. Starting Step 3.3 - Generate a scatter plot of response versus
+.                     wafer
+.
+y1label width
+x1label wafer
+line blank all
+character x all
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+plot width wafer wafer
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.3
+
+
+.Box Plot (Width vs Wafer) 	
+.
+.
+. Starting Step 3.4 - Generate a box plot of response versus
+.                     wafer
+.
+y1label width
+x1label wafer
+line box plot
+character box plot
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+fences on
+box plot width wafer
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+. Finished Step 3.4
+
+
+.Scatter Plot (Width vs Site) 	
+.
+.
+. Starting Step 3.5 - Generate a scatter plot of response versus
+.                     site
+.
+y1label width
+x1label site
+line blank all
+character x all
+xlimits 1 5
+xtic offset 1 1
+major xtic mark number 5
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content top left center right bottom
+plot width site site
+line solid all
+character blank all
+xlimits 
+xtic offset
+minor xtic mark number
+xtic mark label format 
+xtic mark label content
+. Finished Step 3.5
+
+
+.Box Plot (Width vs Site) 	
+.
+.
+. Starting Step 3.6 - Generate a box plot of response versus
+.                     site
+.
+y1label width
+x1label site
+line box plot
+character box plot
+xlimits 1 5
+xtic offset 1 1
+major xtic mark number 5
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content top left center right bottom
+fences on
+box plot width site
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.6
+
+
+.Dex Mean Plot 	
+.
+.
+. Starting Step 3.7 - Generate a dex mean plot of response versus
+.                     all 3 factors
+.
+y1label width
+x1label factors
+line blank solid
+character x BLANK
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content cassette wafer site
+dex mean plot width cassette wafer site 
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.7
+
+
+.Dex SD Plot 	
+.
+.
+. Starting Step 3.8 - Generate a dex sd plot of response versus
+.                     all 3 factors
+.
+y1label width
+x1label factors
+line blank solid
+character x BLANK
+xlimits 1 3
+xtic offset 1 1
+major xtic mark number 3
+minor xtic mark number 0
+xtic mark label format alpha
+xtic mark label content cassette wafer site
+dex sd plot width cassette wafer site 
+line solid all
+character blank all
+xlimits 
+xtic offset
+major xtic mark number
+minor xtic mark number
+xtic mark label format
+. Finished Step 3.8
+
+
+.ANOVA 	
+.
+.
+. Starting Step 4.1 - ANOVA
+.
+anova width cassette wafer site
+. Finished Step 4.1
+
+
+.Moving Mean Control Chart 	
+.
+.
+. Starting Step 4.2 - Moving mean control chart
+.
+y1label mean of line width
+x1label
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 450
+xtic offset 4 5
+moving mean control chart width
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 10
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.2
+
+
+.Moving Range Control Chart 	
+.
+.
+. Starting Step 4.3 - Moving range control chart
+.
+y1label range of line width
+x1label 
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 450
+xtic offset 4 5
+ytic offset 0.2 0.2
+moving range control chart width 
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 10
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+ytic offset
+. Finished Step 4.3
+
+
+.Mean Control Chart (Wafer) 	
+.
+.
+. Starting Step 4.4 - Mean control chart for wafer
+.
+y1label mean of line width
+x1label wafer
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 90
+xtic offset 4 5
+let xwafer = sequence 1 5 1 90
+mean control chart width xwafer
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 7
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.4
+
+
+.SD Control Chart (Wafer) 	
+.
+.
+. Starting Step 4.5 - SD control chart for wafer
+.
+y1label sd of line width
+x1label wafer
+line solid all
+line solid solid solid blank
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 90
+xtic offset 4 5
+ytic offset 0.05 0.05
+let xwafer = sequence 1 5 1 90
+s control chart width xwafer
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 7
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+. movedata a1 a4
+. text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.5
+
+
+.Mean Control Chart (Cassette) 	
+.
+.
+. Starting Step 4.6 - Mean control chart for cassette
+.
+y1label mean of line width
+x1label cassette
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+mean control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 4
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.6
+
+
+.SD Control Chart (Cassette) 	
+.
+.
+. Starting Step 4.7 - SD control chart for cassette
+.
+y1label sd of line width
+x1label wafer
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+s control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 4
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.7
+
+
+.Mean Control Chart using Lot-to-Lot Variation 	
+.
+.
+. Starting Step 4.8 - Mean control chart for cassette,
+.                     but use cassette-cassette variation
+.                     for control limits.
+.
+y1label mean of line width
+x1label cassette
+line solid all
+character x BLANK BLANK BLANK BLANK BLANK BLANK
+xlimits 0 30
+xtic offset 1 2
+device 1 off
+device 2 off
+mean plot width cassette
+device 1 on
+device 2 on
+let ytemp = yplot
+retain ytemp  subset tagplot = 1
+let a = standard deviation ytemp
+let target = mean width
+let usl = target + 3*a
+let lsl = target - 3*a
+mean control chart width cassette
+let a1 = maximum xplot subset tagplot = 2
+let a1 = a1 + 4
+let a2 = maximum yplot subset tagplot = 2
+let a3 = maximum yplot subset tagplot = 3
+let a4 = maximum yplot subset tagplot = 4
+let a6 = maximum yplot subset tagplot = 6
+let a7 = maximum yplot subset tagplot = 7
+movedata a1 a2
+text Target
+movedata a1 a3
+text UCL
+movedata a1 a4
+text LCL
+movedata a1 a6
+text UCL:lot-to-lot
+movedata a1 a7
+text LCL:lot-to-lot
+line solid all
+character blank all
+xlimits 
+xtic offset
+. Finished Step 4.8

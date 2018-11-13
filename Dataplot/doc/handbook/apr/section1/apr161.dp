@@ -1,0 +1,26 @@
+Dataplot commands and output:
+
+. Evaluate the PDF at 100 hours for an exponential with lambda = 0.01.
+LET A = EXPPDF(100,0,100) 
+
+> THE COMPUTED VALUE OF THE CONSTANT A        =   0.3678794E-02
+ 
+
+. Evaluate the CDF at 100 hours for an exponential with lambda = 0.01.
+LET B = EXPCDF(100,0,100)
+
+>  THE COMPUTED VALUE OF THE CONSTANT B        =   0.6321206E+00
+ 
+
+. Generate an exponential probability plot, normalized so that a
+. perfect exponential fit is a diagonal line with slope 1.
+
+. Generate 100 random exponential values using lambda = 0.01.
+LET Y = EXPONENTIAL RANDOM NUMBERS FOR I = 1 1 100
+LET Y = 100*Y 
+
+. Generate the exponential probability plot.
+TITLE AUTOMATIC 
+X1LABEL THEORETICAL (NORMALIZED) VALUE
+Y1LABEL DATA VALUE
+EXPONENTIAL PROBABILITY PLOT Y

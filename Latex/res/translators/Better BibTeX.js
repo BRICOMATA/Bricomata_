@@ -19,17 +19,17 @@
 	"browserSupport": "gcsv",
 	"priority": 199,
 	"inRepository": false,
-	"lastUpdated": "2018-10-29 21:40:19"
+	"lastUpdated": "2018-11-11 11:03:55"
 }
 
 var Translator = {
   initialize: function () {},
-  version: "5.1.5",
+  version: "5.1.7",
   BetterBibTeX: true,
   BetterTeX: true,
   BetterCSL: false,
   // header == ZOTERO_TRANSLATOR_INFO -- maybe pick it from there
-  header: {"translatorID":"ca65189f-8815-4afe-8c8b-8c7c15f0edca","label":"Better BibTeX","description":"exports references in BibTeX format","creator":"Simon Kornblith, Richard Karnesky and Emiliano heyns","target":"bib","minVersion":"4.0.27","maxVersion":"","configOptions":{"async":true,"getCollections":true},"displayOptions":{"exportNotes":false,"exportFileData":false,"useJournalAbbreviation":false,"keepUpdated":false},"translatorType":3,"browserSupport":"gcsv","priority":199,"inRepository":false,"lastUpdated":"2018-10-29 21:40:19"},
+  header: {"translatorID":"ca65189f-8815-4afe-8c8b-8c7c15f0edca","label":"Better BibTeX","description":"exports references in BibTeX format","creator":"Simon Kornblith, Richard Karnesky and Emiliano heyns","target":"bib","minVersion":"4.0.27","maxVersion":"","configOptions":{"async":true,"getCollections":true},"displayOptions":{"exportNotes":false,"exportFileData":false,"useJournalAbbreviation":false,"keepUpdated":false},"translatorType":3,"browserSupport":"gcsv","priority":199,"inRepository":false,"lastUpdated":"2018-11-11 11:03:55"},
   override: {"DOIandURL":true,"asciiBibLaTeX":true,"asciiBibTeX":true,"autoAbbrev":false,"autoAbbrevStyle":false,"autoExport":false,"autoExportIdleWait":false,"autoExportPrimeExportCacheBatch":false,"autoExportPrimeExportCacheThreshold":false,"autoPin":false,"biblatexExtendedDateFormat":false,"biblatexExtendedNameFormat":true,"bibtexParticleNoOp":true,"bibtexURL":true,"cacheFlushInterval":false,"citeCommand":false,"citekeyFold":false,"citekeyFormat":false,"citeprocNoteCitekey":false,"csquotes":false,"debug":false,"debugLog":false,"itemObserverDelay":false,"jabrefFormat":false,"keyConflictPolicy":false,"keyScope":false,"kuroshiro":false,"lockedInit":false,"parseParticles":false,"postscript":false,"preserveBibTeXVariables":false,"qualityReport":false,"quickCopyMode":false,"quickCopyPandocBrackets":false,"rawLaTag":false,"relativeFilePaths":false,"scrubDatabase":false,"skipFields":false,"skipWords":false,"sorted":false,"strings":false,"suppressTitleCase":false,"testing":false,"warnBulkModify":false},
   options: {"exportNotes":false,"exportFileData":false,"useJournalAbbreviation":false,"keepUpdated":false},
 
@@ -3368,8 +3368,7 @@ class BibLatexParser {
     }
 
     skipToNext() {
-        while ((this.input.length > this.pos) && (this.input[this.pos] !=
-            "@")) {
+        while ((this.input.length > this.pos) && (this.input[this.pos] != "@")) {
             this.pos++
         }
         if (this.input.length == this.pos) {
@@ -3463,14 +3462,16 @@ class BibLatexParser {
         }
     }
 
-    value() {
+    value(asis /*: boolean */ = false) {
         let values = []
         values.push(this.singleValue())
         while (this.tryMatch("#")) {
             this.match("#")
             values.push(this.singleValue())
         }
-        return values.join("").replace(/[\t ]+/g, ' ').trim()
+        values = values.join("")
+        if (!asis) values = values.replace(/[\t ]+/g, ' ').trim()
+        return values
     }
 
     key(optional /*: boolean */ = false) /*: string */ {
@@ -3498,7 +3499,7 @@ class BibLatexParser {
         return ''
     }
 
-    keyEqualsValue() /*: [string, string] | false */{
+    keyEqualsValue(asis /*: boolean */ = false) /*: [string, string] | false */{
         let key = this.key()
         if (!key.length) {
             const error /*: ErrorObject */ = {
@@ -3515,7 +3516,7 @@ class BibLatexParser {
         this.currentKey = key.toLowerCase()
         if (this.tryMatch("=")) {
             this.match("=")
-            const val = this.value()
+            const val = this.value(asis)
             if (this.currentKey) {
                 return [this.currentKey, val]
             } else {
@@ -3947,7 +3948,7 @@ class BibLatexParser {
     }
 
     string() {
-        const kv = this.keyEqualsValue()
+        const kv = this.keyEqualsValue(true)
         if (kv) {
             this.variables[kv[0].toUpperCase()] = kv[1]
         }

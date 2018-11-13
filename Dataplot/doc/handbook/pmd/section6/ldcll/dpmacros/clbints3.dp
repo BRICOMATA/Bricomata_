@@ -1,0 +1,32 @@
+.
+. Starting Step 4.3
+SKIP 0
+READ DPST4F.DAT JUNK1 JUNK2
+.
+LET B11 = JUNK2(1)
+LET B21 = JUNK2(2)
+LET B31 = JUNK2(3)
+LET B12 = JUNK2(4)
+LET B22 = JUNK2(5)
+LET B32 = JUNK2(6)
+LET B13 = JUNK2(7)
+LET B23 = JUNK2(8)
+LET B33 = JUNK2(9)
+.
+LET FUNCTION F0 = B11
+LET FUNCTION F1 = (B12 + B21)*load
+LET FUNCTION F2 = (B13 + B22 + B31)*load**2
+LET FUNCTION F3 = (B23 + B32)*load**3
+LET FUNCTION F4 = B33*load**4
+let function fall = f0 + f1 + f2 + f3 + f4
+.
+LET N = SIZE load
+LET DF = N - 3
+LET TVAL = TPPF(0.975,DF)
+LET FUNCTION FLB = F + TVAL*RESSD*SQRT(1 + FALL) 
+let nllb = roots flb wrt load for load = lb to ub
+LET FUNCTION FUB = F - TVAL*RESSD*SQRT(1 + FALL) 
+let nlub = roots fub wrt load for load = lb to ub
+set write decimals 0
+print nllb nl nlub
+. Finished Step 4.3: Page Back for Output

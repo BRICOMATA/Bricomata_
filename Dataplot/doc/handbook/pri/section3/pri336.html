@@ -1,0 +1,691 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section3/pri336.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:36 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.3.3.6. Response surface designs</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri3361.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri335.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri3.html">Choosing an experimental design</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri33.html">How do you select an experimental design?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.3.3.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Response surface designs</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<tr ALIGN=CENTER>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Response surface models may involve just main effects and
+interactions or they may also have quadratic and possibly cubic terms
+to account for curvature</i>
+</td>
+
+<td VALIGN=TOP ALIGN=LEFT WIDTH="85%"><!-- Add main text below -->
+Earlier, we described the <a href="pri33.html#Response Surface
+(method)">response surface method</a> (RSM) objective.  Under some
+circumstances, a model involving only main effects and interactions
+may be appropriate to describe a response surface when
+<ol>
+   <li>Analysis of the results revealed no evidence of "pure quadratic"
+       curvature in the response of interest (i.e., the response at the
+       center approximately equals the average of the responses at the
+       factorial runs).
+       <p>
+   <li>The design matrix originally used included the limits of the
+       factor settings available to run the process.
+</ul>
+</TD>
+</TR>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Equations for quadratic and cubic models
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+In other circumstances, a complete description of the process behavior
+might require a quadratic or cubic model:
+<center>
+<p><b>Quadratic</b>
+<br>
+<!--
+<img SRC="eqns/sam1.gif" height=93 width=357 alt=
+"yhat = b0 + b1*x1 + b2*x2 + b3*x3 + b12*x1*x2 + b13*x1*x3 +
+ b23*x2*x3 + b11*x1**2 + b22*x2**2 + b33*x3**2">
+-->
+\( \begin{array}{lcl}
+   \hat{y} & = & \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_ 3 + 
+                 \beta_{12}x_{1}x_{2} + \beta_{13}x_{1}x_{3} + \\
+           &   & \beta_{23}x_{2}x_{3} + \beta_{11}x_{1}^{2} +
+             \beta_{22}x_{2}^{2} + \beta_{33}x_{3}^{2}
+   \end{array}  \)
+<p>
+<b>Cubic</b>
+<br>
+<!--
+<img SRC="eqns/sam2.gif" height=74 width=352 alt=
+"yhat = quadratic model + b123*x1*x2*x3 + b112*x1**2*x2 +
+ b113*x1**2*x3 + b122*x1*x2**2 + b133*x1*x3**2 + b233*x2*x3**2 +
+ b111*x1**3 + b222*x2**3 + b333*x2**3">
+-->
+\( \begin{array}{lcl}
+   \hat{y} & = & \mbox{quadratic model} + \beta_{123}x_{1}x_{2}x_{3} +
+                 \beta_{112}x_{1}^{2}x_{2} +
+                 \beta_{113}x_{1}^{2}x_{3} + \\
+          &    & \beta_{122}x_{1}x_{2}^{2} +
+                 \beta_{133}x_{1}x_{3}^{2} +
+                 \beta_{223}x_{2}^{2}x_{3} +
+                 \beta_{233}x_{2}x_{3}^{2} + \\
+          &    & \beta_{111}x_{1}^{3} +
+                 \beta_{222}x_{2}^{3} +
+                 \beta_{333}x_{3}^{3} +
+   \end{array}  \)
+</center>
+<p>
+These are the full models, with all possible terms, rarely would all
+of the terms be needed in an application.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Quadratic models almost always sufficient for industrial applications
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+If the experimenter has defined factor limits appropriately and/or taken
+advantage of all the tools available in multiple regression analysis
+(transformations of responses and factors, for example), then finding
+an industrial process that requires a third-order model is highly
+unusual.  Therefore, we will only focus on designs that are useful for
+fitting quadratic models.  As we will see, these designs often provide
+lack of fit detection that will help determine when a higher-order
+model is needed.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+General quadratic surface types
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Figures 3.9 to 3.12 identify the general quadratic surface types that
+an investigator might encounter&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<table COLS=2 WIDTH="85%">
+<tr>
+   <td>
+      <img SRC="gifs/sam1.gif" height=139 width=200
+           ALT="Example of a response surface peak">
+   </td>
+   <td>
+      <img SRC="gifs/sam2.gif" height=139 width=200
+           ALT="Example of a response surface hillside">
+   </td>
+</tr>
+<tr>
+   <td align=center>
+      <b>FIGURE 3.9&nbsp; A Response Surface "Peak"</b>
+      <br> <br>
+   </td>
+   <td align=center>
+      <b>FIGURE 3.10&nbsp;&nbsp; A Response Surface "Hillside"</b>
+      <br> <br>
+   </td>
+</tr>
+<tr>
+   <td>
+      <img SRC="gifs/sam3.gif" height=135 width=200
+           ALT="Example of a response surface rising ridge">
+   </td>
+   <td>
+      <img SRC="gifs/sam4.gif" height=134 width=200
+           ALT="Example of a response surface saddle">
+   </td>
+</tr>
+<tr>
+   <td align=center>
+      <b>FIGURE 3.11&nbsp;&nbsp; A Response Surface "Rising Ridge"</b>
+   </td>
+   <td align=center>
+      <b>FIGURE 3.12&nbsp; A Response Surface "Saddle"</b>
+   </td>
+</tr>
+</table>
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Factor Levels for Higher-Order Designs</b>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Possible behaviors of responses as functions of factor settings
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Figures 3.13 through 3.15 illustrate possible behaviors of responses
+as functions of factor settings.  In each case, assume the value of
+the response increases from the bottom of the figure to the top and that
+the factor settings increase from left to right.
+<p>
+<table COLS=3 WIDTH="100%" >
+<tr>
+   <td>
+      <img SRC="gifs/sam5.gif" height=130 width=130
+           ALT="Linear function">
+   </td>
+   <td>
+      <img SRC="gifs/sam6.gif" height=130 width=130
+           ALT="Quadratic function">
+   </td>
+   <td>
+      <img SRC="gifs/sam7.gif" height=123 width=130
+           ALT="Cubic function">
+   </td>
+</tr>
+<tr>
+   <td>
+      <b>FIGURE 3.13</b>
+      <br><b>Linear Function</b>
+   </td>
+   <td>
+      <b>FIGURE 3.14</b>
+      <br><b>Quadratic Function</b>
+   </td>
+   <td>
+      <b>FIGURE 3.15</b>
+      <br><b>Cubic Function</b>
+   </td>
+</tr>
+</table>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>A two-level experiment with center points can detect, but not fit,
+quadratic effects</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+If a response behaves as in Figure 3.13, the design matrix to quantify
+that behavior need only contain factors with two levels -- low and
+high.  This model is a basic assumption of simple two-level
+factorial and fractional factorial designs.  If a response behaves
+as in Figure 3.14, the minimum number of levels required for a factor
+to quantify that behavior is three.  One might logically assume that
+adding center points to a two-level design would satisfy that
+requirement, but the arrangement of the treatments in such a matrix
+confounds all quadratic effects with each other.  <i>While a two-level
+design with center points cannot estimate individual pure quadratic
+effects, it can detect them effectively</i>.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Three-level factorial design
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+A solution to creating a design matrix that permits the estimation of
+simple curvature as shown in Figure 3.14 would be to use a three-level
+factorial design. Table 3.21 explores that possibility.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Four-level factorial design
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Finally, in more complex cases such as illustrated in Figure 3.15, the
+design matrix must contain at least four levels of each factor to
+characterize the behavior of the response adequately.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>3-level factorial designs can fit quadratic models but they require
+many runs when there are more than 4 factors</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<ul>
+<table noborder width=400>
+<caption align=center>
+   <b>TABLE 3.21 Three-level Factorial Designs</b>
+</caption>
+<tr>
+   <th align=center valign=bottom>
+      Number<br>
+      of Factors
+   </th>
+   <th align=center valign=bottom>
+      Treatment Combinations<br>
+      3<sup><i>k</i></sup> Factorial
+   </th>
+   <th align=center valign=bottom>
+      Number of Coefficients<br>
+      Quadratic Empirical Model
+   </th>
+</tr>
+<tr>
+   <td colspan=3>
+      <hr>
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      2
+    </td>
+   <td align=center valign=top>
+      9
+    </td>
+   <td align=center valign=top>
+      6
+    </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      3
+    </td>
+   <td align=center valign=top>
+      27
+    </td>
+   <td align=center valign=top>
+      10
+    </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      4
+    </td>
+   <td align=center valign=top>
+      81
+    </td>
+   <td align=center valign=top>
+      15
+    </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      5
+    </td>
+   <td align=center valign=top>
+      243
+    </td>
+   <td align=center valign=top>
+      21
+    </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      6
+    </td>
+   <td align=center valign=top>
+      729
+    </td>
+   <td align=center valign=top>
+      28
+    </td>
+</tr>
+</table>
+</ul>
+
+<!-- <img SRC="eqns/sam4.gif" height=206 width=432>  -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Fractional factorial designs created to avoid such a large number
+of runs
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Two-level factorial designs quickly become too large for practical
+application as the number of factors investigated increases.  This
+problem was the motivation for creating 'fractional factorial'
+designs.  Table 3.21 shows that the number of runs required for a
+3<sup><i>k</i></sup> factorial becomes unacceptable even more quickly
+than for 2<sup><i>k</i></sup> designs.  The last column in Table 3.21
+shows the number of terms present in a quadratic model for each case.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Number of runs large even for modest number of factors
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+With only a modest number of factors, the number of runs is very
+large, even an order of magnitude greater than the number of parameters
+to be estimated when <i>k</i> isn't small.  For example, the absolute
+minimum number of runs required to estimate all the terms present in a
+four-factor quadratic model is 15: the intercept term, 4 main effects,
+6 two-factor interactions, and 4 quadratic terms.
+<p>
+The corresponding 3<sup><i>k</i></sup> design for <i>k</i> = 4
+requires 81 runs.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Complex alias structure and lack of rotatability for 3-level
+fractional factorial designs
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Considering a fractional factorial at three levels is a logical step,
+given the success of fractional designs when applied to two-level
+designs.  Unfortunately, the alias structure for the three-level
+fractional factorial designs is considerably more complex and harder
+to define than in the two-level case.
+<p>
+Additionally, the three-level factorial designs suffer a major flaw
+in their lack of
+'<i><a href="../section7/pri7.html#Rotatability">rotatability</a></i>.'
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<I>
+</I>
+</td>
+
+<td valign=top width=85%>
+<b>Rotatability of Designs</b>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<i>"Rotatability" is a desirable property not present in 3-level
+factorial designs</i>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+In a rotatable design, the variance of the predicted values of <i>y</i>
+is a function of the distance of a point from the center of the design
+and is not a function of the direction the point lies from the center.
+Before a study begins, little or no knowledge may exist about the
+region that contains the optimum response.  Therefore, the experimental
+design matrix should not bias an investigation in any direction.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Contours of variance of predicted values are concentric circles
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+In a rotatable design, the contours associated with the variance of
+the predicted values are concentric circles.  Figures 3.16 and 3.17
+(adapted from Box and Draper, `Empirical Model Building and Response
+Surfaces,' page 485) illustrate a three-dimensional plot and contour
+plot, respectively, of the `information function' associated with a
+3<sup>2</sup> design.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Information function
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+The information function is:
+<center>
+<!--
+<img SRC="eqns/sam3.gif" BORDER=0 height=44 width=36
+     ALT="1/V(yhat)">
+-->
+\( \frac{1}{V(\hat{y})} \)
+</center>
+<p>
+with V denoting the variance (of the predicted value
+<!-- <img algin=absmiddle SRC="eqns/yhat.gif" height=18 width=10
+           alt="yhat">). -->
+\( \hat{y} \).
+<p>
+Each figure clearly shows that the information content of the design
+is not only a function of the distance from the center of the design
+space, but also a function of direction.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Graphs of the information function for a rotatable quadratic design
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Figures 3.18 and 3.19 are the corresponding graphs of the information
+function for a rotatable quadratic design.  In each of these figures,
+the value of the information function depends only on the distance
+of a point from the center of the space.&nbsp;
+<p>
+<table COLS=2 WIDTH="100%">
+<tr>
+   <td>
+      <img SRC="gifs/sam8.gif" height=140 width=130
+           ALT="3-D plot of information function of 3^2 design">
+   </td>
+   <td>
+      <img SRC="gifs/sam9.gif" height=190 width=200
+           ALT="Contour plot of information function of 3^2 design">
+   </td>
+</tr>
+<tr>
+   <td align=center>
+      <b>FIGURE 3.16&nbsp; Three-Dimensional Illustration for the
+      Information Function of a 3<sup>2</sup> Design</b>
+   </td>
+   <td align=center>
+      <b>FIGURE 3.17&nbsp;</b>
+      <br><b>Contour Map of the Information Function for a 3<sup>2</sup>
+      Design</b>
+   </td>
+</tr>
+<tr>
+   <td>
+      <img SRC="gifs/sam10.gif" height=137 width=130 ALT=
+"3-D plot of information function of rotatable quadratice design for
+ 2 factors">
+   </td>
+   <td>
+      <img SRC="gifs/sam11.gif" height=190 width=200 ALT=
+"Contour plot of information function of rotatable quadratice design for
+ 2 factors">
+   </td>
+</tr>
+<tr>
+   <td align=center>
+      <b>FIGURE 3.18&nbsp; Three-Dimensional Illustration of the
+      Information Function for a Rotatable Quadratic Design for Two
+      Factors</b>
+   </td>
+   <td align=center>
+      <b>FIGURE 3.19&nbsp; Contour Map of the Information Function
+      for a Rotatable Quadratic Design for Two Factors</b>
+   </td>
+</tr>
+</table>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<b>Classical Quadratic Designs</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Central composite and Box-Behnken designs
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+Introduced during the 1950's, classical quadratic designs fall into
+two broad categories: <a href="pri3361.html">Box-Wilson central
+composite</a> designs and <a href="pri3362.html">Box-Behnken designs</a>.
+The next sections describe these design classes and their properties.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri335.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri3361.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section3/pri336.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:44 GMT -->
+</HTML>

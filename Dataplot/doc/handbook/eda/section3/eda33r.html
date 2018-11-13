@@ -1,0 +1,276 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33r.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:38 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.27. Spectral Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33r1.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33qc.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.27.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Spectral Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Examine Cyclic Structure
+      </I>
+   </td>
+   <td width=85% valign=top>
+      A spectral plot (<a href="../section4/eda43.html#Jenkins">
+      Jenkins and Watts 1968</a> or
+      <a href="../section4/eda43.html#Bloomfield">Bloomfield 1976</a>)
+      is a graphical technique for examining cyclic structure in the
+      frequency domain.  It is a smoothed Fourier transform of the
+      autocovariance function.
+      <p>
+      The frequency is measured in cycles per unit time where
+      unit time is defined to be the distance between 2 points.
+      A frequency of 0 corresponds to an infinite cycle while a
+      frequency of 0.5 corresponds to a cycle of 2 data points.
+      Equi-spaced time series are inherently limited to 
+      detecting frequencies between 0 and 0.5.
+      <p>
+      Trends should typically be removed from the time
+      series before applying the spectral plot.  Trends can
+      be detected from a <a href="runseqpl.html">run sequence plot</a>.
+      Trends are typically removed by differencing the series or by
+      <a href="../../pmd/section1/pmd141.html"> fitting a straight
+      line</a> (or some other polynomial curve) and
+      applying the spectral analysis to the residuals.
+      <p>
+      Spectral plots are often used to find a starting value
+      for the frequency, <i>&omega;</i>, in the sinusoidal model
+      <ul>
+         <!--
+         <img src="eqns/sinmodel.gif"
+              alt="Y(i) = C + alpha*SIN(2*PI*omega*t(i) + phi) + E(i)">
+         -->
+         \[ Y_{i} = C + \alpha\sin{(2\pi\omega t_{i} + \phi)} + E_{i} \]
+      </ul>
+      See the <a href="../section4/eda425.html">beam deflection
+      case study</a> for an example of this.
+
+   </td>
+</tr>
+
+<!-----begin section: Sample Plot -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Sample Plot
+      </I>
+   </td>
+   <td width=85% valign=top>
+
+      <img src = "../gif/spectrum.gif"
+           alt="spectral plot showing one dominant frequency">
+      <p>
+      This spectral plot shows one dominant frequency of approximately
+      0.3 cycles per observation.
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition:<br>
+         Variance Versus Frequency
+      </I>
+   </td>
+   <td width=85% valign=top>
+       The spectral plot is formed by:
+       <ul>
+          <li>Vertical axis: Smoothed variance (power)
+          <li>Horizontal axis: Frequency (cycles per observation)
+       </ul>
+       The computations for generating the smoothed variances can
+       be involved and are not discussed further here.  The details
+       can be found in the Jenkins and Bloomfield references and in
+       most texts that discuss the frequency analysis of time
+       series.
+
+   </td>
+</tr>
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+      The spectral plot can be used to answer the following questions:
+      <ol>
+         <li>How many cyclic components are there?
+         <li>Is there a dominant cyclic frequency? 
+         <li>If there is a dominant cyclic frequency, what is it?
+   </td>
+</tr>
+
+<!-----begin section: Importance -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance<br>
+         Check Cyclic Behavior of Time Series
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The spectral plot is the primary technique for assessing
+      the cyclic nature of univariate time series in the frequency
+      domain.  It is almost always the second plot (after
+      a run sequence plot) generated in a frequency domain
+      analysis of a time series.
+
+   </td>
+</tr>
+
+<!-----begin section: examples -->
+
+<tr>
+   <td width=15% valign=top>
+      <a name = "examples"> </a>
+      <I>Examples</I>
+   </td>
+   <td width=85% valign=top>
+      <ol>
+         <li><a href = "spectru1.html">Random (= White Noise)</a><br>
+         <li><a href = "spectru2.html">Strong autocorrelation and
+             autoregressive model</a> <br>
+         <li><a href = "spectru3.html">Sinusoidal model</a><br>
+      </ol>
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="autocopl.html">Autocorrelation Plot</a><br>
+      <a href="compdeam.html">Complex Demodulation Amplitude
+             Plot</a><br>
+      <a href="compdeph.html">Complex Demodulation Phase Plot</a><br>
+
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      The spectral plot is demonstrated in the
+      <a href="../section4/eda425.html">beam deflection</a> data
+      case study.
+   </td>
+</tr>
+
+<!-----begin section: dataplot command -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      Spectral plots are a fundamental technique in the frequency
+      analysis of time series.  They are available in many
+      general purpose statistical software programs.
+
+   </td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33qc.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33r1.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda33r.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:50:43 GMT -->
+</HTML>

@@ -1,0 +1,229 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd622.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:10:31 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.6.2.2. Check for Batch Effect</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd623.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd621.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd6.html">Case Studies in Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd62.html">Alaska Pipeline</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.6.2.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Check for Batch Effect</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=plot> <I>
+        Plot of Raw Data
+      </I> </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      As with any regression problem, it is always a good idea
+      to plot the raw data first.  The following is a
+      <a href="../../eda/section3/scatterp.html">scatter plot</a>
+      of the raw data.
+      <p>
+      <A HREF="pipeline/plots/plot1_f.gif">
+      <IMG SRC="pipeline/plots/plot1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="scatter plot indicates a linear fit might be appropriate">
+      </A>
+      <p>
+      This scatter plot shows that a straight line fit is a
+      good initial candidate model for these data.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>Plot by Batch</I>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      These data were collected in six distinct batches.  The
+      first step in the analysis is to determine if there is a
+      batch effect.
+      <p>
+      In this case, the scientist was not inherently interested
+      in the batch.  That is, batch is a nuisance factor and, if
+      reasonable, we would like to analyze the data as if it came
+      from a single batch.  However, we need to know that this is,
+      in fact, a reasonable assumption to make.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <A NAME=condition>
+      <I>
+        Conditional Plot
+      </I>
+      </A>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      We first generate a 
+      <a href="../../eda/section3/condplot.html">conditional plot</a>
+      where we condition on the batch.
+      <p>
+      <A HREF="pipeline/plots/batch1_f.gif">
+      <IMG SRC="pipeline/plots/batch1_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="conditional plot (on batch) does not show a
+               batch effect">
+      </A>
+      <p>
+      This conditional plot shows a scatter plot for each
+      of the six batches on a single page.  Each of these
+      plots shows a similar pattern.
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+      <A NAME=linearstat>
+        Linear Correlation and Related Plots
+      </A>
+      </I>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      We can follow up the conditional plot with
+      a <a href="../../eda/section3/linecorr.html">linear
+      correlation plot</a>, 
+      a <a href="../../eda/section3/lineinte.html">linear
+      intercept plot</a>, 
+      a <a href="../../eda/section3/lineslop.html">linear
+      slope plot</a>, and
+      a <a href="../../eda/section3/linressd.html">linear
+      residual standard deviation plot</a>.
+      These four plots show the correlation, the intercept and
+      slope from a linear fit, and the residual standard deviation
+      for linear fits applied to each batch.  These plots show
+      how a linear fit performs across the six batches.
+      <p>
+      <A HREF="pipeline/plots/batch2_f.gif">
+      <IMG SRC="pipeline/plots/batch2_r.gif"
+          HEIGHT=425 WIDTH=550 BORDER=0
+          alt="linear correlation, intercept, slope and ressd plots
+               do not show any significant batch effect">
+      </A>
+      <p>
+      The linear correlation plot (upper left), which shows the 
+      correlation between field and lab defect sizes versus the 
+      batch, indicates that batch six has a somewhat stronger 
+      linear relationship between the measurements than the 
+      other batches do.  This is also reflected in the significantly
+      lower residual standard deviation for batch six shown in the 
+      residual standard deviation plot (lower right), which shows the
+      residual standard deviation versus batch. The slopes all lie 
+      within a range of 0.6 to 0.9 in the linear slope plot (lower left)
+      and the intercepts all lie between 2 and 8 in the linear 
+      intercept plot (upper right).
+
+   </TD>
+</TR>
+
+<TR>
+   <TD WIDTH=15% VALIGN=top>
+      <I>
+         Treat Batch as Homogeneous
+      </I>
+   </TD>
+
+   <TD WIDTH=85% VALIGN=top>
+      These summary plots, in conjunction with the conditional plot
+      above, show that treating the data as a single batch
+      is a reasonable assumption to make.  None of the
+      batches behaves badly compared to the others and none
+      of the batches requires a significantly different
+      fit from the others.
+      <p>
+      These two plots provide a good pair.  The plot of
+      the fit statistics allows quick and convenient comparisons
+      of the overall fits.  However, the conditional plot can
+      reveal details that may be hidden in the summary plots.
+      For example, we can more readily determine the existence
+      of clusters of points and outliers, curvature in the
+      data, and other similar features.
+      <P>
+      Based on these plots we will ignore the batch variable for
+      the remaining analysis.
+
+   </TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd621.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd623.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd622.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:10:38 GMT -->
+</HTML>

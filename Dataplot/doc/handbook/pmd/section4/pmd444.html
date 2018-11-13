@@ -1,0 +1,190 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd444.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:41 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.4.4. How can I assess whether the random errors are independent from one to the
+next?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd445.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd443.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd44.html">How can I tell if a model fits my data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.4.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can I assess whether the random errors are independent from one to the
+next?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Lag Plot Shows Dependence Between Residuals</I>
+</TD>
+<TD WIDTH=85%>
+The <A HREF="../../eda/section3/eda33f.html">lag plot</A> of the residuals, another 
+special type of scatter plot, suggests whether or not the errors are independent. If
+the errors are not independent, then the estimate of the error standard deviation
+will be biased, potentially leading to improper inferences about the process. The lag
+plot works by plotting each residual value versus the value of the successive residual 
+(in chronological order of observation).  The first residual is plotted versus the second,
+the second versus the third, etc. Because of the way the residuals are paired, there will 
+be one less point on this plot than on most other types of residual plots.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Interpretation</I>
+</TD>
+<TD WIDTH=85%>
+If the errors are independent, there should be no pattern
+or structure in the lag plot. In this case the points will appear to be randomly scattered
+across the plot in a scattershot fashion. If there is significant dependence between 
+errors, however, some sort of deterministic pattern will likely be evident.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Examples</I>
+</TD>
+<TD WIDTH=85%>
+Lag plots for 
+the <A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature example</A>, 
+the <A HREF="../section1/pmd132.html#tc.r1">Thermocouple Calibration example</A>, and 
+the <A HREF="pmd422.html#pr.r1">Polymer Relaxation example</A>
+are shown below. The lag plots for these three examples suggest that the errors 
+from each fit are independent. In each case, the residuals are
+randomly scattered about the origin with no apparent structure.  The last plot, for
+the Polymer Relaxation data, shows an apparent slight correlation between the residuals
+and the lagged residuals, but experience suggests that this could easily be due to
+random error and is not likely to be a real issue. In fact, the lag plot can also 
+emphasize outlying observations and a few of the larger residuals (in absolute terms)
+may be pulling our eyes unduly. The normal probability plot, which is also good at
+identifying outliers, will be discussed <A HREF="pmd445.html">next</A>, and will shed 
+further light on any unusual points in the data set.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Lag Plot: Temperature / Pressure Example</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt10_f.gif"><IMG SRC="plots/mvpt10_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="lag plot for the Temperature/Pressure example">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Lag Plot: Thermocouple Calibration Example</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvtc3_f.gif"><IMG SRC="plots/mvtc3_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="lag plot for the Thermocouple Calibration example">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Lag Plot: Polymer Relaxation Example</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpr4_f.gif"><IMG SRC="plots/mvpr4_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="lag plot for the Polymer Relaxation example">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Next Steps</I>
+</TD>
+<TD WIDTH=85%>
+Some of the different patterns that might be found in the residuals when the
+errors are not independent are illustrated in the 
+<A HREF="../../eda/section3/eda33f.html#examples">general discussion</A> of the lag plot. 
+If the residuals are not random, then time series methods might be required to fully
+model the data. Some time series basics are given in 
+<A HREF="../../pmc/section4/pmc4.html">Section 4</A> of the chapter on 
+<A HREF="../../pmc/pmc.html">Process Monitoring</A>. 
+Before jumping to conclusions about the need for time series methods, 
+however, be sure that a run order plot does not show any trends, or other structure, in 
+the data. If there is a trend in the run order plot, whether caused by drift or by 
+the use of the wrong functional form, the source of the structure shown in 
+the run order plot will also induce structure in the lag plot. Structure induced in 
+the lag plot in this way does not necessarily indicate dependence in successive 
+random errors. The lag plot can only be interpreted clearly after accounting for 
+any structure in the run order plot.
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd443.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd445.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd444.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:50 GMT -->
+</HTML>

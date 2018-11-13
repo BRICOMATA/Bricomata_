@@ -1,0 +1,269 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/condplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.26.12. Conditioning Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33r.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33qb.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.26.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33q.html">Scatter Plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.26.12.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Conditioning Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-----begin jjf----->
+
+<!----- begin section: purpose -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Purpose: <br>
+Check pairwise relationship between two variables conditional
+on a third variable
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+A conditional plot, also known as a coplot or subset plot,
+is a plot of two variables contional on the value of a third
+variable (called the conditioning variable).  The conditioning
+variable may be either a variable that takes on only a few
+discrete values or a continuous variable that is divided into
+a limited number of subsets.
+<P>
+One limitation of the <a href="scatplma.html">scatter plot matrix</a>
+is that it cannot show interaction effects with another variable.
+This is the strength of the conditioning plot.  It is also useful
+for displaying scatter plots for groups in the data.  Although
+these groups can also be plotted on a single plot with different
+plot symbols, it can often be visually easier to distinguish the
+groups using the conditional plot.
+<P>
+Although the basic concept of the conditioning plot matrix is simple,
+there are numerous alternatives in the details of the plots.
+<OL>
+   <LI>It can be helpful to overlay some type of fitted curve
+       on the scatter plot.  Although a linear or quadratic fit
+       can be used, the most common alternative is to overlay
+       a <a href="../../pmd/section1/pmd144.html">lowess</a>
+       curve.
+       <P>
+   <LI>Due to the potentially large number of plots, it can be
+       somewhat tricky to provide the axes labels in a way that is
+       both informative and visually pleasing.  One alternative that
+       seems to work well is to provide axes labels on alternating
+       rows and columns.  That is, row one will have tic marks
+       and axis labels on the left vertical axis for the first
+       plot only while row two will have the tic marks and axis
+       labels for the right vertical axis for the last plot in the
+       row only.  This alternating pattern continues for the
+       remaining rows.  A similar pattern is used for the columns
+       and the horizontal axes labels.  Note that this approach only
+       works if the axes limits are fixed to common values for all
+       of the plots.
+       <P>
+   <LI>Some analysts prefer to connect the scatter plots.  Others
+       prefer to leave a little gap between each plot.  Alternatively,
+       each plot can have its own labeling with the plots not
+       connected.
+       <P>
+   <LI>Although this plot type is most commonly used for scatter
+       plots, the basic concept is both simple and powerful and
+       extends easily to other plot formats.
+</OL>
+
+</TD>
+</TR>
+
+<!----- begin section: Sample -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Sample Plot
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<IMG SRC="gif/condplot.gif"
+alt="sample conditional plot"
+>
+<P>
+In this case, temperature has six distinct values.  We plot torque
+versus time for each of these temperatures.  This example is
+discussed in more detail in the
+<a href="../../pmd/section1/pmd11.html#pt.r1">process modeling</a>
+chapter.
+
+</TD>
+</TR>
+
+<!----- begin section: definition -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Definition
+</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Given the variables <b><i>Y</i></b>, <b><i>X</i></b>, and
+<b><i>Z</i></b>, the condition plot is formed by dividing the values
+of <b><i>Z</i></b> into k groups.  There are several ways that these
+groups may be formed.  There may be a natural grouping of the data,
+the data may be divided into several equal sized groups, the grouping
+may be determined by clusters in the data, and so on.  The page
+will be divided into n rows and c columns where n*c &ge; k.
+Each row and column defines a single scatter plot.
+<P>
+The individual plot for row i and column j is defined as
+<UL>
+   <li>Vertical axis: Variable <b><i>Y</i></b>
+   <li>Horizontal axis: Variable <b><i>X</i></b>
+       <BR>
+       where only the points in the group corresponding to the ith
+       row and jth column are used.
+</UL>
+
+</TD>
+</TR>
+
+<!----- begin section: questions -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Questions</I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+The conditioning plot can provide answers to the following
+questions:
+<OL>
+   <LI>Is there a relationship between two variables?
+   <LI>If there is a relationship, does the nature of this
+       relationship depend on the value of a third variable?
+   <LI>Do groups in the data behave in a similar way?
+   <LI>Are there outliers in the data?
+</OL>
+
+</TD>
+</TR>
+
+<!----- begin section: related techniques -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Related Techniques </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+<a href="scatterp.html">Scatter plot</a><br>
+<a href="eda33qb.html">Scatter plot matrix</a><br>
+<a href="../../pmd/section1/pmd144.html">Locally weighted least
+        squares</a><br>
+</TD>
+</TR>
+
+<!----- begin section: dataplot command -->
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Software </I>
+</TD>
+
+<TD WIDTH=85% valign=top>
+Scatter plot matrices are becoming increasingly common in
+general purpose statistical software programs,
+including
+<a href="../section4/eda44.html#CONDPLOT">Dataplot</a>.  If
+a software program does not generate conditioning plots, but it
+does provide multiple plots per page and scatter plots, it should
+be possible to write a macro to generate a condition plot.
+
+</TD>
+</TR>
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33qb.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33r.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/condplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:35 GMT -->
+</HTML>

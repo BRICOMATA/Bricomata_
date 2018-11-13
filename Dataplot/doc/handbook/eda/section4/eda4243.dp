@@ -1,0 +1,593 @@
+Dataplot commands and output:
+
+.
+.  Starting Josephson Junction Cryothermometry Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+tic offset units screen
+tic offset 5 5
+title displacement 2
+case asis
+title case asis
+label case asis
+tic label case asis
+character case asis all
+legend case asis
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+skip 25
+set read format 5f5.0
+serial read soulen.dat y
+set read format
+skip 0
+. Finished Step 1.1
+
+
+.
+.4-Plot 	
+.
+. Starting Step 2.1
+. Generate 4-plot
+.
+label size 6
+tic label size 6
+character size 4
+x3label displacement 11
+x3label automatic
+4-plot Y
+x3label
+.
+justification center
+height 4
+move 50 96
+text Voltage Counts:  4-Plot
+. Finished Step 2.1
+
+
+.
+.Run Sequence Plot 	
+.
+. Starting Step 3.1
+.
+y1label y
+x1label index
+plot y
+y1label
+x1label
+. Finished Step 3.1
+
+
+.
+.Lag Plot 	
+.
+. Starting Step 3.2
+.
+y1label y( i )
+x1label y(i-1)
+line blank
+char x
+lag plot y
+y1label
+x1label
+line solid
+char blank
+. Finished Step 3.2
+
+
+.
+.Histogram with Overlaid Normal PDF 	
+.
+. Starting Step 3.3
+.
+y1label Rlc()elative uc()Flc()requency
+x1label Y
+let s = standard deviation y
+let xmean = mean y
+x2label lc()mean = ^xmean, sd = ^s
+x2label displacement 14
+x3label
+let a = 0.3*s
+let xmin = minimum y
+let xmax = maximum y
+class upper xmax
+class lower xmin4
+legend 1 Clc()lass uc()wlc()idth = ^a
+relative histogram y
+limits freeze
+legend 1
+pre-erase off
+line solid
+character blank
+plot norpdf(x,xmean,s) for x = xmin 0.01 xmax
+pre-erase on
+limits
+x2label
+y1label
+x1label
+x2label displacement
+. Finished Step 3.3
+
+
+.
+.Normal Probability Plot 	
+.
+. Starting Step 3.4
+.
+y1label Dlc()ata
+x1label Tlc()heoretical
+char circle
+char hw 1 0.75
+line blank
+normal probability plot y
+let x1 = -2.2
+let y1 = ppa0 + ppa1*x1
+let n = size xplot
+let xn = 2.4
+let yn = ppa0 + ppa1*xn
+line solid
+drawdata x1 y1 xn yn
+justification center
+move 50 4
+text Flc()itted uc()llc()ine: uc()Ilc()ntercept = ^PPA0, uc()Slc()lope = ^ppa1
+y1label
+x1label
+. Finished Step 3.4
+
+
+.
+.Summary Statistics 	
+.
+. Starting Step 4.1
+.
+summary y
+. Finished Step 4.1
+
+>                                 SUMMARY
+>  
+>                      NUMBER OF OBSERVATIONS =      700
+>  
+>  
+> ***********************************************************************
+> *        LOCATION MEASURES         *       DISPERSION MEASURES        *
+> ***********************************************************************
+> *  MIDRANGE     =   0.2898500E+04  *  RANGE        =   0.7000000E+01  *
+> *  MEAN         =   0.2898562E+04  *  STAND. DEV.  =   0.1304969E+01  *
+> *  MIDMEAN      =   0.2898363E+04  *  AV. AB. DEV. =   0.1058571E+01  *
+> *  MEDIAN       =   0.2899000E+04  *  MINIMUM      =   0.2895000E+04  *
+> *               =                  *  LOWER QUART. =   0.2898000E+04  *
+> *               =                  *  LOWER HINGE  =   0.2898000E+04  *
+> *               =                  *  UPPER HINGE  =   0.2899000E+04  *
+> *               =                  *  UPPER QUART. =   0.2899000E+04  *
+> *               =                  *  MAXIMUM      =   0.2902000E+04  *
+> ***********************************************************************
+> *       RANDOMNESS MEASURES        *     DISTRIBUTIONAL MEASURES      *
+> ***********************************************************************
+> *  AUTOCO COEF  =   0.3148023E+00  *  ST. 3RD MOM. =   0.6580265E-02  *
+> *               =   0.0000000E+00  *  ST. 4TH MOM. =   0.2825334E+01  *
+> *               =   0.0000000E+00  *  ST. WILK-SHA =  -0.2272378E+02  *
+> *               =                  *  UNIFORM PPCC =   0.9554127E+00  *
+> *               =                  *  NORMAL  PPCC =   0.9748405E+00  *
+> *               =                  *  TUK -.5 PPCC =   0.7935873E+00  *
+> *               =                  *  CAUCHY  PPCC =   0.4231319E+00  *
+> ***********************************************************************
+
+
+.
+.Location Statistics 	
+.
+. Starting Step 4.2
+.
+let n = size y
+let ymean = mean y
+let ysdm = standard deviation of mean y
+let idf = n - 1
+.
+let lclm = ymean - tppf(0.975,idf)*ysdm
+let uclm = ymean + tppf(0.975,idf)*ysdm
+.
+let x = sequence 1 1 n
+fit y x
+let idf2 = n - 2
+read dpst1f.dat coef coefsd
+let bsd = coefsd(2)
+let lclb = bsd - tppf(0.975,idf2)*bsd
+let uclb = bsd + tppf(0.975,idf2)*bsd
+let string idrift = NO
+let atemp = lclb*uclb
+if atemp < 0
+  let string idrift = YES
+end of if
+.
+. Finished Step 4.2
+
+> LEAST SQUARES MULTILINEAR FIT
+>       SAMPLE SIZE N       =      700
+>       NUMBER OF VARIABLES =        1
+>       NO REPLICATION CASE
+>  
+>  
+>               PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+>        1  A0                   2898.19       (0.9745E-01)       0.2974E+05
+>        2  A1       X          0.107075E-02   (0.2409E-03)        4.445
+>  
+>       RESIDUAL    STANDARD DEVIATION =         1.287802
+>       RESIDUAL    DEGREES OF FREEDOM =         698
+
+
+.
+.Variation Statistics 	
+.
+. Starting Step 4.3
+.
+let n = size y
+let ysd = standard deviation y
+let idf = n - 1
+.
+let ucls = idf*ysd*ysd/chsppf(0.025,idf)
+let ucls = sqrt(ucls)
+let lcls = idf*ysd*ysd/chsppf(0.975,idf)
+let lcls = sqrt(lcls)
+.
+let x = sequence 1 1 n
+let x = code4 x
+levene test y x
+.
+. Finished Step 4.3
+
+>               LEVENE F-TEST FOR SHIFT IN VARIATION
+>                      (ASSUMPTION: NORMALITY)
+>  
+> 1. STATISTICS
+>       NUMBER OF OBSERVATIONS    =      700
+>       NUMBER OF GROUPS          =        4
+>       LEVENE F TEST STATISTIC   =    1.432365
+>  
+>  
+>    FOR LEVENE TEST STATISTIC
+>       0          % POINT    =    0.000000
+>       50         % POINT    =   0.7894323
+>       75         % POINT    =    1.372513
+>       90         % POINT    =    2.091688
+>       95         % POINT    =    2.617726
+>       99         % POINT    =    3.809943
+>       99.9       % POINT    =    5.482234
+>  
+>  
+>          76.79006       % Point:     1.432365
+>  
+> 3. CONCLUSION (AT THE 5% LEVEL):
+>       THERE IS NO SHIFT IN VARIATION.
+>       THUS THE GROUPS ARE HOMOGENEOUS WITH RESPECT TO VARIATION.
+
+
+.
+.Randomness 	
+.
+. Starting Step 4.4
+.
+runs y
+.
+y1label autocorrelation
+x1label lag
+autocorrelation plot y
+y1label
+x1label
+let yauto = yplot(2)
+let string irand = YES
+let amin = maximum yplot subset tagplot = 4
+let amax = maximum yplot subset tagplot = 3
+if yauto < amin
+  let string irand = NO
+end of if
+if yauto > amax
+  let string irand = NO
+end of if
+.
+. Finished Step 4.4
+
+>                       RUNS UP
+>  
+>            STATISTIC = NUMBER OF RUNS UP
+>                OF LENGTH EXACTLY I
+>  
+>    I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+>    1       102.0    145.8750     12.1665       -3.61
+>    2        48.0     64.0500      6.2731       -2.56
+>    3        23.0     18.4069      3.8239        1.20
+>    4        11.0      4.0071      1.9366        3.61
+>    5         4.0      0.7071      0.8347        3.95
+>    6         2.0      0.1052      0.3240        5.85
+>    7         2.0      0.0136      0.1164       17.06
+>    8         0.0      0.0015      0.0393       -0.04
+>    9         0.0      0.0002      0.0125       -0.01
+>   10         0.0      0.0000      0.0038        0.00
+>  
+>  
+>            STATISTIC = NUMBER OF RUNS UP
+>                OF LENGTH I OR MORE
+>  
+>    I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+>    1       192.0    233.1667      7.8779       -5.23
+>    2        90.0     87.2917      5.2610        0.51
+>    3        42.0     23.2417      4.0657        4.61
+>    4        19.0      4.8347      2.1067        6.72
+>    5         8.0      0.8276      0.9016        7.96
+>    6         4.0      0.1205      0.3466       11.19
+>    7         2.0      0.0153      0.1236       16.06
+>    8         0.0      0.0017      0.0414       -0.04
+>    9         0.0      0.0002      0.0132       -0.01
+>   10         0.0      0.0000      0.0040        0.00
+>  
+>  
+>                      RUNS DOWN
+>  
+>            STATISTIC = NUMBER OF RUNS DOWN
+>                OF LENGTH EXACTLY I
+>  
+>    I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+>    1       106.0    145.8750     12.1665       -3.28
+>    2        47.0     64.0500      6.2731       -2.72
+>    3        24.0     18.4069      3.8239        1.46
+>    4         8.0      4.0071      1.9366        2.06
+>    5         4.0      0.7071      0.8347        3.95
+>    6         3.0      0.1052      0.3240        8.94
+>    7         0.0      0.0136      0.1164       -0.12
+>    8         0.0      0.0015      0.0393       -0.04
+>    9         0.0      0.0002      0.0125       -0.01
+>   10         0.0      0.0000      0.0038        0.00
+>  
+>  
+>            STATISTIC = NUMBER OF RUNS DOWN
+>                OF LENGTH I OR MORE
+>  
+>  
+>    I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+>    1       192.0    233.1667      7.8779       -5.23
+>    2        86.0     87.2917      5.2610       -0.25
+>    3        39.0     23.2417      4.0657        3.88
+>    4        15.0      4.8347      2.1067        4.83
+>    5         7.0      0.8276      0.9016        6.85
+>    6         3.0      0.1205      0.3466        8.31
+>    7         0.0      0.0153      0.1236       -0.12
+>    8         0.0      0.0017      0.0414       -0.04
+>    9         0.0      0.0002      0.0132       -0.01
+>   10         0.0      0.0000      0.0040        0.00
+>  
+>  
+>            RUNS TOTAL = RUNS UP + RUNS DOWN
+>  
+>          STATISTIC = NUMBER OF RUNS TOTAL
+>               OF LENGTH EXACTLY I
+>  
+>    I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+>    1       208.0    291.7500     17.2060       -4.87
+>    2        95.0    128.1000      8.8716       -3.73
+>    3        47.0     36.8139      5.4079        1.88
+>    4        19.0      8.0143      2.7387        4.01
+>    5         8.0      1.4141      1.1805        5.58
+>    6         5.0      0.2105      0.4582       10.45
+>    7         2.0      0.0271      0.1647       11.98
+>    8         0.0      0.0031      0.0556       -0.06
+>    9         0.0      0.0003      0.0177       -0.02
+>   10         0.0      0.0000      0.0054       -0.01
+>  
+>  
+>          STATISTIC = NUMBER OF RUNS TOTAL
+>                OF LENGTH I OR MORE
+>  
+>    I         STAT     EXP(STAT)    SD(STAT)       Z
+>  
+>    1       384.0    466.3333     11.1410       -7.39
+>    2       176.0    174.5833      7.4402        0.19
+>    3        81.0     46.4833      5.7498        6.00
+>    4        34.0      9.6694      2.9794        8.17
+>    5        15.0      1.6552      1.2751       10.47
+>    6         7.0      0.2410      0.4902       13.79
+>    7         2.0      0.0306      0.1748       11.27
+>    8         0.0      0.0034      0.0586       -0.06
+>    9         0.0      0.0003      0.0186       -0.02
+>   10         0.0      0.0000      0.0056       -0.01
+>  
+>  
+>           LENGTH OF THE LONGEST RUN UP         =     7
+>           LENGTH OF THE LONGEST RUN DOWN       =     6
+>           LENGTH OF THE LONGEST RUN UP OR DOWN =     7
+>  
+>           NUMBER OF POSITIVE DIFFERENCES =   262
+>           NUMBER OF NEGATIVE DIFFERENCES =   258
+>           NUMBER OF ZERO     DIFFERENCES =   179
+
+
+.
+.Distributional Analysis 	
+.
+. Starting Step 4.5
+.
+anderson-darling normal test y
+let string inorm = YES
+normal probability plot y
+if PPCC < .987
+  let string inorm = NO
+end of if
+.
+. Finished Step 4.5
+
+>               ANDERSON-DARLING 1-SAMPLE TEST
+>               THAT THE DATA CAME FROM A NORMAL DISTRIBUTION
+>  
+> 1. STATISTICS:
+>       NUMBER OF OBSERVATIONS                =      700
+>       MEAN                                  =    2898.562
+>       STANDARD DEVIATION                    =    1.304969
+>  
+>       ANDERSON-DARLING TEST STATISTIC VALUE =    16.76349
+>       ADJUSTED TEST STATISTIC VALUE         =    16.85843
+>  
+> 2. CRITICAL VALUES:
+>       90         % POINT    =   0.6560000
+>       95         % POINT    =   0.7870000
+>       97.5       % POINT    =   0.9180000
+>       99         % POINT    =    1.092000
+>  
+> 3. CONCLUSION (AT THE 5% LEVEL):
+>       THE DATA DO NOT COME FROM A NORMAL DISTRIBUTION.
+
+
+.
+.Outlier Analysis Statistics 	
+.
+. Starting Step 4.6
+.
+capture grubbs.out
+grubbs test y
+end of capture
+. Finished Step 4.6
+
+>               GRUBBS TEST FOR OUTLIERS
+>               (ASSUMPTION: NORMALITY)
+>  
+> 1. STATISTICS:
+>       NUMBER OF OBSERVATIONS      =      700
+>       MINIMUM                     =    2895.000
+>       MEAN                        =    2898.562
+>       MAXIMUM                     =    2902.000
+>       STANDARD DEVIATION          =    1.304969
+>  
+>       GRUBBS TEST STATISTIC       =    2.729201
+>  
+> 2. PERCENT POINTS OF THE REFERENCE DISTRIBUTION
+>    FOR GRUBBS TEST STATISTIC
+>       0          % POINT    =    0.000000
+>       50         % POINT    =    3.371397
+>       75         % POINT    =    3.554906
+>       90         % POINT    =    3.784969
+>       95         % POINT    =    3.950619
+>       97.5       % POINT    =    4.109569
+>       99         % POINT    =    4.311552
+>       100        % POINT    =    26.41972
+> 
+> 3. CONCLUSION (AT THE 5% LEVEL):
+>       THERE ARE NO OUTLIERS.
+
+
+.
+.Print Report 	
+.
+. Starting Step 4.7
+.
+capture report.tex
+print " "
+print " "
+print "Analysis for Josephson Junction Cryothermometry Data"
+print " "
+print "1: Sample Size                           = ^n"
+print " "
+print "2: Location"
+print "   Mean                                  = ^ymean"
+print "   Standard Deviation of Mean            = ^ysdm"
+print "   95% Confidence Interval for Mean      = (^lclm,^uclm)"
+print "   Drift with respect to location?       = ^idrift"
+print "   (Further analysis indicates that"
+print "   the drift, while statistically"
+print "   significant, is not practically"
+print "   significant)"
+print " "
+print "3: Variation"
+print "   Standard Deviation                    = ^ysd"
+print "   95% Confidence Interval for SD        = (^lcls,^ucls)"
+print "   Drift with respect to variation?"
+print "   (based on Levene's test on quarters"
+print "   of the data)                          = NO"
+print " "
+print "4: Distribution"
+print "   Normal PPCC                           = ^PPCC"
+print "   Data are Normal?"
+print "     (as measured by Normal PPCC)        = ^inorm"
+print " "
+print "5: Randomness"
+print "   Autocorrelation                       = ^yauto"
+print "   Data are Random?"
+print "     (as measured by autocorrelation)    = ^irand"
+print " "
+print "6: Statistical Control"
+print "   (i.e., no drift in location or scale,"
+print "   data are random, distribution is "
+print "   fixed, here we are testing only for"
+print "   fixed normal)"
+print "   Data Set is in Statistical Control?   = NO"
+print " "
+print "   Note: Although we have violations of"
+print "   the assumptions, they are mild enough,"
+print "   and at least partially explained by the"
+print "   discrete nature of the data, so we may model"
+print "   the data as if it were in statistical"
+print "   control"
+print " "
+print "7: Outliers?"
+print "   (as determined by Grubbs test)        = NO"
+print " "
+end of capture
+list report.tex
+. Finished Step 4.7
+
+> Analysis for Josephson Junction Cryothermometry Data
+>  
+> 1: Sample Size                           = 700
+>  
+> 2: Location
+>    Mean                                  = 2898.562
+>    Standard Deviation of Mean            = 0.049323
+>    95% Confidence Interval for Mean      = (2898.465,2898.658)
+>    Drift with respect to location?       = YES
+>    (Further analysis indicates that
+>    the drift, while statistically
+>    significant, is not practically
+>    significant)
+>  
+> 3: Variation
+>    Standard Deviation                    = 1.30497
+>    95% Confidence Interval for SD        = (1.240007,1.377169)
+>    Drift with respect to variation?
+>    (based on Levene's test on quarters
+>    of the data)                          = NO
+>  
+> 4: Distribution
+>    Normal PPCC                           = 0.97484
+>    Data are Normal?
+>      (as measured by Normal PPCC)        = NO
+>  
+> 5: Randomness
+>    Autocorrelation                       = 0.314802
+>    Data are Random?
+>      (as measured by autocorrelation)    = NO
+>  
+> 6: Statistical Control
+>    (i.e., no drift in location or scale,
+>    data are random, distribution is 
+>    fixed, here we are testing only for
+>    fixed normal)
+>    Data Set is in Statistical Control?   = NO
+>  
+>    Note: Although we have violations of
+>    the assumptions, they are mild enough,
+>    and at least partially explained by the
+>    discrete nature of the data, so we may model
+>    the data as if it were in statistical
+>    control
+>  
+> 7: Outliers?
+>    (as determined by Grubbs test)        = NO
+
+

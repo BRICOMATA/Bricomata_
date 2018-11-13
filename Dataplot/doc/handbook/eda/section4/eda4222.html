@@ -1,0 +1,434 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4222.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:53:51 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.2.2. Graphical Output and Interpretation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4223.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4221.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda422.html">Uniform Random Numbers</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.2.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Graphical Output and Interpretation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Goal
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The goal of this analysis is threefold:
+<OL>
+   <LI>Determine if the univariate model:
+       <P>
+       <UL>
+          <!--
+          <img src="eqns/conmodel.gif" alt="Y(i) = C + E(i)">
+          -->
+          \( Y_{i} = C + E_{i} \)
+       </UL>
+       <P>
+       is appropriate and valid.
+   </LI>
+   <P>
+   <LI>Determine if the typical underlying assumptions for an
+       "in control" measurement process are valid.  These assumptions
+       are:
+       <ol>
+          <li>random drawings;
+          <li>from a fixed distribution;
+          <li>with the distribution having a fixed location; and
+          <li>the distribution having a fixed scale.
+       </ol>
+   </LI>
+   <P>
+   <LI>Determine if the confidence interval
+       <P>
+       <UL>
+          <!--
+          <img src="eqns/ybarpms.gif" alt="YBAR +/- 2*s/SQRT(N)">
+          -->
+          \( \bar{Y} \pm 2s/\sqrt{N} \)
+       </UL>
+       <P>
+       is appropriate and valid where <I><B>s</B></I> is the
+       standard deviation of the original data.
+   </LI>
+</OL>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="4-PLOT">
+<I>
+4-Plot of Data
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<IMG SRC="randu4p/gif/4plot.gif"
+alt="4-Plot of data"
+>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The assumptions are addressed by the graphics shown above:
+<ol>
+   <li>The <a href="../section3/runseqpl.html">run sequence plot</a>
+       (upper left) indicates that the data do
+       not have any significant shifts in location or scale over time.
+       <p>
+   <li>The <a href="../section3/lagplot.html">lag plot</a>
+       (upper right) does not indicate any non-random
+       pattern in the data.
+       <p>
+   <li>The <a href="../section3/histogra.html">histogram</a>
+       shows that the frequencies are relatively
+       flat across the range of the data.  This suggests that the
+       uniform distribution might provide a better distributional
+       fit than the normal distribution.
+       <p>
+   <li>The <a href="../section3/normprpl.html">normal probability
+       plot</a> verifies that an assumption of
+       normality is not reasonable.  In this case, the 4-plot should be
+       followed up by a uniform probability plot to determine if it
+       provides a better fit to the data.  This is shown below.
+</ol>
+From the above plots, we conclude that the underlying assumptions
+are valid.  Therefore, the model
+<b><i>Y<sub>i</sub> = C + E<sub>i</sub></i></b>
+is valid.  However, since the data are not normally distributed,
+using the mean as an estimate of C and the confidence interval cited
+above for quantifying its uncertainty are not valid or appropriate.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Individual Plots
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Although it is usually not necessary, the plots can be generated
+individually to give more detail.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RUNSEQ">
+<I>
+Run Sequence Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src="randu4p/gif/runseq.gif"
+     alt="run sequence plot">
+<p>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="LAGPLOT">
+<I>
+Lag Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src="randu4p/gif/lagplot.gif"
+     alt="lag plot">
+<p>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="HISTNORM">
+<I>
+Histogram (with overlaid Normal PDF)
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src="randu4p/gif/histnorm.gif"
+     alt="histogram with overlaid normal PDF">
+<p>
+This plot shows that a normal distribution is a poor fit.
+The flatness of the histogram suggests that a uniform distribution
+might be a better fit.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="HISTUNIF">
+<I>
+Histogram (with overlaid Uniform PDF)
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src="randu4p/gif/histunif.gif"
+     alt="histogram with uniform PDF">
+<p>
+Since the histogram from the 4-plot suggested that the 
+uniform distribution might be a good fit, we overlay a uniform
+distribution on top of the histogram.  This indicates a much
+better fit than a normal distribution.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="NORMPROB">
+<I>
+Normal Probability Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src="randu4p/gif/normprpl.gif"
+     alt="normal probability plot">
+<p>
+As with the histogram, the normal probability plot shows that
+the normal distribution does not fit these data well.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="UNIFROB">
+<I>
+Uniform Probability Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src="randu4p/gif/unifprpl.gif"
+     alt="uniform probability plot">
+<p>
+Since the above plots suggested that a uniform distribution might
+be appropriate, we generate a uniform probability plot.  This plot
+shows that the uniform distribution provides an excellent fit to the
+data.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="BOOTSTRAP">
+<I>
+Better Model
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Since the data follow the underlying assumptions, but with a uniform
+distribution rather than a normal distribution, we would still like
+to characterize <b><i>C</i></b> by a typical value plus or
+minus a confidence interval.  In this case, we would like to find a
+<A HREF="../section3/eda351.html">location estimator</A>
+with the smallest variability.
+<P>
+The <a href="../section3/bootplot.html">bootstrap plot</a> is an ideal
+tool for this purpose.  The following plots show the bootstrap plot,
+with the corresponding histogram, for the mean, median, mid-range,
+and median absolute deviation.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Bootstrap Plots
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<IMG SRC="randu4p/gif/bootstra.gif"
+     alt="bootstrap plots">
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Mid-Range is Best
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From the above histograms, it is obvious that for these data,
+the mid-range is far superior to the mean or median as an
+estimate for location.
+<P>
+Using the mean, the location estimate is 0.507 and a 95% confidence
+interval for the mean is (0.482,0.534).  Using the mid-range, the
+location estimate is 0.499 and the 95% confidence interval for
+the mid-range is (0.497,0.503).
+<p>
+Although the values for the location are similar, the difference
+in the uncertainty intervals is quite large.
+<p>
+Note that in the case of a uniform distribution it is known
+theoretically that the mid-range is the best linear unbiased
+estimator for location.  However, in many applications, the most
+appropriate estimator will not be known or it will be mathematically
+intractable to determine a valid condfidence interval.  The bootstrap
+provides a method for determining (and comparing) confidence intervals
+in these cases.
+
+</TD>
+</TR>
+
+<!-- end paragraph -->
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4221.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4223.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4222.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:53:59 GMT -->
+</HTML>

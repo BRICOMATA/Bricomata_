@@ -1,0 +1,381 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri59a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.10. DOE contour plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri59a1.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri599b.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.10.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>DOE contour plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The DOE contour plot answers the question:
+<ul>
+   Where else could we have run the experiment
+   to optimize the response?
+</ul>
+Prior steps in this analysis have suggested the best setting
+for each of the <i>k</i> factors.  These best settings may have been
+derived from
+<ol>
+   <li>Data: which of the <i>n</i> design points yielded the best
+       response, and what were the settings of that design point,
+       or from
+   <li>Averages: what setting of each factor yielded the best
+       response "on the average".
+</ol>
+This 10th (and last) step in the analysis sequence goes beyond the
+limitations of the <i>n</i> data points already chosen in the design
+and replaces the data-limited question
+<ul>
+   "From among the <i>n</i> data points, what was the best setting?"
+</ul>
+to a region-related question:
+<ul>
+   "In general, what should the settings have been
+   to optimize the response?"
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The outputs from the DOE contour plot are
+<ol>
+   <li>Primary: Best setting (<i>X</i><sub>10</sub>,
+       <i>X</i><sub>20</sub>, ..., <i>X<sub>k0</sub></i>) for each
+       of the <i>k</i> factors.  This derived setting should yield
+       an optimal response.
+       <p>
+   <li>Secondary: Insight into the nature of the response surface and
+       the importance/unimportance of interactions.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A DOE contour plot is formed by
+<ul>
+   <li>Vertical Axis: The second most important factor in the
+       experiment.
+   <li>Horizontal Axis: The most important factor in the experiment.
+</ul>
+More specifically, the DOE contour plot is constructed and
+utilized via the following 7 steps:
+<ol>
+   <li>Axes
+   <li>Contour Curves
+   <li>Optimal Response Value
+   <li>Best Corner
+   <li>Steepest Ascent/Descent
+   <li>Optimal Curve
+   <li>Optimal Setting
+</ol>
+with
+<ol>
+   <li>Axes: Choose the two most important factors in the
+       experiment as the two axes on the plot.
+       <p>
+   <li>Contour Curves: Based on the <a href="pri599.html">fitted
+       model</a> and the best data settings for all of the remaining
+       factors, draw contour curves involving the two dominant
+       factors.  This yields a graphical representation of the
+       response surface.  The details for constructing linear
+       contour curves are given in
+       <a href="pri59a2.html#construction">a later section</a>.
+       <p>
+   <li>Optimal Value: Identify the theoretical value of the response
+       that constitutes "best." In particular, what value would we
+       like to have seen for the response?
+       <p>
+   <li>Best "Corner": The contour plot will have four "corners" for the
+       two most important factors <i>X<sub>i</sub></i> and
+       <i>X<sub>j</sub></i>: (<i>X<sub>i</sub></i>, <i>X<sub>j</sub></i>)
+       = (-, -), (-, +), (+, -), and (+, +).  From the data, identify which
+       of these four corners yields the highest average response
+       \( \bar{Y} \).
+       <!-- <img align=bottom src="eqns/ybar.gif" alt="ybar">. -->
+       <p>
+   <li>Steepest Ascent/Descent: From this optimum corner point, and
+       based on the nature of the contour lines near that corner,
+       step out in the direction of steepest ascent (if maximizing) or
+       steepest descent (if minimizing).
+       <p>
+   <li>Optimal Curve: Identify the curve on the contour plot that
+       corresponds to the ideal optimal value.
+       <p>
+   <li>Optimal Setting: Determine where the steepest ascent/descent
+       line intersects the optimum contour curve.  This point
+       represents our "best guess" as to where we could have
+       run our experiment so as to obtain the desired optimal response.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Motivation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In addition to increasing insight, most experiments have a goal of
+optimizing the response.  That is, of determining a setting
+(<i>X</i><sub>10</sub>, <i>X</i><sub>20</sub>, ...,
+<i>X<sub>k0</sub></i>) for which the response is optimized.
+<p>
+The tool of choice to address this goal is the DOE contour plot.  For
+a pair of factors <i>X<sub>i</sub></i> and <i>X<sub>j</sub></i>, the
+DOE contour plot is a 2-dimensional representation of the 3-dimensional
+<i>Y</i> = <i>f</i>(<i>X<sub>i</sub></i>, <i>X<sub>j</sub></i>) response
+surface.  The position and spacing of the isocurves on the DOE contour
+plot are an easily interpreted reflection of the nature of the surface.
+<p>
+In terms of the construction of the DOE contour plot,
+there are three aspects of note:
+<ol>
+   <li>Pairs of Factors: A DOE contour plot necessarily has two axes
+       (only); hence only two out of the <i>k</i> factors can be
+       represented on this plot.  All other factors must be set at a
+       fixed value (their optimum settings as determined by
+       the <a href="pri591.html">ordered data plot</a>,
+       the <a href="pri593.html">DOE mean plot</a>, and
+       the <a href="pri594.html">interaction effects matrix plot</a>).
+       <p>
+   <li>Most Important Factor Pair: Many DOE contour plots are possible.
+       For an experiment with <i>k</i> factors, there are
+       \( \left( \begin{array}{c}
+          k \\ 2
+          \end{array} \right)
+          \frac{k!} {2!(k-2)!} = \frac{k(k-1)}{2}
+       \)
+       <!--
+       <img align=absmiddle src="eqns/kchoose2.gif" alt="k-choose-2">
+       -->
+       possible contour plots.  For example, for <i>k</i> = 4 factors
+       there are 6 possible contour plots:
+       <i>X</i><sub>1</sub> and <i>X</i><sub>2</sub>,
+       <i>X</i><sub>1</sub> and <i>X</i><sub>3</sub>,
+       <i>X</i><sub>1</sub> and <i>X</i><sub>4</sub>,
+       <i>X</i><sub>2</sub> and <i>X</i><sub>3</sub>,
+       <i>X</i><sub>2</sub> and <i>X</i><sub>4</sub>, and
+       <i>X</i><sub>3</sub> and <i>X</i><sub>4</sub>.
+       In practice, we usually generate only one contour plot
+       involving the two most important factors.
+       <p>
+   <li>Main Effects Only:
+       The contour plot axes involve main effects only, not
+       interactions.  The rationale for this is that the "deliverable"
+       for this step is <i>k</i> settings, a best setting for each
+       of the <i>k</i> factors.  These <i>k</i> factors are real and
+       can be controlled, and so optimal settings can be used in
+       production.  Interactions are of a different nature as
+       there is no "knob on the machine" by which an
+       interaction may be set to -, or to +.  Hence the candidates for
+       the axes on contour plots are main effects only--no
+       interactions.
+</ol>
+In summary, the motivation for the DOE contour plot is that it is an
+easy-to-use graphic that provides insight as to the nature of the
+response surface, and provides a specific answer to the question
+"Where (else) should we have collected the data so to have optimized
+the response?".
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="plot">
+<I>
+Plot for defective springs data
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Applying the DOE contour plot for the defective springs data set
+yields the following plot.
+<p>
+<A HREF="gifs/contour.gif">
+   <IMG SRC="gifs/contour.r.gif" BORDER=0
+        alt="DOE contour plot for the defective springs data">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+From the DOE contour plot for the defective springs data, we note the
+following regarding the 7 framework issues:
+<ul>
+   <li><a href="pri59a1.html">Axes</a>
+   <li><a href="pri59a2.html">Contour curves</a>
+   <li><a href="pri59a3.html">Optimal response value</a>
+   <li><a href="pri59a4.html">Optimal response curve</a>
+   <li><a href="pri59a5.html">Best corner</a>
+   <li><a href="pri59a6.html">Steepest Ascent/Descent</a>
+   <li><a href="pri59a7.html">Optimal setting</a>
+</ul>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The application of the DOE contour plot to the defective springs
+data set results in the following conclusions:
+<ol>
+   <li>Optimal settings for the "next" run:
+       <p>
+       Coded  : (<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+1.5, +1.0, +1.3)
+       <br>
+       Uncoded: (OT, CC, QT) = (1637.5, 0.7, 127.5)
+       <p>
+   <li>Nature of the response surface:
+       <p>
+       The <i>X</i><sub>1</sub>*<i>X</i><sub>3</sub> interaction is important, hence the
+       effect of factor <i>X</i><sub>1</sub> will change depending on the
+       setting of factor <i>X</i><sub>3</sub>.
+       <p>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri599b.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri59a1.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri59a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:20:12 GMT -->
+</HTML>

@@ -1,0 +1,260 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section4/ppc422.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:34 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>3.4.2.2. Exploring Main Effects</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="ppc423.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="ppc421.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">3.</FONT>
+<FONT COLOR="#00105A"><A HREF="../ppc.html">Production
+Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc4.html">Data Analysis for PPC</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc42.html">Exploring Relationships</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">3.4.2.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Exploring Main Effects</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>The next step is to look for main effects</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+The next step in the exploratory analysis of our data is to see
+which factors have an effect on which response variables and to
+quantify that effect.
+<a href="../../eda/section3/scatterp.html">Scatter plots</a> and
+<a href="../../eda/section3/boxplot.html">box plots</a> will be the
+tools of choice here.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Watch out for varying sample sizes across levels</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+This step is relatively self explanatory. However there are two
+points of caution. First, be cognizant of not only the trends in
+these graphs but also the amount of data represented in those trends.
+This is especially true for categorical explanatory variables. There
+may be many more observations in some levels of the categorical
+variable than in others. In any event, take unequal sample sizes into
+account when making inferences.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Graph implicit as well as explicit explanatory variables</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+The second point is to be sure to graph the responses against
+implicit explanatory variables (such as observation order) as well
+as the explicit explanatory variables. There may be interesting insights
+in these <i>hidden</i> explanatory variables.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i> Example: wafer processing</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+In the example below, we have collected data on the particles added
+to a wafer during a particular processing step. We ran a number
+of cassettes through the process and sampled wafers from certain
+slots in the cassette. We also kept track of which load lock the wafers
+passed through. This was done for two different process temperatures. We
+measured both small particles (&lt; 2 microns) and large particles
+(> 2 microns). We plot the responses (particle counts) against each
+of the explanatory variables.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Cassette does not appear to be an important factor for small
+or large particles</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+This first graph is a <a href="../../eda/section3/boxplot.html">box
+plot</a> of the number of small particles added for each cassette
+type.  The "X"'s in the plot represent the maximum, median, and
+minimum number of particles.
+<p>
+<img SRC="gifs/main1.gif" height=437 width=564
+alt="small particles by cassette; cassette does not appear to be an
+important factor">
+<p>
+The second graph is a box plot of the number of large particles added
+for each cassette type.
+<p>
+<img SRC="gifs/main2.gif" height=437 width=564
+alt="large particles by cassette; cassette does not appear to be an
+important factor">
+<p>
+We conclude from these two box plots that cassette does not appear
+to be an important factor for small or large particles.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>There is a difference between slots for small particles, one
+slot is different for large particles</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+We next generate box plots of small and large particles for
+the slot variable.  First, the box plot for small particles.
+<p>
+<img SRC="gifs/main3.gif" height=437 width=564
+alt="small particles by slot; there is a difference between slots for
+small particles">
+<p>
+Next, the box plot for large particles.
+<p>
+<img SRC="gifs/main4.gif" height=437 width=564 alt=
+"large particles by slot; one slot is different for large particles">
+<p>
+We conclude that there is a difference between slots for small
+particles.  We also conclude that one slot appears to be different
+for large particles.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Load lock may have a slight effect
+for small and large particles</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%" NOSAVE>
+We next generate box plots of small and large particles for
+the load lock variable.  First, the box plot for small particles.
+<p>
+<img SRC="gifs/main5.gif" height=437 width=564
+alt="small particles by load lock; load lock may have a slight effect">
+<p>
+Next, the box plot for large particles.
+<p>
+<img SRC="gifs/main6.gif" height=437 width=564
+alt="large particles by load lock; load lock may have a slight effect">
+<p>
+We conclude that there may be a slight effect for load lock for
+small and large particles.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>For small particles, temperature has a strong effect on both
+location and spread.  For large particles, there may be a slight
+temperature effect but this may just be due to the outliers</i>
+</td>
+
+<td VALIGN=TOP width="85%">
+We next generate box plots of small and large particles for
+the temperature variable.  First, the box plot for small particles.
+<p>
+<img SRC="gifs/main7.gif" height=437 width=564 alt=
+"small particles by temperature; temperature has a strong effect
+ on small particles">
+<p>
+Next, the box plot for large particles.
+<p>
+<img SRC="gifs/main8.gif" height=437 width=564 alt=
+"large particles by temp; there may be a slight temperature effect on
+large particles but may be due to outliers">'
+<p>
+We conclude that temperature has a strong effect on both location
+and spread for small particles.  We conclude that there might
+be a small temperature effect for large particles, but this may
+just be due to outliers.
+</td>
+</tr>
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="ppc421.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="ppc423.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section4/ppc422.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:05:16 GMT -->
+</HTML>

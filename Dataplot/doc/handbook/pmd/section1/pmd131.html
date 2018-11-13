@@ -1,0 +1,219 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd131.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.1.3.1. Estimation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd132.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd13.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd1.html">Introduction to Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd13.html">What are process models used for?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.1.3.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Estimation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>More on Estimation</I>
+</TD>
+<TD WIDTH=85%>
+As mentioned on the preceding page, the primary goal of estimation is to
+determine the value of the <A HREF="pmd12.html#at">regression function</A>
+that is associated with a specific combination of predictor variable values.
+The estimated values are computed by
+plugging the value(s) of the predictor variable(s) into the
+<A HREF="pmd12.html#at">regression equation</A>, after estimating the
+unknown <A HREF="pmd12.html#mf">parameters</A> from the data.  
+This process is illustrated below using the 
+<A HREF="pmd11.html#pt.r1">Pressure/Temperature example</A> from a few pages
+earlier.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="ex">Example</A></I>
+</TD>
+<TD WIDTH=85%>
+Suppose in this case the predictor variable value of interest
+is a temperature of 47 degrees.  Computing the estimated value 
+of the regression function using the
+equation 
+
+$$ \hat{P} = 7.749695 + 3.930123T $$
+
+<!-- <BR><BR><CENTER><IMG ALT="\hat{P} = 7.749695 + 3.930123T" 
+SRC="eqns/ptreq1.gif"></CENTER><BR> -->
+yields an estimated average pressure of 192.4655.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/pred1.gif"><IMG SRC="plots/pred1.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="Using the equation yields an estimated value of 192.4655 for a temperature of 47"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Of course, if the pressure/temperature experiment were repeated, the estimates of the parameters
+of the regression function obtained from the data would differ slightly each 
+time because of the randomness in the data and the need to sample a limited
+amount of data.  Different parameter estimates would, in turn, yield different estimated
+values.  The plot below illustrates the type of slight variation that
+could occur in a repeated experiment.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Estimated Value from a Repeated Experiment</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/pred2.gif"><IMG SRC="plots/pred2.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="estimated value from a repeated experiment"
+></A>
+</TD>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Uncertainty of the Estimated Value</I>
+</TD>
+<TD WIDTH=85%>
+A critical part of estimation is an assessment of how much an estimated
+value will fluctuate due to the noise in the data.  Without that information
+there is no basis for comparing an estimated value to a target value or to another
+estimate.  Any method used for estimation should include an assessment of the
+uncertainty in the estimated value(s).  Fortunately it is often the case
+that the data used to fit the model to a process can also be used to compute
+the uncertainty of estimated values obtained from the model.  In the pressure/temperature
+example a confidence interval for the value of the regresion function at 47
+degrees can be computed from the data used to fit the model.  The plot below
+shows a 99 % confidence interval produced using the original data.  This
+interval gives the range of plausible values for the average pressure for 
+a temperature of 47 degrees based on the parameter estimates and the noise in the data.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>99 % Confidence Interval for Pressure at T=47</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/pred3.gif">
+<IMG SRC="plots/pred3.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="99% confidence interval for pressure for temperature of 47"
+>
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Length of Confidence Intervals</I>
+</TD>
+<TD WIDTH=85%>
+Because the confidence interval is an interval for the value of the
+regression function, the uncertainty only includes the noise that is inherent
+in the estimates of the regression parameters. 
+The uncertainty in the estimated value can be less than the uncertainty of a single
+measurement from the process because the data used to estimate the unknown parameters
+is essentially averaged (in a way that depends on the statistical method being used)
+to determine each parameter estimate. This "averaging" of the data tends to cancel out
+errors inherent in each individual observed data point.
+The noise in the this type of
+result is generally less than the noise in the <A HREF="pmd132.html">prediction of 
+one or more future measurements</A>, which must account for both the uncertainty 
+in the estimated parameters and the uncertainty of the new measurement.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>More Info</I>
+</TD>
+<TD WIDTH=85%>
+For more information on the interpretation and computation confidence,
+intervals see <A HREF="../section5/pmd51.html">Section 5.1</A>
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd13.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd132.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd131.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:18 GMT -->
+</HTML>

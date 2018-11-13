@@ -1,0 +1,189 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr123.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:35 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.2.3. Failure (or hazard) rate</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr124.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr122.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr12.html">What are the basic terms and models used for reliability evaluation?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.2.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Failure (or hazard) rate</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>The failure
+rate is the rate at which the population survivors at any given instant
+are "falling over the cliff"</i></td>
+
+<td VALIGN=TOP WIDTH="85%">The failure rate is defined for non repairable
+populations as the (instantaneous) rate of failure for the survivors to
+time \(t\)
+<!-- <i>t</i> -->
+during the next instant of time. It is a rate per unit of
+time similar in meaning to reading a car speedometer at a particular instant
+and seeing 45 mph. The next instant the failure rate may change and the
+units that have already failed play no further role since only the survivors
+count.&nbsp;
+<p>The failure rate (or hazard rate) is denoted by \(h(t)\)
+<!-- <i>h(t)</i> -->
+and is calculated from
+
+$$ h(t) = \frac{f(t)}{1 - F(t)} = \frac{f(t)}{R(t)} = \mbox{the instantaneous (conditional) failure rate.} $$
+
+<!--
+<center>
+<p><img SRC="eqns/fr.gif" ALT="h(t) = f(t)/(1 - F(t)) = f(t)/R(t) = the instntaneous (conditional) failure rate" height=40 width=426></center>
+-->
+
+The failure rate is sometimes called a "conditional failure rate" since
+the denominator \(1 - F(t)\)
+<!-- 1 - <i>F(t)</i> -->
+(i.e., the population survivors) converts
+the expression into a conditional rate, given survival past time \(t\).
+<!-- <i>t</i>. -->
+<p>
+Since \(h(t)\)
+<!-- <i>h(t)</i> -->
+is also equal to the negative of the derivative of \(\mbox{ln}[R(t)]\),
+<!-- ln{<i>R(t)</i>}, -->
+we have the useful identity:
+
+$$ F(t) = 1 - \mbox{exp} \left[ -\int_0^t h(t)dt \right] \,\, . $$
+
+<!--
+<center>
+<p><img SRC="eqns/iden.gif" ALT="F(t) = 1 - EXP{-INTEGRAL[o to t]h(t)d(\t}" >
+</center>
+-->
+
+If we let
+
+$$ H(t) = \int_0^t h(t)dt $$
+
+<!--
+<center>
+<img SRC="eqns/h.gif" ALT="H(t) = INTEGRAL[0 to t]{h(t)dt}" height=56 width=101 align=ABSCENTER>
+</center>
+-->
+
+be the <b>Cumulative Hazard Function</b>, we then have \( F(t) = 1 - e^{H(t)}\).
+<!-- <i>F(t) = 1 - e<sup>-H(t)</sup></i>. -->
+Two other useful identities that follow from these formulas are:
+
+$$ h(t) = - \frac{d \mbox{ln} R(t)}{dt} $$
+
+$$ H(t) = - \mbox{ln} R(t) \,\, . $$
+
+<!--
+<center>
+<img SRC="eqns/friden.gif" ALT="h(t) = d LN(R(t))/dt;   H(t) = -LN(R(t))" height=77 width=117>
+</center>
+-->
+
+It is also sometimes useful to define an average failure rate over any
+interval \((T_1, T_2)\)
+<!-- (<i>T<sub>1</sub>, T<sub>2</sub></i>) -->
+that "averages" the failure
+rate over that interval. This rate, denoted by \( AFR(T_1, T_2)\),
+<!-- <i>AFR(T<sub>1</sub>,T<sub>2</sub>)</i>,&nbsp; -->
+is a single number that can be used as a specification or target for the
+population failure rate over that interval. If \(T_1\)
+<!-- <i>T<sub>1</sub></i> -->
+is 0, it is dropped from the expression. Thus, for example, \(AFR(40,000)\)
+<!-- <i>AFR(40,000)</i> -->
+would be the average failure rate for the population over the first 40,000 hours
+of operation.&nbsp;
+<p>
+The formulas for calculating \(AFR\) values are:
+
+$$ AFR(T_2 - T_1) = \frac{\int_{T_1}^{T_2} h(t)dt}{T_2 - T_1} 
+   = \frac{H(T_2) - H(T_1)}{T_2 - T_1} = \frac{\mbox{ln}R(T_1) - \mbox{ln}R(T_2)}{T_2 - T_1} $$
+
+and
+
+$$ AFR(0,T) = AFR(T) = \frac{H(T)}{T} = \frac{-\mbox{ln} R(T)}{T} \,\, . $$
+
+<!--
+<center>
+<p><img SRC="eqns/afr.gif" ALT="AFR(T2 - T1) = {INTEGRAL[T1 to T2](H(t)dt)}/(T2 - T1) = (H(T2) - H(T1))/(T2 - T1) = LN(R(T1)) - LN(R(T2))/(T2- T1);    AFR(0,T) = AFR(T) = H(T)/T = -LN(R(T))/T" height=153 width=410>
+</center>
+-->
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr122.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr124.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr123.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:35 GMT -->
+</HTML>

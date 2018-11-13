@@ -1,0 +1,24 @@
+. Starting Step 5.4
+.
+runs y
+.
+y1label autocorrelation
+x1label lag
+let nlag = 20
+xlimits 0 20
+autocorrelation plot y
+xlimits
+let yauto = yplot(2)
+let string irand = YES
+let amin = maximum yplot subset tagplot = 4
+let amax = maximum yplot subset tagplot = 3
+if yauto < amin
+  let string irand = NO
+end of if
+if yauto > amax
+  let string irand = NO
+end of if
+y1label
+x1label
+.
+. Finished Step 5.4: Page Back for Output

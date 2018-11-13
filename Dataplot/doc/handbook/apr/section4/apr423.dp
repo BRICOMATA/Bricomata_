@@ -1,0 +1,88 @@
+Dataplot commands and output:
+
+. Input data.
+READ TEMP TIME  DEG
+     65   200   0.87
+     65   200   0.33
+     65   200   0.94
+     65   200   0.72
+     65   200   0.66
+     65   500   1.48
+     65   500   0.96
+     65   500   2.91
+     65   500   1.98
+     65   500   0.99
+     65  1000   2.81
+     65  1000   2.13
+     65  1000   5.67
+     65  1000   4.28
+     65  1000   2.14
+     85   200   1.41
+     85   200   3.61
+     85   200   2.13
+     85   200   4.36
+     85   200   6.91
+     85   500   2.47
+     85   500   8.99
+     85   500   5.72
+     85   500   9.82
+     85   500  17.37
+     85  1000   5.71
+     85  1000  17.69
+     85  1000  11.54
+     85  1000  19.55
+     85  1000  34.84
+    105   200  24.58
+    105   200   9.73
+    105   200   4.74
+    105   200  23.61
+    105   200  10.90
+    105   500  62.02
+    105   500  24.07
+    105   500  11.53
+    105   500  58.21
+    105   500  27.85
+    105  1000 124.10
+    105  1000  48.06
+    105  1000  23.72
+    105  1000 117.20
+    105  1000  54.97
+END OF DATA
+
+. Create variables for fitting.
+LET YIJK = LOG(30) - (LOG(DEG) - LOG(TIME))
+LET XIJK = 100000/(8.617*(TEMP + 273.16))
+
+. Fit model.
+LINEAR FIT YIJK XIJK
+
+> LEAST SQUARES POLYNOMIAL FIT
+>       SAMPLE SIZE N       =       45
+>       DEGREE              =        1
+>       REPLICATION CASE
+>       REPLICATION STANDARD DEVIATION =        0.5676892
+>       REPLICATION DEGREES OF FREEDOM =          42
+>       NUMBER OF DISTINCT SUBSETS     =           3
+>  
+>  
+>               PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+>        1  A0                  -18.9434       ( 5.058    )       -3.745
+>        2  A1                  0.818774       (0.5641E-01)        14.52
+>  
+>       RESIDUAL    STANDARD DEVIATION =        0.5610512
+>       RESIDUAL    DEGREES OF FREEDOM =          43
+>       REPLICATION STANDARD DEVIATION =         0.5676892272
+>       REPLICATION DEGREES OF FREEDOM =          42
+>       LACK OF FIT F RATIO =       0.0003 = THE   1.3030% POINT OF THE
+>       F DISTRIBUTION WITH      1 AND     42 DEGREES OF FREEDOM
+>  
+>       COEF, SD(COEF), T-VALUE, LOWER BONFERRONI, UPPER BONFERRONI
+>                         WRITTEN OUT TO FILE DPST1F.DAT
+>       SD(PRED),95LOWER,95UPPER,99LOWER,99UPPER
+>       LOWER BONFERRONI,UPPER BONFERRONI,LOWER HOTELLING,UPPER HOTELLING
+>                         WRITTEN OUT TO FILE DPST2F.DAT
+>       REGRESSION DIAGNOSTICS WRITTEN OUT TO FILE DPST3F.DAT
+>       PARAMETER VARIANCE-COVARIANCE MATRIX AND
+>       INVERSE OF X-TRANSPOSE X MATRIX
+>                         WRITTEN OUT TO FILE DPST4F.DAT
+>       REGRESSION ANOVA TABLE WRITTEN OUT TO FILE DPST5F.DAT

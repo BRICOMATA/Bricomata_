@@ -1,0 +1,898 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:03 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.1.6. What is Process Capability?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section2/pmc2.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc15.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc1.html">Introduction</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.1.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>What is Process Capability?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Process capability compares the output of an <i>in-control</i> process
+to the specification limits by using <i>capability indices</i>.  The
+comparison is made by forming the ratio of the spread between the
+process specifications (the specification "width") to the spread of
+the process values, as measured by 6 process standard deviation units
+(the process "width").
+<p>
+<b>Process Capability Indices</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>A process capability index uses both the process variability and
+the process specifications to determine whether the process is
+"capable"</i>
+</td>
+
+<td WIDTH="85%" VALIGN=TOP><!-- Add main text below -->
+We are often required to compare the output of a stable process with
+the process specifications and make a statement about how well the process
+meets specification.&nbsp; To do this we compare the natural variability
+of a stable process with the process specification limits.&nbsp;
+<p>
+<!--
+A <u>capable</u> process is one where almost all the measurements fall
+inside the specification limits.
+-->
+A process where almost all the measurements fall inside the
+specification limits is a <u>capable</u> process.
+This can be represented pictorially
+by the plot below:
+<p>
+<img SRC="gifs/cpi1.gif" height=300 width=311
+     ALT="Diagram demonstrating a capable process">
+<br>
+<br>
+<p>
+There are several statistics that can be used to measure the capability
+of a process:&nbsp; \(C_p\), \(C_{pk}\), and \(C_{pm}\).
+<!-- <i>C<sub>p</sub>, C<sub>pk</sub>, C<sub>pm</sub>.</i> -->
+<p>
+Most capability indices estimates are valid only if the sample size
+used is "large enough".  Large enough is generally thought to be about
+50 independent data values.&nbsp;
+<p>
+The \(C_p\), \(C_{pk}\), and \(C_{pm}\)
+<!-- <i>C<sub>p</sub>, C<sub>pk</sub>, and C<sub>pm</sub></i> -->
+statistics assume that the population of data values is normally distributed. 
+Assuming a two-sided specification, if \(\mu\)
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu"> -->
+and \(\sigma\)
+<!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+are the mean and standard deviation, respectively, of the normal data and
+\(\mbox{USL}\), \(\mbox{LSL}\), and \(T\) are the upper and lower 
+specification limits and the
+target value,  respectively, then the population capability indices are 
+defined as follows.
+</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>Definitions of various process capability indices</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP VALIGN=TOP WIDTH="85%">
+
+$$ C_{p} = \frac{\mbox{USL} - \mbox{LSL}} {6\sigma} $$
+
+<!-- <img SRC="eqns/capable1.gif" height=205 width=300> -->
+<!-- <img SRC="eqns/cpdef.gif" ALT="Cp = (USL - LSL)/6*sigma"> -->
+<p>
+
+$$C_{pk} = \min{\left[ \frac{\mbox{USL} - \mu} {3\sigma}, \frac{\mu - \mbox{LSL}} {3\sigma}\right]} $$ 
+
+<!-- <img SRC="eqns/cpkdef.gif"
+     ALT="Cpk = MIN[(USL-mu)/(3*sigma), (mu-LSL)/(3*sigma)]"> -->
+<p>
+
+$$ C_{pm} = \frac{\mbox{USL} - \mbox{LSL}} {6\sqrt{\sigma^2 + (\mu - T)^2}} $$
+
+<!-- <img SRC="eqns/cpmdef.gif"
+     ALT="Cpm = (USL-LSL)/{6*SQRT(s**2 + (mu-T)**2)}"> -->
+</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>Sample estimates of capability indices</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+<i><u>Sample estimators</u></i> for these indices are given below.
+(Estimators are indicated with a "hat" over them).
+<!-- <img SRC="eqns/capable.gif" height=205 width=293> -->
+<p>
+
+$$ \hat{C}_{p} = \frac{\mbox{USL} - \mbox{LSL}} {6s} $$
+
+<!-- <img SRC="eqns/cpdef2.gif" ALT="Chat(p) = (USL - LSL)/6*s"> -->
+<p>
+
+$$ \hat{C}_{pk} = \min{\left[ \frac{\mbox{USL} - \bar{x}} {3s}, \frac{\bar{x} - \mbox{LSL}} {3s}\right]} $$
+
+<!-- <img SRC="eqns/cpkdef2.gif"
+     ALT="Chat(pk) = MIN[(USL-m)/(3*s), (m-LSL)/(3*s)]"> -->
+<p>
+
+$$ \hat{C}_{pm} = \frac{\mbox{USL} - \mbox{LSL}} {6\sqrt{s^2 + (\bar{x} - T)^2}} $$
+
+<!-- <img SRC="eqns/cpmdef2.gif"
+     ALT="Chat(pm) = (USL-LSL)/{6*SQRT(s**2 + (m-T)**2)}"> -->
+<p>
+The estimator for \(C_{pk}\)
+<!-- <i>C<sub>pk</sub></i> -->
+can also be expressed as \(C_{pk} = C_p(1-k)\),
+<!-- <i>C<sub>pk</sub> = C<sub>p</sub>(1-k),</i> -->
+where \(k\)
+<!-- <i>k</i> -->
+is a scaled distance between the midpoint of the specification range, \(m\),
+<!-- <i>m</i>, -->
+and the process mean, \(\mu\).
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu">. -->
+<P>
+Denote the midpoint of the specification range by \(m = (\mbox{USL} + \mbox{LSL})/2\).
+<!-- <i>m</i> = (USL+LSL)/2. -->
+The distance between the process mean, \(\mu\),
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu">, -->
+and the optimum, which is \(m\),
+<!-- <i>m</i>, -->
+is \(\mu - m\),
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu"> - <i>m</i>, -->
+where \(m \le \mu \le \mbox{LSL}\).
+<!-- <img align=absmiddle src="eqns/muint.gif" alt="m <= mu <= LSL">. -->
+The scaled distance is
+
+$$ k = \frac{|m - \mu|} {(\mbox{USL} - \mbox{LSL})/2}, \;\;\;\;\;\;  0 \le k \le 1 \, .$$
+
+<!-- <p>
+<center>
+<img SRC="eqns/scaldist.gif"
+     ALT="k = |m - mu|/{(USL - LSL)/2},   0 <= k <= 1">
+</center>
+<p> -->
+(The absolute sign takes care of the case when
+\(\mbox{LSL} \le \mu \le m\)).
+<!-- <img align=absmiddle src="eqns/muint2.gif" alt="mu">). -->
+To determine the estimated value, \(\hat{k}\),
+<!-- <img align=absmiddle src="eqns/khat.gif" alt="khat">, -->
+we estimate \(\mu\)
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu"> -->
+by \(\bar{x}\).
+<!-- <img align=absmiddle src="eqns/xbar2.gif" alt="xbar">. -->
+Note that \(\bar{x} \le \mbox{USL}\).
+<!-- <img align=absmiddle src="eqns/xbarlsl.gif" alt="xbar <= USL">. -->
+<p>
+The estimator for the \(C_p\)
+<!-- <i>C<sub>p</sub></i> -->
+index, adjusted by the \(k\)
+<!-- <i>k</i> -->
+factor, is
+
+$$ \hat{C}_{pk} = \hat{C}_{p}(1 - \hat{k}) \, . $$
+
+<!-- <p>
+<center>
+<img SRC="eqns/cpkdef3.gif"
+     ALT="Chat(pk) = Chat(p)(1 - k)">
+</center>
+<p> -->
+
+Since \(0 \le k \le 1\),
+<!-- <img align=absmiddle src="eqns/kint.gif" alt="0 <= k <= 1">, -->
+it follows that \(\hat{C}_{pk} \le \hat{C}_{p}\).
+<!-- <img align=absmiddle src="eqns/cpkdef4.gif"alt="Chat(pk) <= Chat(p)">. -->
+<p>
+<!-- <img SRC="eqns/cpk.gif" height=300 width=480> -->
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot showing \(C_p\)
+<!-- C<sub>p</sub> -->
+for varying process widths
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+To get an idea of the value of the \(C_p\)
+<!-- <i>C<sub>p</sub></i> -->
+statistic for varying process widths, consider the following plot.
+<p>
+<center>
+<!-- <img SRC="gifs/cpi2.gif" height=300 width=369
+     ALT="4 plots showing the value of Cp for varying process widths"> -->
+<img SRC="gifs/plotcp_r.gif" ALT=
+     "4 plots showing the value of Cp for varying process widths"> 
+</center>
+<p>
+This can be expressed numerically by the table below:
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>Translating capability into "rejects"</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+<table noborder cellspacing=10>
+
+   <tr>
+      <td valign=top>
+         \(\mbox{USL} - \mbox{LSL}\)
+         <!-- <i>USL - LSL</i> -->
+      </td>
+      <td valign=top>
+         \(6 \sigma\)
+         <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+      </td>
+      <td valign=top>
+         \(8 \sigma\)
+         <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+      </td>
+      <td valign=top>
+         \(10 \sigma\)
+         <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+      </td>
+      <td valign=top>
+         \(12 \sigma\)
+         <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+      </td>
+   </tr>
+
+   <tr>
+      <td valign=top>
+         \(C_p\)
+         <!-- <i>C<sub>p</sub></i> -->
+      </td>
+      <td valign=top>
+         1.00
+      </td>
+      <td valign=top>
+         1.33
+      </td>
+      <td valign=top>
+         1.66
+      </td>
+      <td valign=top>
+         2.00
+      </td>
+   </tr>
+
+   <tr>
+      <td valign=top>
+         Rejects
+      </td>
+      <td valign=top>
+         0.27 %
+      </td>
+      <td valign=top>
+         64 ppm
+      </td>
+      <td valign=top>
+         0.6 ppm
+      </td>
+      <td valign=top>
+         2 ppb
+      </td>
+   </tr>
+
+   <tr>
+      <td valign=top>
+         % of spec used
+      </td>
+      <td valign=top>
+         100
+      </td>
+      <td valign=top>
+         75
+      </td>
+      <td valign=top>
+         60
+      </td>
+      <td valign=top>
+         50
+      </td>
+   </tr>
+
+</table>
+<!-- <center><img SRC="eqns/pci3.gif" height=92 width=320></center> -->
+<p>
+where ppm = parts per million and ppb = parts per billion. Note that
+the reject figures are based on the assumption that the distribution is
+centered at \(\mu\).
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu">. -->
+<p>
+We have discussed the situation with two spec. limits, the \(\mbox{USL}\) and \(\mbox{LSL}\).
+This is known as the <i>bilateral </i>or two-sided case. There are many
+cases where only the lower or upper specifications are used. Using one
+spec limit is called <i>unilateral </i>or one-sided. The corresponding
+capability indices are
+</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>One-sided specifications and the corresponding capability indices</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+<center>
+
+$$ C_{pu} = \frac{\mbox{allowable upper spread}} {\mbox{actual upper spread}} = \frac{\mbox{USL} - \mu} {3\sigma} $$
+
+<!-- <img SRC="eqns/cpu.gif"
+          ALT="C(pu) = (allowable upper spread)/(actual upper spread) = (USL - mu)/(3*sigma)"> -->
+</center>
+and
+<center>
+
+$$ C_{pl} = \frac{\mbox{allowable lower spread}} {\mbox{actual lower spread}} = \frac{\mu - \mbox{LSL}} {3\sigma} \, , $$
+
+<!-- <img SRC="eqns/cpl.gif"
+     ALT="C(pu) = (allowable lower spread)/(actual lower spread) = (mu - LSL)/(3*sigma)"> -->
+</center>
+where \(\mu\)
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu"> -->
+and \(\sigma\)
+<!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+are the process mean and standard deviation, respectively.
+<p>
+Estimators of \(C_{pu}\) and \(C_{pl}\)
+<!-- <i>C<sub>pu</sub></i> and <i>C<sub>pl</sub> </i> -->
+are obtained by replacing \(\mu\)
+<!-- <img align=absmiddle src="eqns/mu.gif" alt="mu"> -->
+and \(\sigma\)
+<!-- <img align=bottom src="eqns/sigma.gif" alt="sigma">  -->
+by \(\bar{x}\) and \(s\),
+<!-- <img SRC="eqns/xbar2.gif" align=bottom alt="Xbar"> and <i>s</i>, -->
+respectively. The following relationship holds
+
+$$ C_p = \frac{C_{pu} + C_{pl}}{2} \, . $$
+
+<!-- <blockquote>
+<i>C<sub>p</sub> = (C<sub>pu</sub> + C<sub>pl</sub>)</i> /2.
+</blockquote> -->
+This can be represented pictorially by
+</font>
+<center>
+<img SRC="gifs/cpi3.gif" height=300 width=317
+     ALT="Graph demonstrating upper actual and allowable upper spread"> 
+</center>
+
+<p>
+Note that we also can write:
+<p>
+
+$$ C_{pk} = \mbox{min}(C_{pl}, \, C_{pu}) \, . $$
+
+<!--
+<UL>
+  <i>C<sub>pk</sub> = </i>min<i> {C<sub>pl</sub>, C<sub>pu</sub></i>}.
+</UL>
+-->
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Confidence Limits For Capability Indices</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>Confidence intervals for indices</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+Assuming normally distributed process data, the distribution of the
+sample \(\hat{C}_p\)
+<!-- <img SRC="eqns/cphat.gif" align=absmiddle alt="Cphat"> -->
+follows from a Chi-square distribution and \(\hat{C}_{pu}\)
+<!-- <img SRC="eqns/cpuhat.gif" align=ABSCENTER alt="Cpuhat"> -->
+and \(\hat{C}_{pl}\)
+<!-- <img SRC="eqns/cplhat.gif" align=ABSCENTER alt="Cplhat"> -->
+have distributions related to the non-central <big><i>t</i></big> distribution.
+Fortunately, approximate confidence limits related to the normal
+distribution have been derived.  Various approximations to the
+distribution of \(\hat{C}_{pk}\)
+<!-- <img SRC="eqns/cpkhat.gif" height=32 width=30 align=ABSCENTER alt="Cpkhat"> -->
+have been proposed, including those given by
+Bissell (1990), and we will use a normal approximation.
+<p>
+The resulting formulas for \(100(1-\alpha) \%\) confidence limits are given below.
+
+<p>
+<!-- <img SRC="eqns/pci6.gif" height=661 width=348> -->
+<!-- 100(1-<img src="eqns/alpha.gif" align=absmiddle alt="alpha">)% -->
+Confidence Limits for \(C_p\) are
+<!-- <i>C<sub>p</sub></i> -->
+
+$$ Pr\{\hat{C}_{p}(L_1) \le C_p \le \hat{C}_{p}(L_2)\} = 1 - \alpha \, ,$$
+
+<!-- <ul>
+<img SRC="eqns/cpcl.gif"
+     ALT="Pr{Cphat(L1) <= Cp <= Cphat(L2)} = 1 - alpha"> 
+</ul> -->
+where
+
+$$ \begin{eqnarray}
+   L_1 & = & \sqrt{\frac{\chi^2_{\alpha/2, \,   \nu}}{\nu}} \, , \\
+       &   & \\
+   L_2 & = & \sqrt{\frac{\chi^2_{1-\alpha/2, \, \nu}}{\nu}} \, , 
+\end{eqnarray}$$
+
+<!-- <ul>
+  <img SRC="pmc16_eqn.gif"
+     ALT="L1 = SQRT{(Chi-Square_alpha/2,nu)/nu},
+          L2 = SQRT{(Chi-Square_1-alpha/2,nu)/nu}">
+</ul> -->
+<!-- <p>
+&nbsp; &nbsp; &nbsp; <i>&nu;</i> = 
+-->
+and \(\nu = \) degrees of freedom.
+
+
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Confidence Intervals for \(C_{pu}\) and \(C_{pl}\)
+<!-- C<sub>pu</sub> and C<sub>pl</sub> -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Approximate \(100(1-\alpha)\) %
+<!-- 100(1-<img align=absmiddle src="eqns/alpha.gif" alt="alpha">)% -->
+confidence limits for \(C_{pu}\)
+<!-- <i>C<sub>pu</sub></i> -->
+with sample size \(n\)
+<!-- <i>n</i> -->
+are:
+
+$$ C_{pu}(lower) = \hat{C}_{pu} - z_{1-\beta}\sqrt{\frac{1}{9n} + \frac{\hat{C}_{pu}^{2}}{2(n-1)}} $$
+
+and
+
+<!-- <ul>
+<img src="eqns/cpulow.gif" alt=
+"C(pu)(lower) = Chat(pu)-z(1-beta)*SQRT[(1/(9*n))+Chat(pu)^2/(2*(n-1))]"> -->
+<p>
+
+$$ C_{pu}(upper) = \hat{C}_{pu} + z_{1-\alpha}\sqrt{\frac{1}{9n} + \frac{\hat{C}_{pu}^{2}}{2(n-1)}} \, ,$$
+
+<!-- <img src="eqns/cpuupp.gif" alt=
+          "C(pu)(upper) = Chat(pu)+z(1-alpha)*SQRT[(1/(9*n))+Chat(pu)^2/(2*(n-1))]"> -->
+</ul>
+with \(z\)
+<!-- <i>z</i> -->
+denoting the percent point function of the standard normal
+distribution.  If \(\beta\)
+<!-- <img align=absmiddle src="eqns/beta.gif" alt="beta">  -->
+is not known, set it to \(\alpha\).
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha">. -->
+<p>
+Limits for \(C_{pl}\)
+<!-- <i>C<sub>pl</sub></i> -->
+are obtained by replacing \(\hat{C}_{pu}\)
+<!-- <img align=top src="eqns/chatpu.gif" alt="Chat(pu)">  -->
+by \(\hat{C}_{pl}\).
+<!-- <img align=top src="eqns/chatpl.gif" alt="Chat(pl)">. -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Confidence Interval for \(C_{pk}\)
+<!-- C<sub>pk</sub> -->
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<a href="../section7/pmc7.html#Zhang1990">Zhang et al. (1990)</a>
+derived the exact variance for the estimator of \(C_{pk}\)
+<!-- <i>C<sub>pk</sub></i> -->
+as well as an approximation for large \(n\).
+<!-- <i>n</i>. -->
+The reference paper is Zhang, Stenback and Wardrop (1990),
+"Interval Estimation of the process capability index," <i>Communications
+in Statistics: Theory and Methods</i>, 19(21), 4455-4470.
+<p>
+The variance is obtained as follows.
+<p>
+Let
+
+<ul>
+$$ c = \sqrt{n}\left[\mu - (\mbox{USL} + \mbox{LSL})/2\right]\sigma $$
+
+<!-- <img SRC="eqns/cpvar1.gif" ALIGN=ABSMIDDLE
+         ALT="c = SQRT(n)*[mu - (USL+LSL)/2]*sigma"> 
+<p> -->
+
+$$ d = (\mbox{USL} - \mbox{LSL})/\sigma $$
+
+<!-- <img SRC="eqns/cpvar2.gif"  ALIGN=ABSMIDDLE ALT="d = (USL-LSL)/sigma">
+<p> -->
+
+$$ \Phi(-c) = \int_{-inf}^{-c}{\frac{1}{\sqrt{2\pi}}\exp{-5z^2}dz} \, .$$
+
+<!-- <img SRC="eqns/cpvar3.gif"  ALIGN=ABSMIDDLE ALT=
+"Phi(-c) = integral[-infinity to -c][(1/(SQRT(2(*PI))*EXP(-5*z**2 dz]"> -->
+</ul>
+Then
+<ul>
+
+$$ Var(\hat{C}_{pk}) $$
+
+<!-- <img SRC="eqns/cpvar4.gif"  ALIGN=ABSMIDDLE ALT="Var(Chatpk)">
+<p> -->
+
+$$ = (d^2/36)(n-1)(n-3) $$
+
+<!-- <img SRC="eqns/cpvar5.gif"  ALIGN=ABSMIDDLE ALT="= (d**2/36)(n-1)(n-3)">
+<p> -->
+
+$$ -(d/9\sqrt{n})(n-1)(n-3)\{\sqrt{2\pi}\exp{(-c^2/2)} + c[1 - 2\Phi(-c)]\} $$
+
+<!-- <img SRC="eqns/cpvar6.gif"  ALIGN=ABSMIDDLE
+     ALT="-(d/(9*SQRT(n))*(n-1)*(n-3)*{SQRT(2*PI)*EXP(-c**2/2) + c[1 - 2*PHI(-c)]}">
+<p> -->
+
+$$ +[(1/9)(n-1)/(n(n-3))](1+c^2) $$
+
+<!-- <img SRC="eqns/cpvar7.gif"  ALIGN=ABSMIDDLE
+     ALT="+[(1/9)*(n-1)/(n*(n-3))]*(1+c**2)">
+<p> -->
+
+$$ -[(n-1)/(72n)]\{\frac{\Gamma((n-2)/2)}{\Gamma((n-1)/2)}\}^2 $$
+
+<!-- <img SRC="eqns/cpvar8.gif"  ALIGN=ABSMIDDLE
+     ALT="-[(n-1)/(72n)]*{(GAMMA((n-1)/2))/(GAMMA((n-1)/2))}**2">
+<p> -->
+
+$$ *\{d\sqrt{n} - 2\sqrt{2\pi}\exp{(-c^2/2)} - 2c[1 - 2\Phi(-c)]\}^2  \, .$$
+
+<!-- <img SRC="eqns/cpvar9.gif"  ALIGN=ABSMIDDLE
+     ALT="*{d*SQRT(n) - 2*SQRT(2*PI)*EXP(-c**2/2) - 2*c*[1 - 2*PHI(-c)]}**2"> -->
+</ul>
+<!-- <img SRC="eqns/pci7.gif" height=364 width=372> -->
+Their approximation is given by:
+<!-- <img SRC="eqns/pci8.gif" height=152 width=292> -->
+<ul>
+
+$$ Var(\hat{C}_{pk}) = \frac{n-1}{n-3} - 0.5\{\frac{\Gamma((n-2)/2)}{\Gamma((n-1)/2)}\}^2 \, , $$
+
+<!-- <img SRC="eqns/cpkvar1.gif"
+     ALT="Var(Chatpk) = (n-1)/(n-3) - 0.5*{(GAMMA(n-2)/2)/(GAMMA(n-1)/2)}**2"> -->
+</ul>
+where
+<ul>
+
+$$ n \ge 25, \,\,\,\,\,\, 0.75 \le C_{pk} \le 4, \,\,\,\,\,\, |c| \le 100, \,\,\,\,\,\,
+   \mbox{ and } \,\,\,\,\,\, d \le 24  \, .$$
+
+<!-- <img SRC="eqns/cpkvar2.gif"
+     ALT="n >= 25, 0.75 <= Cpk <= 4, |c| <= 100, and d <= 24"> -->
+</ul>
+The following approximation is commonly used in practice
+
+$$ C_{pk} = \hat{C}_{pk} \pm z_{1-\alpha/2}\sqrt{\frac{1}{9n} + \frac{\hat{C}_{pk}^{2}}{2(n-1)}} \, . $$
+
+<!-- <ul>
+   <img src="eqns/cpkvar3.gif" alt=
+"C(pk) = Chat(pk) +/- z(1-alpha/2)*SQRT[(1/(9*n)) + Chat(pk)^2/(2*(n-1))]">
+</ul> -->
+It is important to note that the sample size should be at least 25 before
+these approximations are valid. In general, however, we need
+\(n \ge 100\)
+<!-- <i>n</i> <img align=absmiddle src="eqns/ge.gif" alt=">="> 100 -->
+for capability studies.  Another point to observe is that
+variations are not negligible due to the randomness of capability
+indices.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Capability Index Example</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>An example</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+For a certain process the \(\mbox{USL} = 20\) and the \(\mbox{LSL} = 8\).  The observed
+process average, \(\bar{x} \ge 16\),
+<!-- <img align=absmiddle src="eqns/xbar.gif" alt="Xbar"> = 16, -->
+and the standard deviation, \(s = 2\).
+<!-- <i>s</i> = 2. --> 
+From this we obtain
+
+$$ \hat{C}_{p} = \frac{\mbox{USL} - \mbox{LSL}} {6s} = \frac{20 - 8} {6(2)} = 1.0 \, . $$
+
+<!-- <ul>
+   <img src="eqns/examp1.gif"
+        alt="Chatp = (USL-LSL)/(6*s) = (20 - 8)/(6*2) = 1.0">
+</ul> -->
+This means that the process is capable as long as it is located
+at the midpoint, \(m = (\mbox{USL} + \mbox{LSL})/2 = 14\).
+<!-- m = (USL + LSL)/2 = 14. -->
+<p>
+But it doesn't, since \(\bar{x} \ge 16\).
+<!-- <img align=absmiddle src="eqns/xbar2.gif" alt="xbar"> = 16. -->
+The \(\hat{k}\)
+<!-- <img align=absmiddle src="eqns/khat.gif" alt="khat"> -->
+factor is found by
+
+$$ \hat{k} = \frac{|m - \bar{x}|} {(\mbox{USL} - \mbox{LSL})/2} = \frac{2} {6} = 0.3333 $$
+
+<!-- <ul>
+   <img src="eqns/examp2.gif" alt=
+        "khat = |m - Xbar|/((USL-LSL)/2) = 2/6 = 0.3333">
+</ul> -->
+and
+
+$$ \hat{C}_{pk} = \hat{C}_{p}(1-\hat{k}) = 0.6667 \, .$$
+
+<!-- <ul>
+   <img src="eqns/examp3.gif" alt=
+        "Chatpk = Chatp*(1-khat) = 0.6667">
+</ul> -->
+We would like to have \(\hat{C}_{pk}\)
+<!-- <img align=absmiddle src="eqns/cpkhat.gif" alt="Chatpk"> -->
+at least 1.0, so this is not a good process.  If possible, reduce the variability
+or/and center the process.  We can compute the \(\hat{C}_{pu}\) 
+<!-- <img src="eqns/cpuhat.gif" align=absmiddle alt="Chatpu"> -->
+and \(\hat{C}_{pl}\) using
+<!-- <img src="eqns/cplhat.gif" align=absmiddle alt="Chatpl"> -->
+
+$$ \hat{C}_{pu} = \frac{\mbox{USL} - \bar{x}} {3s} = \frac{20 - 16} {3(2)} = 0.6667 $$
+
+and
+
+$$ \hat{C}_{pl} = \frac{\bar{x} - \mbox{LSL}} {3s} = \frac{16 - 8} {3(2)} = 1.3333 \, . $$
+
+<!-- <ul>
+   <img src="eqns/examp4.gif" alt=
+        "Chatpu = (USL - xbar)/(3*s) = (20 - 16)/(3*2) = 0.6667">
+   <p>
+   <img src="eqns/examp5.gif" alt=
+        "Chatpl = (xbar - LSL)/(3*s) = (16 - 8)/(3*2) = 1.3333">
+</ul> -->
+From this we see that the \(\hat{C}_{pu}\),
+<!-- <img src="eqns/cpuhat.gif" align=absmiddle alt="Chatpu">, -->
+which is the smallest of the above indices, is 0.6667.  
+Note that the formula \(\hat{C}_{pk} = \hat{C}_{p}(1 - \hat{k})\)
+<!-- <img SRC="eqns/cpkdef3.gif" align=absmiddle ALT="Chat(pk) = Chat(p)(1 - khat)"> -->
+is the algebraic equivalent of the \(\mbox{min}(\hat{C}_{pu}, \, \hat{C}_{pl})\)
+<!-- <i>min</i>{<img src="eqns/cpuhat.gif" align=absmiddle alt="Chatpu">, -->
+<!-- <img src="eqns/cplhat.gif" align=absmiddle alt="Chatpl">} -->
+definition.
+
+<!-- <img SRC="eqns/cpex.gif" height=768 width=422> -->
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>What happens if the process is not approximately normally
+distributed?</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>What you can do with non-normal data</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+The indices that we considered thus far are based on normality of the
+process distribution. This poses a problem when the process distribution
+is not normal.  Without going into the specifics, we can list some
+remedies.
+<ol>
+   <li>Transform the data so that they become approximately normal. A
+       popular transformation is the
+       <a href="../section5/pmc52.html#Box-Cox">Box-Cox
+       transformation</a>
+       <p>
+   <li>Use or develop another set of indices, that apply to nonnormal
+       distributions.  Non-parameteric versions
+       (<a href="../section7/pmc7.html#Pearn">Pearn, Tai, Hsiao, and Ao
+       (2014)</a> and
+       <a href="../section7/pmc7.html#Chen">Chen and Ding (2001)</a>)
+       of the \(C_{p}\), \(C_{pk}\), and \(C_{pm}\) capability indices
+       are denoted by \(C_{np}\), \(C_{npk}\), and \(C_{npm}\).
+       Estimators for these non-parameteric capability indices are
+       calculated by
+       <p>
+       <ul>
+          \( \hat{C}_{np} = \frac{\mbox{USL} - \mbox{LSL}}
+                            {p(0.99865) - p(0.00135)} \)
+          <p>
+          \( \hat{C}_{npk} =
+             \frac{\mbox{min}\left[ \mbox{USL} - median,
+             median - \mbox{LSL} \right] }
+             {(p(0.99865) - p(0.00135))/2 } \)
+          <p>
+          \( \hat{C}_{npm} = \frac{\mbox{USL} - \mbox{LSL}}
+             {6 \sqrt{\left( \frac{p(0.99865) - p(0.00135)}{6} \right) ^2
+             + (median - \mbox{T})^2}} \)
+       </ul>
+       <p>
+       where \(p(0.99855)\) is the 99.865th percentile of the data
+       and \(p(0.00135)\) is the 0.135th percentile of the data.
+       The use of these percentiles is justified to mimic the
+       coverage of &pm;3 standard deviations for the normal distribution.
+       Note that some sources may use 99% coverage.  For example, the
+       \(C_{npk}\) statistic may be given as
+       <p>
+       <ul>
+          \( \hat{C}_{npk} = \mbox{min}\left[\frac{\mbox{USL} - median}
+             {p(0.995) - median},
+             \frac{median - \mbox{LSL}}{median - p(0.005)} \right] \)
+       </ul>
+       <p>
+       where \(p(0.995)\) is the 99.5th percentile of the data
+       and \(p(0.005)\) is the 0.5th percentile of the data.
+       <p>
+       <p>
+       For additional information on nonnormal distributions, see
+       <a href="../section7/pmc7.html#Kotz, S and">Johnson and Kotz
+       (1993)</a>.
+   <!--
+   <li>There are two flexible families of distributions that are
+       often used: the <i>Pearson and the Johnson families.</i>
+       The sample skewness and kurtosis are used to pick a model
+       and process variability is then estimated.
+       <p>
+   <li>Use mixture distributions to fit a model to the data.
+       A <i>mixed Poisson model</i> has been used to develop the
+       equivalent of the 4 normality-based capability indices.
+   -->
+</ol>
+<p>
+There is, of course, much more that can be said about the case of
+nonnormal data. However, if a Box-Cox transformation can be successfully
+performed, one is encouraged to use it.
+</td>
+</tr>
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc15.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section2/pmc2.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:06 GMT -->
+</HTML>

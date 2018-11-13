@@ -1,0 +1,42 @@
+Dataplot commands and output:
+
+. Input data and compute the cumulative hazard.
+LET X = DATA 37 73 132 195 222 248
+LET Y = DATA .1 .225 .391 .591 .924 1.424
+
+. Generate cumulative hazard plot for exponential distribution.
+PLOT Y X
+
+. Generate cumulative hazard plot for the Weibull distribution.
+XLOG ON
+YLOG ON
+PLOT Y X
+
+. Compute Weibull parameter estimates.
+LET YY = LOG10(Y)
+LET XX = LOG10(X)
+FIT YY XX
+
+> LEAST SQUARES MULTILINEAR FIT
+>       SAMPLE SIZE N       =        6
+>       NUMBER OF VARIABLES =        1
+>       NO REPLICATION CASE
+>  
+>  
+>               PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+>        1  A0                  -3.02451       (0.7722    )       -3.917
+>        2  A1       XX          1.27015       (0.1357    )        9.357
+>  
+>       RESIDUAL    STANDARD DEVIATION =        0.9813660E-01
+>       RESIDUAL    DEGREES OF FREEDOM =           4
+>  
+>       COEF, SD(COEF), T-VALUE, LOWER BONFERRONI, UPPER BONFERRONI
+>                         WRITTEN OUT TO FILE DPST1F.DAT
+>       SD(PRED),95LOWER,95UPPER,99LOWER,99UPPER
+>       LOWER BONFERRONI,UPPER BONFERRONI,LOWER HOTELLING,UPPER HOTELLING
+>                         WRITTEN OUT TO FILE DPST2F.DAT
+>       REGRESSION DIAGNOSTICS WRITTEN OUT TO FILE DPST3F.DAT
+>       PARAMETER VARIANCE-COVARIANCE MATRIX AND
+>       INVERSE OF X-TRANSPOSE X MATRIX
+>                         WRITTEN OUT TO FILE DPST4F.DAT
+>       REGRESSION ANOVA TABLE WRITTEN OUT TO FILE DPST5F.DAT

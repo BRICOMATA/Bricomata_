@@ -1,0 +1,73 @@
+.
+. Starting Step 9.1
+line solid
+character blank
+title
+device 1 off
+ytic offset 0 0
+plot y
+probe fy1min; let mintic = probeval
+probe fy1max; let maxtic = probeval
+let rangetic = maxtic-mintic
+let sigdig = msd(rangetic)
+let inc = rangetic/sigdig
+let numinc = rangetic/inc
+let inc2 = inc
+if numinc = 1; let inc2 = inc/10; end if
+if numinc = 2; let inc2 = inc/5; end if
+if numinc = 3; let inc2 = inc/3; end if
+if numinc = 4; let inc2 = inc/2; end if
+if numinc = 5; let inc2 = inc/2; end if
+if numinc = 6; let inc2 = inc/2; end if
+ytic offset 5 5
+device 1 on
+.
+call yatesgen.dp
+.
+let tagj = tag(1)
+let posint = ^con^tagj
+call digit.dp
+let numdig1 = numdig
+let d1 = digit(1)
+if numdig1 >= 2; let d2 = digit(2); end if
+.
+let tagj = tag(2)
+let posint = ^con^tagj
+call digit.dp
+let numdig2 = numdig
+let d3 = digit(1)
+let d4 = -1
+if numdig2 >= 2
+   let d4 = digit(2)
+end if
+.
+print numdig1 d1 d2 numdig2 d3 d4
+if numdig1 >= 2
+   let u1 = x^d1; let hit1 = d1
+   let u2 = x^d2; let hit2 = d2
+end if
+.
+if numdig1 = 1
+   let u1 = x^d1; let hit1 = d1
+   let u2 = x^d3; let hit2 = d3
+   if numdig2 >= 2
+      if d3 = d1; let u2 = x^d4; let hit2 = d4; end if
+      if d4 = d1; let u2 = x^d3; let hit2 = d3; end if
+   end if
+end if
+.
+let start = mintic - 3*inc2
+let stop = maxtic + 3*inc2
+let ycont = sequence start inc2 stop
+y1label X^hit2
+x1label X^hit1
+erase
+call dexcont.dp
+case asis
+move 50 97
+just center
+hw 3 1.5
+text Sonoluminescent Light Intensity
+move 50 93
+text Contour Plot of the 2 Dominant Factors: X^hit1 and X^hit2
+. Finished Step 9.1: Page Back for Output

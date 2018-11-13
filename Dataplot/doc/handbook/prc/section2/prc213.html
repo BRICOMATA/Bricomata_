@@ -1,0 +1,216 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc213.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.1.3. Anderson-Darling and Shapiro-Wilk tests</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc22.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc212.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.html">Comparisons based on data from one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc21.html">Do the observations come from a particular distribution?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.1.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Anderson-Darling and Shapiro-Wilk tests</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Purpose: Test for distributional adequacy</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b><u>The Anderson-Darling Test</u></b>
+<p>The Anderson-Darling test (<a href="../../eda/section4/eda43.html#Stephens">Stephens,
+1974</a>) is used to test if a sample of data comes from a specific distribution.
+It is a modification of the
+<a href="../../eda/section3/eda35g.html">Kolmogorov-Smirnov
+(K-S) test</a> and gives more weight to the tails of the distribution than
+does the K-S test. The K-S test is distribution free in the sense that
+the critical values do not depend on the specific distribution being tested. </td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Requires critical values for each distribution</i></td>
+
+<td VALIGN=TOP WIDTH="85%">The Anderson-Darling test makes use of the specific
+distribution in calculating critical values. This has the advantage of
+allowing a more sensitive test and the disadvantage that critical values
+must be calculated for each distribution. Tables of critical values are
+not given in this handbook (see
+<a href="../../eda/section4/eda43.html#Stephens">Stephens
+1974, 1976, 1977, and 1979</a>) because this test is usually applied with
+a statistical software program that produces the relevant critical values.
+Currently,
+<a href="../../eda/section4/eda44.html#ANDERSON-DARLING">Dataplot</a>
+computes critical values for the Anderson-Darling test for the following
+distributions:
+<ul>
+<li>
+normal </li>
+
+<li>
+lognormal </li>
+
+<li>
+Weibull </li>
+
+<li>
+extreme value type I.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Anderson-Darling procedure</i></td>
+
+<td VALIGN=TOP WIDTH="85%">Details on the construction and interpretation
+of the Anderson-Darling test statistic, \(A^2\),
+<!-- <i>A<sup>2</sup></i>, -->
+and examples for several distributions are outlined in
+<a href="../../eda/section3/eda35e.html">Chapter
+1</a>.</td>
+</tr>
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%"><i>Shapiro-Wilk test for normality</i></td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%"><b><u>The Shapiro-Wilk Test For Normality</u></b>
+<p>
+The Shapiro-Wilk test, proposed in 
+<a href="../section5/prc5.html#Shapiro, S. S.and Wilk M. B. (1965), An analysis">1965</a>,
+calculates a \(W\)
+<!-- <i>W</i> -->
+statistic that tests whether a random sample, \(x_1, \, x_2, \, \ldots, \, x_n\)
+<!-- <i>x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub> </i> -->
+comes from (specifically) a normal
+distribution . Small values of \(W\)
+<!-- <i>W</i> -->
+are evidence of departure from 
+normality and percentage points for the \(W\)
+<!-- <i>W</i> -->
+statistic, obtained via Monte Carlo simulations, were reproduced by 
+<a href="../section5/prc5.html#Pearson, A. V., and Hartley, H. O.">Pearson
+and Hartley (1972, Table 16)</a>. This test has done very well in comparison
+studies with other goodness of fit tests.
+<p>
+The \(W\)
+<!-- <i>W</i> -->
+statistic is calculated as follows:
+
+$$ W = \frac{\left( \sum_{i=1}^n a_i x_{(i)} \right)^2}
+            {\sum_{i=1}^n (x_i - \bar{x})^2} \, , $$
+
+<!--
+<center>
+<p>
+<img SRC="eqns/wstat.gif" height=78 width=124 alt=
+"W = (SUM{i=1 to n}{a(j)*x(j)})**2/(SUM{i=1 to n}{(x(i) - xbar)**2}">
+</center>
+<p><br>
+<br>
+<p>
+-->
+
+where the \(x_{(i)}\)
+<!-- <i> x<sub>(i)</sub></i> -->
+are the ordered sample values (\(x_{(1)}\)
+<!-- (<i>x<sub>(1)</sub></i> -->
+is the smallest) and the \(a_i\)
+<!-- <i>a<sub>i</sub> </i> -->
+are constants generated from
+the means, variances and covariances of the order statistics of a sample
+of size \(n\)
+<!-- <i>n</i>  -->
+from a normal distribution 
+(see <a href="../section5/prc5.html#Pearson, A. V., and Hartley, H. O.">Pearson
+and Hartley (1972, Table 15)</a>. 
+<p>
+For more information about the Shapiro-Wilk test the reader is referred
+to the original 
+<a href="../section5/prc5.html#Shapiro, S. S.and Wilk M. B. (1965), An analysis">
+Shapiro and Wilk (1965)</a> paper and the tables in 
+<a href="../section5/prc5.html#Pearson, A. V., and Hartley, H. O.">
+Pearson and Hartley (1972)</a>.
+<br> </td>
+</tr>
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc212.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc22.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc213.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:11 GMT -->
+</HTML>

@@ -1,0 +1,238 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd61a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:10:08 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.6.1.10. Use of the Model for Calibration</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd61b.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd619.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd6.html">Case Studies in Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd61.html">Load Cell Calibration</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.6.1.10.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Use of the Model for Calibration</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Using the Model</I></TD>
+<TD WIDTH=85% VALIGN=top>
+Now that a good model has been found for these data, it can be used to 
+estimate load values for new measurements of deflection.  For example,
+suppose a new deflection value of 1.239722 is observed.  The regression
+function can be solved for load to determine an estimated load value
+without having to observe it directly.  The plot below illustrates the
+calibration process graphically.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="nd"><A HREF="../section1/pmd133.html">Calibration</A></A></I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<A HREF="ldcll/plots/clbints1.gif"><IMG SRC="ldcll/plots/clbints1.r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="plot illustrating calibration process"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Finding Bounds on the Load</I></TD>
+<TD WIDTH=85% VALIGN=top>
+From the plot, it is clear that the load that produced the deflection of 1.239722
+should be about 1,750,000, and would certainly lie between 1,500,000 and
+2,000,000. This rough estimate of the possible load range will be used to 
+compute the load estimate numerically.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><I>Obtaining a Numerical Calibration Value</I></TD>
+<TD WIDTH=85% VALIGN=top>
+To solve for the numerical estimate of the load associated with the observed
+deflection, the observed value substituting in the regression function and
+the equation is solved for load.  Typically this will be done using a root 
+finding procedure in a statistical or mathematical package.  That is one 
+reason why rough bounds on the value of the load to be estimated are needed.
+
+$$ \begin{eqnarray}
+   1.239722 & = & 0.673618\times10^{-3}  \\
+         & + & (0.732059\times10^{-6})L  \\
+         & - & (0.316081\times10^{-14})L^2  \\
+         &  \Downarrow & \\
+      L  & = &  1705106
+\end{eqnarray} $$
+
+<!--
+</TD>
+</TR>
+<TD WIDTH=15% VALIGN=top><A NAME="nl"><I>Solving the Regression Equation</I></A></TD>
+<TD WIDTH=85% VALIGN=top>
+<CENTER><IMG ALT=" 
+\begin{array}{ccl}
+1.239722 & = & 0.673618\times10^{-3}  \\
+         & + & (0.732059\times10^{-6})L  \\
+         & - & (0.316081\times10^{-14})L^2  \\
+         &   \Downarrow & \\
+      L  & = &  1705106
+\end{array}
+" SRC="eqns/clbeqn.gif"></CENTER>
+-->
+</TD>
+</TR>
+
+<TD WIDTH=15% VALIGN=top><I>Which Solution?</I></TD>
+<TD WIDTH=85% VALIGN=top>
+Even though the rough estimate of the load associated with an observed 
+deflection is not necessary to solve the equation, the other reason is to
+determine which solution to the equation is correct, if there are multiple
+solutions.  The quadratic calibration equation, in fact, has two solutions.
+As we saw from the plot on the previous page, however, there is really no 
+confusion over which root of the quadratic function is the correct load.
+Essentially, the load value must be between 150,000 and 3,000,000 for this
+problem.  The other root of the regression equation and the new deflection
+value correspond to a load of over 229,899,600.  Looking at the data at 
+hand, it is safe to assume that a load of 229,899,600 would yield a 
+deflection much greater than 1.24.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><A NAME="ci"><I>+/- What?</I></A></TD>
+<TD WIDTH=85% VALIGN=top>
+The final step in the calibration process, after determining the estimated
+load associated with the observed deflection, is to compute an uncertainty
+or confidence interval for the load.  
+A <A HREF="../section5/pmd511.html">single-use 95 % confidence interval</A>
+for the load, is obtained by inverting the formulas for the upper and lower
+bounds of a <A HREF="../section5/pmd512.html">95 % prediction interval for a
+new deflection value</A>.
+These inequalities, shown below, are usually solved numerically, just as the 
+calibration equation was, to find the end points of the confidence interval.
+For some models, including this one, the solution could actually be obtained 
+algebraically, but it is easier to let the computer do the work using a generic
+algorithm.  
+
+$$ \begin{eqnarray}
+1.239722 & > & f(L;\hat{\vec{\beta}}) + t_{0.975,37} \cdot \hat{\sigma}_p \\
+         &   \Downarrow & \\
+      L  & > & 1704513
+\end{eqnarray} $$
+
+$$ \begin{eqnarray}
+1.239722 & < & f(L;\hat{\vec{\beta}}) - t_{0.975,37} \cdot \hat{\sigma}_p \\
+         &   \Downarrow & \\
+      L  & < & 1705697
+\end{eqnarray} $$
+
+<!--
+<BR><BR><CENTER><IMG ALT=" 
+\begin{array}{ccl}
+1.239722 & > & f(L;\hat{\vec{\beta}}) + t(0.975,37)\hat{\sigma}_p(L;\hat{\vec{\beta}}) \\
+         &   \Downarrow & \\
+      L  & > & 1704513
+\end{array}
+" SRC="pmd61_eq4.gif"></CENTER><BR>
+<BR><BR><CENTER><IMG ALT=" 
+\begin{array}{ccl}
+1.239722 & < & f(L;\hat{\vec{\beta}}) - t(0.975,37)\hat{\sigma}_p(L;\hat{\vec{\beta}}) \\
+         &   \Downarrow & \\
+      L  & < & 1705697
+\end{array}
+" SRC="pmd61_eq5.gif"></CENTER><BR>
+-->
+
+The three terms on the right-hand side of each inequality are the regression
+function (\(f\)),
+<!-- ( <IMG ALT="f" ALIGN=absmiddle SRC="eqns/f.gif"> ), -->
+a <i><big>t</i></big>-distribution
+multiplier, and the standard deviation of a new measurement from the process 
+(\(\hat{\sigma}_p\)).
+<!-- (<IMG ALT="\hat{\sigma}_p" ALIGN=absmiddle SRC="eqns/sm.gif">). -->
+Regression software often 
+provides convenient methods for computing these quantities for
+arbitrary values of the predictor variables, which can make computation of
+the confidence interval end points easier.  Although this interval is not 
+symmetric mathematically, the asymmetry is very small, so for all practical 
+purposes, the interval can be written as
+
+$$ 1705106 \pm 593 $$
+
+<!--<BR><BR><CENTER><IMG ALT=" 
+1705106 \pm 593
+" SRC="eqns/clbint.gif"></CENTER><BR> -->
+
+if desired.
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd619.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd61b.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd61a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:10:09 GMT -->
+</HTML>

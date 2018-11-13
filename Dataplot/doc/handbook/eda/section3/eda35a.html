@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:10 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.10. Levene Test for Equality of Variances</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35b.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda359.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.10.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Levene Test for Equality of Variances</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Test for Homogeneity of Variances
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Levene's test (
+      <a href="../section4/eda43.html#Levene">Levene 1960</a>)
+      is used to test if <i>k</i> samples have equal variances.  Equal
+      variances across samples is called homogeneity of variance.
+      Some statistical tests, for example the analysis of variance,
+      assume that variances are equal across groups or samples.  The
+      Levene test can be used to verify that assumption.
+      <p>
+      Levene's test is an alternative to the 
+      <a href="eda357.html">Bartlett test</a>.  The Levene test is
+      less sensitive than the Bartlett test to departures from
+      normality.  If you have strong evidence that your data do
+      in fact come from a normal, or nearly normal, distribution, then
+      Bartlett's test has better performance.
+
+   </td>
+</tr>
+
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Levene test is defined as:
+      <table>
+
+      <tr>
+         <td>
+            H<sub>0</sub>:
+         </td>
+         <td>
+            \( \sigma_{1}^{2} = \sigma_{2}^{2} = \ldots = \sigma_{k}^{2} \)
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            H<sub>a</sub>:
+         </td>
+         <td>
+            \( \sigma_{i}^{2} \ne \sigma_{j}^{2} \)
+            &nbsp;&nbsp;&nbsp;for at least one pair
+            (<i>i</i>,<i>j</i>).
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td align=top>
+            Given a variable <i>Y</i> with sample of size <i>N</i>
+            divided into <i>k</i> subgroups, where <i>N<sub>i</sub></i>
+            is the sample size of the <i>i</i>th subgroup, the Levene
+            test statistic is defined as:
+            <ul>
+               <!--
+               <img src="eqns/levene.gif"
+alt="W = [(N-k)*SUM(i=1 to k)(N(i)*(ZBAR(i.) - ZBAR(..))**2]/
+[(k-1)*SUM(i=1 to k)(SUM(j=1 to N(i))(Z(ij) - ZBAR(i.))**2]">
+               -->
+               \[ W = \frac{(N-k)} {(k-1)}
+               \frac{\sum_{i=1}^{k}N_{i}(\bar{Z}_{i.}-\bar{Z}_{..})^{2} }
+               {\sum_{i=1}^{k}\sum_{j=1}^{N_i}(Z_{ij}-\bar{Z}_{i.})^{2} } \]
+            </ul>
+            where <b><i>Z<sub>ij</sub></i></b> can have one of the
+            following three definitions:
+            <ol>
+               <li>\(Z_{ij} = |Y_{ij} - \bar{Y}_{i.}|\)
+                    <!-- <img align=top src="eqns/zijmean.gif"
+                              alt="Z(ij) = |Y(ij) - YBAR(i.)|"> -->
+                   <p>
+                   where
+                   <!-- <img align=absmiddle src="eqns/ybari.gif"> -->
+                   \(\bar{Y}_{i.}\)
+                   is the <a href="eda351.html#MEAN">mean</a> of the
+                   <i>i</i>-th subgroup.
+                   <p>
+               <li>\(Z_{ij} = |Y_{ij} - \tilde{Y}_{i.}|\)
+                   <!-- <img align=top src="eqns/zijmed.gif"
+                             alt="Z(ij) = |Y(ij) - YMEDIAN(i.)|"> -->
+                   <p>
+                   where
+                   <!-- <img align=absmiddle src="eqns/ymedi.gif"
+                   alt="YMEDIAN"> -->
+                   \(\tilde{Y}_{i.}\)
+                   is the <a href="eda351.html#MEDIAN">median</a> of
+                   the <i>i</i>-th subgroup.
+                   <p>
+               <li>\(Z_{ij} = |Y_{ij} - \bar{Y}_{i.}'|\)
+                   <!-- <img align=top src="eqns/zijtrim.gif"
+                             alt="Z(ij) = |Y(ij) - YTRIMMED(i.)|"> -->
+                   <p>
+                   where
+                   <!-- <img align=absmiddle src="eqns/ytrimi.gif"
+                   alt="YTRIMMED"> -->
+                   \(\bar{Y}_{i.}'\)
+                   is the 10% <a href="eda351.html#TRIMMEAN">trimmed
+                   mean</a> of the <i>i</i>-th subgroup.
+            </ol>
+            <!-- <img align=absmiddle src="eqns/zbari.gif"
+            alt="ZBAR(i.)"> -->
+            \(\bar{Z}_{i.}\) are the group means of the
+            <b><i>Z<sub>ij</sub></i></b> and
+            <!-- <img align=absmiddle src="eqns/zbarii.gif"
+            alt="ZBAR(..)"> -->
+            \(\bar{Z}_{..}\) is the overall mean of the
+            <b><i>Z<sub>ij</sub></i></b>.
+            <p>
+            The three choices for defining <b><i>Z<sub>ij</sub></i></b>
+            determine the robustness and power of Levene's test.
+            By robustness, we mean the ability of the test to not
+            falsely detect unequal variances when the underlying
+            data are not normally distributed and the variables are
+            in fact equal.  By power, we mean the ability of the test
+            to detect unequal variances when the variances are in fact
+            unequal.
+            <p>
+            Levene's original paper only proposed using the mean.
+            <a href="../section4/eda43.html#Brown">Brown and Forsythe
+            (1974)</a>) extended Levene's test to use either the
+            median or the trimmed mean in addition to the mean.
+            They performed Monte Carlo studies that indicated that
+            using the trimmed mean performed best when the underlying
+            data followed a Cauchy distribution (i.e., heavy-tailed)
+            and the median performed best when the underlying data
+            followed a
+            <!-- <img align=absmiddle src="eqns/chisq4.gif"
+            alt="Chi-Square(4)"> -->
+            \(\chi^{2}_{4}\) (i.e., skewed)
+            distribution.  Using the mean provided the best power
+            for symmetric, moderate-tailed, distributions.
+            <p>
+            Although the optimal choice depends on the underlying
+            distribution, the definition based on the median is
+            recommended as the choice that provides good robustness
+            against many types of non-normal data while retaining
+            good power.  If you have knowledge of the underlying
+            distribution of the data, this may indicate using one
+            of the other choices.
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=top>
+            &nbsp; <big><i>&alpha;</i></big>
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Critical Region:
+         </td>
+         <td>
+            The Levene test rejects the hypothesis that the
+            variances are equal if
+            <ul>
+               <i>W</i> &gt; <big><i>F</i></big><sub><i>&alpha;</i>,
+               <i>k</i>-1, <i>N-k</i></sub>
+            </ul>
+            where <big><i>F</i></big><sub><i>&alpha;</i>, <i>k</i>-1,
+            <i>N-k</i></sub> is the
+            <a href="eda3673.html">upper critical value</a> of the
+            <a href="eda3665.html"><i>F</i> distribution</a>
+            with <i>k</i>-1 and <i>N</i>-<i>k</i> degrees of
+            freedom at a significance level of <i>&alpha;</i>.
+            <p>
+            In the above formulas for the critical
+            regions, the Handbook follows the convention that
+            <big><i>F</i></big><sub><i>&alpha;</i></sub>
+            is the upper critical value from the <i>F</i> distribution
+            and <big><i>F</i></big><sub>1-<i>&alpha;</i></sub> is the
+            lower critical value.  Note that this is the opposite of some
+            texts and software programs.
+         </td>
+      </tr>
+
+     </table>
+    
+   </td>
+</tr>
+
+<!-----begin section: sample output -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Levene's Test Example<br>
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Levene's test, based on the median, was performed for 
+      the <a href="eda3581.html">GEAR.DAT</a> data set.  The data set
+      includes ten measurements of gear diameter for each of 
+      ten batches for a total of 100 measurements.
+<PRE>
+H<SUB>0</SUB>:  &sigma;<SUB>1</SUB><sup>2</sup> = ... = &sigma;<SUB>10</SUB><sup>2</sup>
+H<SUB>a</SUB>:  &sigma;<SUB>1</SUB><sup>2</sup> &ne; ... &ne; &sigma;<SUB>10</SUB><sup>2</sup>
+<P>
+Test statistic:  <I>W</I> = 1.705910
+Degrees of freedom:  <I>k</I>-1 = 10-1 = 9
+                     <I>N</I>-<I>k</I> = 100-10 = 90
+Significance level:  <i>&alpha;</i> = 0.05
+Critical value (upper tail):  <big><I>F</I></big><sub><i>&alpha;</i>,<I>k</I>-1,<I>N</I>-<I>k</I></sub> = 1.9855 
+Critical region: Reject H<SUB>0</SUB> if <I>F</I> > 1.9855 
+</PRE>
+We are testing the hypothesis that the group variances are
+equal.  We fail to reject the null hypothesis at the 0.05 significance level 
+since the value of the Levene test statistic is less than the critical value. 
+We conclude that there is insufficient evidence to claim that the variances
+are not equal.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: questions -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Question
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Levene's test can be used to answer the following
+      question:
+      <ul>
+         <li>Is the assumption of equal variances valid?
+      </ul>
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="sdplot.html">Standard Deviation Plot</a><br>
+      <a href="boxplot.html">Box Plot</a><br>
+      <a href="eda357.html">Bartlett Test</a><br>
+      <a href="eda358.html">Chi-Square Test</a><br> 
+      <a href="eda354.html">Analysis of Variance</a><br>
+   </td>
+</tr>
+
+<!-----begin section: Software -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      The Levene test is available in some general purpose statistical
+      software programs.  Both 
+      <a href="eda35a.dp">Dataplot code</a> and 
+      <a href="eda35a.r">R code</a> can be used to generate the
+      analyses in this section.
+   </td>
+</tr>
+
+<!-----end jjf----->
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda359.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35b.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35a.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:11 GMT -->
+</HTML>

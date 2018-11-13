@@ -1,0 +1,300 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr162.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:46 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.6.2. Weibull</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr163.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr161.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr16.html">What are the basic lifetime distribution models used for non-repairable
+populations?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.6.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Weibull</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Weibull Formulas</i></td>
+
+<td valign=top width="85%">
+
+<a NAME="Formula's and"></a><b>Formulas and Plots</b>
+<p>
+The Weibull is a very flexible life distribution model with two parameters.
+It has CDF and PDF and other key formulas given by:
+
+$$ 
+\begin{array}{ll}
+\mbox{PDF:}          & f(t, \gamma, \alpha) = \frac{\gamma}{t} \left( \frac{t}{\alpha} \right)^\gamma e^{- \left( \frac{t}{\alpha} \right)^\gamma} \\
+                     & \\
+\mbox{CDF:}          & F(t) = 1-e^{- \left( \frac{t}{\alpha} \right)^\gamma} \\
+                     & \\
+\mbox{Reliability:}  & R(t) = e^{- \left( \frac{t}{\alpha} \right)^\gamma} \\
+                     & \\
+\mbox{Failure Rate:} & h(t) =  \frac{\gamma}{\alpha} \left( \frac{t}{\alpha} \right) ^{\gamma-1} \\
+                     & \\
+\mbox{Mean:}         & \alpha \Gamma \left(1+\frac{1}{\gamma} \right) \\
+                     & \\
+\mbox{Median:}       & \alpha (\mbox{ln} \, 2)^{\frac{1}{\gamma}} \\
+                     & \\
+\mbox{Variance:}     & \alpha^2 \Gamma \left( 1+\frac{2}{\gamma} \right) - \left[ \alpha \Gamma \left( 1 + \frac{1}{\gamma}\right) \right]^2 
+\end{array} 
+$$
+
+<!--
+<center>
+<p>
+<img SRC="apr162_e1.gif" ALT=
+     "CDF: F(t) = 1 - EXP(-(t/alpha)**gamma);
+     RELIABILITY: EXP(-(t/alpha)**gamma);
+     PDF: f(t) = (gamma/t)*(t/alpha)**gamma*EXP(-(t/alpha)**gamma);
+     FAILURE RATE: (gamma/t)*(t/alpha)**(gamma-1);
+     MEAN: alpha*GAMMA(1 + 1/gamma);
+     MEDIAN: alpha*(LN(2))**(1/gamma);
+     VARIANCE: alpha**2*GAMMA(1+2/gamma)-[alpha*GAMMA(1+1/gamma)]**2">
+</center>
+-->
+<p>
+with \(\alpha\)
+<!-- <i>&alpha;</i> -->
+the scale parameter (the <b>Characteristic Life</b>), \(\gamma\)
+<!-- <i>&gamma;</i> -->
+(gamma) the <b>Shape Parameter,</b> and \(\Gamma\)
+<!-- &Gamma; -->
+is the Gamma function with \(\Gamma(N) = (N-1)!\)
+<!-- &Gamma;(<i>N</i>) = (<i>N</i>-1)! -->
+for integer \(N\).
+<!-- <i>N</i>. -->
+<p>
+The cumulative hazard function for the Weibull is the integral of the failure
+rate or 
+
+$$ H(t) = \left( \frac{t}{\alpha} \right)^\gamma \,\, . $$
+
+<!--
+<center>
+<img src="eqns/hazard.gif" alt="H(t) = (t/alpha)**gamma">
+</center>
+-->
+<p>
+A more general three-parameter form of the Weibull includes an additional
+<b>waiting time</b> parameter \(\mu\)
+<!-- &micro; -->
+(sometimes called a <b>shift</b> or <b>location</b> parameter). The formulas for the 3-parameter
+Weibull are easily obtained from the above formulas by replacing \(t\) by (\(t-\mu)\)
+<!-- <i>t</i> by (<i>t</i> - &micro;) -->
+wherever \(t\)
+<!-- <i>t</i> -->
+appears. No failure can occur before \(\mu\)
+<!-- &micro; -->
+hours,
+so the time scale starts at \(\mu\),
+<!-- &micro;, -->
+and not 0. If a shift parameter \(\mu\)
+<!-- &micro; -->
+is known (based, perhaps, on the physics of the failure mode), 
+then all you have to do is subtract \(\mu\)
+<!-- &micro; -->
+from all the observed failure times and/or readout times and 
+analyze the resulting shifted data with a two-parameter Weibull.
+
+
+<p>
+<b>NOTE:</b> Various texts and articles in the literature use a variety
+of different symbols for the same Weibull parameters. For example, the
+characteristic life is sometimes called \(c\) (\(\nu\) = nu or \(\eta\) = eta)
+<!-- <i>c</i> (<i>&nu;</i> = nu or <i>&eta;</i> = eta) -->
+and the shape parameter is also called \(m\) (or \(\beta\) = beta).
+<!-- <i>m</i> (or <i>&beta;</i> = beta). -->
+To add to the confusion, some software uses \(\beta\)
+<!-- <i>&beta;</i> -->
+as the characteristic life parameter and \(\alpha\)
+<!-- <i>&alpha;</i> -->
+as the shape parameter. Some authors even parameterize the density function 
+differently, using a scale parameter \(\theta = \alpha^\gamma\).
+<!-- <img src="eqns/scaleparam.gif" align=absbottom alt="theta=alpha**gamma">. -->
+<p>
+<b>Special Case</b>: When \(\gamma\) = 1,
+<!-- <i>&gamma;</i> = 1, -->
+the Weibull reduces to the <a href="apr161.html">Exponential Model</a>, 
+with \(\alpha = 1/\lambda\)
+<!-- <i>&alpha;</i> = 1/<i>&lambda;</i> -->
+= the <b>mean time to fail (MTTF)</b>.
+
+<p>
+Depending on the value of the shape parameter \(\gamma\),
+<!-- <img src="gifs/gamma.gif" align=absmiddle alt="gamma">, -->
+the Weibull model can empirically fit a wide range of data histogram
+shapes.  This is shown by the PDF example curves below.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Weibull data "shapes"</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<img SRC="gifs/weibshp.gif"
+     ALT="Plots of Weibull PDF with different shape parameters">
+
+<p>
+From a failure rate model viewpoint, the Weibull is a natural
+extension of the constant failure rate exponential model since the
+Weibull has a polynomial failure rate with exponent {\(\gamma - 1\)}.
+<!-- {<i>&gamma;</i> - 1}. -->
+This makes all the failure rate curves shown in the following plot
+possible.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Weibull failure rate "shapes"</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<img SRC="gifs/weibfr2.gif"
+ALT="Plots of Weibull failure rates with different shape parameters">
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>The Weibull is very flexible and also has theoretical
+justification in many applications</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="Uses of the Weibull Distribution"></a>
+<b>Uses of the Weibull Distribution Model</b>
+<ol>
+<li>Because of its flexible shape and ability to model a wide range of
+failure rates, the Weibull has been used successfully in many applications
+as a purely empirical model.
+<li>The Weibull model can be derived theoretically as a form of 
+<ahref="apr163.htm">Extreme Value Distribution</a>, 
+governing the time to occurrence of the "weakest link" 
+of many competing failure processes. This may explain why it has
+been so successful in applications such as capacitor, ball bearing, relay
+and material strength failures.
+<li>Another special case of the Weibull occurs when the shape parameter
+is 2. The distribution is called the Rayleigh Distribution and it turns
+out to be the theoretical probability model for the magnitude of radial
+error when the \(x\) and \(y\)
+<!-- <i>x</i> and <i>y</i> -->
+coordinate errors are independent normals with 0 mean and the same standard deviation.
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Weibull probability plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="DATAPLOT and EXCEL Functions for the"></a>
+We generated 100 Weibull random variables using \(T\) = 1000, 
+\(\gamma\) = 1.5 and \(\alpha\) = 5000.
+<!-- <i>&gamma;</i> = 1.5 and <i>&alpha;</i> = 5000. -->
+To see how well these random 
+Weibull data points are actually fit by a Weibull distribution, 
+we generated the probability plot shown below. Note the log scale used is base 10.
+
+<img SRC="apr162_r01.gif"
+     ALT="Weibull Plot of 100 Weibull random numbers">
+
+If the data follow a Weibull distribution, the points should follow a straight line.
+<p>
+We can comput the PDF and CDF values for failure time \(T\) = 1000, using the 
+example Weibull distribution with 
+\(\gamma\) = 1.5 and \(\alpha\) = 5000.
+<!-- <i>&gamma;</i> = 1.5 and <i>&alpha;</i> = 5000. -->
+The PDF value is 0.000123 and the CDF value is 0.08556.
+<p>
+Functions for computing Weibull PDF values, CDF values, and for producing
+probability plots, are found in both <a href="apr162.dp">Dataplot code</a> 
+and <a href="apr162.r">R code</a>.
+</td>
+</tr>
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr161.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr163.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr162.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:54 GMT -->
+</HTML>

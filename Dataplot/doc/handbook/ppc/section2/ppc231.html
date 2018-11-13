@@ -1,0 +1,600 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc231.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:28 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>3.2.3.1. One-Way ANOVA</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="ppc2311.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="ppc23.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">3.</FONT>
+<FONT COLOR="#00105A"><A HREF="../ppc.html">Production
+Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc2.html">Assumptions / Prerequisites</a></FONT>
+<BR>
+<FONT COLOR="#D60021">3.2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="ppc23.html">Analysis of Variance Models (ANOVA)</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">3.2.3.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>One-Way ANOVA</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Description</i></td>
+
+<td VALIGN WIDTH="85%">
+A one-way layout consists of a single factor with
+several levels and multiple observations at each level.  With this
+kind of layout we can calculate the mean of the observations within each
+level of our factor. The residuals will tell us about the variation within
+each level. We can also average the means of each level to obtain a grand
+mean. We can then look at the deviation of the mean of each level from
+the grand mean to understand something about the level effects. Finally,
+we can compare the variation within levels to the variation across levels.
+Hence the name analysis of variance.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Model</i></td>
+
+<td VALIGN WIDTH="85%">
+It is easy to model all of this with an equation of the form:
+<center>
+<p>
+<!--
+<img SRC="eqns/anova1.gif"
+     alt="y(ij) = m + a(i) + e(ij)">
+-->
+\( y_{ij} = m + a_{i} + \epsilon_{ij} \)
+</center>
+
+<p>
+The equation indicates that the <i>j</i>th data value, from level
+<i>i</i>, is the sum of three components: the common value (grand mean),
+the level effect (the deviation of each level mean from the grand mean),
+and the residual (what's left over).
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<i>Estimation
+<p>
+<a href="ppc2311.html">click here to see details of one-way value
+splitting</a></i>
+</td>
+
+<td valign=top width="85%">
+Estimation for the one-way layout can be performed one of two ways. First,
+we can calculate the total variation, within-level variation and
+across-level variation. These can be summarized in a table as shown below
+and tests can be made to determine if the factor levels are significant.
+The <a href="ppc2311.html">value splitting example</a> illustrates the 
+calculations involved.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE>
+<a NAME="anova">
+<i>ANOVA table for one-way case</i>
+</a>
+</td>
+
+<td valign=top width="85%">
+In general, the ANOVA table for the one-way case is given by:
+<p>
+<CENTER>
+<!--
+<IMG SRC="ppc231table.gif" ALT="ANOVA Table">
+-->
+</CENTER>
+<center>
+<table BORDER COLS=5 WIDTH=600 NOSAVE >
+    <tr>
+      <th align=center valign=top>
+         <font size="-1">
+         Source
+         </font>
+      </th>
+      <th align=center valign=top>
+         <font size="-1">
+         Sum of Squares
+         </font>
+      </th>
+      <th align=center valign=top>
+         <font size="-1">
+         DoF
+         </font>
+      </th>
+      <th align=center valign=top>
+         <font size="-1">
+         Mean Square
+         </font>
+      </th>
+      <th align=center valign=top>
+         <font size="-1">
+         F<sub>0</sub>
+         </font>
+      </th>
+    </tr>
+    <tr>
+      <td align=center valign=top>
+         <font size="-1">
+         <b>Factor</b>
+         </font>
+      </td>
+      <td align=center valign=top>
+         \( \small SS_{F} = J \sum{(\bar{y}_{i.} - \bar{y}_{..})^2} \)
+      </td>
+      <td align=center valign=top>
+         <font size="-1">
+         I-1
+         </font>
+      </td>
+      <td align=center valign=top>
+         <font size="-1">
+         <i>MSF</i> = <i>SS<sub>F</sub></i>/(<i>I</i> - 1)
+         </font>
+      </td>
+      <td align=center valign=top>
+         <font size="-1">
+         <i>MSF/MSE</i>
+         </font>
+      </td>
+    </tr>
+    <tr>
+      <td align=center valign=top>
+         <font size="-1">
+         <b>Residual</b>
+         </font>
+      </td>
+      <td align=center valign=top>
+         \(\small SS_{E} = \sum{\sum{(y_{ij} - \bar{y}_{i.})^2}}\)
+      </td>
+      <td align=center valign=top>
+         <font size="-1">
+         I(J-1)
+         </font>
+      </td>
+      <td align=center valign=top>
+         <font size="-1">
+         <i>MSE</i> = <i>SS<sub>E</sub></i>/(<i>I</i>(<i>J</i> - 1))
+         </font>
+      </td>
+      <td align=center valign=top>
+         &nbsp;
+      </td>
+    </tr>
+    <tr>
+      <td align=center valign=top>
+         <font size="-1">
+         <b>Corr. Total</b>
+         </font>
+      </td>
+      <td align=center valign=top>
+         \( \small SST = \sum{\sum{(y_{ij} - \bar{y}_{..})^2}} \)
+      </td>
+      <td align=center valign=top>
+         <font size="-1">
+         IJ-1
+         </font>
+      </td>
+      <td align=center valign=top>
+         &nbsp;
+      </td>
+      <td align=center valign=top>
+         &nbsp;
+      </td>
+    </tr>
+</table>
+</font>
+</center>
+<P>
+where
+<CENTER>
+<!--
+<IMG SRC="ppc231table_eq1.gif" ALT="Level Means">
+-->
+\[ \bar{y}_{i.} = \frac{1}{J} \sum_{j=1}^{J}{y_{ij}} \]
+</CENTER>
+and
+<CENTER>
+<!--
+<IMG  SRC="ppc231table_eq2.gif" ALT="Grand Mean">.
+-->
+\[ \bar{y}_{..} = \frac{1}{IJ} \sum_{i=1}^{I}{\sum_{j=1}^{J}{y_{ij}}} \]
+</CENTER>
+The row labeled, "Corr. Total", in the ANOVA table contains the corrected
+total sum of squares and the associated degrees of freedom (DoF).
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%">
+<i>Level effects must sum to zero</i>
+</td>
+
+<td valign=top width="85%">
+The second way to estimate effects is through the use of 
+<a href="ppc22.html">CLM</a> techniques.
+If you look at the model above you will notice that it is in the form of
+a CLM. The only problem is that the model is saturated
+and no unique solution exists. We overcome this problem by applying a constraint
+to the model. Since the level effects are just deviations from the grand
+mean, they must sum to zero. By applying the constraint that the level
+effects must sum to zero, we can now obtain a unique solution to the CLM equations.
+Most analysis programs will handle this for you automatically. See the
+chapter on&nbsp; <a href="../../pmd/pmd.html">Process Modeling</a>
+for a more complete discussion on estimating the coefficients for
+these models.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%" NOSAVE><i>Testing</i></td>
+
+<td VALIGN WIDTH="85%" NOSAVE>
+We are testing to see if the observed data support the hypothesis 
+that the levels of the factor
+are significantly different from each other. The way we do this is by comparing
+the within-level variancs to the between-level variance.
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%">
+</td>
+
+<td valign=top width="85%">
+If we assume that the observations within each level have the same variance,
+we can calculate the variance within each level and
+<a href="../../prc/section4/prc42.html">pool</a>
+these together to obtain an estimate of the overall population variance. This
+works out to be the mean square of the residuals.
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%">
+</td>
+
+<td valign=top width="85%">
+Similarly, if there really were no level effect, the mean square
+across levels would be an estimate of the overall variance. Therefore, 
+if there really were no level effect, these two estimates would be just
+two different ways to estimate the same parameter and should be close 
+numerically. However, if there is a level effect, the level mean square 
+will be higher than the residual mean square.
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%"></td>
+
+<td valign=top width="85%">
+It can be shown that given the assumptions about the data stated below,
+the ratio of the level mean square and the residual mean square follows
+an <a href="../../eda/section3/eda3665.html"><i>F</i> distribution</a> with
+degrees of freedom as
+shown in the ANOVA table. If the <i>F</i><sub>0</sub> value is significant at a given 
+significance level (greater than the cut-off value in a <i>F</i> table), then 
+there is a level effect present in the data.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Assumptions</i></td>
+
+<td VALIGN=TOP VALIGN WIDTH="85%" NOSAVE>
+For estimation purposes, we assume the
+data can adequately be modeled as the sum of a deterministic component
+and a random component. We further assume that the fixed
+(deterministic) component can be modeled as the sum of an overall
+mean and some contribution from the factor level. Finally, it is
+assumed that the random component can be modeled
+with a Gaussian distribution with fixed location and spread.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Uses</i></td>
+
+<td VALIGN=TOP VALIGN WIDTH="85%" NOSAVE>
+The one-way ANOVA is useful when we want
+to compare the effect of multiple levels of one factor and we have multiple
+observations at each level. The factor can be either discrete (different
+machine, different plants, different shifts, etc.) or continuous (different
+gas flows, temperatures, etc.).
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><a NAME="example"></a><i>Example</i></td>
+
+<td VALIGN WIDTH="85%">
+Let's extend the <a href="ppc23.html#example">machining example</a>
+by assuming that we have five different machines making the same
+part and we take five random samples from each machine to obtain the
+following diameter data:
+<P>
+<center><table BORDER COLS=5 WIDTH="50%" NOSAVE >
+<tr NOSAVE>
+<th COLSPAN="5" NOSAVE><b>Machine</b></th>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=CENTER><u>1</u></td>
+
+<td ALIGN=CENTER><u>2</u></td>
+
+<td ALIGN=CENTER><u>3</u></td>
+
+<td ALIGN=CENTER><u>4</u></td>
+
+<td ALIGN=CENTER><u>5</u></td>
+</tr>
+
+<tr>
+<td><center>0.125</center></td>
+
+<td><center>0.118</center></td>
+
+<td><center>0.123</center></td>
+
+<td><center>0.126</center></td>
+
+<td><center>0.118</center></td>
+</tr>
+
+<tr>
+<td><center>0.127</center></td>
+
+<td><center>0.122</center></td>
+
+<td><center>0.125</center></td>
+
+<td><center>0.128</center></td>
+
+<td><center>0.129</center></td>
+</tr>
+
+<tr>
+<td><center>0.125</center></td>
+
+<td><center>0.120</center></td>
+
+<td><center>0.125</center></td>
+
+<td><center>0.126</center></td>
+
+<td><center>0.127</center></td>
+</tr>
+
+<tr>
+<td><center>0.126</center></td>
+
+<td><center>0.124</center></td>
+
+<td><center>0.124</center></td>
+
+<td><center>0.127</center></td>
+
+<td><center>0.120</center></td>
+</tr>
+
+<tr>
+<td><center>0.128</center></td>
+
+<td><center>0.119</center></td>
+
+<td><center>0.126</center></td>
+
+<td><center>0.129</center></td>
+
+<td><center>0.121</center></td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Analyze</i></td>
+
+<td VALIGN=TOP VALIGN WIDTH="85%" NOSAVE>
+Using ANOVA software or the techniques of the
+<a href="ppc2311.html">value-splitting example</a>, we summarize the
+data in an ANOVA table as follows:
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE></td>
+
+<td VALIGN=TOP VALIGN WIDTH="85%" NOSAVE>
+<center><table BORDER COLS=5 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td>
+<center><b>Source</b></center>
+</td>
+
+<td>
+<center><b>Sum of Squares</b></center>
+</td>
+
+<td>
+<center><b>Degrees of Freedom</b></center>
+</td>
+
+<td>
+<center><b>Mean Square</b></center>
+</td>
+
+<th ALIGN=CENTER VALIGN=CENTER NOSAVE><i>F</i><sub>0</sub></th>
+</tr>
+
+<tr>
+<td>
+<center>Factor</center>
+</td>
+
+<td>
+<center>0.000137</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>0.000034</center>
+</td>
+
+<td>
+<center>4.86</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>Residual</center>
+</td>
+
+<td>
+<center>0.000132</center>
+</td>
+
+<td>
+<center>20</center>
+</td>
+
+<td>
+<center>0.000007</center>
+</td>
+
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td>
+<center>Corrected Total</center>
+</td>
+
+<td>
+<center>0.000269</center>
+</td>
+
+<td>
+<center>24</center>
+</td>
+
+<td>
+<div align=right>&nbsp;</div>
+</td>
+<td>
+&nbsp;
+</td>
+</tr>
+</table></center>
+</td>
+</tr>
+
+<tr NOSAVE>
+<td VALIGN=TOP WIDTH="15%" NOSAVE><i>Test</i></td>
+
+<td VALIGN=TOP VALIGN WIDTH="85%" NOSAVE>
+By dividing the factor-level mean square by the residual
+mean square, we obtain an <i>F</i><sub>0</sub> value of 4.86 which is greater
+than the cut-off value of 2.87 from the <i>F</i> distribution with 4 and 20
+degrees of freedom and a significance level of 0.05. Therefore, 
+there is sufficient evidence to reject the hypothesis that the 
+levels are all the same.
+</td>
+</tr>
+
+<tr NOSAVE>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%" NOSAVE><i>Conclusion</i></td>
+
+<td valign=top width="85%">
+From the analysis of these data we can conclude that the factor "machine"
+has an effect. There is a statistically significant difference in the pin
+diameters across the machines on which they were manufactured.
+</td>
+</tr>
+   
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="ppc23.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="ppc2311.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/ppc/section2/ppc231.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:02:28 GMT -->
+</HTML>

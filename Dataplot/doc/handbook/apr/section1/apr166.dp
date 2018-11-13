@@ -1,0 +1,37 @@
+Dataplot commands and output:
+
+. Define constants gamma and mu.
+LET MU = 5000
+LET GAMMA = 2
+LET T = 4000
+
+
+. Compute the PDF at T=4000.
+LET PDF = FLPDF(T, GAMMA, 0, MU)
+
+> THE COMPUTED VALUE OF THE CONSTANT PDF      =   0.4986585E-04 
+
+
+. Compute the CDF.
+LET CDF = FLCDF(T, GAMMA, 0, MU)
+
+> THE COMPUTED VALUE OF THE CONSTANT CDF      =   0.4554896E+00
+
+
+. Generate 100 random numbers from the Birnbaum-Saunders
+. distribution.
+LET GAMMA = 2
+LET DATA = FATIGUE LIFE RANDOM NUMBERS FOR I = 1 1 100
+LET DATA = 5000*DATA
+
+
+. Generate probability plot.
+LET GAMMA = 2
+FATIGUE LIFE PROBABILITY PLOT DATA
+
+
+. Estimate the shape parameter from actual data using
+. the PPCC plot.
+FATIGUE LIFE PPCC PLOT DATA
+LET GAMMA = SHAPE
+FATIGUE LIFE PROBABILITY PLOT DATA

@@ -1,0 +1,215 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section2/mpc2211.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:57:51 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.2.2.1.1. EWMA control chart</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc222.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc221.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc2.html">Statistical control of a measurement process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.2.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc22.html">How are bias and variability controlled?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.2.2.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc221.html">Shewhart control chart</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.2.2.1.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>EWMA control chart</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Small changes only become obvious over time</I>
+</TD>
+<TD WIDTH=85%>
+Because it takes time for the patterns in the data to emerge, a
+permanent shift in the process may not immediately cause individual
+violations of the control limits on a Shewhart control chart.
+The <A HREF="mpc221.html">Shewhart control chart</A> is not powerful
+for detecting small changes, say of the order of 1 - 1/2 standard
+deviations.    The EWMA (exponentially weighted moving average) control
+chart is better suited to this purpose.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A HREF="../section3/mpc3522.html">Example of EWMA control chart
+</A> for mass calibrations</I> 
+</TD>
+<TD WIDTH=85%>
+The exponentially weighted moving average (EWMA) is a statistic for
+monitoring the process that averages the data in a way that gives less
+and less weight to data as they are further removed in time from the
+current measurement.  The  data
+
+$$ Y_1, Y_2, \, ..., \, Y_t$$
+
+<!--
+<UL>
+<b><i>Y</i><sub>1</sub>, <i>Y</i><sub>2</sub>, ... ,
+<i>Y<sub>t</sub></i></b>
+</UL>
+-->
+
+are the check standard measurements ordered in time.  The EWMA statistic
+at time <I>t</I> is computed recursively from individual data points,
+with the first EWMA statistic, <I>EWMA</I><sub>1</sub>, being the arithmetic
+average of historical data.
+
+$$ EWMA_{\, t+1} = \lambda Y_t + (1-\lambda)EWMA_{\,t}$$
+
+<!--
+<UL>
+<IMG SRC = "../section3/mpc3522a.gif"
+     alt="EWMA(t+1) = lambda*Y(t) + (1-lambda)*EWMA(t)">
+</UL>
+-->
+
+</TR>
+</TD>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Control mechanism for EWMA</I>
+</TD>
+<TD WIDTH=85%>
+The EWMA control chart can be made sensitive to small changes or a
+gradual drift in the process by the choice of the weighting factor, \( \lambda \)
+<!-- <IMG SRC="mpc2211b.gif" alt="lambda"> -->.  
+A weighting factor of
+0.2 - 0.3 is usually suggested for this purpose
+<A HREF="../section7/mpc7.html#Hunter">(Hunter)</A>, and 0.15 is also a
+popular choice.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Limits for the control chart</I>
+</TD>
+<TD WIDTH=85%>
+The target or center line for the control chart is
+the average of historical data.  The upper (<I>UCL</I>) and lower (<I>LCL</I>) limits
+are
+
+$$UCL = EWMA_{\,1} + k{\large s} \sqrt{\frac{\lambda}{(2-\lambda)}}$$
+
+$$LCL = EWMA_{\,1} - k{\large s} \sqrt{\frac{\lambda}{(2-\lambda)}}$$
+
+<!--
+<P>
+<CENTER>
+<IMG SRC ="ucl.gif"
+     ALT="UCL = EWMA(1) + k*SQRT((lambda/(2-lambda))*s)">
+<p>
+<IMG SRC ="lcl.gif"
+     ALT="LCL = EWMA(1) - k*SQRT((lambda/(2-lambda))*s)">
+</CENTER>
+<P>
+-->
+
+where <i>s</i> times the radical expression is a good approximation to
+the standard deviation of the EWMA statistic and the factor <I>k</I> is
+chosen in the same way as for the Shewhart control chart  -- generally
+to be 2 or 3.
+</TR>
+</TD>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Procedure for implementing the EWMA control chart</I>
+</TD>
+<TD WIDTH=85%>
+The implementation of the EWMA control chart is the same as for any
+other type of control procedure.  The procedure is built on the
+assumption that the "good" historical data are representative of the
+in-control process, with future data from the same process tested for
+agreement with the historical data.  To start the procedure, a target
+(average) and process standard deviation are computed from historical
+check standard data.  Then the procedure enters the
+<A HREF="mpc223.html">monitoring stage</A> with the EWMA statistics
+computed and tested against the control limits.  The EWMA statistics
+are weighted averages, and thus their standard deviations are smaller
+than the standard deviations of the raw data and the corresponding
+control limits are narrower than the control limits for the Shewhart
+individual observations chart.
+</TR>
+</TD>
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc221.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc222.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section2/mpc2211.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:57:51 GMT -->
+</HTML>

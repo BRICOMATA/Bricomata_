@@ -1,0 +1,244 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/lagplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:26:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.15. Lag Plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda33f1.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda33e8.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.15.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Lag Plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-----body----->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:
+         Check for randomness
+      </I>
+   </td>
+   <td width=85%>
+      A lag plot checks whether a data set or time series
+      is random or not.  Random data should not exhibit any
+      identifiable structure in the lag plot.  Non-random structure
+      in the lag plot indicates that the underlying data are not
+      random.  Several common patterns for lag plots are shown in the
+      <a href = "#examples">examples</a> below.
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Sample Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<p>
+<img src = "../gif/lagplot0.gif"
+     alt="sample lag plot exhibiting linear pattern">
+<p>
+This sample lag plot exhibits a linear pattern.  This shows
+that the data are strongly non-random and further suggests that
+an autoregressive model might be appropriate.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition</I>
+   </td>
+   <td width=85%>
+      A lag is a fixed time displacement.  For example,
+      given a data set <i>Y</i><sub>1</sub>, <i>Y</i><sub>2</sub> ...,
+      <i>Y</i><sub>n</sub>, <i>Y</i><sub>2</sub> and
+      <i>Y</i><sub>7</sub> have lag 5 since 7 - 2 = 5.  Lag plots can
+      be generated for any arbitrary lag, although the most commonly
+      used lag is 1.
+      <p>
+      A plot of lag 1 is a plot of the values of <i>Y</i><sub>i</sub>
+      versus <i>Y</i><sub>i-1</sub>
+      <ul>
+         <li>Vertical   axis: <i>Y</i><sub>i</sub> for all <i>i</i>
+         <li>Horizontal axis: <i>Y</i><sub>i-1</sub> for all <i>i</i>
+      </ul>
+   </td>
+</tr>
+
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85%>
+      Lag plots can provide answers to the following questions:
+      <ol>
+         <li>Are the data random?
+         <li>Is there serial correlation in the data?
+         <li>What is a suitable model for the data?
+         <li>Are there outliers in the data?
+      </ol>
+   </td>
+</tr>
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance</I>
+   </td>
+   <td width=85%>
+      Inasmuch as randomness is an underlying assumption for
+      most statistical estimation and testing techniques,
+      the lag plot should be a routine tool for researchers.
+   </td>
+</tr>
+
+<tr>
+   <td width=15% valign=top>
+      <a name = "examples"> </a>
+      <I>Examples</I>
+   </td>
+   <td width=85%>
+      <ul>
+         <li> <a href = "lagplot1.html">Random (White Noise) </a><br>
+         <li> <a href = "lagplot2.html">Weak autocorrelation </a><br>
+         <li> <a href = "lagplot3.html">Strong autocorrelation and
+              autoregressive model </a><br>
+         <li> <a href = "lagplot4.html">Sinusoidal model and
+              outliers </a><br>
+      </ul>
+   </td>
+</tr>
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85%>
+      <a href="autocopl.html">Autocorrelation Plot</a></br>
+      <a href="spectrum.html">Spectrum</a><br>
+      <a href="eda35d.html">Runs Test</a><br>
+   </td>
+</tr>
+
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study
+      </I>
+   </td>
+   <td width=85%>
+      The lag plot is demonstrated in the
+      <a href="../section4/eda425.html">beam deflection </a>
+      data case study.
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Lag plots are not directly available in most general purpose
+statistical software programs.  Since the lag plot is essentially
+a scatter plot with the 2 variables properly lagged, it should be
+feasible to write a macro for the lag plot in most statistical
+programs.  
+
+</TD>
+</TR>
+
+<!-- end paragraph -->
+
+
+
+  
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda33e8.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda33f1.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/lagplot.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:26:50 GMT -->
+</HTML>

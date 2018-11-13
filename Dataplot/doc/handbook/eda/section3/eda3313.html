@@ -1,0 +1,205 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3313.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:22 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.3.1.3. Autocorrelation Plot: Strong Autocorrelation and
+       Autoregressive Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda3314.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda3312.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda33.html">Graphical Techniques: Alphabetic</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.3.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda331.html">Autocorrelation Plot</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.3.1.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Autocorrelation Plot: Strong Autocorrelation and
+       Autoregressive Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+<!-----graphic----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Autocorrelation Plot for Strong Autocorrelation
+</I>
+</td>
+
+<td width=85%>
+The following is a sample autocorrelation plot.
+<p>
+<img src = "gif/autocop3.gif" 
+     alt="autocorrelation plot showing strong autocorrelation">
+
+</td>
+</tr>
+
+<!-----conclusions----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Conclusions
+</I>
+</td>
+
+<td width=85%>
+We can make the following conclusions from the above plot.
+<ol>
+   <li>The data come from an underlying autoregressive model with
+       strong positive autocorrelation.
+</ol>
+
+</td>
+</tr>
+
+<!-----discussion----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Discussion
+</I>
+</td>
+
+<td width=85%>
+The plot starts with a high autocorrelation at lag 1 (only slightly
+less than 1) that slowly declines.  It continues decreasing until
+it becomes negative and starts showing an incresing negative
+autocorrelation.  The decreasing autocorrelation is generally linear
+with little noise.  Such a pattern is the autocorrelation plot signature
+of "strong autocorrelation", which in turn provides high
+predictability if modeled properly.
+
+</td>
+</tr>
+
+<!-----recommended next step----->
+
+<tr>
+<td width=15% valign=top>
+<I>
+Recommended Next Step
+</I>
+</td>
+
+<td width=85%>
+The next step would be to estimate the parameters for the
+autoregressive model:
+<ul>
+     <!--
+     <img src="eqns/armodel.gif"
+          alt="Y(i) = A0 + A1*Y(I-1) + E(i)">
+     -->
+     \[ Y_{i} = A_0 + A_1*Y_{i-1} + E_{i} \]
+</ul>
+Such estimation can be performed by using
+<a href="../../pmd/section1/pmd141.html">least squares linear
+regression</a> or by fitting a
+<a href="../../pmc/section4/pmc44.html">Box-Jenkins</a>
+autoregressive (AR) model.
+<p>
+The randomness assumption for least squares fitting applies to the
+residuals of the model.  That is, even though the original data exhibit
+non-randomness, the residuals after fitting <B>Y<i><sub>i</sub></i></B>
+against <B>Y<sub><i>i</i>-1</sub></B> should result in random residuals.
+Assessing whether or not the proposed model in fact sufficiently
+removed the randomness is discussed in detail in the
+<a href="../../pmd/section4/pmd44.html">Process Modeling</a>
+chapter.
+<p>
+The residual standard deviation for this autoregressive
+model will be much smaller than the residual standard
+deviation for the default model
+<ul>
+    <!--
+    <img src="eqns/conmodel.gif"
+          alt="Y(i) = A0 + E(i)">
+    -->
+    \[ Y_{i} = A_0 + E_{i} \]
+</ul>
+</tr>
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda3312.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda3314.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda3313.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:23 GMT -->
+</HTML>

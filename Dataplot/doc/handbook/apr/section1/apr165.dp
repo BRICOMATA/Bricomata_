@@ -1,0 +1,54 @@
+Dataplot commands and output:
+
+. Define constants.
+. Shape = alpha = a.
+. Scale = beta (b = 1/beta).
+LET t = 24
+LET a = 2
+LET beta = 30
+
+. Calculate PDF value.
+LET PDF = GAMPDF(t,a,0,beta) 
+
+> THE COMPUTED VALUE OF THE CONSTANT PDF      =   0.1198211E-01
+  
+
+. Calculate CDF value.
+LET CDF = GAMCDF(t,a,0,beta) 
+
+> THE COMPUTED VALUE OF THE CONSTANT CDF      =   0.1912079E+00
+  
+
+. Calculate reliability.
+LET REL = 1-CDF
+
+> THE COMPUTED VALUE OF THE CONSTANT REL      =   0.8087921E+00
+  
+
+. Calculate failure rate.
+LET FR = PDF/REL
+
+> THE COMPUTED VALUE OF THE CONSTANT FR       =   0.1481481E-01
+  
+
+. Generate 100 Gamma random numbers.
+LET GAMMA = a
+LET DATA = GAMMA RANDOM NUMBERS FOR I = 1 1 100
+LET DATA = beta*DATA
+
+
+. Generate probability plot.
+LET GAMMA = 2
+X1LABEL EXPECTED (NORMALIZED) VALUES
+Y1LABEL TIME
+GAMMA PROBABILITY PLOT DATA
+
+
+. The value of the shape parameter gamma can be 
+. estimated with a method of moments estimator.
+LET DATAMN = MEAN DATA
+LET DATASD = STANDARD DEVIATION DATA
+LET GAMMA = (DATAMN/DATASD)**2
+X1LABEL EXPECTED (NORMALIZED) VALUES
+Y1LABEL TIME
+GAMMA PROBABILITY PLOT DATA

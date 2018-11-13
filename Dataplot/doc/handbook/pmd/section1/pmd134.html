@@ -1,0 +1,209 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd134.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:28 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.1.3.4. Optimization</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd14.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd133.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd1.html">Introduction to Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd13.html">What are process models used for?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.1.3.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Optimization</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>More on Optimization</I>
+</TD>
+<TD WIDTH=85%>
+As mentioned <A HREF="pmd13.html">earlier</A>, the goal of optimization is to
+determine the necessary process input values to obtain a desired output.  Like
+calibration, optimization involves substitution of an output value for
+the response variable and solving for the associated predictor variable values.
+The process model is again the link that ties the inputs and output together.
+Unlike calibration and prediction, however, successful optimization requires
+a cause-and-effect relationship between the predictors and the response
+variable.  Designed experiments, run in a randomized order, must be used to
+ensure that the process model represents a cause-and-effect relationship
+between the variables.  Quadratic models are typically used, along
+with standard calculus techniques for finding minimums and maximums, to carry
+out an optimization.  Other techniques can also be used, however.  The example 
+discussed below includes a graphical depiction of the optimization process.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Example</I>
+</TD>
+<TD WIDTH=85%>
+In a manufacturing process that requires a chemical reaction to take place,
+the temperature and pressure under which the process is carried out can affect
+reaction time.  To maximize the throughput of this process, an optimization
+experiment was carried out in the neighborhood of the conditions felt to
+be best, using a 
+<A HREF="../../pri/section3/pri3361.html">central composite design</A>
+with 13 runs.  Calculus was used to determine the input values associated with
+local extremes in the regression function.  The plot below shows the quadratic
+surface that was fit to the data and conceptually how the input values associated
+with the maximum throughput are found.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/opt1_f.gif"><IMG SRC="plots/opt1_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="plot showing the quadratic surface that was fit to the data"
+></A>   
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+As with prediction and calibration, randomness in the data and the need to sample
+data from the process affect the results.  If the optimization experiment were
+carried out again under identical conditions, the optimal input values computed
+using the model would be slightly different.  Thus, it is important to
+understand how much random variability there is in the results in order to interpret the
+results correctly.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Optimization Result from Repeated Experiment</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/opt2_f.gif"><IMG SRC="plots/opt2_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="plot showing the quadratic surface that was fit to the data in a repeated
+experiment"
+></A>   
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Optimization Uncertainty</I>
+</TD>
+<TD WIDTH=85%>
+As with prediction and calibration, the uncertainty in the input values estimated
+to maximize throughput can also be computed from the data used to fit the model. 
+Unlike prediction or calibration, however, optimization almost always involves
+simultaneous estimation of several quantities, the values of the process inputs.
+As a result, we will compute a joint confidence region for all of the input
+values, rather than separate uncertainty intervals for each input.  This
+confidence region will contain the complete set of true process inputs that will
+maximize throughput with high probability.  The plot below shows the contours
+of equal throughput on a map of various possible input value combinations.  The
+solid contours show throughput while the dashed contour in the center encloses
+the plausible combinations of input values that yield optimum results.  The
+"+" marks the estimated optimum value.  The dashed region is a 95 % joint
+confidence region for the two process inputs.  In this region the throughput
+of the process will be approximately 217 units/hour.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Contour Plot, Estimated Optimum & Confidence Region</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/opt3_f.gif"><IMG SRC="plots/opt3_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="plot showing the contours of equal thoroughput on a map of various
+possible input value combinitions"
+></A>   
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>More Info</I>
+</TD>
+<TD WIDTH=85%>
+Computational details for optimization are primarily presented in 
+<A HREF="../../pri/pri.html">Chapter 5: Process Improvement</A> along with
+material on appropriate experimental designs for optimization.
+<A HREF="../../pri/section5/pri53.html">Section 5.5.3.</A> specifically focuses on
+optimization methods and their associated uncertainties.
+</TD>
+</TR>
+
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd133.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd14.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd134.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:36 GMT -->
+</HTML>

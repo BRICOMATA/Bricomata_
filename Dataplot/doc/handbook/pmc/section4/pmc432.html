@@ -1,0 +1,555 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc432.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:29 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.3.2. Forecasting with Single Exponential Smoothing</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc433.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc431.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc43.html">What is Exponential Smoothing?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Forecasting with Single Exponential Smoothing</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Forecasting Formula</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Forecasting the next point</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The forecasting formula is the basic equation
+
+$$ S_{t+1} = \alpha y_t + (1-\alpha) S_t, \,\,\,\,\,  0 < \alpha \le 1, \,\,\,\,\, t > 0 \, . $$
+
+<!--
+<center>
+<img SRC="eqns/ts9.gif" height=69 width=284
+     ALT="S(t+1) = alpha*y(t) + (1-alpha)*S(t), 0 < alpha<= 1, t > 0">
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+New forecast is previous forecast plus an error adjustment
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This can be written as:
+
+$$ S_{t+1} = S_t + \alpha \epsilon_t \, , $$
+
+<!--
+<center>
+<img SRC="eqns/ts16.gif" height=74 width=106
+     ALT="S(t+1) = S(t) + alpha*(e(t))">
+</center>
+-->
+where \(\epsilon_t\)
+<!-- <img align=absmiddle src="eqns/epsilon.gif" alt="epsilon"><sub>t</sub>  -->
+is the forecast error (actual - forecast) for
+period \(t\).
+<!-- <i>t</i>. -->
+<p>
+In other words, the new forecast is the old one plus an adjustment
+for the error that occurred in the last forecast.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Bootstrapping of Forecasts</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Bootstrapping forecasts</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+What happens if you wish to forecast from some origin, usually the
+last data point, and no actual observations are available?  In this
+situation we have to modify the formula to become:
+
+$$ S_{t+1} = \alpha y_{orgin} + (1-\alpha) S_t \, , $$
+
+<!--
+<center>
+<img SRC="eqns/ts17.gif" height=70 width=152
+     ALT="S(t+1) = alpha*y(orgin) + (1-alpha)*S(t)">
+</center>
+-->
+where \(y_{origin}\)
+<!-- <i>y<sub>origin</sub></i> -->
+remains constant. This technique is known as <i>bootstrapping.</i>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Example of Bootstrapping</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Example</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The last data point in the previous example was 70 and its forecast
+(smoothed value \(S\))
+<!-- <i>S</i>) -->
+was 71.7.  Since we do have the data point
+<b>and</b> the forecast available, we can calculate the next forecast
+using the regular formula with \(\alpha = 0.1\) as
+
+$$ \begin{eqnarray}
+S_{t+1} & = & \alpha y_{orgin} + (1-\alpha) S_t \\
+        & = & 0.1(70) + 0.9(71.7) \\
+        & = & 71.5 \, .
+\end{eqnarray} $$
+
+<!--
+<center>
+<img SRC="eqns/ts17.gif" height=70 width=152
+     ALT="S(t+1) = alpha*y(orgin) + (1-alpha)*S(t)">
+<br>
+= .1(70) + .9(71.7) = 71.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(<img align=absmiddle src="eqns/alpha.gif" alt="alpha"> = .1)
+</center>
+-->
+<p>
+But for the next forecast we have no data point (observation).
+So now we compute:
+
+$$ S_{t+2} = 0.1(70) + 0.9(71.5) = 71.35 \, . $$
+
+<!--
+<p>
+<center>
+<i>S<sub>t</sub></i><sub>+2 </sub>=. 1(70) + .9(71.5 )= 71.35
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Comparison between bootstrap and regular forecasting</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<I>
+Table comparing two methods
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The following table displays the comparison between the two methods:
+<p>
+<center>
+<table width=300>
+<tr>
+   <th valign=top align=center>
+      Period
+   </th>
+   <th valign=top align=center>
+      Bootstrap<br>
+      forecast
+   </th>
+   <th valign=top align=center>
+      Data
+   </th>
+   <th valign=top align=center>
+      Single Smoothing<br>
+      Forecast
+   </th>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <th valign=top align=center>
+      13
+   </th>
+   <td valign=top align=center>
+      71.50
+   </td>
+   <td valign=top align=center>
+      75
+   </td>
+   <td valign=top align=center>
+      71.5
+   </td>
+</tr>
+<tr>
+   <th valign=top align=center>
+      14
+   </th>
+   <td valign=top align=center>
+      71.35
+   </td>
+   <td valign=top align=center>
+      75
+   </td>
+   <td valign=top align=center>
+      71.9
+   </td>
+</tr>
+<tr>
+   <th valign=top align=center>
+      15
+   </th>
+   <td valign=top align=center>
+      71.21
+   </td>
+   <td valign=top align=center>
+      74
+   </td>
+   <td valign=top align=center>
+      72.2
+   </td>
+</tr>
+<tr>
+   <th valign=top align=center>
+      16
+   </th>
+   <td valign=top align=center>
+      71.09
+   </td>
+   <td valign=top align=center>
+      78
+   </td>
+   <td valign=top align=center>
+      72.4
+   </td>
+</tr>
+<tr>
+   <th valign=top align=center>
+      17
+   </th>
+   <td valign=top align=center>
+      70.98
+   </td>
+   <td valign=top align=center>
+      86
+   </td>
+   <td valign=top align=center>
+      73.0
+   </td>
+</tr>
+</table>
+<!-- <img SRC="eqns/ts18.gif" height=212 width=236> -->
+</center>
+
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<a NAME="Single Exponential Smoothing with"></a>
+<b>Single Exponential Smoothing with Trend</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Single Smoothing (short for single exponential smoothing) is not very
+good when there is a trend.  The single coefficient \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+is not enough.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Sample data set with trend</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Let us demonstrate this with the following data set smoothed with an \(\alpha\)
+<!-- <img align=absmiddle src="eqns/alpha.gif" alt="alpha"> -->
+of 0.3:
+<p>
+<center>
+<table>
+<tr>
+   <th align=center valign=top>
+      Data
+   </th>
+   <th align=center valign=top>
+      Fit
+   </th>
+</tr>
+<tr>
+   <td colspan=2>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      6.4
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      5.6
+   </td>
+   <td align=center valign=top>
+      6.4
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      7.8
+   </td>
+   <td align=center valign=top>
+      6.2
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      8.8
+   </td>
+   <td align=center valign=top>
+      6.7
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      11.0
+   </td>
+   <td align=center valign=top>
+      7.3
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      11.6
+   </td>
+   <td align=center valign=top>
+      8.4
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      16.7
+   </td>
+   <td align=center valign=top>
+      9.4
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      15.3
+   </td>
+   <td align=center valign=top>
+      11.6
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      21.6
+   </td>
+   <td align=center valign=top>
+      12.7
+   </td>
+</tr>
+<tr>
+   <td align=center valign=top>
+      22.4
+   </td>
+   <td align=center valign=top>
+      15.4
+   </td>
+</tr>
+</table>
+</center>
+<!-- <img SRC="eqns/ts19.gif" height=308 width=77> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot demonstrating inadequacy of single exponential smoothing
+when there is trend
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The resulting graph looks like:
+<p>
+<img SRC="gifs/tseries3.gif" height=266 width=400 ALT=
+"Plot showing raw data with single exponential smoothed values">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc431.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc433.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc432.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:30 GMT -->
+</HTML>

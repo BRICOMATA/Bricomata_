@@ -1,0 +1,94 @@
+.
+. Starting Step 8.1
+.
+call yatesgen.dp
+.
+y1label Residual SD
+x1label Cumulative Model
+ygrid
+x1tics off
+x1tic label off
+y1tic offset 10
+char circle
+char hw 1 1
+char fill on
+lines blank
+spike on
+let numeffec = number tag
+let numeffp1 = numeffec+1
+let index2 = sequence 1 1 numeffec
+let s = sd y
+let cumrsd(numeffp1) = s
+let index2(numeffp1) = 0
+plot cumrsd index2
+.
+hw 2 1
+if n > 20; hw 1.5 .75; end if
+just cece
+loop for j = 1 1 numeffec
+   let x0 = xplot(j)
+   let evenodd = mod(j,2)
+   let y0 = 23
+   if evenodd = 0; let y0 = 27; end if
+   if n < 10; let y0 = 27; end if
+   moveds x0 y0
+   let tagj = tag(j)
+   let string ch = ^con^tagj
+.  text ^tagj
+   text ^ch
+end loop
+moveds 0 27
+if n <= 20; text Average; end if
+if n > 20; text Ave.; end if
+.
+let numyplot = number yplot
+let numyplm1 = numyplot-1
+just lece
+loop for j = 1 1 numyplm1
+   let yplotj = yplot(j)
+   movesd 86 yplotj
+   let tagj = tag(j)
+   let string ch = ^con^tagj:
+.  text ^tagj
+   text ^ch
+   movesd 89 yplotj
+   let string ch = ^cop^tagj
+   text ^ch
+end loop
+let j = numyplot
+let yplotj = yplot(j)
+movesd 86 yplotj
+text Average
+move 86 90
+text Factor: Confound
+.
+move 50 97
+just center
+hw 3 1.5
+text Sonoluminescent Light Intensity
+move 50 93
+text Cumulative Residual SD Plot
+.
+box 15 85 21 90
+hw 2 1
+just left
+move 16 87.75
+text k = ^k
+move 16 85.75
+text n = ^n
+.
+grid off
+y1tic offset 5
+x1tics on
+x1tic label on
+char blank all
+char hw 2 1
+lines solid all
+spike off
+just left
+title
+y1label
+x1label
+tic offset 5 5
+hw 2 1
+. Finished Step 8.1: Page Back for Output

@@ -1,0 +1,242 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd132.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:18 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.1.3.2. Prediction</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd133.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd131.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd1.html">Introduction to Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd13.html">What are process models used for?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.1.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Prediction</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>More on Prediction</I>
+</TD>
+<TD WIDTH=85%>
+As mentioned <A HREF="pmd13.html">earlier</A>, the goal of prediction is to
+determine future value(s) of the response variable that are
+associated with a specific combination of predictor variable values.
+As in <A HREF="pmd131.html">estimation</A>, the predicted values are computed by
+plugging the value(s) of the predictor variable(s) into the
+<A HREF="pmd12.html#at">regression equation</A>, after estimating the
+unknown <A HREF="pmd12.html#mf">parameters</A> from the data.  
+The difference between estimation and prediction arises only in the
+computation of the uncertainties.  These differences are illustrated below 
+using the <A HREF="pmd11.html#pt.r1">Pressure/Temperature example</A> 
+in parallel with the <A HREF="pmd131.html#ex">example illustrating estimation</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Example</I>
+</TD>
+<TD WIDTH=85%>
+Suppose in this case the predictor variable value of interest
+is a temperature of 47 degrees.  Computing the predicted value using the
+equation 
+
+$$ \hat{P} = 7.749695 + 3.930123T $$
+
+<!-- <BR><BR><CENTER><IMG ALT="\hat{P} = 7.749695 + 3.930123T" 
+SRC="eqns/ptreq1.gif"></CENTER><BR> -->
+yields a predicted pressure of 192.4655.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/pred1.gif"><IMG SRC="plots/pred1.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="Using the equation yields a predicted value of 192.4655 for a temperature of 47"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Of course, if the pressure/temperature experiment were repeated, the estimates of the parameters
+of the regression function obtained from the data would differ slightly each 
+time because of the randomness in the data and the need to sample a limited
+amount of data.  Different parameter estimates would, in turn, yield different predicted
+values.  The plot below illustrates the type of slight variation that
+could occur in a repeated experiment.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Predicted Value from a Repeated Experiment</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/pred2.gif"><IMG SRC="plots/pred2.r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="prediction result from a repeated experiment"
+></A>
+</TD>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Prediction Uncertainty</I>
+</TD>
+<TD WIDTH=85%>
+A critical part of prediction is an assessment of how much a predicted
+value will fluctuate due to the noise in the data.  Without that information
+there is no basis for comparing a predicted value to a target value or to another
+prediction.  As a result, any method used for prediction should include an assessment of the
+uncertainty in the predicted value(s).  Fortunately it is often the case
+that the data used to fit the model to a process can also be used to compute
+the uncertainty of predictions from the model.  In the pressure/temperature
+example a prediction interval for the value of the regresion function at 47
+degrees can be computed from the data used to fit the model.  The plot below
+shows a 99 % prediction interval produced using the original data.  This
+interval gives the range of plausible values for a single future pressure 
+measurement observed at a temperature of 47 degrees based on the parameter 
+estimates and the noise in the data.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>99 % Prediction Interval for Pressure at T=47</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/pred4_f.gif">
+<IMG SRC="plots/pred4_r.gif" BORDER=0 HEIGHT=425 WIDTH=550
+alt="99% prediction interval for pressure for temperature of 47"
+>
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Length of Prediction Intervals</I>
+</TD>
+<TD WIDTH=85%>
+Because the prediction interval is an interval for the value of 
+a single new measurement from the process, the uncertainty includes the 
+noise that is inherent in the estimates of the regression parameters
+and the uncertainty of the new measurement.  This means that the interval
+for a new measurement will be wider than the confidence interval for the 
+value of the regression function. These intervals are called prediction
+intervals rather than confidence intervals because the latter are for
+parameters, and a new measurement is a random variable, not a parameter. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Tolerance Intervals</I>
+</TD>
+<TD WIDTH=85%>
+Like a prediction interval, a tolerance interval brackets the plausible values
+of new measurements from the process being modeled.  However, instead of
+bracketing the value of a single measurement or a fixed number of measurements,
+a tolerance interval brackets a specified percentage of all future measurements
+for a given set of predictor variable values.  For example, to monitor future
+pressure measurements at 47 degrees for extreme values, either low or high,
+a tolerance interval that brackets 98 % of all future measurements with high
+confidence could be used.  If a future value then fell outside of the interval,
+the system would then be checked to ensure that everything was working
+correctly.  A 99 % tolerance interval that captures 98 % of all future pressure
+measurements at a temperature of 47 degrees is 192.4655 \(\pm\) <!-- +/- --> 14.5810.   
+This interval is wider than the prediction interval for a single measurement because
+it is designed to capture a larger proportion of all future measurements.  The
+explanation of tolerance intervals is potentially confusing because there are two
+percentages used in the description of the interval.  One, in this case
+99 %, describes how confident we are that the interval will capture the quantity
+that we want it to capture.  The other, 98 %, describes what the target quantity
+is, which in this case that is 98% of all future measurements at T=47 degrees.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>More Info</I>
+</TD>
+<TD WIDTH=85%>
+For more information on the interpretation and computation of prediction and tolerance
+intervals, see <A HREF="../section5/pmd51.html">Section 5.1</A>.
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd131.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd133.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd132.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:19 GMT -->
+</HTML>

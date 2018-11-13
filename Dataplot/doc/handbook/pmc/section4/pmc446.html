@@ -1,0 +1,401 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc446.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:45 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.4.6. Box-Jenkins Model Identification</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc4461.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc445.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc44.html">Univariate Time Series Models</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.4.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Box-Jenkins Model Identification</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Stationarity and Seasonality
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The first step in developing a Box-Jenkins model is to determine
+if the series is <a href="pmc442.html">stationary</a> and if there
+is any significant <a href="pmc443.html">seasonality</a> that
+needs to be modeled.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Detecting stationarity
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Stationarity can be assessed from a
+<a href="../../eda/section3/runseqpl.html">run sequence plot</a>.
+The run sequence plot should show constant location and scale.
+It can also be detected from an
+<a href="../../eda/section3/autocopl.html">autocorrelation plot</a>.
+Specifically, non-stationarity is often indicated by an
+autocorrelation plot with very slow decay.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Detecting seasonality
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Seasonality (or periodicity) can usually be assessed from an
+<a href="../../eda/section3/autocopl.html">autocorrelation
+plot</a>, a <a href="pmc4431.html">seasonal subseries plot</a>, or
+a <a href="../../eda/section3/spectrum.html">spectral plot</a>.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Differencing to achieve stationarity
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Box and Jenkins recommend the differencing approach to achieve
+stationarity.  However, fitting a curve and subtracting the
+fitted values from the original data can also be used in the
+context of Box-Jenkins models.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<I>
+Seasonal differencing
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+At the model identification stage, our goal is to detect
+seasonality, if it exists, and to identify the order for the seasonal
+autoregressive and seasonal moving average terms.  For many series,
+the period is known and a single seasonality term is sufficient.
+For example, for monthly data we would typically include either a
+seasonal AR 12 term or a seasonal MA 12 term.  For Box-Jenkins
+models, we do not explicitly remove seasonality before fitting the
+model.  Instead, we include the order of the seasonal terms in the
+model specification to the ARIMA estimation software.  However,
+it may be helpful to apply a seasonal difference to the data and
+regenerate the autocorrelation and partial autocorrelation plots.
+This may help in the model idenfitication of the non-seasonal
+component of the model.  In some cases, the seasonal differencing
+may remove most or all of the seasonality effect.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Identify p and q</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Once stationarity and seasonality have been addressed, the next
+step is to identify the order (i.e., the \(p\)
+<!-- <b><i>p</i></b> -->
+and \(q\))
+<!-- <b><i>q</i></b>) -->
+of the autoregressive and moving average terms.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Autocorrelation and Partial Autocorrelation Plots</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The primary tools for doing this are the
+<a href="../../eda/section3/autocopl.html">autocorrelation plot</a>
+and the <a href="pmc4463.html">partial autocorrelation plot</a>.
+The sample autocorrelation plot and the sample partial
+autocorrelation plot are compared to the theoretical behavior of
+these plots when the order is known.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Order of
+Autoregressive Process (\(p\))</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Specifically, for an AR(1) process, the sample autocorrelation
+function should have an exponentially decreasing appearance.
+However, higher-order AR processes are often a mixture of
+exponentially decreasing and damped sinusoidal components.
+<p>
+For higher-order autoregressive processes, the sample
+autocorrelation needs to be supplemented with a partial
+autocorrelation plot.  The partial autocorrelation of an
+AR(\(p\))
+<!-- <b><i>p</i></b>) -->
+process becomes zero at lag \(p + 1\)
+<!-- <b><i>p</i>+1</b> -->
+and greater, so we examine the sample partial autocorrelation
+function to see if there is evidence of a departure from zero.  This
+is usually determined by placing a 95 % confidence interval on the
+sample partial autocorrelation plot (most software programs that
+generate sample autocorrelation plots will also plot this confidence
+interval).  If the software program does not generate
+the confidence band, it is approximately \(\pm 2/\sqrt{N}\),
+<!-- <img SRC="eqns/2sqrtn.gif"  align=ABSCENTER alt="+/-2/SQRT(N)">, -->
+with \(N\)
+<!-- <i>N</i> -->
+denoting the sample size.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Order of Moving Average Process (\(q\))</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The autocorrelation function of a MA(\(q\))
+<!-- <b><i>q</i></b>) -->
+process becomes zero at lag \(q + 1\)
+<!-- <b><i>q</i>+1</b> -->
+and greater, so we examine the sample autocorrelation function to see where it
+essentially becomes zero.  We do this by placing the 95 % confidence
+interval for the sample autocorrelation function on the sample
+autocorrelation plot.  Most software that can generate
+the autocorrelation plot can also generate this confidence interval.
+<p>
+The sample partial autocorrelation function is generally not helpful
+for identifying the order of the moving average process.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Shape of Autocorrelation Function</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+The following table summarizes how we use the sample
+autocorrelation function for model identification.
+<p>
+<table cellpadding=5 width=350 BORDER>
+<tr>
+   <th valign=top align=left>
+      SHAPE
+   </th>
+   <th valign=top align=left>
+     INDICATED MODEL
+   </th>
+</tr>
+<tr>
+   <td valign=top align=left>
+      Exponential, decaying to zero
+   </td>
+   <td valign=top align=left>
+      Autoregressive model.  Use the partial autocorrelation plot
+      to identify the order of the autoregressive model.
+   </td>
+</tr>
+<tr>
+   <td valign=top align=left>
+      Alternating positive and negative, decaying to zero
+   </td>
+   <td valign=top align=left>
+      Autoregressive model.  Use the partial autocorrelation plot
+      to help identify the order.
+   </td>
+</tr>
+<tr>
+   <td valign=top align=left>
+      One or more spikes, rest are essentially zero
+   </td>
+   <td valign=top align=left>
+      Moving average model, order identified by where plot
+      becomes zero.
+   </td>
+</tr>
+<tr>
+   <td valign=top align=left>
+      Decay, starting after a few lags
+   </td>
+   <td valign=top align=left>
+      Mixed autoregressive and moving average model.
+   </td>
+</tr>
+<tr>
+   <td valign=top align=left>
+      All zero or close to zero
+   </td>
+   <td valign=top align=left>
+      Data is essentially random.
+   </td>
+</tr>
+<tr>
+   <td valign=top align=left>
+      High values at fixed intervals
+   </td>
+   <td valign=top align=left>
+      Include seasonal autoregressive term.
+   </td>
+</tr>
+<tr>
+   <td valign=top align=left>
+      No decay to zero
+   </td>
+   <td valign=top align=left>
+      Series is not stationary.
+   </td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<!-- Add marginal notes below -->
+<i>Mixed Models Difficult to Identify</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<!-- Add main text below -->
+In practice, the sample autocorrelation and partial autocorrelation
+functions are random variables and will not give the same picture as
+the theoretical functions.  This makes the model identification more
+difficult. In particular, mixed models can be particularly difficult
+to identify.
+<p>
+Although experience is helpful, developing good models using these sample
+plots can involve much trial and error. For this reason, in recent years
+information-based criteria such as FPE (Final Prediction Error) and AIC
+(Akaike Information Criterion) and others have been preferred and used.
+These techniques can help automate the model identification process. These
+techniques require computer software to use. Fortunately, these techniques
+are available in many commerical statistical software programs that provide
+ARIMA modeling capabilities.
+<p>
+For additional information on these techniques, see
+<a href="../section7/pmc7.html#Brockwell1">Brockwell and Davis (1987,
+2002)</a>.
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<!-- Add marginal notes below -->
+<i>Examples</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<!-- Add main text below -->
+We show a typical series of plots for performing the initial model
+identification for
+<ol>
+   <li>the <a href="pmc4461.html">southern oscillations</a> data and</li>
+  <li>the <a href="pmc4462.html">CO<sub>2</sub> monthly concentrations</a>
+      data.</li>
+</ol>
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc445.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc4461.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc446.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:45 GMT -->
+</HTML>

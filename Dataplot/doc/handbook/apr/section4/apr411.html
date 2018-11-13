@@ -1,0 +1,233 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr411.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.1.1. Graphical estimation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr412.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr41.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr41.html">How do you estimate life distribution parameters from censored data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.1.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Graphical estimation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>The line on a probability plot uniquely identifies distributional parameters</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+Once you have calculated 
+<a href="../section2/apr221.html#Plotting">plotting positions</a> 
+from your failure data, and have generated the 
+<a href="../section2/apr221.html#How Special Papers Work">probability plot</a> 
+for your chosen model, parameter estimation follows easily.
+But along with the <a href="#Graphical Estimation">mechanics of graphical
+estimation</a>, be aware of both the <a href="#Advantages of Graphical Methods of">advantages
+</a>and the <a href="#Disadvantages of Graphical Methods of">disadvantages</a>
+of graphical estimation methods.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Most probability plots have simple procedures to calculate 
+underlying distribution parameter estimates</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<a NAME="Graphical Estimation"></a><b>Graphical Estimation Mechanics:</b>
+<p>
+If you draw a line through points on a probability plot, there are usually 
+simple rules to find estimates of the slope (or shape parameter) and the 
+scale parameter. On lognormal probability plot with time on the \(x\)-axis
+<!-- <i>x</i>-axis -->
+ and cumulative percent on the \(y\)-axis,
+<!-- <i>y</i>-axis -->
+draw horizontal lines from the 
+34th and the 50th percentiles across to the fitted line, and drop vertical 
+lines to the time axis from these intersection points. The time corresponding 
+to the 50th percentile is the \(T_{50}\)
+<!-- <i>T<sub>50</sub></i>  -->
+estimate. Divide \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+by the time corresponding to the 34th percentile 
+(this is called \(T_{34}\)).
+<!-- <i>T<sub>34</sub></i>). -->
+The natural logarithm of that ratio is the estimate of sigma, or the slope of the line 
+(\(\sigma = \mbox{ln } (T_{50} / T_{34})\)).
+<!-- (<i>&sigma;</i> = ln(<i>T</i><sub>50</sub> / <i>T</i><sub>34</sub>)). -->
+
+<p>
+For a Weibull probability plot draw a horizontal line from the \(y\)-axis
+<!-- <i>y</i>-axis -->
+to the fitted line at the 62.3 percentile point. That estimation line intersects
+the line through the points at a time that is the estimate of the characteristic
+life parameter \(\alpha\).
+<!-- <i>&alpha;</i>. -->
+In order to estimate the slope of the fitted line 
+(or the shape parameter \(\gamma\)),
+<!-- <i>&gamma;</i>), -->
+choose any two points on the fitted line
+and divide the change in the \(y\)
+<!-- <i>y</i>  -->
+variable by the change in \(x\)
+<!-- <i>x</i> -->
+variable.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Using a computer generated line fitting routine
+removes subjectivity and can lead directly to computer parameter estimates
+based on the plotting positions</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+To remove the subjectivity of drawing a line through the points, 
+a least-squares (regression) fit can be performed using
+the equations described in the section on 
+<a href="../section2/apr221.html#How Special Papers Work">probability plotting</a>. 
+An <a href="../section2/apr221.html#DATAPLOTExample">example</a>
+of this for the Weibull was also shown in that section. 
+Another <a href="apr413.html">example</a> of a Weibull
+plot for the same data appears later in this section.
+<p>
+Finally, if you have exact times and complete samples (no censoring),
+many software packages have built-in
+<a href="../../eda/section3/probplot.html">Probability Plotting</a> functions. 
+Examples were shown in the sections describing various
+<a href="../section1/apr16.html">life distribution models</a>.
+<p>
+<a NAME="Advantages of Graphical Methods of"></a>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Do probability plots even if you use some other method for the final estimates</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<b>Advantages of Graphical Methods of Estimation:</b>
+<ul>
+<li>
+Graphical methods are quick and easy to use and make visual sense.</li>
+
+<li>
+Calculations can be done with little or no special software needed.</li>
+
+<li>
+Visual test of model (i.e., how well the points line up) is an additional
+benefit.</li>
+</ul>
+<a NAME="Disadvantages of Graphical Methods of"></a>
+<b>Disadvantages of Graphical Methods of Estimation</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Perhaps the worst drawback of graphical estimation
+is you cannot get legitimate confidence intervals for the estimates</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">The statistical properties of graphical estimates
+(i.e., how precise are they on average) are not good:
+<ul>
+<li>
+they are biased,</li>
+
+<li>
+even with large samples, they are not minimum variance (i.e., most
+precise) estimates,</li>
+
+<li>
+graphical methods do not give confidence intervals for the parameters (intervals
+generated by a regression program for this kind of data are incorrect), and</li>
+
+<li>
+formal statistical tests about model fit or parameter values cannot be
+performed with graphical methods.</li>
+</ul>
+As we will see in the next section, <a href="apr412.html">Maximum Likelihood
+Estimates</a> overcome all these disadvantages - at least for reliability
+data sets with a reasonably large number of failures - at a cost of losing
+all the advantages listed above for graphical estimation.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr41.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr412.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr411.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:30 GMT -->
+</HTML>

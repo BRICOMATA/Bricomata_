@@ -1,0 +1,777 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35i2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:23 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.18.2. Important Factors</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda36.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35i1.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.18.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35i.html">Yates Algorithm</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.18.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Important Factors</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Identify Important Factors
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+We want to select the most appropriate model to represent our data.
+This requires balancing the following two goals.
+<ol>
+   <li>We want the model to include all important factors.
+   <li>We want the model to be parsimonious.  That is, the model
+       should be as simple as possible.
+</ol>
+In short, we want our model to include all the important factors
+and interactions and to omit the unimportant factors and
+interactions.
+<p>
+Seven criteria are utilized to define important factors.  These seven
+criteria are not all equally important, nor will they yield identical
+subsets, in which case a consensus subset or a weighted consensus
+subset must be extracted.  In practice, some of these criteria
+may not apply in all situations.
+<p>
+These criteria will be examined in the context of the
+<a href="../../pri/section6/pri611.html">eddy current</a>
+data set.  The parameter estimates computed using least-squares analysis
+are shown below.
+<p>
+<PRE>
+     Parameter    Estimate
+     ---------    --------
+     Mean          2.65875
+     X1            1.55125
+     X2           -0.43375
+     X1*X2         0.06375
+     X3            0.10625
+     X1*X3         0.12375
+     X2*X3         0.14875
+     X1*X2*X3      0.07125
+</PRE>
+<P>
+In practice, not all of these criteria will be used with every
+analysis (and some analysts may have additional criteria).  These
+critierion are given as useful guidelines.  Most analysts will focus
+on those criteria that they find most useful.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="selectioncriteria">
+<I>
+Criteria for Including Terms in the Model
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<!-- Add main text below -->
+The seven criteria that we can use in determining whether to
+keep a factor in the model can be summarized as follows.
+<OL>
+   <li><a href="eda35i2.html#engsig">Parameters: Engineering
+       Significance</a>
+   <li><a href="eda35i2.html#numsig">Parameters: Order of
+       Magnitude</a>
+   <li><a href="eda35i2.html#statsig">Parameters: Statistical
+       Significance</a>
+   <li><a href="eda35i2.html#probplot">Parameters: Probability Plots</a>
+   <li><a href="eda35i2.html#youden">Effects: Youden Plot</a>
+   <li><a href="eda35i2.html#ressd1">Residual Standard Deviation:
+       Engineering Significance</a>
+   <li><a href="eda35i2.html#ressd2">Residual Standard Deviation:
+       Statistical Significance</a>
+</OL>
+The first four criteria focus on parameter estimates with 
+three numeric criteria and one graphical criteria.
+The fifth criteria focuses on effects, which are twice the parameter
+estimates.  The last two criteria
+focus on the residual standard deviation of the model.  We
+discuss each of these seven criteria in detail in the sections 
+that following.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="engsig">
+<I>
+Parameters: Engineering Significance
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The minimum engineering significant difference is defined as
+<UL>
+<!--
+<img align=absmiddle src="eqns/absbetad.gif"
+     alt="|betahati|> delta">
+-->
+\( |\hat{\beta_{i}}| > \Delta \)
+</UL>
+where
+<!--
+<img align=absmiddle src="eqns/absbeta.gif"
+     alt="absolute value of betahat">
+-->
+\(|\hat{\beta_{i}}|\) is the absolute value of the parameter estimate and
+<!--
+<img align=absmiddle src="eqns/delta.gif"
+     alt="delta">
+-->
+&Delta; is the minimum engineering significant difference.
+<P>
+That is, declare a factor as "important" if the parameter estimate 
+is greater than some a priori declared engineering difference.  This
+implies that the engineering staff have in fact stated what a
+minimum difference will be.  Oftentimes this is not the case.  In
+the absence of an a priori difference, a good rough rule for
+the minimum engineering significant
+<!--<img align=absmiddle src="eqns/delta.gif" alt="delta"> -->
+&Delta; is to keep only those factors whose parameter estimate is greater
+than, say, 10% of the current production average.  In this case, let's say
+that the average detector has a sensitivity of 2.5 ohms.  This
+would suggest that we would declare all factors whose parameter is
+greater than 10 % of 2.5 ohms = 0.25 ohm to be significant
+(from an engineering point of view).
+<p>
+Based on this minimum engineering significant difference criterion,
+we conclude that we should  keep two terms: X1 and X2.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="numsig">
+<I>
+Parameters: Order of Magnitude
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The order of magnitude criterion is defined as
+<UL>
+<!--
+<img align=absmiddle src="eqns/absbeta2.gif"
+   alt="absolute value of parameter i < 0.10*maximum absolute value parameter">
+-->
+\( |\hat{\beta_{i}}| < 0.10 \cdot \max |\hat{\beta_{i}}| \)
+</UL>
+That is, exclude any factor that is less than 10 % of the maximum
+parameter size.  We may or may not keep the other factors. This
+criterion is neither engineering nor statistical, but it does offer
+some additional numerical insight.  For the current example, the
+largest parameter is from X1 (1.55125 ohms), and so 10 % of that
+is 0.155 ohms, which suggests keeping all factors whose parameters
+exceed 0.155 ohms.
+<P>
+Based on the order-of-magnitude criterion, we thus conclude that we
+should keep two terms:  X1 and X2.  A third term, X2*X3
+(0.14875), is just slightly under the cutoff level, so we may
+consider keeping it based on the other criterion.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="statsig">
+<I>
+Parameters: Statistical Significance
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Statistical significance is defined as
+<UL>
+   <!--
+   <img align=absmiddle src="eda35i2_sebeta.gif"
+        alt="|betahat(i)| > 2*sd(betahat(i)) = 2*(sigma/sqrt(n))">
+   -->
+   \( |\hat{\beta_i}| > 2 \cdot \mbox{s.e.}(\hat{\beta_i}) \)
+</UL>
+That is, declare a factor as important if its parameter is more
+than 2 standard deviations away from 0 (0, by definition, meaning
+"no effect").
+<P>
+The "2" comes from normal theory (more specifically,
+a value of 1.96 yields a 95 % confidence interval).  More precise
+values would come from <i>t</i>-distribution theory.
+<P>
+The difficulty with this is that in order to invoke this criterion
+we need the standard deviation,
+<!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma">, -->
+<i>&sigma;</i> of an observation.  This is problematic because
+<ol>
+   <li>the engineer may not know
+       <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma">; -->
+       <i>&sigma;</i>;
+   <li>the experiment might not have replication, and so a
+       model-free estimate of
+       <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+       <i>&sigma;</i> is not obtainable;
+   <li>obtaining an estimate of
+       <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+       <i>&sigma;</i> by assuming the sometimes employed assumption of
+       ignoring 3-term interactions and higher may be incorrect from an
+       engineering point of view.
+</ol>
+For the eddy current example:
+<ol>
+   <li>the engineer did <b>not</b> know
+       <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma">; -->
+       <i>&sigma;</i>;
+   <li>the design (a 2<sup>3</sup> full factorial) did <b>not</b>
+       have replication;
+   <li>ignoring 3-term interactions and higher interactions leads to
+       an estimate of
+       <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+       <i>&sigma;</i> based on omitting only a single term: the
+       X1*X2*X3 interaction.
+</ol>
+For the eddy current example, if one assumes that the 3-term
+interaction is nil and hence represents a single drawing from a
+population centered at zero, then an estimate of the standard
+deviation of a parameter is simply the estimate of the 3-factor
+interaction (0.07125).  Two standard deviations is
+thus 0.1425.  For this example, the rule is thus to keep all
+<!--
+<img align=absmiddle src="eqns/absbeta.gif"
+   alt="absolute value of betai"> > 0.1425.
+-->
+\( |\hat{\beta_{i}}| \)
+<P>
+This results in keeping three terms: X1 (1.55125), X2 (-0.43375),
+and X1*X2 (0.14875).
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="probplot">
+<I>
+Parameters: Probability Plots
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<a href="probplot.html">Probability plots</a>
+can be used in the following manner.
+<ol>
+   <li>Normal Probability Plot: Keep a factor as "important" if it
+       is well off the line through zero on a normal probability
+       plot of the parameter estimates.
+       <p>
+   <li>Half-Normal Probability Plot: Keep a factor as "important"
+       if it is well off the line near zero on a half-normal
+       probability plot of the absolute value of parameter estimates.
+</ol>
+Both of these methods are based on the fact that the least-squares
+estimates of parameters for these two-level orthogonal designs are
+simply half the difference of averages and so the central limit theorem,
+loosely applied, suggests that (if no factor were important) the
+parameter estimates should have approximately a normal distribution with
+mean zero and the absolute value of the estimates should have a
+half-normal distribution.
+<p>
+Since the half-normal probability plot is only concerned with parmeter
+magnitudes as opposed to signed parameters (which are subject to the
+vagaries of how the initial factor codings +1 and -1 were assigned),
+the half-normal probability plot is preferred by some over the normal
+probability plot.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="normprob">
+<I>
+Normal Probablity Plot of Parameters 
+</I>
+</A>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+The following normal probability plot shows the parameter estimates 
+for the eddy current data.
+<P>
+<img src="eda35i2_r01.gif" alt="probability plots indicate that model 
+should include factor 1 and factor 2 with no interaction terms">
+<P>
+For the example at hand, the probability plot clearly shows
+two factors (X1 and X2) displaced off the line.  All of the remaining 
+five parameters are behaving like random drawings from a normal distribution 
+centered at zero, and so are deemed to be statistically non-significant.  
+In conclusion, this rule keeps two factors: X1 (1.55125) and X2 (-0.43375).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="youden">
+<I>
+Averages: Youden Plot
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A <a href="youdplot.html">Youden plot</a> can
+be used in the following way.  Keep a factor as "important" if it
+is displaced away from the central-tendancy "bunch" in a Youden
+plot of high and low averages.  By definition, a factor is
+important when its average response for the low (-1) setting is
+significantly different from its average response for the high (+1)
+setting.  (Note that effects are twice the parameter estimates.)  
+Conversely, if the low and high averages are about the
+same, then what difference does it make which setting to use and
+so why would such a factor be considered important?  This fact in
+combination with the intrinsic benefits of the Youden plot for
+comparing pairs of items leads to the technique of generating a
+Youden plot of the low and high averages.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="youdenplots">
+<I>
+Youden Plot of Effect Estimates
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following is the Youden plot of the effect estimatess for the eddy
+current data.
+<P>
+<img src="eda35i2_r02.gif" 
+     alt="Youden plot show factor 1 and factor 2 main effects stand out">
+<P>
+For the example at hand, the Youden plot clearly shows a cluster
+of points near the grand average (2.65875) with two displaced
+points above (factor 1) and below (factor 2).  Based on the Youden
+plot, we conclude to keep two factors: X1 (1.55125) and X2 (-0.43375).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="ressd1">
+<I>
+Residual Standard Deviation: Engineering Significance
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This criterion is defined as
+<UL>
+    Residual Standard Deviation > Cutoff
+</UL>
+That is, declare a factor as "important" if the cumulative model
+that includes the factor (and all larger factors) has a residual
+standard deviation smaller than an a priori engineering-specified
+minimum residual standard deviation.  
+<p>
+This criterion is different from the others in that it is
+model focused.  In practice, this criterion states that starting
+with the largest parameter, we cumulatively keep adding terms to 
+the model and monitor how the residual standard deviation for each 
+progressively more complicated model becomes smaller.  At
+some point, the cumulative model will become complicated enough and
+comprehensive enough that the resulting residual standard deviation
+will drop below the pre-specified engineering cutoff for the
+residual standard deviation.  At that point, we stop adding terms
+and declare all of the model-included terms to be "important" and
+everything not in the model to be "unimportant".
+<p>
+This approach implies that the engineer has considered what a
+minimum residual standard deviation should be.  In effect, this
+relates to what the engineer can tolerate for the magnitude of the
+typical residual (the difference between the raw data and the
+predicted value from the model).  In other words, how good does
+the engineer want the prediction equation to be.  Unfortunately,
+this engineering specification has not always been formulated
+and so this criterion can become moot.
+<p>
+In the absence of a prior specified cutoff, a good rough rule for
+the minimum engineering residual standard deviation is to keep
+adding terms until the residual standard deviation just dips
+below, say, 5 % of the current production average.  For the eddy current
+data, let's say that the average detector has a sensitivity of
+2.5 ohms.  Then this would suggest that we would keep adding
+terms to the model until the residual standard deviation falls
+below 5 % of 2.5 ohms = 0.125 ohms.
+<p>
+<pre>
+                                                            Residual 
+Model                                                      Std. Dev.
+-----------------------------------------------------      ---------
+Mean + X1                                                    0.57272
+Mean + X1 + X2                                               0.30429
+Mean + X1 + X2 + X2*X3                                       0.26737
+Mean + X1 + X2 + X2*X3 + X1*X3                               0.23341
+Mean + X1 + X2 + X2*X3 + X1*X3 + X3                          0.19121
+Mean + X1 + X2 + X2*X3 + X1*X3 + X3 + X1*X2*X3               0.18031
+Mean + X1 + X2 + X2*X3 + X1*X3 + X3 + X1*X2*X3 + X1*X2            NA
+</pre>
+
+Based on the minimum residual standard deviation criteria, and
+we would include <b>all</b> terms in order to drive the
+residual standard deviation below 0.125.  Again, the 5 % rule is a
+rough-and-ready rule that has no basis in engineering or
+statistics, but is simply a "numerics".  Ideally, the engineer has
+a better cutoff for the residual standard deviation that is based
+on how well he/she wants the equation to peform in practice.  If
+such a number were available, then for this criterion and data set
+we would select something less than the entire collection of terms.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="ressd2">
+<I>
+Residual Standard Deviation: Statistical Significance
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+This criterion is defined as
+<UL>
+    Residual Standard Deviation >
+    <!-- <img src="eqns/sigma.gif" alt="sigma"> -->
+    <i>&sigma;</i>
+</UL>
+where <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+<i>&sigma;</i> is the standard deviation of an observation under
+replicated conditions.
+<P>
+That is, declare a term as "important" until the cumulative model that
+includes the term has a residual standard deviation smaller than
+<!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+<i>&sigma;</i>.  In essence, we are allowing that we cannot demand a model
+fit any better than what we would obtain if we had replicated data;
+that is, we cannot demand that the residual standard deviation
+from any fitted model be any smaller than the (theoretical or
+actual) replication standard deviation.  We can drive the fitted
+standard deviation down (by adding terms) until it achieves a value
+close to <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma">, -->
+<i>&sigma;</i>, but to attempt to drive it down further means that we are,
+in effect, trying to fit noise.
+<P>
+In practice, this criterion may be difficult to apply because
+<P>
+<OL>
+   <LI>the engineer may not know
+       <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma">; -->
+       <i>&sigma;</i>;
+   <LI>the experiment might not have replication, and so a model-free
+       estimate of
+       <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma"> -->
+       <i>&sigma;</i> is not obtainable.
+</OL>
+<P>
+For the current case study:
+<P>
+<OL>
+   <li>the engineer did <b>not</b> know
+       <!-- <img align=absmiddle src="eqns/sigma.gif" alt="sigma">; -->
+       <i>&sigma;</i>;
+   <li>the design (a 2<sup>3</sup> full factorial) did <b>not</b>
+       have replication.  The most common way of having replication
+       in such designs is to have replicated center points
+       at the center of the cube ((X1,X2,X3) = (0,0,0)).
+</OL>
+<P>
+Thus for this current case, this criteria could <b>not</b> be
+used to yield a subset of "important" factors.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="conclusions">
+<I>
+Conclusions
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+In summary, the seven criteria for specifying "important" factors
+yielded the following for the eddy current data:
+<P>
+<table cellpadding=0 noborder>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=1>
+        <li>Parameters, Engineering Significance:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        X1, X2
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=2>
+        <li>Parameters, Numerically Significant:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        X1, X2
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=3>
+        <li>Parameters, Statistically Significant:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        X1, X2, X2*X3
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=4>
+        <li>Parameters, Probability Plots:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        X1, X2
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=5>
+        <li>Effects, Youden Plot:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        X1, X2
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=6>
+        <li>Residual SD, Engineering Significance:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        all 7 terms
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=7>
+        <li>Residual SD, Statistical Significance:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        not applicable
+     </td>
+   </tr>
+</table>
+<P>
+Such conflicting results are common.  Arguably, the three most
+important criteria (listed in order of most important) are:
+<P>
+<table cellpadding=0 noborder>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=4>
+        <li>Parameters, Probability Plots:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        X1, X2
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=1>
+        <li>Parameters, Engineering Significance:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        X1, X2
+     </td>
+   </tr>
+   <tr>
+     <td valign=top width=50%>
+        <ol start=3>
+        <li>Residual SD, Engineering Significance:
+        </ol>
+     </td>
+     <td valign=top width=50%>
+        all 7 terms
+     </td>
+   </tr>
+</table>
+<P>
+Scanning all of the above, we thus declare the following consensus
+for the eddy current data:
+<ol>
+   <li>Important Factors: X1 and X2
+   <li>Parsimonious Prediction Equation:
+       <P>
+       <UL>
+          <!--
+          <img src="eda35i1_eq.gif"
+               alt="Yhat = 2.65875 + 1.55125*X1 - 0.43375*X2">
+          -->
+          \( \hat{Y} = 2.65875 + 1.55125 \cdot X_1 - 0.43375 \cdot X_2 \)
+       </UL>
+       <P>
+       (with a residual standard deviation of 0.30429 ohms)
+</ol>
+Note that this is the initial model selection.  We still need
+to perform model validation with a residual analysis.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35i1.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda36.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35i2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:24 GMT -->
+</HTML>

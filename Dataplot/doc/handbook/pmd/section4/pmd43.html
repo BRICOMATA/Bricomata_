@@ -1,0 +1,154 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd43.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:17 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.3. How are estimates of the unknown parameters obtained?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd431.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd423.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How are estimates of the unknown parameters obtained?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Parameter Estimation in General</I>
+</TD>
+<TD WIDTH=85%>
+After selecting the basic form of the functional part of the model, the next
+step in the model-building process is estimation of the unknown parameters in
+the function.  In general, this is accomplished by solving an optimization
+problem in which the objective function (the function being minimized or
+maximized) relates the response variable and the functional part of the model
+containing the unknown parameters in a way that will produce parameter
+estimates that will be close to the true, unknown parameter values.  The
+unknown parameters are, loosely speaking, treated as variables to be solved 
+for in the optimization, and the data serve as known coefficients of the 
+objective function in this stage of the modeling process.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+</TD>
+<TD WIDTH=85%>
+In theory, there are as many different ways of estimating parameters as
+there are objective functions to be minimized or maximized.  However, a few
+principles have dominated because they result in parameter estimators that have
+good statistical properties.  The two major methods of parameter estimation
+for process models are maximum likelihood and least squares.  Both of these
+methods provide parameter estimators that have many good properties.  
+Both maximum likelihood and least squares are sensitive to the presence of
+outliers, however.  There are also many newer methods of parameter estimation,
+called robust methods, that try to balance the efficiency and desirable
+properties of least squares and maximum likelihood with a lower sensitivity
+to outliers.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Overview of Section 4.3</I>
+</TD>
+<TD WIDTH=85%>
+Although robust techniques are valuable, they are not as well developed as the
+more traditional methods and often require specialized software that is not
+readily available.  Maximum likelihood also requires specialized algorithms in
+general, although there are important special cases that do not have such a 
+requirement.  For example, for data with normally distributed random errors, 
+the least squares and maximum likelihood parameter estimators are identical.  
+As a result of these software and developmental issues, and the coincidence of
+maximum likelihood and least squares in many applications, this section 
+currently focuses on parameter estimation only by least squares methods. The 
+remainder of this section offers some intuition into how least squares works 
+and illustrates the effectiveness of this method.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Contents of Section 4.3</I>
+</TD>
+<TD WIDTH=85%>
+<OL>
+<LI><A HREF="pmd431.html">Least Squares</a>
+<LI><A HREF="pmd432.html">Weighted Least Squares</a>
+</OL>
+</TD>
+</TR>
+
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd423.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd431.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd43.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:47:17 GMT -->
+</HTML>

@@ -1,0 +1,12 @@
+Dataplot commands:
+
+RELATIVE HISTOGRAM Y
+LET Y2 = YPLOT
+LET X2 = XPLOT
+RETAIN Y2 X2 SUBSET TAGPLOT = 1
+LET U1  = <estimated value from histogram>
+LET SD1 = <estimated value from histogram>
+LET U2  = <estimated value from histogram>
+LET SD2 = <estimated value from histogram>
+LET P = 0.5
+FIT Y2 = NORMXPDF(X2,U1,S1,U2,S2,P)

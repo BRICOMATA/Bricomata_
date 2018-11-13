@@ -1,0 +1,353 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd144.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:38 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.1.4.4. LOESS (aka LOWESS)</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="../section2/pmd2.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd143.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd1.html">Introduction to Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd14.html">What are some of the different statistical methods for model building?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.1.4.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>LOESS (aka LOWESS)</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Useful When \(f(\vec{x};\vec{\beta})\)
+<!-- <IMG ALT="f(\vec{x};\vec{\beta})" SRC="eqns/f.gif"> Unknown & Complicated</I> -->
+</TD>
+<TD WIDTH=85%>
+LOESS is one of many "modern" modeling methods that build on "classical"
+methods, such as linear and nonlinear least squares regression. Modern regression
+methods are designed to address situations in which the classical procedures do
+not perform well or cannot be effectively applied without undue labor. 
+LOESS combines much of the simplicity of linear least squares regression with
+the flexibility of nonlinear regression.  It does this by fitting simple
+models to localized subsets of the data to build up a function that
+describes the <A HREF="pmd11.html#def">deterministic part of the variation in
+the data</A>, point by point.  In fact, one of the chief attractions of this
+method is that the data analyst is not required to specify a global function of any
+form to fit a model to the data, only to fit segments of the data.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The trade-off for these features is increased computation.  Because it is
+so computationally intensive, LOESS would have been practically impossible
+to use in the <A HREF="pmd141.html#time">era when least squares regression
+was being developed</A>.  Most other modern methods for process modeling
+are similar to LOESS in this respect.  These methods have been consciously
+designed to use our current computational ability to the fullest possible
+advantage to achieve goals not easily achieved by traditional approaches.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Definition of a LOESS Model</I>
+</TD>
+<TD WIDTH=85%>
+LOESS, originally proposed by 
+<A HREF="../section7/pmd7.html#Cleveland, W.S. (1979)">Cleveland (1979)</A>
+and further developed by 
+<A HREF="../section7/pmd7.html#Cleveland, W.S. and Devlin, S.J. (1988)">Cleveland
+and Devlin (1988)</A>, specifically denotes a method that is (somewhat) more
+descriptively known as locally weighted polynomial regression.  At each point
+in the data set a low-degree polynomial is fit to a subset of the data, with
+explanatory variable values near the  point whose response is being estimated.
+The polynomial is fit using weighted least squares, giving more weight to
+points near the point whose response is being estimated and less weight to
+points further away.  The value of the regression function for the point is
+then obtained by evaluating the local polynomial using the explanatory
+variable values for that data point.  The LOESS fit is complete after
+regression function values have been computed for each of the \(n\)
+<!-- <B><I>n</I></B>  -->
+data points.  Many of the details of
+this method, such as the degree of the polynomial model and the weights, are
+flexible.  The range of choices for each part of the method and typical
+defaults are briefly discussed next.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Localized Subsets of Data</I>
+</TD>
+<TD WIDTH=85%>
+The subsets of data used for each weighted least squares fit in LOESS are
+determined by a nearest neighbors algorithm.  A user-specified input to the
+procedure called the "bandwidth" or "smoothing parameter" determines how
+much of the data is used to fit each local polynomial.  The smoothing
+parameter, \(q\), <!-- <B><I>q</I></B>, --> 
+is a number between \((d+1)/n\) <!-- <B><I>(d+1)/n</I></B> --> and 
+\(1\), <!-- <B><I>1</I></B>, --> 
+with \(d\) <!-- <B><I>d</I></B> --> 
+denoting the degree of the local polynomial.
+The value of \(q\) <!-- <B><I>q</I></B> --> 
+is the proportion of data used in each fit.  The subset of data used in
+each weighted least squares fit is comprised of the \(nq\) <!-- <B><I>nq</I></B> --> 
+(rounded to the next largest integer) points whose explanatory variables values are
+closest to the point at which the response is being estimated.  
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+\(q\) <!-- <B><I>q</I></B> --> is called the smoothing parameter because 
+it controls the flexibility of the LOESS regression function.  Large values of 
+\(q\) <!-- <B><I>q</I></B> -->
+produce the smoothest functions that wiggle the least in response to
+fluctuations in the data.  The smaller \(q\) <!-- <B><I>q</I></B> --> 
+is, the closer the
+regression function will conform to the data.  Using too small a value of the
+smoothing parameter is not desirable, however, since the regression function
+will eventually start to capture the random error in the data.  Useful values
+of the smoothing parameter typically lie in the range 0.25 to 0.5 for most
+LOESS applications. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Degree of Local Polynomials</I>
+</TD>
+<TD WIDTH=85%>
+The local polynomials fit to each subset of the data are almost always of first
+or second degree; that is, either locally linear (in the straight line sense)
+or locally quadratic.  Using a zero degree polynomial turns LOESS into a
+weighted moving average.  Such a simple local model might work well for some
+situations, but may not always approximate the underlying function well enough.
+Higher-degree polynomials would work in theory, but yield models that are not
+really in the spirit of LOESS.  LOESS is based on the ideas that any function
+can be well approximated in a small neighborhood by a low-order polynomial and
+that simple models can be fit to data easily.  High-degree polynomials would
+tend to overfit the data in each subset and are numerically unstable, making 
+accurate computations difficult.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="tcwf">Weight Function</A></I>
+</TD>
+<TD WIDTH=85%>
+As mentioned above, the weight function gives the most weight to the data points
+nearest the point of estimation and the least weight to the data points that are
+furthest away.  The use of the weights is based on the idea that points near
+each other in the explanatory variable space are
+more likely to be related to each other in a simple way than points that are
+further apart.  Following this logic, points that are likely to follow
+the local model best influence the local model parameter estimates the most.  
+Points that are less likely to actually conform to the local model have less influence
+on the local model parameter estimates.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The traditional weight function used for LOESS is the tri-cube weight function, 
+
+$$ w(x) = \left\{ 
+\begin{array}{ll}
+(1 - |x|^3)^3 & \mbox{for $|x| < 1$}    \\
+0             & \mbox{for $|x| \geq 1$}
+\end{array}
+\right. $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+w(x) = \left\{ 
+\begin{array}{ll}
+(1 - |x|^3)^3 & \mbox{for $|x| < 1$}    \\
+0             & \mbox{for $|x| \geq 1$}
+\end{array}
+\right.
+" SRC="eqns/tcwf.gif">.</CENTER><BR><BR> -->
+
+However, any other weight function that satisfies the properties listed in 
+<A HREF="../section7/pmd7.html#Cleveland, W.S. (1979)">Cleveland (1979)</A>
+could also be used.  The weight for a specific point in any localized subset
+of data is obtained by evaluating the weight function at the distance between
+that point and the point of estimation, after scaling the distance so that
+the maximum absolute distance over all of the points in the subset of data is
+exactly one.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Examples</I>
+</TD>
+<TD WIDTH=85%>
+A simple computational example is given 
+<!-- DEP --><A HREF="dep/dep144.html">here</A> to further illustrate exactly how
+LOESS works.  A more realistic example, showing a LOESS model used for
+thermocouple calibration, can be found in
+<A HREF="pmd132.html#tc.r1">Section 4.1.3.2</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Advantages of LOESS</I>
+</TD>
+<TD WIDTH=85%>
+As discussed above, the biggest advantage LOESS has over many other
+methods is the fact that it does not require the specification of
+a function to fit a model to all of the data in the sample.  Instead the analyst only
+has to provide a smoothing parameter value and the degree of the local
+polynomial.  In addition, LOESS is very flexible, making it ideal for modeling
+complex processes for which no theoretical models exist.  These two advantages,
+combined with the simplicity of the method, make LOESS one of the most
+attractive of the modern regression methods for applications that fit the
+general framework of least squares regression but which have a complex deterministic
+structure.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Although it is less obvious than for some of the other methods related to 
+linear least squares regression, LOESS also accrues most of the benefits
+typically shared by those procedures.  The most important of those is the theory
+for computing uncertainties for prediction and calibration.  Many other tests
+and procedures used for validation of least squares models can also be extended
+to LOESS models.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Disadvantages of LOESS</I>
+</TD>
+<TD WIDTH=85%>
+Although LOESS does share many of the best features of other 
+least squares methods, efficient use of data is one advantage that
+LOESS doesn't share.  LOESS requires fairly large, densely sampled data
+sets in order to produce good models.  This is not really surprising,
+however, since LOESS needs good empirical information on the local structure of
+the process in order perform the local fitting.  In fact, given the results it 
+provides,  LOESS
+could arguably be more efficient overall than other methods like
+nonlinear least squares.  It may simply frontload the costs of an
+experiment in data collection but then reduce analysis costs.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Another disadvantage of LOESS is the fact that it does not produce a
+regression function that is easily represented by a mathematical formula.
+This can make it difficult to transfer the results of an analysis to other
+people.  In order to transfer the regression function to another person,
+they would need the data set and software for LOESS calculations.  In
+nonlinear regression, on the other hand, it is only necessary to write
+down a functional form in order to provide estimates of the unknown parameters
+and the estimated uncertainty.  Depending on the application, this could
+be either a major or a minor drawback to using LOESS.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Finally, as discussed above, LOESS is a computational intensive method.  This
+is not usually a problem in our current computing environment, however, unless
+the data sets being used are very large.  LOESS is also prone to the effects
+of outliers in the data set, like other least squares methods.  There is an
+iterative, robust version of LOESS 
+<A HREF="../section7/pmd7.html#Cleveland W.S. (1979)">[Cleveland (1979)]</A>
+that can be used to reduce LOESS' sensitivity to outliers, but extreme 
+outliers can still overcome even the robust method. 
+</TD>
+</TR>
+ 
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd143.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="../section2/pmd2.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd144.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:41 GMT -->
+</HTML>

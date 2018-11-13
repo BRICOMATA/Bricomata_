@@ -1,0 +1,488 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr421.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:35 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.4.2.1. Graphical estimation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr422.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr42.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr4.html">Reliability Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr42.html">How do you fit an acceleration model?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.4.2.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Graphical estimation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"></td>
+
+<td WIDTH="85%"><!-- Add main text below -->This section will discuss the
+following:
+<ol>
+<li>
+<a href="#How to fit an Arrhenius Model with Graphical">
+How to fit an Arrhenius model with graphical estimation</a></li>
+
+<li>
+<a href="#Graphical Estimation: Arrhenius Model">
+Graphical estimation:  an Arrhenius model example</a></li>
+
+<li>
+<a href="#Fitting More Complicated">Fitting more complicated models</a></li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Estimate acceleration model parameters by estimating cell \(T_{50}\)
+<!-- T<sub>50</sub> -->
+values (or \(\alpha\) values)
+<!-- (or&nbsp;<img SRC="gifs/alpha.gif" ALT="alpha"  align=ABSBOTTOM> values) -->
+and then using regression to fit the model across the cells</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="How to fit an Arrhenius Model with Graphical"></a>
+<b>How to fit an Arrhenius Model with Graphical Estimation</b>
+<p>
+Graphical methods work best (and are easiest to describe) for a simple
+one-stress model like the widely used 
+<a href="../section1/apr151.html">Arrhenius model</a>
+
+$$ t_f = A \cdot \mbox{ exp } \left( \frac{\Delta H}{kT} \right) \, , $$
+
+<!--
+<center>
+<p><img SRC="eqns/arrh.gif" ALT="t(f) = A*EXP{deltaH/(k*T)}" >
+</center>
+<p>
+-->
+
+with \(T\)
+<!-- <i>T</i> -->
+denoting temperature measured in degrees Kelvin (273.16 + degrees
+Celsius) and \(k\)
+<!-- <i>k</i> -->
+is Boltzmann's constant (8.617 &times; 10<sup>-5</sup> in eV/K).
+<p>
+When applying an acceleration model to a distribution of failure times,
+we interpret the deterministic model equation to apply at any distribution
+percentile we want. This is equivalent to setting the life distribution
+scale parameter equal to the model equation (\(T_{50}\)
+<!-- (<i>T<sub>50</sub></i> -->
+for the lognormal, \(\alpha\)
+<!-- &nbsp;<img SRC="gifs/alpha.gif" ALT="alpha" height=14 width=14 align=ABSCENTER> -->
+for the Weibull and the MTBF, or \(1/\lambda\)
+<!-- 1/<img SRC="gifs/lambda.gif" ALT="lambda" height=18 width=14 align=TEXTTOP> -->
+for the exponential). For the lognormal, for example, we have
+
+$$ T_{50} = A \cdot \mbox{ exp } \left( \frac{\Delta H}{kT} \right) \, , $$
+
+$$ \mbox{ln } T_{50} = y = \mbox{ln } A + \Delta H \left( \frac{1}{kT} \right) \, . $$
+
+This can be written as
+
+$$ y = a + bx $$
+
+with 
+
+$$ b = \Delta H \,\,\,\,\, \mbox{ and } \,\,\,\,\, x = \frac{1}{kT} \, . $$
+
+<!--
+<p>
+<center>
+<img SRC="eqns/arreq.gif" ALT="T50 = A*EXP{deltaH/(k*T)};    
+LN(T50) = y = LN(A) + deltaH*(1/(k*T));    
+This can be written as y = a + b*x with b = deltaH and x = 1/(k*T)" >
+</center>
+<p>
+-->
+
+So, if we run several stress cells and compute \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+values
+for each cell, a plot of the natural log of these \(T_{50}\)
+<!-- <i>T<sub>50</sub></i>  -->
+values versus the corresponding \(1/kT\)
+<!-- 1/<i>kT</i>  -->
+values should be roughly linear with a slope of \(\Delta H\)
+<!-- &nbsp;<img SRC="gifs/delta.gif" ALT="delta"  align=ABSBOTTOM><i>H</i> -->
+and an intercept of \(\mbox{ln } A\).
+<!-- ln <i>A</i>. -->
+In practice, a computer fit of a line through these points is 
+typically used to obtain the Arrhenius model estimates.
+Remember that \(T\)
+<!-- <i>T</i> -->
+is in Kelvin in the above equations.
+For temperature in Celsius, use the following for \(1/kT\):  
+<!-- 1/<i>kT</i>: -->
+11605/(\(t\)&deg;C + 273.16).
+
+<p>
+An example will illustrate the procedure.&nbsp;
+<p>
+<a NAME="Graphical Estimation: Arrhenius Model"></a><b>Graphical Estimation:
+An Arrhenius Model Example:</b>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Arrhenius model example</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Component life tests were run at three temperatures:
+85 &deg;C, 105 &deg;C and <br>
+125 &deg;C. The lowest temperature cell was populated
+with 100 components; the 105 &deg;C cell had 50 components and the highest
+stress cell had 25 components. All tests were run until either all the
+units in the cell had failed or 1000 hours was reached. Acceleration was
+assumed to follow an Arrhenius model and the life distribution model for
+the failure mode was believed to be lognormal. The normal operating temperature
+for the components is 25 &deg;C and it is desired to project the use CDF
+at 100,000 hours.&nbsp;
+<p>
+<b>Test results</b>:&nbsp;
+<p>
+Cell 1 (85 &deg;C): 5 failures at 401, 428, 695, 725 and 738 hours. 
+Ninety-five units were censored at 1000 hours running time.
+<p>
+Cell 2 (105 &deg;C): 35 failures at 171, 187, 189, 266, 275, 285, 301,
+302, 305, 316, 317, 324, 349, 350, 386, 405, 480, 493, 530, 534, 536, 567,
+589, 598, 599, 614, 620, 650, 668, 685, 718, 795, 854, 917, and 926 hours.
+Fifteen units were censored at 1000 hours running time.
+<p>
+Cell 3 (125 &deg;C): 24 failures at 24, 42, 92, 93, 141, 142, 143, 159,
+181, 188, 194, 199, 207, 213, 243, 256, 259, 290, 294, 305, 392, 454, 502
+and 696. One unit was censored at 1000 hours running time.
+<p>
+Failure analysis confirmed that all failures were due to the same failure
+mechanism (if any failures due to another mechanism had occurred, they
+would have been considered 
+<a href="../section1/apr131.html#Separating out Failure">censored run times</a> 
+in the Arrhenius analysis).
+<p>
+<b>Steps to Fitting the Distribution Model and the Arrhenius Model:</b>
+<ul>
+<li>
+Do plots for each cell and estimate \(T_{50}\)
+<!-- <i>T<sub>50</sub></i> -->
+and sigma as <a href="apr411.html#Graphical Estimation">previously discussed.</a>
+</li>
+
+<li>
+Plot all the cells on the same graph and check whether the lines are 
+roughly parallel (a necessary consequence of true acceleration).
+</li>
+
+<li>
+If probability plots indicate that the lognormal model is appropriate and 
+that sigma is consistant among cells, plot \(\mbox{ln } T_{50}\)
+<!-- ln <i>T<sub>50</sub></i>  -->
+versus <br> 11605/(\(t\) &deg;C + 273.16) 
+for each cell, check for linearity and
+fit a straight line through the points. Since the points have different
+values of precision, due to different numbers of failures in each cell, 
+it is recommended that the number of failures in each cell
+be used as weights in a regression when fitting a line through
+the points.</li>
+
+<li>
+Use the slope of the line as the \(\Delta H\)
+<!-- &nbsp;<img SRC="gifs/delta.gif" ALT="delta" align=ABSBOTTOM>H -->
+estimate and calculate the Arrhenius <i>A </i>constant from the intercept
+using \(A = e^{intercept}\).
+<!-- <i>A = e<sup>intercept</sup></i>. -->
+</li>
+
+<li>
+Estimate the common sigma across all the cells by the weighted average
+of the individual cell sigma estimates. Use the number of failures in a
+cell divided by the total number of failures in all cells as that cell's
+weight. This will allow cells with more failures to play a bigger role
+in the estimation process.
+</li>
+</ul>
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Solution for Arrhenius model example&nbsp;</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><b>Analysis of Multicell Arrhenius Model Data:</b>
+<p>
+The following lognormal probability plot was generated for our data so that
+all three stress cells are plotted on the same graph.
+<center>
+<img SRC="apr421_r01.gif" ALT="Lognormal probability plots of temperature cells" height=400 width=475>
+</center>
+<p>
+Note that the lines are somewhat straight (a check on the lognormal
+model) and the slopes are approximately parallel (a check on the acceleration
+assumption).
+<p>
+The cell \(\mbox{ln } T_{50}\)
+<!-- ln <i>T<sub>50</sub></i> -->
+and sigma estimates are obtained from
+linear regression fits for each cell using the data from the probability plot.
+Each fit will yield a cell \(A_0\), the \(\mbox{ln } T_{50}\)
+<!-- <i>A<sub>o</sub></i>, the ln <i>T<sub>50</sub></i> -->
+estimate, and \(A_1\),
+<!-- <i>A<sub>1</sub></i>, -->
+the cell sigma estimate. These are summarized in the table below.
+<center><table BORDER COLS=3 WIDTH="100%" >
+<caption>
+<center><b>Summary of Least Squares Estimation of Cell Lognormal Parameters</b></center>
+</caption>
+
+<tr>
+<td>
+<center><b>Cell Number</b></center>
+</td>
+
+<td>
+<center><b>\(\mbox{ln } T_{50}\)
+<!-- ln <i>T<sub>50</sub></i> -->
+</b></center>
+</td>
+
+<td>
+<center><b>Sigma</b></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>1&nbsp;&nbsp; (\(t\) &deg;C = 85)&nbsp;</center>
+</td>
+
+<td>
+<center>8.168</center>
+</td>
+
+<td>
+<center>0.908</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>2&nbsp; (\(t\) &deg;C = 105)</center>
+</td>
+
+<td>
+<center>6.415</center>
+</td>
+
+<td>
+<center>0.663</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>3&nbsp; (\(t\) &deg;C = 125)</center>
+</td>
+
+<td>
+<center>5.319</center>
+</td>
+
+<td>
+<center>0.805</center>
+</td>
+</tr>
+</table></center>
+<p>
+The three cells have 11605/(\(t\) &deg;C + 273.16) values of 32.40, 30.69 and 29.15
+respectively, in cell number order. The Arrhenius plot is
+<center>
+<img SRC="apr421_r02.gif" ALT="Arrhenius plot of three cell t50's" height=400 width=475>
+</center>
+<p>
+With only three cells, it is unlikely a straight line through the points
+will present obvious visual lack of fit. However, in this case, the points
+appear to line up very well.
+<p>
+Finally, the model coefficients are computed from a weighted linear fit of \(\mbox{ln } T_{50}\)
+<!-- ln <i>T<sub>50</sub></i> -->
+versus 11605/(\(t\) &deg;C + 273.16), using weights 
+of 5, 35, and 24 for each cell.  This will yield a \(\mbox{ln } A\)
+<!-- ln <i>A</i> -->
+estimate of -18.312 (\(A = e^{-18.312} = 0.1115 \times 10^{-7}\))
+<!-- (<i>A</i> = <i>e</i><sup>-18.312</sup> = 0.1115x10<sup>-7</sup>) -->
+and a \(\Delta H\)
+<!-- &nbsp;<img SRC="gifs/delta.gif" ALT="delta" align=ABSBOTTOM>H -->
+estimate of 0.808. With this value of \(\Delta H \),
+<!-- &nbsp;<img SRC="gifs/delta.gif" ALT="delta" align=ABSBOTTOM>H, -->
+the acceleration between the lowest stress cell of 85 &deg;C and the highest
+of 125 &deg;C is
+
+$$ \mbox{exp } \left[ 0.808 \times 11605 \times \left( \frac{1}{358.16} - \frac{1}{398.16} \right) \right] = 13.9 \, , $$
+
+<!-- 
+<center>
+<img SRC="eqns/acc14.gif" ALT="EXP{0.808*11605*((1/358.16) - (1/398.16))} = 13.9" >
+</center>
+<p>
+-->
+
+which is almost 14 &times; acceleration. Acceleration from 125 &deg;C  to the
+use condition of 25 &deg;C is 3708&times;. The use \(T_{50}\) is
+
+$$ e^{-18.312} \times e^{0.808 \times 11605 \times 1/298.16} = e^{13.137} = 507383 \, . $$
+
+<!--
+<i>T<sub>50</sub></i> is 
+e<sup>-18.312 </sup>x e<sup>0.808x11605x1/298.16</sup>= e<sup>13.137</sup>
+= 507383. 
+-->
+<p>
+A single sigma estimate for all stress conditions can be calculated
+as a weighted average of the three sigma estimates obtained from the experimental
+cells. The weighted average is (5/64) &times; 0.908 + (35/64) &times; 0.663
++ (24/64) &times; 0.805 = 0.74.
+<p>
+The analyses in this section can can be implemented using both
+<a href="apr421.dp">Dataplot code</a> and <a href="apr421.r">R code</a>.
+<p>
+<a NAME="Fitting More Complicated"></a><b>Fitting More Complicated models</b></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Models involving several stresses can be
+fit using multiple regression</i></td>
+
+<td VALIGN=TOP WIDTH="85%">Two stress models, such as the temperature/voltage
+model given by
+
+$$ t_f = A \cdot V^{\beta} \cdot \mbox{ exp } \left( \frac{\Delta H}{kT} \right) \, , $$
+
+<!-- 
+<p>
+<center>
+<img SRC="eqns/tvmod.gif" ALT="t(f) = A*EXP(deltaH/(k*T))*V**beta" >
+</center>
+<p>
+-->
+
+need at least four or five carefully chosen stress cells to estimate all
+the parameters. The 
+<a href="../section3/apr314.html#Matrix Leading to Backward L">Backwards L design</a> 
+previously described is an example of a design for this model.
+The bottom row of the "backward L" could be used for a plot testing the
+Arrhenius temperature dependence, similar to the above Arrhenius example.
+The right hand column could be plotted using 
+\(y = \mbox{ln } T_{50}\) and \(x = \mbox{ln } V\),
+<!-- <i>y</i> = ln <i>T<sub>50</sub></i> and <i>x</i> = ln <i>V</i>, -->
+to check the voltage term in the model. The
+overall model estimates should be obtained from fitting the multiple regression model
+
+$$ Y = b_0 + b_1 X_1 + b_2 X_2 \, , $$
+
+with
+
+$$ \begin{array}{rl}
+Y = \mbox{ln } T_{50}, &  b_0 = \mbox{ln } A \\
+ &  \\
+b_1 = \Delta H,  & X_1 = 1/kT \\
+ &  \\
+b_2 = \beta, & X_2 = \mbox{ln } V \, . 
+\end{array} $$
+
+<!-- 
+<p>
+<center>
+<img SRC="eqns/multreg.gif" ALT="Y = b0 + b1*X1 + b2*X2;    where    
+Y = LN(T50)*alpha = LN(A);    b1 = deltaH, X1 = 1/(k*T);    b2 = beta, and x2 = LN(V)" >
+</center>
+<p>
+-->
+
+Fitting this model, after setting up the 
+<!-- Y<i>, </i>X1<i> = X<sub>1</sub>, </i>X2<i> = X<sub>2&nbsp;</sub></i> -->
+data vectors, provides estimates for \(b_0, \, b_1\), and \(b_2\).
+<!-- <i>b<sub>0</sub>, b<sub>1</sub></i> and <i>b<sub>2</sub></i>. -->
+<p>
+Three stress models, and even Eyring models with interaction terms,
+can be fit by a direct extension of these methods. Graphical plots to test
+the model, however, are less likely to be meaningful as the model becomes
+more complex.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr42.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr422.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section4/apr421.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:40 GMT -->
+</HTML>

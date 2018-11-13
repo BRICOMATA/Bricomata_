@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4253.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:55:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.5.3. Develop a Better Model</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4254.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4252.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda425.html">Beam Deflections</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.5.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Develop a Better Model</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Sinusoidal Model
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The lag plot and autocorrelation plot in the previous section
+strongly suggested a sinusoidal model might be appropriate.
+The basic sinusoidal model is:
+<UL>
+    <!--
+    <img src="eqns/sinmodel.gif"
+         alt="Y(i) = C + alpha*SIN(2*PI*omega*T(i) + phi) + E(i)">
+    -->
+    \( Y_{i} = C + \alpha\sin{(2\pi\omega T_{i} + \phi)} + E_i \)
+</UL>
+where <b><i>C</i></b> is constant defining a mean level, <i>&alpha;</i>
+is an amplitude for the sine function, <i>&omega;</i> is the frequency,
+<b><i>T<sub>i</sub></i></b> is a time variable, and
+\(\phi\) is the phase.  This sinusoidal model can be fit using
+<a href="../../pmd/section1/pmd142.html">non-linear least squares</a>.
+<p>
+To obtain a good fit, sinusoidal models require good starting values
+for <b><i>C</i></b>, the amplitude, and the frequency.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Good Starting Value for <b>C</b>
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A good starting value for <b><i>C</i></b> can be obtained by
+calculating the mean of the data.  If the data show a trend, i.e., the
+assumption of constant location is violated, we can replace
+<b><i>C</i></b> with a <a href="../../pmd/section1/pmd141.html">linear
+or quadratic least squares</a> fit.  That is, the model becomes
+<UL>
+    <!--
+    <img src="eqns/sinmodel2.gif" alt=
+    "Y(i) = (B0 + B1*T(i)) + alpha*SIN(2*PI*omega*T(i) + phi) + E(i)">
+    -->
+    \( Y_{i} = (B_0 + B_1*T_{i}) + \alpha\sin{(2\pi\omega T_{i} + \phi)}
+    + E_i \)
+</UL>
+or
+<UL>
+    <!--
+    <img src="eqns/sinmodel3.gif" alt=
+"Y(i) = (B0 + B1*T(i) + B2*T(i)**2) + alpha*SIN(2*PI*omega*T(i) + phi) + E(i)">
+    -->
+    \( Y_{i} = (B_0 + B_1*T_{i} + B2*T^{2}_{i}) + \alpha\sin{(2\pi\omega
+    T_{i} + \phi)} + E_i \)
+</UL>
+Since our data did not have any meaningful change of location, we can
+fit the simpler model with <b><i>C</i></b> equal to the mean.  From
+the summary output in the previous page, the mean is -177.44.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Good Starting Value for Frequency
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The starting value for the frequency can be obtained from the
+<a href="eda4252.html#SPECTRUM">spectral plot</a>, which shows the
+dominant frequency is about 0.3.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="PHASE">
+<I>
+Complex Demodulation Phase Plot
+</I>
+</A>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The
+<a href="../section3/compdeph.html">complex demodulation phase plot</a>
+can be used to refine this initial estimate for the frequency.
+<p>
+For the complex demodulation plot, if the lines slope from left to
+right, the frequency should be increased.  If the lines slope from
+right to left, it should be decreased.  A relatively flat (i.e.,
+horizontal) slope indicates a good frequency.  We could generate the
+demodulation phase plot for 0.3 and then use trial and error
+to obtain a better estimate for the frequency.  To simplify this,
+we generate 16 of these plots on a single page starting with
+a frequency of 0.28,  increasing in increments of 0.0025, and
+stopping at 0.3175.
+<p>
+<IMG SRC="lew/gif/compdeph.gif"
+     alt="complex demodulation phase plots">
+<p>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Interpretation
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The plots start with lines sloping from left to right but gradually
+change to a right to left slope.  The relatively flat slope occurs for
+frequency 0.3025 (third row, second column).  The complex demodulation
+phase plot restricts the range from \(\pi\)/2 to -\(\pi\)</i>/2.  This
+is why the plot appears to show some breaks.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="AMPLITUDE">
+<I>
+Good Starting Values for Amplitude
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The
+<a href="../section3/compdeam.html">complex demodulation amplitude
+plot</a> is used to find a good starting value for the amplitude.
+In addition, this plot indicates whether or not the amplitude is
+constant over the entire range of the data or if it varies.
+If the plot is essentially flat, i.e., zero slope, then it is
+reasonable to assume a constant amplitude in the non-linear model.
+However, if the slope varies over the range of the plot, we
+may need to adjust the model to be:
+<UL>
+    <!--
+    <img src="eqns/sinmodel4.gif" alt=
+    "Y(i) = C + (B0 + B1*T(i))*alpha*SIN(2*PI*omega*T(i) + phi) + E(i)">
+    -->
+    \( Y_{i} = C + (B_0 + B_1*T_{i})\sin{(2\pi\omega T_{i} + 
+    \phi)} + E_i \)
+</UL>
+That is, we replace <i>&alpha;</i> with a function of time.  A linear
+fit is specified in the model above, but this can be replaced with a
+more elaborate function if needed.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Complex Demodulation Amplitude Plot
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<IMG SRC="lew/gif/compdeam.gif"
+     alt="complex demodulation amplitude plot">
+<p>
+The complex demodulation amplitude plot for this data shows that:
+<ol>
+   <li>The amplitude is fixed at approximately 390.
+   <li>There is a short start-up effect.
+   <li>There is a change in amplitude at around x=160 that should
+       be investigated for an outlier.
+</ol>
+In terms of a non-linear model, the plot indicates that fitting a single
+constant for <i>&alpha;</i> should be adequate for this data set.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="FIT">
+<I>Fit Results</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Using starting estimates of 0.3025 for the frequency, 390 for
+the amplitude, and -177.44 for C, the following parameters were
+estimated.
+<p>
+<PRE>
+      Coefficient     Estimate     Stan. Error     <I>t</I>-Value
+         C            -178.786        11.02         -16.22
+         AMP          -361.766        26.19         -13.81
+         FREQ         0.302596      0.1510E-03     2005.00
+         PHASE         1.46536      0.4909E-01       29.85
+ 
+      Residual Standard Deviation = 155.8484
+      Residual Degrees of Freedom = 196  
+</PRE>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Model
+</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP>
+<!-- Add main text below -->
+From the fit results, our proposed model is:
+<UL>
+    <!--
+    <img src="eda4253_eq.gif" alt=
+         "Yhat_i = -178.79 - 361.77*(2*PI*0.302596*T_i + 1.465)">
+    -->
+    \( \hat{Y}_i = -178.786 - 361.766[2\pi(0.302596)T_i + 1.46536] \)
+</UL>
+We will evaluate the adequacy of this model in the next section.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4252.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4254.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4253.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:55:14 GMT -->
+</HTML>

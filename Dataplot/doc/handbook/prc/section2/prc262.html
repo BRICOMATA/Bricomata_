@@ -1,0 +1,312 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc262.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:18 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.6.2. Percentiles</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc263.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc261.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.html">Comparisons based on data from one process</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc26.html">What intervals contain a fixed percentage of the population values?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.6.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Percentiles</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Definitions of order statistics and ranks</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+For a series of measurements \(Y_1, \, \ldots, \, Y_N\),
+<!-- <i>Y</i><sub>1</sub>, ..., <i>Y<sub>N</sub></i>, -->
+denote the data ordered in increasing order of magnitude by 
+\(Y_{[1]}, \, \ldots, \, Y_{[N]}\).
+<!-- <i>Y</i><sub>[1]</sub>, ..., <i>Y<sub>[N]</sub></i>. -->
+These ordered data are called order statistics. If \(Y_{[j]}\)
+<!-- <i>Y<sub>[j]</sub></i> -->
+is the order statistic that corresponds to the measurement \(Y_i\),
+<!-- <i>Y<sub>i</sub></i>, -->
+then the rank for \(Y_i\)
+<!-- <i>Y<sub>i</sub></i> -->
+is \(j\);
+<!-- <i>j</i>; -->
+i.e.,
+
+$$ Y_{[j]} \sim Y_i \,\, \Longrightarrow \,\, r_i = j \, .$$
+
+<!--
+<p>
+<center>
+<img SRC="gifs/rank.gif" height=28 width=143 align=ABSCENTER
+     ALT="Y[j] ~ Y(i) => r(i) = j">
+</center>
+-->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Definition of percentiles</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Order statistics provide a way of estimating proportions of the
+data that should fall above and below a given value, called a
+<i>percentile</i>.  The \(p\)th
+<!-- <i>p</i>th -->
+percentile is a value, \(Y_{(p)}\),
+<!-- <i>Y<sub>(p)</sub></i>, -->
+such that at most \((100 p)\) %
+<!-- (100<i>p</i>) % -->
+of the measurements are less than this value and at most \(100(1-p)\) %
+<!-- 100(1- <i>p</i>) %  -->
+are greater.  The 50th percentile is called the <i>median</i>.
+<p>
+Percentiles split a set of ordered data into hundredths. (Deciles
+split ordered data into tenths).  For example, 70 % of the data
+should fall below the 70th percentile.
+
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Estimation of percentiles</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Percentiles can be estimated from \(N\)
+<!-- <i>N</i> -->
+measurements as follows:
+for the \(p\)th
+<!-- <i>p</i>th --> 
+percentile, set \(p(N+1)\)
+<!-- <i>p</i>(<i>N</i>+1) -->
+equal to \(k + d\)
+<!-- <i>k + d</i> -->
+for \(k\)
+<!-- <i>k</i> -->
+an integer, and \(d\),
+<!-- <i>d</i>, -->
+a fraction greater than or equal to 0 and less than 1.
+<ol>
+   <li>For \(0 \lt k \lt N, \,\,\,\,\,
+       Y_{(p)} = Y_{[k]} + d \left( Y_{[k+1]} - Y{[k]} \right)\)
+       <!-- <i>0 < k < N</i>, 
+       <img SRC="gifs/ykplus.gif" height=38 width=193 align=ABSCENTER
+       alt="Y(p) = Y[k] + d(Y[k+1] - Y[k])"> -->
+       <p>
+   <li>For \(k = 0, \,\,\,\,\, Y_{(p)} = Y_{[1]}\)
+       <!-- <i>k = 0</i>, 
+       <i>Y</i>(<i>p</i>) = <i>Y</i><sub>[1]</sub> -->
+       <!-- <img SRC="gifs/y1.gif" height=28 width=76 align=CENTER
+       alt="Y(p) = Y[1]"> -->
+       <p>
+       Note that any <i>p</i> &le; 1/(<i>N</i>+1) will simply be set to
+       the minimum value.
+       <p>
+   <!-- <li>For \(k = N, \,\,\,\,\, Y_{(p)} = Y{[N]}\) -->
+   <li>For \(k &ge; N, \,\,\,\,\, Y_{(p)} = Y{[N]}\)
+       <!-- <i>k = N</i>, 
+       <i>Y</i>(<i>p</i>) = <i>Y</i><sub>[<i>N</i>]</sub> -->
+       <!-- <img SRC="gifs/yn.gif" height=28 width=83 align=CENTER
+       alt="Y(p) = Y[N]"> -->
+       <p>
+       Note that any <i>p</i> &ge; <i>N</i>/(<i>N</i>+1) will simply be
+       set to the maximum value.
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Example and interpretation</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+For the purpose of illustration, twelve measurements from a
+<a href="../../mpc/section6/mpc6111.html">gage study</a> are shown
+below.  The measurements are resistivities of silicon wafers
+measured in ohm<sup>.</sup>cm.
+<pre>
+       i  Measurements  Order stats   Ranks
+
+       1     95.1772     95.0610        9
+       2     95.1567     95.0925        6
+       3     95.1937     95.1065       10
+       4     95.1959     95.1195       11
+       5     95.1442     95.1442        5
+       6     95.0610     95.1567        1
+       7     95.1591     95.1591        7
+       8     95.1195     95.1682        4
+       9     95.1065     95.1772        3
+      10     95.0925     95.1937        2
+      11     95.1990     95.1959       12
+      12     95.1682     95.1990        8
+</pre>
+To find the 90th percentile, \(p(N+1)\) = 0.9(13) = 11.7; 
+\(k\) = 11, and \(d\) = 0.7.
+<!-- <i>p</i>(<i>N</i>+1) = 0.9(13) =11.7; <i>k</i> = 11, and <i>d</i> = 0.7. -->
+From condition (1) above, \(Y_{(90)}\)
+<!-- <i><font size=+1>Y(0.90)</font></i> -->
+is estimated to be 95.1981
+ohm<sup>.</sup>cm.  This percentile, although it is an estimate
+from a small sample of resistivities measurements, gives an
+indication of the percentile for a population of resistivity
+measurements.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Note that there are other ways of calculating percentiles in
+common use</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<a href="../section5/prc5.html">Hyndman and Fan (1996)</a> in an
+American Statistician article evaluated nine different methods (we
+will refer to these as R1 through R9) for computing percentiles relative
+to six desirable properties.  Their goal was to advocate a "standard"
+definition for percentiles that would be implemented in statistical
+software.  Although this has not in fact happened, the article does
+provide a useful summary and evaluation of various methods for
+computing percentiles.  Most statistical and spreadsheet software
+use one of the methods described in Hyndman and Fan.
+<P>
+The method described above corresponds to method R6 of
+Hyndman and Fan.  This is the default method used by Dataplot.
+<P>
+The method advocated by Hyndman and Fan is R8.  For the R8 method,
+set \( p(N+(1/3) + (1/3))\) and proceed as above.  Note that any
+<i>p</i> &le; (2/3)/(<i>N</i>+(1/3)) will be set to the minimum value
+and any <i>p</i> &ge; (<i>N</i>-(1/3))/(<i>N</i>+(1/3)) will be set to
+the maximum value.  Both R and Dataplot can optionally use this method.
+For the example given above, R8 gives 95.1972 (compared to 95.1981)
+for the 90-th percentile.
+<P>
+Some software packages set \(1 + p(N-1)\) equal to \(k + d\) and
+then proceed as above.  This is method R7 of Hyndman and Fan.  This
+is the method used by Excel and is the default method for R (the R
+quantile function can optionally use any of the nine methods
+discussed in Hyndman and Fan).  For the example given above, R7
+gives 95.1957.
+<P>
+The R6, R7, and R8 methods give fairly similar, but not exactly
+the same (particularly for small samples), results.  For most
+purposes, any of these three methods should be acceptable.
+<p>
+Another method of calculating percentiles (given in some elementary
+textbooks) starts by calculating \(p N\).  If that is not an
+integer, round up to the next highest integer \(k\) and use \(Y_{[k]}\)
+as the percentile estimate.  If \(p N\) is an integer \(k\),
+use \( 0.5 \left( Y_{[k]} + Y_{[k+1]} \right) \).  One of R6, R7, or
+R8 would typically be preferred to this method.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Definition of Tolerance Interval</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+An interval covering population percentiles can be interpreted
+as "covering a proportion \(p\)
+<!-- <i>p</i> -->
+of the population with a level of confidence, say, 90 %." This is known as a
+<a href="prc263.html">tolerance interval.</a>
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc261.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc263.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc262.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:18 GMT -->
+</HTML>

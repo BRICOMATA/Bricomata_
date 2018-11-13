@@ -1,0 +1,345 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35i.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:22 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.18. Yates Algorithm</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda35i1.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda35h3.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.18.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Yates Algorithm</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<br>
+<tr>
+   <td width=15% valign=top>
+      <A NAME="yatesanalysis">
+      <I>Purpose:<br>
+         Estimate Factor Effects in a 2-Level Factorial Design
+      </I>
+      </A>
+   </td>
+   <td width=85% valign=top>
+      <a href="../../pri/section3/pri333.html">Full factorial</a> and
+      <a href="../../pri/section3/pri334.html">fractional
+      factorial</a> designs are common in
+      <a href="../../pri/pri.html">designed experiments</a>
+      for engineering and scientific applications.
+      <P>
+      In these designs, each factor is assigned two levels.  These
+      are typically called the low and high levels.  For
+      computational purposes, the factors are scaled so that the low
+      level is assigned a value of -1 and the high level is assigned
+      a value of +1.  These are also commonly referred to as
+      "-" and "+".
+      <P>
+      A full factorial design contains all possible combinations
+      of low/high levels for all the factors.  A fractional
+      factorial design contains a carefully chosen subset
+      of these combinations.  The criterion for
+      <a href="../../pri/section3/pri334.html">choosing the
+      subsets</a> is discussed in detail in the process improvement
+      chapter.
+      <P>
+      The Yates algorithm exploits the special structure of these
+      designs to generate least squares estimates for factor effects
+      for all factors and all relevant interactions.
+      <P>
+      The mathematical details of the Yates algorithm are given
+      in chapter 10 of
+      <a href="../section4/eda43.html#BHH">Box, Hunter, and
+      Hunter (1978)</a>.  <a href="../section4/eda43.html#Natrella">Natrella (1963)</a>
+      also provides a procedure for testing the significance of effect
+      estimates.
+      <P>
+      The effect estimates are typically complemented by a number
+      of graphical techniques such as the
+      <a href="dexmeanp.html">DOE mean plot</a> and the
+      <a href="dexcont.html">DOE contour plot</a> ("DOE" represents
+      "design of experiments").  These are demonstrated in the
+      <a href="../../pri/section6/pri61.html">eddy current</a>
+      case study.
+
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <A NAME="yatesorder">
+      <I>
+      Yates Order
+      </I>
+      </A>
+   </td>
+   <td width=85% valign=top>
+      Before performing the Yates algorithm, the data should be
+      arranged in "Yates order".  That is, given <i>k</i> factors, the
+      <i>k</i>th column consists of 2<sup><i>k</i>-1</sup> minus
+      signs (i.e., the low level of the factor) followed by
+      2<sup><i>k</i>-1</sup> plus signs (i.e., the high level of the
+      factor).  For example, for a full factorial design with three
+      factors, the design matrix is
+      <P>
+      <UL>
+      <PRE>
+- - -
++ - -
+- + -
++ + -
+- - +
++ - +
+- + +
++ + +
+      </PRE>
+      </UL>
+      <P>
+      Determining the Yates order for fractional factorial designs
+      requires knowledge of the
+      <a href="../../pri/section3/pri3343.html">confounding
+      structure</a> of the fractional factorial design.
+
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Yates Algorithm</I>
+</TD>
+<TD WIDTH=85%>
+The Yates algorithm is demonstrated for the
+<a href="../../pri/section6/pri611.html">eddy current</a>
+data set.  The data set contains eight measurements from a
+two-level, full factorial design with three factors.  The 
+purpose of the experiment is to identify factors that 
+have the most effect on eddy current measurements.
+<P>
+In the "Effect" column, we list the main effects and interactions
+from our factorial experiment in standard order.  In the "Response"
+column, we list the measurement results from our experiment in Yates order.  
+<PRE>
+Effect    Response  Col 1    Col 2    Col 3  Estimate
+------    --------  -----    -----    -----  --------
+Mean       1.70      6.27    10.21    21.27   2.65875
+X1         4.57      3.94    11.06    12.41   1.55125
+X2         0.55      6.10     5.71    -3.47  -0.43375
+X1*X2      3.39      4.96     6.70     0.51   0.06375
+X3         1.51      2.87    -2.33     0.85   0.10625
+X1*X3      4.59      2.84    -1.14     0.99   0.12375
+X2*X3      0.67      3.08    -0.03     1.19   0.14875
+X1*X2*X3   4.29      3.62     0.54     0.57   0.07125
+
+Sum of responses:           21.27			
+Sum-of-squared responses:   77.7707
+Sum-of-squared Col 3:      622.1656
+</PRE>
+The first four values in Col 1 are obtained by adding adjacent pairs of
+responses, for example 4.57 + 1.70 = 6.27, and 3.39 + 0.55 = 3.94.  The
+second four values in Col 1 are obtained by subtracting the same adjacent
+pairs of responses, for example, 4.57 - 1.70 = 2.87, and 3.39 - 0.55 = 2.84.
+The values in Col 2 are calculated in the same way, except that we are adding
+and subtracting adjacent values from Col 1.  Col 3 is computed using
+adjacent values from Col 2.  Finally, we obtain the "Estimate" column by
+dividing the values in Col 3 by the total number of responses, 8.
+<P>
+We can check our calculations by making sure that the first value in Col 3 
+(21.27) is the sum of all the responses.  In addition, the sum-of-squared 
+responses (77.7707) should equal the sum-of-squared Col 3 values divided by 
+8 (622.1656/8 = 77.7707).
+
+</TD>
+</TR>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Practical Considerations</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<P>
+The Yates algorithm provides a convenient method for computing effect 
+estimates; however, the same information is easily obtained from statistical
+software using either an analysis of variance or regression procedure.  
+The methods for analyzing data from a designed experiment
+are discussed more fully in the chapter on 
+<a href="../../pri/pri.html"> Process Improvement</a>.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Graphical Presentation</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The following plots may be useful to complement the 
+quantitative information from the Yates algorithm.
+<ol>
+   <li>Ordered data plot
+   <li>Ordered absolute effects plot
+   <li>Cumulative residual standard deviation plot
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Questions</I>
+   </td>
+   <td width=85% valign=top>
+     The Yates algorithm can be used to answer the following
+     question.
+     <OL>
+       <LI>What is the estimated effect of a factor on the response?
+     </OL> 
+      
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="eda355.html">Multi-factor analysis of variance</a><br>
+      <a href="dexmeanp.html">DOE mean plot</a><br>
+      <a href="blockplo.html">Block plot</a><br>
+      <a href="dexcont.html">DOE contour plot</a><br>
+   </td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Case Study</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+The analysis of a full factorial design is demonstrated in the
+<a href="../../pri/section6/pri61.html">eddy current</a>
+case study.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>Software</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+All statistical software packages are capable of estimating
+effects using an analysis of variance or least squares 
+regression procedure.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda35h3.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda35i1.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda35i.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:23 GMT -->
+</HTML>

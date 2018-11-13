@@ -1,0 +1,418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda366h.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:53:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.6.6.17. Beta Distribution</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda366i.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda366g.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda36.html">Probability Distributions</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.6.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda366.html">Gallery of Distributions</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.6.6.17.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Beta Distribution</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="PDF">
+Probability Density Function
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The general formula for the <a href="eda362.html#PDF">probability
+density function</a> of the beta distribution is
+<p>
+<!--
+<img src="eqns/betpdfg.gif" alt=
+ "f(x) = (x-a)^(p-1)*(b-x)^(q-1)/(B(p,q)*(b-a)^(p+q-1))
+ for   a <= x <= b, p, q > 0">
+-->
+\( f(x) = \frac{(x-a)^{p-1}(b-x)^{q-1}}{B(p,q) (b-a)^{p+q-1}}
+\hspace{.3in} a \le x \le b; p, q > 0 \)
+<p>
+where <i>p</i> and <i>q</i> are the <a href="eda363.html">shape
+parameters</a>, <i>a</i> and <i>b</i> are the lower and upper bounds,
+respectively, of the distribution, and <i>B</i>(<i>p</i>,<i>q</i>) is
+the beta function.  The beta function has the formula
+<p>
+<!--
+<img src="eqns/betafunc.gif" alt=
+     "B(alpha,beta) = INTEGRAL[0 to 1][t^(alpha-1)*(1-t)^(beta-1)dt]">
+-->
+\( B(\alpha,\beta) = \int_{0}^{1} {t^{\alpha-1}(1-t)^{\beta-1}dt} \)
+<p>
+The case where <i>a</i> = 0 and <i>b</i> = 1 is called the
+<b>standard beta distribution</b>.  The equation for the standard
+beta distribution is
+<p>
+<!--
+<img src="eqns/betpdf.gif" alt=
+     "f(x) = x^(p-1)*(1-x)^(q-1)/B(p,q) for 0 <= x <= 1, p, q > 0">
+-->
+\( f(x) = \frac{x^{p-1}(1-x)^{q-1}}{B(p,q)}  \hspace{.3in}
+0 \le x \le 1; p, q > 0 \)
+<p>
+Typically we define the general form of a distribution in terms of
+location and scale parameters.  The beta is different in that we
+define the general distribution in terms of the lower and upper
+bounds.  However, the location and scale parameters can be defined
+in terms of the lower and upper limits as follows:
+<UL>
+   location = <i>a</i>
+   <br>
+   scale = <i>b</i> - <i>a</i>
+</UL>
+Since the general form of probability functions can be 
+<a href="eda364.html#FORMULAS">expressed in terms of the standard
+distribution</a>, all subsequent formulas in this section are
+given for the standard form of the function.
+<p>
+The following is the plot of the beta probability density function
+for four different values of the shape parameters.
+<p>
+<img src="gif/betpdf4.gif" alt=
+     "plot of the Beta probability density function for 4 different values
+ of the shape parameters">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="CDF">
+Cumulative Distribution Function
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#PDF">cumulative distribution
+function</a> of the beta distribution is also called the incomplete
+beta function ratio (commonly denoted by <b><i>I<sub>x</sub></i></b>)
+and is defined as
+<ul>
+<!--
+<img src="eqns/betcdf.gif" alt="F(x) = I(x)(p,q) =
+ (1/B(p,q))*INTEGRAL[0 to x][t^(p-1)*(1-t)^(q-1) dt">
+-->
+\( F(x) = I_{x}(p,q) = \frac{\int_{0}^{x}{t^{p-1}(1-t)^{q-1}dt}}{B(p,q)}
+\hspace{.2in} 0 \le x \le 1; p, q > 0 \)
+</ul>
+where <b><i>B</i></b> is the beta function defined above.
+<P>
+The following is the plot of the beta cumulative distribution
+function with the same values of the shape parameters 
+as the pdf plots above.
+<p>
+<img src="gif/betcdf4.gif"
+alt="plot of the Beta cumulative distribution function with the same
+ values of the shape parameters as the pdf plots above">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="PPF">
+Percent Point Function
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formula for the <a href="eda362.html#PPF">percent point
+function</a> of the beta distribution does not exist in
+a simple closed form.  It is computed numerically.
+<p>
+The following is the plot of the beta percent point function with
+the same values of the shape parameters as the pdf plots above.
+<p>
+<img src="gif/betppf4.gif"
+alt="plot of the beta percent point function with the same values
+ of the shape parameters as the pdf plots above">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<A NAME="HAZARD">
+Other Probability Functions
+</A>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Since the beta distribution is not typically used for reliability
+applications, we omit the formulas and plots for the hazard,
+cumulative hazard, survival, and inverse survival probability
+functions.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Common Statistics
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The formulas below are for the case where the lower limit
+is zero and the upper limit is one.
+
+<table>
+
+   <tr>
+      <td valign=top width=30%>
+        Mean
+      </td>
+      <td valign=top width=70%>
+         <!-- <img src="eqns/betamean.gif" alt="p/(p+q)"> -->
+         \( \frac {p}{p + q} \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Mode
+      </td>
+      <td valign=top width=70%>
+         <!-- <img src="eqns/betamode.gif" alt="(p-1)/(p+q-2) p,q > 1"> -->
+         \( \frac {p-1}{p+q-2}  \hspace{.3in}  p, q > 1 \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Range
+      </td>
+      <td valign=top width=70%>
+         0 to 1
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Standard Deviation
+      </td>
+      <td width=70%>
+         <!--
+         <img src="eqns/betasd.gif" alt="SQRT[(p*q)/((p+q)^2*(p+q+1))]">
+         -->
+         \( \sqrt{\frac{pq}{(P+q)^{2}(p+q+1)}} \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Coefficient of Variation
+      </td>
+      <td valign=top width=70%>
+         <!-- <img src="eqns/betcoefv.gif" alt="SQRT(q/(p*(p+q+1)))"> -->
+         \( \sqrt{\frac{q}{p(p+q+1)}} \)
+      </td>
+    </tr>
+
+   <tr>
+      <td valign=top width=30%>
+        Skewness
+      </td>
+      <td valign=top width=70%>
+         <!--
+         <img src="eqns/betaskew.gif"
+              alt="SQRT[2*(q-p)*(SQRT(p+q+1)]/[(p+q+2)*SQRT(p*q)]">
+         -->
+         \( \frac {2(q-p)\sqrt{p+q+1}} {(p+q+2)\sqrt{pq}} \)
+      </td>
+    </tr>
+
+</table> 
+
+</TD>
+</TR>
+<!-- end paragraph -->
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Parameter Estimation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+First consider the case where <i>a</i> and <i>b</i> are assumed to
+be known.  For this case, the method of moments estimates are
+<ul>
+   <!--
+   <img src="eqns/betamom1.gif" alt="p = xbar*[(xbar*(1-xbar)/s^2) - 1]">
+   -->
+   \( p = \bar{x}(\frac{\bar{x}(1 - \bar{x})}{s^2} - 1) \)
+   <p>
+   <!--
+   <img src="eqns/betamom2.gif" alt="p = xbar*[(xbar*(1-xbar)/s^2) - 1]">
+   -->
+   \( q = (1 - \bar{x})(\frac{\bar{x}(1 - \bar{x})}{s^2} - 1) \)
+</ul>
+where <!-- <img align=absmiddle src="eqns/xbarlc.gif" alt="xbar"> -->
+\(\bar{x}\) is the sample mean and <b><i>s</i></b><sup>2</sup> is the
+sample variance.  If <i>a</i> and <i>b</i> are not 0 and 1, respectively,
+then replace \(\bar{x}\) with
+<!-- <img align=absmiddle src="eqns/xbarab.gif" alt="(xbar-a)/(b-a)"> -->
+\(\frac{\bar{x} - a}{b-a}\) and <i><b>s</b></i><sup>2</sup> with 
+<!-- <img align=absmiddle src="eqns/s2ab.gif" alt="s^2/((b-a)^2)"> -->
+\(\frac{s^2}{(b-a)^2}\) in the above equations.
+<p>
+For the case when <i>a</i> and <i>b</i> are known, the maximum
+likelihood estimates can be obtained by solving the following set
+of equations
+<ul>
+   <!--
+   <img src="eqns/betaml1.gif" alt=
+"psi(phat)-psi(phat+qhat)=(1/n)*SUM[i=1 to n][LOG[(Y(i)-b)/(b-a)]]">
+   -->
+\( \psi(\hat{p}) - \psi(\hat{p} + \hat{q}) = \frac{1}{n}
+\sum_{i=1}^{n}{\log(\frac{Y_i - a}{b - a})} \)
+   <p>
+   <!--
+   <img src="eqns/betaml2.gif" alt=
+"psi(phat)-psi(phat+qhat)=(1/n)*SUM[i=1 to n][LOG[(Y(i)-b)/(b-a)]]">
+   -->
+\( \psi(\hat{q}) - \psi(\hat{p} + \hat{q}) = \frac{1}{n}
+\sum_{i=1}^{n}{\log(\frac{b - Y_i}{b - a})} \)
+</ul>
+Maximum likelihood estimation for the case when <i>a</i> and
+<i>b</i> are not known can sometimes be problematic.  Chapter 14 of
+<a href="../section4/eda43.html#Bury">Bury</a> discusses both moment
+and maximum likelihood estimation for this case.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Software
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Most general purpose statistical software programs support at
+least some of the probability functions for the beta distribution.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda366g.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda366i.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda366h.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:53:13 GMT -->
+</HTML>

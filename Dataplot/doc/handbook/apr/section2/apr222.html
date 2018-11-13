@@ -1,0 +1,553 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr222.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:19 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.2.2.2. Hazard and cumulative hazard plotting</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr223.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr221.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr2.html">Assumptions/Prerequisites</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr22.html">How do you plot reliability data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.2.2.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Hazard and cumulative hazard plotting</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Cumulative Hazard Plotting has the same purpose as probability
+plotting</i>
+</td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+Similar to probability plots, cumulative hazard plots are used for 
+visually examining distributional model assumptions for reliability 
+data and have a similar interpretation as probability plots.
+The cumulative hazard plot consists of a plot of the 
+<a href="../section1/apr123.html">cumulative hazard \(H(t_i)\)</a>
+<!-- <i>H</i>(<i>t<sub>i</sub></i>)</a> -->
+versus the time \(t_i\)
+<!-- <i>t<sub>i</sub></i> -->
+of the \(i\)-th
+<!-- <i>i</i>-th -->
+failure. 
+As with probability plots, the plotting positions are calculated
+independently of the model and a reasonable straight-line
+fit to the points confirms that the chosen model and the 
+data are consistent.&nbsp;
+<p>
+<b>Advantages of Cumulative Hazard Plotting</b>
+<ol>
+<li>
+It is much easier to calculate plotting positions for multicensored data
+using cumulative hazard plotting techniques.&nbsp;</li>
+<li>
+The most common reliability distributions, the exponential and the Weibull,
+are easily plotted.&nbsp;</li>
+</ol>
+
+<b>Disadvantages of Cumulative Hazard Plotting</b>
+<ol>
+<li>
+It is less intuitively clear just what is being plotted. In a probability plot, 
+the cumulative percent failed is meaningful and the resulting straight-line
+fit can be used to identify times when desired percentages of the population
+will have failed. The percent cumulative hazard can increase beyond 100 % and is
+harder to interpret.</li>
+<li>
+Normal cumulative hazard plotting techniques require exact times of failure and
+running times.</li>
+<li>
+Since computers are able to calculate <a href="apr214.html">K-M estimates</a>
+for probability plotting, the main advantage of cumulative hazard plotting goes
+away.</li>
+</ol>
+
+Since probability plots are generally more useful, we will only give a
+brief description of hazard plotting.&nbsp;
+<p>
+<b>How to Make Cumulative Hazard Plots</b>
+<ol>
+<li>
+Order the failure times and running times for each of the \(n\)
+<!-- <i>n</i> -->
+units on test in ascending order from 1 to \(n\)
+<!-- <i>n</i>. -->
+The order is called the rank of the unit. Calculate the 
+reverse rank for each unit (reverse rank = \(n - \mbox{rank} + 1\)).
+<!-- =<i> n</i>- rank +1). -->
+</li>
+<li>
+Calculate a hazard "value" for every failed unit (do this only for the
+failed units). The hazard value for the failed unit with reverse rank \(k\)
+<!-- <i>k</i> -->
+is just \(1/k\).
+<!-- 1/<i>k</i>. -->
+</li>
+<li>
+Calculate the cumulative hazard values for each failed unit. The cumulative
+hazard value corresponding to a particular failed unit is the sum of all
+the hazard values for failed units with ranks up to and including that
+failed unit.&nbsp;</li>
+<li>
+Plot the time of failure versus the cumulative hazard value.  Linear 
+\(x\) and \(y\)
+<!-- <i>x</i> and <i>y</i> -->
+scales are appropriate for an exponential distribution, while
+a log-log scale is appropriate for a Weibull distribution.
+</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>A life test cumulative hazard plotting example</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<b>Example:</b> Ten units were tested at high
+stress test for up to 250 hours. Six failures occurred at 37, 73, 132,
+195, 222 and 248 hours. Four units were taken off test without failing
+at the following run times: 50, 100, 200 and 250 hours. Cumulative hazard 
+values were computed in the following table.
+<p>
+<center><table BORDER COLS=6 WIDTH="100%" >
+<tr>
+<td>
+<center>(1)
+<br>Time of Event</center>
+</td>
+
+<td>
+<center>(2)
+<br>1= failure
+<br>0=runtime</center>
+</td>
+
+<td>
+<center>(3)
+<br>Rank</center>
+</td>
+
+<td>
+<center>(4)
+<br>Reverse Rank</center>
+</td>
+
+<td>
+<center>(5)
+<br>Haz Val
+<br>(2) x 1/(4)</center>
+</td>
+
+<td>
+<center>(6)
+<br>Cum Hazard Value</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>37</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>1/10</center>
+</td>
+
+<td>
+<center>.10</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>50</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>2</center>
+</td>
+
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>&nbsp;</center>
+</td>
+
+<td>
+<center>&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>73</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>3</center>
+</td>
+
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>1/8</center>
+</td>
+
+<td>
+<center>.225</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>100</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>7</center>
+</td>
+
+<td>
+<center>&nbsp;</center>
+</td>
+
+<td>
+<center>&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>132</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>1/6</center>
+</td>
+
+<td>
+<center>.391</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>195</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>6</center>
+</td>
+
+<td>
+<center>5</center>
+</td>
+
+<td>
+<center>1/5</center>
+</td>
+
+<td>
+<center>.591</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>200</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>7</center>
+</td>
+
+<td>
+<center>4</center>
+</td>
+
+<td>
+<center>&nbsp;</center>
+</td>
+
+<td>
+<center>&nbsp;</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>222</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>8</center>
+</td>
+
+<td>
+<center>3</center>
+</td>
+
+<td>
+<center>1/3</center>
+</td>
+
+<td>
+<center>.924</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>248</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>9</center>
+</td>
+
+<td>
+<center>2</center>
+</td>
+
+<td>
+<center>1/2</center>
+</td>
+
+<td>
+<center>1.424</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>250</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>10</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+
+<td>
+<center>&nbsp;</center>
+</td>
+
+<td>
+<center>&nbsp;</center>
+</td>
+</tr>
+</table></center>
+
+<p>
+Next ignore the rows with no cumulative hazard value and plot column (1) vs
+column (6).
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Plots of example data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<b>
+<a href="../section1/apr161.html">Exponential</a> 
+and
+<a href="../section1/apr162.html">Weibull</a> Cumulative Hazard Plots</b>
+<p>
+The cumulative hazard for the 
+<a href="../section1/apr161.html#Formula's and Plots">exponential</a> distribution
+is just \(H(t) = \alpha t\),
+<!-- <i>H</i>(<i>t</i>) = <i>&alpha; t</i>, -->
+which is linear in \(t\)
+<!-- <i>t</i> -->
+with an intercept of zero. So a simple linear graph of \(y\)
+<!-- <i>y</i> -->
+= column (6) versus \(x\)
+<!-- <i>x</i> -->
+= column (1) 
+should line up as approximately a straight line going through 
+the origin with slope \(\lambda\)
+<!-- <i>&lambda;</i> -->
+if the exponential model is appropriate. 
+The cumulative hazard plot for exponential distribution is shown below.
+
+<center>
+<img SRC="apr222_r01.gif" ALT="Exponential cumulative hazard plot" height=400 width=475>
+</center>
+
+The cumulative hazard for the <a href="../section1/apr162.html#Formula'sand">Weibull</a>
+distribution is \(H(t) = (t/\alpha)^\gamma\),
+<!-- <i>H</i>(<i>t</i>) = (<i>t / &alpha;</i>)<sup><i>&gamma;</i></sup>, -->
+so a plot of \(y\) versus \(x\)
+<!-- <i>y</i> versus <i>x</i> -->
+on a log-log scale should resemble a straight line with slope \(\gamma\)
+<!-- <i>&gamma;</i> -->
+if the Weibull model is appropriate. The cumulative
+hazard plot for the Weibull distribution is shown below.
+
+<center>
+<img SRC="apr222_r02.gif" ALT="Plot of Weibull cumulative hazard" height=400 width=475>
+</center>
+A least-squares regression fit of the data (using base 10 logarithms to transform 
+columns (1) and (6)) indicates that the estimated slope for the Weibull
+distribution is 1.27, which is fairly similar to the exponential model slope of 1. 
+The Weibull fit looks somewhat better than the exponential fit; however, with a sample
+of just 10, and only 6 failures, it is difficult to pick a model from the
+data alone.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Software</i></td>
+
+<td VALIGN=TOP WIDTH="85%">
+The analyses in this section can can be implemented using both 
+<a href="apr222.dp">Dataplot code</a> and <a href="apr222.r">R code</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr221.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr223.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr222.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:25 GMT -->
+</HTML>

@@ -1,0 +1,900 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc436.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:31 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.3.6. Example of Triple Exponential Smoothing</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc437.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc435.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc43.html">What is Exponential Smoothing?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.3.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Example of Triple Exponential Smoothing</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<I>
+Example comparing single, double, triple exponential smoothing
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+This example shows comparison of single, double and triple exponential
+smoothing for a data set.
+<p>
+The following data set represents 24 observations.  These are
+six years of quarterly data (each year has four quarters).
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Table showing the data for the example
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<center>
+<table width=360>
+<tr>
+   <th align=center valign=top>
+      &nbsp
+   </th>
+   <th align=center valign=top>
+      Quarter
+   </th>
+   <th align=center valign=top>
+      Period
+   </th>
+   <th align=center valign=top>
+      Sales
+   </th>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <th align=center valign=top>
+      &nbsp
+   </th>
+   <th align=center valign=top>
+      Quarter
+   </th>
+   <th align=center valign=top>
+      Period
+   </th>
+   <th align=center valign=top>
+      Sales
+   </th>
+</tr>
+<tr>
+   <td colspan=9>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      90
+   </th>
+   <td align=center valign=top>
+      1
+   </td>
+   <td align=center valign=top>
+      1
+   </td>
+   <td align=center valign=top>
+      362
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      93
+   </th>
+   <td align=center valign=top>
+      1
+   </td>
+   <td align=center valign=top>
+      13
+   </td>
+   <td align=center valign=top>
+      544
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      2
+   </td>
+   <td align=center valign=top>
+      2
+   </td>
+   <td align=center valign=top>
+      385
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      2
+   </td>
+   <td align=center valign=top>
+      14
+   </td>
+   <td align=center valign=top>
+      582
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp
+   </th>
+   <td align=center valign=top>
+      3
+   </td>
+   <td align=center valign=top>
+      3
+   </td>
+   <td align=center valign=top>
+      432
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp
+   </th>
+   <td align=center valign=top>
+      3
+   </td>
+   <td align=center valign=top>
+      15
+   </td>
+   <td align=center valign=top>
+      681
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      4
+   </td>
+   <td align=center valign=top>
+      4
+   </td>
+   <td align=center valign=top>
+      341
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      4
+   </td>
+   <td align=center valign=top>
+      16
+   </td>
+   <td align=center valign=top>
+      557
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      91
+   </th>
+   <td align=center valign=top>
+      1
+   </td>
+   <td align=center valign=top>
+      5
+   </td>
+   <td align=center valign=top>
+      382
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      94
+   </th>
+   <td align=center valign=top>
+      1
+   </td>
+   <td align=center valign=top>
+      17
+   </td>
+   <td align=center valign=top>
+      628
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      2
+   </td>
+   <td align=center valign=top>
+      6
+   </td>
+   <td align=center valign=top>
+      409
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      2
+   </td>
+   <td align=center valign=top>
+      18
+   </td>
+   <td align=center valign=top>
+      707
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp
+   </th>
+   <td align=center valign=top>
+      3
+   </td>
+   <td align=center valign=top>
+      7
+   </td>
+   <td align=center valign=top>
+      498
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp
+   </th>
+   <td align=center valign=top>
+      3
+   </td>
+   <td align=center valign=top>
+      19
+   </td>
+   <td align=center valign=top>
+      773
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      4
+   </td>
+   <td align=center valign=top>
+      8
+   </td>
+   <td align=center valign=top>
+      387
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      4
+   </td>
+   <td align=center valign=top>
+      20
+   </td>
+   <td align=center valign=top>
+      592
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      92
+   </th>
+   <td align=center valign=top>
+      1
+   </td>
+   <td align=center valign=top>
+      9
+   </td>
+   <td align=center valign=top>
+      473
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      95
+   </th>
+   <td align=center valign=top>
+      1
+   </td>
+   <td align=center valign=top>
+      21
+   </td>
+   <td align=center valign=top>
+      627
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      2
+   </td>
+   <td align=center valign=top>
+      10
+   </td>
+   <td align=center valign=top>
+      513
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      2
+   </td>
+   <td align=center valign=top>
+      22
+   </td>
+   <td align=center valign=top>
+      725
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp
+   </th>
+   <td align=center valign=top>
+      3
+   </td>
+   <td align=center valign=top>
+      11
+   </td>
+   <td align=center valign=top>
+      582
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp
+   </th>
+   <td align=center valign=top>
+      3
+   </td>
+   <td align=center valign=top>
+      23
+   </td>
+   <td align=center valign=top>
+      854
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      4
+   </td>
+   <td align=center valign=top>
+      12
+   </td>
+   <td align=center valign=top>
+      474
+   </td>
+   <td align=center valign=top>
+      &nbsp;
+   </td>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <td align=center valign=top>
+      4
+   </td>
+   <td align=center valign=top>
+      24
+   </td>
+   <td align=center valign=top>
+      661
+   </td>
+</tr>
+</table>
+</center>
+<!-- <img SRC="eqns/ts25.gif" height=356 width=389> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot of raw data with single, double, and triple exponential
+forecasts
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<img SRC="gifs/tseries6.gif" height=267 width=400
+     ALT="Plot of raw data with single, double, and triple
+ exponential forecasts">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot of raw data with triple exponential forecasts
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<center>
+<b>Actual Time Series with forecasts</b>
+</center>
+<p>
+<img SRC="gifs/tseries7.gif" height=267 width=400
+     ALT="Plot of raw data with triple exponential forecasts">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Comparison of MSEs
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<center>
+<table>
+<caption align=center>
+<b><font size=+1>Comparison of MSEs</font></b>
+</caption>
+<tr>
+   <th align=center valign=bottom>
+      MSE
+   </th>
+   <th align=center valign=bottom>
+      \(\alpha\)
+      <!-- <img src="eqns/alpha.gif" alt="alpha"> -->
+      <br>
+      demand
+   </th>
+   <th align=center valign=bottom>
+      \(\gamma\)
+      <!-- <img src="eqns/gamma.gif" alt="gamma"> -->
+      <br>
+      trend
+   </th>
+   <th align=center valign=bottom>
+      \(\beta\)
+      <!-- <img src="eqns/beta.gif" alt="beta"> -->
+      <br>
+      seasonality
+   </th>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td align=center valign=bottom>
+      6906
+   </td>
+   <td align=center valign=bottom>
+      0.4694
+   </td>
+   <td align=center valign=bottom>
+      &nbsp;
+   </td>
+   <td align=center valign=bottom>
+      &nbsp;
+   </td>
+</tr>
+<tr>
+   <td align=center valign=bottom>
+      5054
+   </td>
+   <td align=center valign=bottom>
+      0.1086
+   </td>
+   <td align=center valign=bottom>
+      1.0000
+   </td>
+   <td align=center valign=bottom>
+      &nbsp;
+   </td>
+</tr>
+<tr>
+   <td align=center valign=bottom>
+      936
+   </td>
+   <td align=center valign=bottom>
+      1.0000
+   </td>
+   <td align=center valign=bottom>
+      &nbsp;
+   </td>
+   <td align=center valign=bottom>
+      1.0000
+   </td>
+</tr>
+<tr>
+   <td align=center valign=bottom>
+      520
+   </td>
+   <td align=center valign=bottom>
+      0.7556
+   </td>
+   <td align=center valign=bottom>
+      0.0000
+   </td>
+   <td align=center valign=bottom>
+      0.9837
+   </td>
+</tr>
+</table>
+</center>
+<p>
+<!-- <img SRC="eqns/ts31.gif" height=188 width=237> -->
+The updating coefficients were chosen by a computer program such
+that the MSE for each of the methods was minimized.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Example of the computation of the Initial Trend</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Computation of initial trend
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The data set consists of quarterly sales data.  The season is
+1 year and since there are 4 quarters per year, \(L=4\).
+<!-- <i>L</i> = 4. -->
+Using the formula we obtain:
+
+$$ \begin{eqnarray}
+b_1 & = & \frac{1}{4} \left[ \left( \frac{y5-y1}{4} \right) + \left( \frac{y6-y2}{4} \right) 
+       + \left( \frac{y7-y3}{4} \right) + \left( \frac{y8-y4}{4} \right) \right] \\
+   &   &  \\
+   &   &  \\
+   & = & \frac{1}{4} \left[ \left( \frac{382-362}{4} \right) + \left( \frac{409-385}{4} \right) 
+       + \left( \frac{498-432}{4} \right) +  \left( \frac{387-341}{4} \right) \right] \\ 
+   &   &  \\
+   &   &  \\
+   & = & \frac{5 + 6 + 16.5 + 11.5}{4} = 9.75 \, .
+\end{eqnarray} $$
+
+<center>
+<!-- <img SRC="eqns/ts32.gif" height=180 width=397 ALT= -->
+<!--
+<img src="eqns/b1.gif" alt=
+"b1 = (1/4)*[(y5-y4)/4] + [(y6-y2)/4] + [(y7-y3)/4] + [(y8-y4)/4];
+    = (1/4)[(382-362)/4] + [(409-385)/4] + [(498-432)/4] +
+ [(387-341)/4]; = (5 + 6 + 16.5 + 11.5)/4 = 9.75">
+-->
+</center>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Example of the computation of the Initial Seasonal Indices</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Table of initial seasonal indices
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<center>
+<table width=300>
+<tr>
+   <th align=center valign=top>
+      &nbsp;
+   </th>
+   <th align=center valign=top>
+      1
+   </th>
+   <th align=center valign=top>
+      2
+   </th>
+   <th align=center valign=top>
+      3
+   </th>
+   <th align=center valign=top>
+      4
+   </th>
+   <th align=center valign=top>
+      5
+   </th>
+   <th align=center valign=top>
+      6
+   </th>
+</tr>
+<tr>
+   <td colspan=7>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      1
+   </th>
+   <td align=center valign=top>
+      362
+   </td>
+   <td align=center valign=top>
+      382
+   </td>
+   <td align=center valign=top>
+      473
+   </td>
+   <td align=center valign=top>
+      544
+   </td>
+   <td align=center valign=top>
+      628
+   </td>
+   <td align=center valign=top>
+      627
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      2
+   </th>
+   <td align=center valign=top>
+      385
+   </td>
+   <td align=center valign=top>
+      409
+   </td>
+   <td align=center valign=top>
+      513
+   </td>
+   <td align=center valign=top>
+      582
+   </td>
+   <td align=center valign=top>
+      707
+   </td>
+   <td align=center valign=top>
+      725
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      3
+   </th>
+   <td align=center valign=top>
+      432
+   </td>
+   <td align=center valign=top>
+      498
+   </td>
+   <td align=center valign=top>
+      582
+   </td>
+   <td align=center valign=top>
+      681
+   </td>
+   <td align=center valign=top>
+      773
+   </td>
+   <td align=center valign=top>
+      854
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      4
+   </th>
+   <td align=center valign=top>
+      341
+   </td>
+   <td align=center valign=top>
+      387
+   </td>
+   <td align=center valign=top>
+      474
+   </td>
+   <td align=center valign=top>
+      557
+   </td>
+   <td align=center valign=top>
+      592
+   </td>
+   <td align=center valign=top>
+      661
+   </td>
+</tr>
+<tr>
+   <td colspan=7>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <th align=center valign=top>
+      \(\bar{X}\)
+      <!-- <img align=top src="eqns/xbar.gif" alt="Xbar"> -->
+   </th>
+   <th align=center valign=top>
+      380
+   </th>
+   <th align=center valign=top>
+      419
+   </th>
+   <th align=center valign=top>
+      510.5
+   </th>
+   <th align=center valign=top>
+      591
+   </th>
+   <th align=center valign=top>
+      675
+   </th>
+   <th align=center valign=top>
+      716.75
+   </th>
+</tr>
+</table>
+</center>
+<p>
+<!-- <img SRC="eqns/ts33.gif" height=188 width=276 align=ABSCENTER> -->
+In this example we used the full 6 years of data.  Other schemes may
+use only 3, or some other number of years.  There are also a number
+of ways to compute initial estimates.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc435.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc437.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc436.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:33 GMT -->
+</HTML>

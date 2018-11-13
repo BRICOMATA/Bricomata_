@@ -1,0 +1,278 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section4/mpc443.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:47 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.4.4.3. Analysis of stability</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc444.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc442.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc4.html">Gauge R & R studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc44.html">Analysis of variability</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.4.4.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Analysis of stability</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<I>Case study: <A HREF="../section6/mpc61.html">Resistivity probes</I></A>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+Run-to-run variability can be assessed graphically by a
+<A HREF="../section6/mpc614.html">plot of check standard values</A>
+(averaged over <I>J</I> repetitions) versus time with a separate graph
+for each check standard. Data on all check standards should be plotted
+on one page to obtain an overall view of the measurement situation.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<I>Advantage of pooling</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+A <A HREF="mpc44.html">level-3 standard deviation</A> with
+(<I>L</I> - 1) degrees of freedom is computed from the run averages.
+Because there will rarely be more than two runs per check standard, 
+resulting in one degree of freedom per check standard, it is prudent 
+to have three or more check standards in the design to take
+advantage of pooling.  The mechanism for pooling over check standards
+is shown in the table below.  The pooled standard deviation has <br />
+<I>Q</I>(<I>L</I> - 1) degrees and is shown as the last entry in the
+right-hand column of the table.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<I>Example of pooling</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+The following table shows how the level-3 standard deviations for a 
+single gauge (probe #2362) are pooled over check standards.  The 
+table can be reproduced using <br /> 
+<A HREF="mpc443a.r">R code</A>.
+<P>
+<UL>
+<TABLE BORDER=1>
+<CAPTION>
+<B>Level-3 standard deviations for a single gauge pooled over
+check standards</B>
+</CAPTION>
+<TR>
+<TD WIDTH=99><B>Source of variability</B></TD>
+<TD WIDTH=88><CENTER><B>Standard deviation</B></CENTER></TD>
+<TD WIDTH=88><CENTER><B>Degrees of freedom</B></CENTER></TD>
+<TD WIDTH=88><CENTER><B>Sum of squares</B></CENTER></TD>
+</TR>
+
+<TR>
+<TD WIDTH=99><B>Level-3</B></TD>
+<TD WIDTH=88><CENTER> \( {\large s}_{3i} \) <!-- <IMG SRC="mpc443b_new.gif" ALT="s3"> --> </CENTER></TD>
+<TD WIDTH=88><CENTER> \( \nu_i\) <!-- <IMG SRC="mpc443e_new.gif" ALT="nu(i)"> --> </CENTER></TD>
+<TD WIDTH=88><CENTER> \( SS_{i} = v_{i} \cdot {s_{3i}}^{2} \)
+<!-- <IMG SRC="mpc443d_new.gif" ALT="SS=SUM[nu(i)*s3(i)2]"> --> </CENTER></TD>
+</TR>
+
+<TR>
+<TD WIDTH=88>
+<PRE>
+
+Chk std 138
+
+Chk std 139
+
+Chk std 140
+
+Chk std 141
+
+Chk std 142
+
+<B>Sum
+
+
+Pooled value</B></pre>
+\( s_{3} = \sqrt{ \sum{SS_{i}} / \sum{v_{i}} } \)
+<!-- <IMG SRC="mpc443c_new.gif" ALT="s3 = SQRT(SS/SUM[nu(i)])"> -->
+</TD>
+<TD WIDTH=88>
+<PRE>
+<CENTER>
+  0.0223  
+
+  0.0027  
+
+  0.0289  
+
+  0.0133  
+
+  0.0205  
+
+
+
+
+
+
+</CENTER>
+</PRE>
+</TD>
+<TD WIDTH=88>
+<PRE>
+<CENTER>
+1
+
+1
+
+1
+
+1
+
+1
+   -----   
+5
+
+
+
+
+</CENTER>
+</PRE>
+</TD>
+<TD WIDTH=88>
+<PRE>
+<CENTER>
+0.0004973
+
+0.0000073
+
+0.0008352
+
+0.0001769
+
+0.0004203
+-----------
+0.0019370
+
+
+<B>0.0197</B>
+
+</CENTER>
+</PRE>
+</TD>
+</TR>
+</TABLE>
+</UL>
+</TD>
+</TR>
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Level-3 standard deviations</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+A <A HREF="mpc441.html">subset of data</A> collected in a nested design
+on one check standard (#140) with probe (#2362) for six days and two
+runs is analyzed for between-run effects.  The level-3 standard 
+deviation, computed from the averages of two runs, is 0.02885 with one 
+degree of freedom.
+<A HREF="mpc443.dp">Dataplot code</A> and <A HREF="mpc443.r">R code</A>
+can be used to perform the calculations for this data.
+</TD>
+</TR>
+
+<TD WIDTH=15% VALIGN=top><!-- begin paragraph -->
+<I>Relationship to long-term changes, days and gauge precision</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+The size of the between-run effect can be calculated by subtraction
+using the standard deviations for days and gauge precision as
+
+$$ {\large s}_{runs} = \sqrt{{\large s}_3^2 - \frac{1}{K} {\large s}_2^2}
+  = \sqrt{{\large s}_3^2 - \frac{1}{k} {\large s}_{days}^2 - \frac{1}{KJ} {\large s}_1^2} $$
+<!--
+<UL>
+<IMG SRC="mpc443a.gif"
+     ALT="s(runs) = SQRT{s3**2 - (1/K)*s2**2} =
+ SQRT{s3**2 - (1/K)*s(days)**2 - (1/(K*J))*s1**2}">
+</UL>
+-->
+</TD>
+</TR>
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc442.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc444.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section4/mpc443.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:59:50 GMT -->
+</HTML>

@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda357.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:04 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.3.5.7. Bartlett's Test</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda358.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda356.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda3.html">EDA Techniques</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.3.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda35.html">Quantitative Techniques</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.3.5.7.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Bartlett's Test</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Purpose:<br>
+         Test for Homogeneity of Variances
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Bartlett's test (<a href="../section4/eda43.html#Snedecor">Snedecor and Cochran, 1983</a>) 
+      is used to test if <i>k</i>
+      samples have equal variances.  Equal variances across samples is
+      called homogeneity of variances.  Some statistical tests, for
+      example the analysis of variance, assume that variances
+      are equal across groups or samples.  The Bartlett test can
+      be used to verify that assumption.
+      <p>
+      Bartlett's test is sensitive to departures from normality.
+      That is, if your samples come from non-normal distributions,
+      then Bartlett's test may simply be testing for non-normality.
+      The <a href="eda35a.html">Levene test</a> is an alternative to
+      the Bartlett test that is less sensitive to departures from
+      normality.
+
+   </td>
+</tr>
+
+<!-----begin section: definition -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Definition
+      </I>
+   </td>
+   <td width=85% valign=top>
+      The Bartlett test is defined as:
+      <table>
+      <tr>
+         <td>
+            H<sub>0</sub>:
+         </td>
+         <td>
+            <big>&sigma;</big><sub>1</sub><sup>2</sup> =
+            <big>&sigma;</big><sub>2</sub><sup>2</sup> = ...  =
+            <big>&sigma;</big><sub>k</sub><sup>2</sup>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            H<sub>a</sub>:  
+         </td>
+         <td valign=top>
+            <big>&sigma;</big><sub><i>i</i></sub><sup>2</sup> &ne;
+            <big>&sigma;</big><sub><i>j</i></sub><sup>2</sup>
+            &nbsp;&nbsp;&nbsp;for at least one pair
+            (<i>i</i>,<i>j</i>).
+         </td>
+       </tr>
+      <p>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td valign=top>
+            The Bartlett test statistic is designed to test for
+            equality of variances across groups against the
+            alternative that variances are unequal for at least
+            two groups.
+            <p>
+               <!--
+               <img src="eda357_e2.gif"
+  alt="T = [(N-k)*ln(sp**2) - SUM(Ni - 1)*ln(si**2)]/
+[1 + (1/(3*(k-1)))*((SUM(1/(Ni-1)) - 1/(N-k))] 
+where the summations are from 1 to k">
+               -->
+\[
+T = \frac{(N-k) \ln{s^{2}_{p}} - \sum_{i=1}^{k}(N_{i} - 1)\ln{s^{2}_{i}}}{1 + (1/(3(k-1)))((\sum_{i=1}^{k}{1/(N_{i} - 1))} - 1/(N-k))}
+\]
+            <p>
+            In the above, <b><i>s<sub>i</sub><sup>2</sup></i></b>
+            is the variance of the ith group, <i>N</i> is the total
+            sample size, <i>N<sub>i</sub></i> is the sample size of
+            the <i>i</i>th group, <i>k</i> is the number of groups, and
+            <b><i>s<sub>p</sub><sup>2</sup></i></b> is the
+            pooled variance.  The pooled variance
+            is a weighted average of the group variances
+            and is defined as:
+            <ul>
+               <!--
+               <img src="eda357_e3.gif"
+                    alt="Sp**2 = SUM(Ni-1)*si**2/(N-k) where the summation is from 1 to k">
+               -->
+               \[ s^{2}_{p} = \sum_{i=1}^{k}(N_{i} - 1)s^{2}_{i}/(N-k) \]
+            </ul>
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=top>
+            &nbsp; &nbsp; &nbsp;
+            <!-- <img src="eqns/alpha.gif" alt="alpha"> -->
+            <i>&alpha;</i>
+         </td>
+      </tr>
+      <p>
+      <tr>
+         <td valign=top>
+            Critical Region:
+         </td>
+         <td>
+            The variances are judged to be unequal if,
+            <ul>
+               <!--
+               <img align=middle src="eda357_e4.gif"
+                    alt="T > chisquare(1-alpha,k-1)">
+               -->
+               \( T > \chi^2_{1-\alpha, \, k-1} \)
+            </ul>
+            where 
+            <!--<img valign=absbottom src="eda357_e5.gif"
+            alt="chisquare(1-alpha,k-1)"> -->
+            \( \chi^2_{1-\alpha, \, k-1} \)
+            is the
+            <a href="eda3674.html">critical value</a> of the
+            <a href="eda3666.html">chi-square</a> distribution
+            with <i>k</i> - 1 degrees of freedom and a significance
+            level of 
+            <!-- <img src="eqns/alpha.gif" alt="alpha"> -->
+            <i>&alpha;</i>.
+         </td>
+       </tr>
+
+     </table>
+
+     <P>
+     An alternate definition
+     (<a href="../../prc/section5/prc5.html#Dixon, W.J and Massey, F.J (1969).  Introduction">Dixon and Massey, 1969</a>)
+     is based on an approximation to the F distribution.  
+     This definition is given in the
+     <a href="../../prc/section4/prc42.html">Product and Process
+     Comparisons</a> chapter (chapter 7).
+
+   </td>
+</tr>
+
+
+</TABLE>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<!-----begin section: sample output -->
+
+<tr>
+   <td width=15% valign=top>
+      <A NAME="sampleoutput">
+      <I>Example</I>
+      </A>
+   </td>
+   <td width=85% valign=top>
+      Bartlett's test was performed for the
+      <a href="eda3581.html">GEAR.DAT</a> data set.
+      The data set contains 10 measurements of gear 
+      diameter for ten different batches for a 
+      total of 100 measurements. 
+
+<PRE>
+H<SUB>0</SUB>:  &sigma;<SUB>1</SUB><sup>2</sup> = &sigma;<SUB>2</SUB><sup>2</sup> = ... = &sigma;<SUB>10</SUB><sup>2</sup> 
+H<SUB>a</SUB>:  At least one &sigma;<SUB>i</SUB><sup>2</sup> is not equal to the others.
+<P>
+Test statistic:  <I>T</I> = 20.78580
+Degrees of freedom:  <I>k</I> - 1 = 9
+Significance level:  <i>&alpha;</i> = 0.05
+Critical value:  <I>&Chi;</I><SUP>&thinsp;2</SUP><sub>1-<i>&alpha;</i>,<I>k</I>-1</sub> = 16.919
+Critical region: Reject H<SUB>0</SUB> if <I>T</I> > 16.919
+</PRE>
+
+We are testing the null hypothesis that the batch variances are all
+equal.  Because the test statistic is larger than the critical value,
+we reject the null hypotheses at the 0.05 significance level and 
+conclude that at least one batch variance is different from the others.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----begin section: questions -->
+<tr>
+   <td width=15% valign=top>
+      <I>Question
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Bartlett's test can be used to answer the following
+      question:
+      <ul>
+         <li>Is the assumption of equal variances valid?
+      </ul>
+   </td>
+</tr>
+
+<!-----begin section: importance -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Importance
+      </I>
+   </td>
+   <td width=85% valign=top>
+      Bartlett's test is useful whenever the assumption of
+      equal variances is made.  In particular, this
+      assumption is made for the frequently used one-way analysis
+      of variance.  In this case, Bartlett's or Levene's test
+      should be applied to verify the assumption.
+   </td>
+</tr>
+
+<!-----begin section: related techniques -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Related Techniques</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="sdplot.html">Standard Deviation Plot</a><br>
+      <a href="boxplot.html">Box Plot</a><br>
+      <a href="eda35a.html">Levene Test</a><br>
+      <a href="eda358.html">Chi-Square Test</a><br> 
+      <a href="eda354.html">Analysis of Variance</a><br>
+   </td>
+</tr>
+
+<!-----begin section: case study -->
+<tr>
+   <td width=15% valign=top>
+      <I>Case Study</I>
+   </td>
+   <td width=85% valign=top>
+      <a href="../section4/eda428.html">Heat flow meter</a> data
+   </td>
+</tr>
+
+<!-----begin section: Software -->
+
+<tr>
+   <td width=15% valign=top>
+      <I>Software</I>
+   </td>
+   <td width=85% valign=top>
+      The Bartlett test is available in many general purpose
+      statistical software programs.  Both <a href="eda357.dp">Dataplot
+      code</a> and <a href="eda357.r">R code</a> can be used to
+      generate the analyses in this section.
+</td>
+</tr>
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda356.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda358.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section3/eda357.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:51:06 GMT -->
+</HTML>

@@ -1,0 +1,983 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5311.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.3.1.1. Single response: Path of steepest ascent</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri5312.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri531.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri53.html">How do you optimize a process?</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.3.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri531.html">Single response case</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.3.1.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Single response: Path of steepest ascent</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Starting at the current operating conditions, fit a linear model</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+If experimentation is initially performed in a new, poorly understood
+production process, chances are that the initial operating conditions
+<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, ...,<i>X<sub>k</sub></i>
+are located far from the region where the factors achieve a maximum or
+minimum for the response of interest, <b><i>Y</i></b>.  A first-order model
+will serve as a good local approximation in a </i>small region close to
+the initial operating conditions and far from where the process
+exhibits curvature.  Therefore, it makes sense to fit a simple
+first-order (or linear polynomial) model of the form:
+<ul>
+   <a NAME="First order"></a>
+   <!--
+   <img SRC="gifs/img7.gif" height=18 width=247 align=CENTER
+        ALT="Yhat = b0 + b1*X1 + b2*X2 + ... + bk*Xk">
+   -->
+   \( \hat{Y} = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} +
+                \cdots + \beta_{k} X_{k} \)
+</ul>
+Experimental strategies for fitting this type of model were discussed
+earlier. Usually, a 2<sup><i>k</i>-<i>p</i></sup> fractional factorial
+experiment is conducted with repeated runs at the current operating
+conditions (which serve as the origin of coordinates in orthogonally
+coded factors).
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Determine the directions of steepest ascent and continue
+experimenting until no further improvement occurs - then iterate the
+process</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The idea behind "Phase I" is to keep experimenting along the direction
+of steepest ascent (or descent, as required) until there is no further
+improvement in the response.  At that point, a new fractional factorial
+experiment with center runs is conducted to determine a new search
+direction.  This process is repeated until at some point significant
+curvature in \( \hat{Y} \)
+<!-- <img SRC="gifs/img15.gif" ALT="Yhat"  align=BOTTOM> -->
+is detected.  This implies that the operating conditions
+<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, ...,<i>X<sub>k</sub></i> are
+close to where the maximum (or minimum, as required) of <b><i>Y</i></b>
+occurs.  When significant curvature, or lack of fit, is detected, the
+experimenter should proceed with "Phase II".  Figure 5.2 illustrates a
+sequence of line searches when seeking a region where curvature exists
+in a problem with 2 factors (i.e., <i>k=2</i>).
+<p>
+<!-- <center> -->
+<a NAME="66"></a><a NAME="fig2"></a>
+<!-- <img SRC="gifs/img19a.gif" height=173 width=537 -->
+<img SRC="gifs/img19a.gif"
+     ALT="Diagram showing a sequence of line searches">
+<br>
+<b>FIGURE 5.2:</b> <b>A Sequence of Line Searches for a 2-Factor
+Optimization Problem</b>
+<!-- </center> -->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Two main decisions: search direction and length of step
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+There are two main decisions an engineer must make in Phase I:
+<ol>
+   <li>determine the search direction;</li>
+   <li>determine the length of the step to move from the current
+       operating conditions.</li>
+</ol>
+Figure 5.3 shows a flow diagram of the different iterative tasks
+required in Phase I.  This diagram is intended as a guideline and
+should not be automated in such a way that the experimenter has no
+input in the optimization process.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Flow chart of iterative search process</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<!-- <center> -->
+<a NAME="74"></a><a NAME="fig3"></a>
+<!-- <img SRC="gifs/fig5.3.gif" height=642 width=500 -->
+<img SRC="gifs/fig5.3.gif"
+     ALT="Flow chart of the iterative search process">
+<center>
+<b>FIGURE 5.3: Flow Chart for the First Phase of the Experimental
+Optimization Procedure</b>
+<!-- </center> -->
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Procedure for Finding the Direction of Maximum Improvement</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+The direction of steepest ascent is determined by the gradient
+of the fitted model
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Suppose a first-order model (like <a href="#First order">above</a>) has
+been fit and provides a useful approximation.  As long as lack of fit
+(due to pure quadratic curvature and interactions) is very small
+compared to the main effects, steepest ascent can be attempted.  To
+determine the direction of maximum improvement we use
+<ol>
+   <li>the estimated direction of steepest ascent, given by the
+       gradient of \( \hat{Y} \),
+       <!-- <img SRC="gifs/img22.gif" ALT="Yhat"  align=BOTTOM>, -->
+       if the objective is to <i>maximize</i> <b><i>Y</i></b>;</li>
+   <li>the estimated direction of steepest descent, given by the
+       negative of the gradient of \hat{Y} \),
+       <!-- <img SRC="gifs/img23.gif" ALT="Yhat"  align=BOTTOM>, -->
+       if the objective is to <i>minimize</i> <b><i>Y</i></b>.</li>
+</ol>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>The direction of steepest ascent depends on the scaling convention
+- equal variance scaling is recommended</i>
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The direction of the gradient, <b><i>g</i></b>, is given by the values
+of the parameter estimates, that is,
+<b><i>g</i>' = (<i>b</i><sub>1</sub>, <i>b</i><sub>2</sub>, ...,
+<i>b<sub>k</sub></i>)</b>.
+Since the parameter estimates <b><i>b</i><sub>1</sub>,
+<i>b</i><sub>2</sub>, ..., <i>b<sub>k</sub></i></b>
+depend on the scaling convention for the factors, the steepest ascent
+(descent) direction is also scale dependent.  That is, two
+experimenters using different scaling conventions will follow different
+paths for process improvement.  This does not diminish the general
+validity of the method since the region of the search, as given by
+the signs of the parameter estimates, does not change with scale.  An
+equal variance scaling convention, however, is recommended.  The coded
+factors <b><i>x<sub>i</sub></i></b>, in terms of the factors in the
+original units of measurement, <b><i>X<sub>i</sub></i></b>,
+are obtained from the relation
+<ul>
+   <!-- <img SRC="gifs/img29.gif" align=BOTTOM ALT= -->
+   <!--
+   <img SRC="eqns/img29.gif" align=BOTTOM ALT=
+"x(i) = [X(i) - (X(low) + X(high))/2]/[(X(high) - X(low))/2],
+ i = 1, 2, ..., k">
+   -->
+   \( x_{i} = \frac{X_{i} -
+   \left( X_{\mbox{low}} + X_{\mbox{high}} \right)/2}
+   {\left( X_{\mbox{high}} - X_{\mbox{low}} \right)/2} \hspace{.5in}
+   i = 1, 2, \dots , k \)
+</ul>
+This coding convention is recommended since it provides parameter
+estimates that are scale independent, generally leading to a more reliable
+search direction.  The coordinates of the factor settings in the direction
+of steepest ascent, positioned a distance \( \rho \)
+<!-- <img SRC="gifs/img30.gif" ALT="rho" align=CENTER> -->
+from the origin, are given by:
+<ul>
+   \( \mbox{maximize} \hspace{.3in} \beta_{0} + \beta_{1}x_{1} +
+   \beta_{2}x_{2} + \cdots + \beta_{k}x_{k} \)
+   <!--
+   <img SRC="gifs/img31.gif" align=BOTTOM
+        ALT="Maximize b0 + b1*x1 + b2*x2 + ... + bk*xk">
+   -->
+   <p>
+   \( \mbox{subject to:} \hspace{.2in} \sum_{i=1}^{k}{x_{i}^{2}} \le
+   \rho^{2} \)
+   <!--
+   <img SRC="gifs/img32.gif" align=BOTTOM
+        ALT="subject to:  SUM[i=1 to k][x(i)**2] <= rho**2">
+   -->
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Solution is a simple equation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+This problem can be solved with the aid of an optimization solver
+(e.g., like the solver option of a spreadsheet).  However, in this
+case this is not really needed, as the solution is a simple equation
+that yields the coordinates
+<ul>
+   <a NAME="eq2">
+   <!--
+   <img SRC="gifs/img33.gif" align=BOTTOM ALT=
+   "x(i)* = rho - b(i)/SQRT(SUM[j=1 to k][b(j)^2])   i = 1, 2, ..., k">
+   -->
+   \( x_{i}^{*} = \rho \frac{\beta_{i}}
+   {\sqrt{\sum_{j=1}^{k}{\beta_{j}^{2}}}} \hspace{.5in} i = 1, 2, \ldots ,
+   k \).
+   </a>
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>Equation can be computed for increasing values of</i>
+<img SRC="gifs/img34.gif" ALT="rho" align=CENTER>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+An engineer can compute this equation for different increasing values
+of \( \rho \)
+<!-- <img SRC="gifs/img34.gif" ALT="rho" align=CENTER> -->
+and obtain different factor settings, all on the steepest ascent
+direction.
+<p>
+To see the details that explain this equation, see
+<a href="pri5311.html#5.A. Technical">Technical Appendix 5A.</a>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<a NAME="Example. Optimization of a Chemical"></a>
+<b>Example:  Optimization of a Chemical Process</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Optimization by search example</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+It has been concluded (perhaps after a factor screening experiment)
+that the yield (<b><i>Y</i></b>, in %) of a chemical process is mainly
+affected by the temperature (<b><i>X<sub>1</sub></i></b>, in <img
+SRC="gifs/img37.gif" height=7 width=6 align=TEXTTOP alt="degrees">C)
+and by the reaction time (<b><i>X<sub>2</sub></i></b>, in minutes).
+Due to safety reasons, the region of operation is limited to
+<ul>
+   &nbsp; 50 &le; <b><i>X</i><sub>1</sub></b> &le; 250
+   <br>
+   150 &le; <b><i>X</i><sub>2</sub></b> &le; 500
+   <!-- 
+   <img SRC="gifs/img39.gif" align=BOTTOM ALT=
+        "50 <= X1 <= 250;  150 <= X2 <= 500">
+   -->
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Factor levels
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The process is currently run at a temperature of 200
+\( ^{\circ} \mbox{C} \)
+<!-- <img SRC="gifs/img40.gif" height=7 width=6 align=TEXTTOP
+          alt="degrees">C -->
+and a reaction time of 200 minutes.  A process engineer decides to run a
+2<sup>2</sup> full factorial experiment with factor levels at
+<ul>
+   <table noborder width=250>
+   <tr>
+      <th valign=top align=center>
+         factor
+      </th>
+      <th valign=top align=center>
+         low
+      </th>
+      <th valign=top align=center>
+         center
+      </th>
+      <th valign=top align=center>
+         high
+      </th>
+   </tr>
+   <tr>
+      <td colspan=4>
+         <hr>
+      </td>
+   </tr>
+   <tr>
+      <th valign=top align=center>
+         X<sub>1</sub>
+      </th>
+      <td valign=top align=center>
+         170
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         230
+      </td>
+   </tr>
+   <tr>
+      <th valign=top align=center>
+         X<sub>2</sub>
+      </th>
+      <td valign=top align=center>
+         150
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         250
+      </td>
+   </tr>
+   </table>
+</ul>
+<!-- <img SRC="gifs/img42.gif" ALT=""  align=BOTTOM> -->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Orthogonally coded factors
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Five repeated runs at the center levels are conducted to assess lack
+of fit. The orthogonally coded factors are
+<ul>
+   <!-- <img SRC="gifs/img43.gif" align=BOTTOM -->
+   \( x_{1} = \frac{X_{1} - 200}{30} \hspace{.3in}\)
+   and
+   \( \hspace{.3in} x_{2} = \frac{X_{2} - 200}{50} \).
+   <!--
+   <img SRC="gifs/img43.gif" align=BOTTOM
+        ALT="x1 = (X1 - 200)/30  and x2 = (X2 - 200)/50)">
+   -->
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Experimental results
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The experimental results were:
+<ul>
+   <table border width=300>
+   <tr>
+      <th valign=top align=center>
+         x<sub>1</sub>
+      </th>
+      <th valign=top align=center>
+         x<sub>2</sub>
+      </th>
+      <th valign=top align=center>
+         X<sub>1</sub>
+      </th>
+      <th valign=top align=center>
+         X<sub>2</sub>
+      </th>
+      <th valign=top align=center>
+         Y (= yield)
+      </th>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         -1
+      </td>
+      <td valign=top align=center>
+         -1
+      </td>
+      <td valign=top align=center>
+         170
+      </td>
+      <td valign=top align=center>
+         150
+      </td>
+      <td valign=top align=center>
+         32.79
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         +1
+      </td>
+      <td valign=top align=center>
+         -1
+      </td>
+      <td valign=top align=center>
+         230
+      </td>
+      <td valign=top align=center>
+         150
+      </td>
+      <td valign=top align=center>
+         24.07
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         -1
+      </td>
+      <td valign=top align=center>
+         +1
+      </td>
+      <td valign=top align=center>
+         170
+      </td>
+      <td valign=top align=center>
+         250
+      </td>
+      <td valign=top align=center>
+         48.94
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         +1
+      </td>
+      <td valign=top align=center>
+         +1
+      </td>
+      <td valign=top align=center>
+         230
+      </td>
+      <td valign=top align=center>
+         250
+      </td>
+      <td valign=top align=center>
+         52.49
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         38.89
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         48.29
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         29.68
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         46.50
+      </td>
+   </tr>
+   <tr>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         0
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         200
+      </td>
+      <td valign=top align=center>
+         44.15
+      </td>
+   </tr>
+   </table>
+</ul>
+<!-- <img SRC="gifs/img44.gif" ALT=""  align=BOTTOM> -->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+ANOVA table
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The corresponding ANOVA table for a first-order polynomial model is
+<pre>
+                 SUM OF        MEAN    F
+<u>SOURCE</u>          <u>SQUARES</u>   <u>DF</u>  <u>SQUARE</u>  <u>VALUE</u>  <u>PROB>F</u>
+MODEL          503.3035   2  251.6517 4.7972 0.0687
+CURVATURE        8.2733   1    8.2733 0.1577 0.7077
+RESIDUAL       262.2893   5   52.4579
+  LACK OF FIT   37.6382   1   37.6382 0.6702 0.4590
+  PURE ERROR   224.6511   4   56.1628
+
+COR TOTAL      773.8660   8
+</pre>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Resulting model
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+It can be seen from the ANOVA table that there is no significant lack
+of linear fit due to an interaction term and there is no evidence of
+curvature.  Furthermore, there is evidence that the first-order model
+is significant.  The resulting model (in the coded variables) is
+
+
+<ul>
+   \( \hat{Y} = 40.644 - 1.2925 x_{1} + 11.14 x_{2} \)
+   <!--
+   <img SRC="pri5311_eq.gif" align=BOTTOM
+        ALT="Yhat = 40.64 - 1.2925*x1 + 11.14*x2">
+   -->
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Diagnostic checks
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The usual diagnostic checks show conformance to the regression
+assumptions, although the R<sup>2</sup> value is not very high:
+R<sup>2</sup> = 0.6504.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<I>
+Determine level of factors for next run using direction of
+steepest ascent
+</I>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+To <i>maximize</i> \( \hat{Y} \),
+<!-- <img SRC="gifs/img53.gif" ALT="Yhat" align=BOTTOM>, -->
+we use the direction of steepest ascent.  The engineer selects
+<!-- <img SRC="gifs/img30.gif" ALT="rho"  align=CENTER> -->
+\( \rho \) = 1 since a point on the steepest ascent direction one unit
+(in the coded units) from the origin is desired.  Then from the equation
+above for the predicted <i>Y</i> response, the coordinates of the factor
+levels for the next run are given by:
+<ul>
+   \( \begin{array}{lcl}
+      x_{1}^{*} & = & \frac{\rho
+      \beta_{1}}{\sqrt{\sum_{j=1}^{2}{\beta_{j}^{2}}}} \\
+      & = & \frac{(1)(-1.2925)}{\sqrt{(-1.2925)^{2} + (11.14)^2}} \\
+      & = & -0.1152
+      \end{array}
+   \)
+   <!-- <img SRC="gifs/img56.gif" align=BOTTOM ALT= -->
+   <!-- <img SRC="eqns/img56.gif" align=BOTTOM ALT=
+"x1* = rho*b1/SQRT(SUM[j=1 to 2][bj^2]) = (1)*(-1.2925)/
+SQRT((-1.2925)^2 + (11.14)^2) = -0.1152">
+   -->
+</ul>
+and
+<ul>
+   \( \begin{array}{lcl}
+      x_{2}^{*} & = & \frac{\rho
+      \beta_{2}}{\sqrt{\sum_{j=1}^{2}{\beta_{j}^{2}}}} \\
+      & = & \frac{(1)(11.14)}{\sqrt{(-1.2925)^{2} + (11.14)^2}} \\
+      & = & 0.9933
+      \end{array}
+   \)
+   <!-- <img SRC="gifs/img57.gif" align=BOTTOM ALT= -->
+   <!--
+   <img SRC="eqns/img57.gif" align=BOTTOM ALT=
+"x2* = rho*b2/SQRT(SUM[j=1 to 2][bj^2]) = (1)*(11.14)/
+SQRT((-1.2925)^2 + (11.14)^2) = 0.9933">
+   -->
+</ul>
+This means that to improve the process, for every
+(-0.1152)(30) = -3.456  \( ^{\circ} C \)
+<!-- <img SRC="gifs/img59.gif" height=7 width=6 align=TEXTTOP
+           alt="degrees">C -->
+that temperature is varied (decreased), the reaction time should be
+varied by (0.9933)(50) = 49.66 minutes.
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<!-- 
+===========================================================
+-->
+<hr>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<a NAME="5.A. Technical"></a>
+<b>Technical Appendix 5A: finding the factor settings on the steepest
+ascent direction a specified distance from the origin</b>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td ALIGN=LEFT VALIGN=TOP WIDTH="15%">
+<i>Details of how to determine the path of steepest ascent</i>
+</td>
+
+<td ALIGN=LEFT VALIGN=TOP WIDTH="85%">
+The problem of finding the factor settings on the steepest
+ascent/descent direction that are located a distance \( \rho \)
+<!-- <img SRC="gifs/img301.gif" ALT="rho"  align=CENTER> -->
+from the origin is given by the optimization problem,
+<ul>
+   \( \mbox{maximize} \hspace{.3in} \beta_{0} + \beta_{1}x_{1} +
+   \beta_{2}x_{2} + \cdots + \beta_{k}x_{k} \)
+   <!--
+   <img SRC="gifs/img31.gif" align=BOTTOM
+        ALT="Maximize b0 + b1*x1 + b2*x2 + ... + bk*xk">
+   -->
+   <br>
+   \( \mbox{subject to:} \hspace{.2in} \sum_{i=1}^{k}{x_{i}^{2}} \le
+   \rho^{2} \)
+   <!--
+   <img SRC="gifs/img32.gif" align=BOTTOM
+        ALT="subject to:  SUM[i=1 to k][x(i)**2] <= rho**2">
+   -->
+</ul>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Solve using a Lagrange multiplier approach
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+To solve it, use a Lagrange multiplier approach. First, add a penalty
+\( \lambda \)
+<!-- <img SRC="gifs/img304.gif" ALT="lambda"  align=BOTTOM> -->
+for solutions not satisfying the constraint (since we want a direction
+of steepest ascent, we maximize, and therefore the penalty is
+negative).  For steepest descent we minimize and the penalty term is
+added instead.
+<ul>
+   \( \mbox{maximize} \hspace{.3in} L = b'x - \lambda(x'x - \rho^{2}) \)
+   <!--
+   <img SRC="gifs/img305.gif" align=BOTTOM
+        ALT="maximize L = b'*x - lambda*(x'x - rho^2)">
+   -->
+</ul>
+Compute the partials and equate them to zero
+<ul>
+   \( \frac{\partial L}{\partial x} = b - 2 \lambda x = 0 \)
+   <!--
+   <img SRC="gifs/img306.gif" align=BOTTOM ALT=
+        "partial derivative L with respect to X = b - 2*lambda*x = 0">
+   -->
+   <p>
+   \( \frac{\partial L}{\partial \lambda} = -(x'x - \rho^{2}) = 0 \)
+   <!--
+   <img SRC="gifs/img307.gif" align=BOTTOM ALT=
+   "partial derivative L with respect to lambda = -(x'*x - rho^2) = 0">
+   -->
+</ul>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Solve two equations in two unknowns
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+These two equations have two unknowns (the vector <b><i>x</i></b> and
+the scalar \( \lambda \) )
+<!-- <img SRC="gifs/img309.gif" ALT="lambda" align=BOTTOM>) -->
+and thus can be solved yielding the desired solution:
+<ul>
+   \( x^{*} = \rho \frac{b} {\parallel b \parallel} \)
+   <!--
+   <img SRC="eqns/img310.gif" align=BOTTOM
+        ALT="x* = rho*[b/||b||]">
+   -->
+</ul>
+or, in non-vector notation:
+<ul>
+   \( x^{*} = \rho \frac{b_{i}} {\sqrt{\sum_{j=1}^{k}{b_{j}^{2}}}} 
+   \hspace{.3in} i = 1, 2, \ldots , k \)
+   <!--
+   <img SRC="eqns/img311.gif" align=BOTTOM
+        ALT="x*(i) = rho*[b(i)/SUM[j=1 to k][b(j)^2]]   i=1, 2, ..., k">
+   -->
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Multiples of the direction of the gradient
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+From this equation we can see that any multiple \( \rho \)
+<!-- <img SRC="gifs/img312.gif" ALT="rho" align=CENTER> -->
+of the direction of the gradient (given by
+\( \frac{b}{\parallel b \parallel} \) )
+<!-- <img SRC="gifs/img313.gif" ALT="b/||b||" align=CENTER>) -->
+will lead to points on the steepest ascent direction.  For steepest
+descent, use instead -<i>b<sub>i</sub></i> in the
+numerator of the equation above.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri531.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri5312.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri5311.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:19 GMT -->
+</HTML>

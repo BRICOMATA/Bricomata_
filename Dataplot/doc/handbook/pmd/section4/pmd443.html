@@ -1,0 +1,229 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd443.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:32 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.4.4.3. How can I tell if there was drift in the measurement process?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd444.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd442.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd4.html">Data Analysis for Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd44.html">How can I tell if a model fits my data?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.4.4.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How can I tell if there was drift in the measurement process?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Order Plots Reveal Drift in the Process</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="../../eda/section3/eda33p.html">"Run order" or "run sequence" plots</A> of
+the residuals are used to check for drift in the process.  The run order residual plot is
+a special type of scatter plot in which each residual is plotted versus an index that
+indicates the order (in time) in which the data were collected. This plot is useful,
+however, only if data have been collected in a randomized run order, or some other order that
+is not increasing or decreasing in any of the predictor variables used in the model. If
+the data have been collected in a time order that is increasing or decreasing with the 
+predictor variables, then any drift in the process may not be able to be separated from
+the functional relationship between the predictors and the response. This is why 
+randomization is emphasized in <A HREF="../section3/pmd33.html#rnd.r1">experiment design</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="pt.r1">Pressure / Temperature Example</A></I>
+</TD>
+<TD WIDTH=85%>
+To show in a more concrete way how run order plots work, the plot below shows 
+the residuals from a straight-line fit to the <A HREF="../section1/pmd11.html#pt.r1">
+Pressure/Temperature data</A> plotted in run order. 
+<!-- DEP --><A HREF="dep/dep443.html">Comparing</A> the run order plot to a listing of the data with
+the residuals shows how the residual for the first data point collected is plotted versus
+the run order index value 1, the second residual is plotted versus an index value of 2, 
+and so forth. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Sequence Plot for the Pressure / Temperature Data</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt7_f.gif"><IMG SRC="plots/mvpt7_r.gif" HEIGHT=425 WIDTH=550 BORDER=0 
+alt="run sequence plot for the pressure/temperature data">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>No Drift Indicated</I>
+</TD>
+<TD WIDTH=85%>
+Taken as a whole, this plot essentially shows 
+that there is only random scatter in the relationship between the observed pressures and 
+order in which the data were collected, rather than any systematic relationship. Although
+there appears to be a slight trend in the residuals when plotted in run order, the trend 
+is small when measured against short-term random variation in the data, indicating that 
+it is probably not a real effect. The presence of this apparent trend does emphasize, however, 
+that practice and judgment are needed to correctly interpret these plots. Although 
+residual plots are a very useful tool, if critical judgment is not used in their 
+interpretation, you can see things that aren't there or miss things that are. One hint
+that the slight slope visible in the data is not worrisome in this case is the fact that
+the residuals overlap zero across all runs. If the process was drifting significantly,
+it is likely that there would be some parts of the run sequence in which the 
+residuals would not overlap zero. If there is still some doubt about the slight trend 
+visible in the data after using this graphical procedure, a term describing the drift 
+can be added to the model and tested numerically to see if it has a significant impact 
+on the results.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="pt.r2">Modification of Example</A></I>
+</TD>
+<TD WIDTH=85%>
+To illustrate how the residuals from the Pressure/Temperature data would look
+if there were drift in the process, a modified version of the data was simulated.  
+A small drift of 0.3 units/measurement was added to the process.  A plot of the 
+data is shown below. In this run sequence plot a clear, strong trend is visible
+and there are portions of the run order where the residuals do not overlap zero.
+Because the structure is so evident in this case, it is easy to conclude that 
+some sort of drift is present. Then, of course, its cause needs to be determined
+so that appropriate steps can be taken to eliminate the drift from the process or
+to account for it in the model.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Run Sequence Plot for Pressure / Temperature Data with Drift</I> 
+</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpt8_f.gif"><IMG SRC="plots/mvpt8_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="run sequence plot for pressure/temperature data with drift"
+></A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="pt.r2">&nbsp;</A></I>
+</TD>
+<TD WIDTH=85%>
+As in the case when the standard deviation was not constant across the data set, 
+<!-- DEP --><A HREF="dep/dep443b.html">comparison</A> of these two versions
+of the data is interesting because the drift is not apparent in either data set
+when viewed in the scale of the data. This highlights the need for graphical 
+residual analysis when developing process models.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Applicable to Most Regression Methods</I>
+</TD>
+<TD WIDTH=85%>
+The run sequence plot, like most types of residual plots, can be used to check 
+for drift in many regression methods.  It is not limited to least squares fitting 
+or one particular type of model. The run sequence plot below shows the residuals 
+from the fit of the nonlinear model 
+
+$$ y = \beta_0 + \beta_1\exp\left[-\left(\frac{x_1}{\beta_2+\beta_4x_2+\beta_5x_2^2}\right)^{\beta_3}\right] + \varepsilon $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+y = \beta_0 + \beta_1\exp(-(\frac{x_1}{(\beta_2+\beta_4x_2+\beta_5x_2^2)})^{\beta_3}) + \epsilon
+" SRC="pmd422_eq2.gif"></CENTER><BR> -->
+
+to the data from the <A HREF="pmd422.html#pr.r1">Polymer Relaxation example</A>.  
+The even spread of the residuals across the range of the data indicates that 
+there is no apparent drift in this process.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Sequence Plot for Polymer Relaxation Data</I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mvpr3_f.gif"><IMG SRC="plots/mvpr3_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="run sequence plot from Nonlinear Least Squares fit to polymer relaxation data"
+></A>
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd442.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd444.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section4/pmd443.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:08:41 GMT -->
+</HTML>

@@ -1,0 +1,415 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4283.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:56:32 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>1.4.2.8.3. Quantitative Output and Interpretation</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="eda4284.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="eda4282.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">1.</FONT>
+<FONT COLOR="#00105A"><A HREF="../eda.html">Exploratory Data Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda4.html">EDA Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda42.html">Case Studies</a></FONT>
+<BR>
+<FONT COLOR="#D60021">1.4.2.8.</FONT>
+<FONT COLOR="#00105A"><A HREF="eda428.html">Heat Flow Meter 1</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">1.4.2.8.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Quantitative Output and Interpretation</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-----begin jjf----->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="SUMMARY">
+<I>
+Summary Statistics
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+As a first step in the analysis, common summary statistics are
+computed from the data.  
+<PRE>
+      Sample size  = 195
+      Mean         =   9.261460
+      Median       =   9.261952  
+      Minimum      =   9.196848
+      Maximum      =   9.327973
+      Range        =   0.131126  
+      Stan. Dev.   =   0.022789
+</PRE>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="LOCATION">
+<I>
+Location
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+One way to quantify a change in location over time is to
+<a href="../../pmd/section1/pmd141.html">fit a straight line</a>
+to the data using an index variable as the independent
+variable in the regression.  For our data, we assume 
+that data are in sequential run order and that the 
+data were collected at equally spaced time intervals.  In our regression,
+we use the index variable X = 1, 2, ..., N, where N is the number 
+of observations.  If there is no significant drift in the location 
+over time, the slope parameter should be zero.
+<PRE>
+      Coefficient     Estimate     Stan. Error      <I>t</I>-Value
+          B<sub>0</sub>           9.26699      0.3253E-02     2849.
+          B<sub>1</sub>        -0.56412E-04    0.2878E-04     -1.960
+
+ 
+      Residual Standard Deviation = 0.2262372E-01
+      Residual Degrees of Freedom = 193
+</PRE>
+The slope parameter, B<sub>1</sub>, has a 
+<a href="../../pmd/section4/pmd43.html"><i>t</i> value</a> of -1.96
+which is (barely) statistically significant since it is essentially
+equal to the 95 % level cutoff of -1.96.  However, notice that the
+value of the slope parameter estimate is -0.00056.   This slope, even
+though statistically significant, can essentially be considered zero.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="VARIATION">
+<I>
+Variation
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+One simple way to detect a change in variation is with a
+<a href="../section3/eda357.html">Bartlett test</a>
+after dividing the data set into several equal-sized intervals.
+The choice of the number of intervals is somewhat arbitrary, although
+values of four or eight are reasonable.  
+We will divide our data into four intervals.
+<PRE>
+      H<SUB>0</SUB>:  &sigma;<SUB>1</SUB><sup>2</sup> = &sigma;<SUB>2</SUB><sup>2</sup> = &sigma;<SUB>3</SUB><sup>2</sup> = &sigma;<SUB>4</SUB><sup>2</sup> 
+      H<SUB>a</SUB>:  At least one &sigma;<SUB>i</SUB><sup>2</sup> is not equal to the others.
+
+      Test statistic:  <I>T</I> = 3.147
+      Degrees of freedom:  <I>k</I> - 1 = 3
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical value:  <I>&Chi;</I><SUP>&thinsp;2</SUP><sub>1-<i>&alpha;</i>,<I>k</I>-1</sub> = 7.815
+      Critical region:  Reject H<SUB>0</SUB> if <I>T</I> > 7.815 
+</PRE>
+In this case, since the Bartlett test statistic of 3.147 is less than
+the critical value at the 5 % significance level of 7.815, we conclude
+that the variances are not significantly different in the
+four intervals.  That is, the assumption of constant scale is valid.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="RANDOM">
+<I>
+Randomness
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+There are many ways in which data can be non-random.  However,
+most common forms of non-randomness can be detected with a
+few simple tests.  The lag plot in the previous section is a
+simple graphical technique.
+<p>
+Another check is an autocorrelation plot that shows the
+<a href="../section3/eda35c.html">autocorrelations</a>
+for various lags.  Confidence bands can be plotted at the 95 % and
+99 % confidence levels.  Points outside this band indicate statistically
+significant values (lag 0 is always 1).  
+<p>
+<IMG SRC="zarr13/gif/autocorr.gif" alt="autocorrelation plot">
+<p>
+The lag 1 autocorrelation, which is generally the one of greatest
+interest, is 0.281.  The critical values at the 5 % significance level
+are -0.087 and 0.087.  This indicates that the lag 1 autocorrelation is
+statistically significant, so there is evidence of non-randomness.
+<p>
+A common test for randomness is the
+<a href="../section3/eda35d.html">runs test</a>.
+<PRE>
+      H<SUB>0</SUB>:  the sequence was produced in a random manner
+      H<SUB>a</SUB>:  the sequence was not produced in a random manner  
+
+      Test statistic:  <I>Z</I> = -3.2306
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical value:  <I>Z</I><sub>1-<i>&alpha;</i>/2</sub> = 1.96 
+      Critical region:  Reject H<SUB>0</SUB> if |<I>Z</I>| > 1.96   
+</PRE>
+The value of the test statistic is less than -1.96, so we reject the
+null hypothesis at the 0.05 significant level and conclude that the
+data are not random.
+<p>
+Although the autocorrelation plot and the runs test indicate some
+mild non-randomness, the violation of the randomness assumption is
+not serious enough to warrant developing a more
+sophisticated model.  It is common in practice that some of the
+assumptions are mildly violated and it is a judgement call as to
+whether or not the violations are serious enough to warrant
+developing a more sophisticated model for the data.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="DISTRIBUTION">
+<I>
+Distributional Analysis
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+<a href="../section3/probplot.html">Probability plots</a>
+are a graphical test for assessing if a
+particular distribution provides an adequate fit to a data set.
+<p>
+A quantitative enhancement to the probability plot is the correlation
+coefficient of the points on the probability plot.  For this
+data set the correlation coefficient is 0.996.  Since this is greater
+than the critical value of 0.987 (this is a
+<a href="../section3/eda3676.html">tabulated value</a>),
+the normality assumption is not rejected.
+<p>
+<a href="../section3/eda35f.html">Chi-square</a> and
+<a href="../section3/eda35g.html">Kolmogorov-Smirnov</a>
+goodness-of-fit tests are
+alternative methods for assessing distributional adequacy.
+The <a href="../../prc/section2/prc242.html">Wilk-Shapiro</a> and
+<a href="../section3/eda35e.html">Anderson-Darling</a> tests can be used
+to test for normality.  The results of the Anderson-Darling test follow.
+<PRE>
+      H<sub>0</sub>:  the data are normally distributed
+      H<sub>a</sub>:  the data are not normally distributed
+
+      Adjusted test statistic:  <I>A</I><SUP>&thinsp;2</SUP> = 0.129
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical value:  0.787
+      Critical region:  Reject H<sub>0</sub> if <I>A</I><SUP>&thinsp;2</SUP> > 0.787  
+</PRE>
+The Anderson-Darling test also does not reject the normality
+assumption because the test statistic, 0.129, is less than the
+critical value at the 5 % significance level of 0.787.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="OUTLIER">
+<I>
+Outlier Analysis
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+A test for outliers is the 
+<a href="../section3/eda35h.html">Grubbs' test</a>.  
+<PRE>
+      H<sub>0</sub>:  there are no outliers in the data
+      H<sub>a</sub>:  the maximum value is an outlier
+
+      Test statistic:  <I>G</I> = 2.918673
+      Significance level:  <i>&alpha;</i> = 0.05
+      Critical value for an upper one-tailed test:  3.597898
+      Critical region:  Reject H<sub>0</sub> if <I>G</I> > 3.597898
+</PRE>
+For this data set, Grubbs' test does not detect any outliers at
+the 0.05 significance level.
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="MODEL">
+<I>
+Model
+</I>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+Since the underlying assumptions were validated both graphically
+and analytically, with a mild violation of the randomness
+assumption, we conclude that a reasonable model for the data is:
+<UL>
+    <!-- <img src="eqns/conmode3.gif" alt="Y(i) = 9.26146 + E(i)"> -->
+    \( Y_{i} = 9.26146 + E_{i} \)
+</UL>
+We can express the uncertainty for <b><i>C</i></b>, here estimated by
+9.26146, as the 
+<a href="../section3/eda352.html">95 % confidence interval</a>
+(9.258242,9.26479).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<A NAME="REPORT">
+<I>
+Univariate Report
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<!-- Add main text below -->
+It is sometimes useful and convenient to summarize the above
+results in a report.  The report for the heat flow meter data follows.
+<PRE>
+  
+ Analysis for heat flow meter data
+  
+ 1: Sample Size                           = 195
+  
+ 2: Location
+    Mean                                  = 9.26146
+    Standard Deviation of Mean            = 0.001632
+    95 % Confidence Interval for Mean     = (9.258242,9.264679)
+    Drift with respect to location?       = NO
+  
+ 3: Variation
+    Standard Deviation                    = 0.022789
+    95 % Confidence Interval for SD       = (0.02073,0.025307)
+    Drift with respect to variation?
+    (based on Bartlett's test on quarters
+    of the data)                          = NO
+  
+ 4: Randomness
+    Autocorrelation                       = 0.280579
+    Data are Random?
+      (as measured by autocorrelation)    = NO
+  
+ 5: Data are Normal?
+      (as tested by Anderson-Darling)     = YES
+      (as tested by Normal PPCC)          = YES
+  
+ 6: Statistical Control
+    (i.e., no drift in location or scale,
+    data are random, distribution is 
+    fixed, here we are testing only for
+    fixed normal)
+    Data Set is in Statistical Control?   = YES
+  
+ 7: Outliers?
+    (as determined by Grubbs' test)        = NO
+  
+</PRE>
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-----end jjf----->
+
+
+
+  
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="eda4282.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="eda4284.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/eda4283.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:56:32 GMT -->
+</HTML>

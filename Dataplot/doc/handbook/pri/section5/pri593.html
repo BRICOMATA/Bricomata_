@@ -1,0 +1,353 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri593.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:36 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>5.5.9.3. DOE mean plot</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pri594.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pri592.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">5.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pri.html">Process Improvement</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri5.html">Advanced topics</a></FONT>
+<BR>
+<FONT COLOR="#D60021">5.5.9.</FONT>
+<FONT COLOR="#00105A"><A HREF="pri59.html">An EDA approach to experimental design</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">5.5.9.3.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>DOE mean plot</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Purpose
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The DOE (design of experiments) mean plot answers the following two
+questions:
+<ol>
+   <li>What is the ranked list of factors (not including the
+       interactions)?  The ranking is from the most important
+       factor to least important factor.
+   <li>What is the best setting for each of the <i>k</i> factors?
+</ol>
+In the above two questions, the terms "important" and "best" need
+clarification and specificity.
+<p>
+A factor can be important if it leads to a significant shift in the
+location of the response variable as we go from the "-" setting
+of the factor to the "+" setting of the factor.  Alternatively, a
+factor can be important if it leads to a significant change in
+variation (spread) as we go from the "-" to the "+" settings.  Both
+definitions are relevant and acceptable.  The default definition of
+"important" in engineering/scientific applications is the former
+(shift in location).  Unless specified to the contrary, when a factor
+is claimed to be important, the implication is that the
+factor caused a large location shift in the response.
+<p>
+In this context, a factor setting is best if it results in a typical
+response that is closest (in location) to the desired project goal
+(that is, a maximization, minimization, or hitting a target).  This
+desired project goal is an engineering, not a statistical, question,
+and so the desired optimization goal must be overtly specified by
+the engineer.
+<p>
+Given the above two definitions of important and best, the DOE
+mean plot is a useful tool for determining the important factors and
+for determining the best settings.
+<p>
+An alternate name for the DOE mean plot is the "main effects plot".
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Output
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The output from the DOE mean plot is:
+<ol>
+   <li>Primary: A ranked list of the factors (not including
+       interactions) from most important to least important.
+   <li>Secondary: The best setting for each of the <i>k</i>
+       factors.
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Definition
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The DOE mean plot is formed by:
+<ul>
+   <li>Vertical Axis: The mean response for a given setting ("-" or
+       "+") of a factor, for each of the <i>k</i> factors.
+   <li>Horizontal Axis: The <i>k</i> factors and the two settings
+       ("-" and "+") within each factor.
+</ul>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Motivation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+If we were interested in assessing the importance of a single factor,
+and since important, by default, means shift in location, and
+the average is the simplest location estimator, a reasonable
+graphics tool to assess a single factor's importance would be a
+simple <a href="../../eda/section3/meanplot.html">mean plot</a>.  The
+vertical axis of such a plot would be the mean response for each
+setting of the factor and the horizontal axis is the two settings of
+the factor: "-" and "+" (-1 and +1).  A large difference in the two
+means would imply the factor is important while a small difference
+would imply the factor is not important.
+<p>
+The DOE mean plot is actually a sequence of <i>k</i> such plots,
+with one mean plot for each factor.  To assist in comparability and
+relative importance, all of the mean plots are on the same scale.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Plot for defective springs data
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Applying the DOE mean plot to the defective springs data yields
+the following plot.
+<p>
+<A HREF="gifs/dexmean.gif">
+   <IMG SRC="gifs/dexmean.r.gif" BORDER=0
+        alt="DOE mean plot for the defective springs data">
+</A>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+How to interpret
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+From the DOE mean plot, we look for the following:
+<ol>
+   <li>A ranked list of factors from most important to least important.
+   <li>The best settings for each factor (on average).
+</ol>
+<b>Ranked List of Factors--Most Important to Least Important:</b>
+<p>
+For each of the <i>k</i> factors, as we go from the "-" setting
+to the "+" setting for the factor, is there a shift in location
+of the average response?
+<p>
+If yes, we would like to identify the factor with the biggest
+shift (the "most important factor"), the next biggest shift (the
+"second most important factor"), and so on until all factors
+are accounted for.
+<p>
+Since we are only plotting the means and each factor has identical
+(-,+) = (-1,+1) coded factor settings, the above simplifies to
+<ol>
+   <li>What factor has the steepest line?  This is the
+       most important factor.
+   <li>The next steepest line?  This is the second most important
+       factor.
+   <li>Continue for the remaining factors.
+</ol>
+This ranking of factors based on local means is the most important
+step in building the definitive ranked list of factors as required
+in screening experiments.
+<p>
+<b>Best Settings (on Average):</b>
+<p>
+For each of the <i>k</i> factors, which setting (- or +) yields the
+"best" response?
+<p>
+In order to answer this, the engineer must first define "best".  This
+is done with respect to the overall project goal in conjunction with
+the specific response variable under study.  For some experiments,
+"best" means we are trying to maximize the response (e.g., maximizing
+the speed of a chip).  For other experiments, "best" means we are
+trying to minimize the response (e.g., semiconductor chip scrap).
+For yet other experiments, "best" means we are trying to hit a
+specific target (e.g., designing a resistor to match a specified
+resistance).  Thus the definition of "best" is a precursor to the
+determination of best settings.
+<p>
+For example, suppose the analyst is attempting to maximize
+the response.  In that case, the analyst would proceed as follows:
+<ol>
+   <li>For factor 1, what setting (- or +) has the largest average
+       response?
+   <li>For factor 2, what setting (- or +) has the largest average
+       response?
+   <li>Continue for the remaining factors.
+</ol>
+The resulting <i>k</i>-vector of best settings:
+<ul>
+   (x1best, x2best, ..., xkbest)
+</ul>
+is in general obtained by looking at each factor individually in the
+DOE mean plot and choosing that setting (- or +) that has an
+average response closest to the desired optimal (maximal, minimal,
+target) response.
+<p>
+This candidate for best settings is based on the averages.  This
+<i>k</i>-vector of best settings should be similar to that obtained
+from the <a href="pri592.html">DOE scatter plot</a>, though the
+DOE mean plot is easier to interpret.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Conclusions for the defective springs data
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The application of the DOE mean plot to the defective springs data
+set results in the following conclusions:
+<ol>
+   <li>Ranked list of factors (excluding interactions):
+       <p>
+       <ol>
+          <li><i>X</i><sub>1</sub> (most important).  Qualitatively, this factor
+              looks definitely important.
+          <li><i>X</i><sub>2</sub> (of lesser importantance).  Qualitatively, this
+              factor is a distant second to <i>X</i><sub>1</sub>.
+          <li><i>X</i><sub>3</sub> (unimportant).  Qualitatively, this factor
+              appears to be unimportant.
+       </ol>
+       <p>
+   <li>Best settings (on average):
+       <p>
+       <ul>
+          (<i>X</i><sub>1</sub>, <i>X</i><sub>2</sub>, <i>X</i><sub>3</sub>) = (+, -, +) = (+1, -1, +1)
+       </ul>
+</ol>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pri592.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pri594.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pri/section5/pri593.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:19:40 GMT -->
+</HTML>

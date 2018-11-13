@@ -1,0 +1,223 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc4481.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:53 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.4.4.8.1. Box-Ljung Test</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc449.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc448.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc4.html">Introduction to Time Series Analysis</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.4.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc44.html">Univariate Time Series Models</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.4.4.8.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Box-Ljung Test</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<!-----begin section: purpose -->
+
+<tr>
+<td width=15% valign=top>
+<I>Test for Lack of Fit</I>
+</td>
+<td width=85% valign=top>
+The Box-Ljung test (<a href="../section7/pmc7.html#Ljung,">1978</a>) 
+is a diagnostic tool used to test the lack of fit of a time series model
+<p> 
+The test is applied to the residuals of a time series
+after fitting an ARMA(\(p,q\))
+<!-- <i>p, q</i>) --> 
+model to the data.  The test examines \(m\)
+<!-- <i>m</i> -->
+autocorrelations of the residuals.  If the 
+autocorrelations are very small, we conclude that the model
+does not exhibit significant lack of fit. 
+
+
+<p>
+Section <a href="pmc44a.html">6.4.4.10</a> contains an example in which the 
+Box-Ljung test is implemented using a residual time series.
+
+
+</td>
+</tr>
+
+
+<!-----begin section: definition -->
+
+<tr>
+<td width=15% valign=top>
+<I>Definition</I>
+</td>
+<td width=85% valign=top>
+      In general, the Box-Ljung test is defined as:
+      <table>
+
+      <tr>
+         <td>
+            \(H_0\):
+            <!-- H<sub>0</sub>: -->
+         </td>
+         <td>
+            The model does not exhibit lack of fit.
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            \(H_a\):
+            <!-- H<sub>a</sub>: -->
+         </td>
+         <td>
+            The model exhibits lack of fit.
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Test Statistic:
+         </td>
+         <td align=top>
+            Given a time series \(Y\)
+            <!-- <i>Y</i> -->
+            of length \(n\),
+            <!-- <i>n</i>, -->
+            the test statistic is defined as:
+            <p>
+            $$ Q = n(n+2)\sum_{k=1}^{m} \, \frac{\hat{r}^2_k}{n-k} $$
+            <!-- <img src="pmc4481_Q.gif" alt="Q = n(n+2)sum(rhatk^2/(n-k))"> -->
+            <p>
+            where \(\hat{r}_k\)
+            <!-- <img src="pmc4481_rhat.gif" alt="rhatk" align=absbottom> -->
+            is the estimated autocorrelation of the series at lag \(k\),
+            <!-- <i>k</i>, -->
+            and \(m\)
+            <!-- <i>m</i> -->
+            is the number of lags being tested.
+         </td>
+      </tr>
+      <tr>
+         <td valign=top>
+            Significance Level:
+         </td>
+         <td valign=middle>
+            \(\alpha\)
+            <!-- <i>&alpha;</i> -->
+         </td>
+       </tr>
+      <tr>
+         <td valign=top>
+            Critical Region:
+         </td>
+         <td>
+            The Box-Ljung test rejects the null hypothesis (indicating that the model has 
+            significant lack of fit) if
+            <ul>
+            $$ Q > \chi_{1-\alpha, \, h}^2 $$
+            <!-- Q > <i>&Chi;</i><sup>&thinsp;2</sup><sub>1-<i>&alpha;</i>, <i>h</i></sub> -->
+            </ul>
+            where \(\chi_{1-\alpha, \, h}^2\)
+            <!-- <i>&Chi;</i><sup>&thinsp;2</sup><sub>1-<i>&alpha;</i>, <i>h</i></sub> -->
+            is the chi-square distribution table value with \(h\)
+            <!-- <i>h</i> -->
+            degrees of freedom and significance level \(\alpha\).
+            <!-- <i>&alpha;</i>. -->
+            <p>
+            Because the test is applied to residuals, the degrees of 
+            freedom must account for the estimated model parameters so that 
+            \(h = m-p-q\),
+            <!-- <i>h = m - p - q</i>, -->
+            where \(p\) and \(q\)
+            <!-- <i>p</i> and <i>q</i> -->
+            indicate the number of parameters from the ARMA(\(p,q\))
+            <!-- <i>p</i>, <i>q</i>) -->
+            model fit to the data. 
+</td>
+</tr>
+
+</table>
+</td>
+</tr>
+
+
+
+<!-----end jjf----->
+
+
+
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc448.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc449.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section4/pmc4481.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:53 GMT -->
+</HTML>

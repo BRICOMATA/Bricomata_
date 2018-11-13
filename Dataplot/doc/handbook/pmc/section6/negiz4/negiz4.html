@@ -1,0 +1,411 @@
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/negiz4/negiz4.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:29:29 GMT -->
+<HEAD>
+  <TITLE>Dataplot Commands for Aerosol Particle Size
+  Case Study</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+        <IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+           <area shape="rect" alt="Next Page" href="../pmc625.html" coords="463,27,504,45">
+           <area shape="rect" alt="Previous Page" href="../pmc625.html" coords="417,28,459,45">
+           <area shape="rect" alt="Home" href="../../../index-3.html" coords="52,0,100,43">
+           <area shape="rect" alt="Tools & Aids" href="../../../main.html" coords="165,27,264,46">
+           <area shape="rect" alt="Search Handbook" href="../../../search.html" coords="307,28,366,44">
+           <area shape="default" nohref>
+   </map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Aerosol Particle Size Data</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Invoke Dataplot, set defaults, read data<I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Negiz4 ARIMA Case Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+label case asis
+dimension 100 variables
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+SKIP 0
+SET READ FORMAT 3E16.4
+read NEGIZ4.DAT junk1 junk2 y
+set read format
+delete junk1 junk2
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Sequence Plot of the Original Data</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.1 - Generate a run sequence plot
+.
+y1label width
+x1label sequence
+run sequence plot y
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Autocorrelation Plot of the Original Data</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.2 - Generate an autocorrelation plot (original data)
+.
+x3label Autocorrelation Plot of the Original Data
+y1label Autocorrelation
+x1label Lag
+set autocorrelation band plot box-jenkins
+set autocorrelation lag zero off
+xtic offset 1 1
+xlimits 0 50
+line blank solid solid solid blank blank
+line color black black blue blue
+spike on
+autocorrelation plot y
+xtic offset 0 0
+xlimits
+line solid all
+line color black all
+spike off
+line color blue
+draw 45 85 50 85
+justification left
+move 51 84
+text 95% Confidence Band
+line color black
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Run Sequence Plot of the Differenced Data</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.3 - Generate a run sequence plot of differenced data
+.
+let ydiff = sequential difference y
+x3label Run Sequence Plot of the Differenced Data
+y1label width
+x1label sequence
+run sequence plot ydiff
+.  Finished Step 2.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Autocorrelation Plot of the Differenced Data</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.4 - Generate an autocorrelation plot (differenced data)
+.
+let ydiff = sequential difference y
+x3label Autocorrelation Plot of the Differenced Data
+y1label Autocorrelation
+x1label Lag
+set autocorrelation band plot box-jenkins
+set autocorrelation lag zero off
+xtic offset 1 1
+xlimits 0 50
+line blank solid solid solid blank blank
+line color black black blue blue
+spike on
+autocorrelation plot ydiff
+xtic offset 0 0
+xlimits
+line solid all
+line color black all
+spike off
+line color blue
+draw 45 85 50 85
+justification left
+move 51 84
+text 95% Confidence Band
+line color black
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Partial Autocorrelation Plot of the Differenced Data</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.5 - Generate a partial autocorrelation plot
+.
+let ydiff = sequential difference y
+y1label Partial Autocorrelation
+x1label Lag
+x3label Partial Autocorrelation Plot of the Differenced Data
+xtic offset 1 1
+xlimits 0 50
+spike on
+set autocorrelation lag zero off
+line blank solid solid solid blank blank
+line color black black blue blue
+partial autocorrelation plot ydiff
+xtic offset 0 0
+xlimits
+line solid all
+line color black all
+spike off
+line color blue
+draw 45 85 50 85
+justification left
+move 51 84
+text 95% Confidence Band
+line color black
+. Finished Step 2.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>ARMA Fit of ARIMA(2,1,0) Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.1 - Fit ARIMA(2,1,0) model
+.
+arma y 2 1 0
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>ARMA Fit of ARIMA(0,1,1) Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.2 - Fit ARIMA(0,1,1) model
+.
+arma y 0 1 1
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot of Residuals from the ARIMA(2,1,0) Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.1 - 4-Plot of Residuals
+.
+arma y 2 1 0
+y1label
+x1label
+x3label
+4-plot res
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Autocorrelation Plot of Residuals from the ARIMA(2,1,0) Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.2 - Generate an autocorrelation plot of residuals
+.                     from ARIMA(2,1,0) model
+.
+arma y 2 1 0
+x3label Autocorrelation Plot of the Residuals from ARIMA(2,1,0) Model
+y1label Autocorrelation
+x1label Lag
+set autocorrelation plot band white noise
+set autocorrelation lag zero off
+xtic offset 1 1
+xlimits 0 50
+line blank solid solid solid blank blank
+line color black black blue blue
+spike on
+autocorrelation plot res
+xtic offset 0 0
+xlimits
+line solid all
+line color black all
+spike off
+line color blue
+draw 45 85 50 85
+justification left
+move 51 84
+text 95% Confidence Band
+line color black
+. Finished Step 4.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Ljung-Box Test of Residuals from the ARIMA(2,1,0) Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.3 - Lujan-Box test for independence
+.
+arma y 2 1 0
+let numlag = 25
+capture lujan1.out
+ljung-box test res
+end of capture
+delete numlag
+. Finished Step 4.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot of Residuals from the ARIMA(0,1,1) Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.4 - 4-Plot of Residuals
+.
+arma y 0 1 1
+y1label
+x1label
+x3label
+4-plot res
+. Finished Step 4.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Autocorrelation Plot of Residuals from the ARIMA(0,1,1) Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.5 - Generate an autocorrelation plot of residuals
+.                     from ARIMA(0,1,1) model
+.
+arma y 0 1 1
+x3label Autocorrelation Plot of the Residuals from ARIMA(0,1,1) Model
+y1label Autocorrelation
+x1label Lag
+set autocorrelation plot band white noise
+set autocorrelation lag zero off
+xtic offset 1 1
+xlimits 0 50
+line blank solid solid solid blank blank
+line color black black blue blue
+spike on
+autocorrelation plot res
+xtic offset 0 0
+xlimits
+line solid all
+line color black all
+spike off
+line color blue
+draw 45 85 50 85
+justification left
+move 51 84
+text 95% Confidence Band
+line color black
+. Finished Step 4.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Ljung-Box Test of Residuals from the ARIMA(0,1,1) Model</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.6 - Lujan-Box test for independence
+.
+arma y 0 1 1
+let numlag = 25
+capture lujan2.out
+ljung-box test res
+end of capture
+delete numlag
+. Finished Step 4.6: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+
+
+</TABLE>
+
+<A HREF="http://www.nist.gov/">
+   <IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+   </MAP>
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../../index-3.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="../../../main.html" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="../../../search.html" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="../pmc615.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../pmc615.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section6/negiz4/negiz4.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:29:29 GMT -->
+</HTML>

@@ -1,0 +1,428 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:57:58 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.3.3.2. Solutions to calibration designs</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="mpc3321.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="mpc3312.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area sharea shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">2.</FONT>
+<FONT COLOR="#00105A"><A HREF="../mpc.html">Measurement Process Characterization</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc3.html">Calibration</a></FONT>
+<BR>
+<FONT COLOR="#D60021">2.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="mpc33.html">What are calibration designs?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">2.3.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Solutions to calibration designs</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Solutions for <A HREF="mpc34.html">designs listed in the catalog</A></I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+Solutions for all designs that are cataloged in this Handbook are
+included with the designs. <A HREF="mpc3321.html">Solutions  for other
+designs</A> can be computed from the instructions on the following page
+given some familiarity with matrices.
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%><!-- Add marginal notes below -->
+<I>Measurements for the 1,1,1 design</I>
+</TD>
+<TD WIDTH=85%>
+The use of the tables shown in the catalog are illustrated for three
+artifacts; namely,  a reference standard with known value <I>R*</I> and
+a check standard and a test item with unknown values.  All artifacts are
+of the same nominal size.  The design is referred to as a  
+<A HREF="mpc3411.html">1,1,1 design</A> for 
+<UL>
+   <LI><I>n</I> = 3 difference measurements
+   <LI><I>m</I> = 3 artifacts
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD VALIGN=top WIDTH=15%><!-- Add marginal notes below -->
+<I>Convention for showing the measurement sequence and identifying the
+reference and check standards</I>
+</TD>
+<TD WIDTH=85%>
+The convention for showing the measurement sequence is shown below.
+Nominal values are underlined in the first line showing that this design
+is appropriate for comparing three items of the same nominal size such
+as three one-kilogram weights.  The reference standard is the first
+artifact, the check standard is the second, and the test item is the
+third. 
+
+<PRE>
+
+<FONT SIZE=4>                 <U>1     1     1</U>
+
+          Y(1) = +     -
+
+          Y(2) = +           -
+
+          Y(3) =       +     -
+
+  Restraint      +
+
+  Check standard       +
+</FONT><FONT SIZE=2 FACE="Courier"></FONT>
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Limitation of this design</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+This design has degrees of freedom
+
+$$ \nu = n - m + 1 = 1 $$
+<!--
+<P> 
+<I><FONT SIZE=4><CENTER>v = n - m + 1 = 1</CENTER></FONT></I>  
+-->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Convention for showing least-squares estimates for individual
+items</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+The table shown below lists the coefficients for finding the estimates
+for the individual items.  The estimates are computed by taking the
+cross-product of the appropriate column for the item of interest with
+the column of measurement data and dividing by the divisor shown at the
+top of the table.  
+<PRE>
+
+                        SOLUTION MATRIX
+                          DIVISOR = 3
+
+     OBSERVATIONS      1      1      1
+
+        Y(1)           0     -2     -1
+        Y(2)           0     -1     -2
+        Y(3)           0      1     -1
+        R*             3      3      3
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Solutions for individual items from the table above</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+For example, the solution for the reference standard is shown under the
+first column; for the check standard under the second column; and for
+the test item under the third column.  Notice that the estimate for the
+reference standard is guaranteed to be <I>R*</I>, regardless of the measurement
+results, because of the restraint that is imposed on the design. The
+estimates are as follows:
+
+$$ \widehat{R^*} = \frac{1}{3}(0 Y_1 + 0 Y_2 + 0 Y_3) + R^* $$
+
+$$ \widehat{Chk} = \frac{1}{3}(-2 Y_1 - 1 Y_2 + 1 Y_3) + R^* $$
+
+$$ \widehat{Test} = \frac{1}{3}(-1 Y_1 - 2 Y_2 - 1 Y_3) + R^* $$
+
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc332a.gif"
+     ALT="R*(hat) = (1/3)*(0*Y1 + 0*Y2 + 0*Y3) + R*">
+</CENTER>
+<CENTER>
+<IMG SRC="mpc332b.gif"
+     ALT="Chk(hat) = (1/3)*(-2*Y1 - 1*Y2 + 1*Y3) + R*">
+</CENTER>
+<CENTER>
+<IMG SRC="mpc332c.gif"
+     ALT="Test(hat) = (1/3)*(-1*Y1 - 2*Y2 -1*Y3) + R*">
+</CENTER>
+<P>
+</FONT>
+-->
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Convention for showing standard deviations for individual items
+and combinations of items</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+The standard deviations are computed from two tables of factors as
+shown below.  The standard deviations for combinations of items include
+appropriate covariance terms.
+<P>
+<PRE>
+
+     FACTORS FOR REPEATABILITY STANDARD DEVIATIONS
+
+     WT  FACTOR
+           K1      1   1   1
+      1  0.0000    +
+      1  0.8165        +
+      1  0.8165            +
+      2  1.4142        +   +
+      1  0.8165        +
+
+     FACTORS FOR BETWEEN-DAY STANDARD DEVIATIONS
+
+     WT  FACTOR
+
+           K2      1   1   1
+      1  0.0000    +
+      1  1.4142        +
+      1  1.4142            +
+      2  2.4495        +   +
+      1  1.4142        +
+   </PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Unifying equation</I>
+</TD>
+<TD WIDTH=85%>
+The standard deviation for each item is computed using 
+the unifying equation:
+
+$$ {\large s}_{test} = \sqrt{K_1^2 {\large s}_1^2 + K_2^2 {\large s}_{days}^2} $$
+<!--
+<P>
+<CENTER>
+<IMG SRC="mpc332d.gif"
+     ALT="s(test) = SQRT(K1**2*s1**2 + Kx**2*s(days)**2">
+</CENTER>
+-->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Standard deviations for 1,1,1 design from the tables of factors</I>
+</TD>
+<TD WIDTH=85%><!-- Add main text below -->
+For the 1,1,1 design, the standard deviations are:
+
+$$ {\large s}_{R^*} = 0 $$
+
+$$ {\large s}_{chk} = \sqrt{(0.8165 \cdot {\large s}_1)^2 + (1.4142 \cdot {\large s}_{days})^2)} =
+ \sqrt{\frac{2}{3} {\large s}_1^2 + 2 {\large s}_{days}^2} $$
+ 
+$$ {\large s}_{test} = \sqrt{(0.8165 \cdot {\large s}_1)^2 + (1.4142 \cdot {\large s}_{days})^2} =
+ \sqrt{\frac{2}{3} {\large s}_1^2 + 2 {\large s}_{days}^2} $$
+
+$$ {\large s}_{chk+test} = \sqrt{(1.4142 \cdot {\large s}_1)^2 + (2.4495 \cdot {\large s}_{days})^2)} =
+ \sqrt{2 {\large s}_1^2 + 6 {\large s}_{days}^2} $$
+<!--
+<P> 
+<CENTER>
+<IMG SRC="mpc332e.gif" ALT="S(R*) = 0">
+</CENTER>
+<P>
+<CENTER>
+<IMG SRC="mpc332g.gif"
+     ALT="s(chk) = SQRT(0.8165*s1)**2 + (1.4142*s(days))**2) =  SQRT((2/3)*s1**2 + 2*s(days)**2;    
+         s(test) = SQRT(0.8165*s1)**2 + (1.4142*s(days))**2) =  SQRT((2/3)*s1**2 + 2*s(days)**2">
+</CENTER>
+<P>
+<CENTER>
+<IMG SRC="mpc332h.gif"
+     ALT="s(chk+test) = SQRT(1.4142*s1)**2 + (2.4495*s(days))**2) = SQRT(2*s1**2 + 6*s(days)**2">
+</CENTER>
+-->
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- Add marginal notes below -->
+<I>Process standard deviations must be known from historical data</I>
+</TD>
+<TD WIDTH=85%>
+In order to apply these equations, we need an estimate of the standard
+deviation, \( {\large s}_{days} \), <!-- <I>s<SUB>days</SUB></I>, --> 
+that describes day-to-day changes in
+the measurement process.  This standard deviation is in turn 
+derived from the <A HREF="mpc3332.html">level-2 standard deviation</A>,
+\( {\large s}_2 \), <!-- <I>s</I><SUB>2</SUB>, --> for the check standard.  
+This standard deviation
+is estimated from historical data on the check standard; it can be
+negligible, in which case the calculations are simplified. 
+<P>
+The <A HREF="mpc3332.html">repeatability standard deviation</A>, 
+\( {\large s}_1 \), <!-- <I>s</I><SUB>1</SUB>, --> 
+is estimated from historical data, usually from data of several designs. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Steps in computing standard deviations</I>
+</TD>
+<TD WIDTH=85%>
+The steps in computing the standard deviation for a test item are:
+<P>
+<UL>
+   <LI>Compute the <A HREF="mpc3332.html#inst">repeatability standard
+       deviation</A> from the design or historical data.
+       <P>
+   <LI>Compute the <A HREF="mpc3332.html#chkstd">standard deviation of 
+       the check standard</A> from historical data.
+       <P>
+   <LI>Locate the factors, \( K_1 \) <!-- <I>K</i><SUB>1</SUB> --> and 
+       \( K_2 \) <!-- <I>K</I><SUB>2</SUB> -->
+       for the <B>check standard</B>; for the 1,1,1 design the factors
+       are 0.8165 and 1.4142, respectively, where the check standard
+       entries are last in the tables.
+       <P>
+   <LI>Apply the unifying equation to the check standard to estimate
+       the standard deviation for days.  Notice that the standard
+       deviation of the check standard is the same as the
+       <A HREF="mpc3332.html">level-2 standard deviation</a>,
+       \( {\large s}_2 \), <!-- <I>s</I><sub>2</sub>, --> that is 
+       referred to on some pages.   The equation
+       for the between-days standard deviation from the unifying
+       equation is
+
+$$ {\large s}_{days} = \frac{1}{K_2} \sqrt{{\large s}_2^2 - K_1^2 {\large s}_1^2} $$
+<!--
+       <P>
+       <CENTER>
+       <IMG SRC="mpc332i.gif"
+            ALT="S(days) = (1/K2)*SQRT(s2**2 - K1**2*s1**2)">
+       </CENTER>.
+       <P>
+-->
+       Thus, for the example above 
+
+$$ {\large s}_{days} = \frac{1}{\sqrt{2}} \sqrt{{\large s}_2^2 - \frac{2}{3} {\large s}_1^2} $$
+<!--
+       <CENTER>
+       <IMG SRC="mpc332l.gif"
+            ALT="s(days) = (1/SQRT(2))*SQRT(s2**2 - (2/3)*s1**2)">
+       </CENTER>.
+-->
+   <LI>This is the number that is entered into the
+       <A HREF="../section7/mpc7.html#Varner">NIST mass calibration
+       software</A> as the between-time standard deviation.  If you are
+       using this software, this is the only computation that you need
+       to make because the standard deviations for the test items are
+       computed automatically by the software.<p>
+   <LI>If the computation under the radical sign gives a negative
+       number, set \( {\large s}_{days} =0 \).
+       <!-- <I>s<SUB>days</SUB></I> = 0. --> (This is possible and
+       indicates that there is no contribution to uncertainty from
+       day-to-day effects.)
+       <P>
+   <LI>For completeness, the computations of the 
+       standard deviations for the test item and for the sum of the
+       test and the check standard using the appropriate factors are
+       shown below.
+
+$$ {\large s}_{test} = \sqrt{\frac{2}{3} {\large s}_1^2 + 2 {\large s}_{days}^2} 
+                     = \sqrt{\frac{2}{3} {\large s}_1^2 + \frac{5}{2} \left( {\large s}_2^2 - \frac{2}{3} {\large s}_1^2 \right) } 
+                     = {\large s}_2 $$
+
+$$ {\large s}_{test+chk} = \sqrt{2 {\large s}_1^2 + 6 {\large s}_{days}^2} 
+                         = \sqrt{2 {\large s}_1^2 + \frac{13}{2} \left( {\large s}_2^2 - \frac{2}{3} {\large s}_1^2 \right)} 
+                         = \sqrt{3} \, {\large s}_2 $$
+<!--
+       <P>
+       <CENTER>
+       <IMG SRC="mpc332j.gif"
+        ALT="S(test) = SQRT((2/3)*s1**2 + 2*s(days)**2) = SQRT((2/3)*s1**2 +
+        2.5*(s2**2 - (2/3)*s1**2)) = s2">
+       </CENTER>
+       <P>
+       <CENTER>
+       <IMG SRC="mpc332k.gif"
+        ALT="S(test+chk) = SQRT(2*s1**2 + 6*s(days)**2) = SQRT(2*s1**2 +
+        6.5*(s2**2 - (2/3)*s1**2)) = SQRT(3)*s2">
+       </CENTER>
+-->
+</UL>
+</TD>
+</TR>
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc3312.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc3321.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section3/mpc332.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:57:58 GMT -->
+</HTML>

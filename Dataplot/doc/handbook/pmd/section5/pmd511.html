@@ -1,0 +1,579 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section5/pmd511.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:45 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.5.1.1. How do I estimate the average response for a particular set of predictor variable values?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd512.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd51.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd5.html">Use and Interpretation of Process Models</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.5.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd51.html">What types of predictions can I make using the model?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.5.1.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How do I estimate the average response for a particular set of predictor variable values?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Step 1: Plug Predictors Into Estimated Function</I>
+</TD>
+<TD WIDTH=85%>
+Once a model that gives a good description of the process has been developed, it can be used for
+estimation or prediction. To estimate the average response of the process, 
+or, equivalently, the value of the regression function, for any particular combination of 
+predictor variable values, the values of the predictor variables are simply substituted in the 
+estimated regression function itself. These estimated function values are often called "predicted
+values" or "fitted values".
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Pressure / Temperature Example</I>
+</TD>
+<TD WIDTH=85%>
+For example, in the <A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature process</A>, which
+is well described by a straight-line model relating pressure (\(y\))
+<!-- (<IMG ALT="y" SRC="eqns/y.gif">) -->
+to temperature (\(x\)),
+<!-- (<IMG ALT="x" SRC="eqns/x.gif">), -->
+the estimated regression function is found to be
+
+$$ \hat{y} = 7.74899 + 3.93014 \cdot x $$
+
+<!-- <BR><BR><CENTER><IMG ALT="\hat{y} = 7.74899 + 3.93014*x" SRC="eqns/erfpte.gif"></CENTER><BR> -->
+
+by substituting the <A HREF="../section4/pmd447.html#output">estimated parameter values</A> into
+the functional part of the model. Then to estimate the average pressure at a temperature of 65, 
+the predictor value of interest is subsituted in the estimated regression function, yielding an 
+estimated pressure of 263.21.
+
+$$ \begin{array}{ccl}
+\hat{y} & = & 7.74899 + 3.93014 \cdot 65
+        &   & \\
+        & = & 263.21
+\end{array} $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\begin{array}{ccl}
+\hat{y} & = & 7.74899 + 3.93014*65
+                         &   & \\
+\mbox{\hspace*{0.15in}}  & = & 263.21
+\end{array}
+" SRC="eqns/ep65.gif"></CENTER><BR> -->
+
+This estimation process works analogously for nonlinear models, LOESS models, and all other 
+types of functional process models.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Polymer Relaxation Example</I>
+</TD>
+<TD WIDTH=85%>
+Based on the output from fitting the stretched exponential model in time (\(x_1\))
+<!-- (<IMG ALT="x_1" SRC="eqns/x1.gif">) -->
+and temperature (\(x_2\)),
+<!-- (<IMG ALT="x_2" SRC="eqns/x2.gif">), -->
+the estimated regression function for the 
+<A HREF="../section4/pmd422.html#pr.r1">polymer relaxation data</A> is
+
+$$ \hat{y} = 4.99721 + 3.01998\exp\left[-\left(\frac{x_1}{3.06885+0.04187x_2+0.01441x_2^2}\right)^{1.16612}\right] $$
+
+<!--  <BR><BR><CENTER><IMG ALT=" 
+\hat{y} = 4.99721 + 3.01998\exp(-(\frac{x_1}{(3.06885+0.04187x_2+0.01441x_2^2)})^{1.16612})
+" SRC="eqns/erfpre.gif">.</CENTER><BR> -->
+
+Therefore, the estimated torque (\(y\))
+<!-- (<IMG ALT="y" SRC="eqns/y.gif">) -->
+on a polymer sample after 60 minutes at a temperature of 40 is 5.26.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Uncertainty Needed</I>
+</TD>
+<TD WIDTH=85%>
+Knowing that the estimated average pressure is 263.21 at a temperature of 65, or that the estimated
+average torque on a polymer sample under particular conditions is 5.26, however, is not enough 
+information to make scientific or engineering decisions about the process. This is because the 
+pressure value of 263.21 is only an estimate of the average pressure at a temperature of 65.
+Because of the random error in the data, there is also random error in the estimated regression 
+parameters, and in the values predicted using the model. To use the model correctly, therefore, 
+the uncertainty in the prediction must also be quantified. For example, if the safe operational 
+pressure of a particular type of gas tank that will be used at a temperature of 65 is 300, 
+different engineering conclusions would be drawn from knowing the average actual pressure in the
+tank is likely to lie somewhere in the range \(263 \pm 52\)
+<!-- <IMG ALT="263 \pm 52" SRC="eqns/ci1.gif"> -->
+versus lying in the range \(263.21 \pm 0.52\).
+<!-- <IMG ALT="263.21 \pm 0.52" SRC="eqns/ci2.gif">. -->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Confidence Intervals</I>
+</TD>
+<TD WIDTH=85%>
+In order to provide the necessary information with which to make engineering or scientific 
+decisions, predictions from process models are usually given as intervals of plausible values that
+have a probabilistic interpretation. In particular, intervals that specify a range of values that
+will contain the value of the regression function with a pre-specified probability are often used.
+These intervals are called confidence intervals. The probability with which the interval will
+capture the true value of the regression function is called the confidence level, and is most 
+often set by the user to be 0.95, or 95 % in percentage terms. Any value between 0 % and 100 % could
+be specified, though it would almost never make sense to consider values outside a range of about
+80 % to 99 %. The higher the confidence level is set, the more likely the true value of the 
+regression function is to be contained in the interval. The trade-off for high confidence, however,
+is wide intervals. As the sample size is increased, however, the average width of the intervals 
+typically decreases for any fixed confidence level. The confidence level of an interval is usually
+denoted symbolically using the notation \(1-\alpha\),
+<!-- <IMG ALT="1-\alpha" SRC="eqns/1-alpha.gif">, -->
+with \(\alpha\)
+<!-- <IMG ALT="\alpha" SRC="eqns/alpha.gif"> -->
+denoting a user-specified probability, called the significance 
+level, that the interval will not capture the true value of the regression function. The 
+significance level is most often set to be 5 % so that the associated confidence level will be 95 %.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="sf">Computing Confidence Intervals</A></I>
+</TD>
+<TD WIDTH=85%> 
+Confidence intervals are computed using the estimated standard deviations of the estimated regression function values and
+a coverage factor that controls the confidence level of the interval and accounts for the variation in the estimate of the
+residual standard deviation. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%> 
+The standard deviations of the predicted values of the estimated regression function depend 
+on the standard deviation of the random errors in the data, the experimental design
+used to collect the data and fit the model, and the values of the predictor variables used to 
+obtain the  predicted values.  These standard deviations are not simple quantities that 
+can be read off of the output summarizing the fit of the model, but they can often be obtained from 
+the software used to fit the model. This is the best option, if available, because there are a 
+variety of numerical issues that can arise when the standard deviations are calculated directly 
+using typical theoretical formulas. Carefully written software should minimize the numerical 
+problems encountered.  If necessary, however, matrix formulas that can be used to directly compute
+these values are given in texts such as <A HREF="../section7/pmd7.html#Neter, J., Wasserman, W., and 
+Kutner, M. (1983)">Neter, Wasserman, and Kutner</A>.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The coverage factor used to control the confidence level of the intervals depends on the 
+distributional assumption about the errors and the amount of information available to estimate 
+the residual standard deviation of the fit.  For procedures that depend on the assumption that 
+the random errors have a normal distribution, the coverage factor is typically a cut-off value 
+from the <A HREF="../../eda/section3/eda3664.html">Student's <I>t</I> distribution</A> at the 
+user's pre-specified
+confidence level and with the same number of degrees of freedom as used to estimate the residual
+standard deviation in the fit of the model. Tables of the <I>t</I> distribution (or functions in 
+software) may be indexed by the confidence level (\(1-\alpha\))
+<!-- (<IMG ALT="1-\alpha" SRC="eqns/1-alpha.gif">) -->
+or the significance level \(\alpha\).
+<!-- (<IMG ALT="\alpha" SRC="eqns/alpha.gif">). -->
+It is also important to note that since these 
+are two-sided intervals, half of the probability denoted by the significance level is usually 
+assigned to each side of the interval, so the proper entry in a <I>t</I> table or in a software 
+function may  also be labeled with the value of \(\alpha/2\),
+<!-- <IMG ALT="\alpha/2" ALIGN=absmiddle SRC="eqns/alphaover2.gif">, -->
+or \(1-\alpha/2\),
+<!-- <IMG ALT="1-\alpha/2" ALIGN=absmiddle SRC="eqns/1-alphaover2.gif">, -->
+if the table or software is not exclusively designed for use with two-sided tests.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="cci">&nbsp;</A></I>
+</TD>
+<TD WIDTH=85%>
+The estimated values of the regression function, their standard deviations, and the coverage 
+factor are combined using the formula
+
+$$ \hat{y} \pm t_{1-\alpha/2,\nu} \cdot \hat{\sigma}_f $$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+\hat{y} \pm t_{1-\alpha/2,\nu}\hat{\sigma}_f
+" SRC="eqns/cif.gif"></CENTER><BR> -->
+
+with \(\hat{y}\)
+<!-- <IMG ALT="\hat{y}" SRC="eqns/yhat.gif"> -->
+denoting the estimated value of the regression function, \(t_{1-\alpha/2,\nu}\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}" ALIGN=absmiddle SRC="eqns/t.gif"> -->
+is the coverage factor, indexed by a function of the 
+significance level and by its degrees of freedom, and \(\hat{\sigma}_f\)
+<!-- <IMG ALT="\hat{\sigma}_f" SRC="eqns/sigmahatf.gif"> -->
+is the standard deviation of \(\hat{y}\).
+<!-- <IMG ALT="\hat{y}" ALIGN=absmiddle SRC="eqns/yhat.gif">. -->
+Some software may provide the 
+total uncertainty for the confidence interval given by the equation above, or may provide the 
+lower and upper confidence bounds by adding and subtracting the total uncertainty from the 
+estimate of the average response. This can save some computational effort when making predictions, if
+available. Since there are many types of predictions that might be offered in a software package,
+however, it is a good idea to test the software on an example for which confidence limits are
+already available to make sure that the software is computing the expected type of intervals.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Confidence Intervals for the Example Applications</I>
+</TD>
+<TD WIDTH=85%>
+Computing confidence intervals for the average pressure in the 
+<A HREF="../section1/pmd11.html#pt.r1">Pressure/Temperature</A> example, for temperatures of 25, 
+45, and 65, and for the average torque on specimens from the 
+<A HREF="../section4/pmd422.html#pr.r1">polymer relaxation</A> example at different times and 
+temperatures gives the results listed in the tables below. Note: the number of significant 
+digits shown in the tables below is larger than would normally be reported. However, as many 
+significant digits as possible should be carried throughout all calculations and results should
+only be rounded for final reporting. If reported numbers may be used in further calculations, 
+they should not be rounded even when finally reported. A useful rule for rounding final results
+that will not be used for further computation is to round all of the reported values to one or
+two significant digits in the total uncertainty, \(t_{1-\alpha/2,\nu} \, \hat{\sigma}_p\).
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}\hat{\sigma}_p" SRC="eqns/tsp.gif">. -->
+This is the convention for rounding that has been used in the tables below.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Pressure / Temperature Example</I>
+</TD>
+<TD WIDTH=85%>
+<TABLE CELLSPACING=8>
+<TR>
+<TD VALIGN=bottom ALIGN=center>
+\(x\)
+<!-- <IMG ALT="x" SRC="eqns/x.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{y}\)
+<!-- <IMG ALT="\hat{y}" SRC="eqns/yhat.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{\sigma}_f\)
+<!-- <IMG ALT="\hat{\sigma}_f" SRC="eqns/sigmahatf.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(t_{1-\alpha/2,\nu}\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}" SRC="eqns/t.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(t_{1-\alpha/2,\nu} \, \hat{\sigma}_f\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}\hat{\sigma}_f" SRC="eqns/tsf.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Lower 95%<BR>Confidence<BR>Bound
+</FONT>
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Upper  95%<BR>Confidence<BR>Bound
+</FONT>
+</TD>
+<TR><TD COLSPAN=7><HR></TD></TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>25</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>106.0025</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>1.1976162</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.024394</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.424447</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>103.6</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>108.4</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>45</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>184.6053</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.6803245</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.024394</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>1.377245</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>183.2</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>186.0</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>65</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>263.2081</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>1.2441620</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.024394</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.518674</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>260.7</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>265.7</FONT></TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Polymer Relaxation Example</I>
+</TD>
+<TD WIDTH=85%>
+<TABLE CELLSPACING=8>
+<TR>
+<TD VALIGN=bottom ALIGN=center>
+\(x_1\)
+<!-- <IMG ALT="x_1" SRC="eqns/x1.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(x_2\)
+<!-- <IMG ALT="x_2" SRC="eqns/x2.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{y}\)
+<!-- <IMG ALT="\hat{y}" SRC="eqns/yhat.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(\hat{\sigma}_f\)
+<!-- <IMG ALT="\hat{\sigma}_f" SRC="eqns/sigmahatf.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(t_{1-\alpha/2,\nu}\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}" SRC="eqns/t.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+\(t_{1-\alpha/2,\nu} \, \hat{\sigma}_f\)
+<!-- <IMG ALT="t_{1-\alpha/2,\nu}\hat{\sigma}_f" SRC="eqns/tsf.gif"> -->
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Lower 95%<BR>Confidence<BR>Bound
+</FONT>
+</TD>
+<TD VALIGN=bottom ALIGN=center>
+<FONT SIZE=-1>
+Upper  95%<BR>Confidence<BR>Bound
+</FONT>
+</TD>
+<TR><TD COLSPAN=8><HR></TD></TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>20</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>25</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.586307</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.028402</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.056812</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.529</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.643</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>80</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>25</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.998012</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.012171</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.024346</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>4.974</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.022</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>20</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>50</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.960607</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.013711</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.027427</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.933</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.988</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>80</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>50</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.342600</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.010077</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.020158</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.322</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>5.363</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>20</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>75</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>7.521252</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.012054</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.024112</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>7.497</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>7.545</FONT></TD>
+</TR>
+<TR>
+<TD ALIGN=center><FONT SIZE=-1>80</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>75</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.220895</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.013307</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>2.000298</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>0.026618</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.194</FONT></TD>
+<TD ALIGN=center><FONT SIZE=-1>6.248</FONT></TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Interpretation of Confidence Intervals</I>
+</TD>
+<TD WIDTH=85%>
+As mentioned above, confidence intervals capture the true value of the regression function with 
+a user-specified probability, the confidence level, using the estimated regression function and 
+the associated estimate of the error. Simulation of many sets of data from a process model 
+provides a good way to obtain a detailed understanding of the probabilistic nature of these 
+intervals. The advantage of using simulation is that the true model parameters are known, which 
+is never the case for a real process. This allows direct comparison of how confidence intervals
+constructed from a limited amount of data relate to the true values that are being estimated.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+The plot below shows 95 % confidence intervals computed using 50 independently generated data sets
+that follow the same model as the data in the Pressure/Temperature example. Random errors from 
+a normal distribution with a mean of zero and a known standard deviation are added to each set of
+true temperatures and true pressures that lie on a perfect straight line to obtain the simulated
+data. Then each data set is used to compute a confidence interval for the average pressure at a 
+temperature of 65. The dashed reference line marks the true value of the average pressure at a 
+temperature of 65.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="ci">Confidence Intervals Computed from 50 Sets of Simulated Data</A></I>
+</TD>
+<TD WIDTH=85%>
+<A HREF="plots/mupt1_f.gif">
+<IMG SRC="plots/mupt1_r.gif" HEIGHT=425 WIDTH=550 BORDER=0
+alt="confidence intervals computed from 50 sets of simulated data">
+</A>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Confidence Level Specifies Long-Run Interval Coverage</I>
+</TD>
+<TD WIDTH=85%>
+From the plot it is easy to see that not all of the intervals contain the true value of the 
+average pressure. Data sets 16, 26, and 39 all produced intervals that did not cover the true 
+value of the average pressure at a temperature of 65.  Sometimes the interval may fail to cover
+the true value because the estimated pressure is unusually high or low because of the random
+errors in the data set. In other cases, the variability in the data may be underestimated, 
+leading to an interval that is too short to cover the true value.  However, for 47 out of 50, 
+or approximately 95 % of the data sets, the confidence intervals did cover the true average 
+pressure. When the number of data sets was increased to 5000, confidence intervals computed for
+4723, or 94.46 %, of the data sets covered the true average pressure.  Finally, when the number 
+of data sets was increased to 10000, 95.12 % of the confidence intervals computed covered the 
+true average pressure. Thus, the simulation shows that although any particular confidence interval
+might not cover its associated true value, in repeated experiments this method of constructing
+intervals produces intervals that cover the true value at the rate specified by the user as the
+confidence level. Unfortunately, when dealing with real processes with unknown parameters, 
+it is impossible to know whether or not a particular confidence interval does contain the true 
+value. It is nice to know that the error rate can be controlled, however, and can be set so that
+it is far more likely than not that each interval produced does contain the true value. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Interpretation Summary</I>
+</TD>
+<TD WIDTH=85%>
+To summarize the interpretation of the probabilistic nature of confidence intervals in words:
+in independent, repeated experiments, \(100(1-\alpha) \, \%\)
+<!-- <IMG ALT="100(1-\alpha)\%" ALIGN=absmiddle SRC="eqns/clp.gif"> -->
+of the intervals
+will cover the true values, given that the assumptions needed for the construction of the 
+intervals hold.
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd51.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd512.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section5/pmd511.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:09:48 GMT -->
+</HTML>

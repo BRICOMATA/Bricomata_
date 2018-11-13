@@ -1,0 +1,37 @@
+Dataplot commands:
+
+reset data
+reset i/o
+reset plot control
+dimension 500 30
+skip 4
+read mass.dat x id y bal s ds
+let n = number y
+let cutoff = 85.0
+let tag = 2 for i = 1 1 n
+let tag = 1 subset x < cutoff
+xlimits 75 90
+let m = mean y subset tag 1
+let s = sd y subset tag 1
+let lambda = .2
+let fudge = sqrt(lambda/(2-lambda))
+let mean = m for i = 1 1 n
+let upper = mean + 3*fudge*s
+let lower = mean - 3*fudge*s
+let nm1 = n-1
+let start = 106
+let pred2 = mean
+loop for i = start 1 nm1
+   let ip1 = i+1
+   let yi = y(i)
+   let predi = pred2(i)
+   let predip1 = lambda*yi + (1-lambda)*predi
+   let pred2(ip1) = predip1
+end loop
+char * blank * circle blank blank
+char size 2 2 2 1 2 2
+char fill on all
+lines blank dotted blank solid solid solid
+plot y mean versus x and
+plot y pred2 lower upper versus x subset x > cutoff 
+.end of calculations

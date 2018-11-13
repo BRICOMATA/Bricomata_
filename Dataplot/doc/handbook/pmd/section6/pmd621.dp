@@ -1,0 +1,663 @@
+Dataplot commands and output:
+
+.
+. Starting Alaska Pipeline Calibration Case Study
+.
+. Setting Dataplot Defaults
+reset data
+reset plot control
+erase
+dimension 100 variables
+tic mark offset units absolute
+tic mark offset 5 5
+label case asis
+title case asis
+title displacement 1.5
+char x
+lines blank
+. Finished Setting Defaults
+
+.
+. Starting Step 1.1
+skip 25
+read berger1.dat field lab batch
+variable label field In-Field Defect Size
+variable label lab Lab Defect Size
+. Finished Step 1.1
+
+.Initial Plot of Data 	
+.
+. Starting Step 2.1
+x1label ^lab
+y1label ^field
+title Alaska Pipeline Ultrasonic Calibration Data
+plot field lab
+title
+x1label
+y1label
+. Finished Step 2.1
+
+.Condition Plot to Check for Batch Effect 	
+.
+.
+. Starting Step 2.2
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 2.5
+xlabel displacement 12
+ylabel displacement 15
+title displacement 8
+condition plot field lab batch
+title displacement 1.5
+label displacement
+multiplot corner coordinates
+multiplot scale factor 1
+. Finished Step 2.2
+
+.Statistic Plots to Check for Batch Effect 	
+.
+.
+. Starting Step 2.3
+multiplot 2 2
+multiplot corner coordinates 5 5 95 95
+multiplot scale factor 2.5
+title Correlation
+ylimits 0.8 1.0
+linear correlation plot field lab batch
+ylimits
+title Intercept
+linear intercept plot field lab batch
+title Slope
+ylimits 0.5 0.9
+linear slope plot field lab batch
+title RESSD
+ylimits
+linear ressd plot field lab batch
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+. Finished Step 2.3
+
+.Fit and Plot Predicted Values with Data 	
+.
+.
+. Starting Step 3.1
+fit field lab
+title displacement 7
+title size 3
+title Alaska Pipeline Ultrasonic Calibration Datacr()with Unweighted Line
+x1label ^lab
+y1label ^field
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot field pred vs lab
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 3.1
+
+> LEAST SQUARES MULTILINEAR FIT
+> SAMPLE SIZE N       =      107
+> NUMBER OF VARIABLES =        1
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.6112687111D+01
+> REPLICATION DEGREES OF FREEDOM =          29
+> NUMBER OF DISTINCT SUBSETS     =          78
+>  
+>  
+>       PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+> 1  A0                   4.99368       ( 1.126    )          4.4
+> 2  A1       LAB        0.731111       (0.2455E-01)          30.
+>  
+> RESIDUAL    STANDARD DEVIATION =         6.0809240341
+> RESIDUAL    DEGREES OF FREEDOM =         105
+> REPLICATION STANDARD DEVIATION =         6.1126871109
+> REPLICATION DEGREES OF FREEDOM =          29
+> LACK OF FIT F RATIO =       0.9857  = THE  46.3056% POINT OF THE
+> F DISTRIBUTION WITH     76 AND     29 DEGREES OF FREEDOM
+
+
+.Initial Fit and Model Validation 	
+.
+.
+. Starting Step 3.2
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot field lab
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 3.2
+
+.Plot Residuals 	
+.
+.
+. Starting Step 3.3
+title displacement 7
+title size 3
+title Alaska Pipeline Data Residuals - Unweighted Fit
+x1label ^lab
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+ylimits -20 20
+plot res vs lab
+x1label
+y1label
+character blank all
+line solid all
+char x
+line solid
+character fill off all
+character hw
+title displacement 1.5
+title
+ylimits
+drawdata 0 0 90 0
+.
+. Finished Step 3.3
+
+.Plot Common Transformations of Dependent Variable 	
+.
+.
+. Starting Step 4.1
+multiplot 2 2
+multiplot corner coordinates 5 5 95 95
+multiplot scale factor 2.5
+char x
+line blank
+y1label displacement 15
+x1label displacement 15
+xlimits 20 80
+major xtic mark number 4
+minor xtic mark number 1
+tic offset units data
+xtic offset 20 10
+ylimits 20 80
+major ytic mark number 4
+minor ytic mark number 1
+ytic offset 20 10
+x1label ^lab
+y1label ^field
+plot field lab
+ylimits 2 8
+ytic offset 0.5 2
+y1label sqrt(^field)
+let ytemp = sqrt(field)
+plot ytemp lab
+y1label log(^field)
+let ytemp = log(field)
+major ytic mark number 5
+ylimits 1 5
+ytic offset 0 0
+plot ytemp lab
+y1label 1/(^field)
+let ytemp = 1/(field)
+major ytic mark number 3
+ylimits 0 0.2
+ytic offset 0 0.02
+plot ytemp lab
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+label
+label displacement
+limits
+major tic mark number
+minor tic mark number
+tic mark offset units absolute
+tic mark offset 5 5
+move 50 97
+justification center
+height 3
+text Transformations of Response Variable
+. Finished Step 4.1
+
+.Plot Common Transformations of Predictor Variable 	
+.
+.
+. Starting Step 4.2
+multiplot 2 2
+multiplot corner coordinates 5 5 95 95
+multiplot scale factor 2.5
+char x
+line blank
+y1label displacement 15
+x1label displacement 15
+ylimits 1 5
+major ytic mark number 5
+minor ytic mark number 1
+ytic offset 0 0
+xlimits 20 80
+major xtic mark number 4
+minor xtic mark number 1
+xtic offset 20 10
+xtic offset units data
+x1label ^lab
+y1label log(^field)
+let ytemp = log(field)
+plot ytemp lab
+xlimits 2 8
+xtic offset 0.5 2
+x1label sqrt(^lab)
+let xtemp = sqrt(lab)
+plot ytemp xtemp
+xlimits 1 5
+major xtic mark number 5
+xtic offset 0 0
+x1label log(^lab)
+let xtemp = log(lab)
+plot ytemp xtemp
+xlimits 0 0.2
+major xtic mark number 3
+xtic offset 0 0.05
+x1label 1/(^lab)
+let xtemp = 1/(lab)
+plot ytemp xtemp
+end of multiplot
+multiplot corner coordinates
+multiplot scale factor 1
+label
+label displacement
+limits
+major tic mark number
+minor tic mark number
+tic mark offset units absolute
+tic mark offset 5 5
+move 50 97
+justification center
+height 3
+text Transformations of Predictor Variable
+. Finished Step 4.2
+
+.Box-Cox Linearity Plot 	
+.
+.
+. Starting Step 3.3
+line solid
+char blank
+x1label Alpha
+y1label Correlation
+title automatic
+Box-Cox Linearity Plot Field Lab
+move 50 4
+justification center
+let xt = xplot(^ymaxinde)
+case asis
+height 3
+text Maximum Occurs at X = ^xt
+x1label
+y1label
+title
+line blank
+char x
+. Finished Step 4.3
+
+.Fit Tranformed Model, Plot Predicted Values with Data 	
+.
+.
+. Starting Step 4.4
+let ytemp = log(field)
+let xtemp = log(lab)
+fit ytemp xtemp
+title displacement 7
+title size 3
+title Transformed Alaska Pipeline Data with Fit
+x1label log(^lab)
+y1label (^field)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ytemp pred vs xtemp
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 4.4
+
+> LEAST SQUARES MULTILINEAR FIT
+> SAMPLE SIZE N       =      107
+> NUMBER OF VARIABLES =        1
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.1369758099D+00
+> REPLICATION DEGREES OF FREEDOM =          29
+> NUMBER OF DISTINCT SUBSETS     =          78
+>  
+>  
+>        PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+> 1  A0                  0.281384       (0.8093E-01)          3.5
+> 2  A1       XTEMP      0.885175       (0.2302E-01)          38.
+>  
+> RESIDUAL    STANDARD DEVIATION =         0.1682604253
+> RESIDUAL    DEGREES OF FREEDOM =         105
+> REPLICATION STANDARD DEVIATION =         0.1369758099
+> REPLICATION DEGREES OF FREEDOM =          29
+> LACK OF FIT F RATIO =       1.7032 = THE  94.4923% POINT OF THE
+> F DISTRIBUTION WITH     76 AND     29 DEGREES OF FREEDOM
+
+
+.Model Validation for Transformed Model 	
+.
+.
+. Starting Step 4.5
+let ytemp = log(field)
+let xtemp = log(lab)
+fit ytemp xtemp
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot ytemp xtemp
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 4.5
+
+.Residual Plot for Transformed Model 	
+.
+.
+. Starting Step 4.6
+title displacement 7
+title size 3
+title Residuals From Fit to Transformed Data
+x1label log(^lab)
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+ylimits -0.3 0.3
+major ytic mark number 7
+minor ytic mark number 1
+tic offset units data
+ytic offset 0.05 0.05
+xlimits 1 5
+xtic offset 0 0
+major xtic mark number 5
+minor xtic mark number 1
+plot res vs xtemp
+line solid all
+drawdata 1 0 5 0
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+limits
+tic offset units absolute
+tic offset 5 5
+major tic mark number
+minor tic mark number
+.
+. Finished Step 4.6
+
+.Fit Weight Function 	
+.
+.
+. Starting Step 5.1
+delete xtemp ytemp
+let ytemp = field
+let xtemp = sortc lab ytemp
+let n = size xtemp
+let ngroups = int(n/4 + 0.9)
+let repgroup = sequence 1 4 1 ngroups for i = 1 1 n
+device 1 off
+device 2 off
+mean plot xtemp repgroup
+let means = yplot
+variance plot ytemp repgroup
+let var = yplot
+retain means var subset tagplot=1
+delete ytemp xtemp
+let ytemp = log(var)
+let xtemp = log(means)
+fit ytemp xtemp
+.
+device 1 on
+device 2 on
+title displacement 7
+title size 3
+title Fit for Estimating Weights
+x1label log(Replicate Means)
+y1label log(Replicate Variances)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ytemp pred vs xtemp
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 5.1
+
+> LEAST SQUARES MULTILINEAR FIT
+> SAMPLE SIZE N       =       27
+> NUMBER OF VARIABLES =        1
+> NO REPLICATION CASE
+> 
+> 
+> PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+> 1  A0                  -3.18451       (0.8265    )         -3.9
+> 2  A1       XTEMP       1.69001       (0.2344    )          7.2
+>
+> RESIDUAL    STANDARD DEVIATION =         0.8561206460
+> RESIDUAL    DEGREES OF FREEDOM =          25
+
+
+> LEAST SQUARES MULTILINEAR FIT
+> SAMPLE SIZE N       =      107
+> NUMBER OF VARIABLES =        1
+> REPLICATION CASE
+> REPLICATION STANDARD DEVIATION =     0.6112687111D+01
+> REPLICATION DEGREES OF FREEDOM =          29
+> NUMBER OF DISTINCT SUBSETS     =          78
+>
+>
+> PARAMETER ESTIMATES           (APPROX. ST. DEV.)    T VALUE
+> 1  A0                   2.35234       (0.5431    )          4.3
+> 2  A1       LAB        0.806363       (0.2265E-01)          36.
+>
+> RESIDUAL    STANDARD DEVIATION =         0.3645902574
+> RESIDUAL    DEGREES OF FREEDOM =         105
+> REPLICATION STANDARD DEVIATION =         6.1126871109
+> REPLICATION DEGREES OF FREEDOM =          29
+
+
+.Residuals From Weight Function Fit 	
+.
+.
+. Starting Step 5.2
+title displacement 7
+title size 3
+title Residuals From Weight Estimation Fit
+x1label log(Replicate Means)
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+plot res vs xtemp
+line solid all
+drawdata 2.0 0 4.5 0
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+.
+. Finished Step 5.2
+
+.Weighted Fit 	
+.
+.
+. Starting Step 5.3
+let weights = 1/(lab**(1.5))
+weights weights
+fit field lab
+let res = sqrt(weights)*res
+title displacement 7
+title size 3
+title Alaska Pipeline Data with Weighted FitCR()Weights = 1/(^lab**1.5)
+x1label ^lab
+y1label ^field
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+major tic mark number 4
+limits 20 80
+tic offset units data
+tic offset 20 10
+plot field pred vs lab
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+major tic mark number
+limits
+tic offset units absolute
+tic offset 5 5
+.
+. Finished Step 5.3
+
+.Model Validation for Weighted Fit 	
+.
+.
+. Starting Step 5.4
+let xtemp = 1/lab**(1.5)
+weights xtemp
+fit field lab
+let res = sqrt(xtemp)*res
+title automatic
+character x blank x x x x
+line blank solid blank blank blank blank
+.
+multiplot scale factor 2
+subregion off
+6-plot field lab
+multiplot scale factor 1
+character blank all
+line solid all
+. Finished Step 5.4
+
+.Plot Residuals for Weighted Fit 	
+.
+.
+. Starting Step 5.5
+title displacement 7
+title size 3
+title Residuals From Weighted Fit
+x1label ^lab
+y1label Residuals
+character circle
+character fill on
+character hw 2 1.5
+line blank
+plot res vs lab
+line solid all
+drawdata 0 0 95 0
+x1label
+y1label
+character blank all
+line blank
+char x
+character fill off all
+character hw
+title displacement 1.5
+title
+label
+.
+. Finished Step 5.5
+
+.Compare 3 Fits 	
+.
+.
+. Starting Step 6.1
+weight
+fit field lab
+let pred1 = pred
+let weights = 1/(lab**1.5)
+weight weights
+fit field lab
+let pred2 = pred
+weight
+let xtemp = log(lab)
+let ytemp = log(field)
+fit ytemp xtemp
+let pred3 = pred
+let pred3 = exp(pred)
+.
+title displacement 7
+title size 3
+title Data with Unweighted Line WLS Fit,CR()and Fit Using Transformed Variables
+x1label ^lab
+y1label ^field
+character circle blank blank blank
+character fill on off off off
+character hw 1.0 0.75
+line blank solid dash dot
+legend size 3
+legend case asis
+legend 1 Unweighted Fit
+legend 1 coordinates 28 79
+legend 2 Weighted Fit
+legend 2 coordinates 28 74
+legend 3 Transformed Fit
+legend 3 coordinates 28 69
+box shadow off
+plot field pred1 pred3 pred2 vs lab
+line solid
+draw 20 80 25 80
+line dotted
+draw 20 75 25 75
+line dash
+draw 20 70 25 70
+legend
+legend coordinates
+box coordinates
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 6.1

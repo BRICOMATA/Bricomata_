@@ -1,0 +1,197 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr24.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.2.4. How do you choose an appropriate physical acceleration model?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr25.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr234.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr2.html">Assumptions/Prerequisites</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.2.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>How do you choose an appropriate physical acceleration model?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Choosing
+a good acceleration model is part science and part art - but start with
+a good literature search</i></td>
+
+<td WIDTH="85%"><!-- Add main text below -->
+<p>Choosing a physical acceleration model is a lot like choosing a life
+distribution model. First identify the failure mode and what stresses are
+relevant (i.e., will accelerate the failure mechanism). Then check to see
+if the literature contains examples of successful applications of a particular
+model for this mechanism.&nbsp;
+<p>If the literature offers little help, try the models described in earlier
+sections :&nbsp;
+<ul>
+<li>
+<a href="../section1/apr151.html">Arrhenius</a></li>
+
+<li>
+<a href="../section1/apr153.html#The (Inverse) Power Rule for">The (inverse)
+power rule for voltage</a></li>
+
+<li>
+<a href="../section1/apr153.html#The Exponential Voltage">The exponential
+voltage model</a></li>
+
+<li>
+<a href="../section1/apr153.html#Two Temperature/Voltage">Two temperature/voltage
+models</a></li>
+
+<li>
+<a href="../section1/apr153.html#The Electromigration">The electromigration
+model</a></li>
+
+<li>
+<a href="../section1/apr153.html#Three Stress Models (Temperature, Voltage and">Three
+stress models (temperature, voltage and humidity)</a></li>
+
+<li>
+<a href="../section1/apr152.html">Eyring (</a>for more than three stresses
+or when the above&nbsp; models are not satisfactory)</li>
+
+<li>
+<a href="../section1/apr153.html#The Coffin-Manson Mechanical Crack Fatigue">The
+Coffin-Manson mechanical crack growth model</a></li>
+</ul>
+All but the last model (the Coffin-Manson) apply to chemical or electronic
+failure mechanisms, and since temperature is almost always a relevant stress
+for these mechanisms, the Arrhenius model is nearly always a part of any
+more general model. The Coffin-Manson model works well for many mechanical
+fatigue-related mechanisms.&nbsp;
+<p>
+Sometimes models have to be adjusted to include a <b>threshold level</b>
+for some stresses. In other words, failure might never occur due to a particular
+mechanism unless a particular stress (temperature, for example) is beyond
+a threshold value. A model for a temperature-dependent mechanism with a
+threshold at \(T = T_0\)
+<!-- <i>T = T<sub>0</sub></i> -->
+might look like&nbsp;
+
+$$ \mbox{time to fail } = \frac{f(T)}{T - T_0} \, , $$
+
+<!--
+<blockquote>time to fail = <i>f(T)/(T-T<sub>0</sub>)</i></blockquote>
+<p>
+<br>
+-->
+
+for which \(f(T)\)
+<!-- <i>f(T)</i> -->
+could be Arrhenius. As the temperature decreases towards \(T_0\),
+<!-- <i>T<sub>0</sub></i>, --> 
+time to fail increases toward infinity in
+this (deterministic) acceleration model.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Models derived theoretically have been very
+successful and are convincing</i></td>
+
+<td VALIGN=TOP WIDTH="85%">In some cases, a mathematical/physical description
+of the failure mechanism can lead to an acceleration model. Some of the
+models above were originally derived that way.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Simple models are often the best</i></td>
+
+<td VALIGN=TOP WIDTH="85%">In general, use the simplest model (fewest parameters)
+you can. When you have chosen a model, use visual tests and formal statistical
+fit tests to confirm the model is consistent with your data. Continue to
+use the model as long as it gives results that "work," but be quick to
+look for a new model when it is clear the old one is no longer adequate.
+<p>There are some good quotes that apply here:</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Quotes from experts on models</i></td>
+
+<td VALIGN=TOP WIDTH="85%">"All models are wrong, but some are useful."
+- George Box, and the principle of <i>Occam's Razor</i> (attributed to
+the 14th century logician William of Occam who said “Entities should not
+be multiplied unnecessarily” - or something equivalent to that in Latin).&nbsp;
+<p>A modern version of Occam's Razor is: If you have two theories that
+both explain the observed facts then you should use the simplest one until
+more evidence comes along - also called the <b>Law of Parsimony</b>.&nbsp;
+<p>Finally, for those who feel the above quotes place too much emphasis
+on simplicity, there are several appropriate quotes from Albert Einstein:&nbsp;
+<blockquote>"Make your theory as simple as possible, but no simpler."
+<p>"For every complex question there is a simple and wrong solution."</blockquote>
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr234.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr25.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section2/apr24.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+</HTML>

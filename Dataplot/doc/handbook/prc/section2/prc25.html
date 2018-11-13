@@ -1,0 +1,349 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc25.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.2.5. Does the defect density meet requirements?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc26.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc242.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc2.html">Comparisons based on data from one process</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.2.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Does the defect density meet requirements?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Testing defect densities is based on the Poisson distribution</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The number of defects observed in an area of size \(A\)
+<!-- <i>A</i> --> 
+units is
+often assumed to have a 
+<a href="../../eda/section3/eda366i.html">Poisson distribution</a> 
+with parameter \(A \times D\),
+<!-- <i>A</i> x <i>D</i>, -->
+where \(D\)
+<!-- <i>D</i> -->
+is
+the actual process defect density (\(D\)
+<!-- <i>D</i> -->
+is defects per unit area).  In other words:
+
+$$ P(\mbox{Number of Defects } = n) = \frac{(AD)^n}{n!} e^{-AD} \, . $$
+
+<!--
+<center>
+<img SRC="eqns/poisson.gif" height=48 width=206
+     ALT="P(#Defects=n) = (A*D)^(n)*EXP(-A*D)/n!">
+</center>
+<p>
+-->
+The questions of primary interest for quality control are:
+<ol>
+   <li>Is the defect density within prescribed limits?</li>
+   <li>Is the defect density less than a prescribed limit?</li>
+   <li>Is the defect density greater than a prescribed limit?</li>
+</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Normal approximation to the Poisson</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+We assume that \(AD\)
+<!-- <i>AD</i> -->
+is large enough so that the normal
+approximation to the Poisson applies (in other words, \(AD >\) 10
+<!-- <i>AD</i> > 10 -->
+for a reasonable approximation and \(AD >\) 20
+<!-- <i>AD</i> > 20 -->
+for a good one). That translates to
+
+$$ P(\mbox{Number of Defects } < n) 
+   = \Phi \left( \frac{n-AD}{\sqrt{AD}} \right) \, , $$
+
+<!--
+<center>
+<p>
+<img SRC="eqns/napprox.gif" height=48 width=210
+     ALT="P(# Defects < n) = PHI((n-A*D)/SQRT(A*D))">
+</center>
+<p>
+-->
+where \(\Phi\)
+<!-- <img align=absmiddle src="eqns/phi.gif" alt="PHI"> -->
+is the standard normal distribution function.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Test statistic based on a normal approximation</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+If, for a sample of area \(A\)
+<!-- <i>A</i>  -->
+with a defect density target of \(D_0\),
+<!-- <i>D<sub>0</sub></i>, -->
+a defect count of \(C\)
+<!-- <i>C</i> -->
+is observed, then the test statistic,
+
+$$ Z = \frac{C - AD_0}{\sqrt{AD_0}} \, , $$
+
+<!--
+<center>
+<p>
+<img SRC="eqns/ptest.gif" height=48 width=88
+     ALT="Z = (C - A*D(0))/SQRT(A*D(0))">
+</center>
+<p>
+-->
+
+can be used exactly as shown in the discussion of the test statistic
+for <a href="prc24.html">fraction defectives</a> in the preceding
+section.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<a NAME="ruleofthumb" <i></a><i>Testing the hypothesis that the process
+defect density is less than or equal to \(D_0\)
+<!-- D<sub>0</sub></i> -->
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+For example, after choosing a sample size of area \(A\)
+<!-- <i>A</i> --> 
+(see below for sample size calculation) we can reject that the process defect
+density is less than or equal to the target \(D_0\)
+<!-- <i>D<sub>0</sub></i> -->
+if the number of defects \(C\)
+<!-- <i>C</i> -->
+in the sample is greater than \(C_A\),
+<!-- <i>C<sub>A</sub></i>, -->
+where
+
+$$ C_A = z_{1-\alpha} \sqrt{AD_0} + AD_0 \, , $$
+
+<!--
+<center>
+<p>
+<img SRC="prc25_eq1.gif" ALT="C(A) = SQRT(A*D(0))*Z(1-alpha) + A*D(0)">
+</center>
+<p>
+-->
+and \(z_{1-\alpha}\)
+<!-- <i><font size=+1>z</font></i><sub>1-<i>&alpha;</i></sub> -->
+is the \(100(1-\alpha)\)
+<!-- 100(1-<i>&alpha;</i>) -->
+percentile of the standard normal distribution. The test significance
+level is \(100(1-\alpha)\).
+<!-- 100(1-<i>&alpha;</i>). -->
+For a 90 % significance level use \(z_{0.90}\) = 1.282
+<!-- <i><font size=+1>z</font></i><sub>0.90</i></sub> = 1.282 -->
+and for a 95 % test use \(z_{0.95}\) = 1.645.
+<!-- <i><font size=+1>z</font></i><sub>0.95</sub> = 1.645. -->
+\(\alpha\)
+<!-- <font size=+1><i>&alpha;</i></font>  -->
+is the maximum risk that an acceptable process with a defect density at
+least as low as \(D_0\)
+<!-- <i>D<sub>0</sub></i>  -->
+"fails" the test.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Choice of sample size (or area) to examine for defects</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+In order to determine a suitable area \(A\)
+<!-- <i>A</i> -->
+to examine for defects, you first need to choose an unacceptable defect
+density level. Call this unacceptable defect density \(D_1 = k D_0\),
+<!-- <i>D<sub>1</sub></i> = <i>kD<sub>0</sub></i>, -->
+where \(k > \) 1.
+<!-- <i>k</i> > 1. -->
+<p>
+We want to have a probability of less than or equal to \(\beta\)
+<!-- <i>&beta;</i> -->
+is of "passing" the test (and not rejecting the hypothesis that 
+the true level is \(D_0\)
+<!-- <i>D<sub>0</sub></i> -->
+or better) when, in fact, the true defect level is \(D_1\)
+<!-- <i>D<sub>1</sub></i>  -->
+or worse. Typically \(\beta\)
+<!-- <i>&beta;</i> -->
+will be 0.2, 0.1 or 0.05. Then we need to count defects in a sample size of
+area \(A\),
+<!-- <i>A</i>, -->
+where \(A\)
+<!-- <i>A</i> -->
+is equal to
+
+$$ A = \frac{k}{D_0} \left( \frac{\frac{z_{1-\alpha}}
+       {\sqrt{k}} - z_\beta} {k-1} \right)^2 \, . $$
+
+<!--
+<center>
+<p>
+<img SRC="prc25_eq2.gif"
+     ALT="A = (k/D(0))*{[(Z(1-alpha)/SQRT(k) - Z(beta)]/[k-1]}^2">
+</center>
+-->
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Example</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Suppose the target is \(D_0\) = 4
+<!-- <i>D<sub>0</sub></i> = 4 -->
+defects per wafer and
+we want to verify a new process meets that target.  We choose \(\alpha\)
+<!-- <i>&alpha;</i> -->
+= 0.1 to be the chance of failing the test if the 
+new process is as good as \(D_0\)
+<!-- <i>D<sub>0</sub></i> -->
+(\(\alpha\)
+<!-- <i>&alpha;</i> -->
+= the Type I error probability or the "producer's risk") 
+and we choose \(\beta\)
+<!-- <i>&beta;</i> -->
+= 0.1 for the chance of passing the test 
+if the new process is as bad as 6 defects
+per wafer (\(\beta\)
+<!-- <i>&beta;</i> -->
+= the Type II error probability or the "consumer's risk"). That means
+\(z_{1-\alpha}\)
+<!-- <i><font size=+1>z</font></i><sub>1-<i>&alpha;</i></sub> -->
+= 1.282 and \(z_{\beta}\)
+<!-- <i><font size=+1>z</font></i><sub><i>&beta;</i></sub> -->
+= -1.282.
+<p>
+The sample size needed is \(A\)
+<!-- <i>A</i> --> 
+wafers, where
+
+$$ A = \frac{1.5}{4} \left( \frac{\frac{1.282}{\sqrt{1.5}} -  
+       (-1.282)}{k-1} \right) ^ 2 = 8.1 \, , $$
+
+<p>
+<!-- <img SRC="eqns/asize.gif" height=90 width=388 ALT= -->
+<!--
+<img SRC="prc25_eq3.gif" ALT=
+     "A = (1.5/4)*{[(1.282/SQRT(1.5) - (-1.282)]/[1.5 - 1]}^2 = 8.1">
+<p>
+-->
+which we round up to 9.
+<p>
+The test criteria is to "accept" that the new process meets target
+unless the number of defects in the sample of 9 wafers exceeds
+
+$$ C_A = z_{1-\alpha} \sqrt{AD_0} + AD_0 = 1.282 \sqrt{36} + 36 = 43.7 \, . $$
+
+<!--
+<p>
+<img SRC="prc25_eq4.gif" 
+     ALT="C(A) = Z(1-alpha)SQRT(A*D(0)) + A*D(0) = SQRT(36)*1.282 + 36 = 43.7">
+<p>
+-->
+In other words, the reject criteria for the test of the new process
+is 44 or more defects in the sample of 9 wafers.
+<p>
+<u>Note</u>: Technically, all we can say if we run this test and
+end up <i>not rejecting</i> is that we do not have statistically
+significant evidence that the new process exceeds target. However,
+the way we chose the sample size for this test assures us we most
+likely would have had statistically significant evidence for rejection
+if the process had been as bad as 1.5 times the target.
+</td>
+</tr>
+
+
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc242.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc26.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section2/prc25.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+</HTML>

@@ -1,0 +1,271 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd142.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:37 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.1.4.2. Nonlinear Least Squares Regression</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd143.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd141.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd1.html">Introduction to Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.1.4.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd14.html">What are some of the different statistical methods for model building?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.1.4.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Nonlinear Least Squares Regression</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Extension of Linear Least Squares Regression</I>
+</TD>
+<TD WIDTH=85%>
+Nonlinear least squares regression extends linear least squares 
+regression for use with a much larger and more general class of functions.
+Almost any function that can be written in closed form can be 
+incorporated in a  nonlinear regression model.  Unlike linear regression,
+there are very few limitations on the way parameters can be used in the 
+functional part of a nonlinear regression model.  The way in which the 
+unknown parameters in the function are estimated, however, is conceptually
+the same as it is in linear least squares regression.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I><A NAME="def">Definition of a Nonlinear Regression Model</I>
+</TD>
+<TD WIDTH=85%>
+As the name suggests, a nonlinear model is any model of the 
+<A HREF="pmd12.html#bfm">basic form</A>,
+
+$$ y = f(\vec{x};\vec{\beta}) + \varepsilon \, ,$$
+
+<!-- <BR><BR><CENTER><IMG ALT=" 
+y = f(\vec{x};\vec{\beta}) + \varepsilon
+" ALIGN=baseline SRC="eqns/model.gif">.</CENTER><BR> -->
+in which
+<OL> 
+<LI>the functional part of the model is <I>not 
+<A HREF="pmd141.html#def">linear</A></I> with respect 
+to the unknown parameters, \(\beta_0, \, \beta_1, \, \ldots \, \),
+<!-- <IMG ALT="\beta_0, \beta_1, \ldots" ALIGN=absmiddle SRC="eqns/blist.gif">, -->
+and
+<LI>the <A HREF="../section4/pmd431.html">method of least squares</A> is used
+to estimate the values of the unknown parameters.
+</OL> 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Due to the way in which the unknown parameters of the function are
+usually estimated, however, it is often much easier to work with models
+that meet two additional criteria:
+<OL> 
+<LI VALUE=3>the function is smooth with respect to the unknown parameters, and
+<LI>the <A HREF="../section4/pmd431.html">least squares criterion</A> that is
+used to obtain the parameter estimates has a unique solution.
+</OL> 
+These last two criteria are not essential parts of the definition of a 
+nonlinear least squares model, but are of practical importance.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Examples of Nonlinear Models</I>
+</TD>
+<TD WIDTH=85%>
+Some examples of nonlinear models include:
+
+$$ f(x;\vec{\beta}) = \frac{\beta_0 + \beta_1x}{1+\beta_2x} $$
+
+$$ f(x;\vec{\beta}) = \beta_1x^{\beta_2} $$ 
+
+$$ f(x;\vec{\beta}) = \beta_0 + \beta_1\exp(-\beta_2x) $$
+
+$$ f(\vec{x};\vec{\beta}) = \beta_1\sin(\beta_2 + \beta_3x_1) + \beta_4\cos(\beta_5 + \beta_6x_2) $$
+
+<!--
+<BR><BR><CENTER><IMG ALT=" 
+f(x;\vec{\beta}) = \frac{\beta_0 + \beta_1x}{1+\beta_2x}
+" ALIGN=baseline SRC="eqns/nlfex2.gif"></CENTER><BR>
+<BR><BR><CENTER><IMG ALT=" 
+f(x;\vec{\beta}) = \beta_1x^{\beta_2}
+" ALIGN=baseline SRC="eqns/nlfex3.gif"></CENTER><BR>
+<BR><BR><CENTER><IMG ALT=" 
+f(x;\vec{\beta}) = \beta_0 + \beta_1\exp(-\beta_2x)
+" ALIGN=baseline SRC="eqns/nlfex4.gif"></CENTER><BR>
+<BR><BR><CENTER><IMG ALT=" 
+f(\vec{x};\vec{\beta}) = \beta_1\sin(\beta_2 + \beta_3x_1) + \beta_4\cos(\beta_5 + \beta_6x_2)
+" ALIGN=baseline SRC="eqns/nlfex5.gif"></CENTER><BR>
+-->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Advantages of Nonlinear Least Squares</I>
+</TD>
+<TD WIDTH=85%>
+The biggest advantage of nonlinear least squares regression over many other
+techniques is the broad range of functions that can be fit.  Although many
+scientific and engineering processes can be described well using linear
+models, or other relatively simple types of models, there are many other
+processes that are inherently nonlinear.  
+For example, the strengthening of concrete as it cures is a nonlinear process.
+Research on concrete strength shows that the strength increases quickly
+at first and then levels off, or approaches an asymptote in mathematical terms,
+over time.  
+Linear models do not describe processes that asymptote very well because for all
+linear functions the function value can't increase or decrease at a declining rate 
+as the explanatory variables go to the extremes.  There are many types of nonlinear 
+models, on the other hand, that describe the asymptotic behavior of a 
+process well.  Like the asymptotic behavior of some processes, other features
+of physical processes can often be expressed more easily using nonlinear models
+than with simpler model types. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Being a "least squares" procedure, nonlinear least squares has some
+of the same advantages (and disadvantages) that linear least squares regression
+has over other methods.  One common advantage is efficient use of data.
+Nonlinear regression can produce good estimates of the unknown parameters in
+the model with relatively small data sets.
+Another advantage that nonlinear least squares shares with linear least squares
+is a fairly well-developed theory for computing confidence, prediction and 
+calibration intervals to answer scientific and engineering questions.  In most
+cases the probabilistic interpretation of the intervals produced by nonlinear
+regression are only approximately correct, but these intervals  still work very
+well in practice.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Disadvantages of Nonlinear Least Squares</I>
+</TD>
+<TD WIDTH=85%>
+The major cost of moving to nonlinear least squares regression
+from simpler modeling techniques like linear least squares is the need to use
+iterative optimization procedures to compute the parameter estimates.  With 
+functions that are linear in the parameters, the least squares
+estimates of the parameters can always be obtained analytically, while that
+is generally not the case with nonlinear models.  The use of iterative
+procedures requires the user to provide starting values for the unknown
+parameters before the software can begin the optimization.  The starting 
+values must be reasonably close to the as yet unknown parameter estimates or
+the optimization procedure may not converge.  Bad starting values can also
+cause the software to converge to a local minimum rather than the global 
+minimum that defines the least squares estimates.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I></I>
+</TD>
+<TD WIDTH=85%>
+Disadvantages shared with the linear least squares procedure includes a strong
+sensitivity to outliers.  Just as in a linear least squares analysis, the
+presence of one or two outliers in the data can seriously affect the results
+of a nonlinear analysis.  In addition there are unfortunately fewer model
+validation tools for the detection of outliers in nonlinear regression than
+there are for linear regression.
+</TD>
+</TR>
+
+
+  
+   
+  
+   
+  
+   
+  
+   
+   
+   
+
+   
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd141.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd143.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section1/pmd142.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:07:37 GMT -->
+</HTML>

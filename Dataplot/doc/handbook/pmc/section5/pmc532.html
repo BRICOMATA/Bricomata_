@@ -1,0 +1,341 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section5/pmc532.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:22:06 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.5.3.2. Determinant and Eigenstructure</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc54.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc531.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc5.html">Tutorials</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.5.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc53.html">Elements of Matrix Algebra</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.5.3.2.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Determinant and Eigenstructure</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>A matrix determinant is difficult to define but a very useful
+number</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Unfortunately, not every square matrix has an inverse (although most
+do).  Associated with any square matrix is a single number that
+represents a unique function of the numbers in the matrix.  This
+scalar function of a square matrix is called the <i>determinant</i>.
+The determinant of a matrix \({\bf A}\)
+<!-- </i><b>A<i> </i></b><i> -->
+is denoted by \(|{\bf A}|\).
+<!-- <b>|A|</b>. -->
+A formal definition for the deteterminant of a
+square matrix \({\bf A} = (a_{ij})\)
+<!-- <b>A</b> = (<i>a</i><sub>ij</sub>) -->
+is somewhat beyond the scope of this Handbook.  
+Consult any good linear algebra textbook
+if you are interested in the mathematical details.
+<!--  For completeness, the following
+is offered without explanation:
+<p>
+<center>
+<img SRC="eqns/det.gif" height=166 width=285
+<img SRC="eqns/deta.gif"
+     ALT="|A| = SUM[+/- a(1i)*a(2j)*...*a(mp)">
+</center>
+<p>
+where the summation is taken over all possible permutations of the
+numbers (1, 2, ..., m) with a plus sign if the permutation is
+even and a minus sign if it is odd.
+ -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Singular matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+As is the case of inversion of a square matrix, calculation of the
+determinant is tedious and computer assistance is needed for
+practical calculations.  If the determinant of the (square) matrix
+is exactly zero, the matrix is said to be <i>singular</i> and it
+has no inverse.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Determinant of variance-covariance matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Of great interest in statistics is the determinant of a square
+symmetric matrix \({\bf D}\)
+<!-- <b>D</b> -->
+whose diagonal elements are sample
+variances and whose off-diagonal elements are sample covariances.
+Symmetry means that the matrix and its transpose are identical
+(i.e., \({\bf A} = {\bf A}'\)).
+<!-- (i.e., <b>A = A')</b>. -->
+An example is
+
+$$ {\bf D} = \left[ \begin{array}{cccc} 
+s_1^2 & s_1 s_2 r_{12} &  \cdots & s_1 s_p r_{1p} \\
+s_2 s_1 r_{21} & s_2^2 &  \cdots & s_2 s_p r_{2p} \\
+\vdots & \vdots &   & \vdots \\
+s_p s_1 r_{p1} & s_p s_2 r_{p2} & \cdots & s_p^2 
+\end{array} \right] \, . $$
+
+<!-- 
+<center>
+<img SRC="eqns/mat20.gif" height=133 width=245 ALT= "D =
+ [s1**2  s1*s2*r12  ...  s1*sp*r1p;
+  s2*s1*r21  s2**2  ...  s2*sp*r2p;
+                 ....             ;
+  sp*s1*rp1  sp*s2*rp2  ...  sp**2]">
+</center>
+<p>
+-->
+where \(s_1\) and \(s_2\)
+<!-- <i>s</i><sub>1 </sub>and<i> s</i><sub>2</sub> -->
+are sample standard deviations and \(r_{ij}\)
+<!-- <i>r</i><sub>ij</sub>  -->
+is the sample correlation.
+<p>
+\({\bf D}\)
+<!-- <b>D</b> -->
+is the <i>sample variance-covariance matrix</i> for
+observations of a multivariate vector of \(p\)
+<!-- <i>p</i> -->
+elements.  The determinant of \({\bf D}\),
+<!-- <b>D</b>, -->
+in this case, is sometimes called the <i>generalized variance.</i>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Characteristic equation
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+In addition to a determinant and possibly an inverse, every square
+matrix has associated with it a <i>characteristic equation</i>.  The
+characteristic equation of a matrix is formed by subtracting some
+particular value, usually denoted by the greek letter \(\lambda\),
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lambda"> -->
+(lambda),
+from each diagonal element of the matrix, such that the determinant of
+the resulting matrix is equal to zero.  For example, the
+characteristic equation of a second order (\(2 \times 2\)) matrix \({\bf A}\)
+<!-- (2 x 2) matrix <b>A</b> -->
+may be written as
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Definition of the characteristic equation for \(2 \times 2\) matrix</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+
+$$ |{\bf A}-\lambda {\bf I}| = 
+\left| \begin{array}{cc} 
+a_{11} - \lambda & a_{12}  \\
+a_{21} & a_{22} - \lambda 
+\end{array} \right| = 0 \, . $$
+
+<!--
+<center>
+<img SRC="eqns/mat21.gif" height=94 width=193
+     ALT="|A - lambda*I| = |a11-lambda   a12; a21   a22-lambda| = 0">
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Eigenvalues of a matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+For a matrix of order \(p\)
+<!-- <i>p</i>, -->
+there may be as many as \(p\)
+<!-- <i>p</i> -->
+different values for \(\lambda\)
+<!-- <img align=absmiddle src="eqns/lambda.gif" alt="lambda"> -->
+that will satisfy the equation.  These different values are called the
+<a NAME="eigenvalues"></a>eigenvalues of the matrix.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Eigenvectors of a matrix
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Associated with each eigenvalue is a vector, \({\bf v}\),
+<!-- <b>v</b>,  -->
+called the <i>eigenvector</i>.  The eigenvector satisfies the equation
+
+$$ {\bf Av} = \lambda {\bf v} \, . $$
+
+<!--
+<p>
+<center>
+<b>Av = <img align=absmiddle src="eqns/lambda.gif" alt="lambda">v</b>
+</center>
+-->
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<I>
+Eigenstructure of a matrix
+</I>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+If the complete set of eigenvalues is arranged in the diagonal
+positions of a diagonal matrix \({\bf V}\),
+<!-- <b>V</b>,  -->
+the following relationship holds.
+
+$$ {\bf AV} = {\bf VL} $$
+
+<!--
+<p>
+<center>
+   <b>AV = VL</b>
+</center>
+<p>
+-->
+This equation specifies the complete <i>eigenstructure</i> of \({\bf A}\).
+<!-- <b>A</b>. -->
+Eigenstructures and the associated theory figure heavily
+in multivariate procedures and the numerical evaluation of \({\bf L}\)
+<!-- <b>L</b> -->
+and \({\bf V}\)
+<!-- <b>V</b> -->
+is a central computing problem.
+</td>
+</tr>
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc531.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc54.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section5/pmc532.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:22:06 GMT -->
+</HTML>

@@ -1,0 +1,28 @@
+. Starting Step 4.3
+.
+runs y
+.
+y1label autocorrelation
+x1label lag
+xlimits 0 250
+line solid
+char blank
+autocorrelation plot y
+xlimits
+let yauto = yplot(2)
+let junk = yplot
+retain junk subset tagplot = 3
+let y95lim = junk(1)
+print yauto
+print y95lim
+let string irand = YES
+let amin = maximum yplot subset tagplot = 4
+let amax = maximum yplot subset tagplot = 3
+if yauto < amin
+  let string irand = NO
+end of if
+if yauto > amax
+  let string irand = NO
+end of if
+.
+. Finished Step 4.3: Page Back for Output

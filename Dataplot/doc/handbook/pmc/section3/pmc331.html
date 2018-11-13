@@ -1,0 +1,742 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section3/pmc331.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:22 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript" src=
+"https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>6.3.3.1. Counts Control Charts</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmc332.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmc33.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">6.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmc.html">Process or Product Monitoring and Control</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc3.html">Univariate and Multivariate Control Charts</a></FONT>
+<BR>
+<FONT COLOR="#D60021">6.3.3.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmc33.html">What are Attributes Control Charts?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">6.3.3.1.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Counts Control Charts</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+<i>Defective items vs individual defects</i>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+The literature differentiates between <i>defect</i> and
+<i>defective</i>, which is the same as differentiating between
+<i>nonconformity</i> and <i>nonconforming units</i>.  This may sound
+like splitting hairs, but in the interest of clarity let's try to
+unravel this man-made mystery.
+<p>
+Consider a wafer with a number of chips on it. The wafer is referred
+to as an "item of a product".  The chip may be referred to as
+"a specific point".  There exist certain specifications for the
+wafers. When a particular wafer (e.g., the item of the product) does
+not meet at least one of the specifications, it is classified as a
+<u>nonconforming item.</u>  Furthermore, each chip, (e.g., the
+specific point) at which a specification is not met becomes a
+<u>defect</u> or <u>nonconformity.</u>
+<p>
+So, a nonconforming or defective item contains at least one defect or
+nonconformity.  It should be pointed out that a wafer can contain
+several defects but still be classified as conforming.  For example,
+the defects may be located at noncritical positions on the wafer.  If,
+on the other hand, the number of the so-called "unimportant" defects
+becomes alarmingly large, an investigation of the production of these
+wafers is warranted.
+<p>
+Control charts involving counts can be either for the <i>total
+number</i> of nonconformities (defects) for the sample of inspected
+units, or for the <i>average number</i> of defects per
+inspection unit.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Poisson approximation for numbers or counts of defects</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%"><!-- Add main text below -->
+<p>
+Let us consider an assembled product such as a microcomputer.  The
+opportunity for the occurrence of any given defect may be quite
+large.  However, the probability of occurrence of a defect in any
+one arbitrarily chosen spot is likely to be very small.  In such a
+case, the incidence of defects might be modeled by a
+<a href="../../eda/section3/eda366j.html"><i>Poisson</i> distribution</a>.  
+Actually, the Poisson distribution is an approximation of the
+<a href="../../eda/section3/eda366i.html"><i>binomial</i> distribution</a> 
+and applies well in this capacity according to the following rule of thumb:
+<blockquote>
+The sample size \(n\)
+<!-- <i>n</i> -->
+should be equal to or larger than 20 and
+the probability of a single success, \(p\),
+<!-- <i>p</i>, -->
+should be smaller than or equal to 0.05.  If \(n \ge 100\),
+<!-- <i>n</i> &ge; 100, -->
+the approximation is excellent if \(np\)
+<!-- <i>np</i> -->
+is also \(\le 10\).
+<!-- &le; 10. -->
+</blockquote>
+</td>
+</tr>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Illustrate Poisson approximation to binomial
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+To illustrate the use of the Poisson distribution as an
+approximation of a binomial distribution, consider the following 
+comparison: Let \(p\),
+<!-- <i>p</i>, -->
+the probability of a single success in \(n = 200\)
+<!-- <i>n</i> = 200 -->
+trials, be 0.025.
+<p>
+Find the probability of exactly 3 successes.  If we assume that \(p\)
+<!-- <i>p</i> -->
+remains constant then the solution follows the binomial
+distribution rules, that is:
+
+<p>
+<!--
+<img SRC="eqns/counts2.gif" height=94 width=361 ALT=
+"p(x) = (n x)*p**x*(1-p)**(n-x) = (200 3)*0.025**3*0.975**197 =
+ 0.139995">
+-->
+\( p(x) = 
+\left( \begin{array}{c} n \\ x \end{array} \right)
+p^{x}(1 - p)^{n-x} = 
+\left( \begin{array}{c} 200 \\ 3 \end{array} \right)
+(0.025^{3})(0.975^{197}) = 0.1399995 \, . \)
+<p>
+By the Poisson approximation we have 
+<ul>
+$$ c = 200(0.025) $$
+<!-- <img SRC="eqns/poisson3.gif" ALT="c = (200)(.025)"> -->
+<!-- <i>c</i> = (200)(.025) -->
+</ul>
+and
+<ul>
+<!-- <img SRC="eqns/poisson2.gif" 
+      ALT="p(x) = EXP(-c)*c**x/x! = EXP(-5)*5**3/3! = 0.1403739"> -->
+$$ p(x) = \frac{e^{-c}c^{x}}{x!} = \frac{e^{-5}5^{3}}{3!} = 0.1403739 \, .$$
+</ul>
+<!-- <img SRC="eqns/counts3.gif" height=138 width=216> -->
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+The inspection unit
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+Before the control chart parameters are defined there is one more
+definition: <i>the inspection unit.</i>  We shall count the number
+of defects that occur in a so-called inspection unit.  More often
+than not, an inspection unit is a single unit or item of product;
+for example, a wafer.  However, sometimes the inspection unit could
+consist of five wafers, or ten wafers and so on.  The size of the
+inspection units may depend on the recording facility, measuring
+equipment, operators, etc.
+<p>
+Suppose that defects occur in a given inspection unit according to the
+Poisson distribution, with parameter \(c\)
+<!-- <i>c</i> -->
+(often denoted by \(np\)
+<!-- <i>np</i> -->
+or the Greek letter \(\lambda\)).
+<!-- <i>&lambda;</i>). -->
+In other words
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Control charts for counts, using the Poisson distribution</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<!-- <img SRC="eqns/poisson.gif" height=334 width=432> -->
+<!-- <img SRC="eqns/poisson4.gif" ALT="p(x) = EXP(-c)*c**x/x!"> -->
+$$ p(x) = \frac{e^{-c}c^{x}}{x!} \, ,$$
+<p>
+where \(x\)
+<!-- <i>x</i> -->
+is the number of defects and \(c > 0\)
+<!-- <i>c</i> > 0 -->
+is the parameter of the Poisson distribution.  It is known that both the
+mean and the variance of this distribution are equal to \(c\).
+<!-- <i>c</i>. -->
+Then the \(k\)-sigma
+<!-- <i>k</i>-sigma  -->
+control chart is
+
+$$ \begin{eqnarray}
+UCL & = & c + k\sqrt{c} \\
+\mbox{Center Line} & = & c \\
+LCL & = & c - k\sqrt{c} \, .
+\end{eqnarray} $$
+
+<ul>
+<!-- <img SRC="eqns/cucl.gif" ALT="UCL = c + k*SQRT(c)"> -->
+<!-- UCL = c + k\(\sqrt{c}\) -->
+<p>
+<!-- <img SRC="eqns/ccl.gif" ALT="Center Line = c"> -->
+<!-- Center Line = <i>c</i> -->
+<p>
+<!-- <img SRC="eqns/clcl.gif" ALT="LCL = c - k*SQRT(c)"> -->
+<!-- LCL = c - k\(\sqrt{c}\) -->
+</ul>
+If the \(LCL\) comes out negative, then there is no lower control limit.
+This control scheme assumes that a standard value for \(c\)
+<!-- <i>c</i> -->
+is available.  If this is not the case then \(c\)
+<!-- <i>c</i>  -->
+may be estimated as the average of the number of defects in a preliminary sample
+of inspection units, call it
+<!-- <img align=absmiddle src="eqns/cbar.gif" alt="cbar"> -->
+\(\bar{c}\).  Usually \(k\)
+<!-- <i>k</i> -->
+is set to 3 by many practioners.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Control chart example using counts</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+An example may help to illustrate the construction of control limits
+for counts data.  We are inspecting 25 successive wafers, each
+containing 100 chips.  Here the wafer is the inspection unit.  The
+observed number of defects are
+<p>
+<!-- <img SRC="eqns/counts.gif" height=364 width=356> -->
+<center>
+<table noborder width=300>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      Wafer
+   </td>
+   <td valign=top align=center>
+      Number
+   </td>
+   <td valign=top align=center>
+      Wafer
+   </td>
+   <td valign=top align=center>
+      Number
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      Number
+   </td>
+   <td valign=top align=center>
+      of Defects
+   </td>
+   <td valign=top align=center>
+      Number
+   </td>
+   <td valign=top align=center>
+      of Defects
+   </td>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      1
+   </td>
+   <td valign=top align=center>
+      16
+   </td>
+   <td valign=top align=center>
+      14
+   </td>
+   <td valign=top align=center>
+      16
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      2
+   </td>
+   <td valign=top align=center>
+      14
+   </td>
+   <td valign=top align=center>
+      15
+   </td>
+   <td valign=top align=center>
+      15
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      3
+   </td>
+   <td valign=top align=center>
+      28
+   </td>
+   <td valign=top align=center>
+      16
+   </td>
+   <td valign=top align=center>
+      13
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      4
+   </td>
+   <td valign=top align=center>
+      16
+   </td>
+   <td valign=top align=center>
+      17
+   </td>
+   <td valign=top align=center>
+      14
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      5
+   </td>
+   <td valign=top align=center>
+      12
+   </td>
+   <td valign=top align=center>
+      18
+   </td>
+   <td valign=top align=center>
+      16
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      6
+   </td>
+   <td valign=top align=center>
+      20
+   </td>
+   <td valign=top align=center>
+      19
+   </td>
+   <td valign=top align=center>
+      11
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      7
+   </td>
+   <td valign=top align=center>
+      10
+   </td>
+   <td valign=top align=center>
+      20
+   </td>
+   <td valign=top align=center>
+      20
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      8
+   </td>
+   <td valign=top align=center>
+      12
+   </td>
+   <td valign=top align=center>
+      21
+   </td>
+   <td valign=top align=center>
+      11
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      9
+   </td>
+   <td valign=top align=center>
+      10
+   </td>
+   <td valign=top align=center>
+      22
+   </td>
+   <td valign=top align=center>
+      19
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      10
+   </td>
+   <td valign=top align=center>
+      17
+   </td>
+   <td valign=top align=center>
+      23
+   </td>
+   <td valign=top align=center>
+      16
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      11
+   </td>
+   <td valign=top align=center>
+      19
+   </td>
+   <td valign=top align=center>
+      24
+   </td>
+   <td valign=top align=center>
+      31
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      12
+   </td>
+   <td valign=top align=center>
+      17
+   </td>
+   <td valign=top align=center>
+      25
+   </td>
+   <td valign=top align=center>
+      13
+   </td>
+</tr>
+<tr>
+   <td valign=top align=center>
+      13
+   </td>
+   <td valign=top align=center>
+      14
+   </td>
+   <td valign=top align=center>
+      &nbsp;
+   </td>
+   <td valign=top align=center>
+      &nbsp;
+   </td>
+</tr>
+<tr>
+   <td colspan=4>
+      <hr noshade>
+   </td>
+</tr>
+</table>
+</center>
+<p>
+From this table we have
+
+<!-- <img SRC="eqns/counts4.gif" height=122 width=276> -->
+<ul>
+<!--
+<img SRC="eqns/cbar2.gif" ALT=
+"cbar = (total number of defects)/(total number of samples) = 400/25 = 16">
+-->
+$$ \bar{c} = \frac{\mbox{total number of defects}}
+{\mbox{total number of samples}} = \frac{400}{25} = 16 $$
+<p>
+<!--
+<img SRC="eqns/cucl2.gif" ALT=
+     "UCL = cbar + 3*SQRT(cbar) = 16 + 3*SQRT(16) = 28">
+-->
+$$ UCL = \bar{c} + 3 \sqrt{\bar{c}} = 16 + 3 \sqrt{16} = 28 $$
+<p>
+<!--
+<img SRC="eqns/clcl.gif" ALT=
+     "LCL = cbar - 3*SQRT(cbar) = 16 - 3*SQRT(16) = 4">
+-->
+$$ LCL = \bar{c} - 3 \sqrt{\bar{c}} = 16 - 3 \sqrt{16} = 4 \, . $$
+</ul>
+</td>
+</tr>
+
+</TABLE>
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Sample counts control chart
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<center>
+<b><u>Control Chart for Counts</u></b>
+</center>
+<p>
+<img SRC="gifs/cc2.gif" height=299 width=400
+     ALT="Sample counts control chart">
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+</TABLE>
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Transforming Poisson Data</b>
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Normal approximation to Poisson is adequate when the mean of
+the Poisson is at least 5
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+We have seen that the 3-sigma limits for a \(c\)
+<!-- <i>c</i> -->
+chart, where \(c\)
+<!-- <i>c</i> -->
+represents the number of nonconformities, are given by
+<center>
+<!--
+<img SRC="eqns/counts5.gif" height=70 width=53
+     ALT="cbar +/- 3*SQRT(cbar)">
+-->
+<p>
+$$ \bar{c} \pm 3 \sqrt{\bar{c}} \, , $$
+<p>
+</center>
+where it is assumed that the normal approximation to the Poisson
+distribution holds, hence the symmetry of the control limits.  It is
+shown in the literature that the normal approximation to the Poisson
+is adequate when the mean of the Poisson is at least 5.  When applied
+to the \(c\)
+<!-- <i>c</i> -->
+chart this implies that the mean of the defects
+should be at least 5.  This requirement will often be met in
+practice, but still, when the mean is smaller than 9 (solving
+the above equation) there will be no lower control limit.
+<p>
+Let the mean be 10.  Then the lower control limit is 0.513.  However,
+\(P(c=0) = 0.000045\),
+<!-- <i>P</i>(<i>c </i>= 0) = .000045, -->
+using the Poisson formula.  This
+is only 1/30 of the assumed area of 0.00135.  So one has to raise the
+lower limit so as to get as close as possible to 0.00135.  From
+Poisson tables or computer software we find that \(P(1) = 0.0005\)
+<!-- <i>P</i>(1) = .0005 -->
+and \(P(2) = 0.0027\),
+<!-- <i>P</i>(2) = .0027, -->
+so the lower limit should actually be 2 or 3.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<i>Transforming count data into approximately normal data</i>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+To avoid this type of problem, we may resort to a transformation that
+makes the transformed data match the normal distribution better.
+One such transformation described by Ryan (2000) is
+
+$$ Y = 2 \sqrt{c} \, , $$
+
+<ul>
+<!-- <img SRC="eqns/counts6.gif" height=146 width=373 -->
+<!-- <img SRC="eqns/y2sqrtc.gif" ALT="Y = 2*SQRT(c)"> -->
+<!-- <i>Y</i> = 2\(\sqrt{c}\) --></ul>
+which is, for a large sample, approximately normally distributed
+with mean = 2\(\sqrt{\lambda}\) and variace = 1, where \(\lambda\)
+<!-- <i>&lambda;</i> -->
+is the mean of the Poisson distribution.
+<p>
+Similar transformations have been proposed by Anscombe (1948) and
+Freeman and Tukey (1950).  When applied to a \(c\)
+<!-- <i>c</i> -->
+chart these are
+<ul>
+<!-- <img SRC="eqns/counts7.gif" height=144 width=245> -->
+<!--
+<img SRC="eqns/y1y2.gif"
+     ALT="y1 = 2*SQRT(c + 3/8)  and  y2 = SQRT(c) + SQRT(c+1)">
+-->
+$$ y_1 = 2\sqrt{c + 3/8} $$
+</ul>
+and
+<ul>
+$$ y_2 = \sqrt{c} + \sqrt{c+1} \, . $$
+</ul>
+The respective control limits are
+<ul>
+<!--
+<img SRC="eqns/ypm3.gif"
+     ALT="ybar +/- 3, y1bar +/- 3, and y2bar +/- 3">
+-->
+$$ \bar{y} \pm 3, \,\,\, \bar{y}_{1} \pm 3, \,\, \mbox{ and } \,\,\, \bar{y}_{2} = \pm 3 \, .$$
+</ul>
+While using transformations may result in meaningful control limits,
+one has to bear in mind that the user is now working with data on
+a different scale than the original measurements.  There is another
+way to remedy the problem of symmetric limits applied to non symmetric
+cases, and that is to use <i>probability</i> limits.  These can be
+obtained from tables given by Molina (1973).  This allows the user
+to work with data on the original scale, but they require special
+tables to obtain the limits.  Of course, software might be used
+instead.
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+<!-- begin paragraph -->
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<!-- Add marginal notes below -->
+<I>
+Warning for highly skewed distributions
+</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+<!-- Add main text below -->
+<b>Note:</b> In general, it is not a good idea to use 3-sigma limits
+for distributions that are highly skewed (see
+<a href="../section7/pmc7.html#Ryan, T. P. and">Ryan and Schwertman</a>
+(1997) for more about the possibly extreme consequences
+of doing this).
+
+</TD>
+</TR>
+<!-- end paragraph -->
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmc33.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmc332.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmc/section3/pmc331.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:21:24 GMT -->
+</HTML>

@@ -1,0 +1,260 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section1/prc16.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:11 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>7.1.6. What are outliers in the data?</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="prc17.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="prc15.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">7.</FONT>
+<FONT COLOR="#00105A"><A HREF="../prc.html">Product and Process Comparisons</a></FONT>
+<BR>
+<FONT COLOR="#D60021">7.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="prc1.html">Introduction</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">7.1.6.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>What are outliers in the data?</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below -->
+<i>Definition of outliers</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+An <i>outlier</i> is an observation that lies an abnormal distance
+from other values in a random sample from a population.  In a sense,
+this definition leaves it up to the analyst (or a consensus process)
+to decide what will be considered abnormal.   Before abnormal
+observations can be singled out, it is necessary to characterize
+normal observations.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Ways to describe data</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+Two activities are essential for characterizing a set of data: 
+<ol>
+   <li>Examination of the overall shape of the graphed data for
+       important features, including symmetry and departures from
+       assumptions.  The chapter on
+       <A HREF="../../eda/section3/eda3.html">Exploratory Data
+       Analysis (EDA)</a> discusses assumptions and summarization
+       of data in detail.  
+       <p>
+   <li>Examination of the data for unusual observations that are
+       far removed from the mass of data.  These points are often
+       referred to as outliers.  Two graphical techniques for
+       identifying outliers,
+       <a href="../../eda/section3/scattera.html">scatter plots</a>
+       and <a href="../../eda/section3/boxplot.html">box plots</a>, along with an analytic procedure for detecting outliers when the distribution is normal (<a href="../../eda/section3/eda35h.html">Grubbs' Test</a>),
+       are also discussed in detail in the EDA chapter.
+</ol>
+</td>
+</tr>
+
+<tr><td VALIGN=TOP WIDTH="15%">
+<i>Box plot construction</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The box plot is a useful graphical display for describing the
+behavior of the data in the middle as well as at the ends of the
+distributions.  The box plot uses the
+<a href="../../eda/section3/eda351.html">median</a> and the lower
+and upper quartiles (defined as the 25th and 75th
+<a href="../section2/prc252.html">percentiles</a>).  If the lower
+quartile is Q1 and the upper quartile is Q3, then the difference
+(Q3 - Q1) is called the interquartile range or IQ.
+</td>
+</tr>
+
+<tr><td VALIGN=TOP WIDTH="15%">
+<i>Box plots with fences</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A box plot is constructed by drawing a box between the upper and
+lower quartiles with a solid line drawn across the box to locate
+the median.  The following quantities (called <i>fences</i>) are
+needed for identifying extreme values in the tails of the
+distribution:
+<ol>
+   <li>lower inner fence: Q1 - 1.5*IQ
+   <li>upper inner fence: Q3 + 1.5*IQ
+   <li>lower outer fence: Q1 - 3*IQ
+   <li>upper outer fence: Q3 + 3*IQ
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%">
+<i>Outlier detection criteria</i>
+</td>
+
+<td valign=top width="85%">
+A point beyond an inner fence on either side is considered a
+<b>mild outlier</b>.  A point beyond an outer fence is considered
+an <b>extreme outlier</b>. 
+</td>
+</tr>
+
+<tr><td VALIGN=TOP WIDTH="15%">
+<i>Example of an outlier box plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+The data set of <i>N</i> = 90 ordered observations as shown below
+is examined for outliers:
+<p>
+30, 171, 184, 201, 212, 250, 265, 270, 272, 289,  
+305, 306, 322, 322, 336, 346, 351, 370, 390, 404, 409, 411,  
+436, 437, 439, 441, 444, 448, 451, 453, 470, 480, 482,  
+487, 494, 495, 499, 503, 514, 521, 522, 527, 548, 550,  
+559, 560, 570, 572, 574, 578, 585, 592, 592, 607, 616,  
+618, 621, 629, 637, 638, 640, 656, 668, 707, 709, 719,  
+737, 739, 752, 758, 766, 792, 792, 794, 802, 818, 830,  
+832, 843, 858, 860, 869, 918, 925, 953, 991, 1000,  
+1005, 1068, 1441
+<p>
+The computations are as follows:  
+<ul>
+   <li>Median = (<i>n</i>+1)/2 largest data point = the average
+       of the 45th and 46th ordered points = (559 + 560)/2 = 559.5
+   <li><a href="../section2/prc242.html">Lower quartile</a> =
+       .25(<i>N</i>+1)th ordered point = 22.75th ordered point
+       = 411 + .75(436-411) = 429.75
+
+   <li><a href="../section2/prc242.html">Upper quartile</a> =
+       .75(<i>N</i>+1)th ordered point = 68.25th ordered point
+       = 739 +.25(752-739) = 742.25
+   <li>Interquartile range = 742.25 - 429.75 = 312.5
+   <li>Lower inner fence = 429.75 - 1.5 (312.5) = -39.0
+   <li>Upper inner fence = 742.25 + 1.5 (312.5) = 1211.0
+   <li>Lower outer fence = 429.75 - 3.0 (312.5) = -507.75
+   <li>Upper outer fence = 742.25 + 3.0 (312.5) = 1679.75
+</ul>
+<p>
+From an examination of the fence points and the data, one point
+(1441) exceeds the upper inner fence and stands out as a mild
+outlier; there are no extreme outliers.
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Histogram with box plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+A histogram with an overlaid box plot are shown below.  
+<center>
+<img SRC="prc16_r01.gif" height=550 width=550
+     ALT="Histogram and boxplot">
+</center>
+The outlier is identified as the largest value in the data set,
+1441, and appears as the circle to the right of the box plot.
+</td>
+</tr>
+
+<tr>
+<td valign=top width="15%">
+<i>Outliers may contain important information</i>
+</td>
+
+<td valign=top width="85%">
+Outliers should be investigated carefully.  Often they contain
+valuable information about the process under investigation or the
+data gathering and recording process.  Before considering the
+possible elimination of these points from the data, one should try
+to understand why they appeared and whether it is likely similar
+values will continue to appear.  Of course, outliers are often
+bad data points.
+
+</td>
+</tr>
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="prc15.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="prc17.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/prc/section1/prc16.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:49:13 GMT -->
+</HTML>

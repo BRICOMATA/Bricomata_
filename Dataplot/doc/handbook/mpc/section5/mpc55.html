@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc55.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:45 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>2.5.5. Propagation of error considerations</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+	<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+	   <area shape="rect" alt="Next Page" href="mpc551.html" coords="463,27,504,45">
+	   <area shape="rect" alt="Previous Page" href="mpc541.html" coords="417,28,459,45">
+	   <area shape="rect" alt="Home" href="../../index-3.html" coords="52,0,100,43">
+	   <area shape="rect" alt="Tools & Aids" href="../../main.html" coords="165,27,264,46">
+	   <area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+	   <area shape="default" nohref>
+   </map>
+   <BR>
+   <!---<LEFT>--->
+   <TABLE CELLSPACING=20 CELLPADDING=0 WIDTH="540">
+   <TR>
+
+   <TD VALIGN=TOP COLSPAN=2>
+   
+	
+<FONT SIZE=-1><FONT COLOR="#D60021">2.</FONT> <A HREF="../mpc.html"><FONT COLOR="#00105A">Measurement Process Characterization</a></FONT></FONT><BR>
+<FONT SIZE=-1><FONT COLOR="#D60021">2.5.</FONT> <A HREF="mpc5.html"><FONT COLOR="#00105A">Uncertainty analysis</a></FONT></FONT><BR>
+<BR>
+<H2><FONT COLOR="#D60021">2.5.5.</FONT> Propagation of error considerations </H2>
+<FONT SIZE=-1>
+</P>
+</FONT>
+   </TD>
+   </TR>
+
+
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Top-down approach consists of estimating the uncertainty from
+direct repetitions of the measurement result</I>
+</TD>
+<TD WIDTH=85% VALIGN=TOP><!-- Add main text below -->
+The approach to uncertainty analysis that has been followed up to this
+point in the discussion has been what is called a top-down approach.
+Uncertainty components are estimated from direct repetitions of the
+measurement result. To contrast this with a propagation of error
+approach, consider the simple example where we estimate the area of a
+rectangle from replicate measurements of length and width. The area
+<P>
+$$ area = length \cdot width $$
+<P>
+<!--
+<CENTER><I><FONT SIZE=4>area = length x width</FONT></I></CENTER>
+<P>
+-->
+can be computed from each replicate. The standard deviation of the
+reported area is estimated directly from the replicates of area.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Advantages of top-down approach </I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+This approach has the following advantages:
+<UL>
+   <LI>proper treatment of covariances between measurements of length
+       and width
+   <LI>proper treatment of unsuspected sources of error that would 
+       emerge if measurements covered a range of operating conditions
+       and a sufficiently long time period
+   <LI>independence from propagation of error model 
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Propagation of error approach combines estimates from individual
+auxiliary measurements</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below --> 
+The formal propagation of error approach is to compute: 
+<OL>
+   <LI>standard deviation from the length measurements 
+   <LI>standard deviation from the width measurements 
+</OL>
+and combine the two into a standard deviation for area using the
+approximation for products of two variables (ignoring a possible
+covariance between length and width),
+<P>
+$$ s_{area} = \sqrt{width^2 \cdot s_{length}^2 + length^2 \cdot s_{width}^2} $$
+<!--
+<CENTER>
+<IMG SRC="mpc55a.gif" ALT=
+     "s(area) = SQRT{width**2*s(length)**2 + length**2*s(width)**2}">
+</CENTER>
+-->
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="exact">
+<I>Exact formula</I>
+</A>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below --> 
+<a href="../section7/mpc7.html#Goodman">Goodman (1960)</a> derived
+an exact formula for the variance between two products.  Given
+two random variables, \(x\) and \(y\) (correspond to width
+and length in the above approximate formula), the exact formula for
+the variance is:
+<UL>
+
+$$ V(\bar{x} \bar{y}) = \frac{1}{n} \left[ 
+X^2 V(y) + Y^2 V(x) + 2XYE_{11} + 2X\frac{E_{12}}{n} + 2Y\frac{E_{21}}{n}
++ \frac{V(x) V(y)}{n} + \frac{Cov((\Delta x)^2, (\Delta y)^2) -E_{11}^2 }{n^2}
+\right] $$
+<!-- 
+<IMG SRC="exact.gif" ALT=
+"V(xbar*ybar) = [ X^(2)V(y) + Y^(2)V(x) + 2*X*Y*E(11) +
+ 2*X*(E(12)/n + 2*Y*E(21)/n
+ + V(x)*V(y)/n + (Cov((delta x)^2, (delta y)^2) - E(11)^(2))/(n^2) ]/n"> 
+-->
+</UL>
+with
+<UL>
+   <li>\(X = E(x)\) and \(Y = E(y)\) (corresponds to width and length,
+       respectively, in the approximate formula)
+       <p>
+   <li>\(V(x)\) is the variance of \(x\) and \(V(y)\) 
+       is the variance \(y\)
+       (corresponds to \(s^2\) for width and length,
+       respectively, in the approximate formula)
+       <p>
+   <li> \( E_{ij} = {(\Delta x)^i, (\Delta y)^j}\) where \( \Delta x = x - X \)
+        and \( \Delta y = y - Y \)
+       <!-- E<sub><i>ij</i></sub> = {(<img align=absmiddle src="deltauc.gif"
+       alt="delta"><i>x</i>)<sup>i</sup>, (<img align=absmiddle
+       src="deltauc.gif" alt="delta"><i>y</i>)<sup>j</sup>} where
+       <img align=absmiddle src="deltauc.gif" alt="delta"><i>x</i> =
+       <i>x</i> - X and
+       <img align=absmiddle src="deltauc.gif" alt="delta"><i>y</i> =
+       <i>y</i> - Y -->
+       <p>
+   <li> \( Cov((\Delta x)^2, (\Delta y)^2) = E_{22} - V(x) V(y) \)
+        <!-- <img align=absmiddle src="cov.gif"
+             alt="Cov[(delta x)^2, (delta y)^2) = E(22) - V(x)*V(y)"> -->
+</UL>
+<P>
+To obtain the standard deviation, simply take the square root of the
+above formula.  Also, an estimate of the statistic is obtained by
+substituting sample estimates for the corresponding population
+values on the right hand side of the equation.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Approximate formula assumes indpendence</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below --> 
+The approximate formula assumes that length and width are
+independent.  The exact formula assumes that length and width
+are not independent.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Disadvantages of propagation of error approach</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+In the ideal case, the propagation of error estimate above will not
+differ from the estimate made directly from the area measurements.
+However, in complicated scenarios, they may differ because of:
+<UL>
+   <LI>unsuspected covariances
+   <LI>disturbances that affect the reported value and not the
+       elementary measurements (usually a result of mis-specification
+       of the model)
+   <LI>mistakes in propagating the error through the defining formulas 
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Propagation of error formula</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+Sometimes the measurement of interest cannot be replicated directly and
+it is necessary to estimate its uncertainty via propagation of 
+error formulas (<A HREF="../section7/mpc7.html#Ku">Ku</A>).  The
+propagation of error formula for
+<P>
+$$ Y = f(X, Z, \ldots \, ) $$
+<!--
+<CENTER><FONT SIZE=4><I>Y = f(X, Z, ... )</FONT></I>
+</CENTER>
+-->
+<P>
+a function of one or more variables with measurements, \( (X, Z, \ldots \, ) \)
+gives the following estimate for the standard deviation of \( Y \):
+<P>
+$$ s_y = \sqrt{
+\left( \frac{\partial Y}{\partial X} \right)^2 s_x^2 +
+\left( \frac{\partial Y}{\partial X} \right)^2 s_z^2 + \cdots +
+\left( \frac{\partial Y}{\partial X} \right) \left( \frac{\partial Y}{\partial Z} \right) s_{xz}^2 + \cdots
+} $$
+<!--
+<CENTER>
+<IMG SRC="mpc55b.gif" ALT="s(y) = 
+SQRT{(partial derivative of Y with respect to X)**2*s(x)**2 + 
+(partial derivative of Y with respect to Z)**2*s(z)**2 + ... +
+(partial derivative of X with respect to X)*(partial derivative of Y 
+with respect to Z)*s(xz)**2 + ...">
+</CENTER>
+-->
+<P>
+where 
+<UL>
+   <LI>\( s_x \) <!-- <IMG ALIGN = absmiddle SRC="mpc55c.gif" alt="s(x)"> -->is the
+       standard deviation of the \( X \) measurements
+   <LI>\( s_z \) <!-- <IMG ALIGN = absmiddle SRC="mpc552c.gif" alt="s(z)"> -->is the
+       standard deviation of \( Z \) measurements
+   <LI>\( s_y \) <!-- <IMG ALIGN = absmiddle SRC="mpc55d.gif" alt="s(y)"> -->is the
+       standard deviation of \( Y \) measurements
+   <LI>\( \partial Y / \partial X \)
+       <!-- <IMG ALIGN = baseline SRC="mpc55e.gif"
+       alt="partial derivatie of Y with respect to X"> -->is the partial
+       derivative of the function \( Y \) with respect to \( X \),
+       etc.
+   <LI>\( s_{xz} \)
+       <!-- <IMG ALIGN = absmiddle SRC="mpc55f.gif" alt="s(xz)"> -->is the
+       estimated covariance between the \( X,Z \) measurements 
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Treatment of covariance terms</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+Covariance terms can be difficult to estimate if measurements are not
+made in pairs. Sometimes, these terms are omitted from the formula.
+Guidance on when this is acceptable practice is given below:
+<OL>
+   <LI>If the measurements of \(X\), \(Z\) are independent, the
+       associated covariance term is <I>zero</I>. 
+   <LI>Generally, reported values of test items from calibration designs
+       have <I>non-zero</I> covariances that must be taken into account
+       if \(Y\)  is a summation such as the mass of two weights, or
+       the length of two gage blocks end-to-end, etc.
+   <LI>Practically speaking, covariance terms should be included in the
+       computation only if they have been estimated from sufficient
+       data.  See <a href="../section7/mpc7.html#Ku"> Ku (1966)</a>
+       for guidance on what constitutes sufficient data.
+</OL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Sensitivity coefficients</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!-- Add main text below -->
+The partial derivatives are the <A HREF="mpc56.html"> sensitivity
+coefficients </A>for the associated components. 
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top><!-- end paragraph -->
+<I>Examples of propagation of error analyses</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%>
+Examples of propagation of error that are shown in this chapter are:
+<UL>
+<LI><A HREF="../section6/mpc64.html">Case study of propagation of error
+    for resistivity measurements</A>
+<LI><A HREF="../section3/mpc3673.html">Comparison of check standard
+    analysis and propagation of error for linear calibration</A>
+<LI><A HREF="../section3/mpc3671.html">Propagation of error for quadratic 
+    calibration showing effect of covariance terms</A>
+</UL>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Specific formulas</I>
+</TD>
+<TD VALIGN=TOP WIDTH=85%><!--Add main text below -->
+Formulas for specific functions can be found in the following sections: 
+<UL>
+   <LI><A HREF="mpc551.html">functions of a single variable </A>
+   <LI><A HREF="mpc552.html">functions of two variables </A>
+   <LI><A HREF="mpc553.html">functions of many variables</A>
+</UL>
+</TD>
+</TR> 
+
+
+
+
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="mpc541.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="mpc551.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+
+
+</BODY>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/mpc/section5/mpc55.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 21:45:46 GMT -->
+</HTML>

@@ -1,0 +1,263 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd625.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:11:07 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>4.6.2.5. Weighting to Improve Fit</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="pmd626.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="pmd624.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">4.</FONT>
+<FONT COLOR="#00105A"><A HREF="../pmd.html">Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd6.html">Case Studies in Process Modeling</a></FONT>
+<BR>
+<FONT COLOR="#D60021">4.6.2.</FONT>
+<FONT COLOR="#00105A"><A HREF="pmd62.html">Alaska Pipeline</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">4.6.2.5.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Weighting to Improve Fit</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>
+Weighting
+</I>
+</TD>
+<TD WIDTH=85%>
+Another approach when the assumption of constant standard
+deviation of the errors (i.e. homogeneous variances) is
+violated is to perform a
+<a href="../section1/pmd143.html">weighted fit</a>.
+In a weighted fit, we give less weight to the less precise
+measurements and more weight to more precise measurements
+when estimating the unknown parameters in the model.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="weightfunction">
+<I>
+Fit for Estimating Weights
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+For the pipeline data, we chose 
+<A HREF="../section4/pmd452.html#arg">approximate replicate groups</A>
+so that each group has four observations (the last
+group only has three).  This was done by first
+sorting the data by the predictor variable and then
+taking four points in succession to form each
+replicate group.
+<p>
+Using the <A HREF="../section4/pmd452.html#pfm">power function model</A> 
+with the data for estimating the weights,
+the following results for the fit
+of ln(variances) against ln(means) for the replicate
+groups were generated.
+<PRE>
+Parameter     Estimate    Stan. Dev    <I>t</I> Value
+B0            -3.18451       0.8265       -3.9
+B1             1.69001       0.2344        7.2
+
+Residual standard deviation = 0.85612
+Residual degrees of freedom = 25
+</PRE>
+<p>
+<A HREF="pipeline/plots/wtfunc_f.gif">
+<IMG SRC="pipeline/plots/wtfunc_r.gif"
+HEIGHT=425 WIDTH=550 BORDER=0
+alt="plot of replicated variance against relicated means with fit">
+</A>
+The numerical fitting results and the plot of the replicate variances
+against the replicate means shows that a linear
+fit provides a reasonable fit with an estimated
+slope of 1.69.  
+<p>
+We used an estimate of 1.5 for the exponent in the 
+weighting function.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME="wtres">
+<I>
+Residual Plot for Weight Function
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<A HREF="pipeline/plots/wtres_f.gif">
+<IMG SRC="pipeline/plots/wtres_r.gif"
+HEIGHT=425 WIDTH=550 BORDER=0
+alt="plot of residual values from fit for estimating weights reveals no obvious problems">
+</A>
+<p>
+The residual plot from the fit to determine an
+appropriate weighting function reveals no obvious
+problems.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME=fit>
+<I>
+Numerical Results from Weighted Fit
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+The weighted fit of the model that relates the field measurements 
+to the lab measurements is shown below.
+<PRE>
+Parameter     Estimate    Stan. Dev    <I>t</I> Value
+B0             2.35234      0.54312        4.3
+B1             0.80636      0.02265       35.6
+
+Residual standard deviation = 0.36459
+Residual degrees of freedom = 105
+</PRE>
+The resulting slope and intercept are 0.81 and 2.35, respectively.  
+These are compared to a slope of 0.73 and
+an intercept of 4.99 in
+<a href="pmd623.html">the original model</a>.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME=predicted>
+<I>
+Plot of Predicted Values
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<p>
+<A HREF="pipeline/plots/fit3_f.gif">
+<IMG SRC="pipeline/plots/fit3_r.gif"
+HEIGHT=425 WIDTH=550 BORDER=0
+alt="plot of predicted values with raw data indicates a good fit">
+</A>
+<p>
+The plot of the predicted values with the data indicates
+a good fit.
+
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME=6plot3>
+<I>
+Diagnostic Plots of Weighted Residuals
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<A HREF="pipeline/plots/6plot3_f.gif">
+<IMG SRC="pipeline/plots/6plot3_r.gif"
+HEIGHT=425 WIDTH=550 BORDER=0
+alt="6plot indicates regression assumptions satisfied">
+</A>
+<p>
+We need to verify that the weighting did not result
+in the other regression assumptions being violated.
+A 6-plot, after weighting the residuals, indicates 
+that the regression assumptions are satisfied.
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<A NAME=residuals>
+<I>
+Plot of Weighted Residuals vs Lab Defect Size
+</I>
+</A>
+</TD>
+<TD WIDTH=85%>
+<p>
+<A HREF="pipeline/plots/res3_f.gif">
+<IMG SRC="pipeline/plots/res3_r.gif"
+HEIGHT=425 WIDTH=550 BORDER=0
+alt="plot of weighted residuals versus predictor variable shows homogeneous variances for residuals">
+</A>
+<p>
+In order to check the assumption of homogeneous
+variances for the errors in more detail, we generate
+a full sized  plot of the weighted residuals versus the
+predictor variable.  This plot suggests that the errors
+now have homogeneous variances.
+</TD>
+</TR>
+
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="pmd624.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="pmd626.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/pmd/section6/pmd625.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:11:17 GMT -->
+</HTML>

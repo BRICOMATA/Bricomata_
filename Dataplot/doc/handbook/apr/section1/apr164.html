@@ -1,0 +1,270 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<HTML>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr164.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:24:57 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+<script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default.js">
+</script>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (WinNT; U) [Netscape]">
+<TITLE>8.1.6.4. Lognormal</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="FFFFCC">
+
+<IMG SRC="../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+<map name="MenuBar">
+<area shape="rect" alt="Next Page" href="apr165.html" coords="463,27,504,45">
+<area shape="rect" alt="Previous Page" href="apr163.html" coords="417,28,459,45">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="52,0,100,43">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="165,27,264,46">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="307,28,366,44">
+<area shape="default" nohref>
+</map>
+<BR>
+
+<TABLE CELLSPACING=20 CELLPADDING=0 WIDTH=540>
+
+<TR>
+<TD VALIGN=TOP COLSPAN=2>
+<FONT SIZE=-1>
+<FONT COLOR="#D60021">8.</FONT>
+<FONT COLOR="#00105A"><A HREF="../apr.html">Assessing Product Reliability</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr1.html">Introduction</a></FONT>
+<BR>
+<FONT COLOR="#D60021">8.1.6.</FONT>
+<FONT COLOR="#00105A"><A HREF="apr16.html">What are the basic lifetime distribution models used for non-repairable
+populations?</a></FONT>
+<BR>
+</FONT>
+<BR>
+<TABLE>
+<TR>
+<TD VALIGN=top>
+<H2><FONT COLOR="#D60021">8.1.6.4.</FONT></H2>
+</TD>
+<TD VALIGN=top>
+<H2>Lognormal</H2>
+</TD>
+</TR >
+</TABLE>
+</TD>
+</TR>
+
+
+
+
+
+
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><!-- Add marginal notes below --><i>Lognormal
+Formulas and relationship to the normal distribution</i></td>
+
+<td><a NAME="Formula's and"></a><b>Formulas and Plots</b>
+<p>
+The lognormal life distribution, like the Weibull, is a very flexible
+model that can empirically fit many types of failure data. The two-parameter
+form has parameters \(\sigma\)
+<!-- <i>&sigma;</i> -->
+is the <b>shape</b> parameter and \(T_{50}\)
+<!-- T<sub>50</sub> -->
+is the <b>median</b> (a <b>scale</b> parameter).
+<p>
+<b>Note</b>: If time to failure, \(t_f\),
+<!-- <i>t<sub>f</sub></i>, -->
+has a lognormal distribution, then the (natural) logarithm of time to failure has a normal
+distribution with mean \(\mu\) = ln \(T_{50}\)
+<!-- &micro; = ln T<sub>50</sub> -->
+and standard deviation \(\sigma\).
+<!-- <i>&sigma;</i>. -->
+This makes lognormal data convenient to work with; just take natural 
+logarithms of all the failure times and censoring times and analyze the 
+resulting normal data. Later on, convert back to real time and lognormal 
+parameters using \(\sigma\)
+<!-- <i>&sigma;</i> -->
+as the lognormal shape and \(T_{50} = e^\mu\)
+<!-- T<sub>50</sub> = e<sup>&micro;</sup> -->
+as the (median) scale parameter.
+<p>
+Below is a summary of the key formulas for the lognormal.&nbsp;
+
+$$ \begin{array}{ll}
+\mbox{PDF:}          & f(t) = \frac{1}{\sigma t \sqrt{2 \pi}} \, e^{- \left( \displaystyle{\frac{1}{2 \sigma^2}} \right) \left( \mbox{ln } \displaystyle{t} - \mbox{ln } \displaystyle{T_{50}} \right)^2 } \\
+                     & \\
+\mbox{CDF:}          & F(t) = \int_{0}^{T} \frac{1}{\sigma t \sqrt{2 \pi}} \, e^{- \left( \displaystyle{\frac{1}{2 \sigma^2}} \right) \left( \mbox{ln } \displaystyle{t} - \mbox{ln } \displaystyle{T_{50}} \right)^2} dt \\
+                     & \\
+                     & F(t) = \Phi \left( \frac{\mbox{ln }t - \mbox{ln } T_{50}}{\sigma}\right) \\
+                     & \\
+                     & \Phi(z) \mbox{ denotes the standard normal CDF.}\\
+                     & \\
+\mbox{Reliability:}  & R(t) = 1-F(t)  \\
+                     & \\
+\mbox{Failure Rate:} & h(t) =  \frac{f(t)}{R(t)} \\
+                     & \\
+\mbox{Mean:}         & T_{50} \, e^{\frac{1}{2} \sigma^2} \\
+                     & \\
+\mbox{Median:}       & T_{50} \\
+                     & \\
+\mbox{Variance:}     & T_{50}^2 \, e^{\sigma^2} \left(e^{\sigma^2} -1 \right)  
+\end{array} $$
+
+<!--
+<p>
+<center>
+<img SRC="apr164_e1.gif" ALT="PDF: f(t) = (1/(sigma*t*SQRT(2*PI)))*EXP[-(1/2*sigma**2)*(LN(t)-LN(T50)**2;    CDF: F(t) = INTEGRAL[0 to t](1/(sigma*t*SQRT(2*PI)))*EXP[-(1/2*sigma**2)*(LN(t)-LN(T50)**2 = PHI[(LN(t)/LN(T50))/sigma]  where PHI(z) is the standard normal CDF;     RELIABILITY: R(T) = 1 - F(t);     FAILURE RATE: h(t) = f(t)/R(t);     MEAN: T50*EXP(sigma**2/2);     MEDIAN: T50;     VARIANCE: T50**2*EXP(sigma**2)*(EXP(sigma**2) - 1)" >
+</center>
+-->
+
+<p>
+<b>Note:</b> A more general three-parameter form of the lognormal includes
+an additional <b>waiting time</b> parameter \(\theta\)
+<!-- &nbsp;<img SRC="gifs/theta.gif" ALT="theta"  align=ABSBOTTOM> -->
+(sometimes called a <b>shift</b> or <b>location</b> parameter). The formulas
+for the three-parameter lognormal are easily obtained from the above formulas
+by replacing \(t\) by \((t - \theta)\)
+<!-- <i>t</i> by (<i>t</i> -&nbsp;<img SRC="gifs/theta.gif" ALT="theta"  align=ABSBOTTOM>) -->
+wherever \(t\)
+<!-- <i>t</i> -->
+appears. No failure can occur before \(\theta\)
+<!-- &nbsp;<img SRC="gifs/theta.gif" ALT="theta"  align=ABSBOTTOM> -->
+hours, so the time scale starts at \(\theta\)
+<!-- &nbsp;<img SRC="gifs/theta.gif" ALT="theta"  align=ABSBOTTOM> -->
+and not 0. If a shift parameter \(\theta\)
+<!-- &nbsp;<img SRC="gifs/theta.gif" ALT="theta"  align=ABSBOTTOM> -->
+is known (based, perhaps, on the physics of the failure mode), then all
+you have to do is subtract \(\theta\)
+<!-- &nbsp;<img SRC="gifs/theta.gif" ALT="theta"  align=ABSBOTTOM> -->
+from all the observed failure times and/or readout times and analyze the
+resulting shifted data with a two-parameter lognormal.
+<p>
+Examples of lognormal PDF and failure rate plots are shown below. Note
+that lognormal shapes for small sigmas are very similar to Weibull shapes
+when the shape parameter \(\gamma\)
+<!-- &nbsp;<img SRC="gifs/gamma.gif" ALT="gamma" height=17 width=13 align=ABSBOTTOM> -->
+is large and large sigmas give plots similar to small Weibull \(\gamma\)'s.
+<!-- &nbsp;<img SRC="gifs/gamma.gif" ALT="gamma" height=17 width=13 align=ABSBOTTOM>'s. -->
+Both distributions are very flexible and it is often difficult to choose
+which to use based on empirical fits to small samples of (possibly censored)
+data.</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Lognormal data 'shapes'</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><img SRC="eqns/lnpdf.gif" ALT="Plot of examples of lognormal failure PDF's" ></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>Lognormal failure rate 'shapes'</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><img SRC="eqns/lnfr.gif" ALT="Plot of examples of lognormal failure rate shapes" ></td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%"><i>A very flexible model that also can apply
+(theoretically) to many degradation process failure modes</i></td>
+
+<td VALIGN=TOP WIDTH="85%"><a NAME="Uses of the Lognormal Distribution Model"></a><b>Uses
+of the Lognormal Distribution Model</b>
+<ol>
+<li>
+As shown in the preceding plots, the lognormal PDF and failure rate shapes
+are flexible enough to make the lognormal a very useful empirical model.
+In addition, the relationship to the normal (just take natural logarithms
+of all the data and time points and you have "normal" data) makes it easy
+to work with mathematically, with many good software analysis programs
+available to treat normal data.</li>
+
+<li>
+The lognormal model can be theoretically derived under assumptions matching
+many failure degradation processes common to electronic (semiconductor)
+failure mechanisms. Some of these are: corrosion, diffusion, migration,
+crack growth, electromigration, and, in general, failures resulting from
+chemical reactions or processes. That does not mean that the lognormal
+is always the correct model for these mechanisms, but it does perhaps explain
+why it has been empirically successful in so many of these cases.&nbsp;</li>
+<p>
+A brief sketch of the theoretical arguments leading to a lognormal
+model follows.
+<p>
+<blockquote>Applying the Central Limit Theorem to small additive errors
+in the log domain and justifying a normal model is equivalent to justifying
+the lognormal model in real time when a process moves towards failure based
+on the cumulative effect of many small "multiplicative" shocks. More precisely,
+if at any instant in time a degradation process undergoes a small increase
+in the total amount of degradation that is proportional to the current
+total amount of degradation, then it is reasonable to expect the time to
+failure (i.e., reaching a critical amount of degradation) to follow a lognormal
+distribution (Kolmogorov, 1941).</blockquote>
+A more detailed description of the <a href="../section2/apr213.html">multiplicative
+degradation argument</a> appears in a later section.</ol>
+</td>
+</tr>
+
+<tr>
+<td VALIGN=TOP WIDTH="15%">
+<i>Lognormal probability plot</i>
+</td>
+
+<td VALIGN=TOP WIDTH="85%">
+<a NAME="DATAPLOT and EXCEL Functions for the Lognormal"></a>
+We generated 100 random numbers from a lognormal distribution with shape
+0.5 and median life 20,000.  To see how well these random lognormal data 
+points are fit by a lognormal distribution, we generate the lognormal
+probability plot shown below.  Points that line up 
+approximately on a straight line indicates a good fit to a lognormal 
+(with shape 0.5). The time that corresponds to the (normalized) \(x\)-axis \(T_{50}\)
+<!-- <i>x</i>-axis T<sub>50</sub> -->
+of 1 is the estimated \(T_{50}\)
+<!-- T<sub>50</sub> -->
+according to the data. In this case it is close to 20,000, as expected.
+
+<center>
+<img SRC="apr164_r01.gif" ALT="Lognormal probability plot of 100 lognormal random numbers" >
+</center>
+
+For a lognormal distribution at time \(T\) = 5000 with \(\sigma\) = 0.5
+<!-- <i>&sigma;</i> = 0.5 -->
+and \(T_{50}\) = 20,000,
+<!-- T<sub>50</sub> = 20,000, -->
+the PDF value is 0.34175E-5, the CDF value is 0.002781, and the failure rate is 0.3427E-5.
+<p>
+Functions for computing lognormal distribution PDF values, CDF values, failure rates, 
+and for producing probability plots, are found in both 
+<a href="apr164.dp">Dataplot code</a> and <a href="apr164.r">R code</a>.
+</td>
+</tr>
+
+   
+
+   
+</TABLE>
+
+<IMG SRC="../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar">
+<map name="nvbar.nvbar">
+<area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+<area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+<area shape="rect" alt="Home" href="../../index-2.html" coords="114,12,165,31">
+<area shape="rect" alt="Tools & Aids" href="../../toolaids.html" coords="190,12,290,31">
+<area shape="rect" alt="Search Handbook" href="../../search.html" coords="318,14,376,30">
+<area shape="rect" alt="Previous Page" href="apr163.html" coords="428,15,471,29">
+<area shape="rect" alt="Next Page" href="apr165.html" coords="476,15,517,30">
+<area shape="default" nohref>
+</map>
+   
+</BODY>
+
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/apr/section1/apr164.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:25:03 GMT -->
+</HTML>

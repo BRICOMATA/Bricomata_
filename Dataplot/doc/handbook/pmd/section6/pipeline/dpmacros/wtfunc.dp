@@ -1,0 +1,43 @@
+.
+. Starting Step 5.1
+delete xtemp ytemp
+let ytemp = field
+let xtemp = sortc lab ytemp
+let n = size xtemp
+let ngroups = int(n/4 + 0.9)
+let repgroup = sequence 1 4 1 ngroups for i = 1 1 n
+device 1 off
+device 2 off
+mean plot xtemp repgroup
+let means = yplot
+variance plot ytemp repgroup
+let var = yplot
+retain means var subset tagplot=1
+delete ytemp xtemp
+let ytemp = log(var)
+let xtemp = log(means)
+capture WTFUNC.OUT
+fit ytemp xtemp
+end of capture
+.
+device 1 on
+device 2 on
+title displacement 7
+title size 3
+title Fit for Estimating Weights
+x1label ln(Replicate Means)
+y1label ln(Replicate Variances)
+character circle
+character fill on
+character hw 2 1.5
+line blank solid
+plot ytemp pred vs xtemp
+x1label
+y1label
+character blank all
+line solid all
+character fill off all
+character hw
+title displacement 1.5
+.
+. Finished Step 5.1: Page Back for Output

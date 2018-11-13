@@ -1,0 +1,682 @@
+<HTML>
+
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/jahanmi2/jahanmi2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+<HEAD>
+<script async type="text/javascript"
+        id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NIST&amp;pua=UA-37115410-50&amp;yt=true&amp;exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+  <TITLE>Dataplot Commands for Ceramic Strength
+  Case Study</TITLE>
+</HEAD>
+
+   <BODY BGCOLOR="FFFFCC">
+        <IMG SRC="../../../gifs/nvgtbr.gif" BORDER=0 VALIGN="TOP" ISMAP USEMAP="#MenuBar">
+   <map name="MenuBar">
+           <area shape="rect" alt="Next Page" href="../eda42a6.html" coords="463,27,504,45">
+           <area shape="rect" alt="Previous Page" href="../eda42a6.html" coords="417,28,459,45">
+           <area shape="rect" alt="Home" href="../../index.html" coords="52,0,100,43">
+           <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="165,27,264,46">
+           <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="307,28,366,44">
+           <area shape="default" nohref>
+   </map>
+
+<TABLE WIDTH=540 CELLSPACING=20>
+<TR>
+<TD COLSPAN=2>
+<B><BIG>Dataplot Commands for Ceramic Strength Data</BIG></B><BR>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Invoke Dataplot, set defaults, read data<I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.  Starting Ceramic Strength Study
+.
+. Setting Dataplot defaults
+reset data
+reset plot control
+erase
+x3label automatic
+dimension 100 variables
+.  Finished Setting Defaults
+.
+. Starting Step 1.1
+.
+SKIP 50
+read JAHANMI2.DAT run lab bar set y x1 to x8 batch
+let y1 = y
+let y2 = y
+retain y1 subset batch 1
+retain y2 subset batch 2
+skip 0
+. Finished Step 1.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Summary</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+.
+. Starting Step 2.1 - Summary of Response Variable
+.
+summary y
+. Finished Step 2.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>4-Plot</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 2.2 - Generate a 4-plot
+.
+4-plot y
+. Finished Step 2.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Bihistogram for Batch</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.1 - Generate a bihistogram
+.
+legend case asis
+legend 1 Batch 1
+legend 1 coordinates 18 80
+legend 2 Batch 2
+legend 2 coordinates 18 45
+bihistogram y1 y2
+legend 1
+legend 2
+legend case upper
+. Finished Step 3.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Q-Q Plot for Batch</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.2 - Generate Q-Q plot
+.
+label case asis
+y1label Batch 1
+x1label Batch 2
+QUANTILE-QUANTILE PLOT Y1 Y2
+x1label
+y1label
+label case upper
+. Finished Step 3.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Box Plot for Batch</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.3 - Generate boxplot plot
+.
+fences on
+character box plot
+line box plot
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 2
+major xtic mark number 2
+minor xtic mark number 0
+x1tic mark label case asis
+x1tic mark label format alpha
+x1tic mark label content Batchsp()1 Batchsp()2
+let n1 = size y1
+let xjunk = 1 for i = 1 1 n1
+let xtemp = xjunk
+let n2 = size y2
+delete xjunk
+let xjunk = 2 for i = 1 1 n2
+extend xtemp xjunk
+let ytemp = y1
+extend ytemp y2
+box plot ytemp xtemp
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+. Finished Step 3.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Block Plots for Batch</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.4 - Generate block plot
+.
+multiplot 2 2
+multiplot corner coordinates 2 2 98 98
+character BLANK all
+character 1 2
+line solid all
+line blank blank
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 8
+major xtic mark number 8
+minor xtic mark number 0
+x1label Llc()ab
+mean block plot y lab batch
+x1label Llc()ab and uc()X1
+mean block plot y lab x1 batch
+x1label Llc()ab and uc()X2
+mean block plot y lab x2 batch
+x1label Llc()ab and uc()X3
+mean block plot y lab x3 batch
+end of multiplot
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+x1label
+. Finished Step 3.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>T-Test for Batch</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.5 - 2-Sample t-test
+.
+t-test y1 y2
+. Finished Step 3.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>F-Test for Batch</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 3.6 - F-test
+.
+f test y1 y2
+. Finished Step 3.6: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Box Plot for Lab (all data)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.1 - Generate boxplot for all the data
+.
+fences on
+character box plot
+line box plot
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 8
+major xtic mark number 8
+minor xtic mark number 0
+x1tic mark label case asis
+x1tic mark label format alpha
+x1tic mark label content Labsp()1 Labsp()2 Labsp()3 Labsp()4 Labsp()5 Labsp()6 Labsp()7 Labsp()8
+box plot y lab
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+. Finished Step 4.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Box Plot for Lab (batch 1)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.2 - Generate boxplot for batch 1
+.
+fences on
+character box plot
+line box plot
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 8
+major xtic mark number 8
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Labsp()1 Labsp()2 Labsp()3 Labsp()4 Labsp()5 Labsp()6 Labsp()7 Labsp()8
+box plot y lab subset batch = 1
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+. Finished Step 4.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Box Plot for Lab (batch 2)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 4.3 - Generate boxplot for batch 2
+.
+fences on
+character box plot
+line box plot
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 8
+major xtic mark number 8
+minor xtic mark number 0
+x1tic mark label case asis
+x1tic mark label format alpha
+x1tic mark label content Labsp()1 Labsp()2 Labsp()3 Labsp()4 Labsp()5 Labsp()6 Labsp()7 Labsp()8
+box plot y lab subset batch = 2
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 4.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Dex Scatter Plot (batch 1)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.1 - Generate Dex Scatter Plot for batch 1
+.
+character x all
+line blank all
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+dex scatter plot y x1 x2 x3 subset batch = 1
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Dex Mean Plot (batch 1)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.2 - Generate Dex Mean Plot for batch 1
+.
+character circle BLANK
+character fill on
+line solid solid
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+ylimits 670 710
+dex mean plot y x1 x2 x3 subset batch = 1
+ylimits
+line solid all
+character BLANK all
+character fill off
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Dex SD Plot (batch 1)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.3 - Generate Dex SD Plot for batch 1
+.
+character circle BLANK
+character fill on
+line solid solid
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+ylimits 50 80
+dex sd plot y x1 x2 x3 subset batch = 1
+ylimits
+line solid all
+character BLANK all
+character fill off
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.3: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Dex Scatter Plot (batch 2)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.4 - Generate Dex Scatter Plot for batch 2
+.
+character x all
+line blank all
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+dex scatter plot y x1 x2 x3 subset batch = 2
+line solid all
+character BLANK all
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.4: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Dex Mean Plot (batch 2)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.5 - Generate Dex Mean Plot for batch 2
+.
+character circle BLANK
+character fill on
+line solid solid
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+dex mean plot y x1 x2 x3 subset batch = 2
+line solid all
+character BLANK all
+character fill off
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.5: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Dex SD Plot (batch 2)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 5.6 - Generate Dex SD Plot for batch 2
+.
+character circle BLANK
+character fill on
+line solid solid
+xtic offset 0.5 0.5
+tic offset units data
+xlimits 1 3
+major xtic mark number 3
+minor xtic mark number 0
+x1tic mark case asis
+x1tic mark label format alpha
+x1tic mark label content Tablesp()Speed Feedsp()Rate Wheelsp()Gritsp()Size
+ylimits 50 75
+dex sd plot y x1 x2 x3 subset batch = 2
+ylimits
+line solid all
+character BLANK all
+character fill off
+xtic mark label case upper
+xtic mark offset 0 0
+xtic mark label format real
+xlimits
+major xtic mark number
+minor xtic mark number
+. Finished Step 5.6: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Matrix of Dex Interactiin Effects (batch 1)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 6.1 - Generate Matrix of Dex Interaction Effects
+.
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3.3
+xlimits -1 1
+tic offset units data
+xtic offset 0.3 0.3
+variable label y STRENGTH
+variable label x1 TABLESP()SPEED
+variable label x2 DOWNSP()FEED
+variable label x3 WHEELSP()GRIT
+set write decimals 2
+ylimits 575 725
+ytic offset 0 25
+ylabel displacement 25
+x2label displacement 20
+char circle blank
+char fill on off
+line solid dash
+x3label
+set matrix plot lower diagonal off
+set matrix plot labels yon
+set matrix plot x2label effect
+dex mean interaction plot y x1 x2 x3 subset batch = 1
+ylimits
+char blank all
+char fill off all
+line solid all
+x3label automatic
+tic offset units
+tic offset 0 0
+limits
+major tic mark number
+label displacement
+multiplot scale factor 1
+. Finished Step 6.1: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+<TR>
+<TD WIDTH=15% VALIGN=top>
+<I>Matrix of Dex Interactiin Effects (batch 1)</I>
+</TD>
+<TD WIDTH=85% VALIGN=top>
+<PRE>
+.
+. Starting Step 6.2 - Generate Matrix of Dex Interaction Effects
+.
+multiplot corner coordinates 10 10 90 90
+multiplot scale factor 3.3
+xlimits -1 1
+tic offset units data
+xtic offset 0.3 0.3
+variable label y STRENGTH
+variable label x1 TABLESP()SPEED
+variable label x2 DOWNSP()FEED
+variable label x3 WHEELSP()GRIT
+set write decimals 2
+ylimits 575 725
+ytic offset 0 25
+ylabel displacement 25
+x2label displacement 20
+char circle blank
+char fill on off
+line solid dash
+x3label
+set matrix plot lower diagonal off
+set matrix plot labels yon
+set matrix plot x2label effect
+dex mean interaction plot y x1 x2 x3 subset batch = 2
+ylimits
+char blank all
+char fill off all
+line solid all
+x3label automatic
+tic offset units
+tic offset 0 0
+limits
+major tic mark number
+label displacement
+multiplot scale factor 1
+. Finished Step 6.2: Page Back for Output
+</PRE>
+</TD>
+</TR>
+
+</TABLE>
+
+<A HREF="http://www.nist.gov/">
+   <IMG SRC="../../../gifs/nvgbrbtm.gif" BORDER=0 USEMAP="#nvbar.nvbar"></A>
+   
+   <MAP NAME="nvbar.nvbar">
+   <AREA shape="rect" href="http://www.nist.gov/" coords="14,0,65,15">
+   <AREA shape="rect" href="http://www.sematech.org/" coords="0,19,91,35">
+   </MAP>
+   
+   <map name="nvbar.nvbar">
+   <area shape="rect" href="http://www.nist.gov/" coords="22,6,67,20">
+   <area shape="rect" href="http://www.sematech.org/" coords="3,23,92,40">
+   <area shape="rect" alt="Home" href="../../index.html" coords="114,12,165,31">
+   <area shape="rect" alt="Tools & Aids" href="http://www.nist.gov/itl/" coords="190,12,290,31">
+   <area shape="rect" alt="Search Handbook" href="http://www.nist.gov/itl/" coords="318,14,376,30">
+   <area shape="rect" alt="Previous Page" href="../eda42a6.html" coords="428,15,471,29">
+   <area shape="rect" alt="Next Page" href="../eda42a6.html" coords="476,15,517,30">
+   <area shape="default" nohref>
+   </map>
+
+   </BODY>
+   
+<!-- Mirrored from www.itl.nist.gov/div898/handbook/eda/section4/jahanmi2/jahanmi2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 17 Feb 2017 22:28:50 GMT -->
+</HTML>
+
