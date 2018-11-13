@@ -1,10 +1,3 @@
-/* Continue on
- *       Computing Round time trip (RTT)(Idea -- warning reception time can be taken constant value --> send two packets
- *                                               estimate their delay and add with sending delay)
- *		 Go to cellular Network as soon as possible
- */
-
-
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/applications-module.h"
@@ -211,7 +204,6 @@ int main(int argc,char *argv[]) {
 			  std::cout << " \tRatio lost packets :" << float(100*((iter->second.txPackets - iter->second.rxPackets))/float(iter->second.txPackets))  << "\n";
 			  NS_LOG_UNCOND("\tThroughput: " << iter->second.rxBytes * 8.0 / (iter->second.timeLastRxPacket.GetSeconds()-iter->second.timeFirstTxPacket.GetSeconds()) / 1024  << " Kbps");
 		  }
-
    	  }
 
     Simulator::Destroy ();
