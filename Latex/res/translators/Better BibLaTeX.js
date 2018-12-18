@@ -6,8 +6,11 @@
 	"target": "bib",
 	"minVersion": "4.0.27",
 	"maxVersion": "",
+	"priority": 50,
+	"inRepository": false,
 	"configOptions": {
-		"getCollections": true
+		"getCollections": true,
+		"hash": "14bd5ffccc57d379a4a0c6ba646ae01c-f8bfcdbb525a58084cac863e54f65654"
 	},
 	"displayOptions": {
 		"exportNotes": false,
@@ -15,21 +18,18 @@
 		"useJournalAbbreviation": false,
 		"keepUpdated": false
 	},
-	"priority": 50,
-	"inRepository": false,
-	"lastUpdated": "2018-11-11 11:03:54"
+	"lastUpdated": "2018-12-13 16:07:40"
 }
 
 var Translator = {
   initialize: function () {},
-  version: "5.1.7",
   BetterBibLaTeX: true,
   BetterTeX: true,
   BetterCSL: false,
-  // header == ZOTERO_TRANSLATOR_INFO -- maybe pick it from there
-  header: {"translatorID":"f895aa0d-f28e-47fe-b247-2ea77c6ed583","translatorType":2,"label":"Better BibLaTeX","description":"exports references in BibLaTeX format","creator":"Simon Kornblith, Richard Karnesky, Anders Johansson and Emiliano Heyns","target":"bib","minVersion":"4.0.27","maxVersion":"","configOptions":{"getCollections":true},"displayOptions":{"exportNotes":false,"exportFileData":false,"useJournalAbbreviation":false,"keepUpdated":false},"priority":50,"inRepository":false,"lastUpdated":"2018-11-11 11:03:54"},
-  override: {"DOIandURL":true,"asciiBibLaTeX":true,"asciiBibTeX":true,"autoAbbrev":false,"autoAbbrevStyle":false,"autoExport":false,"autoExportIdleWait":false,"autoExportPrimeExportCacheBatch":false,"autoExportPrimeExportCacheThreshold":false,"autoPin":false,"biblatexExtendedDateFormat":false,"biblatexExtendedNameFormat":true,"bibtexParticleNoOp":true,"bibtexURL":true,"cacheFlushInterval":false,"citeCommand":false,"citekeyFold":false,"citekeyFormat":false,"citeprocNoteCitekey":false,"csquotes":false,"debug":false,"debugLog":false,"itemObserverDelay":false,"jabrefFormat":false,"keyConflictPolicy":false,"keyScope":false,"kuroshiro":false,"lockedInit":false,"parseParticles":false,"postscript":false,"preserveBibTeXVariables":false,"qualityReport":false,"quickCopyMode":false,"quickCopyPandocBrackets":false,"rawLaTag":false,"relativeFilePaths":false,"scrubDatabase":false,"skipFields":false,"skipWords":false,"sorted":false,"strings":false,"suppressTitleCase":false,"testing":false,"warnBulkModify":false},
-  options: {"exportNotes":false,"exportFileData":false,"useJournalAbbreviation":false,"keepUpdated":false},
+  header: ZOTERO_TRANSLATOR_INFO,
+  // header: < %- JSON.stringify(header) % >,
+  override: {"DOIandURL":true,"asciiBibLaTeX":true,"asciiBibTeX":true,"autoAbbrev":false,"autoAbbrevStyle":false,"autoExport":false,"autoExportIdleWait":false,"autoExportPrimeExportCacheBatch":false,"autoExportPrimeExportCacheThreshold":false,"autoPin":false,"biblatexExtendedDateFormat":false,"biblatexExtendedNameFormat":true,"bibtexParticleNoOp":true,"bibtexURL":true,"cacheFlushInterval":false,"citeCommand":false,"citekeyFold":false,"citekeyFormat":false,"citeprocNoteCitekey":false,"csquotes":false,"debug":false,"debugLog":false,"git":false,"itemObserverDelay":false,"jabrefFormat":false,"keyConflictPolicy":false,"keyScope":false,"kuroshiro":false,"lockedInit":false,"parseParticles":false,"postscript":false,"preserveBibTeXVariables":false,"qualityReport":false,"quickCopyMode":false,"quickCopyPandocBrackets":false,"rawLaTag":false,"relativeFilePaths":false,"scrubDatabase":false,"skipFields":false,"skipWords":false,"sorted":false,"strings":false,"suppressTitleCase":false,"testing":false,"warnBulkModify":false},
+  options: {"exportFileData":false,"exportNotes":false,"keepUpdated":false,"useJournalAbbreviation":false},
 
   stringCompare: (new Intl.Collator('en')).compare,
 
@@ -41,7 +41,7 @@ var Translator = {
     this.BetterCSL = this.BetterCSLYAML || this.BetterCSLJSON;
 
     this.debugEnabled = Zotero.BetterBibTeX.debugEnabled();
-    this.unicode = true; // set by Better Bib(La)TeX later
+    this.unicode = true; // set by Better BibTeX later
 
     if (stage == 'detectImport') {
       this.options = {}
@@ -86,7 +86,18 @@ var Translator = {
     if (!this.preferences.rawLaTag) this.preferences.rawLaTag = '#LaTeX'
     Zotero.debug('prefs loaded: ' + JSON.stringify(this.preferences, null, 2))
 
-    this.caching = !this.options.exportFileData && (!this.BetterTeX || this.preferences.jabrefFormat !== 4)
+    if (stage == 'doExport') {
+      this.caching = !(
+        // when exporting file data you get relative paths, when not, you get absolute paths, only one version can go into the cache
+        this.options.exportFileData
+
+        // jabref 4 stores collection info inside the reference, and collection info depends on which part of your library you're exporting
+        || (this.BetterTeX && this.preferences.jabrefFormat === 4)
+
+        // if you're looking at this.options.exportPath in the postscript you're probably outputting something different based on it
+        || ((this.preferences.postscript || '').indexOf('Translator.options.exportPath') >= 0)
+      )
+    }
 
     this.collections = {}
     if (stage == 'doExport' && this.header.configOptions && this.header.configOptions.getCollections && Zotero.nextCollection) {
@@ -123,13 +134,13 @@ var Translator = {
 };
 
 
-  function doExport() {
-    const start = Date.now()
-    Translator.configure('doExport')
-    Translator.initialize()
-    Translator.doExport()
-    Zotero.debug("Better BibLaTeX" + ' export took ' + (Date.now() - start))
-  }
+function doExport() {
+  const start = Date.now()
+  Translator.configure('doExport')
+  Translator.initialize()
+  Translator.doExport()
+  Zotero.debug("Better BibLaTeX" + ' export took ' + (Date.now() - start))
+}
 
 
 
@@ -2144,7 +2155,7 @@ g = (function() {
 
 try {
 	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1, eval)("this");
+	g = g || new Function("return this")();
 } catch (e) {
 	// This works if the window reference is available
 	if (typeof window === "object") g = window;
@@ -4364,22 +4375,23 @@ class Reference {
             this.remove(field.name);
         }
         if (!field.bibtex) {
-            let value;
             if ((typeof field.value === 'number') || (field.preserveBibTeXVariables && this.isBibVar(field.value))) {
-                value = `${field.value}`;
+                field.bibtex = `${field.value}`;
             }
             else {
                 const enc = field.enc || this.fieldEncoding[field.name] || 'latex';
-                value = this[`enc_${enc}`](field, this.raw);
+                let value = this[`enc_${enc}`](field, this.raw);
                 if (!value)
                     return;
                 value = value.trim();
-                if (!field.bare || field.value.match(/\s/))
+                if (!field.bare || field.value.match(/\s/)) {
+                    // clean up unnecesary {} when followed by a char that safely terminates the command before
+                    // value = value.replace(/({})+($|[{}$\/\\.;,])/g, '$2') // don't remove trailing {} https://github.com/retorquere/zotero-better-bibtex/issues/1091
+                    value = value.replace(/({})+([{}\$\/\\\.;,])/g, '$2');
                     value = `{${value}}`;
+                }
+                field.bibtex = value;
             }
-            // minor cleanup
-            value = value.replace(/({})+($|[{}$\/\\.;,])/g, '$2');
-            field.bibtex = `${value}`;
         }
         this.has[field.name] = field;
     }
@@ -4745,7 +4757,7 @@ class Reference {
         if (Array.isArray(f.value)) {
             if (f.value.length === 0)
                 return null;
-            return f.value.map(word => this.enc_latex(this.clone(f, word), raw)).join(f.sep || '');
+            return f.value.map(elt => this.enc_latex(Object.assign({}, f, { bibtex: undefined, value: elt }), raw)).join(f.sep || '');
         }
         if (f.raw || raw)
             return f.value;
@@ -4862,19 +4874,6 @@ class Reference {
             return;
         }
         this.add(Object.assign({}, field, { replace: (typeof field.replace !== 'boolean' && typeof field.fallback !== 'boolean') || field.replace }));
-    }
-    /*
-     * Return a copy of the given `field` with a new value
-     *
-     * @param {field} field to be cloned
-     * @param {value} value to be assigned
-     * @return {Object} copy of field settings with new value
-     */
-    clone(f, value) {
-        const clone = JSON.parse(JSON.stringify(f));
-        delete clone.bibtex;
-        clone.value = value;
-        return clone;
     }
     _enc_creators_pad_particle(particle, relax = false) {
         // space at end is always OK
@@ -5345,9 +5344,10 @@ function html2latex(html, options) {
         options.html = true;
     const latex = htmlConverter.convert(html, options);
     latex.latex = latex.latex
-        .replace(/(\\\\)+[^\S\n]*\n\n/g, '\n\n')
-        .replace(/\n\n\n+/g, '\n\n')
-        .replace(/{}([}])/g, '$1');
+        // .replace(/(\\\\)+[^\S\n]*\n\n/g, '\n\n') // I don't recall why I had the middle match, replaced by match below until I figure it out
+        .replace(/(\\\\)+\n\n/g, '\n\n') // paragraph breaks followed by line breaks == line breaks
+        .replace(/\n\n\n+/g, '\n\n'); // line breaks > 3 is the same as two line breaks.
+    // .replace(/{}([}])/g, '$1') // seems to have become obsolete
     return latex;
 }
 exports.html2latex = html2latex;
@@ -9224,7 +9224,6 @@ exports.Exporter = new class {
         while (item = Zotero.nextItem()) {
             if (['note', 'attachment'].includes(item.itemType))
                 continue;
-            debug_1.debug('fetched item:', item);
             if (!item.citekey) {
                 debug_1.debug(new Error('No citation key found in'), item);
                 throw new Error(`No citation key in ${JSON.stringify(item)}`);

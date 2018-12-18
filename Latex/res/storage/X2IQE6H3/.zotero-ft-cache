@@ -1,0 +1,81 @@
+Fog Computing and Its Role in the Internet of Things
+Flavio Bonomi, Rodolfo Milito, Jiang Zhu, Sateesh Addepalli
+Cisco Systems Inc. 170 W Tasman Dr. San Jose, CA 95134, USA
+{ﬂavio, romilito, jiangzhu, sateeshk}@cisco.com
+
+ABSTRACT
+Fog Computing extends the Cloud Computing paradigm to the edge of the network, thus enabling a new breed of applications and services. Deﬁning characteristics of the Fog are: a) Low latency and location awareness; b) Wide-spread geographical distribution; c) Mobility; d) Very large number of nodes, e) Predominant role of wireless access, f) Strong presence of streaming and real time applications, g) Heterogeneity. In this paper we argue that the above characteristics make the Fog the appropriate platform for a number of critical Internet of Things (IoT) services and applications, namely, Connected Vehicle, Smart Grid , Smart Cities, and, in general, Wireless Sensors and Actuators Networks (WSANs).
+Categories and Subject Descriptors
+C.2 [Computer-Communication Networks]: C.2.4 Computer Network Distributed Systems
+Keywords
+Fog Computing, Cloud Computing, IoT, WSAN, Software Deﬁned Networks, Real Time Systems, Analytics
+1. INTRODUCTION
+The “pay-as-you-go” Cloud Computing model is an eﬃcient alternative to owning and managing private data centers (DCs) for customers facing Web applications and batch processing. Several factors contribute to the economy of scale of mega DCs: higher predictability of massive aggregation, which allows higher utilization without degrading performance; convenient location that takes advantage of inexpensive power; and lower OPEX achieved through the deployment of homogeneous compute, storage, and networking components.
+Cloud computing frees the enterprise and the end user from the speciﬁcation of many details. This bliss becomes a problem for latency-sensitive applications, which require
+Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. MCC’12, August 17, 2012, Helsinki, Finland. Copyright 2012 ACM 978-1-4503-1519-7/12/08... $15.00.
+
+nodes in the vicinity to meet their delay requirements. An emerging wave of Internet deployments, most notably the Internet of Things (IoTs), requires mobility support and geo-distribution in addition to location awareness and low latency. We argue that a new platform is needed to meet these requirements; a platform we call Fog Computing [1], or, brieﬂy, Fog, simply because the fog is a cloud close to the ground. We also claim that rather than cannibalizing Cloud Computing, Fog Computing enables a new breed of applications and services, and that there is a fruitful interplay between the Cloud and the Fog, particularly when it comes to data management and analytics.
+This paper is organized as follows. In the second section we introduce the Fog Computing paradigm, delineate its characteristics, and those of the platform that supports Fog services. The following section takes a close look at a few key applications and services of interest that substantiate our argument in favor of the Fog as the natural component of the platform required for the support for the Internet of Things. In the fourth section we examine analytics and big data in the context of applications of interest. The recognition that some of these applications demand real-time analytics as well as long-term global data mining illustrates the interplay and complementary roles of Fog and Cloud. We conclude with comments about the state of the Fog Computing and discussion of future work.
+2. THE FOG COMPUTING PLATFORM
+2.1 Characterization of Fog Computing
+Fog Computing is a highly virtualized platform that provides compute, storage, and networking services between end devices and traditional Cloud Computing Data Centers, typically, but not exclusively located at the edge of network. Figure 1 presents the idealized information and computing architecture supporting the future IoT applications, and illustrates the role of Fog Computing.
+Compute, storage, and networking resources are the building blocks of both the Cloud and the Fog . “Edge of the Network”, however, implies a number of characteristics that make the Fog a non-trivial extension of the Cloud. Let us list them with pointers to motivating examples.
+• Edge location, location awareness, and low latency. The origins of the Fog can be traced to early proposals to support endpoints with rich services at the edge of the network, including applications with low latency requirements (e.g. gaming, video streaming, augmented reality).
+
+13
+
+Figure 1: The Internet of Things and Fog Computing
+• Geographical distribution. In sharp contrast to the more centralized Cloud, the services and applications targeted by the Fog demand widely distributed deployments. The Fog, for instance, will play an active role in delivering high quality streaming to moving vehicles, through proxies and access points positioned along highways and tracks.
+• Large-scale sensor networks to monitor the environment, and the Smart Grid are other examples of inherently distributed systems, requiring distributed computing and storage resources.
+• Very large number of nodes, as a consequence of the wide geo-distribution, as evidenced in sensor networks in general, and the Smart Grid in particular.
+• Support for mobility. It is essential for many Fog applications to communicate directly with mobile devices, and therefore support mobility techniques, such as the LISP protocol 1, that decouple host identity from location identity, and require a distributed directory system.
+• Real-time interactions. Important Fog applications involve real-time interactions rather than batch processing.
+• Predominance of wireless access.
+• Heterogeneity. Fog nodes come in diﬀerent form factors, and will be deployed in a wide variety of environments.
+• Interoperability and federation. Seamless support of certain services (streaming is a good example) requires the cooperation of diﬀerent providers. Hence, Fog components must be able to interoperate, and services must be federated across domains.
+• Support for on-line analytic and interplay with the Cloud. The Fog is positioned to play a signiﬁcant role in the ingestion and processing of the data close to
+1http://www.lispmob.org
+
+the source. We elaborate in section 4 on the interplay between Fog and Cloud regarding Big Data.
+2.2 Fog Players: Providers and Users
+It is not easy to determine at this early stage how the diﬀerent Fog Computing players will align. Based on the nature of the major services and applications, however, we anticipate that:
+• Subscriber models will play a major role in the Fog (Infotainment in Connected Vehicle, Smart Grid, Smart Cities, Health Care, etc.)
+• The Fog will give rise to new forms of competition and cooperation between providers angling to provide global services. New incumbents will enter the arena as users and providers, including utilities, car manufacturers, public administrations and transportation agencies.
+3. FOG COMPUTING AND THE INTERNET OF THINGS
+In this section we demonstrate the role the Fog plays in three scenarios of interest: Connected Vehicle, Smart Grid, and Wireless Sensor and Actuator Networks.
+3.1 Connected Vehicle (CV)
+The Connected Vehicle deployment displays a rich scenario of connectivity and interactions: cars to cars, cars to access points (Wi-Fi, 3G, LTE, roadside units [RSUs], smart traﬃc lights), and access points to access points. The Fog has a number of attributes that make it the ideal platform to deliver a rich menu of SCV services in infotainment, safety, traﬃc support, and analytics: geo-distribution (throughout cities and along roads), mobility and location awareness, low latency, heterogeneity, and support for real-time interactions.
+A smart traﬃc light system illustrates the latter. The smart traﬃc light node interacts locally with a number of sensors, which detect the presence of pedestrians and bikers, and measures the distance and speed of approaching vehicles. It also interacts with neighboring lights to coordinate the green traﬃc wave. Based on this information the smart light sends warning signals to approaching vehicles, and even modiﬁes its own cycle to prevent accidents.
+Re-coordinating with neighboring STLs through the orchestration layer of the Fog follows any modiﬁcation of the cycle. The data collected by the STLs is processed to do real-time analytics (changing, for instance, the timing of the cycles in response to the traﬃc conditions). The data from clusters of smart traﬃc lights is sent to the Cloud for global, long-term analytics.
+3.2 Smart Grid
+Smart Grid is another rich Fog use case. We defer section 4 a discussion of the interplay of Fog and Cloud in the context of Smart Grid.
+3.3 Wireless Sensors and Actuators Networks
+The original Wireless Sensor Nodes (WSNs), nicknamed motes [2], were designed to operate at extremely low power to extend battery life or even to make energy harvesting feasible. Most of these WSNs involve a large number of low
+
+14
+
+bandwidth, low energy, low processing power, small memory motes, operating as sources of a sink (collector), in a unidirectional fashion. Sensing the environment, simple processing, and forwarding data to the static sink are the duties of this class of sensor networks, for which the open source TinyOS2 is the de-facto standard operating system. Motes have proven useful in a variety of scenarios to collect environmental data (humidity, temperature, amount of rainfall, light intensity, etc).
+Energy constrained WSNs advanced in several directions: multiple sinks, mobile sinks, multiple mobile sinks, and mobile sensors were proposed in successive incarnations to meet the requirements of new applications. Yet, they fall short in applications that go beyond sensing and tracking, but require actuators to exert physical actions (open, close, move, focus, target, even carry and deploy sensors). Actuators, which can control either a system or the measurement process itself, bring new dimensions to sensor networks.
+The information ﬂow is not unidirectional (from the sensors to the sink), but bi-directional (sensors to sink, and controller node to actuators). In a subtler, but signiﬁcant way, it becomes a closed-loop system, in which the issues of stability and potential oscillatory behavior cannot be ignored. Latency and jitter become a dominant concern in systems that require rapid response.
+S.S. Kashi and M. Shariﬁ [4] survey the contributions in the coordination of Wireless Sensor and Actuator Networks (WSANs). They point out that in one architectural choice, the WSAN consists of two networks: a wireless sensor network and a mobile ad hoc network (MANET). T. Banka et al [6] stress that emergent applications demand a higher bandwidth, collaborative sensing environment. Their experience is rooted in the CASA (Collaborative Adaptive Sensing of the Atmosphere) project. CASA [5], a multi-year, multi-partner initiative led by UMASS, deployed a network of small weather radars, integrated with a distributed processing and storage infrastructure in a closed-loop system to monitor the lower troposphere for atmospheric hazards like tornados, hailstorms, etc. Zink et al [3] provide technical details of the deployment.
+The characteristics of the Fog (proximity and location awareness, geo-distribution, hierarchical organization) make it the suitable platform to support both energy-constrained WSNs and WSANs.
+4. ANALYTICS, AND THE INTERPLAY BETWEEN THE FOG AND THE CLOUD
+While Fog nodes provide localization, therefore enabling low latency and context awareness, the Cloud provides global centralization. Many applications require both Fog localization, and Cloud globalization, particularly for analytics and Big Data. We touched upon this point earlier in reference to smart traﬃc light. Here we consider Smart Grid, which data hierarchies help illustrate further this interplay.
+Fog collectors at the edge ingest the data generated by grid sensors and devices. Some of this data relates to protection and control loops that require real-time processing (from milliseconds to sub seconds). This ﬁrst tier of the Fog, designed for machine-to-machine (M2M) interaction, collects, process the data, and issues control commands to the actuators. It also ﬁlters the data to be consumed locally, and sends the rest to the higher tiers. The second and
+
+third tier deal with visualization and reporting (human-tomachine [HMI] interactions), as well as systems and processes (M2M). The time scales of these interactions, all part of the Fog, range from seconds to minutes (real-time analytics), and even days (transactional analytics). As a result of this the Fog must support several types of storage, from ephemeral at the lowest tier to semi-permanent at the highest tier. We also note that the higher the tier, the wider the geographical coverage, and the longer the time scale. The ultimate, global coverage is provided by the Cloud, which is used as repository for data that that has a permanence of months and years, and which is the bases for business intelligence analytics. This is the typical HMI environment of reports and dashboards the display key performance indicators.
+5. CONCLUSIONS
+We have outlined the vision and deﬁned key characteristics of Fog Computing, a platform to deliver a rich portfolio of new services and applications at the edge of the network. The motivating examples peppered throughout the discussion range from conceptual visions to existing point solution prototypes. We envision the Fog to be a unifying platform, rich enough to deliver this new breed of emerging services and enable the development of new applications.
+We welcome collaborations on the substantial body of work ahead: 1) Architecture of this massive infrastructure of compute, storage, and networking devices; 2) Orchestration and resource management of the Fog nodes; 3) Innovative services and applications to be supported by the Fog.
+6. ACKNOWLEDGMENTS
+We recognize the active participation of a number of collaborators, including Hao Hu, Preethi Natarajan, Xiaoqing Zhu, Mythili Suryanarayana Prabhu, Mario Nemirovsky, Fulvio Risso.
+7. REFERENCES
+[1] F. Bonomi. Connected vehicles, the internet of things, and fog computing. VANET 2011, 2011.
+[2] M. Bowman, S. K. Debray, and L. L. Peterson. Reasoning about naming systems. ACM Trans. Program. Lang. Syst., 15(5):795–825, November 1993.
+[3] G. Forman. An extensive empirical study of feature selection metrics for text classiﬁcation. J. Mach. Learn. Res., 3:1289–1305, Mar. 2003.
+[4] B. Fr¨ohlich and J. Plate. The cubic mouse: a new device for three-dimensional input. In Proceedings of the SIGCHI conference on Human factors in computing systems, CHI ’00, pages 526–531, New York, NY, USA, 2000. ACM.
+[5] M. J. Sannella. Constraint satisfaction and debugging for interactive user interfaces. 2003.
+[6] P. Tavel. Modeling and simulation design. 2007.
+
+15
+

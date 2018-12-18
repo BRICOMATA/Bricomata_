@@ -1,35 +1,35 @@
 {
 	"translatorID": "36a3b0b5-bad0-4a04-b79b-441c7cef77db",
+	"translatorType": 3,
 	"label": "BetterBibTeX JSON",
 	"creator": "Emiliano Heyns",
 	"target": "json",
 	"minVersion": "4.0.27",
 	"maxVersion": "",
+	"priority": 100,
+	"inRepository": false,
 	"configOptions": {
 		"async": true,
-		"getCollections": true
+		"getCollections": true,
+		"hash": "a4d3f77707fb00d704b28d942d56d13a-3fab35c20b0ea8a2f2124ac80852b7ff"
 	},
 	"displayOptions": {
 		"exportNotes": true,
 		"exportFileData": false
 	},
-	"translatorType": 3,
 	"browserSupport": "gcsv",
-	"priority": 100,
-	"inRepository": false,
-	"lastUpdated": "2018-11-11 11:03:47"
+	"lastUpdated": "2018-12-13 16:07:40"
 }
 
 var Translator = {
   initialize: function () {},
-  version: "5.1.7",
   BetterBibTeXJSON: true,
   BetterTeX: false,
   BetterCSL: false,
-  // header == ZOTERO_TRANSLATOR_INFO -- maybe pick it from there
-  header: {"translatorID":"36a3b0b5-bad0-4a04-b79b-441c7cef77db","label":"BetterBibTeX JSON","description":"exports and imports references in BetterBibTeX debug format. Mostly for BBT-internal use","creator":"Emiliano Heyns","target":"json","minVersion":"4.0.27","maxVersion":"","configOptions":{"async":true,"getCollections":true},"displayOptions":{"exportNotes":true,"exportFileData":false},"translatorType":3,"browserSupport":"gcsv","priority":100,"inRepository":false,"lastUpdated":"2018-11-11 11:03:47"},
-  override: {"DOIandURL":true,"asciiBibLaTeX":true,"asciiBibTeX":true,"autoAbbrev":false,"autoAbbrevStyle":false,"autoExport":false,"autoExportIdleWait":false,"autoExportPrimeExportCacheBatch":false,"autoExportPrimeExportCacheThreshold":false,"autoPin":false,"biblatexExtendedDateFormat":false,"biblatexExtendedNameFormat":true,"bibtexParticleNoOp":true,"bibtexURL":true,"cacheFlushInterval":false,"citeCommand":false,"citekeyFold":false,"citekeyFormat":false,"citeprocNoteCitekey":false,"csquotes":false,"debug":false,"debugLog":false,"itemObserverDelay":false,"jabrefFormat":false,"keyConflictPolicy":false,"keyScope":false,"kuroshiro":false,"lockedInit":false,"parseParticles":false,"postscript":false,"preserveBibTeXVariables":false,"qualityReport":false,"quickCopyMode":false,"quickCopyPandocBrackets":false,"rawLaTag":false,"relativeFilePaths":false,"scrubDatabase":false,"skipFields":false,"skipWords":false,"sorted":false,"strings":false,"suppressTitleCase":false,"testing":false,"warnBulkModify":false},
-  options: {"exportNotes":true,"exportFileData":false},
+  header: ZOTERO_TRANSLATOR_INFO,
+  // header: < %- JSON.stringify(header) % >,
+  override: {"DOIandURL":true,"asciiBibLaTeX":true,"asciiBibTeX":true,"autoAbbrev":false,"autoAbbrevStyle":false,"autoExport":false,"autoExportIdleWait":false,"autoExportPrimeExportCacheBatch":false,"autoExportPrimeExportCacheThreshold":false,"autoPin":false,"biblatexExtendedDateFormat":false,"biblatexExtendedNameFormat":true,"bibtexParticleNoOp":true,"bibtexURL":true,"cacheFlushInterval":false,"citeCommand":false,"citekeyFold":false,"citekeyFormat":false,"citeprocNoteCitekey":false,"csquotes":false,"debug":false,"debugLog":false,"git":false,"itemObserverDelay":false,"jabrefFormat":false,"keyConflictPolicy":false,"keyScope":false,"kuroshiro":false,"lockedInit":false,"parseParticles":false,"postscript":false,"preserveBibTeXVariables":false,"qualityReport":false,"quickCopyMode":false,"quickCopyPandocBrackets":false,"rawLaTag":false,"relativeFilePaths":false,"scrubDatabase":false,"skipFields":false,"skipWords":false,"sorted":false,"strings":false,"suppressTitleCase":false,"testing":false,"warnBulkModify":false},
+  options: {"exportFileData":false,"exportNotes":true},
 
   stringCompare: (new Intl.Collator('en')).compare,
 
@@ -41,7 +41,7 @@ var Translator = {
     this.BetterCSL = this.BetterCSLYAML || this.BetterCSLJSON;
 
     this.debugEnabled = Zotero.BetterBibTeX.debugEnabled();
-    this.unicode = true; // set by Better Bib(La)TeX later
+    this.unicode = true; // set by Better BibTeX later
 
     if (stage == 'detectImport') {
       this.options = {}
@@ -86,7 +86,18 @@ var Translator = {
     if (!this.preferences.rawLaTag) this.preferences.rawLaTag = '#LaTeX'
     Zotero.debug('prefs loaded: ' + JSON.stringify(this.preferences, null, 2))
 
-    this.caching = !this.options.exportFileData && (!this.BetterTeX || this.preferences.jabrefFormat !== 4)
+    if (stage == 'doExport') {
+      this.caching = !(
+        // when exporting file data you get relative paths, when not, you get absolute paths, only one version can go into the cache
+        this.options.exportFileData
+
+        // jabref 4 stores collection info inside the reference, and collection info depends on which part of your library you're exporting
+        || (this.BetterTeX && this.preferences.jabrefFormat === 4)
+
+        // if you're looking at this.options.exportPath in the postscript you're probably outputting something different based on it
+        || ((this.preferences.postscript || '').indexOf('Translator.options.exportPath') >= 0)
+      )
+    }
 
     this.collections = {}
     if (stage == 'doExport' && this.header.configOptions && this.header.configOptions.getCollections && Zotero.nextCollection) {
@@ -123,25 +134,25 @@ var Translator = {
 };
 
 
-  function doExport() {
-    const start = Date.now()
-    Translator.configure('doExport')
-    Translator.initialize()
-    Translator.doExport()
-    Zotero.debug("BetterBibTeX JSON" + ' export took ' + (Date.now() - start))
-  }
+function doExport() {
+  const start = Date.now()
+  Translator.configure('doExport')
+  Translator.initialize()
+  Translator.doExport()
+  Zotero.debug("BetterBibTeX JSON" + ' export took ' + (Date.now() - start))
+}
 
 
 
-  function detectImport() {
-    Translator.configure('detectImport')
-    return Translator.detectImport()
-  }
-  function doImport() {
-    Translator.configure('doImport')
-    Translator.initialize()
-    return Translator.doImport()
-  }
+function detectImport() {
+  Translator.configure('detectImport')
+  return Translator.detectImport()
+}
+function doImport() {
+  Translator.configure('doImport')
+  Translator.initialize()
+  return Translator.doImport()
+}
 
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

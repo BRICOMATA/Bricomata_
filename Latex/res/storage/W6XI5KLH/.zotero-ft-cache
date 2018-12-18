@@ -1,0 +1,1812 @@
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+EUROPEAN STANDARD
+Intelligent Transport Systems (ITS); Vehicular Communications; Basic Set of Applications;
+Part 2: Specification of Cooperative Awareness Basic Service
+
+2
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Reference REN/ITS-0010019
+Keywords application, ITS, safety, service, transport
+ETSI 650 Route des Lucioles F-06921 Sophia Antipolis Cedex - FRANCE Tel.: +33 4 92 94 42 00 Fax: +33 4 93 65 47 16
+Siret N° 348 623 562 00017 - NAF 742 C Association à but non lucratif enregistrée à la Sous-Préfecture de Grasse (06) N° 7803/88
+Important notice
+The present document can be downloaded from: http://www.etsi.org
+The present document may be made available in electronic versions and/or in print. The content of any electronic and/or print versions of the present document shall not be modified without the prior written authorization of ETSI. In case of any
+existing or perceived difference in contents between such versions and/or in print, the only prevailing document is the print of the Portable Document Format (PDF) version kept on a specific network drive within ETSI Secretariat.
+Users of the present document should be aware that the document may be subject to revision or change of status. Information on the current status of this and other ETSI documents is available at http://portal.etsi.org/tb/status/status.asp
+If you find errors in the present document, please send your comment to one of the following services: http://portal.etsi.org/chaircor/ETSI_support.asp Copyright Notification
+No part may be reproduced or utilized in any form or by any means, electronic or mechanical, including photocopying and microfilm except as authorized by written permission of ETSI.
+The content of the PDF version shall not be modified without the written authorization of ETSI. The copyright and the foregoing restriction extend to reproduction in all media. © European Telecommunications Standards Institute 2014. All rights reserved.
+DECTTM, PLUGTESTSTM, UMTSTM and the ETSI logo are Trade Marks of ETSI registered for the benefit of its Members. 3GPPTM and LTE™ are Trade Marks of ETSI registered for the benefit of its Members and of the 3GPP Organizational Partners. GSM® and the GSM logo are Trade Marks registered and owned by the GSM Association.
+ETSI
+
+3
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Contents
+
+Intellectual Property Rights ................................................................................................................................6
+
+Foreword ............................................................................................................................................................. 6
+
+Modal verbs terminology....................................................................................................................................6
+
+Introduction ........................................................................................................................................................7
+
+1 Scope ........................................................................................................................................................8
+
+2 References ................................................................................................................................................8
+
+2.1
+
+Normative references .........................................................................................................................................8
+
+2.2
+
+Informative references........................................................................................................................................8
+
+3 Definitions, symbols and abbreviations ...................................................................................................9
+
+3.1
+
+Definitions ..........................................................................................................................................................9
+
+3.2
+
+Symbols ............................................................................................................................................................ 10
+
+3.3
+
+Abbreviations ...................................................................................................................................................10
+
+4 CA basic service introduction ................................................................................................................11
+
+4.1
+
+Background ......................................................................................................................................................11
+
+4.2
+
+Services provided by CA basic service ............................................................................................................11
+
+4.3
+
+Sending CAMs .................................................................................................................................................11
+
+4.4
+
+Receiving CAMs ..............................................................................................................................................11
+
+5 CA basic service functional description.................................................................................................12
+
+5.1
+
+CA basic service in the ITS architecture ..........................................................................................................12
+
+5.2
+
+CA basic service functional architecture ..........................................................................................................12
+
+5.3
+
+Interfaces of the CA basic service ....................................................................................................................13
+
+5.3.1
+
+Interface to ITS applications.......................................................................................................................13
+
+5.3.2
+
+Interface to data provisioning facilities.......................................................................................................14
+
+5.3.3
+
+Interface to the Networking & Transport Layer .........................................................................................14
+
+5.3.4
+
+Interfaces protocol stacks of the Networking & Transport Layer...............................................................14
+
+5.3.4.1
+
+Interface to the GeoNetworking/BTP stack ..........................................................................................14
+
+5.3.4.2
+
+Interface to the IPv6 stack and the combined IPv6/GeoNetworking stack ...........................................16
+
+5.3.5
+
+Interface to the Management entity ............................................................................................................16
+
+5.3.6
+
+Interface to the Security entity....................................................................................................................16
+
+6 CAM dissemination................................................................................................................................16
+
+6.1
+
+CAM dissemination concept ............................................................................................................................16
+
+6.1.1
+
+CAM dissemination requirements ..............................................................................................................16
+
+6.1.2
+
+CA basic service activation and termination...............................................................................................16
+
+6.1.3
+
+CAM generation frequency management for vehicle ITS-Ss .....................................................................17
+
+6.1.4
+
+CAM generation frequency management for RSU ITS-Ss .........................................................................18
+
+6.1.5
+
+CAM time requirement ...............................................................................................................................18
+
+6.1.5.1
+
+CAM generation time............................................................................................................................18
+
+6.1.5.2
+
+CAM Time stamp..................................................................................................................................18
+
+6.2
+
+CAM dissemination constraints .......................................................................................................................18
+
+6.2.1
+
+General Confidence Constraints .................................................................................................................18
+
+6.2.2
+
+Security constraints.....................................................................................................................................19
+
+6.2.2.1
+
+Introduction ........................................................................................................................................... 19
+
+6.2.2.2
+
+Service Specific Permissions (SSP) ......................................................................................................19
+
+6.2.3
+
+General priority constraints.........................................................................................................................20
+
+7 CAM Format Specification ....................................................................................................................20
+
+7.1
+
+General Structure of a CAM PDU....................................................................................................................20
+
+7.2
+
+ITS PDU header ...............................................................................................................................................21
+
+7.3
+
+Basic container .................................................................................................................................................21
+
+7.4
+
+Vehicle ITS-S containers..................................................................................................................................21
+
+7.5
+
+RSU ITS-S containers ......................................................................................................................................22
+
+7.6
+
+CAM format and coding rules..........................................................................................................................22
+
+ETSI
+
+4
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+7.6.1 7.6.2
+
+Common data dictionary.............................................................................................................................22 CAM data presentation ...............................................................................................................................22
+
+Annex A (normative):
+
+ASN.1 specification of CAM .........................................................................23
+
+Annex B (normative):
+
+Description for data elements and data frames...........................................25
+
+B.0 General requirements .............................................................................................................................25
+
+B.1 header .....................................................................................................................................................25
+
+B.2 cam .........................................................................................................................................................25
+
+B.3 generationDeltaTime ..............................................................................................................................25
+
+B.4 camParameters .......................................................................................................................................26
+
+B.5 basicContainer........................................................................................................................................26
+
+B.6 highFrequencyContainer ........................................................................................................................26
+
+B.7 lowFrequencyContainer .........................................................................................................................26
+
+B.8 specialVehicleContainer.........................................................................................................................26
+
+B.9 basicVehicleContainerHighFrequency...................................................................................................26
+
+B.10 basicVehicleContainerLowFrequency ...................................................................................................27
+
+B.11 publicTransportContainer.......................................................................................................................27
+
+B.12 specialTransportContainer......................................................................................................................27
+
+B.13 dangerousGoodsContainer .....................................................................................................................27
+
+B.14 roadWorksContainerBasic......................................................................................................................27
+
+B.15 rescueContainer......................................................................................................................................27
+
+B.16 emergencyContainer...............................................................................................................................28
+
+B.17 safetyCarContainer.................................................................................................................................28
+
+B.18 stationType .............................................................................................................................................28
+
+B.19 referencePosition....................................................................................................................................28
+
+B.20 performanceClass ...................................................................................................................................28
+
+B.21 heading ...................................................................................................................................................29
+
+B.22 speed.......................................................................................................................................................29
+
+B.23 vehicleRole.............................................................................................................................................29
+
+B.24 lanePosition ............................................................................................................................................29
+
+B.25 driveDirection.........................................................................................................................................29
+
+B.26 longitudinalAcceleration ........................................................................................................................30
+
+B.27 accelerationControl ................................................................................................................................30
+
+B.28 lateralAcceleration..................................................................................................................................30
+
+B.29 verticalAcceleration................................................................................................................................30
+
+B.30 embarkationStatus ..................................................................................................................................30
+
+B.31 curvature.................................................................................................................................................31
+
+B.32 curvatureCalculationMode .....................................................................................................................31
+
+B.33 yawRate..................................................................................................................................................31
+
+ETSI
+
+5
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.34 steeringWheelAngle ...............................................................................................................................31 B.35 vehicleLength .........................................................................................................................................32 B.36 vehicleWidth ..........................................................................................................................................32 B.37 exteriorLights .........................................................................................................................................32 B.38 pathHistory .............................................................................................................................................32 B.39 ptActivation............................................................................................................................................32 B.40 specialTransportType .............................................................................................................................33 B.41 dangerousGoodsBasic ............................................................................................................................33 B.42 roadworksSubCauseCode.......................................................................................................................33 B.43 closedLanes ............................................................................................................................................33 B.44 trafficRule...............................................................................................................................................33 B.45 speedLimit..............................................................................................................................................34 B.46 lightBarSirenInUse.................................................................................................................................34 B.47 incidentIndication...................................................................................................................................34 B.48 emergencyPriority ..................................................................................................................................34 B.49 rsuContainerHighFrequency ..................................................................................................................34 B.50 protectedCommunicationZoneRSU .......................................................................................................35 B.51 cenDsrcTollingZone...............................................................................................................................35 B.52 protectedZoneLatitude............................................................................................................................35 B.53 protectedZoneLongitude ........................................................................................................................35
+
+Annex C (informative): Protocol operation of the CA basic service..................................................36
+
+C.1 Introduction ............................................................................................................................................36
+
+C.2 Originating ITS-S operation...................................................................................................................36
+C.2.1 Protocol data setting rules ................................................................................................................................36 C.2.2 T_CheckCamGen .............................................................................................................................................36 C.2.3 Originating ITS-S message table......................................................................................................................36 C.2.4 General protocol operation ...............................................................................................................................37 C.2.5 CAM construction exception............................................................................................................................37
+
+C.3 Receiving ITS-S operation .....................................................................................................................37
+
+C.3.1 Protocol data setting rules ................................................................................................................................37
+
+C.3.2 General protocol operation ...............................................................................................................................37
+
+C.3.3 Exception handling...........................................................................................................................................38
+
+C.3.3.1
+
+CAM decoding exception ...........................................................................................................................38
+
+Annex D (informative): Flow chart for CAM generation frequency management ..........................39
+
+Annex E (informative): Extended CAM generation ...........................................................................43 History ..............................................................................................................................................................44
+
+ETSI
+
+6
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Intellectual Property Rights
+IPRs essential or potentially essential to the present document may have been declared to ETSI. The information pertaining to these essential IPRs, if any, is publicly available for ETSI members and non-members, and can be found in ETSI SR 000 314: "Intellectual Property Rights (IPRs); Essential, or potentially Essential, IPRs notified to ETSI in respect of ETSI standards", which is available from the ETSI Secretariat. Latest updates are available on the ETSI Web server (http://ipr.etsi.org).
+Pursuant to the ETSI IPR Policy, no investigation, including IPR searches, has been carried out by ETSI. No guarantee can be given as to the existence of other IPRs not referenced in ETSI SR 000 314 (or the updates on the ETSI Web server) which are, or may be, or may become, essential to the present document.
+
+Foreword
+This European Standard (EN) has been produced by ETSI Technical Committee Intelligent Transport Systems (ITS).
+The present document is part 2 of a multi-part deliverable covering Vehicular Communications; Basic Set of Applications, as identified below:
+TS 102 637-1: "Functional Requirements";
+EN 302 637-2: "Specification of Cooperative Awareness Basic Service";
+EN 302 637-3: "Specifications of Decentralized Environmental Notification Basic Service".
+The specification of the CA basic service was initially developed by the European Car-to-Car Communication Consortium, see Car2Car Communication Consortium Manifesto [i.2]. The service was evaluated by several initiatives such as the C2C-CC demonstration in 2008, ETSI Plugtests events and European projects including PRE-DRIVE C2X, DRIVE C2X, SafeSpot, CVIS, CoVeL, eCoMove, SCOR@F and simTD. These evaluation efforts have provided feedback to ETSI TC ITS.
+The present document replaces ETSI TS 102 637-2 in whole. It includes improvements and enhancements of the CA basic service specifications in ETSI TS 102 637-2 according to the feedback provided by the various initiatives.
+
+National transposition dates
+Date of adoption of this EN: Date of latest announcement of this EN (doa): Date of latest publication of new National Standard or endorsement of this EN (dop/e): Date of withdrawal of any conflicting National Standard (dow):
+
+18 November 2014 28 February 2015
+31 August 2015 31 August 2016
+
+Modal verbs terminology
+In the present document "shall", "shall not", "should", "should not", "may", "may not", "need", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
+"must" and "must not" are NOT allowed in ETSI deliverables except when used in direct citation.
+
+ETSI
+
+7
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Introduction
+Cooperative awareness within road traffic means that road users and roadside infrastructure are informed about each other's position, dynamics and attributes. Road users are all kind of road vehicles like cars, trucks, motorcycles, bicycles or even pedestrians and roadside infrastructure equipment including road signs, traffic lights or barriers and gates. The awareness of each other is the basis for several road safety and traffic efficiency applications with many use cases as described in ETSI TR 102 638 [i.1]. It is achieved by regular exchange of information among vehicles (V2V, in general all kind of road users) and between vehicles and road side infrastructure (V2I and I2V) based on wireless networks, called V2X network and as such is part of Intelligent Transport Systems (ITS).
+The information to be exchanged for cooperative awareness is packed up in the periodically transmitted Cooperative Awareness Message (CAM). The construction, management and processing of CAMs is done by the Cooperative Awareness basic service (CA basic service), which is part of the facilities layer within the ITS communication architecture ETSI EN 302 665 [1] supporting several ITS applications.
+The CA basic service is a mandatory facility for all kind of ITS-Stations (ITS-S), which take part in the road traffic (vehicle ITS-S, personal ITS-S, etc.). The present document focuses on the specifications for CAMs transmitted by all vehicle ITS-Ss participating in the V2X network. Nevertheless, the present document defines the CAM format with flexibility in order to be easily extendable for the support of other types of ITS-Ss or future ITS applications.
+The requirements on the performance of the CA basic service, the content of the CAM and the quality of its data elements are derived from the Basic Set of Applications (BSA) as defined in ETSI TR 102 638 [i.1] and in particular from the road safety applications as defined in ETSI TS 101 539-1 [i.8], ETSI TS 101 539-2 [i.9], and ETSI TS 101 539-3 [i.10].
+
+ETSI
+
+8
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+1 Scope
+The present document provides the specifications of the Cooperative Awareness basic service (CA basic service), which is in support of the BSA road safety application.
+This includes definition of the syntax and semantics of the Cooperative Awareness Message (CAM) and detailed specifications on the message handling.
+
+2 References
+References are either specific (identified by date of publication and/or edition number or version number) or non-specific. For specific references, only the cited version applies. For non-specific references, the latest version of the reference document (including any amendments) applies.
+Referenced documents which are not found to be publicly available in the expected location might be found at http://docbox.etsi.org/Reference.
+NOTE: While any hyperlinks included in this clause were valid at the time of publication, ETSI cannot guarantee their long term validity.
+
+2.1 Normative references
+
+The following referenced documents are necessary for the application of the present document.
+
+[1]
+
+ETSI EN 302 665 (V1.1.1): "Intelligent Transport Systems (ITS); Communications Architecture".
+
+[2]
+
+ETSI TS 102 894-2 (V1.2.1): "Intelligent Transport Systems (ITS); Users and applications
+
+requirements; Part 2: Applications and facilities layer common data dictionary".
+
+[3]
+
+SAE J2735 (2009-11-19): "Dedicated Short Range Communications (DSRC) Message Set
+
+Dictionary".
+
+NOTE: Available at http://standards.sae.org/j2735_200911/.
+
+[4]
+
+Recommendation ITU-T X.691/ISO/IEC 8825-2 (1997-12): "Information technology - ASN.1
+
+encoding rules: Specification of Packed Encoding Rules (PER)".
+
+[5]
+
+ETSI EN 302 663 (V1.2.1): "Intelligent Transport Systems (ITS); Access layer specification for
+
+Intelligent Transport Systems operating in the 5 GHz frequency band".
+
+2.2 Informative references
+
+The following referenced documents are not necessary for the application of the present document but they assist the user with regard to a particular subject area.
+
+[i.1]
+
+ETSI TR 102 638 (V1.1.1) (2009-06): "Intelligent Transport Systems (ITS); Vehicular
+
+Communications; Basic Set of Applications; Definitions".
+
+[i.2]
+
+Car2Car Communication Consortium (2007-08): "Car2Car Communication Consortium
+
+Manifesto", Version 1.1.
+
+NOTE: Available at http://www.car-to-car.org/.
+
+[i.3]
+
+ETSI TR 102 863 (V1.1.1) (2011-06): "Intelligent Transport Systems (ITS); Vehicular
+
+Communications; Basic Set of Applications; Local Dynamic Map (LDM); Rationale for and
+
+guidance on standardization".
+
+[i.4]
+
+ETSI TS 102 636-3 (V1.1.1): "Intelligent Transport Systems (ITS); Vehicular Communications;
+
+GeoNetworking; Part 3: Network architecture".
+
+ETSI
+
+[i.5]
+[i.6]
+[i.7] [i.8] [i.9] [i.10] [i.11] [i.12] [i.13] [i.14] [i.15] [i.16] [i.17] [i.18] [i.19]
+
+9
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+ETSI EN 302 636-4-1 (V1.2.1): "Intelligent Transport Systems (ITS); Vehicular Communications; GeoNetworking; Part 4: Geographical addressing and forwarding for point-to-point and point-tomultipoint communications; Sub-part 1: Media-Independent Functionality".
+ETSI TS 102 894-1 (V1.1.1): "Intelligent Transport System (ITS); Users & Applications requirements; "Intelligent Transport Systems (ITS); Users and applications requirements; Part 1: Facility layer structure, functional requirements and specifications".
+ETSI EN 302 636-5-1 (V1.2.1): "Intelligent Transport Systems (ITS); Vehicular Communications; GeoNetworking; Part 5: Transport Protocols; Sub-part 1: Basic Transport Protocol".
+ETSI TS 101 539-1 (V1.1.1): "Intelligent Transport Systems (ITS); V2X Applications; Part 1: Road Hazard Signalling (RHS) application requirements specification".
+ETSI TS 101 539-2: "Intelligent Transport System (ITS); V2X Applications; Part 2: Intersection Collision Risk Warning (ICRW) application requirements specification".
+ETSI TS 101 539-3 (V1.1.1): "Intelligent Transport Systems (ITS); V2X Applications; Part 3: Longitudinal Collision Risk Warning (LCRW) application requirements specification".
+ETSI TS 102 723-5: "Intelligent Transport Systems (ITS); OSI cross-layer topics; Part 5: Interface between management entity and facilities layer".
+ETSI TS 102 723-9: "Intelligent Transport Systems; OSI cross-layer topics; Part 9: Interface between security entity and facilities layer".
+ETSI TS 102 723-11: "Intelligent Transport Systems (ITS); OSI cross-layer topics; Part 11: Interface between networking and transport layer and facilities layer".
+ETSI TS 102 890-3: "Intelligent Transport System (ITS); Facilities layer function; Part 3: Position and time facility specification".
+ISO EN 17419: "Intelligent Transport Systems -- Cooperative Systems -- Classification and management of ITS applications in a global context".
+ETSI TS 102 724 (V1.1.1): "Intelligent Transport Systems (ITS); Harmonized Channel Specifications for Intelligent Transport Systems operating in the 5 GHz frequency band".
+ETSI TS 103 097 (V1.1.1): "Intelligent Transport Systems (ITS); Security; Security header and certificate formats".
+ETSI TR 102 965 (V1.1.1): "Intelligent Transport Systems (ITS);Application Object Identifier (ITS-AID); Registration list".
+ISO 1176: "Road vehicles - Masses - Vocabulary and codes".
+
+3 Definitions, symbols and abbreviations
+3.1 Definitions
+For the purposes of the present document, the terms and definitions given in ETSI EN 302 665 [1], ETSI EN 302 663 [5], LDM given in ETSI TR 102 863 [i.3] and DE and DF given in SAE J2735 [3] and the following apply: basic set of applications: group of applications, supported by vehicular communication system
+NOTE: The basic set of applications are defined in ETSI TR 102 638 [i.1]. Cooperative Awareness (CA) basic service: facility at the ITS-S facilities layer to generate, receive and process the CAM Cooperative Awareness Message (CAM): CA basic service PDU Cooperative Awareness Message (CAM) data: partial or complete CAM payload
+
+ETSI
+
+10
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Cooperative Awareness Message (CAM) protocol: ITS facilities layer protocol that operates the CAM transmission and reception
+empty vehicle: complete vehicle kerb mass as defined in ISO 1176, clause 4.6 [i.19]
+V2X: either vehicle to vehicle (V2V), or vehicle to infrastructure (V2I) and/or infrastructure to vehicle (I2V)
+
+3.2 Symbols
+
+For the purposes of the present document, the following symbols apply:
+
+IF.CAM IF.FAC IF.N&T IF.SEC
+
+Interface between CAM basic service and LDM or ITS application Interface between CAM basic service and other facilities layer entities Interface between CAM basic service and ITS networking & transport layer Interface between CAM basic service and ITS security entity
+
+3.3 Abbreviations
+
+For the purposes of the present document, the following abbreviations apply:
+
+API ASN.1 BSA BTP CA CAM CCH DCC DE DENM DF FA-SAP GN HF HMI I2V ID ISO ITS ITS-G5A ITS-S ITS-ST LDM LF MF-SAP MIB MSB N&T NF-SAP OSI PCI PDU PER POTI RSU SAE SAP SF-SAP SHB SSP TC
+
+Application Programming Interface Abstract Syntax Notation 1 Basic Set of Applications Basic Transport Protocol Cooperative Awareness Cooperative Awareness Message Control CHannel Decentralized Congestion Control Data Element Decentralized Environmental Notification Message Data Frame Facilities/Applications Service Access Point GeoNetworking High Frequency Human Machine Interface Infrastructure-to-Vehicle Identifier International Standards Organisation Intelligent Transport Systems ITS Frequency band 5,875 GHz to 5,905 GHz dedicated for safety related applications ITS station ITS Station Time Local Dynamic Map Low Frequency Management/Facilities Service Access Point Management Information Base Most Significant Bit Networking & Transport Layer Networking & Transport/Facilities Service Access Point Open System Interconnection Protocol Control Information Packet Data Unit Packed Encoding Rules Position and Time management Road Side Unit Society of Automotive Engineers Service Access Point Security Facilities - Service Access Point Single-Hop Broadcasting Service Specific Permissions Technical Committee
+
+ETSI
+
+11
+
+TR V2I V2V VDP
+
+Technical Report Vehicle-to-Infrastructure Vehicle-to-Vehicle Vehicle Data Provider
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+4 CA basic service introduction
+4.1 Background
+Cooperative Awareness Messages (CAMs) are messages exchanged in the ITS network between ITS-Ss to create and maintain awareness of each other and to support cooperative performance of vehicles using the road network. A CAM contains status and attribute information of the originating ITS-S. The content varies depending on the type of the ITS-S. For vehicle ITS-Ss the status information includes time, position, motion state, activated systems, etc. and the attribute information includes data about the dimensions, vehicle type and role in the road traffic, etc. On reception of a CAM the receiving ITS-S becomes aware of the presence, type, and status of the originating ITS-S. The received information can be used by the receiving ITS-S to support several ITS applications. For example, by comparing the status of the originating ITS-S with its own status, a receiving ITS-S is able to estimate the collision risk with the originating ITS-S and if necessary may inform the driver of the vehicle via the HMI. Multiple ITS applications may rely on the CA basic service. It is assigned to domain application support facilities in ETSI TS 102 894-1 [i.6].
+Besides the support of applications the awareness of other ITS-S gained by the CA basic service may be used in the networking & transport layer for the position dependent dissemination of messages, e.g. DENM by GeoBroadcasting as specified in ETSI EN 302 636-4-1 [i.5]. The generation and transmission of CAM is managed by the CA basic service by implementing the CAM protocol.
+4.2 Services provided by CA basic service
+The CA basic service is a facilities layer entity that operates the CAM protocol. It provides two services: sending and receiving of CAMs. The CA basic service uses the services provided by the protocol entities of the ITS networking & transport layer to disseminate the CAM.
+4.3 Sending CAMs
+The sending of CAMs comprises the generation and transmission of CAMs. In the course of CAM generation the originating ITS-S composes the CAM, which is then delivered to the ITS networking & transport layer for dissemination. The dissemination of CAMs may vary depending on the applied communication system. In the ITS-G5A network, defined in ETSI EN 302 663 [5], CAMs are sent by the originating ITS-S to all ITS-Ss within the direct communication range. This communication range may, inter alia, be influenced in the originating ITS-S by changing the transmit power.
+CAMs are generated periodically with a frequency controlled by the CA basic service in the originating ITS-S. The generation frequency is determined taking into account the change of own ITS-Ss status, e.g. change of position or speed as well as the radio channel load as determined by DCC.
+4.4 Receiving CAMs
+Upon receiving a CAM, the CA basic service makes the content of the CAM available to the ITS applications and/or to other facilities within the receiving ITS-S, such as a Local Dynamic Map (LDM).
+
+ETSI
+
+12
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+5 CA basic service functional description
+
+5.1 CA basic service in the ITS architecture
+Sending CAMs as part of the CA basic service shall be present in all ITS-S, which take part in the road traffic (vehicle ITS-S, personal ITS-S, etc.).
+The CA basic service is a facilities layer entity of the ITS-S architecture as defined in ETSI EN 302 665 [1]. It may interface with other entities of the facilities layer and with the ITS application layer in order to collect relevant information for CAM generation and to forward the received CAM content for further processing. The CA basic service within the ITS-S architecture and the logical interfaces to other layers and potentially to entities within the facility layer are presented in Figure 1.
+In a vehicle ITS-S entities for the collection of data may be the Vehicle Data Provider (VDP) and the Position and Time management (POTI) and for received data the Local Dynamic Map (LDM) as receiving terminal. The VDP is connected with the vehicle network and provides the vehicle status information. The POTI, as specified in ETSI TS 102 890-3 [i.14], provides the position of the ITS-S and time information. The LDM as outlined in ETSI TR 102 863 [i.3] is a database in the ITS-S, which may be updated with received CAM data. ITS applications may retrieve information from the LDM for further processing.
+The CA basic service interfaces through the NF-SAP with the networking & transport layer (N&T) for exchanging of CAM messages with other ITS-Ss, the SF-SAP with the Security entity to access security services for CAM transmission and CAM reception, the MF-SAP with the Management entity and the FA-SAP with the application layer if received CAM data are provided directly to the applications.
+The functionalities of the CA basic service are defined in clause 5.2, the interfaces in Figure 2 are defined in clause 5.3.
+
+Figure 1: CA basic service within the ITS-S architecture
+5.2 CA basic service functional architecture
+The CA basic service is part of the Application Support domain of the Facilities Layer according to ETSI TS 102 894-1 [i.6]. Figure 2 shows the functional block diagram with the functional blocks of the CA basic service and interfaces to other facilities and layers, which are detailed in the following. The interfaces to other entities and layers are defined in clause 5.3.
+ETSI
+
+13
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Figure 2: Functional block diagram of the CA basic service For sending and receiving CAMs, the CA basic service shall provide the following sub-functions:
+• Encode CAM: This sub-function constructs the CAM according to the format specified in annex A. The most recent invehicle data shall be included in CAM.
+• Decode CAM: This sub-function decodes the received CAMs.
+• CAM transmission management: This sub-function implements the protocol operation of the originating ITS-S, as specified in clause C.1, including in particular: - Activation and termination of CAM transmission operation. - Determination of the CAM generation frequency. - Trigger the generation of CAM.
+• CAM reception management: This sub-function implements the protocol operation of the receiving ITS-S, as specified in clause C.2, including in particular: - Trigger the "decode CAM" function at the reception of CAM. - Provision of the received CAM data to LDM or ITS applications of the receiving ITS-S. - Optionally, checking the information of received CAMs.
+5.3 Interfaces of the CA basic service
+5.3.1 Interface to ITS applications
+An ITS application is an application layer entity that implements the logic for fulfilling one or more ITS use cases. ITS applications are defined in ETSI TS 101 539-1 [i.8], ETSI TS 101 539-2 [i.9] and ETSI TS 101 539-3 [i.10]. For the provision of received data the CA basic service provides the interface IF.CAM to LDM or to ITS application layer, as illustrated in Figure 2.
+ETSI
+
+14
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+NOTE:
+
+The interface to the ITS application layer may be implemented as API and data are exchanged between the CA basic service and ITS applications via this API. In another possible implementation, the interface to the application layer may be implemented as FA-SAP. Specifications of the FA-SAP and the corresponding protocols and APIs are out of scope of the present document.
+
+5.3.2 Interface to data provisioning facilities
+For the generation of CAMs, the CA basic service interacts with other facilities layer entities in order to obtain the required data. This set of facilities that provides data for CAM generation is referred to as data provisioning facilities. Data are exchanged between the data provisioning facilities and the CA basic service via the interface IF.FAC
+NOTE: Specifications of the interface to the data provisioning facilities and the corresponding protocols are out of scope of the present document.
+
+5.3.3 Interface to the Networking & Transport Layer
+
+The CA basic service exchanges information with ITS Networking & Transport Layer via the interface IF.N&T (Figure 2). A specification of the interface IF.N&T as NF-SAP (Figure 1) is provided in ETSI TS 102 723-11 [i.13].
+At the originating ITS-S, the CA basic service shall provide the CAM embedded in a Facility-layer Service Data Unit (FL-SDU) together with protocol control information (PCI) according to ETSI EN 302 636-5- [i.7] to the ITS Networking & Transport Layer. At the receiving ITS-S, the ITS networking & transport layer will pass the received CAM to the CA basic service, if available.
+NOTE: Central ITS-Ss (e.g. traffic control centre) exist, which do not have any CA basic service, see ETSI EN 302 665 [1].
+The minimum data set that shall be passed between CA basic service and ITS Networking & Transport Layer for the originating and receiving ITS-S is specified in Table 1.
+
+Table 1: Data passed between CA basic service and the ITS Networking & Transport layer
+
+Category Data passed from the CA basic service to the ITS networking & transport layer
+Data passed from the ITS networking & transport layer to the CA basic service
+
+Data CAM
+
+Data requirement {cam} as specified in annex A
+
+Mandatory/Optional Mandatory
+
+PCI Received CAM
+
+Depending on the protocol stack applied in the networking and transport layer as specified in clause 5.3.4 {cam} as specified in annex A
+
+Mandatory Mandatory
+
+The interface between the CA basic service and the Networking & Transport Layer relies on the services of the GeoNetworking/BTP stack as specified in clause 5.3.4.1 or to the IPv6 stack and the combined IPv6/GeoNetworking stack as specified in clause 5.3.4.2.
+
+5.3.4 Interfaces protocol stacks of the Networking & Transport Layer
+
+5.3.4.1
+
+Interface to the GeoNetworking/BTP stack
+
+A CAM may rely on the services provided by the GeoNetworking/BTP stack. If this stack is used, the GN packet transport type Single-Hop Broadcasting (SHB) shall be used. In this scenario only nodes in direct communication range may receive the CAM.
+
+PCI being passed from CA basic service to the GeoNetworking/BTP stack shall comply with Table 1 and Table 2.
+
+ETSI
+
+15
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Table 2: PCI from CA basic service to GeoNetworking/BTP at the originating ITS-S
+
+Category
+
+Data
+
+Data requirement
+
+Mandatory/Conditional
+
+Data passed from BTP type
+
+BTP header type B
+
+Conditional
+
+the CA basic service
+
+(ETSI EN 302 636-5-1 [i.7], The data shall be passed if the
+
+to
+
+clause 7.2.2)
+
+value is not provided by the ITS-S
+
+GeoNetworking/BTP
+
+configuration, e.g. defined in a
+
+Management Information Base
+
+(MIB) or if the value is different
+
+from the default value as set in
+
+the MIB.
+
+Destination port
+
+As specified in
+
+Conditional
+
+ETSI EN 302 636-5-1 [i.7]
+
+The data shall be passed if the
+
+(see note)
+
+value is not provided by the ITS-S
+
+configuration, e.g. defined in a
+
+Management Information Base
+
+(MIB) or if the value is different
+
+from the default value as set in
+
+the MIB.
+
+Destination port info
+
+As specified in
+
+Conditional
+
+ETSI EN 302 636-5-1 [i.7]
+
+The data shall be passed if the
+
+value is not provided by the ITS-S
+
+configuration, e.g. defined in a
+
+Management Information Base
+
+(MIB) or if the value is different
+
+from the default value as set in
+
+the MIB.
+
+GN Packet transport type GeoNetworking SHB
+
+Conditional
+
+The data shall be passed if the
+
+value is not provided by the ITS-S
+
+configuration, e.g. defined in a
+
+Management Information Base
+
+(MIB) or if the value is different
+
+from the default value as set in
+
+the MIB.
+
+GN Communication profile ITS-G5
+
+Conditional
+
+The data shall be passed if the
+
+value is not provided by the ITS-S
+
+configuration, e.g. defined in a
+
+Management Information Base
+
+(MIB) or if the value is different
+
+from the default value as set in
+
+the MIB.
+
+GN Security profile
+
+SECURED or UNSECURED Conditional
+
+The data shall be passed if the
+
+value is not provided by the ITS-S
+
+configuration, e.g. defined in a
+
+Management Information Base
+
+(MIB) or if the value is different
+
+from the default value as set in
+
+the MIB.
+
+GN Traffic Class
+
+As defined in
+
+Mandatory
+
+ETSI EN 302 636-4-1 [i.5]
+
+GN Maximum packet
+
+Shall not exceed 1 000 ms
+
+Mandatory
+
+lifetime
+
+Length
+
+Length of the CAM
+
+Mandatory
+
+NOTE: When a global registration authority for ITS application as specified in ISO EN 17419 [i.15] is operational,
+
+the BTP destination port registered with this authority shall be used.
+
+ETSI
+
+16
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+5.3.4.2
+
+Interface to the IPv6 stack and the combined IPv6/GeoNetworking stack
+
+A CAM may use the IPv6 stack or the combined IPv6/GeoNetworking stack for CAM dissemination as specified in ETSI TS 102 636-3 [i.4].
+
+NOTE:
+
+When the CAM dissemination makes use of the combined IPv6/GeoNetworking stack, the interface between the CA basic service and the combined IPv6/GeoNetworking stack may be identical to the interface between the CA basic service and IPv6 stack. The transmission of CAM over the IPv6 stack is out of scope of the present document.
+
+5.3.5 Interface to the Management entity
+The CA basic service may exchange primitives with management entity of the ITS-S via the MF-SAP interface (Figure 1). In an originating ITS-S the CA basic service gets information for setting the T_GenCam_DCC from the management entity defined in clause 6.1.3 via the IF.Mng interface (Figure 2).
+NOTE 1: A specification of the MF-SAP and a list of primitives exchanged with the management layer are provided in ETSI TS 102 723-5 [i.11].
+NOTE 2: Specifications of the MF-SAP and the corresponding protocol are out of scope of the present document.
+5.3.6 Interface to the Security entity
+The CA basic service may exchange primitives with the Security entity of the ITS-S via the SF-SAP interface (Figure 1) using the IF.SEC interface provided by the Security entity (Figure 2).
+NOTE 1: A specification of a list of primitives exchanged with the security layer is provided in ETSI TS 102 723-9 [i.12].
+NOTE 2: Specifications of the SF-SAP and the corresponding protocol are out of the scope of the present document.
+
+6 CAM dissemination
+6.1 CAM dissemination concept
+6.1.1 CAM dissemination requirements
+Point-to-multipoint communication, specified in ETSI TS 102 636-3 [i.4], shall be used for transmitting CAMs. In case ITS G5 is used for CAM dissemination, the control channel (G5-CCH) as specified in ETSI EN 302 663 [5] shall be used. The CAM shall be transmitted only from the originating ITS-S in a single hop to the receiving ITS-Ss located in the direct communication range of the originating ITS-S. A received CAM shall not be forwarded to other ITS-Ss.
+6.1.2 CA basic service activation and termination
+CA basic service activation may vary for different types of ITS-S, e.g. vehicle ITS-S, road side ITS-S, personal ITS-S. As long as the CA basic service is active, the CAM generation shall be triggered and managed by the CA basic service.
+For vehicle ITS-S, the CA basic service shall be activated with the ITS-S activation. The CA basic service shall be terminated when the ITS-S is deactivated.
+The activation and deactivation of the CA basic service other than the vehicle ITS-S is not specified in the present document.
+
+ETSI
+
+17
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+6.1.3 CAM generation frequency management for vehicle ITS-Ss
+
+The CAM generation frequency is managed by the CA basic service; it defines the time interval between two consecutive CAM generations. Considering the requirements as specified in ETSI TS 101 539-1 [i.8], ETSI TS 101 539-2 [i.9] or ETSI TS 101 539-3 [i.10] the upper and lower limits of the transmission interval are set as follows:
+
+• The CAM generation interval shall not be inferior to T_GenCamMin = 100 ms. This corresponds to the CAM generation rate of 10 Hz.
+
+• The CAM generation interval shall not be superior to T_GenCamMax = 1 000 ms. This corresponds to the CAM generation rate of 1 Hz.
+
+Within these limits the CAM generation shall be triggered depending on the originating ITS-S dynamics and the channel congestion status. In case the dynamics of the originating ITS-S lead to a reduced CAM generation interval, this interval should be maintained for a number of consecutive CAMs. The conditions for triggering the CAM generation shall be checked repeatedly every T_CheckCamGen. T_CheckCamGen shall be equal to or less than T_GenCamMin.
+
+The parameter T_GenCam_Dcc shall provide the minimum time interval between two consecutive CAM generations in order to reduce the CAM generation according to the channel usage requirements of Decentralized Congestion Control (DCC) as specified in ETSI TS 102 724 [i.16]. This facilitates the adjustment of the CAM generation rate to the remaining capacity of the radio channel in case of channel congestion. The parameter T_ GenCam_Dcc shall be provided by the management entity as specified in clause 5.3.5 in the unit of milliseconds. The value range of T_GenCam_DCC shall be limited to T_GenCamMin ≤ T_GenCam_DCC ≤ T_GenCamMax. If the management entity provides this parameter with a value above T_GenCamMax, T_GenCam_DCC shall be set to T_GenCamMax and if the value is below T_GenCamMin or if this parameter is not provided, the T_GenCam_Dcc shall be set to T_GenCamMin.
+
+The parameter T_GenCam represents the currently valid upper limit of the CAM generation interval. The default value of T_GenCam shall be T_GenCamMax. T_GenCam shall be set to the time elapsed since the last CAM generation, if a CAM is triggered due to condition 1). After triggering the number of N_GenCam consecutive CAMs due to condition 2), T_GenCam shall be set to T_GenCamMax. The value of the parameter N_GenCam can be dynamically adjusted according to some environmental conditions. The default and maximum value of N_GenCam shall be 3.
+
+EXAMPLE:
+
+N_GenCam can be increased when approaching an intersection in order to increase the probability of CAM reception.
+
+In detail the CAM generation trigger conditions shall be as follows:
+
+1) The time elapsed since the last CAM generation is equal to or greater than T_GenCam_Dcc and one of the following ITS-S dynamics related conditions is given:
+
+- the absolute difference between the current heading of the originating ITS-S and the heading included in the CAM previously transmitted by the originating ITS-S exceeds 4°;
+
+- the distance between the current position of the originating ITS-S and the position included in the CAM previously transmitted by the originating ITS-S exceeds 4 m;
+
+- the absolute difference between the current speed of the originating ITS-S and the speed included in the CAM previously transmitted by the originating ITS-S exceeds 0,5 m/s.
+
+2) The time elapsed since the last CAM generation is equal to or greater than T_GenCam and equal to or greater than T_GenCam_Dcc.
+
+If one of the above two conditions is satisfied, a CAM shall be generated immediately.
+
+When a CAM needs to be generated, the CA basic service shall construct the mandatory containers as specified in clause 7.1. The mandatory containers mainly include the high dynamic information of the originating ITS-S, as {CAM.cam.basicContainer} and {CAM.cam.camParameters.highFrequencyContainer} as specified in annex A. Optionally, a CAM may include optional data. The optional data mainly include the status of the originating ITS-S which is less dynamic, as {CAM.cam.camParameters.lowFrequencyContainer} and specific information as included for a specific type of originating ITS-S, as {CAM.cam.camParameters.specialVehicleContainer} as specified in annex A.
+
+ETSI
+
+18
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+The low frequency container shall be included in the first CAM generation since the CA basic service activation. After that the low frequency container of CAM shall be included if time elapsed since the generation of the last CAM with the low frequency container generation is equal to or greater than 500 ms.
+For special vehicles, the special-vehicle container shall be included in the first CAM generation since the CA basic service activation. After that, a special vehicle container shall be included if the time elapsed since the generation of the last CAM with a special vehicle container is equal to or greater than 500 ms.
+
+6.1.4 CAM generation frequency management for RSU ITS-Ss
+The CAM generation frequency for RSU ITS-Ss defined by the time interval between two consecutive CAM generations shall be set in such a way, that at least one CAM is transmitted while a vehicle is in the communication zone of the RSU ITS-S. The time interval shall be greater than or equal to 1 000 ms. This corresponds to a maximum CAM generation rate of 1 Hz.
+NOTE: The probability for the reception of a CAM from an RSU by a passing vehicle depends on the generation rate of the CAM and the time the vehicle is within the communication zone, which depends on the vehicle speed and the RSU transmission power.
+
+6.1.5 CAM time requirement
+
+6.1.5.1
+
+CAM generation time
+
+Besides the CAM generation frequency the time required for the CAM generation and the timeliness of the data taken for the message construction are decisive for the applicability of data in the receiving ITS-Ss. In order to ensure proper interpretation of received CAMs, each CAM shall be time-stamped.
+
+NOTE: An acceptable time synchronization between the different ITS-Ss is expected.
+
+Time required for a CAM generation shall be less than 50 ms. The time required for a CAM generation refers to the time difference between time at which CAM generation is triggered and time at which the CAM is delivered to networking transport layer.
+
+6.1.5.2
+
+CAM Time stamp
+
+The following requirements shall apply:
+
+• The time stamp given in the vehicle ITS-S CAM shall correspond to the time at which the reference position of the originating ITS-S given in this CAM was determined. The format and range of the time stamp is defined in clause B.3.
+
+• The time stamp given in the RSU ITS-S CAM shall be the time of generation.
+
+• The difference between CAM generation time and time stamp shall be less than 32 767 ms.
+
+NOTE 1: This requirement is set to avoid time stamp wrap-around situation.
+
+NOTE 2: The specification of the ITS-S Time precision and synchronization is out of scope of the present document.
+
+6.2 CAM dissemination constraints
+
+6.2.1 General Confidence Constraints
+Several data elements of the CAM may vary with regard to accuracy or confidence. For these data elements data frames are specified providing data element together with confidence information as presented in annex B.
+
+ETSI
+
+19
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+6.2.2 Security constraints
+
+6.2.2.1
+
+Introduction
+
+The security mechanisms for ITS consider the authentication of messages transferred between ITS-Ss with certificates. A certificate indicates its holder's permissions to send a certain set of messages and optionally privileges for specific data elements within these messages. The format for the certificates is specified in ETSI TS 103 097 [i.17].
+
+Within the certificate the permissions and privileges are indicated by a pair of identifiers, the ITS-AID and the SSP.
+
+The ITS-Application Identifier (ITS-AID) as given in ETSI TR 102 965 [i.18] indicates the overall type of permissions being granted: for example, there is an ITS-AID that indicates that the sender is entitled to send CAMs.
+
+The Service Specific Permissions (SSP) is a field that indicates specific sets of permissions within the overall permissions indicated by the ITS-AID: for example, there may be an SSP value associated with the ITS-AID for CAM that indicates that the sender is entitled to send CAMs for a specific vehicle role.
+
+An incoming signed CAM is accepted by the receiver if the certificate is valid and the CAM is consistent with the ITS-AID and SSP in its certificate.
+
+6.2.2.2
+
+Service Specific Permissions (SSP)
+
+The CAM-SSP octet scheme allows the SSP format to accommodate current and future versions of the present document. The octet scheme is constructed out of three octets as illustrated in (Figure 3).
+
+0
+
+1
+
+2
+
+0 1 2 3 4 5 6 70123456701234567
+
+Octet 0
+
+Octet 1
+
+Octet 2
+
+Figure 3: Format for the Octets
+
+EXAMPLE of bit order: The decimal value 199 shall be represented as shown below.
+
+01234567 11000111
+
+For each octet, the most significant bit (MSB) shall be the leftmost bit. The transmission order shall always be the MSB first. The first octet shall control the SSP version and be interpreted in the following way:
+
+0:
+
+no version, length one octet; the value shall only be used for testing purposes.
+
+1:
+
+first version, length three octets, SSP contains information as defined in the present document.
+
+2 to 255: reserved for future usage.
+
+The SSP has a maximum length as specified in TS 103 097 [i.17]. The first octet shall reflect the version of the present document. As future versions of the present document are published, the first octet shall be accordingly incremented. The remaining octets shall be based on the permissions described in the present document (see Table 1).
+
+Length of SSP is the length of the Octet String.
+
+Table 3: Octet Scheme for CAM SSPs
+
+Octet # 0 1 to 2 3 to 30
+
+Description SSP version control service-specific parameter reserved for future usage
+
+A vehicle may be assigned one or more permissions. When the ITS-AID is set for the CA basic service, the SSPs shall be defined as in Table 4.
+
+ETSI
+
+20
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Table 4: SSP Definitions for Permissions in CAM
+
+Octet Position 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2
+
+Bit Position 0 (80h) (MSBit) 1 (40h)
+2 (20h)
+3 (10h)
+4 (08h)
+5 (04h)
+6 (02h)
+7 (01h) (LSBit) 0 (80h) (MSBit) 1 (40h)
+2 (20h)
+3 (10h)
+4 (08h)
+5 (04h)
+6 (02h) 7 (01h) (LSBit)
+
+Permission Items
+CenDsrcTollingZone/ ProtectedCommunicationZonesRSU publicTransport / publicTransportContainer specialTransport / specialTransportContainer dangerousGoods / dangerousGoodsContainer roadwork / roadWorksContainerBasic rescue / rescueContainer emergency / emergencyContainer safetyCar / safetyCarContainer closedLanes / RoadworksContainerBasic requestForRightOfWay / EmergencyContainer: EmergencyPriority requestForFreeCrossingAtATrafficLight / EmergencyContainer: EmergencyPriority noPassing / SafetyCarContainer: TrafficRule noPassingForTrucks / SafetyCarContainer: TrafficRule speedLimit / SafetyCarContainer reserved for future usage reserved for future usage
+
+Bit Value 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign 0: certificate not allowed to sign 1: certificate allowed to sign not used, set to 0. not used, set to 0.
+
+6.2.3 General priority constraints
+The priority constraint is given by the Traffic Class as specified in ETSI EN 302 636-4-1 [i.5].
+
+7 CAM Format Specification
+7.1 General Structure of a CAM PDU
+A CAM is composed of one common ITS PDU header and multiple containers, which together constitute a CAM. The ITS PDU header is a common header that includes the information of the protocol version, the message type and the ITS-S ID of the originating ITS-S. For vehicle ITS-Ss a CAM shall comprise one basic container and one high frequency container, and may also include one low frequency container and one or more other special containers:
+• The basic container includes basic information related to the originating ITS-S. • The high frequency container contains highly dynamic information of the originating ITS-S. • The low frequency container contains static and not highly dynamic information of the originating ITS-S. The special vehicle container contains information specific to the vehicle role of the originating vehicle ITS-S. All CAMs generated by a RSU ITS-S shall include a basic container and optionally more containers.
+
+ETSI
+
+21
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+The general structure of a CAM is illustrated in Figure 4.
+Each container is composed of a sequence of optional or mandatory data elements (DE) and/or data frames (DF). DEs and DFs are mandatory unless specified otherwise. The present document provides CAM content specifications for vehicle ITS-Ss. CAM format and content specifications for other types of ITS-Ss is expected to be added in the future.
+
+CAM
+
+ITS PDU header Basic
+
+HF Container
+
+Container
+
+Vehicle HF Container or
+Other containers
+
+LF Container (Conditional)
+Vehicle LF Container or
+Other containers (not yet defined)
+
+Special vehicle Container (Conditional)
+Public Transport Container or
+Special Transport Container or
+…
+
+Figure 4: General structure of a CAM
+7.2 ITS PDU header
+The ITS PDU header shall be as specified in ETSI TS 102 894-2 [2]. Detailed data presentation rules of the ITS PDU header in the context of CAM shall be as specified in annex B.
+7.3 Basic container
+The basic container provides basic information of the originating ITS-S: • type of the originating ITS-S; • the latest geographic position of the originating ITS-S as obtained by the CA basic service at the CAM generation.
+The basic container shall be present for CAM generated by all ITS-Ss implementing the CA basic service. Detailed data presentation rules shall be as specified in annex B.
+7.4 Vehicle ITS-S containers
+All CAMs generated by a vehicle ITS-S shall include at least a high frequency vehicle (Vehicle HF) container, and optionally a low frequency vehicle (Vehicle LF) container. The Vehicle HF container contains all fast-changing (dynamic) status information of the vehicle ITS-S such as heading or speed. The Vehicle LF container contains static or slow-changing vehicle data like the status of the exterior lights. Vehicle ITS-Ss which have a specific role in road traffic such as public transport shall provide further status information in special vehicle containers according to the specification in annex A. The vehicle role is indicated by the data element {CAM.cam.basicVehicleContainerLowFrequency.vehicleRole} as specified in annex A. Table 5 shows the list of specified vehicle roles and the related special vehicle container.
+
+ETSI
+
+22
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Table 5: Special vehicle container according to the vehicle role
+
+Vehicle role description
+public transport when the originating ITS-S is a public transport vehicle in operation special transport when the originating ITS-S is a special transport vehicle in operation, e.g. heavy load dangerous goods when the originating ITS-S is transporting dangerous goods road work when the originating ITS-S is operating road work tasks
+Rescue vehicle in operation without any privileges in the road traffic, e.g. a towing truck Emergency vehicle in operation with privileges regarding road traffic rules such as crossing an intersection when the traffic light is red or exceeding speed limits. Examples are police, fire brigade or ambulance vehicles Safety vehicle in operation, e.g. a vehicle accompanying a special transport vehicle in order to avoid accidents with following vehicles
+
+CAM data requirement
+
+Special vehicle container
+
+Value of
+
+represented as
+
+{CAM.cam.basicVehicleContainer
+
+LowFrequency.vehicleRole} shall
+
+be set to
+
+publicTransport(1)
+
+public transport container,{CAM.cam.
+
+specialVehicleContainer.
+
+publicTransportContainer}
+
+specialTransport(2)
+
+special transport container, {CAM.cam.
+
+specialVehicleContainer.
+
+specialTransportContainer}
+
+dangerousGoods(3) roadWork(4) rescue(5)
+
+dangerous goods container, {CAM.cam. specialVehicleContainer. dangerousGoodsContainer} road work container, {CAM.cam.specialVehicleContainer.roadWorksC ontainer } rescue container, {CAM.cam. specialVehicleContainer. rescueContainer}
+
+emergency(6)
+
+emergency container, represented as {CAM.cam. specialVehicleContainer.emergencyContainer
+
+safetyCar(7)
+
+Safety car container, represented as {CAM.cam. specialVehicleContainer. safetyCarContainer}
+
+7.5 RSU ITS-S containers
+RSU ITS-S CAMs shall provide at least one HF container. Additional LF containers may be added.
+7.6 CAM format and coding rules
+7.6.1 Common data dictionary
+The CAM format makes use of the common data dictionary as defined in ETSI TS 102 894-2 [2]. Where applicable, DEs and DFs that are not defined in the present document shall be imported from the common data dictionary as specified in ETSI TS 102 894-2 [2].
+NOTE: Detailed descriptions of all DEs and DFs in the context of CAM are presented in the annex B of the present document.
+7.6.2 CAM data presentation
+The CAM format is presented in ASN.1. Unaligned packed encoding rules (PER) as defined in Recommendation ITU-T X.691/ISO/IEC 8825-2 [4] shall be used for CAM encoding and decoding. The ASN.1 representation of CAM shall be as specified in the annex A of the present document.
+
+ETSI
+
+23
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Annex A (normative): ASN.1 specification of CAM
+This annex provides the ASN.1 specification of CAM.
+NOTE: Some of the optional data elements and data frames conditions for the availability are specified in annex B.
+CAM-PDU-Descriptions { itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) en (302637) cam (2) version (1) }
+DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+IMPORTS ItsPduHeader, CauseCode, ReferencePosition, AccelerationControl, Curvature, CurvatureCalculationMode, Heading, LanePosition, EmergencyPriority, EmbarkationStatus, Speed, DriveDirection, LongitudinalAcceleration, LateralAcceleration, VerticalAcceleration, StationType, ExteriorLights, DangerousGoodsBasic, SpecialTransportType, LightBarSirenInUse, VehicleRole, VehicleLength, VehicleWidth, PathHistory, RoadworksSubCauseCode, ClosedLanes, TrafficRule, SpeedLimit, SteeringWheelAngle, PerformanceClass, YawRate, ProtectedCommunicationZone, PtActivation, Latitude, Longitude, ProtectedCommunicationZonesRSU, CenDsrcTollingZone FROM ITS-Container { itu-t (0) identified-organization (4) etsi (0) itsDomain (5) wg1 (1) ts (102894) cdd (2) version (1) };
+-- The root data frame for cooperative awareness messages
+CAM ::= SEQUENCE { header ItsPduHeader, cam CoopAwareness
+}
+CoopAwareness ::= SEQUENCE { generationDeltaTime GenerationDeltaTime, camParameters CamParameters
+}
+CamParameters ::= SEQUENCE { basicContainer BasicContainer, highFrequencyContainer HighFrequencyContainer, lowFrequencyContainer LowFrequencyContainer OPTIONAL, specialVehicleContainer SpecialVehicleContainer OPTIONAL, ...
+}
+HighFrequencyContainer ::= CHOICE { basicVehicleContainerHighFrequency BasicVehicleContainerHighFrequency, rsuContainerHighFrequency RSUContainerHighFrequency, ...
+}
+LowFrequencyContainer ::= CHOICE { basicVehicleContainerLowFrequency BasicVehicleContainerLowFrequency, ...
+}
+SpecialVehicleContainer ::= CHOICE { publicTransportContainer PublicTransportContainer, specialTransportContainer SpecialTransportContainer, dangerousGoodsContainer DangerousGoodsContainer, roadWorksContainerBasic RoadWorksContainerBasic, rescueContainer RescueContainer, emergencyContainer EmergencyContainer, safetyCarContainer SafetyCarContainer, ...
+}
+BasicContainer ::= SEQUENCE { stationType StationType,
+
+ETSI
+
+24
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+referencePosition ReferencePosition, ... }
+BasicVehicleContainerHighFrequency ::= SEQUENCE { heading Heading, speed Speed, driveDirection DriveDirection, vehicleLength VehicleLength, vehicleWidth VehicleWidth, longitudinalAcceleration LongitudinalAcceleration, curvature Curvature, curvatureCalculationMode CurvatureCalculationMode, yawRate YawRate, accelerationControl AccelerationControl OPTIONAL, lanePosition LanePosition OPTIONAL, steeringWheelAngle SteeringWheelAngle OPTIONAL, lateralAcceleration LateralAcceleration OPTIONAL, verticalAcceleration VerticalAcceleration OPTIONAL, performanceClass PerformanceClass OPTIONAL, cenDsrcTollingZone CenDsrcTollingZone OPTIONAL
+}
+BasicVehicleContainerLowFrequency ::= SEQUENCE { vehicleRole VehicleRole, exteriorLights ExteriorLights, pathHistory PathHistory
+}
+PublicTransportContainer ::= SEQUENCE { embarkationStatus EmbarkationStatus, ptActivation PtActivation OPTIONAL
+}
+SpecialTransportContainer ::= SEQUENCE { specialTransportType SpecialTransportType, lightBarSirenInUse LightBarSirenInUse
+}
+DangerousGoodsContainer ::= SEQUENCE { dangerousGoodsBasic DangerousGoodsBasic
+}
+RoadWorksContainerBasic ::= SEQUENCE { roadworksSubCauseCode RoadworksSubCauseCode OPTIONAL, lightBarSirenInUse LightBarSirenInUse, closedLanes ClosedLanes OPTIONAL
+}
+RescueContainer ::= SEQUENCE { lightBarSirenInUse LightBarSirenInUse
+}
+EmergencyContainer ::= SEQUENCE { lightBarSirenInUse LightBarSirenInUse, incidentIndication CauseCode OPTIONAL, emergencyPriority EmergencyPriority OPTIONAL
+}
+SafetyCarContainer ::= SEQUENCE { lightBarSirenInUse LightBarSirenInUse, incidentIndication CauseCode OPTIONAL, trafficRule TrafficRule OPTIONAL, speedLimit SpeedLimit OPTIONAL
+}
+RSUContainerHighFrequency ::= SEQUENCE { protectedCommunicationZonesRSU ProtectedCommunicationZonesRSU OPTIONAL, ...
+}
+GenerationDeltaTime ::= INTEGER { oneMilliSec(1) } (0..65535)
+END
+
+ETSI
+
+25
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Annex B (normative): Description for data elements and data frames
+
+B.0 General requirements
+Mandatory data elements shall be set to "unavailable" only under error conditions of temporary nature, when data are not available or erroneous due to any failure in the data provisioning facilities.
+
+B.1 header
+
+Description
+Data setting and presentation requirements
+
+ITS PDU header of the CAM. This DF includes DEs for the CAM protocolVersion, the CAM message type identifier messageID and the station identifier stationID of the originating ITS-S. The DE protocolVersion is used to select the appropriate protocol decoder at the receiving ITS-S. This DE messageID should be harmonized with other V2X message identifier definitions. For the present document, the value of the DE protocolVersion shall be set to 1. For CAM, the DE messageID shall be set to cam(2). This DF shall be presented as specified in ETSI TS 102 894-2 [2] ItsPduHeader.
+
+B.2 cam
+
+Description
+Data setting and presentation requirements
+
+CAM payload. It shall include the time stamp of the CAM and the containers basicContainer and highFrequency Container. The selection of the highFrequency Container depends on the ITS station type. CAM payload may include the additional containers lowFrequencyContainer and specialVehicleContainer. The selection of the additional containers depends on the ITS station type and other criteria, e.g. vehicle role. This DF shall be presented as specified in annex A.
+
+B.3 generationDeltaTime
+
+Description
+Data setting and presentation requirements
+
+Time corresponding to the time of the reference position in the CAM, considered as time of the CAM generation. The value of the DE shall be wrapped to 65 536. This value shall be set as the remainder of the corresponding value of TimestampIts divided by 65 536 as below: generationDeltaTime = TimestampIts mod 65 536 TimestampIts represents an integer value in milliseconds since 2004-0101T00:00:00:000Z as defined in ETSI TS 102 894-2 [2]. The DE shall be presented as specified in annex A.
+
+ETSI
+
+26
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.4 camParameters
+
+Description
+Data setting and presentation requirements
+
+The sequence of CAM mandatory and optional containers. Other containers may be added in the future. This DF shall be presented as specified in annex A.
+
+B.5 basicContainer
+
+Description Data setting and presentation requirements
+
+The mandatory basic container of CAM. This DF shall be presented as specified in annex A.
+
+B.6 highFrequencyContainer
+
+Description
+Data setting and presentation requirements
+
+The mandatory high frequency container of CAM. Other types of high frequency container might be added in the future. This DF shall be presented as specified in annex A.
+
+B.7 lowFrequencyContainer
+
+Description
+Data setting and presentation requirements
+
+The low frequency container of CAM. Within the scope of the present document, only the vehicle low frequency container is defined. Other types of low frequency container (e.g. road side ITS-S) might be added in the future. This DF shall be presented as specified in annex A.
+
+B.8 specialVehicleContainer
+
+Description
+Data setting and presentation requirements
+
+The special container of the CAM shall be present as defined in clause 6.1.3. The content of the container shall be set according to the value of the DE vehicleRole as specified in Table 5. This DF shall be presented as specified in annex A.
+
+B.9 basicVehicleContainerHighFrequency
+
+Description
+Data setting and presentation requirements
+
+The mandatory high frequency container of the CAM when the originating ITS-S is of the type vehicle ITS-S. This DF shall be presented as specified in annex A.
+
+ETSI
+
+27
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.10 basicVehicleContainerLowFrequency
+
+Description
+Data setting and presentation requirements
+
+The low frequency container of the CAM when the originating ITS-S is of the type vehicle ITS-S. It shall be present as defined in clause 6.1.3. This DF shall be presented as specified in annex A.
+
+B.11 publicTransportContainer
+
+Description
+Data setting and presentation requirements
+
+A container of the CAM included in the special vehicle container. If the DE vehicleRole is set to publicTransport(1) this container shall be present. This DF shall be presented as specified in annex A.
+
+B.12 specialTransportContainer
+
+Description
+Data setting and presentation requirements
+
+A container of the CAM included in the special vehicle container. If the DE vehicleRole is set to specialTransport(2) this container shall be present. This DF shall be presented as specified in annex A.
+
+B.13 dangerousGoodsContainer
+
+Description
+Data setting and presentation requirements
+
+A container of the CAM included in the special vehicle container. If the DE vehicleRole is set to dangerousGoods(3) this container shall be present. This DF shall be presented as specified in annex A.
+
+B.14 roadWorksContainerBasic
+
+Description
+Data setting and presentation requirements
+
+A container of the CAM included in the special vehicle container. If the DE vehicleRole is set to roadWork(4) this container shall be present. This DF shall be presented as specified in annex A.
+
+B.15 rescueContainer
+
+Description
+Data setting and presentation requirements
+
+A container of the CAM included in the special vehicle container. If the DE vehicleRole is set to rescue(5) his container shall be present. This DF shall be presented as specified in annex A.
+
+ETSI
+
+28
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.16 emergencyContainer
+
+Description
+Data setting and presentation requirements
+
+A container of the CAM included in the special vehicle container. If the DE vehicleRole is set to emergency(6) this container shall be present. This DF shall be presented as specified in annex A.
+
+B.17 safetyCarContainer
+
+Description
+Data setting and presentation requirements
+
+A container of the CAM included in the special vehicle container. If the DE vehicleRole is set to safetyCar(7) this container shall be present. This DF shall be presented as specified in annex A.
+
+B.18 stationType
+
+Description Data setting and presentation requirements
+
+Station type of the originating ITS-S. The DE shall be presented as specified in ETSI TS 102 894-2 [2] StationType. For vehicle ITS-Ss the value of this DE shall be set to one out of the values 3 to 10.
+
+B.19 referencePosition
+
+Description
+Data setting and presentation requirements
+
+Position and position accuracy measured at the reference point of the originating ITS-S. The measurement time shall correspond to generationDeltaTime. If the station type of the originating ITS-S is set to one out of the values 3 to 11 the reference point shall be the ground position of the centre of the front side of the bounding box of the vehicle. The positionConfidenceEllipse provides the accuracy of the measured position with the 95 % confidence level. Otherwise, the positionConfidenceEllipse shall be set to unavailable. If semiMajorOrientation is set to 0° North, then the semiMajorConfidence corresponds to the position accuracy in the North/South direction, while the semiMinorConfidence corresponds to the position accuracy in the East/West direction. This definition implies that the semiMajorConfidence might be smaller than the semiMinorConfidence. The DE shall be presented as specified in ETSI TS 102 894-2 [2] ReferencePosition.
+
+B.20 performanceClass
+
+Description
+Data setting and presentation requirements
+
+The DE performanceClass characterizes the maximum age of the CAM data elements with regard to the generationDeltaTime. This DE is optional. It may be included to indicate the performance class of the originating ITS-S as specified in ETSI TS 102 894-2 [2]. The DE shall be presented as specified in ETSI TS 102 894-2 [2] PerformanceClass.
+
+ETSI
+
+29
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.21 heading
+
+Description
+Data setting and presentation requirements
+
+Heading and heading accuracy of the vehicle movement of the originating ITS-S with regards to the true north. The heading accuracy provided in the DE headingConfidence value shall provide the accuracy of the measured vehicle heading with a confidence level of 95 %. Otherwise, the value of the headingConfidence shall be set to unavailable. The DE shall be presented as specified in ETSI TS 102 894-2 [2] Heading.
+
+B.22 speed
+
+Description
+
+Driving speed and speed accuracy of the originating ITS-S. The speed accuracy
+
+provided in the DE speedConfidence shall provide the accuracy of the speed
+
+value with a confidence level of 95 %. Otherwise, the speedConfidence shall be
+
+set to unavailable.
+
+Data setting and
+
+The DE shall be presented as specified in ETSI TS 102 894-2 [2] Speed.
+
+presentation requirements
+
+NOTE: There might be a difference between the speed in moving direction and the driving speed.
+
+B.23 vehicleRole
+
+Description
+Data setting and presentation requirements
+
+The role of the vehicle ITS-S that originates the CAM. The setting rules for this value are out of the scope of the present document. The DE shall be presented as specified in ETSI TS 102 894-2 [2] VehicleRole.
+
+B.24 lanePosition
+
+Description
+
+The DE lanePosition of the referencePosition of a vehicle, counted from the
+
+outside border of the road, in the direction of the traffic flow.
+
+This DE shall be present if the data is available at the originating ITS-S (see
+
+note).
+
+Data setting and
+
+The DE shall be presented as specified in ETSI TS 102 894-2 [2] LanePosition.
+
+presentation requirements
+
+NOTE: Additional information is needed to unambiguously identify the lane position and to allow the
+
+correlation to a map.
+
+B.25 driveDirection
+
+Description Data setting and presentation requirements
+
+Vehicle drive direction (forward or backward) of the originating ITS-S. The DE shall be presented as specified in ETSI TS 102 894-2 [2] DriveDirection.
+
+ETSI
+
+30
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.26 longitudinalAcceleration
+
+Description
+Data setting and presentation requirements
+
+Vehicle longitudinal acceleration of the originating ITS-S in the centre of the mass of the empty vehicle. It shall include the measured vehicle longitudinal acceleration and its accuracy value with the confidence level of 95 %. Otherwise, the longitudinalAccelerationConfidence shall be set to unavailable.
+The data element shall be presented as specified in ETSI TS 102 894-2 [2] LongitudinalAcceleration.
+
+B.27 accelerationControl
+
+Description
+Data setting and presentation requirements
+
+Current status of the vehicle mechanisms controlling the longitudinal movement of the vehicle ITS-S (e.g. brake pedal, gas pedal, etc. engaged) that originates the CAM as specified in ETSI TS 102 894-2 [2]. The data element shall be presented as specified in ETSI TS 102 894-2 [2] AccelerationControl.
+
+B.28 lateralAcceleration
+
+Description
+Data setting and presentation requirements
+
+Vehicle lateral acceleration of the originating ITS-S in the centre of the mass of the empty vehicle. It shall include the measured vehicle lateral acceleration and its accuracy value with the confidence level of 95 %. This DE shall be present if the data is available at the originating ITS-S. The presentation and data setting rules shall be as specified in ETSI TS 102 894-2 [2] LateralAcceleration.
+
+B.29 verticalAcceleration
+
+Description
+Data setting and presentation requirements
+
+Vertical Acceleration of the originating ITS-S in the centre of the mass of the empty vehicle. This DE shall be present if the data is available at the originating ITS-S. The presentation and data setting rules shall be as specified in ETSI TS 102 894-2 [2] VerticalAcceleration.
+
+B.30 embarkationStatus
+
+Description
+Data setting and presentation requirements
+
+This DE is included in publicTransportContainer. It indicates whether the passenger embarkation is currently ongoing. The presentation and data setting rules shall be as specified in ETSI TS 102 894-2 [2] EmbarkationStatus. It shall be set to TRUE when the embarkation is ongoing. Otherwise, it shall be set to FALSE.
+
+ETSI
+
+31
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.31 curvature
+
+Description
+Data setting and presentation requirements
+
+This DF is related to the actual trajectory of the vehicle. It includes: • curvatureValue denoted as inverse of the vehicle current curve radius and the turning direction of the curve with regards to the driving direction of the vehicle as defined in ETSI TS 102 894-2 [2]. • curvatureConfidence denoted as the accuracy of the provided curvatureValue for a confidence level of 95 %.
+The DF shall be presented as specified in ETSI TS 102 894-2 [2] Curvature.
+
+B.32 curvatureCalculationMode
+
+Description
+Data setting and presentation requirements
+
+Flag indicating whether vehicle yaw-rate is used in the calculation of the curvature of the vehicle ITS-S that originates the CAM. The DE shall be presented as specified in ETSI TS 102 894-2 [2] CurvatureCalculationMode.
+
+B.33 yawRate
+
+Description
+Data setting and presentation requirements
+
+This DF includes: • yawRateValue denotes the vehicle rotation around the centre of mass of the empty vehicle. The leading sign denotes the direction of rotation. The value is negative if the motion is clockwise when viewing from the top. • yawRateConfidence denotes the accuracy for the 95 % confidence level for the measured yawRateValue. Otherwise, the value of yawRateConfidence shall be set to unavailable.
+The DF shall be presented as specified in ETSI TS 102 894-2 [2] YawRate.
+
+B.34 steeringWheelAngle
+
+Description
+Data setting and presentation requirements
+
+This DF includes the steering wheel angle and accuracy as measured at the vehicle ITS-S that originates the CAM. It consists of the following DEs:
+• steeringWheelAngleValue denotes steering wheel angle as measured at the vehicle ITS-S that originates the CAM.
+• steeringWheelAngleConfidence denotes the accuracy of the measured steeringWheelAngleValue for a confidence level of 95 %. Otherwise, the value of steeringWheelAngleValue shall be set to unavailable.
+This DF shall be presented as specified in ETSI TS 102 894-2 [2] SteeringWheelAngle.
+
+ETSI
+
+32
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.35 vehicleLength
+
+Description
+Data setting and presentation requirements
+
+This DF includes: • vehicleLengthValue: Vehicle length of the vehicle ITS-S that originates the CAM. If there are vehicle attachments like a trailer, or overhanging attachments like a crane, that extend the vehicle length to the front and/or rear; then the vehicleLengthValue shall provide the length for the vehicle including the attachments. • vehicleLengthConfidenceIndication: indication of whether trailer is detected to be present and whether the length of the trailer is known.
+The DF shall be presented as specified in ETSI TS 102 894-2 [2] VehicleLength.
+
+B.36 vehicleWidth
+
+Description
+Data setting and presentation requirements
+
+Vehicle width, measured of the vehicle ITS-S that originates the CAM, including side mirrors. The DE shall be presented as specified in ETSI TS 102 894-2 [2] VehicleWidth.
+
+B.37 exteriorLights
+
+Description
+Data setting and presentation requirements
+
+Status of the most important exterior lights switches of the vehicle ITS-S that originates the CAM. The DE shall be presented as specified in ETSI TS 102 894-2 [2] ExteriorLights.
+
+B.38 pathHistory
+
+Description
+Data setting and presentation requirements
+
+This DF represents the vehicle's recent movement over some past time and/or distance. It consists of a list of path points, each represented as DF PathPoint. The list of path points may consist of up to 23 elements. The generation of each pathPoint shall be done as specified in SAE J2735 [3]. The PathPoint closest to the current position of originating ITS-S shall be put as the first point; it represents an offset delta position with regards to the referencePosition. Other PathPoints shall be structured in ascending order according to the distance to the referencePosition along the path. Each PathPoint represents an offset delta position with regards to the previous PathPoint. For CAM the DE PathDeltaTime shall present the time difference when two consecutive PathPoint values are measured. The DF shall be presented as specified in ETSI TS 102 894-2 [2] PathHistory.
+
+B.39 ptActivation
+
+Description
+Data setting and presentation requirements
+
+This DF is used by public transport vehicles for controlling traffic lights, barriers, bollards, etc. The DF shall be presented as specified in ETSI TS 102 894-2 [2] PtActivation.
+
+ETSI
+
+33
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.40 specialTransportType
+
+Description
+Data setting and presentation requirements
+
+This DE is included in the specialTransportContainer. It indicates whether the originating ITS-S is mounted on a special transport vehicle with heavy or oversized load or both. It shall be present if the data is available in originating ITS-S. The DE shall be presented as specified in ETSI TS 102 894-2 [2] SpecialTransportType.
+
+B.41 dangerousGoodsBasic
+
+Description
+Data setting and presentation requirements
+
+This DE is included in the container dangerousGoodsContainer. It identifies the type of the dangerous goods transported by the vehicle that originates the CAM. It shall be present if the data is available in the originating ITS-S. The DE shall be presented as specified in ETSI TS 102 894-2 [2] DangerousGoodsBasic.
+
+B.42 roadworksSubCauseCode
+
+Description
+Data setting and presentation requirements
+
+This DE is included in the container roadWorksContainerBasic, in case the originating ITS-S is mounted to a vehicle ITS-S participating to roadwork. It provides information on the type of roadwork that it is currently undertaking. This DE shall be present if the data is available in originating ITS-S. The data element shall be presented as specified in ETSI TS 102 894-2 [2] RoadworksSubCauseCode.
+
+B.43 closedLanes
+
+Description
+Data setting and presentation requirements
+
+This DE is included in the container roadWorksContainerBasic in case the originating ITS-S is mounted to a vehicle ITS-S participating to roadwork. It provides information about the opening/closure status of the lanes ahead. Lanes are counted from the outside boarder of the road. If a lane is closed to traffic, the corresponding bit shall be set to 1. This DE shall be present if the data is available in the originating ITS-S. The DE shall be presented as specified in ETSI TS 102 894-2 [2] ClosedLanes.
+
+B.44 trafficRule
+
+Description
+Data setting and presentation requirements
+
+This DE is included in the container SafetyCarContainer. It indicates whether vehicles are allowed to overtake a safety car that is originating this CAM This DE shall be present if the data is available in originating ITS-S. The DE shall be presented as specified in ETSI TS 102 894-2 [2] TrafficRule.
+
+ETSI
+
+34
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.45 speedLimit
+
+Description
+Data setting and presentation requirements
+
+This DE is included in the container SafetyCarContainer. It indicates whether a speed limit is applied to vehicles following the safety car. This DE shall be present if the data is available in originating ITS-S. The data element shall be presented as specified in ETSI TS 102 894-2 [2] SpeedLimit.
+
+B.46 lightBarSirenInUse
+
+Description
+Data setting and presentation requirements
+
+This DE indicates whether light-bar or a siren is in use by the vehicle originating the CAM. This DE shall be present if the data is available at originating ITS-S. The DE shall be presented as specified in ETSI TS 102 894-2 [2] LightBarSirenInUse.
+
+B.47 incidentIndication
+
+Description
+Data setting and presentation requirements
+
+This DF is included in the containers emergencyContainer and safetyCarContainer in case the originating ITS-S is mounted on a vehicle operating some emergency missions or safety mission, e.g. protecting a convoy of dangerous goods. It describes the event type of the emergency or safety mission. This DF shall be present when the data is available at the originating ITS-S The DF shall be presented as specified in ETSI TS 102 894-2 [2] CauseCode.
+
+B.48 emergencyPriority
+
+Description
+Data setting and presentation requirements
+
+Right of way indicator of the vehicle ITS-S that originates the CAM PDU. It shall be originated by authorized vehicles only, e.g. ambulance, police, etc. The data element shall be presented as specified in ETSI TS 102 894-2 [2] EmergencyPriority.
+
+B.49 rsuContainerHighFrequency
+
+Description
+Data setting and presentation requirements
+
+The mandatory high frequency container of CAM when the type of the originating ITS-S is RSU ITS-S. This DF shall be presented as specified in annex A.
+
+ETSI
+
+35
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+B.50 protectedCommunicationZoneRSU
+
+Description
+
+Information about position of a CEN DSRC Tolling Station operating in the
+
+5,8 GHz frequency band.
+
+If this information is provided by RSUs a receiving vehicle ITS-S is prepared to
+
+adopt mitigation techniques when being in the vicinity of CEN DSRC tolling
+
+stations.
+
+Data setting & presentation The data element shall be presented as specified in ETSI TS 102 894-2 [2]
+
+requirements
+
+ProtectedCommunicationZone with ProtectedZoneType set to 0.
+
+NOTE: Conditions for the provision of protectedCommunicationZoneRSU are out of scope of the present
+
+document.
+
+B.51 cenDsrcTollingZone
+
+Description
+
+Information about the position of a CEN DSRC Tolling Station operating in the
+
+5,8 GHz frequency band.
+
+If this information is provided by vehicle ITS-S, a receiving vehicle ITS-S is
+
+prepared to adopt mitigation techniques when being in the vicinity of CEN DSRC
+
+tolling stations.
+
+Data setting & presentation The data element shall be presented as specified in ETSI TS 102 894-2 [2]
+
+requirements
+
+CenDsrcTollingZone.
+
+NOTE: Conditions for the provision of cenDsrcTollingZone are out of scope of the present document.
+
+B.52 protectedZoneLatitude
+
+Description
+
+Latitude of a CEN DSRC tolling station position.
+
+Data setting & presentation The data element shall be presented as specified in ETSI TS 102 894-2 [2]
+
+requirements
+
+Latitude.
+
+B.53 protectedZoneLongitude
+
+Description
+
+Longitude of a CEN DSRC tolling station position.
+
+Data setting & presentation The data element shall be presented as specified in ETSI TS 102 894-2 [2]
+
+requirements
+
+Longitude.
+
+ETSI
+
+36
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Annex C (informative): Protocol operation of the CA basic service
+C.1 Introduction
+This annex provides a timer controlled approach for the protocol operation as one potential variant compliant to the present document. It is distinguished between the originating ITS-S operation and the receiving ITS-S operation considered in the following clauses. Following specification of the protocol operation is organized in three parts:
+1) Protocol data setting rules specify the setting of the relevant data elements used by the protocol. 2) The general protocol operation specifies the sequence of protocol operations. 3) Exception handling specifies additional protocol operations that extend the general protocol operation. They
+are applied when special conditions, referred to exceptions (for example inconsistent data) occur. An ITS-S maintains a local data structure, referred to as "ITS-S message table". This data structure holds information about sent or received CAM messages. It is out of scope of the present document to describe how this data structure is implemented.
+C.2 Originating ITS-S operation
+C.2.1 Protocol data setting rules
+The data settings for the originating ITS-S operation are specified in annex B.
+C.2.2 T_CheckCamGen
+The timer T_CheckCamGen schedules the time at which the CAM generation conditions are checked by the CA basic service, its time out value is specified in clause 6.1.3.
+C.2.3 Originating ITS-S message table
+The CA basic service stores at least the following information for the CAM originating ITS-S operation: • CAM generation time; • ITS-S position as included in CAM; • ITS-S speed as included in CAM; • ITS-S heading as included in CAM.
+
+ETSI
+
+37
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+C.2.4 General protocol operation
+The originating ITS-S protocol starts when the CA basic service is activated as specified in clause 6.1.1. An originating ITS-S may execute the following operations:
+1) set T_ CheckCamGen and start the timer; 2) when the timer T_CheckGenCam expires, check the CAM generation conditions:
+a) if any of the condition is satisfied, continues the operation; b) if none of the condition is satisfied, skip step 3) to step 7); 3) collect data for mandatory containers; 4) check if optional containers are to be added for CAM generation: a) if yes, check the ITS-S type and ITS-S role and collect data for optional containers; b) if no, continue the operation; 5) encode CAM; 6) pass CAM to the ITS networking & transport layer; 7) save data required as specified in clause C.2.3 for next CAM generation; 8) restart the timer T_ CheckCamGen.
+
+C.2.5 CAM construction exception
+If the CA basic service could not construct a CAM successfully in step 5) as defined in clause C.2.4, the CA basic service is expected to omit step 6) to step 8) and is expected to restart the timer T_CheckCamGen.
+NOTE 1: The failure of the CAM construction may happen, if the CA basic service was not able to collect all required data for the CAM construction, or the collected data are not compliant to the CAM format as specified in annex A (e.g. the value of a data is out of authorized range of the ASN.1 definition).
+NOTE 2: If the CAM construction failure was due to a data provided by other entities via the interface IF.FAC, CA basic service may provide a failure notification to the corresponding data provision facilities via the IF.FAC.
+
+C.3 Receiving ITS-S operation
+C.3.1 Protocol data setting rules
+No protocol data need to be set for the receiving ITS-S.
+C.3.2 General protocol operation
+The ITS-S receiver protocol starts when the CA basic service receives a CAM and executes the following operations: 1) decode received CAM; 2) make CAM data available by e.g. passing to the ITS application layer or to the LDM; 3) end of operation, wait for the next CAM reception.
+
+ETSI
+
+38
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+C.3.3 Exception handling
+
+C.3.3.1 CAM decoding exception
+If the CA basic service could not decode a CAM successfully in step 1) as defined in clause C.3.2, the CA basic service omits step 2) and step 3).
+NOTE: The failure of the CAM decoding may happen, if the CA basic service checks that the data included in a received CAM is not compliant to the CAM format as specified in annex A (e.g. the value of a data is out of authorized range of the ASN.1 definition).
+
+ETSI
+
+39
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Annex D (informative): Flow chart for CAM generation frequency management
+Figures D.1 to D.3 illustrate the CAM frequency management specified in clause 6.1.3.
+
+ETSI
+
+40
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Figure D.1: Process CAM Generation ETSI
+
+41
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Figure D.2: Process Check Dynamics ETSI
+
+42
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Figure D.3: Procedure Check ETSI
+
+43
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+Annex E (informative): Extended CAM generation
+This annex describes an additional trigger condition for the CAM message generation, which enables ITS applications to increase the CAM generation frequency.
+Depending on the requirements of an ITS application it may provide the parameter T_GenCam_App representing the needed CAM generation interval. T_GenCam_App should be provided in the unit of milliseconds and with a value range of T_GenCamMin ≤ T_GenCam_App ≤ T_GenCamMax. In case an ITS application provides this parameter with a value below T_GenCamMin, T_GenCam_App would be set to T_GenCamMin and if the value is above T_GenCamMax or this parameter is not provided, the T_GenCam_App would be set to T_GenCamMax. In case several ITS applications require different values the lowest generation interval would be applied.
+In addition to the CAM trigger conditions defined in clause 6.1.3 following condition would apply:
+1) the time since last CAM generation is equal to or greater than T_GenCam_App and equal to or greater than T_GenCam_Dcc.
+In case the requested CAM generation frequency will not be achieved, the CA basic service should return a failure notification to the requesting application.
+
+ETSI
+
+44
+
+ETSI EN 302 637-2 V1.3.2 (2014-11)
+
+History
+
+V1.1.1 V1.2.1 V1.3.0 V1.3.1 V1.3.2
+
+Document history
+
+April 2010
+
+Published as TS 102 637-2
+
+March 2011
+
+Published as TS 102 637-2
+
+August 2013
+
+EN Approval Procedure
+
+AP 20131130: 2013-08-02 to 2013-12-02
+
+September 2014 Vote
+
+V 20141118: 2014-09-19 to 2014-11-18
+
+November 2014 Publication
+
+ETSI
+

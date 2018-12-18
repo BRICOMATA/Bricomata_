@@ -1,814 +1,3 @@
-export az=gedit aghiles
-az
-$az
-export az=`gedit aghiles`
-az
-$az
-export az=gedit aghiles
-$az
-export az=dirname /home/aghiles
-export az="dirname /home/aghiles"
-$az
-export az="basename /home/aghiles"
-$az
-cd "/home/aghiles/Aghiles/Latex/src/these"
-ls
-compile
-dconf-editor 
-grep -ri outline
-grep -ri SymbolBrowserPlugin
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile
-touch all.tex
-dconf-editor 
-grep -ri outline
-grep -ri select
-grep -ri Documents
-grep -ri Document
-grep -ri GeditWindowDocumentsPanel
-grep -ri WindowDocumentsPanel
-grep -ri DocumentsPanel
-grep -ri Panel
-grep -ri outline
-grep -ri clicked
-grep -ri double-clicked
-grep -ri LaTeXOutlineView
-grep -ri panel
-grep -ri BaseOutlineView
-grep -ri on_node_activated
-grep -ri self._on_node_activated
-grep -ri on_row_activated
-grep -ri row-activated
-grep -ri BaseOutlineView
-grep -ri LaTeXOutlineView
-grep -ri LaTeXValidator
-grep -ri update_neighbors
-sudo nautilus
-cd ~/.local/share/gedit/plugins
-ls
-sudo nautilus
-gedit
-grep -ri double
-grep -ri "on_node_activated"
-cd ..
-grep -ri "on_node_activated"
-sudo nautilus
-sudo nautilus .
-sudo cp -av gedit /usr/lib
-gedit
-cd ~/.local/share/gedit/plugins
-gedit
-sudo nautilus
-sudo nautilus
-cd /usr/lib/gedit/
-cd plugins/latex/
-grep -ri double
-sudo nautilus .
-grep -ri "context.activate_editor"
-grep -ri "outline-connect"
-sudo nautilus
-sudo nautilus .
-grep -ri "BaseOutlineView"
-grep -ri "LaTeXSymbolMapView"
-grep -ri "EDITOR_VIEWS"
-grep -ri "latex-extension"
-grep -ri "create_editor_views"
-grep -ri "selected_side_views"
-grep -ri "side_views"
-gedit
-grep -ri "create_tab_from_location"
-cd ..
-grep -ri "create_tab_from_location"
-grep -ri "window.get_active_view"
-grep -ri "context
-grep -ri "context"
-grep -ri "activate_editor"
-grep -ri "activate_tab"
-sudo nautilus .
-grep -ri "set_active_tab"
-sudo nautilus .
-geany
-sudo apt install geany
-gedit
-cd /usr/lib/gedit/
-sudo nautilus .
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile 
-./compile
-grep -r "from the perspective of trustor"
-evince TENDB3GF/Ahn\ et\ al.\ -\ 2017\ -\ Objectification\ of\ feedback\ based\ trust\ evaluation.pdf 
-grep -r "sybil"
-evince S856YTX7/Li\ -\ A\ Survey\ of\ Security\ and\ Privacy\ in\ Online\ Social\ .pdf 
-grep -ri "the authors use risk labeling approach"
-evince ZIWZUN6W/Wang\ and\ Nepali\ -\ 2013\ -\ Privacy\ Measurement\ for\ Social\ Network\ Actor\ Model.pdf 
-evince ZYMRRXPN/Wang\ and\ Nepali\ -\ 2013\ -\ Privacy\ Measurement\ for\ Social\ Network\ Actor\ Model.pdf 
-grep -ri "the authors use risk labeling approach"
-evince ZIWZUN6W/Wang\ and\ Nepali\ -\ 2013\ -\ Privacy\ Measurement\ for\ Social\ Network\ Actor\ Model.pdf 
-grep -ri "Privacy in Social Networks:
-How Risky is Your Social Graph"
-grep -ri "Privacy in Social Networks: How Risky is Your Social Graph"
-grep -ri "The model proposed by Aberer"
-evince W7FZN9MD/Aydillo\ et\ al_2015_Trust-ware.pdf 
-grep -ri "trust model presented by Abdul-Rahman"
-evince W7FZN9MD/Aydillo\ et\ al_2015_Trust-ware.pdf 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-grep -ri B3R4PWQA
-evince -ri B3R4PWQA/Ahmad\ and\ Riaz\ -\ 2010\ -\ Predicting\ friendship\ levels\ in\ online\ social\ netw.pdf 
-evince B3R4PWQA/Ahmad\ and\ Riaz\ -\ 2010\ -\ Predicting\ friendship\ levels\ in\ online\ social\ netw.pdf 
-grep -ri threat
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd ..
-./commit 
-cd Zotero/
-grep -ri file
-grep -ri publisher
-grep -ri doi
-bibtex
-grep -ri bibtex
-grep -ri note
-*
-grep -ri note
-grep -ri langid
-cd translators/
-grep -ri file
-grep -ri file
-grep -ri uri
-grep -ri field
-grep -ri "\"file\""
-grep -ri langid
-grep -ri journaltitle
-grep -ri file
-grep -ri beter
-grep -ri better
-grep -ri biblatex
-grep -ri bibtex
-grep -ri bib
-grep -ri file
-grep -ri field
-grep -ri file
-grep -ri field
-cd ..
-grep -ri "\"file\""
-grep -ri "\"file"
-grep -ri "\".*file.*\""
-grep -ri attachment
-grep -ri "\"note\""
-grep -ri note
-grep -ri generate
-cd translators/
-grep -ri "nextCollection()"
-grep -ri "nextCollection"
-./Zotero
-cd Desktop/
-split -l 3000 book.txt new
-split -l 3000 Better\ BibLaTeX.js new
-cd Desktop/
-split -l 1000 Better\ BibLaTeX.js new
-cd Desktop/
-grep -ri writefield
-grep -ri write
-grep -ri field
-grep -ri fiel
-grep -ri add(
-grep -ri "add("
-grep -ri "add({ name: 'fi"
-grep -ri "add({ name: 'coll
-"
-grep -ri "add({ name: 'coll"
-grep -ri "add({ name: 'co"
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-./Zotero
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile
-./compile*
-cd ..
-./commit 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-git init
-./commit 
-git config --global user.email "aghiles.data@gmail.com"
-git init
-git add .
-git commit -m "commit"
-git remote add origin https://github.com/BRICOMATA/bricomata.git
-git push -u origin master
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-git init
-./commit 
-cheese
-grep -ri spamassasin
-evince 6ISF6PPU/Hameed\ et\ al.\ -\ 2011\ -\ LENS\ Leveraging\ social\ networking\ and\ trust\ to\ pr.pdf 
-mkdir j
-cd j
-ssh-keygen
-chmod 400 ~/.ssh/id_rsa
-wget git@github.com:Aghiles8/All.git/openssl
-wget https://github.com/Aghiles8/All/tree/master/openssl
-scp root@api.alpha.caliopen.org:/root/alpha/aghile2.txt.gz ./
-ssh -v root@api.alpha.caliopen.org
-more .ssh/id_rsa.pub 
-scp root@api.alpha.caliopen.org:/root/alpha/aghile2.txt.gz ./
-ssh -v root@api.alpha.caliopen.org
-ssh-add
-ssh -v root@api.alpha.caliopen.org
-ssh-add
-ssh -v root@api.alpha.caliopen.org
-scp root@api.alpha.caliopen.org:/root/alpha/aghile2.txt.gz ./
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-openssl rsautl -sign   -in "plain/Message.txt" -inkey "res/Private.key" -out sig
-openssl rsautl -verify -in sig       -inkey "Public.Key"            -pubin
-openssl rsautl -sign   -in "plain/Message.txt" -inkey "res/Private.key" -out sig
-openssl rsautl -verify -in sig       -inkey "Public.Key"            -pubin
-sed -i "1s/.*/From;To;Content;Date;x/" mails_caliopen.csv
-cat mails_caliopen.csv 
-more mails_caliopen.csv 
-grep -ri dergree
-grep -ri dergre
-grep -ri derg
-grep -ri degree
-pkill rstudio 
-cheese
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-openssl dgst -sha256  -sign "res/Private.key"   -out "sign.txt.sha256"         "plain/Message.txt"
-openssl dgst -sha256  -verify "Public.Key"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl enc  -base64    -in "sign.txt.sha256"               -out "sign.txt.sha256.base64"
-openssl enc  -base64 -d -in "sign.txt.sha256.base64"        -out "sign.txt.sha256k"
-openssl dgst -sha256  -verify "Public.Key"      -signature "sign.txt.sha256k"   "plain/Message.txt"
-openssl rsa -in "Public.Key" -pubout -out public.key.pem
-openssl rsa -in "res/Private.key" -pubout -out public.key.pem
-cd "/home/aghiles/Downloads/openssl"
-openssl dgst -sha256  -sign           -inkey "res/Private.key"     -in "plain/Message.txt"      -out "sign.txt.sha256"
-openssl dgst -sha256  -sign           "res/Private.key"     -in "plain/Message.txt"      -out "sign.txt.sha256"
-openssl dgst -sha256  -sign           "res/Private.key"      "plain/Message.txt"      -out "sign.txt.sha256"
-openssl dgst -sha256  -sign           "res/Private.key"         -out "sign.txt.sha256"  openssl dgst -sha256  -sign "res/Private.key"   -out "sign.txt.sha256"         "plain/Message.txt"
-openssl dgst -sha256  -verify "Public.Key"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl enc  -base64    -in "sign.txt.sha256"               -out "sign.txt.sha256.base64"
-openssl enc  -base64 -d -in "sign.txt.sha256.base64"        -out "sign.txt.sha256"
-openssl enc  -base64 -d -in "sign.txt.sha256.base64"        -out "sign.txt.sha256" "plain/Message.txt"
-openssl dgst -sha256  -sign           -inkey "res/Private.key"          -out "sign.txt.sha256"  -in "plain/Message.txt"
-openssl dgst -sha256  -sign    "res/Private.key"          -out "sign.txt.sha256"  "plain/Message.txt"
-openssl dgst -sha256  -sign    "res/Private.key"          -out "sign.txt.sha256"  -in "plain/Message.txt"
-openssl rsault -sha256  -sign    "res/Private.key"          -out "sign.txt.sha256"  -in "plain/Message.txt"
-openssl rsautl -sha256  -sign    "res/Private.key"          -out "sign.txt.sha256"  -in "plain/Message.txt"
-openssl dgst -sha256  -sign    "res/Private.key"          -out "sign.txt.sha256"  -in "plain/Message.txt"
-openssl dgst -sha256  -sign    "res/Private.key"          -out "sign.txt.sha256"  "plain/Message.txt"
-openssl dgst -sha256  -sign   -inkey  "res/Private.key"          -out "sign.txt.sha256"  "plain/Message.txt"
-openssl dgst -sha256  -verify  -pubin -inkey "Public.Key"          -in  "plain/Message.txt"   -signature "sign.txt.sha256"
-openssl enc  -base64 -d -in "sign.txt.sha256.base64"        -out "sign.txt.sha256"
-openssl dgst -sha256  -verify "Public.Key"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl rsautl -sign   -in "plain/Message.txt" -inkey "res/Private.key" -out sig
-openssl rsautl -verify -in sig       -inkey "Public.Key"            -pubin
-openssl rsautl -verify -in sig -inkey "Public.Key" -pubin
-openssl rsautl -verify -in sig -inkey "Public.Key"
-openssl rsautl -verify -in sig -inkey "Public.Key" -pubin
-cd "/home/aghiles/Downloads/openssl"
-openssl rsa             -in "res/Private.key" -pubout           -out "Public.key.pem"
-openssl dgst -sha256  -sign "res/Private.key"   -out "sign.txt.sha256"         "plain/Message.txt"
-openssl enc  -base64    -in "sign.txt.sha256"               -out "sign.txt.sha256.base64"
-openssl enc  -base64 -d -in "sign.txt.sha256.base64"        -out "sign.txt.sha256"
-openssl dgst -sha256  -verify "Public.Key.pem"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl dgst -sha256  -verify "./Public.Key.pem"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl dgst -sha256  -verify "Public.Key.pem"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl dgst -sha256  -verify "Public.Key"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl dgst -sha256  -verify "Public2.Key"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl dgst -sha256  -sign "res/Private.key"   -out "sign.txt.sha256"         "plain/Message.txt"
-openssl enc  -base64    -in "sign.txt.sha256"               -out "sign.txt.sha256.base64"
-openssl enc  -base64 -d -in "sign.txt.sha256.base64"        -out "sign.txt.sha256"
-openssl dgst -sha256  -verify "Public.Key"      -signature "sign.txt.sha256"   "plain/Message.txt"
-openssl rsautl -sign   -in "plain/Message.txt" -inkey "res/Private.key" -out sig
-openssl rsautl -verify -in sig                 -inkey "Public.Key"      -pubin
-openssl dgst -sha256 -verify "Public.Key"              -signature "sign.txt.sha256"         "plain/Message.txt" -pubin
-openssl dgst -sha256 -pubin -verify "Public.Key"              -signature "sign.txt.sha256"         "plain/Message.txt" 
-openssl dgst -sha256 -verify "Public.Key"    -pubin          -signature "sign.txt.sha256"         "plain/Message.txt" 
-openssl dgst -sha256 -pubin -verify "Public.Key"              -signature "sign.txt.sha256"         "plain/Message.txt" 
-openssl dgst -sha256 -verify "Public.Key"              -signature "sign.txt.sha256"         "plain/Message.txt"
-openssl dgst -sha256 -sign   "res/Private.key"         -out       "sign.txt.sha256"         "plain/Message.txt"
-openssl enc  -base64 -e -in  "sign.txt.sha256"         -out       "sign.txt.sha256"
-openssl enc  -base64 -d -in  "sign.txt.sha256"  -out       "sign.txt.sha256"
-openssl dgst -sha256 -verify "Public.Key"              -signature "sign.txt.sha256"         "plain/Message.txt" -pubin
-openssl dgst -sha256 -verify "Public.Key"              -signature "sign.txt.sha256"         "plain/Message.txt"
-openssl dgst -sha256 -sign   "res/Private.key"         -out       "sign.txt.sha256"         "plain/Message.txt"
-openssl enc  -base64 -e -in  "sign.txt.sha256"         -out       "sign.txt.sha256.base64"
-openssl enc  -base64 -d -in  "sign.txt.sha256.base64"  -out       "sign.txt.sha256"
-openssl dgst -sha256 -verify "Public.Key"              -signature "sign.txt.sha256"         "plain/Message.txt"
-openssl dgst -sha256 -verify Public.Key              -signature sign.txt.sha256         plain/Message.txt
-openssl x509 -pubkey -noout -in Public.key > pubkey.key
-openssl x509 -pubkey -noout -in Public.Key > pubkey.key
-./sign.sh
-mkdirh
-mkdir h
-cd h
-openssl genrsa -aes128 -passout pass:<phrase> -out private.pem 4096
-openssl genrsa -aes128 -passout pass:aghiles -out private.pem 4096
-ls
-openssl rsa -in private.pem -passin pass:aghiles -pubout -out public.pem
-ls
-touch aghiles < aghiles va a l'ecole
-hg
-
-touch aghiles
-openssl dgst -sha256 -sign   "private.pem"         -out       "sign.txt.sha256"         aghiles
-openssl enc  -base64 -e -in  "sign.txt.sha256"         -out       "sign.txt.sha256.base64"
-openssl enc  -base64 -d -in  "sign.txt.sha256.base64"  -out       "sign.txt.sha256"
-openssl dgst -sha256 -verify "public.pem"              -signature "sign.txt.sha256"         aghiles
-openssl dgst -sha256 -verify "public.pem"              -signature "sign.txt.sha256"         "aghiles"
-./dgst.sh
-./sign.sh
-openssl x509 -pubkey -noout -in Public.Key > pubkey.key
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile 
-grep -ri AddToShipoutPicture
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-grep -ri biblio
-grep -ri ParisTech-Instit
-grep -ri Bordure.png
-grep -ri Antibes
-grep -ri SaintJeannet
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-grep -ri \n
-grep -ri \\n
-grep -ri "\\n"
-grep -ri "\n"
-grep -ri \\no
-grep -ri no
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-grep -r printglo
-grep -r Glossaire
-cd "/home/aghiles/Downloads/These"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-makeglossaries these.tex
-grep -ri bibhang
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-./compile
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-grep -ri "Liste des tableaux"
-grep -ri franc
-grep -ri fran
-grep -ri frensh
-grep -ri french
-grep -ri hortha
-grep -ri depth
-cd "/home/aghiles/Aghiles/Latex/src/draft"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-./compile 
-cd ..
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile 
-./compile
-ł
-./compile
-grep -ri addcontent
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile
-cd ..
-./commit 
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-./compile
-cd ..
-./compile
-man latexmk
-pkill rstudio 
-grep -ri cliqu
-grep -ri $v
-grep -ri \$v
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-./compile
-cd ..
-./compile
-./compile -c
-./compile "-c"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile
-[A
-./compile
-A
-./compile
-poweroff
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile
-cd ..
-./commit 
-cd these
-./compile
-pkill firefox 
-pkill rstudio 
-cd "/home/aghiles/Aghiles/Latex/src/these"
-./compile
-cd ..
-./commit 
-cheese
-pkill rstudio 
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile
-cheese
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-./compile
-cd ..
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile
-cheese
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./commit 
-cd ..
-./commit 
-cheese
-cd "/home/aghiles/Aghiles/Latex/src/these/src"
-cd ..
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm"
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile
-gedit lm-fr.tex
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile
-pdfseparate Dossier_Aghiles_EDITE.pdf 
-pdfseparate -f1 -l 5 Dossier_Aghiles_EDITE.pdf 
-pdfseparate -f 1 -l 5 Dossier_Aghiles_EDITE.pdf 
-pdfseparate -f 1 -l 3 Dossier_Aghiles_EDITE.pdf 
-pdfdetach Dossier_Aghiles_EDITE.pdf 
-pdfseparate Dossier_Aghiles_EDITE.pdf %d.pdf
-gedit merge
-pdfunite %d jk.pdf
-pdfunite %d.pdf jk.pdf
-pdfunite 1.pdf 2.pdf jk.pdf
-pdfunite 1.pdf 2.pdf 3.pdf 4.pdf 5.pdf 6.pdf 8.pdf dossier.pdf
-pdfunite 1.pdf 2.pdf 3.pdf 4.pdf 5.pdf 6.pdf 8.pdf 9.pdf dossier.pdf
-pdf270 9.pdf 
-pdfunite 1.pdf 2.pdf 3.pdf 4.pdf 5.pdf 6.pdf 7.pdf 8.pdf 9.pdf dossier.pdf
-./compile
-gedit lm-fr.tex
-cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
-./compile 
-./compile
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile
-pdfseparate 3340_001.pdf %d_.pdf
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-pdf270 2_.pdf 
-pdf180 2_-rotated270.pdf 
-pdfunite 3.pdf 4.pdf 5.pdf 6.pdf recommendation.pdf
-grep -ri trust
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-adb shell
-adb forward tcp:9222 localabstract:chrome_devtools_remote
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-pdfgrep -ri "Random-walk"
-pdfgrep -ri "walk"
-dspdfviewer 
-grep -ri pca
-grep -ri composent
-grep -ri
-grep -ri pca
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-cd ..
-./commit 
-gedit 2_0_related.tex
-cd "/home/aghiles/Aghiles/Latex/src/these_slide/src"
-cd ..
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide/src"
-cd ..
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-./compile 
-*
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide/src"
-cd ..
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide/src"
-cd ..
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide/src"
-cd ..
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/these_slide/src"
-cd ..
-./compile 
-cd ..
-ls
-./commit 
-pdftotext 08403755.pdf 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-gedit lm-fr.tex
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-cheese
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-pkill firefox 
-gedit 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-./cp
-gedit cp
-./cp
-gedit cp
-./cp
-./compile 
-free
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile 
-cd "/home/aghiles/Aghiles/Latex/src/lettre/lm-fr"
-./compile *
-cd "/home/aghiles/Aghiles/Latex/src/these_slide"
-./compile
-cheese
-echo "That's really a pity I'm not able to speak French"  | festival --tts
-gespeaker
-sudo apt install gespeaker
-sudo dpkg --configure -a
-sudo apt install gespeaker
-gespeaker
-curl https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=Male01&text="Hello every one"
-curl https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=Male01&text=Hello
-https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=Male01&text=Hello
-cd/
-firefox https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=James&text=TEXT
-firefox https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=James&text="TEXT"
-firefox "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=James&text=TEXT"
-curl "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=James&text=TEXT"
-ls
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=James&text=TEXT"
-ls
-curl "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=James&text=TEXT"
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=James&text=TEXT" 
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&lang=en_us&voice=James&text=TEXT" | mp3
-ffplay h.mp3 
-nvlc h.mp3 
-cat rawsound | /dev/pcsp
-curl --user-agent "Mozilla/4.73 [en] (X11; U; Linux 2.2.15 i686)"  https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello
-ls
-play h.mp3 
-audioplay h.mp3 
-cd Desktop/
-ls
-https://speak.php?text=hello+world
-php speak.php?text=hello+world
-php
-php -f speaker.php 
-php -f speaker.php hhg
-php -f speaker.php 
-javac speak.java 
-mv speak.java ScapiExample.java
-javac ScapiExample.java
-java ScapiExample
-gedit ScapiExample.java 
-javac ScapiExample.java
-java ScapiExample
-javac ScapiExample.java
-java ScapiExample
-javac ScapiExample.java
-java ScapiExample
-mp3 h.mp3 
-vlc h.mp3 
-xsel h.mp3 
-xsel -f h.mp3 
-cat h.mp3 | /dev/pcsp
-paplay h.mp3
-curl https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello
-wget https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello
-ls
-wget https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello
-nvlc h.mp3 
-wget https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello | nvlc
-wget https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello > h.mp3 | nvlc
-wget https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello" | nvlc
-php speaker.php
-javac ScapiExample.java 
-java ScapiExample
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello" > h.mp3
-curl "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello" > h.mp3
-curl "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello"
-curl "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello" > hj.mp3
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hello" > h.mp3
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hi, how are you" > h.mp3
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hi, how are you" -o j.mp3
-ls
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hi, how are you" -o j.mp3
-curl -o -I -L -s  "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hi, how are you"
-ls
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hi, how are you" --output-document omo.mp3
-ls
-wget "https://tts.readspeaker.com/a/speak?key=d62fbc523f1ff289f850ee1a42549b30&mp3bitrate=64&lang=en_us&voice=James&text=Hi, how are you" --output-document omo.mp3 | nvlc
-./ss.sh 
-./ss.sh hi
-./ss.sh "do you know that obama is hear"
-./ss.sh -
-xsel
-xsel --clipboard --input
-./speaker
-rm /tmp/omo.mp3 
-./speaker "Searching the Internet revelaed problems"
-./speaker "Searching the"
-./speaker "Searching"
-./speaker Searching
-./speaker
-speaker-test
-nano speech.sh
-sudo apt-get install libttspico-utils
-pico2wave -w lookdave.wav "Look Dave, I can see you're really upset about this." && aplay lookdave.wav
-gedit speech.sh
-chmod u+x speech.sh
-./speech.sh Look Dave, I can see you're really upset about this.
-./speech.sh Look Dave
-./speech.sh "Look Dave, I can see you're really upset about this."
-aplay 
-cd Desktop/
-aplay y.mp3 
-blather
-./speaker
-say "hello"
-say "hello every body"
-./speaker
-gesit gh
-gedit gh
-sudo chmod -x gh
-./gh hello
-sudo ./gh hello
-./gh hello
-apt-get install mpg123
-sudo apt-get install mpg123
-./gh hello
-./gh hello how are you
-./gh hello, how are you
-./speaker
-./speaker
-cd "/home/aghiles/Aghiles/Ubuntu/run"
-./speaker
-./Zotero $
-./speaker
-cd "/home/aghiles/Aghiles/Ubuntu/run"
-./speaker
-sh /home/aghiles/Aghiles/Ubuntu/run/speaker
-./home/aghiles/Aghiles/Ubuntu/run/speaker
-/home/aghiles/Aghiles/Ubuntu/run/speaker
-sh /home/aghiles/Aghiles/Setup/run/speaker
-./shortcut
-pkill speaker 
-ps -A
-okill gnom-terminal-
-ps -A
-pkill speaker 
-ps -A
-./speaker
-*
-./speaker
-cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
-./compile 
-cheese
-grep -ri walk
-poweroff
-cd "/home/aghiles/Aghiles/Latex/src/these_slide/src"
-cd ../
-./compile 
-~
-./compile 
-evince F7KMR6JB/Khatouni\ et\ al.\ -\ 2017\ -\ Privacy\ issues\ of\ ISPs\ in\ the\ modern\ web.pdf 
-evince WUDZ6XAD/Qian\ et\ al.\ -\ On\ Network-level\ Clusters\ for\ Spam\ Detection.pdf 
-evince 8LE99XSX/Wilson\ et\ al.\ -\ 2009\ -\ User\ interactions\ in\ social\ networks\ and\ their\ imp.pdf 
-grep -ri cdf
-pdfunite 3.pdf 4.pdf 5.pdf 66.pdf aghiles.pdf
-pkill speaker 
-./pc\ -\>\ usb 
-sh /home/aghiles/Aghiles/Latex/src/survey/.shell.sh &
-sh /home/aghiles/Aghiles/Latex/src/survey/compile &
-ps -A
-unity-tweak-tool
-./workshop 
-./run
-./workshop 
-windowid_list="`wmctrl -l | grep -o "$HOSTNAME.*" | sed "s/$HOSTNAME //g"`"
-if [ -n "${windowid_list}" ]; then      for windowid in ${windowid_list};      do          wmctrl -r "${windowid}" -e 0,0,0,-1,-1 ;      done; fi
-wmctrl
-wmctrl -l
-wmctrl -d
-wmctrl -l
-wmctrl -d
-thunderbir
-thunderbird
-./run
-./workshop
-./run
-./workshop
-wmctrl -l
-wmctrl -l
-grep -ri Fluotournage
-grep -ri "Privacy score - Privacy"
-grep -ri "Privacy score"
-grep -ri "Privacy"
-grep -ri "Privacy score"
-grep -ri pdftitle
-wmctrl -l
-./run
-./workshop
-wmctrl -r Zotero          -e 0,1887,0,-1,-1
-wmctrl -r Zotero          -e 0,1888,0,-1,-1
-wmctrl -r Zotero          -e 0,1880,0,-1,-1
-wmctrl -r Zotero          -e 0,1980,0,-1,-1
-wmctrl -r Zotero          -e 0,1887,0,-1,-1
-wmctrl -r Zotero          -e 0,1980,0,-1,-1
 wmctrl -r "aghiles@dell: ~/Aghiles/Latex/res/storage" -e 0,1887,1056,-1,-1
 wmctrl -r "aghiles@dell: ~/Aghiles/Latex/res/storage" -e 0,198701056,-1,-1
 wmctrl -r "aghiles@dell: ~/Aghiles/Latex/res/storage" -e 0,1880,1156,-1,-1
@@ -1998,3 +1187,814 @@ dataplot
 xdp
 dataplot src/4plot.dp 
 xdp
+sh /home/aghiles/Aghiles/Ubuntu/divers/run
+xdp
+dataplot eda35a.dp 
+dataplot src/eda35a.dp 
+dataplot src/eda35c.dp 
+dataplot src/eda33e5.dp 
+dataplot src/anova.dp 
+dataplot 
+dataplot src/ar.
+dataplot src/ar.dp 
+dataplot src/plot/boxplot.dp 
+fences on
+dataplot
+let n1 = size y1
+xdp
+dataplot eda33e5.dp 
+RELATIVE HISTOGRAM Y
+dataplot 
+dataplot eda4213.dp 
+git init
+git commit -m "commit"
+git push -uf origin master
+git push -f origin master
+./commit 
+git push -f origin master
+./commit 
+cd "/home/aghiles/Aghiles/Latex/src/paper#_slide"
+./compile 
+grep -ri rivacy threats
+grep -ri "rivacy threats"
+grep -ri "Concept of collaboratio"
+grep -ri "collaboratio"
+grep -ri "second direction is developing"
+grep -ri "Allure générale du document"
+grep -ri "Page de Garde"
+sh /home/aghiles/Aghiles/Latex/src/paper#/compile &
+./workshop
+./run
+./workshop
+./run
+./workshop
+shotcut
+sudo snap install shotcut
+sudo apt install shotcut
+sudo snap --classic install shotcut
+sudo snap install --classic shotcut
+shotcut
+shotcut Video.mlt 
+shotcut a
+shotcut
+shotcut Video.mlt 
+shotcut
+shotcut aghiles.mlt 
+shotcut mm.mlt 
+shotcut Video.mlt 
+pdfunite 4149_001.pdf 4150_001.pdf 4151_001.pdf dossier.pdf
+grep -ri annomation
+grep -ri annimation
+grep -ri animation
+sudo apt remove vlc
+sudo apt purge vlc
+sudo apt autoremove
+sudo apt install vlc
+cheese
+pkill rstudio 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_en"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_en"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_en"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_en"
+./compile 
+poweroff
+pkill rstudio 
+dataplot src/*.dp
+dataplot src/1_eda/eda33e5.dp
+dspdfviewer 
+cd "/home/aghiles/Aghiles/Latex/src/paper#_slide"
+./compile 
+./compile
+cd "/home/aghiles/Downloads/beamer"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper#_slide"
+./compile 
+ls
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper#_slide"
+./compile
+dspdfviewer 
+cd "/home/aghiles/Aghiles/Latex/src/paper#_slide"
+./compile
+pdfpc
+pdfpc paper#_slide.pdf 
+freee
+free
+grep -ri \movie
+grep -ri \\movie
+grep -ri "\movie"
+grep -ri "movie"
+fdisk -l
+sudo fdisk -l
+cd "/home/aghiles/Aghiles/Latex/src/paper#_slide"
+./compile
+*
+./compile
+pdfpc bin/paper#_slide.pdf 
+./compile
+okular paper#_slide.pdf 
+pdfpc-commands paper#_slide.pdf 
+cd "/home/aghiles/Aghiles/Latex/src/paper#_slide/src/1"
+cd ../..
+./compile
+cheese
+nautilus /home/aghiles/Aghiles/Latex/res/storage/BR6FUCME
+unity-tweak-tool
+gedit caliopen_7_11
+cd "/home/aghiles/Aghiles/Latex/src/paper#/src"
+cd ..
+./compile 
+free
+cheese
+pkill rstudio 
+backup
+backups
+backup
+dataplot src/1_eda/eda33e5.dp
+dataplot pri611.dp 
+dataplot apr161.dp 
+dataplot
+dataplot apr162.dp 
+whereis powersim.pd
+whereis powersim.dp
+whereis apr192.dp
+grep -ri "CALL powersim.dp"
+grep -ri "powersim"
+dataplot apr163.dp 
+dataplot apr166.dp 
+dataplot apr192.dp 
+whereis plot1.dp
+find plot1.dp
+find "plot1.dp"
+ls
+man find
+find . -name "plot1.dp"
+cd ..
+find . -name "plot1.dp"
+cd ..
+find . -name "plot1.dp"
+cd Dataplot/
+find . -name "powersim.dp"
+find . -name plot1.dp
+dataplot apr192.dp 
+dataplot ppc511.dp 
+dataplot *.dp 
+dataplot src/8_apr/ppc511.dp
+dataplot src/8_apr/1_9_Modeling\ reliability\ growth/apr191.dp 
+dataplot src/8_apr/1_9_Modeling\ reliability\ growth/apr192.dp 
+dataplot pri611.dp 
+dataplot pri621.dp 
+dataplot *.dp
+dataplot eda4263.dp 
+dataplot eda359.dp 
+dataplot eda33e5.dp
+dataplot 4plot.dp 
+dataplot boxplot.dp 
+dataplot boxplotl.dp 
+dataplot boxplot1.dp 
+dataplot qqplot.dp 
+dataplot lagplot.dp 
+dataplot mpc352.dp 
+dataplot mpc365.dp 
+dataplot mpc371.dp 
+dataplot mpc3522A.dp 
+dataplot apr191.dp 
+dataplot apr192.dp 
+dataplot eda4283.dp 
+dataplot pri611.dp 
+dataplot pri612.dp 
+dataplot pri621.dp 
+dataplt
+dataplot
+gedit data.dat
+cd "/home/aghiles/Aghiles/Latex/src/paper#/src"
+octave
+sudo apt install octave
+octave
+gnuplot
+gnuplot
+gnuplot
+dataplot
+LET Y = FATIGUE LIFE RANDOM NUMBERS FOR I = 1 1 1000
+dataplot 
+gnuplot
+pkill vlc 
+gnuplot
+wget /media/aghiles/ADATA%20HD650/Disque_100GB/Curriculum-22.2/Methodology-2.4/s9_METHOD/web/web/www-npa.lip6.fr/_tixeuil/m2r/uploads/Main/dataset.txt
+ls
+cp /media/aghiles/ADATA%20HD650/Disque_100GB/Curriculum-22.2/Methodology-2.4/s9_METHOD/web/web/www-npa.lip6.fr/_tixeuil/m2r/uploads/Main/dataset.txt .
+nautilus /media/aghiles/ADATA%20HD650/Disque_100GB/Curriculum-22.2/Methodology-2.4/s9_METHOD/web/web/www-npa.lip6.fr/_tixeuil/m2r/uploads/Main
+lagPlot.pl
+gedit lagPlot.pl
+perl lag.pl dataset.txt 
+p
+ls
+plot dataset.txt 
+gnuplot dataset.txt 
+gnuplot plot dataset.txt 
+gnuplot sin(x)
+gnuplot < sin(x)
+gnuplot | sin(x)
+gniu
+gnuplot
+perl lag.pl < dataset.txt dataset2
+perl lag.pl < dataset.txt > dataset2
+gnuplot
+gedit -2.1   0.037037
+-1.8   0.037037
+-1.6   0.037037
+-1.4   0.111111
+-1.2   0.037037
+-1.1   0.111111
+-1.0   0.074074
+-0.9   0.222222
+-0.8   0.037037
+-0.7   0.074074
+-0.5   0.111111
+-0.4   0.148148
+-0.3   0.037037
+-0.2   0.296296
+-0.1   0.222222
+0.0   0.185185
+0.1   0.407407
+0.2   0.111111
+0.3   0.222222
+0.4   0.185185
+0.5   0.111111
+0.6   0.148148
+0.7   0.037037
+0.8   0.037037
+0.9   0.074074
+1.0   0.037037
+1.8   0.037037
+gedit check1234.txt
+f(x)= (1/(a*sqrt(2*pi)))*exp(-(x-b)**2/(2*a**2))
+gnuplot
+r
+sudo apt install r-cran-littler
+r
+Rscript 
+R
+gnuplot -p -e 'plot "/dev/stdin"'
+gnuplot -e "set term" | grep aqua
+dataplot 
+gnuplot
+grep -ri fit
+gnuplot eda4213.dp 
+gnuplot eda4223.dp 
+dataplot eda4223.dp 
+gnuplot
+dataplot
+man dataplot
+dataplot
+dataplot
+dataplot mpc633a.dp 
+dataplot pmd611.dp 
+dataplot 
+dataplot
+dataplot
+gnome-calendar 
+grep -ri SCREENING
+dataplot apr421.dp 
+dataplot
+find . -name "DAT1.TXT"
+find . -name "DAT1"
+find . -name "100ohm.dat"
+find . -name "dat1"
+find . -name "dat1.tx"
+find . -name "DAT1.TXT"
+dataplot
+dataplot mpc352.dp 
+dataplot 
+dataplot
+grep -ri mass
+dataplot 
+dataplot
+dataplot 
+grep -ri "ABERN43.DAT"
+grep -ri "ASF11.DAT"
+grep -ri "mass"
+grep -ri "BLAND.DAT"
+grep -ri "ATOMS.TXT"
+dataplot eda33e5.dp
+dataplot eda4213.dp 
+dataplot eda4223.dp 
+dataplot eda4233.dp 
+dataplot eda4243.dp 
+dataplot eda4263.dp 
+dataplot eda4273.dp 
+dataplot eda4283.dp 
+dataplot pri611.dp 
+dataplot pri621.dp 
+dataplot apr161.dp 
+dataplot apr162.dp 
+dataplot apr163.dp 
+dataplot apr164.dp 
+dataplot apr165.dp 
+dataplot apr166.dp 
+gnuplot
+poweroff
+reboot
+git pull https://github.com/Aghiles8/R/tree/master/lib/Handbook
+git pull https://github.com/Aghiles8/R
+git pull https://github.com/Aghiles8/R/lib/
+git clone https://github.com/Aghiles8/R/tree/master/lib/Handbook
+git clonehttps://github.com/Aghiles8/R/tree/master/lib/Handbook
+git clone https://github.com/Aghiles8/R/tree/master/lib/Handbook
+git pull https://github.com/Aghiles8/R/tree/master/lib/Handbook
+git clone https://github.com/Aghiles8/R R/tree/master/lib/Handbook
+cd ~/Downloads/kk/
+git clone https://github.com/Aghiles8/R R/tree/master/lib/Handbook
+dataplot
+xdp
+poweroff
+poweroff 
+xdp
+gedit contagion.r
+xdp
+pkill vlc 
+cd /usr/share/geany/colorschemes/
+ls
+mkdir colorschemes
+sudo cp alt.conf alt.confback
+sudo rm alt.conf
+sudo cp cobalt.conf alt.conf
+cp cobalt.conf ~/.config/geany/colorschemes/
+sh install.sh 
+gedit paper#.tex
+cp cobalt.conf ~/.config/geany/colorschemes/
+cd ~/.config/geany/colorschemes/
+nautilus ~/.config/geany/
+cp cobalt.conf /usr/share/geany/colorschemes/
+sudo cp cobalt.conf /usr/share/geany/colorschemes/
+cd "/home/aghiles/Aghiles/Latex/src/paper#"
+./compile 
+gedit paper#.tex
+gedit these.tex
+gedit paper1.tex 
+gedit paper.tex
+gedit paper#.tex
+gedit paper1.tex 
+gedit paper#.tex
+gedit /home/aghiles/Aghiles/Latex/src/paper#/src/0_abstract
+gedit /home/aghiles/Aghiles/Latex/src/paper#/src/0_abstract.tex
+gedit paper#.tex
+gedit survey#.tex 
+gedit survey.tex
+./shortcut
+xrandr --output DP1-3 --auto 
+xrandr -q
+emacs
+sudo apt install emacs
+emacs paper0.tex 
+sh /home/aghiles/Aghiles/Ubuntu/gedit/paper0
+sh /home/aghiles/Aghiles/Ubuntu/latex/paper0
+xrandr -q
+xrandr --output HDMI1 --above eDP1
+xrandr -q
+xrandr --output HDMI-1 --above eDP1
+xrandr --output HDMI-1 --above eDP-1
+xrandr --output HDMI-1 --auto
+xrandr --output eDP-1 --auto
+xrandr --output HDMI-1 --auto
+xrandr 
+dspdfviewer 
+dspdfviewer -f
+xrandr -q
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --off --same-as eDP-1
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --auto --right-of eDP-1
+xrandr --output HDMI-1 --auto --left-of eDP-1
+xrandr --output HDMI-1 --auto --right-of eDP-1
+xrandr --output HDMI-1 --auto --above eDP-1
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --auto --right-of eDP-1
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --auto --right-of eDP-1
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --auto --right-of eDP-1
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --off --same-as eDP-1
+./shortcut
+poweroff 
+/home/aghiles/Aghiles/Ubuntu/divers/HDMI-right
+/home/aghiles/Aghiles/Ubuntu/divers/HDMI-same
+/home/aghiles/Aghiles/Ubuntu/divers/HDMI-off
+reboot
+/home/aghiles/Aghiles/Ubuntu/divers/HDMI-same
+/home/aghiles/Aghiles/Ubuntu/divers/HDMI-off
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --auto
+xrandr --output HDMI-1 --off
+xrandr --output HDMI-1 --auto
+xrandr --output HDMI-1 --off
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --off
+xrandr --output HDMI-1 --auto --same-as eDP-1
+xrandr --output HDMI-1 --off
+/home/aghiles/Aghiles/Ubuntu/divers/HDMI-right
+poweroff
+./install.sh 
+bash ./install.sh
+mxmlc
+cd Downloads/
+git clone https://github.com/johansyd/flex-installer.git
+cd ~/flex
+cd "/home/aghiles/Aghiles/Latex/src/paper0_slide"
+./compile
+./compile*
+reboot 
+mkdir ii
+cd ii
+gedit ii
+okular paper0_slide.pdf 
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0_slide"
+./compile 
+okular ii.pdf 
+gnuplot
+cd "/home/aghiles/Aghiles/Latex/src/paper0_slide/src/1"
+cd ..
+./compile
+cd ..
+./compile
+gnuplot
+pkill speaker-fr 
+pkill speaker-en
+poweroff
+./shortcut
+reboot
+xmind
+sudo apt install xmind
+xmind
+freeplane
+freemind
+sudo snap install freemind
+freemind
+Xmind
+xmind
+cd "/home/aghiles/Aghiles/Latex/src/paper1"
+./Comp
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+grep -r "Background"
+cd "/home/aghiles/Aghiles/Latex/src/paper0/src"
+cd ..
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0/src"
+cd ..
+./compile 
+poweroff 
+reboot
+gnuplot
+poweroff 
+sudo apt update
+cheese
+sudo apt get install sumo
+sudo apt-get install sumo
+netconvert --osm-files map.osm -o map.net.xml
+polyconvert --net-file map.net.xml --osm-files map.osm --type-file typemap.xml -o map.poly.xml
+./install_ns-3 
+cd NS3repo/
+hg clone http://code.nsnam.org/ns-3-allinone
+cd ns-3-allinone
+./download.py
+./build.py
+CXXFLAGS="-O3" ./waf configure 
+cd ns-3-dev
+CXXFLAGS="-O3" ./waf configure 
+./waf -d optimized configure; ./waf 
+./waf --enable-examples configure
+./waf --enable-tests configure
+./test.py
+./waf configure
+./waf build
+./waf --run wifi
+ls
+./waf
+./waf --run wifi
+./waf --run mylte3
+./waf --run mylte1
+sumo
+sudo apt install sumo
+sudo apt upgrade
+sudo apt uodate
+sudo apt update
+sudo apt list --upgradable
+sudo apt upgrade 
+reboot
+./commit 
+./waf --run wifi22
+./waf configure
+./waf --run wifi22
+./waf
+./waf --run wifi22
+cd scratch/
+gedit wifi22.cc 
+./waf --run wifi22
+./waf --run mylte1
+netconvert --osm-files map.osm -o map.net.xml
+sumo
+./commands 
+sudo apt-get install sumo sumo-tools sumo-doc
+sudo upt update
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+vsimrti
+sudo apt install vsimrti
+waf
+./waf
+./waf
+waf
+ls
+nautilus /home/aghiles/Aghiles/NS3/ns-3-allinone/ns-3-dev
+waf
+./waf
+waf
+sudo apt install eclipse
+eclipse
+sudo apt install eclipse
+gedit /home/aghiles/.eclipse/org.eclipse.platform_3.8_155965261/configuration/1542115278282.log
+./eclipse-inst 
+merurial
+mercurial
+sudo apt install mercurial
+eclipse 
+sudo synaptic
+synaptic
+sudo apt install synaptic
+synaptic
+sudo synaptic
+sumo-gui malaga.sumocfg
+sumo-gui
+netconvert --osm-files malaga.osm -o malaga.net.xml
+polyconvert --net-file map.net.xml --osm-files map.osm --type-file typemap.xml -o map.poly.xml
+sumo-gui map.sumocfg
+eclipse
+cheese
+./waf
+./waf  configure
+./waf configure
+./waf
+./waf --run wifi22
+gedit mercurialEclipse
+echo $LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/aghiles/Aghiles/NS3/bin/ns3/ns-3-dev
+waf
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/aghiles/Aghiles/NS3/bin/ns3/ns-3-dev
+waf
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/aghiles/Aghiles/NS3/bin/ns3/ns-3-dev/build
+waf
+echo $LD_LIBRARY_PATH 
+./waf --run wifi22
+cd ns-3-dev/
+grep -ri eclip
+nautilus /home/aghiles/Aghiles/NS3/bin/ns3/ns-3-dev/build
+./waf --run wifi22
+./waf 
+./waf configure
+./commit 
+hg clone http://code.nsnam.org/ns-3-allinone
+cd ns-3-allinone
+./download.py
+./build.py
+./waf --run wifi22
+./eclipse 
+sudo apt remove eclipse
+sudo apt purge eclipse
+sudo apt autoremove 
+./waf --run wifi22
+cd ../ns3/ns-3-dev/
+ls
+./waf
+git clone https://github.com/BRICOMATA/Bricomata_ Bricomata_/NS3/bin/ns3
+./waf --run wifi22
+./commit 
+./waf --run wifi1
+ssh -X -p 52222 21513567@193.51.97.247
+javac Main.java 
+java Main
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0/src/content"
+cd ../..
+./compile 
+poweroff 
+gedit dnac_2018
+gedit IA
+reboot
+./shortcut
+reboot
+shutdown 
+sudo shutdown 
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+./compile
+grep -ri #
+grep -ri "#"
+./workshop
+./run
+./workshop
+./run
+poweroff
+./shortcut
+reboot
+cd "/home/aghiles/Aghiles/Latex/src/these"
+gedit src/1_2_Background.tex
+reboot
+./shortcut
+reboot
+cheese
+grep -ri orange
+grep -ri fromage
+inscape
+sudo apt install inkscape
+inkscape
+pdfedit
+pdftk
+sudo snap install pdftk
+pdftk
+gedit Francais
+cd "/home/aghiles/Aghiles/Latex/src/paper0/src"
+cd ..
+./compile
+grep -ri deffusion
+grep -ri diffusion
+grep -ri diffusion centr
+grep -ri "diffusion centr"
+dataplot eda4213.dp 
+pdfunite *.pdf kki.pdf
+pdfunite *.pdf ul
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_en"
+ls
+./compile 
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/cv_fr"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/lm-fr"
+./compile 
+*
+./compile 
+pkill speaker-fr 
+
+pdfseparate Dossier_Aghiles2.pdf Dossier_Aghiles2.pdf 
+pdfseparate Dossier_Aghiles2.pdf 
+pdfseparate Dossier_Aghiles2.pdf 1%d
+cd ../2/
+pdfseparate Dossier_Aghiles_DOP016.pdf 1%d
+cd ../3
+pdfseparate Dossier_Aghiles_DOP022.pdf 1%d
+cd ../4
+pdfseparate Dossier_Aghiles_EDITE.pdf 1%d
+cd ../5
+pdfseparate Dossier_Aghiles_INRIA.pdf 1%d
+cd ../6
+pdfseparate Dossier_Aghiles_ISX-TI\)BST\ 2017-03.pdf 1%d
+cd ../7
+shutdown 
+poweroff 
+gedit BASE.desktop 
+gedit search
+firefox www.base-search.net/
+firefox base-search.net/
+./search contagion+model
+gedit search
+./search contagion+model
+gedit *
+./search contagion+model
+firefox unicat.be/uniCat?func=search&query=contagion+model &
+./search contagion+model
+./search
+./search contagion+process
+git clone /media/aghiles/Home/aghiles
+git clone /home/aghiles/Downloads/dataset
+usb=/media/aghiles/Home
+mypath=`realpath $0`
+directory=`dirname $mypath`
+filename=`basename $directory`
+echo $filename 
+./commit 
+pp=backup
+echo $pp
+git push $pp master
+./backup
+sh backup
+./backup
+./commit
+git stash
+git rebase -i
+./commit
+git init
+./commit
+git stash
+git rebase -i
+./commit
+git stash
+git rebase -i
+./commit
+git clone /media/aghiles/Home/aghiles
+man firefox 
+./search contagion+marcov
+./ser
+./search contagion+marcov
+./search contagion+markov
+./search contagion+process
+pdftotext Zhang\ and\ Moura\ -\ Accounting\ for\ topology\ in\ spreading\ contagion\ in\ .pdf 
+./search diffusion+markov
+./search smart+city
+./shortcut
+poweroff 
+./shortcut
+./PlagiarismCheckerX_2015.exe 
+pdftotext paper1.pdf 
+grep -ri ’
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+grep -ri pdfpagewidth
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+grep -ri bibhang
+wget http://sunlab.gmu.edu:8888/lglei/DIMVA2017-ContainerSecurity/blob/7f7d4e28e91e7a8772431c6939c1f94e18edcab0/sig-alternate-05-2015.cls
+./cm
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+grep -ri format
+./compile 
+git clone https://github.com/Aghiles8/These  These/sig-alternate.cls
+git clone github.com/Aghiles8/These  These/sig-alternate.cls
+git pull https://github.com/Aghiles8/These/blob/master/sig-alternate.cls
+git clone https://github.com/Aghiles8/These/blob/master/sig-alternate.cls
+git clone https://github.com/Aghiles8/These/sig-alternate.cls
+git pull https://github.com/Aghiles8/These/sig-alternate.cls
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./COMP
+./compile 
+pdftotext paper0.pdf 
+soffice --infilter="writer_pdf_import" --convert-to doc paper0.pdf
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0_slide"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0_slide"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/mail"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/mail"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/lettre"
+./compile 
+./compile
+gedit lettre.tex
+cd "/home/aghiles/Aghiles/Latex/src/cv/lettre"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/cv/lettre"
+./compile 
+wmctrl
+xrandr
+poweroff 
+poweroff
+pkill speaker-fr 
+pdfunite *.pdf gh.pdf
+cd ../uu/
+pdfunite *.pdf gh.pdf
+pdfseparate Charte_Deontologie-signee.pdf 
+pdfseparate Charte_Deontologie-signee.pdf %d.pdf
+cd ../uu/
+pdfseparate Charte_Doctorat_UPE_signee.pdf %d.pdf
+cd "/home/aghiles/Aghiles/Latex/src/paper2"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+cd "/home/aghiles/Aghiles/Latex/src/paper0"
+./compile 
+sudo apt install gedit
+sudo apt remove gedit
+sudo apt upgrade gedit
+sudo apt update
+sudo apt upgrade
+reboot

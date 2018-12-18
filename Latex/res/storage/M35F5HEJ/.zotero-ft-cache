@@ -1,0 +1,52 @@
+Coordination automatique d'une flotte de drones à l'aide de communications ad hoc
+Sujet proposé par Thi-Mai-Trang NGUYEN thi-mai-trang.nguyen@lip6.fr École doctorale: EDITE de Paris (ED130)
+Domaine: Sciences et technologies de l'information et de la communication
+Projet
+Après être longtemps resté limité au secteur militaire, le marché du drone a connu ces dernières années une croissance exponentielle avec l?avènement des drones civils (professionnels et de loisir). Ce phénomène a ouvert de nombreux axes de recherche, tant au niveau matériel que logiciel, et a permis l?apparition de nouvelles applications bouleversant différents secteurs d'activité (transports, agriculture, observation, surveillance, ?). Le pilotage est devenu aisé et accessible à tous, avec des calculateurs embarqués de plus en plus performants et miniaturisés, une autonomie accrue, une stabilité renforcée et des fonctions préprogrammées. De nouveaux modèles apparaissent régulièrement, rivalisant d?inventivité, allant de simples ballons à des engins tout-terrain capables de voler, rouler et naviguer, en passant par des multicoptères aux possibilités multiples. Selon Teal Group, le marché des drones civils sera le secteur le plus dynamique des dix prochaines années dans l?industrie aérospatiale mondiale [1].
+Mais un nouveau type d'utilisation se développe pour surmonter les limitations d'un seul drone, avec des applications encore à imaginer : les réseaux de drones [2, 3]. Ces flottes ont pour ambition de mener des missions difficiles (voire impossibles) ou trop coûteuses par des drones individuels. Par exemple, un groupe de drones peut observer, surveiller ou suivre des cibles spécifiques (personnes, véhicules, ?) dans de vastes zones. Des drones interconnectés peuvent également permettre une infrastructure réseau dans les airs afin d?offrir une couverture plus efficace que les réseaux de communication classiques (manifestations, événements sportifs, zones sinistrées, ?).
+Par ailleurs, les drones sont maintenant quasiment tous équipés d'une caméra 2D ou 3D. Mais un seul drone ne peut observer en temps réel une région hostile/inaccessible ou derrière un obstacle, en raison de la perte de connexion avec le centre de commande. Certaines solutions existantes fournissent une connectivité via des réseaux d'infrastructure (4G, réseaux satellites). Cependant, cette connectivité est fortement contrainte par la couverture de l'opérateur.
+L?objectif de cette thèse est le développement de solutions permettant à un unique opérateur, avec une seule télécommande, de piloter un ensemble de drones volant en formation, dans des environnements intérieurs et extérieurs, pour assurer le service demandé. Parmi les applications visées, nous pouvons citer le streaming vidéo en temps-réel (i) du drone piloté vers (ii) le centre de commande, via des drones autonomes se positionnant automatiquement entre les deux pour relayer convenablement le flux de données (à un débit fixé). Ces solutions ne devront pas intégrer d?équipements supplémentaires (infrastructure réseau, caméras extérieures, GPS, ?).
+Plus précisément, la distance entre les drones ne sera pas déterminée à l?avance, mais sera fonction de la qualité de réception du signal, chaque drone se positionnant par rapport aux autres en fonction de sa puissance en réception, indicateur reflétant la qualité de l?application [4, 5]. À l?image de deux individus se rapprochant ou s?éloignant en fonction du bruit environnant pour s?entendre et discuter (à volume sonore constant), les drones vont systématiquement adapter leur positionnement relatif pour maintenir la même puissance en réception, assurant ainsi le niveau applicatif demandé en termes de débit binaire (par exemple une qualité haute ou basse définition pour une vidéo en temps-réel).
+
+$LOGOIMAGE
+
+1/2
+
+Enjeux
+
+EDITE de Paris (ED130) -- Proposition de thèse
+
+$LOGOIMAGE
+
+Ainsi, la première partie de la thèse sera la définition de solutions algorithmiques et logicielles reposant sur ce principe et mettant en œuvre des mécanismes nouveaux et efficaces pour assurer le maintien en formation de la flotte de drones tout en garantissant à chaque instant la qualité de service requise pour remplir la mission. Ces solutions se baseront sur un réseau ad hoc multi-sauts assurant les communications entre les drones, leur permettant de se positionner automatiquement et dynamiquement en fonction de l?application. Les contributions devront être efficaces en termes de consommation énergétique [6], afin de maximiser la durée de vie de la flotte. Le remplacement à la volée d?un drone de la formation par un autre (par exemple si son niveau de batterie devient trop faible) et le repositionnement automatique des drones (par exemple si l?un d?entre eux venait à disparaître) seront également étudiés.
+
+La seconde partie de la thèse consistera à proposer des modèles performants de positionnement pour des formations plus complexes, en se basant sur des méthodes d?optimisation telles que par essaims particulaires (ou PSO, Particle Swarm Optimization) [7, 8], permettant d?aboutir à une organisation globale avec des collaborations et des règles de déplacement simples entre drones. L?étude devra mener à des résultats efficaces, montrer la convergence de la solution et permettre une réelle mise en œuvre.
+
+La troisième et dernière partie s?intéressera à l?intégration des solutions proposées dans un prototype déjà existant et constitué d?une dizaine de drones hétérogènes. Une phase de tests complétera ainsi les études théoriques et les expérimentations des précédents travaux.
+
+Remarques additionnelles
+
+Références :
+
+[1] http://tealgroup.com/index.php/about-teal-group-corporation/press-releases/129-teal-group-predicts-worldwide-civil-ua
+
+[2] Drones networks, ISTE Edition, Open Science, 2017.
+
+[3] S. Martin, G. Pujolle, K. Al Agha, O. Shrit. Drone networking: Point of view. Proceedings of the IEEE. To be published.
+
+[4] M. Asadpour, D.Giustiniano, K. Hummel. From ground to aerial communication: dissecting WLAN 802.11n for the drones. ACM WiNTECH, New York, NY, USA, 2013.
+
+[5] O. Shrit, S. Martin, K. Al Agha, Guy Pujolle. A New approach to realize drone swarm using ad-hoc network. Med-Hoc-Net 2017, Budva, Montenegro, June 2017.
+
+[6] A. Laubé, S. Martin, D. Quadri, K. Al Agha. Optimal flow aggregation for global energy savings in multi-hop wireless networks. Adhoc-Now 2017, Lille, France, July 2016.
+
+[7] J. Kennedy, R. Eberhart. Particle Swarm Optimization. IEEE ICNN, volume 4, pp. 1942?1948, 1995.
+
+[8] T. Mac, Cosmin Copot, T. Duc, R. De Keyser. AR.Drone UAV control parameters tuning based on particle swarm optimization algorithm. IEEE AQTR, Cluj -Napoca, Romania, May 2016.
+
+Pour plus de détails sur l'EDITE, consultez le site http://edite-de-paris.fr/. D'autres propositions de thèse sont aussi présentes sur ce site.
+
+$LOGOIMAGE
+
+2/2
+

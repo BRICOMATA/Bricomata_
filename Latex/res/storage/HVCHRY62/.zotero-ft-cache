@@ -1,0 +1,274 @@
+PV-Alert: A Fog-based Architecture for Safeguarding Velnureable Road Users
+Abstract
+Over the past few decades traffic accidents and fatalities have decreased greatly. However, various statistics depict that the problem is still observable especially on vulnerable road users (VRUs). Both 2015 and 2016 European Commission’s road safety statistics show that pedestrian fatality is the highest among VRUs and it decreased slower than other casualties [1], [2]. In order to alleviate the problem we can use sensing capabilities of mobile smartphones to detect, warn and safeguard VRUs. Fog computing on the other hand is an emerging computing paradigm which has paramount of advantages for low-latency applications which demand mobility support, geo-distribution and location awareness. In this research we have proposed an infrastructureless fog-based architecture where fog nodes processes delay sensitive data obtained from smartphones for alerting pedestrians and drivers before sending the data to the cloud for further processing. The comparison of the architecture with existing smartphone based pedestrian safety architectures using evaluation criteria designated as well as empirical results obtained from different researches depicts that the new architecture outperforms other architectures in terms of reliability, scalability and latency. We have also defined an algorithm for accident prediction and alerting. Moreover, we have conducted a set of evaluations of the architecture in simulated environments using wireless fidelity (Wi-Fi) and long term evaluation (LTE) communication standards and traffic simulation suite SUMO. The simulation result of the architecture shows that the proposed architecture is able to render alerts in real time.
+Keywords—Vulnurable Road Users; Fog Computing; Pedestrian Safety; Low Latency; Crowd sensing
+I. INTRODUCTION
+Road traffic injuries are one of the leading causes of death globally. According to Global status report on road safety 2015 by World Health Organization [3] road traffic injuries claim more than 1.2 million lives each year posing huge impact on health and development. More than half of those deaths are attributed to vulnerable road users (VRUs) which could be pedestrians, cyclists and motorcyclists. Because of lack of protective “shells” or safety features pedestrians are more vulnerable to traffic accidents than other groups of road users. The accident often results in severe injuries if not deaths. For instance, it has been estimated that pedestrians are 284 times more likely to be killed or injured in a collision than motorists [4]. Pedestrian accidents occur in roads where lines of vision are affected, road intersections, straight roads, and even in pedestrian crossings in both urban and rural areas. Even though most of pedestrian accidents are due to drivers, in recent days, distracted walking like talking and walking, listening to music or texting and inattention has become an emerging problem due to an exponential growth of use of mobile phones and
+
+other smartphones worldwide [10]. This research aims to take advantage of pervasive existence of smartphones to protect pedestrians instead of becoming reasons for deaths.
+To assuage road traffic accidents many passive and active pedestrian protection mechanisms have been proposed. Passive pedestrian protections include measures that could be categorized into 'three Es': engineering, education, and enforcement [5]. Providing a wide flat area for slower moving traffic, designing bumpers, increasing visibility of roads, educating traffic safety, setting strict law enforcements are some of the examples of passive pedestrian protections. Active pedestrian protection measure on the other hand involves pedestrian detection, collision prediction, warning, automatic breaking and collision avoidance [6]. There are situations where pedestrian accidents cannot be avoided. However, application of both passive and active pedestrian protections is crucial to minimize the number of traffic accidents. Many researches on active pedestrian protection mechanisms are conducted to precaution VRUs. Most of these works are infrastructure based which depends on sensors, cameras, radio tags, road side units, and the likes. Contemporary researches on pedestrian safety rely on smartphones of road users’ together with state-of-theart technologies to warn them of traffic accidents. In this research we purport fog computing based architecture for VRUs specifically for pedestrians.
+Fog computing refers extending cloud computing down to users arena to proximate computing, storage and network services for fast access. It is a decentralized computing infrastructure with the following defining characteristics; low latency, location awareness, wide-spread geographical distribution, mobility support, position of very large number of nodes and predominant role of wireless access [7]. Since its introduction by CISCO in 2014, it has got a lot of attention in both academia and industries. Majority of researches in fog computing involves defining the computing paradigm, lucubrating its characteristics and its relation with other related technologies, proposing networking and reference architectures, and suggesting application scenarios where it best fits. The potential of fog computing for intelligent transportation is stated in many literatures including [7], [8], and [11].
+The proposed architecture is an infrastructureless solution which uses pedestrians’ and drivers’ smartphones crowd sensed Floating Car Data (FCD) to detect their geographical positions and fog nodes to predict a collision risk and send warning to both pedestrians and vehicles. GPS reading together with speed and direction of pedestrians and vehicles is periodically sent to fog node through wireless connections. Fog node/server intakes the readings and executes pedestrian collision prediction algorithm. If there is any imminent collision it sends warning messages to both pedestrians and drivers. Summary of our contributions in this research are;
+ A three-tier fog-node based architecture that depends on existing infrastructures and that exploits enabling characteristics of fog computing has been proposed. Low latency, location awareness, wide-spread geographical distribution, and mobility support makes fog computing ideal for intelligent transportation system (ITS).
+
+ By defining our own evaluation criteria and using empirical results obtained from different researches, we have compared our architecture with existing works and found that the new architecture has better scalability, reliability, and performance,
+ We have defined collision detection and warning algorithm that has the capability to detect traffic accidents accurately and send warnings in real time.
+ We have conducted various evaluations on the architecture on simulated environment as proof of concept of the architecture. Wireless network technologies considered are Wi-Fi and LTE. The evaluation reveals that the system is able to give accident notification in less than 100ms.
+The remainder of this article is organized as follows. Section 2 elucidates summary of related works to our research. In section 3, we have explained the proposed architecture and compared it with other related architectures. Section 4, presents the evaluations made on the architecture and empirical comparison of smartphone based pedestrian safety architectures. Conclusions are drawn and future works are stated in section 5.
+II. RELATED WORKS
+Though traffic accident is the worest in developing countries it is still a global issue. To reduce traffic fatalities and accidents various researches are conducted ranging from design enhancements in infrastructure and vehicles to application of cutting edge technologies for VRUs collision prevention and mitagation. Literatures on passive pedestrian protection systems and the earlier works on active pedestrian protections systems that involves cameras, infrared, rader, tages and image processing are discussed in detail in [6]. These pedestrian detection mechanism requires infrastructures and are highly affected by weather and do not work if the pedestrian is not in line of sight or at night. To protect distracted users many solutions have been proposed including designing special traffic lightes [9].
+In recent pedestrian safety researches smartphones which are becoming causes of many traffic accidents are being used for safeguarding pedestrians. Smartphone based systems are important to protect pedestrians whose line of vision is affected by buildings, trees, parked cars and other hindrances. Pedestrian-to-vehicle communication prototype has been developed using 3G wireless network and WLAN to deter possible collisions by giving alarm to both of them [22]. The authors have developed an algorithm that estimates the collision risk between pedestrians and vehicles and tested the prototype at T intersection. However, the system is not scalable to apply in different road scenarios and to accommodate more road users. In another similar work [19] vehicles directly aware pedestrians their existence in close distance using Wi-Fi technology. This work has revealed minimum information exchange distance based on the technologies used and claimed that Wi-Fi can satisfy the application requirement. However, as there is no central server that manages messages sent to pedestrians there is possibility of message overloading. A pedestrian safety concept based on pedestrian detection, filtering supported by personal profiles and context awareness, prediction calculation, communication, and warning has been presented by [21] though keeping person
+
+profiles of all pedestrians especially strangers looks impractical. Moreover, in this work an assessment has been made on different architectures comprising of different combinations of cellular and ad hoc networks.
+Albeit the main focus of [20] is on energy management of smartphones while using them for pedestrian road safety, the authors have proposed a method which assists development of Vehicle to Pedestrian (V2P) road safety applications without requiring any infrastructure unless existing central cloud, mobile devices and/or cellular connectivity of vehicles. They also argued that cellular networks are best fits for pedestrian safety applications due to high mobility support, bit-rate, communication range and capacity as well as reduced user adoption costs and market penetration time. However, cloud computing based applications are not suitable for low latency applications. In an architecture proposed by [18], information generated by vehicles’ and cyclist’s mobile devices is sent over heterogeneous communication architecture and processed in a central server i.e. cloud server which generates messages that are shown on the drivers’ and cyclists’ human-machine interface (HMI). The cooperative intelligent transportation system named V-Alert allows the use of vehicles as mobile sensors that share their positions, speed, and direction in form of FCD with the VRUs warning each other about their locations so that they can take appropriate maneuver to avoid collisions. V-Alert is primarily designed for cyclists and it relays on infrastructures like RSUs and HMI.
+Our work differs from aforementioned related works in that it is fog computing based architecture that exploits geographically distributed fog servers in order to collect crowd sensed FCD from pedestrians and vehicles, predict collision risk and dispatch warning messages to road users and vehicles. As mobiles have limited capacity a scalable architecture with low latency is mandatory. PV-Alert meets these characteristics and doesn’t require special infrastructures except existing ones like users’ mobiles, wireless connection and fog server.
+III. ARCHITECTURE
+A. Proposed Architecture The proposed architecture is shown in Fig.1. The architecture has three layers with three corrospeonding components; crowd, fog node and cloud server. Crowds which referes to pedestrians and drivers performs the opportunistic type of crowd sensing of FCD (that is longitude, latitude, speed, and direction) using their smartphones. An algorithm for increasing accuracy of GPS runs on the mobile devices. After appending time stamp the data is sent to fog node every second. Note that the minimum cooperative awareness message (CAM) frequency for VRU applications is set to be one second by European Telecommunication Standards Institute (ETSI). Though the architecture can work with lower frequencies, we have taken this threshold value in order to save energy of smartphones of pedestrians. Moreover pedestrians who are moving away from vehicle roads and which are not in the proximity of roads are excluded from sending the CAM message every second.
+
+Fig.1. Architecture of PV-Alert
+Fog node is another important component of PV-Alert. It has a responsibility of receiving CAM messages sent from mobile devices and executing the algorithm. If any risk of collision is anticipated, the node sends alert message in real time to both pedestrian and vehicle as accidents are usually due to drivers error and/or pedestrians carelessness. Moreover, fog node performs perturbation and aggregation of the collected FCD before sending it to cloud. The third layer comprises of cloud server. Its responsibility in this architecture is performing aggregated analysis on data received from fog nodes for further use in traffic analysis and decision making.
+Edge location of fog nodes in bus stations, supermarkets etc make fog computing an ideal solution for latency sensitive applications like traffic safety [7]. Fog nodes are connected to smartphones using Radio Access Networks (RAN) which could be WLAN, WiMax or cellular networks such as LTE. The nodes are extended to cloud server using core networks. Length of road segment covered by a single node is dependent on communication technology used from hundreds of meters to tens of kilometers. Thanks to the inter-communication capability of fog nodes, when a vehicle moves out of particular fog node coverage, the node offloads all information related to the vehicle to the new fog node that entertains the newly joining vehicle. This makes the new architecture highly scalable and reliable.
+B. Other Architectures
+Various smartphone based architectures have been proposed. Compression of different architectural approaches utilizing ad hoc and/or cellular technologies and different processing setups (location of filtering process) has been made in [21] using criteria like energy consumption, time agility / latency, reliability, cost and ease of management. In this sub-section we have conducted theoretical comparison of our architecture with other traffic safety architectures by introducing new comparison criteria and classifying the architectures into four as shown beneath.
+
+Generally, smartphone based traffic safety architecture can be categorized into two; smartphones only architecture and an architecture that contains smartphones and some kind of central server. In the former case for example [19] vehicles and pedestrians directly communicate each other. This implies that collision prediction algorithm runs on the mobile devices. In the latter case the duty of mobile devices is primarily sending CAM to central server and receiving warning message dispatched from the server - prediction algorithm runs on the central server. Further classification can be made based on whether central server is cloud server [18], [20] or ordinary server [21], [22], [23]. The solution we have proposed has a central server (Fog node) which is geographically distributed and located at the edge of networks. Mobile-to-mobile (M2M), mobile-to-cloud (M2C), mobile-to-ordinary server (M2OS), and mobile-to-fog node (M2FN) are the architectures we have considered.
+
+TABLE I. COMPARISON OF DIFFERENT TRAFFIC SAFETY ARCHITECTURES
+
+Architecture Energy Saving Latency Reliability Scalability Computational Capability Message Management
+
+M2M + + -
+
+M2C + + + +
+
+M2OS + + + +
+
+M2FN + + + + + +
+
+The comparison criteria are energy saving, latency, reliability, scalability, computational capability and message management. For definitions of the first three look [21] and the rest are defined as follows. Scalability of architecture is its ability to cope and perform as application of the system expends to city wide scale beyond road segments. Computational capability refers the capability to run collision prediction algorithm efficiently. Message management is about handling multiple warning messages for a pedestrian or a driver. That is if a pedestrian is in collision risk area of multiple vehicles, he may receive multiple warning messages causing message overloading. But for optimum safety of pedestrian and proper use of resources it is better if she/he receives one message indicating multiple collision risks.
+The result of the comparison is displayed in TABLE I. Architectures are ranked exclusively as + (high) or – (low) for each criteria. Architectures involving only mobiles devices have the shortest latency and the failure of one or more mobile devices will not affect the entire system. However, it has high energy consumption, low computational capability, limited scalability and is subject to message overloading. Architectures with central server enable mobile devices save their energy (since collision detection algorithm runs on the servers with continuous power supply), have high computational capacity and can centrally manage warning messages. Reliability of architectures with ordinary and cloud servers is low since the failure of centralized server entails total cessation of the system. Fog node and cloud based systems have high scalability due to distribution and high computational capacity respectively. Therefore, from the
+
+comparison and experimental evaluation displayed in subsequent sections we can conclude that our architecture is the best fit for pedestrian safety applications. This is further proved by empirical comparison made at the end of section 4. In addendum we can infer that fog computing is a promising paradigm for ITS.
+IV. EVALUATION AND DISCUSSION
+A. Simulation setup and parameters
+The purpose of simulation is to check if the new architecture is feasible and fullfils constraints enacted by ETSI for VRU applications. The main objective of our research is to enable drivers & vehicles avoid collision by notifying each of them. Mobile smartphones could be linked with the fog node using Wi-Fi, WiMAX or cellular networks ( e.g. LTE). Many litretures show that Wi-Fi[19] and cellular [20], [27] can be used for traffic safety applications, hence the simulation is done for Wi-Fi and LTE. The fog node is placed in proximity of access point and eNodeB for Wi-Fi and LTE respectively.
+
+TABLE II. SIMULATION PARAMETERS AND VALUES
+
+Paremeter
+Packet Size Simulation Time CAM Frequency
+Vehicle Speed Pedestrian Speed Simulation Area Scenario
+
+Value General Paremeters
+1KB 120s 1H SUMO Parametrs 10-80kmph 5kmph 120mx60m for WiFi and 3000mx60m for LTE Refer Fig. 2
+
+LTE
+
+Propagation Loss model
+
+Nakagami chained with Friis Free Space
+
+Fading Model
+
+Trace Fading Loss Model
+
+Scheduler
+
+Proportional Fair MAC Scheduler
+
+TxPower(eNB)
+
+25dB
+
+TxPower (UE)
+
+15dB
+
+Downlink bandwidths
+
+30MB
+
+Uplink bandwidths
+
+25MB
+
+Wi-Fi
+
+Bandwidth
+
+20MHZ
+
+Frequency Band
+
+5GHZ
+
+Client TxPower
+
+16dB
+
+Server TxPower
+
+25dB
+
+Propagation Loss model
+
+Nakagami chained with Log Distance
+
+Propagation delay model
+
+ConstantSpeedPropagationDelayModel
+
+The architecture is evaluated using discrete-event open network simulation environment ns-3 [24] and
+
+microscopic, multi-modal traffic simulation tool SUMO [25]. Both tools are most widely used by many
+
+researchers since they are open source and are being actively supported. Most important simulation
+
+parameters applied are outlined in TABLE II. The first step in conducting our simulation is to get mobility
+
+trace file from SUMO. We obtain the file after setting all required SUMO parametrs for a specific
+
+simulation scenario and running the simulation. Default arrival rate of SUMO is used for the traffic. The mobility trace file is then called from ns-3 to create node mobility.
+B. Simulated Scenarios Considered
+The road scenario considered is a two lane straight road with many pedestrian roads crossing it and pedestrians line of vision is affected by buildings, trees, parked cars and other hindrances, see Fig. 2. The reason for why we have chosen this scenario is vehicles speed is high in straight road and pedestrians coming out of smaller intersecting roads are highly susceptible to traffic accidents due to affected line of vision, distraction and inattention. Moreover, severity of a straight road crash is 1.7 (0.9 - 3.2) times more serious or fatal outcome than on non-straight roads [13]. Even though many researches focus on crossing roads [19] and T roads [22], literatures reveal high percentage of road accidents in straight roads; 80% [12], 89.8% [14], and 93% [15]. Pedestrian accidents are even common in pedestrian crossings [16], [17].
+
+Fig.2. Road Scenario1
+
+C. Proposed Algorithm
+
+We have proposed pedestrian collision prediction algorithm that runs on fog node in order to anticipate collisions and send alerts to pedestrians and drivers. The algorithm can be applied to any road scenarios. Its flowchart is shown on Fig. 3. In intialization step pedestrians and drivers mobiles are subscribed to the server. The smartphones send their FCD to the server every second (maximum CAM beacon frequency set by ETSI.). For optimization purpose pedestrians and drivers moving away from the road segment are inactivated. The next step is identifying intersecting pedestrian and vehicles using the sensed data, road information and the source, destination as well as path of each vehicle. The most crucial step is collision risk prediction module. For that, minimum information exchange distance (Dmin) is computed using the formula obtained from [19].
+
+Dmin = Vveh*(tp+tr+ttx+tc) + GPSerr-veh+GPSerr-ped
+
+(1)
+
+Where,  Vveh = is velocity of the vehicle,  tp = is time for perception and it is 0.83s as [19]  tr = is time for reaction and it is 0.15s for touch[26]  ttx = is transmission delay  tc = is time for computation of algorithm
+
+1 Smaller dots in the figure represents pedestrians
+
+ GPSerr-veh and GPSerr-ped are GPS errors Next, actual distance from vehicle to pedestrian crossing is calculated. Based on Dmin and actual distance it can be determined whether there is an imminent collision or not. That is, if actual distance is less than Dmin then the pedestrian is in a collision risk region and warning message is sent to both driver and driver. If a pedestrian is in more than one vehicles’ collision risk region then warning message module will take care of management of multiple messages. For simulation purpose the algorithm is implemented and installed in fog node. Detail analysis and implementation of the algorithm is left as future work.
+
+Fig.3. Flowchart of Pedestrian Collision Prediction Algorithm
+
+D. Simulation Metrics, Results and Discussions
+
+In this study, we have considered two performance metrics measurements:
+
+ Round Trip Delay time (RTD) – the time period from sending CAM beacon to the server to receiving a warning message in case of anticipated acciedent.
+ Packet Delivery Ratio (PDR) – the average ratio of packets received by fog node and smartphones to the total packets sent to fog node (from smartphones) and to smartphones (from the fog node).
+
+RTD is computed using the following formula:
+
+RTD = Tsp-fn + Tc + Tfn-sp
+
+(2)
+
+Where ,  Tsp-fn an end-to-end delay from smartphones to fog node  Tfn-sp is end-to-end delay from fog node to smartphones
+
+ Tc is computation time of the algorithm
+
+We used the following equation to calculate PDR:
+
+PDR = 100*((1/2)*(PRec_sp / PGec_FN + PRec_fn / PGen_sm))
+
+(3)
+
+Where,  PRec_fn is total number of packets received by fog node  PGen_sp is total number of packets generated by smartphones  PRec_sp is total number of packets received by smartphones  PGen_fn is total number of packets generated by fog node
+Before, evaluating the proposed architecture in real environment and deploying it, testing the system in simulated environment is vital. As we have already mentioned the system is evaluated for both Wi-Fi and LTE using the metrics defined. Evaluation result considering Wi-Fi (figures 4 & 5) is first presented and then that of LTE in figures 6 & 7.
+Fig. 4 (a) shows result of experiments done to evaluate how delay is affected by distance between fog node and pedestrians/vehicles. The experiment is conducted over outdoor coverage of Wi-Fi. As the figure depicts RTD of both pedestrians and vehicles is under the maximum latency time (100ms) set by ETSI [12]. The difference between the two is due to difference of movement speed as slow moving objects will have more access to the channel. Packet delivery ratio is affected by distance between fog node and road users as well as speed of node as shown in Fig.4. b). More than 80% of packets sent are received at their destination as long as distance of mobile devices are below 100 meters. Signal attunation is the reason for drop in PDR after 100 meters.
+
+Fig. 4. RTD and PDR vs Distance, for WiFi
+
+The next two experiments involves evaluation of delay and PDR by increasing number of nodes (of
+
+which approaximatly 50% pedestrains and 50% vehicles) and by varying speed of vehicles. Fig. 5. a) shows
+
+round trip time with respect to number of pedestrians and vehicles moving at different speeds (5kmph is for
+
+pedestrian). RTD increases as number of nodes and their speed increases but still the delay is below the
+
+maximimum latency time expected. The increase is due to interfrance and congestion as multiple nodes
+
+contend to access the same channel and due to mobility because of the fact that channels tend to favour
+
+slower vehicles. At Fig. 5. b) we varied spead of vehicles and raised number of pedestrians and vehicles
+
+steep by step. For slow moving vehicles (30kmph) and pedestrians more than 80% PDR is well achieved till
+
+number of nodes reach 70. However, PDR for fast moving vehicles is low if the number of nodes exceeds
+
+25. This is due to the fact that fast-moving vehicles have less access to the channel and due to packet losses
+
+owing to interfrance. The experimental result in Fig.5. proves that WiFi has better performance at sparce
+
+network and it
+
+has limited mobility support[28].
+
+Fig. 5. RTD and PDR vs. number of vehicles and pedestrians, for WiFi Round trip time and packet delivery ratio over an LTE microcell coverage distance is given in Fig. 6. RTD delay increases from 20ms to 60ms as nodes move away from fog node, Fig. 6. a). The delay fullfils application requirement and difference between fast-moving vehicels and slow-moving vehicles is not significant due to high mobility support of LTE[28], [29]. The same is true for Fig. 6. b); more than 80% packets are received at their address though there is a tendency of decrease as speed and distance increases.
+
+Fig. 6. RTD and PDR vs Distance, for LTE
+Fig. 7. demonstrates the effect of increase of number of vehicles and pedestrians on delay and packet delivery ratio at different average distances. Due to high mobility support of LTE we couldn’t see significant difference in delay and PDR at different speed (30kmph, 50kmph and 80kmph). We assumed that velocity of vehicles in crowded traffic is not more than 80kmph. Therefore, this experiment is done at different average distances. At average distance of 1KM all nodes’ delay is below the threshold value; however, as vehicels and pedestrians average distance increases to 2KM and then 3KM delay increases due to signal attunation combined with network congestion. As Fig. 7. a) shows, if the number of vehicles is 55 or below the system satifies the systems delay requirement at any distance. PDR is more affected by number of nodes than distance as depicted in Fig. 7. b). The average PDR of uplink and downlink is above 80% for all distance though it gradually decreases as number of nodes increase. Moreover, we have noticed that downlink PDR is higher than uplink due to it higher bandwidth.
+
+Fig. 7. RTD and PDR vs. number of vehicles and pedestrians, for LTE In this section we have documented the evaluation of architecture based on the metrics defined. The result of the evaluation of the architecture in simulated environment employing WiFi and cellular (LTE) netework demonstrates that the architecture meets constraints fixed by ETSI for safety applications. Before concluding this section lets make a naive emperical comparison of our simulation results with other smartphone based architectures. The comparison is naive because technology used, parameter setup and type of evaluation conducted are largely different However, it will help us to reinforce our analytical comparison results in section III, B. Mobil to Mobile architecture proposed by [22] has delay of 20ms for V2P communication when WLAN is used. Average round trip time of bike and vehicle reception delays of a Mobile to cloudarchitecture [18] is 281ms. In Mobile to ordinary Server architecture proposed by [21] the least latency, 100ms, is achieved when by then latest cellular network HSPA used. Our architecture, Mobile to Fog Node has maximum round trip delay of 60ms making it the second best time of our considerations. The graph below displays the comparison graphically.
+Fig. 8.Latency of Different Smartphone based VRU Architectures
+
+V. CONCLUSION AND FUTURE WORKS
+This research has proposed an architecture that helps vehicles avoid collision with pedestrians by sending notifications about imminent collisions to both drivers and footers. The architecture is based on an emerging computing paradigm named fog computing which is a promising solution for problems that require low latency, high geographical distribution, high mobility support, location awareness etc. This makes fog computing an ideal remedy for cooperative collision avoidance or mitigation application. PV-Alert is compared analytically with other smartphone based pedestrian safety architectures and found to be more scalable, reliable and fast. Moreover, simulation based evaluation of the architecture shows that it has good PDR and sends alert messages in time less than maximum latency time suggested by ETSI for VRU applications. Empirical comparison of this latency with latencies of other architectures shows that the new architecture has better response time. We have also defined a pedestrian collision prediction algorithm for the architecture.
+Currently we are working towards testing the architecture in real environment. For this purpose we are developing client and server applications to implement the proposed algorithm. GPS data sensed by smartphones have less accuracy for safety critical system. For our algorithm to work accurately GPS reading has to be as correct as possible. Therefore, we are also working on improving accuracy of GPS read by smartphones. Finally, we will perform more simulation by adding other performance metrics like throughput and other wireless network technologies like WiMAX.
+
+VI. REFERENCES
+
+1. Europa.eu, “2015 road safety statistics: What is behind the figures”, 2016. [Online]. Available:
+
+http://europa.eu/rapid/press-release_MEMO-16-864_en.htm. [Accessed: 15 – Jan- 2017]
+
+2. Europa.eu, “2016 road safety statistics: What is behind the figures”, 2017. [Online]. Available:
+
+http://europa.eu/rapid/press-release_MEMO-17-675_en.htm. [Accessed: 20 – Apr- 2017]
+
+3. Who.int, “Global status report on road safety 2015”,
+
+2016. [Online].
+
+Available:http://www.who.int/violence_injury_prevention/road_safety_status/2015/en/. [Accessed: 15-
+
+Jan- 2017]
+
+4. Robyn D. Robertson, “Pedestrians: What We Know?”, TI RF, Ottawa, Ontario Canada, 10 novembre,
+
+2015
+
+5. World Health Organization, “Pedestrian Safety”, WHO, Geneva, Swizerland, 2013.
+
+6. T. Gandhi and M. Trivedi, “Pedestrian Protection Systems: Issues,Survey, and Challenges,” IEEE Trans.
+
+Intelligent Transportation Systems, vol. 8, no. 3, pp. 413-430, Sept. 2007.
+
+7. F. Bonomi, R. Milito, J. Zhu, and S. Addepalli, “Fog computing and its role in the internet of things,” in
+
+Proceedings of the First Edition of the MCC Workshop on Mobile Cloud Computing , ser. MCC’12.
+
+ACM, 2012, pp. 13–16.
+
+8. A. Munir, K. Prasanna, and SU. Khan, "IFCIoT: Integrated Fog Cloud IoT Architectural Paradigm for Future Internet of Things." arXiv preprint arXiv:1701.08474 (2017).
+9. techworm.net, “Dutch authorities testing out traffic lights for smartphone addicts”,2017.[Online].Available:https://www.techworm.net/2017/02/dutch-authorities-testing-trafficlights-smartphone-addicts.html. [Accessed: 20 – Feb- 2017]
+10. dailymail.uk, “Latest menace on our roads? It's the smartphone zombies”,2016.[Online].Available:http://www.dailymail.co.uk/news/article-3522026/Latest-menaceroads-s-smartphone-zombies-Three-quarters-drivers-say-seen-pedestrian-veer-pavement-staringdevice.html. [Accessed: 09 – Jan- 2017]
+11. X. Hou, Y. Li, M. Chen, D. Wu, D. Jin and S. Chen, VehicularFog Computing: A Viewpoint of Vehicles as the Infrastructures ,IEEE Transactions on Vehicular Technology, Vol.65, No.6, 2016.
+12. European Telecommunications Standards Institute, “Intelligent Transport Systems (ITS); Vehicular Communications; Basic Set of Applications; Definitions”, ETSI, Sophia Antipolis, FRANCE, 2009
+13. Keum, Clara Binnara. "Analysis of road trafc crashes and injury severity of pedestrian victims in the Gambia." MS (Master of Science) thesis, University of Iowa, 2016. http://ir.uiowa.edu/etd/2097
+14. J Knowles, L Smith, R Cuerden and E Delmonte, “Analysis of police collision files for pedestrian fatalities in London”, TRL, London, England, 2006.
+15. D.R. Kouabenan, and J.M. Guyot, “Study of the causes of pedestrian accidents by severity” . Journal of Psychology in Africa, 14(2), pp.119-126, 2004.
+16. J. Rokytova, and M. Sklenar, . Analysis of road accidents on pedestrian crossings caused by speeding. In speed management strategies and implementation-planning, evaluation, behavioural, legal and institutional issues-proceedings and abstracts of 15th ictct workshop held brno, czech republic, october 2002.
+17. timesofindia.indiatimes.com, “City recorded 82 accidents at pedestrian crossings last year”, 2015. [Online].Available: http://timesofindia.indiatimes.com/city/coimbatore/City-recorded-82-accidents-atpedestrian-crossings-last-year/articleshow/48229641.cms. [Accessed: 12 – Jan- 2017]
+18. U. Hernandez-Jayo, I. De-la-Iglesia, J. Perez, “V-Alert: Description and Validation of a Vulnerable Road User Alert System in the Framework of a Smart City”, . Sensors 15, Vol. 8, pp. 18480–18505, 2015.
+19. J.J. Anaya, P. Merdrignac, O. Shagdar , F. Nashashibi, and J.E. Naranjo, “Vehicle to pedestrian communications for protection of vulnerable road users”, In Intelligent Vehicles Symposium Proceedings, 2014 IEEE (pp. 1037-1042), June, 2014.
+20. M. Bagheri, M. Siekkinen, and J. K. Nurminen, “Cellular-based vehicle to pedestrian (V2P) adaptive communication for collision avoidance,” 2014 International Conference on Connected Vehicles and Expo (ICCVE), 2014.
+
+21. K. David and A. Flach, “CAR-2-X and Pedestrian Safety,” IEEE Vehicular Technology Magazine, vol. 5, no. 1, pp. 70–76, 2010.
+22. C. Sugimoto, Y. Nakamura, and T. Hashimoto, “Prototype of pedestrian-to-vehicle communication system for the prevention of pedestrian accidents using both 3G wireless and WLAN communication,” 2008 3rd International Symposium on Wireless Pervasive Computing, 2008.
+23. C. Sugimoto, Y. Nakamura, and T. Hashimoto, “Development of Pedestrian-to-Vehicle Communication System Prototype for Pedestrian Safety Using both Wide-Area and Direct Communication,” 22nd International Conference on Advanced Information Networking and Applications (aina 2008), 2008.
+24. “ns-3,” ns3 RSS. [Online]. Available: https://www.nsnam.org/. [Accessed: 28-Feb-2017]. 25. “Professionelle Suchmaschinenoptimierung,” UDG SUMO. [Online]. Available: http://www.sumo.de/.
+[Accessed: 28-Apr-2017]. 26. backyardbrains.com, “Experiment: How Fast Your Brain Reacts to
+Stimuli”.[Online].Available:https://backyardbrains.com/experiments/reactiontime. [Accessed: 30 – Feb2017] . 27. S. Kato, M. Hiltunen, K. Joshi, and R. Schlichting, “Enabling vehicular safety applications over LTE networks,” 2013 International Conference on Connected Vehicles and Expo (ICCVE), 2013. 28. Z. H. Mir and F. Filali, “LTE and IEEE 802.11p for vehicular networking: a performance evaluation,” EURASIP Journal on Wireless Communications and Networking, vol. 2014, no. 1, p. 89, 2014. 29. G. Araniti, C. Campolo, M. Condoluci, A. Iera, and A. Molinaro, “LTE for vehicular networking: a survey,” IEEE Communications Magazine, vol. 51, no. 5, pp. 148–157, 2013.
+
