@@ -6,19 +6,19 @@
 	"target": "json",
 	"minVersion": "4.0.27",
 	"maxVersion": "",
-	"priority": 100,
+	"priority": 99,
 	"inRepository": false,
 	"configOptions": {
 		"async": true,
 		"getCollections": true,
-		"hash": "a4d3f77707fb00d704b28d942d56d13a-3fab35c20b0ea8a2f2124ac80852b7ff"
+		"hash": "f6483d79987db8f54cd3dddee8eeaf5d-d9525b9cd18b860be2ce0b44821c1c5a"
 	},
 	"displayOptions": {
 		"exportNotes": true,
 		"exportFileData": false
 	},
 	"browserSupport": "gcsv",
-	"lastUpdated": "2018-12-13 16:07:40"
+	"lastUpdated": "2019-02-03 15:10:50"
 }
 
 var Translator = {
@@ -28,7 +28,7 @@ var Translator = {
   BetterCSL: false,
   header: ZOTERO_TRANSLATOR_INFO,
   // header: < %- JSON.stringify(header) % >,
-  override: {"DOIandURL":true,"asciiBibLaTeX":true,"asciiBibTeX":true,"autoAbbrev":false,"autoAbbrevStyle":false,"autoExport":false,"autoExportIdleWait":false,"autoExportPrimeExportCacheBatch":false,"autoExportPrimeExportCacheThreshold":false,"autoPin":false,"biblatexExtendedDateFormat":false,"biblatexExtendedNameFormat":true,"bibtexParticleNoOp":true,"bibtexURL":true,"cacheFlushInterval":false,"citeCommand":false,"citekeyFold":false,"citekeyFormat":false,"citeprocNoteCitekey":false,"csquotes":false,"debug":false,"debugLog":false,"git":false,"itemObserverDelay":false,"jabrefFormat":false,"keyConflictPolicy":false,"keyScope":false,"kuroshiro":false,"lockedInit":false,"parseParticles":false,"postscript":false,"preserveBibTeXVariables":false,"qualityReport":false,"quickCopyMode":false,"quickCopyPandocBrackets":false,"rawLaTag":false,"relativeFilePaths":false,"scrubDatabase":false,"skipFields":false,"skipWords":false,"sorted":false,"strings":false,"suppressTitleCase":false,"testing":false,"warnBulkModify":false},
+  preferences: {"DOIandURL":"both","asciiBibLaTeX":false,"asciiBibTeX":true,"autoAbbrev":false,"autoAbbrevStyle":"","autoExport":"immediate","autoExportDelay":1,"autoExportIdleWait":10,"autoExportPrimeExportCacheBatch":10,"autoExportPrimeExportCacheThreshold":0,"autoPin":false,"biblatexExtendedDateFormat":true,"biblatexExtendedNameFormat":false,"bibtexParticleNoOp":false,"bibtexURL":"off","cacheFlushInterval":5,"citeCommand":"cite","citekeyFold":true,"citekeyFormat":"​[auth:lower][shorttitle3_3][year]","citeprocNoteCitekey":false,"csquotes":"","debug":false,"debugLog":"","git":"config","itemObserverDelay":100,"jabrefFormat":0,"keyConflictPolicy":"keep","keyScope":"library","kuroshiro":false,"lockedInit":false,"parseParticles":true,"postscript":"","preserveBibTeXVariables":false,"qualityReport":false,"quickCopyMode":"latex","quickCopyPandocBrackets":false,"rawLaTag":"#LaTeX","relativeFilePaths":false,"scrubDatabase":false,"skipFields":"","skipWords":"a,ab,aboard,about,above,across,after,against,al,along,amid,among,an,and,anti,around,as,at,before,behind,below,beneath,beside,besides,between,beyond,but,by,d,da,das,de,del,dell,dello,dei,degli,della,dell,delle,dem,den,der,des,despite,die,do,down,du,during,ein,eine,einem,einen,einer,eines,el,en,et,except,for,from,gli,i,il,in,inside,into,is,l,la,las,le,les,like,lo,los,near,nor,of,off,on,onto,or,over,past,per,plus,round,save,since,so,some,sur,than,the,through,to,toward,towards,un,una,unas,under,underneath,une,unlike,uno,unos,until,up,upon,versus,via,von,while,with,within,without,yet,zu,zum","sorted":false,"strings":"","suppressTitleCase":false,"testing":false,"warnBulkModify":10},
   options: {"exportFileData":false,"exportNotes":true},
 
   stringCompare: (new Intl.Collator('en')).compare,
@@ -65,19 +65,21 @@ var Translator = {
       }
     }
 
-    this.preferences = {}
-    for (const [pref, override] of Object.entries(this.override)) {
+    for (const pref of Object.keys(this.preferences)) {
       let value = undefined
 
-      if (override) {
-        try {
-          value = Zotero.getOption(`preference_${pref}`)
-        } catch (err) {
-          value = undefined
-        }
+      try {
+        value = Zotero.getOption(`preference_${pref}`)
+      } catch (err) {
+        value = undefined
       }
 
-      if (typeof value === 'undefined') value = Zotero.getHiddenPref('better-bibtex.' + pref)
+      if (typeof value === 'undefined') {
+        value = Zotero.getHiddenPref('better-bibtex.' + pref)
+        Zotero.debug(`preference load: ${pref} = ${value}`)
+      } else {
+        Zotero.debug(`preference override: ${pref} = ${value}`)
+      }
       this.preferences[pref] = value
     }
     // special handling
@@ -97,6 +99,7 @@ var Translator = {
         // if you're looking at this.options.exportPath in the postscript you're probably outputting something different based on it
         || ((this.preferences.postscript || '').indexOf('Translator.options.exportPath') >= 0)
       )
+      Zotero.debug('export caching:' + this.caching)
     }
 
     this.collections = {}
@@ -251,7 +254,7 @@ function doImport() {
 /***/ (function(module, exports) {
 
 
-    Zotero.debug('BBT: loading gen/itemfields.ts')
+    Zotero.debug('zotero-better-bibtex: loading gen/itemfields.ts')
   ; try { "use strict";
 // tslint:disable:one-line
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -1789,9 +1792,9 @@ function simplifyForImport(item) {
 }
 exports.simplifyForImport = simplifyForImport;
 ; 
-    Zotero.debug('BBT: loaded gen/itemfields.ts')
+    Zotero.debug('zotero-better-bibtex: loaded gen/itemfields.ts')
   ; } catch ($wrap_loader_catcher_gen_itemfields_ts) { 
-    var $wrap_loader_message_gen_itemfields_ts = 'Error: BBT: load of gen/itemfields.ts failed:' + $wrap_loader_catcher_gen_itemfields_ts + '::' + $wrap_loader_catcher_gen_itemfields_ts.stack;
+    var $wrap_loader_message_gen_itemfields_ts = 'Error: zotero-better-bibtex: load of gen/itemfields.ts failed:' + $wrap_loader_catcher_gen_itemfields_ts + '::' + $wrap_loader_catcher_gen_itemfields_ts.stack;
     if (typeof Zotero.logError === 'function') {
       Zotero.logError($wrap_loader_message_gen_itemfields_ts)
     } else {
@@ -1810,7 +1813,7 @@ exports.simplifyForImport = simplifyForImport;
 /***/ (function(module, exports, __webpack_require__) {
 
 
-    Zotero.debug('BBT: loading translators/BetterBibTeX JSON.ts')
+    Zotero.debug('zotero-better-bibtex: loading translators/BetterBibTeX JSON.ts')
   ; try { "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const debug_1 = __webpack_require__(/*! ./lib/debug */ "./lib/debug.ts");
@@ -1825,12 +1828,15 @@ Translator.detectImport = () => {
         if (json[0] !== '{')
             return false;
     }
-    // a failure to parse will throw an error which a) is actually logged, and b) will count as "false"
-    const data = JSON.parse(json);
+    let data;
+    try {
+        data = JSON.parse(json);
+    }
+    catch (err) {
+        return false;
+    }
     if (!data.config || (data.config.id !== Translator.header.translatorID))
-        throw new Error(`ID mismatch: got ${data.config && data.config.id}, expected ${Translator.header.translatorID}`);
-    if (!data.items || !data.items.length)
-        throw new Error('No items');
+        return false;
     return true;
 };
 Translator.doImport = async () => {
@@ -1840,6 +1846,8 @@ Translator.doImport = async () => {
         json += str;
     }
     const data = JSON.parse(json);
+    if (!data.items || !data.items.length)
+        return;
     const items = new Set;
     debug_1.debug('importing', data.items.length, 'items');
     for (const source of data.items) {
@@ -1956,9 +1964,9 @@ Translator.doExport = () => {
     debug_1.debug('export done');
 };
 ; 
-    Zotero.debug('BBT: loaded translators/BetterBibTeX JSON.ts')
+    Zotero.debug('zotero-better-bibtex: loaded translators/BetterBibTeX JSON.ts')
   ; } catch ($wrap_loader_catcher_translators_BetterBibTeX_JSON_ts) { 
-    var $wrap_loader_message_translators_BetterBibTeX_JSON_ts = 'Error: BBT: load of translators/BetterBibTeX JSON.ts failed:' + $wrap_loader_catcher_translators_BetterBibTeX_JSON_ts + '::' + $wrap_loader_catcher_translators_BetterBibTeX_JSON_ts.stack;
+    var $wrap_loader_message_translators_BetterBibTeX_JSON_ts = 'Error: zotero-better-bibtex: load of translators/BetterBibTeX JSON.ts failed:' + $wrap_loader_catcher_translators_BetterBibTeX_JSON_ts + '::' + $wrap_loader_catcher_translators_BetterBibTeX_JSON_ts.stack;
     if (typeof Zotero.logError === 'function') {
       Zotero.logError($wrap_loader_message_translators_BetterBibTeX_JSON_ts)
     } else {
@@ -1977,7 +1985,7 @@ Translator.doExport = () => {
 /***/ (function(module, exports) {
 
 
-    Zotero.debug('BBT: loading translators/lib/debug.ts')
+    Zotero.debug('zotero-better-bibtex: loading translators/lib/debug.ts')
   ; try { "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // import { format } from '../../content/debug-formatter'
@@ -1988,9 +1996,9 @@ function debug(...msg) {
 }
 exports.debug = debug;
 ; 
-    Zotero.debug('BBT: loaded translators/lib/debug.ts')
+    Zotero.debug('zotero-better-bibtex: loaded translators/lib/debug.ts')
   ; } catch ($wrap_loader_catcher_translators_lib_debug_ts) { 
-    var $wrap_loader_message_translators_lib_debug_ts = 'Error: BBT: load of translators/lib/debug.ts failed:' + $wrap_loader_catcher_translators_lib_debug_ts + '::' + $wrap_loader_catcher_translators_lib_debug_ts.stack;
+    var $wrap_loader_message_translators_lib_debug_ts = 'Error: zotero-better-bibtex: load of translators/lib/debug.ts failed:' + $wrap_loader_catcher_translators_lib_debug_ts + '::' + $wrap_loader_catcher_translators_lib_debug_ts.stack;
     if (typeof Zotero.logError === 'function') {
       Zotero.logError($wrap_loader_message_translators_lib_debug_ts)
     } else {

@@ -17,7 +17,7 @@
 		"exportFileData": false,
 		"useJournalAbbreviation": false
 	},
-	"lastUpdated": "2018-09-11 17:10:00"
+	"lastUpdated": "2019-01-31 16:20:00"
 }
 
 //%a = first listed creator surname
@@ -388,7 +388,14 @@ function creatorCheck(item, ctype) {
 	return false;
 }
 
-	function buildCiteKey(item, citekeys) {
+function buildCiteKey (item, extraFields, citekeys) {
+		if (extraFields) {
+			const citationKey = extraFields.findIndex(field => field.field && field.value && field.field.toLowerCase() === 'citation key')
+			if (citationKey >= 0) return extraFields.splice(citationKey, 1)[0].value;
+		}
+
+		if (item.citationKey) return item.citationKey
+
 		var basekey = "";
 		var counter = 0;
 		citeKeyFormatRemaining = citeKeyFormat;
@@ -480,11 +487,8 @@ function encodeFilePathComponent(value) {
 
 			if (!type) type = "misc";
 
-			var citekey = "";
-			if (!citekey) {
-				// create a unique citation key
-				citekey = buildCiteKey(item, citekeys);
-			}
+			var extraFields = item.extra ? parseExtraFields(item.extra) : null;
+			var citekey = buildCiteKey(item, extraFields, citekeys);
 
 			// write citation key (removed the comma)
 			Zotero.write((first ? "" : "\n\n") + "@" + type + "{" + citekey);
@@ -729,9 +733,8 @@ function encodeFilePathComponent(value) {
 				}
 			}
 
-			if (item.extra) {
+			if (extraFields) {
 				// Export identifiers
-				var extraFields = parseExtraFields(item.extra);
 				// Dedicated fields
 				for (var i=0; i<extraFields.length; i++) {
 					var rec = extraFields[i];

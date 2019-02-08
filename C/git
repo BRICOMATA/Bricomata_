@@ -1,0 +1,14 @@
+sudo apt-get install git
+
+git clone https://github.com/contiki-ng/contiki-ng.git
+cd contiki-ng
+git submodule update --init --recursive
+
+cd ..
+git clone https://github.com/contiki-os/contiki.git
+cd contiki
+git submodule update --init --recursive
+
+cd ..
+cp -rf res/vagrant contiki/tools/vagrant
+cp -rf res/vagrant-ng contiki-ng/tools/vagrant

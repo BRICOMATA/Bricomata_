@@ -1,0 +1,338 @@
+
+Stack Exchange Network
+
+Stack Exchange network consists of 174 Q&A communities including Stack Overflow , the largest, most trusted online community for developers to learn, share their knowledge, and build their careers.
+Visit Stack Exchange
+
+    Log In Sign Up
+    current community
+        Super User
+        help chat
+        Meta Super User
+    your communities
+    Sign up or log in to customize your list.
+    more stack exchange communities
+    company blog
+        Tour Start here for a quick overview of the site
+        Help Center Detailed answers to any questions you might have
+        Meta Discuss the workings and policies of this site
+        About Us Learn more about Stack Overflow the company
+        Business Learn more about hiring developers or posting ads with us
+
+By using our site, you acknowledge that you have read and understand our Cookie Policy , Privacy Policy , and our Terms of Service .
+Make your voice heard. Take the 2019 Developer Survey now
+Super User is a question and answer site for computer enthusiasts and power users. Join them; it only takes a minute:
+Sign up
+Here's how it works:
+Anybody can ask a question
+Anybody can answer
+The best answers are voted up and rise to the top
+Super User
+
+    Home
+        Questions
+        Tags
+        Users
+        Unanswered
+
+What is the difference between Ad-Hoc and Mesh Network? (also with p2p)
+Ask Question
+6
+2
+
+According to the Cisco support forums , Ad-Hoc means peer-to-peer while mesh means bridge-to-bridge or router-to-router, meaning in a mesh every node has the capability to route.
+
+So would mesh networks be subparts or subcases of ad-hoc networks?
+wireless-networking ad-hoc-network p2p
+share | improve this question
+edited Sep 29 '12 at 14:29
+m4573r
+4,678 1 15 36
+asked Sep 29 '12 at 13:35
+caub caub
+136 1 2 8
+
+    An Ad-Hoc-Network normally is when the Peers (minimum: 2) create a network with each other w/o some other routing infrastructure. E.g. a cross-cable. In a wireless one you can normally spare the cable (;)), however the network cards need to support such a connection. –  hakre Sep 29 '12 at 13:38
+    2
+    They are different, orthogonal attributes. An "ad-hoc" network is one that self-organizes, vs being planned. A "mesh" network is one where there is essentially many-to-many connectivity with no central hub. A network can be one without the other, or it can be both. –  Daniel R Hicks Sep 29 '12 at 13:45
+    @'hakre so you mean ad-hoc would be in a lower layer than mesh that have all the network layer alreay there. @DanielRHicks mesh networks selforganizes no, (reactively or proactively)? I don't see your point –  caub Sep 29 '12 at 14:06
+    I'd say that @DanielRHicks coined it quite good. –  hakre Sep 29 '12 at 14:08
+    1
+    No, as I said, the two terms describe two totally different characteristics of a network. If you're talking about a specific network standard (or group of standards), you may be able assert that "if A them B", but in the general case neither one implies the other. –  Daniel R Hicks Oct 2 '12 at 16:26
+
+ |  show 4 more comments
+3 Answers 3
+active oldest votes
+22
+
+In wireless networking, Ad-Hoc is one of the modes of operation for an 802.11 radio. It happens at OSI layer 1, the physical layer, and it basically means that all devices can communicate directly to any other device that is within radio range. Normally, in Infrastructure mode, wireless devices can only communicate with a central Access Point or Router and that device is responsible for re-transmitting packets from one client device to another client device (even if they are right next to each other). Ad-Hoc networks get rid of the middle-man that is the AP, however they don't have any inherent capability for multi-hop. That means, if device A can reach device B, and device B can reach device C, but A cannot reach C, then A and C cannot communicate because B will not re-transmit any packets.
+
+Mesh Networking, also know as Mesh Routing happens at OSI layer 3, the network layer. Mesh Routing allows each device on a network (also called nodes) to act as a router and re-transmit packets on behalf of any other devices. Mesh Routing provide the multi-hop facility that Ad-Hoc mode lacks. By combining Ad-Hoc mode at layer 1 and Mesh Routing at layer 3 we can create wireless mesh networks purely between client devices without any need for centralized Access Points or Routers.
+
+P2P or Peer-to-Peer simply means that clients talk directly to each other without the use of a central server. Both Ad-Hoc and Mesh Routing can be described as P2P as they are both instances of clients-to-client communication, just at different layers of the OSI model.
+share | improve this answer
+answered Sep 30 '12 at 4:30
+Sitwon Sitwon
+321 1 2
+
+    just if I could give more up votes .. perfect answer –  McLan Jul 15 '14 at 13:42
+    I vote up for you Rania ;P. Thanks again for the great explanation Sitwon! –  Melroy Dec 4 '14 at 19:24
+    It's a good answer, but mesh networks aren't always layer-3. In fact, many enterprise mesh networks are layer-2 but most FOSS meshes are L3. –  qasdfdsaq Jul 9 '15 at 11:05
+    Sure, that's possible, but not typical in wireless networks (which my answer explicitly assumes). It's also possible to implement mesh networking at higher OSI layers. Common examples of L4 meshes would be TOR, I2P, and CJDNS (though I understand it can also work at lower layers, it was originally and primarily a L4 mesh). –  Sitwon Jul 10 '15 at 14:15
+
+add a comment  | 
+3
+
+I think the distinction between them is quite difficult since an adhoc network could grow into a mesh network.
+
+Ad hoc : simply infrastructure-less type of network(no dedicate Access points or predetemined infrastructure) that is meant to serve any purpose, and they are built spontaneously. these type of networks are simple and could be set easily. common applications can be seen in simple sensor networks.
+
+mesh: infrastructure-based type of networks. could be seen in wireless or wired networks in the sense that they are permanent type of networks. they are more structured than Ad-Hoc networks. they might be hierarchical . common applications can be seen in variety of applications;home monitoring and control, military applications(communications and reconnaissance),environmental monitoring, and so on.
+share | improve this answer
+answered May 24 '14 at 9:19
+Salah Amean Salah Amean
+71 1
+
+add a comment  | 
+0
+
+...In addition A MANET is the infrastructureless type of a wireless Mesh Network. The clients (all the nodes share the same functions with respect to the network operation, i.e. there is no node that is in charge for authentication or security services, for example) do not have a multi hop capability.
+
+In WMN, there could be infrastructure type where packets are being routed using not only hop metrics but also other metrics for path selection. And some WMN operate in hybrid such that the network exploits the nodes redundancy of nodes and the self-organizing network paradigm to overcome some problems that are inherent to wireless networks (tradeoff between distance and transfer rates) or to networks in general (congestion, configuration and installation costs).
+share | improve this answer
+answered Jul 9 '15 at 9:26
+Emma Emma
+1 1
+
+add a comment  | 
+Your Answer
+
+Thanks for contributing an answer to Super User!
+
+    Please be sure to answer the question . Provide details and share your research!
+
+But avoid …
+
+    Asking for help, clarification, or responding to other answers.
+    Making statements based on opinion; back them up with references or personal experience.
+
+To learn more, see our tips on writing great answers .
+draft saved
+draft discarded
+Sign up or log in
+Sign up using Google
+Sign up using Facebook
+Sign up using Email and Password
+Post as a guest
+Name
+Email
+
+Required, but never shown
+Post as a guest
+Name
+Email
+
+Required, but never shown
+Post Your Answer Discard
+
+By clicking "Post Your Answer", you acknowledge that you have read our updated terms of service , privacy policy and cookie policy , and that your continued use of the website is subject to these policies.
+Not the answer you're looking for? Browse other questions tagged wireless-networking ad-hoc-network p2p or ask your own question .
+
+asked
+	
+
+6 years, 4 months ago
+
+viewed
+	
+
+21,716 times
+
+active
+	
+
+3 years, 7 months ago
+Linked
+1
+What is the difference between a p2p network and a mesh network?
+Related
+0
+Difference between wireless user group and wireless mesh network?
+-1
+Difference between Bittorrent and P2P services like Napster/Limewire
+0
+difference between ad hoc and infrastructure wireless modes?
+0
+Wifi ad-hoc network with smartphones
+1
+What is the difference between a p2p network and a mesh network?
+0
+Is it possible to bridge Ethernet and WiFi on IP level for the same network?
+-1
+What is the difference between a mesh network and an ad-hoc network?
+-2
+Difference between wired and wireless mesh
+0
+How to determine distance between nodes in ad-hoc network?
+1
+Static Routes on Mesh Routers
+Hot Network Questions
+
+    Multiline command : comment out one line
+    Occupation Forces
+    Finding a way to simulate random numbers for this distribution
+    What does a resistor value of "NOM" mean?
+    Welcoming 2019 Lunar New Year: How to draw a (lovely) pig?
+    Significant figures while finding errors
+    While trying to see the content of a zipped file, I only get information about the zipping process
+    Playing Pickomino
+    How could the elevator at The Wall be powered?
+    A purely mechanical bell in a clock tower that automatically rings gradually faster on a specific night of the year
+    Is it appropriate to request that the department hire a female faculty member?
+    Was alcohol prohibited to the previous nations?
+    Am I responsible for finding my own replacement?
+    Which was the first story featuring a psychic being unable to control his own powers and destroying his surroundings with them?
+    Noteworthy, but not so famous conjectures resolved recent years
+    It seems my advisor doesn't trust me, but why?
+    Why would blood transfusions not make my force abilities stronger?
+    Covering a Skyline with brush strokes
+    How can I allow 911 first responders to access a locked residence?
+    What's wrong with USB sticks that you need 3 tries to plug them in correctly?
+    How can I perform operations in javascript just like we do pipeline of operations in java streams?
+    How do we get supersonic bullets?
+    Open Questions About posets
+    How to prevent superluminal traveling idiots from wrecking half of the universe?
+
+question feed
+Super User
+
+    Tour
+    Help
+    Chat
+    Contact
+    Feedback
+    Mobile
+    Disable Responsiveness
+
+Company
+
+    Stack Overflow
+    Stack Overflow Business
+    Developer Jobs
+    About
+    Press
+    Legal
+    Privacy Policy
+
+Stack Exchange
+Network
+
+    Technology
+    Life / Arts
+    Culture / Recreation
+    Science
+    Other
+
+    Stack Overflow
+    Server Fault
+    Super User
+    Web Applications
+    Ask Ubuntu
+    Webmasters
+    Game Development
+
+    TeX - LaTeX
+    Software Engineering
+    Unix & Linux
+    Ask Different (Apple)
+    WordPress Development
+    Geographic Information Systems
+    Electrical Engineering
+
+    Android Enthusiasts
+    Information Security
+    Database Administrators
+    Drupal Answers
+    SharePoint
+    User Experience
+    Mathematica
+
+    Salesforce
+    ExpressionEngine® Answers
+    Stack Overflow em Português
+    Blender
+    Network Engineering
+    Cryptography
+    Code Review
+
+    Magento
+    Software Recommendations
+    Signal Processing
+    Emacs
+    Raspberry Pi
+    Stack Overflow на русском
+    Programming Puzzles & Code Golf
+
+    Stack Overflow en español
+    Ethereum
+    Data Science
+    Arduino
+    Bitcoin
+    more (30)
+
+    Photography
+    Science Fiction & Fantasy
+    Graphic Design
+    Movies & TV
+    Music: Practice & Theory
+    Worldbuilding
+    Seasoned Advice (cooking)
+
+    Home Improvement
+    Personal Finance & Money
+    Academia
+    Law
+    more (15)
+
+    English Language & Usage
+    Skeptics
+    Mi Yodeya (Judaism)
+    Travel
+    Christianity
+    English Language Learners
+    Japanese Language
+
+    Arqade (gaming)
+    Bicycles
+    Role-playing Games
+    Anime & Manga
+    Puzzling
+    Motor Vehicle Maintenance & Repair
+    more (33)
+
+    MathOverflow
+    Mathematics
+    Cross Validated (stats)
+    Theoretical Computer Science
+    Physics
+    Chemistry
+    Biology
+
+    Computer Science
+    Philosophy
+    more (10)
+
+    Meta Stack Exchange
+    Stack Apps
+    API
+    Data
+    Area 51
+
+    Blog
+    Facebook
+    Twitter
+    LinkedIn
+
+site design / logo © 2019 Stack Exchange Inc; user contributions licensed under cc by-sa 3.0 with attribution required . rev 2019.2.7.32828
+Super User works best with JavaScript enabled
+ 

@@ -1,15 +1,15 @@
 {
 	"translatorID": "d0b1914a-11f1-4dd7-8557-b32fe8a3dd47",
+	"translatorType": 4,
 	"label": "EBSCOhost",
 	"creator": "Simon Kornblith, Michael Berkowitz, Josh Geller",
 	"target": "^https?://[^/]+/(eds|bsi|ehost)/(results|detail|folder|pdfviewer)",
 	"minVersion": "3.0",
-	"maxVersion": "",
+	"maxVersion": null,
 	"priority": 100,
 	"inRepository": true,
-	"translatorType": 4,
 	"browserSupport": "gcsib",
-	"lastUpdated": "2015-05-21 22:39:54"
+	"lastUpdated": "2018-12-26 11:35:00"
 }
 
 function detectWeb(doc, url) {
@@ -196,7 +196,8 @@ function downloadFunction(text, url, prefs) {
 							item.attachments.push({
 								url:realpdf,
 								title: "EBSCO Full Text",
-								mimeType:"application/pdf"
+								mimeType:"application/pdf",
+								proxy: false
 							});
 						} else {
 							Z.debug("Could not find a reference to PDF.");

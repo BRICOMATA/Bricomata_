@@ -1,0 +1,31 @@
+let n = 43
+let nu = n - 1
+let p = .90
+let g = .99
+let g1=1-g
+let p1=(1+p)/2
+let cg=chsppf(g1,nu)
+let np=norppf(p1)
+let k = nu*(1+1/n)*np**2
+let k2 = (k/cg)**.5
+
+read 100ohm.dat cr wafer mo day h min op hum probe temp y sw df
+tolerance y
+
+let n = 43
+let p = .90
+let g = .99
+let nu = n-1
+let zp = norppf(p)
+let zg=norppf(g)
+let a = 1 - ((zg**2)/(2*nu))
+let b = zp**2 - (zg**2)/n
+let k1 = (zp + (zp**2 - a*b)**.5)/a
+
+let n = 43
+let p = .90
+let g = .99
+let f = n - 1
+let delta = norppf(P)*sqrt(n)
+let k = nctppf(g,f,delta)/sqrt(n)
+
